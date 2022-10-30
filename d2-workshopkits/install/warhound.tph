@@ -1,0 +1,117 @@
+//Warhound (d2wk2)
+
+//Add passive effects
+COPY ~%passives%/acbonus1.SPL~          ~override/%e1%.SPL~
+  LPF ALTER_EFFECT INT_VAR parameter2=2 END
+COPY ~%passives%/hitdamage1ranged.SPL~  ~override/%e2%.SPL~
+
+
+//Add Shockwave
+COPY ~%icons%/shockwave.BAM~       ~override/%s1%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@102) STR_VAR bam=~%s1%~ RET icon END
+COPY ~%abilities%/shockwave.SPL~    ~override/%s1%.SPL~
+  SAY NAME1 @102
+  SAY UNIDENTIFIED_DESC @202
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s1%a~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s1%b~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s1%c~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY - ~%abilities%/shockwave.PRO~ ~%workspace%/%s1%a.PRO~
+ADD_PROJECTILE ~%workspace%/%s1%a.PRO~
+COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%a.EFF~
+  WRITE_ASCII 0x30 ~%s1%a~ #8
+COPY ~%abilities%/shockwaveblast.SPL~   ~override/%s1%a.SPL~
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%a~ END    // set projectile
+
+COPY ~%abilities%/shockwavepush.EFF~       ~override/%s1%b.EFF~
+COPY ~%abilities%/castspellself.EFF~       ~override/%s1%c.EFF~
+  WRITE_ASCII 0x30 ~%s1%c~ #8
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s1%c.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%s1%~ END
+
+
+//Add Incinerate
+COPY ~%icons%/incinerate.BAM~       ~override/%s2%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@103) STR_VAR bam=~%s2%~ RET icon END
+COPY ~%abilities%/incinerate.SPL~    ~override/%s2%.SPL~
+  SAY NAME1 @103
+  SAY UNIDENTIFIED_DESC @203
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%a~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY - ~%abilities%/incinerate.PRO~ ~%workspace%/%s2%a.PRO~
+ADD_PROJECTILE ~%workspace%/%s2%a.PRO~
+COPY ~%abilities%/castspelltarget.EFF~   ~override/%s2%a.EFF~
+  WRITE_ASCII 0x30 ~%s2%a~ #8
+COPY ~%abilities%/incineratecloud.SPL~   ~override/%s2%a.SPL~
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s2%a~ END    // set projectile
+
+COPY ~%abilities%/castspellself.EFF~       ~override/%s2%b.EFF~
+  WRITE_ASCII 0x30 ~%s2%b~ #8
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s2%b.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%s2%~ END
+
+
+//Add Incinerate to CLEARAIR.2DA
+OUTER_SET incinerate = (~%%s2%a%~ - 1)    // projectl.ids number is 1 less than variable given by ADD_PROJECTILE
+APPEND ~CLEARAIR.2DA~  ~d2incinerate %incinerate%~
+
+COPY_EXISTING ~CLEARAIR.2DA~ ~override~
+  PRETTY_PRINT_2DA
+BUT_ONLY
+
+
+//Add Evasion checks for IWDEE
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  LAF d2_evasion_check STR_VAR spell=~%s1%a~ END
+  LAF d2_evasion_check STR_VAR spell=~%s2%a~ END
+END
+
+
+//Clone base Fighter 2da file
+COPY_EXISTING ~CLABFI01.2DA~ ~override/%kitid%.2DA~
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 limit=20 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 limit=20 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder END
+BUT_ONLY
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 2
+    mixed = RESOLVE_STR_REF (@100201)
+    lower = RESOLVE_STR_REF (@100202)
+    help = RESOLVE_STR_REF (@100203)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    clab_path = ~%kitid%~
+    weapprof = ~1 1 5 1 1 1 1 5 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 5 5 5 5 5 1 1 1 1~
+    clascolr = ~97 137 138 142 188~    // Totemic Druid colors
+  RET 
+    kit_id
+END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT warhound  ~%kitid%~
+
+
+/*Unused
+
+- op183 doesn't work on launchers
+COPY ~%passives%/useeffitemtype.SPL~   ~override/%e1%.SPL~
+  LPF DELETE_EFFECT INT_VAR multi_match=2 END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 parameter2=0x000f STR_VAR match_resource=~demdam3~ resource=~%e1%~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 parameter2=0x001b STR_VAR match_resource=~demdam3~ resource=~%e1%~ END
+
+*/

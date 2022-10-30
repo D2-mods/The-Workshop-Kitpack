@@ -1,0 +1,28 @@
+/*
+Make spells compatible with 5e casting mod.
+spell_type = divine or arcane (not sorcerer/shamans)
+*/
+
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY 5ecasting BEGIN     // resource => type
+   ~%confessor1%~ => divine
+   ~%confessor2%~ => divine
+   ~%confessor3%~ => divine
+   ~%confessor4%~ => divine
+   ~%gravewarden1%~ => divine
+   ~%gravewarden2%~ => divine
+   ~%gravewarden3%~ => divine
+END
+
+ACTION_PHP_EACH 5ecasting AS spell => type BEGIN    // set resource to %spell% and type to %type%
+  LAF add_semi_spells 
+    STR_VAR 
+      new_spell  = ~%spell%~ 
+      cast_spell = ~%spell%~ 
+      spell_type = ~%type%~ 
+  END
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~d5__5E_casting_divine.d5~) BEGIN
+  LAF process_semi_spells END
+END

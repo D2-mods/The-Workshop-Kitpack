@@ -1,0 +1,99 @@
+/*
+Add Hunter Badges to stores
+*/
+
+
+ACTION_IF (%nobeasthunter% = 0) BEGIN
+
+
+//BGEE stores
+ACTION_IF (GAME_IS ~bgee eet~) BEGIN
+  COPY_EXISTING ~STO0703.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~STOBLACK.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
+  BUT_ONLY
+END
+
+//SoD stores
+ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
+  COPY_EXISTING ~bdsorcsc.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bdbeleg4.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
+  BUT_ONLY
+END
+
+
+//BG2EE stores
+ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
+  COPY_EXISTING ~TEMTALOS.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~RIBALD3.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~BERNARD2.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
+  BUT_ONLY
+
+//ToB stores
+  COPY_EXISTING ~BAG20.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~25SPELL.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_cosmic%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~HGKAR01.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
+  BUT_ONLY
+END
+
+
+//IWDEE stores
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  COPY_EXISTING ~ar2100.BCS~    ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY 
+        ~AddStoreItem("KUORK0","SASH",1,1)~  
+        ~AddStoreItem("KUORK0","SASH",1,1) AddStoreItem("KUORK0","%badge_spark%",1,1)~
+    END
+  BUT_ONLY
+
+  COPY_EXISTING ~SHLEHLAN.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~LDD_NYM.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
+  BUT_ONLY
+
+//HoW stores
+  COPY_EXISTING ~KIERAN2.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~EDION.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_cosmic%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
+  BUT_ONLY
+END
+
+
+END
+
+
+
+/*
+*/

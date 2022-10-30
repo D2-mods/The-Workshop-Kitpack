@@ -1,0 +1,76 @@
+//Temple Knight (d2wk6)
+
+//Disable turn undead
+COPY ~%passives%/disablebutton.SPL~  ~override/%e1%.SPL~
+  LPF ALTER_EFFECT INT_VAR parameter2=6 END
+
+
+//Add Force
+COPY - ~%abilities%/invisible15enemy.PRO~ ~%workspace%/%s1%.PRO~
+ADD_PROJECTILE ~%workspace%/%s1%.PRO~
+COPY ~%abilities%/force.WAV~  ~override/%s1%.WAV~    // clone of CAS_P04.WAV from BG2EE (sounds different in IWDEE)
+COPY ~%abilities%/force.SPL~  ~override/%s1%.SPL~
+  SAY NAME1 @108
+  SAY UNIDENTIFIED_DESC @208
+  WRITE_SHORT 0x98 ~%s1%~       // projectile
+  WRITE_ASCII 0x10 ~%s1%~ #8    // casting sound
+
+
+//Clone Bolt of Glory
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  OUTER_SET boltofglory = RESOLVE_STR_REF (@40307)      // IWDEE
+END
+ELSE BEGIN
+  ACTION_IF (MOD_IS_INSTALLED ~setup-spell_rev.tp2~ (ID_OF_LABEL ~setup-spell_rev.tp2~ ~dv-spell_rev-main~)) BEGIN
+    OUTER_SET boltofglory = RESOLVE_STR_REF (@40407)    // spell revisions
+  END
+  ELSE BEGIN
+    OUTER_SET boltofglory = RESOLVE_STR_REF (@40207)    // BGEE games
+  END
+END
+
+COPY_EXISTING ~SPPR612.SPL~  ~override/%s2%.SPL~
+  LPF d2_convert_spell_type END     // convert to special ability
+  WRITE_SHORT 0x84 3                // casting speed
+  WRITE_LONG  0x50 %boltofglory%    // description text
+BUT_ONLY
+
+
+//Clone base paladin clab
+COPY_EXISTING ~CLABPA01.2DA~ ~override/%kitid%.2DA~
+  LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END    // Lay On Hands
+  LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=12 multi=1 increment=4 limit=16 STR_VAR resource=~%s2%~ END
+BUT_ONLY
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 6
+    mixed = RESOLVE_STR_REF (@100601)
+    lower = RESOLVE_STR_REF (@100602)
+    help = RESOLVE_STR_REF (@100603)
+    fallen_notice = RESOLVE_STR_REF (@100604)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    unusable = ~0x00000008~        // Cavalier usability
+    clab_path = ~%kitid%~
+    weapprof = ~2 2 0 4 4 4 2 0 2 2 2 2 2 2 2 2 4 4 4 4 4 4 4 0 0 0 0 0 2 2 2 3~
+    clascolr = ~24 99 169 2 25~    // Skald colors
+  RET 
+    kit_id
+END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT templeknight  ~%kitid%~
+OUTER_TEXT_SPRINT fnpclass      ~champion~
+OUTER_TEXT_SPRINT fnpdeity      ~clangeddin_spheres~
+
+
+/*
+
+*/

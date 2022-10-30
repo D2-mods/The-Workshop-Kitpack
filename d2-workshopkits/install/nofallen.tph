@@ -1,0 +1,13 @@
+/*
+Make immune to fallen status.
+Only relevant for paladins and rangers (not ranger/cleric).
+*/
+
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~fallen.2DA~) BEGIN
+  COPY_EXISTING ~fallen.2DA~  ~override~
+    COUNT_2DA_ROWS 1 rows
+    INSERT_2DA_ROW rows 1 ~D2%kitname% 0~
+    PRETTY_PRINT_2DA
+  BUT_ONLY UNLESS ~D2%kitname%~    // not if kit is already listed
+END

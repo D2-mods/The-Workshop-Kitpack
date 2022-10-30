@@ -1,0 +1,61 @@
+/*
+Add spheres to kits for Faiths and Powers mod.
+*/
+
+
+//DEFINE SPHERE ACCESS______________________________________________________________
+//
+ACTION_IF (FILE_EXISTS_IN_GAME ~fnp_sphere_list.tpa~) BEGIN
+  INCLUDE ~override/fnp_sphere_list.tpa~
+END
+
+LAF ~DEFINE_FNP_KIT_INFO~
+  STR_VAR
+    clab_name     = ~%kitid%~
+    class         = ~%fnpclass%~
+    sphere_list   = ~%fnpdeity%~
+END
+
+LAM ~READ_FNP_KIT_INFO~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~d5__spheres.d5~) BEGIN
+  LAF apply_fnp_spheres STR_VAR clab_name = ~%kitid%~ END
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) BEGIN
+  LAF apply_fnp_usability STR_VAR clab_name = ~%kitid%~ END
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~d5__fnp_spont_option.d5~) AND (FILE_EXISTS ~faiths_and_powers/lib/system_fnp_spontaneous.tpa~) BEGIN
+  ACTION_IF (FILE_EXISTS ~faiths_and_powers/language/%LANGUAGE%/fnp_spontaneous.tra~) BEGIN
+    OUTER_SPRINT spont_lang ~%LANGUAGE%~
+  END ELSE BEGIN
+    OUTER_SPRINT spont_lang ~english~
+  END
+  ACTION_IF (FILE_EXISTS ~faiths_and_powers/language/%spont_lang%/fnp_spontaneous.tra~) BEGIN
+    WITH_TRA ~faiths_and_powers/language/%spont_lang%/fnp_spontaneous.tra~ BEGIN
+      INCLUDE ~faiths_and_powers/lib/system_fnp_spontaneous.tpa~
+      LAF fnp_spontaneous STR_VAR kit_clab = ~%kitid%~ learn_res = ~%kitid%z~ END
+    END
+  END
+END
+
+COPY_EXISTING ~%kitid%.2DA~  ~override~
+  PRETTY_PRINT_2DA
+BUT_ONLY
+//__________________________________________________________________________________
+
+
+
+// The "class" variable tells the mod what class or archetype your kit is
+// Enter 'cleric' 'acolyte' 'druid' 'occultist' 'champion' 'zealot' 'ranger' or 'scout'
+// If multiclass, enter 'fighter_cleric' 'cleric_mage' 'cleric_thief' 'ranger_cleric' or 'fighter_mystic'
+//
+// The "multiclass" variable tells the mod that this (single-class) kit can be cloned as a multiclass kit
+// If a cleric, you can enter some combination of "fc_cr_ct_cm" (can be just "fc" or "cr_cm" or whatever).
+// If a druid, you can enter "fd" to create a fighter/druid version.
+//
+// The "sphere_list" variable lets you link your kit to a particular deity or other kit already in the sphere system.
+// See /faiths_and_powers/data/sphere_systems/sphere_list_fnp.tpa for a list.
+// If you enter a deity here, e.g. "helm_spheres", then you can omit the rest of the sphere variables.
+// You can still include *some* sphere variables; they will override that sphere in the deity's sphere list.

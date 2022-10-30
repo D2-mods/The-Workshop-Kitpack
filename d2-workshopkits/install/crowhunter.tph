@@ -1,0 +1,154 @@
+//Crow Hunter (d2wka)
+
+//Add passive effects
+COPY ~%passives%/useeff.SPL~          ~override/%e1%.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%b~ END
+  
+COPY ~%passives%/attackvstype3.EFF~   ~override/%e1%a.EFF~
+  WRITE_LONG 0x20 3
+  WRITE_LONG 0x1c IDS_OF_SYMBOL (general ~humanoid~)
+COPY ~%passives%/damagevstype3.EFF~   ~override/%e1%b.EFF~
+  WRITE_LONG 0x20 3
+  WRITE_LONG 0x1c IDS_OF_SYMBOL (general ~humanoid~)
+
+COPY ~%passives%/removespell.SPL~     ~override/%e2%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END
+
+
+//Add Splintering Shot
+COPY ~%icons%/splinteringshot.BAM~       ~override/%s1%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@113) STR_VAR bam=~%s1%~ RET icon END
+COPY ~%abilities%/splinteringshot.SPL~   ~override/%s1%.SPL~
+  SAY NAME1 @113
+  SAY UNIDENTIFIED_DESC @213
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%s1%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%abilities%/castspelltarget.EFF~        ~override/%s1%a.EFF~
+  WRITE_ASCII 0x30 ~%s1%a~ #8
+COPY ~%abilities%/splinteringshottarget.SPL~  ~override/%s1%a.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%s~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s1%s~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s1%b~ END
+
+COPY - ~%abilities%/invisible15enemy.PRO~ ~%workspace%/%s1%s.PRO~
+ADD_PROJECTILE ~%workspace%/%s1%s.PRO~
+COPY ~%abilities%/castspelltarget.EFF~       ~override/%s1%s.EFF~
+  WRITE_ASCII 0x30 ~%s1%s~ #8
+COPY ~%abilities%/splinteringshotburst.SPL~  ~override/%s1%s.SPL~
+  WRITE_SHORT 0x98 ~%s1%s~    // projectile
+
+COPY ~%icons%/bleed.BAM~                ~override/%s1%b.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@302) STR_VAR bam=~%s1%b~ RET icon END
+COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%b.EFF~
+    WRITE_ASCII 0x30 ~%s1%b~ #8
+COPY ~%abilities%/bleed10rounds.SPL~    ~override/%s1%b.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@302) END    // "Bleeding"
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s1%c~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%s1%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  WRITE_SHORT 0x98 ~%s1%s~    // projectile
+
+COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%c.EFF~    // bleed damage
+    WRITE_ASCII 0x30 ~%s1%c~ #8
+COPY ~%abilities%/bleeddamage1.SPL~     ~override/%s1%c.SPL~
+
+
+//Bleeding removed by Heal or Greater Restoration
+COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
+  READ_STRREF 0x8 spellname
+  PATCH_IF ((~%spellname%~ STRING_EQUAL_CASE ~Greater Restoration~) OR
+            (~%spellname%~ STRING_EQUAL_CASE ~Heal~)) BEGIN
+    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%s1%b~ END
+  END
+BUT_ONLY
+
+
+//Add Visceral Attack
+COPY ~%abilities%/visceralattack.SPL~  ~override/%s2%.SPL~
+  SAY NAME1 @114
+  SAY UNIDENTIFIED_DESC @214
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%a~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%b~ END
+
+COPY ~%abilities%/castspellself.EFF~          ~override/%s2%a.EFF~    // cure/haste
+    WRITE_ASCII 0x30 ~%s2%a~ #8
+COPY ~%abilities%/visceralattackeffects.SPL~  ~override/%s2%a.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@307) END    // "Healed"
+
+COPY ~%abilities%/castspellself.EFF~       ~override/%s2%b.EFF~       // remove effects
+  WRITE_ASCII 0x30 ~%s2%b~ #8
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s2%b.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%s2%~ END
+
+
+//Clone base thief 2da file
+COPY_EXISTING ~CLABTH01.2DA~ ~override/%kitid%.2DA~
+  REPLACE_TEXTUALLY ~GA_SPCL412~  ~****~
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=11 multi=1 increment=4 limit=19 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e2%~ END
+BUT_ONLY
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 4
+    mixed = RESOLVE_STR_REF (@101001)
+    lower = RESOLVE_STR_REF (@101002)
+    help = RESOLVE_STR_REF (@101003)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    clab_path = ~%kitid%~
+    thiefscl = ~100 100 100 100 100 100 0 0~  // no points in set traps
+    thiefskl = ~40 20~                        // start with 40, gain 20 per level
+    clascolr = ~93 182 136 184 93~            // use Stalker colors
+  RET 
+    kit_id
+END
+
+
+//Give 100 Set Traps when using HLA traps
+
+/*
+Works when used from EFF file.
+Does not work from SPL file (if set to 0 in thiefscl.2DA)
+*/
+
+COPY ~%passives%/settraps1second.EFF~  ~override/%e3%.EFF~
+
+ACTION_FOR_EACH ~trap~ IN ~SPCL910~ ~SPCL911~ ~SPCL912~ ~RR#THL04~ BEGIN
+
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%trap%.SPL~) BEGIN
+    COPY_EXISTING ~%trap%.SPL~  ~override~
+      LPF CLONE_EFFECT
+        INT_VAR
+          multi_match   = 1
+          opcode        = 177
+          target        = 1
+          timing        = 1
+          parameter1    = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+          parameter2    = 9
+        STR_VAR
+          resource      = ~%e3%~
+      END
+    BUT_ONLY
+  END
+
+END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT crowhunter       ~%kitid%~
+OUTER_TEXT_SPRINT splinteringshot  ~%s1%b~    // bleeding effect
+
+
+/*
+
+*/

@@ -1,0 +1,104 @@
+//War Magician (d2wk7)
+
+//Add passive effects
+COPY ~%passives%/resistup5elements.SPL~  ~override/%e1%.SPL~    // 5% resists
+COPY ~%passives%/resistup5elements.SPL~  ~override/%e2%.SPL~    // 10% resists
+  LPF ALTER_EFFECT INT_VAR parameter1=10 END
+COPY ~%passives%/fewerspells1.SPL~  ~override/%e3%.SPL~         // remove specialist bonus spells
+COPY ~%passives%/opcode206.SPL~     ~override/%e4%.SPL~         // only relevant for 5e casting mod
+  LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END
+
+
+//Add Unleash Magic
+COPY ~%icons%/unleashmagic.BAM~      ~override/%s1%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@109) STR_VAR bam=~%s1%~ RET icon END
+COPY ~%abilities%/unleashmagic.SPL~  ~override/%s1%.SPL~
+  SAY NAME1 @109
+  SAY UNIDENTIFIED_DESC @209
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+
+//Add Twisted Barricade
+COPY ~%icons%/twistedbarricade.BAM~      ~override/%s2%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@110) STR_VAR bam=~%s2%~ RET icon END
+COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%.SPL~
+  SAY NAME1 @110
+  SAY UNIDENTIFIED_DESC @210
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%s2%a~ END    // repeating visual
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s2%b~ END    // protection from normal missiles
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%abilities%/castspelltarget.EFF~         ~override/%s2%a.EFF~    // repeating visual
+  WRITE_ASCII 0x30 ~%s2%a~ #8
+COPY ~%abilities%/twistedbarricadevisual.SPL~  ~override/%s2%a.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s2%a~ END
+
+
+//Add Twisted Barricade - protection from normal missiles
+COPY_EXISTING ~SPWI311.SPL~  ~override/%s2%b.SPL~
+  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END  // for IWDEE (or in case they change BGEE spell)
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END
+  LPF ALTER_SPELL_HEADER INT_VAR new_header_type=1 END
+
+  LPF d2_convert_spell_type END
+  WRITE_LONG  0x8  ~-1~    // edit name and other stuff
+  WRITE_SHORT 0x22  0
+  WRITE_SHORT 0x84  0
+  WRITE_SHORT 0x98  1
+
+  LPF ALTER_EFFECT  INT_VAR match_timing=0 duration=24 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END    // delete all visual/audio effects
+  LPF DELETE_EFFECT INT_VAR match_opcode=156 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=8 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+
+
+//Make 2da file
+ACTION_IF (FILE_EXISTS_IN_GAME ~CLABMA01.2DA~) BEGIN
+  COPY_EXISTING ~CLABMA01.2DA~  ~override/%kitid%.2DA~    // clone Mage 2da
+END 
+ELSE BEGIN
+  COPY ~%files%/kit0.2DA~       ~override/%kitid%.2DA~    // or add new
+END
+
+COPY_EXISTING ~%kitid%.2DA~   ~override~
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 limit=20 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e3%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
+  LPF d2_kit_ability_adder END
+BUT_ONLY
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 1
+    mixed = RESOLVE_STR_REF (@100701)
+    lower = RESOLVE_STR_REF (@100702)
+    help = RESOLVE_STR_REF (@100703)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    clab_path = ~%kitid%~
+    abclsmod = ~-2 0 -2 0 0 0~    // -2 to Str and Con
+    clascolr = ~18 5 24 27 30~    // Helm colors
+  RET 
+    kit_id
+END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT warmagician  ~%kitid%~
+
+
+/*
+
+*/

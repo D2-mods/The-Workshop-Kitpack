@@ -1,0 +1,132 @@
+//Moonlight Knight (d2wk4)
+
+//Add passive effects
+COPY ~%passives%/disablebutton.SPL~  ~override/%e1%.SPL~
+COPY ~%passives%/savebonus1all.SPL~  ~override/%e2%.SPL~
+  LPF ALTER_EFFECT INT_VAR parameter1=2 END
+
+
+//Add Torrent
+COPY ~%passives%/hiteffect1melee.SPL~  ~override/%e3%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%e3%a~ END
+COPY ~%abilities%/castspellself.EFF~   ~override/%e3%a.EFF~
+  WRITE_ASCII 0x30 ~%e3%b~ #8
+
+COPY_EXISTING ~SPWI305.SPL~    ~override/%e3%b.SPL~      // clone Haste
+  WRITE_LONG 0x8 ~-1~       // spell name
+  WRITE_ASCII 0x10 ~~ #8    // casting sound
+  WRITE_SHORT 0x22 0        // casting animation
+
+  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END  // change header type to 3 to prevent deletion
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END              // delete headers of type 1 (bg games)
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=2 END              // delete headers of type 2 (iwdee)
+  LPF ALTER_SPELL_HEADER INT_VAR new_header_type=1 END           // change header back to type 1
+  LPF ALTER_SPELL_HEADER INT_VAR target=1 range=100 speed=0 projectile=0 END
+
+  LPF d2_convert_spell_type INT_VAR type=0 level=1 END           // convert to special ability
+  LPF DELETE_EFFECT INT_VAR match_opcode=176 END                 // revert some sr changes
+  LPF DELETE_EFFECT INT_VAR match_opcode=1 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=206 END
+  LPF DELETE_EFFECT INT_VAR match_timing=4 END                   // remove fatigue
+  LPF ALTER_EFFECT INT_VAR match_timing=0 duration=10 END
+  LPF ALTER_EFFECT INT_VAR target=1 probability1=6 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=16 END                  // delete and re-add opcode 16
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_timing=0 opcode=16 parameter2=0 END
+
+  LPF CD_EXTEND-O-MATIC                                  // clone spell header to level 20
+    INT_VAR 
+      step_dur=0 
+      step_size=2 
+      dur_special=1 
+      min_lev_alt=2 
+  END
+
+  LPF ALTER_EFFECT INT_VAR header=1 probability1=7 END   // level 4
+  LPF ALTER_EFFECT INT_VAR header=2 probability1=8 END
+  LPF ALTER_EFFECT INT_VAR header=3 probability1=9 END
+  LPF ALTER_EFFECT INT_VAR header=4 probability1=10 END
+  LPF ALTER_EFFECT INT_VAR header=5 probability1=11 END
+  LPF ALTER_EFFECT INT_VAR header=6 probability1=12 END
+  LPF ALTER_EFFECT INT_VAR header=7 probability1=13 END
+  LPF ALTER_EFFECT INT_VAR header=8 probability1=14 END
+  LPF ALTER_EFFECT INT_VAR header=9 probability1=15 END  // level 20
+BUT_ONLY
+
+
+//Add Moonlight Vortex
+COPY - ~%abilities%/moonlightspell.PRO~  ~%workspace%/%s1%a.PRO~
+  WRITE_ASCII 0x104 ~%s1%a~ #8    // BAM animation
+ADD_PROJECTILE ~%workspace%/%s1%a.PRO~
+COPY ~%abilities%/moonlightspell.BAM~  ~override/%s1%a.BAM~
+COPY ~%abilities%/moonlightspell.EFF~  ~override/%s1%a.EFF~
+
+COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%b.EFF~
+  WRITE_ASCII 0x30 ~%s1%b~ #8
+COPY ~%abilities%/moonlighttarget.SPL~  ~override/%s1%b.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%s1%a~ END
+
+COPY ~%abilities%/moonlightvortex.SPL~  ~override/%s1%.SPL~
+  SAY NAME1 @105
+  SAY UNIDENTIFIED_DESC @205
+  WRITE_SHORT 0x98 ~%s1%a~
+  LPF ALTER_EFFECT STR_VAR match_resource=~archhit~ resource=~%s1%a~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~archmov~ resource=~%s1%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%c~ END
+
+COPY ~%abilities%/moonlightmagicresist.SPL~  ~override/%s1%c.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%c~ END
+
+
+//Add Evasion check for IWDEE
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  LAF d2_evasion_check STR_VAR spell=~%s1%~ END
+END
+
+
+//Clone base Ranger 2da file
+COPY_EXISTING ~CLABRN01.2DA~ ~override/%kitid%.2DA~
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=2 passive=1 STR_VAR resource=~%e3%~ END
+  LPF d2_kit_ability_adder INT_VAR level=6 multi=1 increment=4 limit=14 STR_VAR resource=~%s1%~ END
+BUT_ONLY
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 12
+    mixed = RESOLVE_STR_REF (@100401)
+    lower = RESOLVE_STR_REF (@100402)
+    help = RESOLVE_STR_REF (@100403)
+    fallen_notice = RESOLVE_STR_REF (@100404)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    clab_path = ~%kitid%~
+    alignmnt = ~1 1 1 1 1 1 1 1 1~
+    weapprof = ~2 2 1 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 2 2 2 3~
+    clasiskl = ~0 0 0 0 0 0 0~
+    thiefscl = ~0 0 0 0 0 0 0 0~
+    clascolr = ~93 72 169 93 72~    // Undead Hunter colors
+  RET 
+    kit_id
+END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT moonlightknight  ~%kitid%~
+OUTER_TEXT_SPRINT fnpclass         ~ranger~
+OUTER_TEXT_SPRINT fnpdeity         ~ranger_forest_spheres~
+
+
+/*removed
+COPY ~%abilities%/moonlightweapon.EFF~   ~override/%s1%c.EFF~
+COPY ~%abilities%/moonlightweapon.SPL~   ~override/%s1%c.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%c~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s1%c~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%s1%c~ END
+
+  PATCH_IF (GAME_IS ~iwdee~)          BEGIN SET icon = 202 END
+  PATCH_IF (GAME_IS ~bgee bg2ee eet~) BEGIN SET icon = 188 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+*/

@@ -1,0 +1,78 @@
+//kitid needs to be 6 characters or less
+//5 or less if using multiclass kits function
+
+//kit folder location
+OUTER_TEXT_SPRINT kitfolder ~%MOD_FOLDER%/kits/%kitname%~
+
+//passive effects
+OUTER_TEXT_SPRINT e1 ~%kitid%e1~
+OUTER_TEXT_SPRINT e2 ~%kitid%e2~
+OUTER_TEXT_SPRINT e3 ~%kitid%e3~
+OUTER_TEXT_SPRINT e4 ~%kitid%e4~
+OUTER_TEXT_SPRINT e5 ~%kitid%e5~
+OUTER_TEXT_SPRINT e6 ~%kitid%e6~
+OUTER_TEXT_SPRINT e7 ~%kitid%e7~
+OUTER_TEXT_SPRINT e8 ~%kitid%e8~
+OUTER_TEXT_SPRINT e9 ~%kitid%e9~
+OUTER_TEXT_SPRINT e0 ~%kitid%e0~
+
+//special abilities
+OUTER_TEXT_SPRINT s1 ~%kitid%s1~
+OUTER_TEXT_SPRINT s2 ~%kitid%s2~
+OUTER_TEXT_SPRINT s3 ~%kitid%s3~
+OUTER_TEXT_SPRINT s4 ~%kitid%s4~
+OUTER_TEXT_SPRINT s5 ~%kitid%s5~
+OUTER_TEXT_SPRINT s6 ~%kitid%s6~
+OUTER_TEXT_SPRINT s7 ~%kitid%s7~
+OUTER_TEXT_SPRINT s8 ~%kitid%s8~
+OUTER_TEXT_SPRINT s9 ~%kitid%s9~
+OUTER_TEXT_SPRINT s0 ~%kitid%s0~
+
+//wizard spells
+OUTER_TEXT_SPRINT w1 ~%kitid%w1~
+OUTER_TEXT_SPRINT w2 ~%kitid%w2~
+OUTER_TEXT_SPRINT w3 ~%kitid%w3~
+OUTER_TEXT_SPRINT w4 ~%kitid%w4~
+OUTER_TEXT_SPRINT w5 ~%kitid%w5~
+OUTER_TEXT_SPRINT w6 ~%kitid%w6~
+OUTER_TEXT_SPRINT w7 ~%kitid%w7~
+OUTER_TEXT_SPRINT w8 ~%kitid%w8~
+OUTER_TEXT_SPRINT w9 ~%kitid%w9~
+OUTER_TEXT_SPRINT w0 ~%kitid%w0~
+
+//priest spells
+OUTER_TEXT_SPRINT p1 ~%kitid%p1~
+OUTER_TEXT_SPRINT p2 ~%kitid%p2~
+OUTER_TEXT_SPRINT p3 ~%kitid%p3~
+OUTER_TEXT_SPRINT p4 ~%kitid%p4~
+OUTER_TEXT_SPRINT p5 ~%kitid%p5~
+OUTER_TEXT_SPRINT p6 ~%kitid%p6~
+OUTER_TEXT_SPRINT p7 ~%kitid%p7~
+OUTER_TEXT_SPRINT p8 ~%kitid%p8~
+OUTER_TEXT_SPRINT p9 ~%kitid%p9~
+OUTER_TEXT_SPRINT p0 ~%kitid%p0~
+
+//misc files
+OUTER_TEXT_SPRINT m1 ~%kitid%m1~
+OUTER_TEXT_SPRINT m2 ~%kitid%m2~
+OUTER_TEXT_SPRINT m3 ~%kitid%m3~
+OUTER_TEXT_SPRINT m4 ~%kitid%m4~
+OUTER_TEXT_SPRINT m5 ~%kitid%m5~
+OUTER_TEXT_SPRINT m6 ~%kitid%m6~
+OUTER_TEXT_SPRINT m7 ~%kitid%m7~
+OUTER_TEXT_SPRINT m8 ~%kitid%m8~
+OUTER_TEXT_SPRINT m9 ~%kitid%m9~
+OUTER_TEXT_SPRINT m0 ~%kitid%m0~
+
+
+
+//Set max spell level
+ACTION_IF (GAME_IS ~iwdee~) BEGIN 
+  OUTER_SET spellcap = 30    // set to 30 for IWDEE
+END
+ELSE BEGIN 
+  OUTER_SET spellcap = 20    // or 20 for BGEE games
+END
+
+/*
+*/

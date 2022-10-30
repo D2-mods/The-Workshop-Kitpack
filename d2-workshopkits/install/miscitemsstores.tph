@@ -1,0 +1,164 @@
+/*
+Add items to stores, containers, or creatures
+*/
+
+
+//BGEE
+ACTION_IF (GAME_IS ~bgee~) BEGIN
+  COPY_EXISTING ~AR2615.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=4 STR_VAR item_to_add=~%prisonchain%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR2300.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%calamity%~ END
+  BUT_ONLY
+END
+
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  COPY_EXISTING ~BG2615.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=4 STR_VAR item_to_add=~%prisonchain%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~BG2300.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%calamity%~ END
+  BUT_ONLY
+END
+
+//SoD
+ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
+  COPY_EXISTING ~bdbelega.CRE~ ~override~
+    ADD_CRE_ITEM ~%etherbomb%~ #0 #0 #0 ~none~ ~inv~
+  BUT_ONLY
+
+  COPY_EXISTING ~bdbeleg4.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ position=~BEFORE bdring06~ flags=~identified~ END
+  BUT_ONLY
+END
+
+
+
+//BG2EE
+ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
+  COPY_EXISTING ~AR0206.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%crowfeather%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR1902.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=1 STR_VAR item_to_add=~%etherbomb%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR2300.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=8 STR_VAR item_to_add=~%etherbooster%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR0309.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=5 STR_VAR item_to_add=~%prisonchain%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR2100.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=29 STR_VAR item_to_add=~%cruciform%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR0410.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=3 STR_VAR item_to_add=~%golemring%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~dragblac.CRE~ ~override~
+    ADD_CRE_ITEM ~%calamity%~ #0 #0 #0 ~none~ ~inv~
+  BUT_ONLY
+
+
+//ToB (starting bags)
+  COPY_EXISTING ~bag28.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%crowfeather%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bag25.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%crowfeather%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bag30.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 STR_VAR item_name=~%etherbomb%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%calamity%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bag29.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%etherbooster%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bag20.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bag21.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%calamity%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bag22.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bag23.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bag26.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%cruciform%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%calamity%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bag27.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bag24.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 STR_VAR item_name=~%etherbomb%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~BAG27A.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%calamity%~ flags=~identified~ END
+  BUT_ONLY
+END
+
+
+
+//IWDEE
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  COPY_EXISTING ~AR5404.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%crowfeather%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR5004.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=1 STR_VAR item_to_add=~%etherbomb%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR4005.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=15 STR_VAR item_to_add=~%etherbooster%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR3602.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%prisonchain%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR6005.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=21 STR_VAR item_to_add=~%cruciform%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~gerth.CRE~ ~override~
+    ADD_CRE_ITEM ~%calamity%~ #0 #0 #0 ~none~ ~inv~
+  BUT_ONLY
+
+
+//HoW
+  COPY_EXISTING ~hobart.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ position=~BEFORE extheal~ flags=~identified~ END
+  BUT_ONLY
+END
+
+
+
+/*
+*/

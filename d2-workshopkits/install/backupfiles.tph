@@ -1,0 +1,6 @@
+/*
+Creates copies of mod files in weidu_external/workspace folder
+*/
+
+
+COPY_EXISTING_REGEXP GLOB ~d2wk.*~  ~%workspace%~

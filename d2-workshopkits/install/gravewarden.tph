@@ -1,0 +1,126 @@
+//Grave Warden (d2wk3)
+
+//Add passive effects
+COPY ~%passives%/savebonus4death.SPL~  ~override/%e1%.SPL~
+COPY ~%passives%/lorebonus10.SPL~      ~override/%e2%.SPL~
+COPY ~%passives%/removespell.SPL~      ~override/%e3%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~SPCL311~ END
+
+
+//Clone mage spells
+LAF d2_convert_spell_type INT_VAR type=2 STR_VAR spell=~SPWI118~ newspell=~%p1%~ END
+LAF d2_convert_spell_type INT_VAR type=2 STR_VAR spell=~SPWI205~ newspell=~%p2%~ END
+LAF d2_convert_spell_type INT_VAR type=2 STR_VAR spell=~SPWI313~ newspell=~%p3%~ END
+
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  COPY_EXISTING ~%p1%.SPL~  ~override~
+    SAY UNIDENTIFIED_DESC @40300
+  BUT_ONLY
+END
+
+ACTION_IF (MOD_IS_INSTALLED ~setup-spell_rev.tp2~ (ID_OF_LABEL ~setup-spell_rev.tp2~ ~dv-spell_rev-main~)) BEGIN
+  COPY_EXISTING ~%p1%.SPL~  ~override~
+    SAY UNIDENTIFIED_DESC @40400
+  BUT_ONLY
+END
+
+
+//Add spells to spell.ids
+ACTION_IF (%nopriestids% = 0) BEGIN
+  OUTER_FOR (n = 1; n <= 3; ++n) BEGIN
+    LAF ADD_SPELL_EX INT_VAR type=1 level=%n% min=51 max=99 hide=1 STR_VAR file=~override/%p%n%%.SPL~ name=~D2%kitname%_P%n%~ RET spell_res END
+    OUTER_TEXT_SPRINT ~p%n%~  ~%spell_res%~
+  END
+END
+
+
+//Add Denial
+COPY ~%icons%/denial.BAM~    ~override/%s1%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@104) STR_VAR bam=~%s1%~ RET icon END
+COPY_EXISTING ~SPPR409.SPL~  ~override/%s1%.SPL~                      // clone Death Ward
+  SAY NAME1 @104
+  SAY UNIDENTIFIED_DESC @204
+
+  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END       // change header type to 3 to prevent deletion
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END                   // delete headers of type 1
+  LPF ALTER_SPELL_HEADER INT_VAR new_header_type=1 END                // change header type back to 1
+
+  LPF d2_convert_spell_type INT_VAR type=0 level=7 END                // convert to special ability
+  LPF ALTER_EFFECT INT_VAR duration=180 END                           // edit durations
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 duration=1 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 duration=0 END    // EEs (silent to not have warning with sr)
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END    // spell revisions (doesn't have op61)
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+  LPF ADD_SPELL_EFFECT 
+    INT_VAR opcode=232 target=2 power=7 parameter1=0 parameter2=2 timing=0 resist_dispel=3 duration=180
+    STR_VAR resource=~%s1%a~
+  END
+
+  WRITE_ASCII 0x3a SPWI803C #8  // icon BAMs
+  WRITE_ASCII 0x76 SPWI803B #8
+  WRITE_SHORT 0x84 5            // casting speed
+BUT_ONLY
+
+
+//Add Denial - Cure subspell
+COPY_EXISTING ~SPPR103.SPL~  ~override/%s1%a.SPL~
+  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END       // change header type to 3 to prevent deletion
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END                   // delete headers of type 1
+  LPF ALTER_SPELL_HEADER INT_VAR new_header_type=1 END                // change header type back to 1
+
+  WRITE_LONG 0x8 ~-1~
+  LPF d2_convert_spell_type INT_VAR type=0 level=0 END
+  LPF ALTER_SPELL_HEADER INT_VAR speed=0 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=100 parameter2=2 END
+
+  LPF ADD_SPELL_EFFECT 
+    INT_VAR opcode=321 target=2 power=0 timing=1 resist_dispel=2 
+    STR_VAR resource=~%s1%~ 
+  END
+BUT_ONLY
+
+
+//Clone base Ranger 2da file
+COPY_EXISTING ~CLABRN01.2DA~ ~override/%kitid%.2DA~
+  REPLACE_TEXTUALLY ~GA_SPCL311~ ~****~
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 limit=15 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=3 STR_VAR resource=~%p1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 STR_VAR resource=~%p2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=7 STR_VAR resource=~%p3%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e3%~ END
+BUT_ONLY
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 12
+    mixed = RESOLVE_STR_REF (@100301)
+    lower = RESOLVE_STR_REF (@100302)
+    help = RESOLVE_STR_REF (@100303)
+    fallen_notice = RESOLVE_STR_REF (@100304)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    unusable = ~0x20000000~        // Avenger usability (doesn't restrict weapons)
+    clab_path = ~%kitid%~
+    clascolr = ~67 25 79 23 24~    // Priest of Lathander colors
+  RET 
+    kit_id
+END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT gravewarden  ~%kitid%~
+OUTER_TEXT_SPRINT fnpclass     ~ranger~
+OUTER_TEXT_SPRINT fnpdeity     ~ranger_jungle_spheres~
+OUTER_TEXT_SPRINT gravewarden1  ~%p1%~
+OUTER_TEXT_SPRINT gravewarden2  ~%p2%~
+OUTER_TEXT_SPRINT gravewarden3  ~%p3%~
+
+
+/*
+
+*/

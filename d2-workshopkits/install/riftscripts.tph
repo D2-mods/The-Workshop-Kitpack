@@ -1,0 +1,63 @@
+/*
+for Starjammer kit
+Add floating text (Rift spells)
+*/
+
+
+<<<<<<<< .../d2temp/rifts
+IF
+	!Global("d2riftst","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("d2riftst","GLOBAL",0)
+		DisplayStringHead(Player1,@400)
+		DisplayStringHead(Player2,@401)
+		DisplayStringHead(Player3,@402)
+		DisplayStringHead(Player4,@403)
+		DisplayStringHead(Player5,@404)
+		DisplayStringHead(Player6,@405)
+END
+
+IF
+	!Global("d2riftga","GLOBAL",0)
+	!Global("d2killgolem","GLOBAL",1)
+	!GlobalTimerNotExpired("d2riftbalor","GLOBAL")
+THEN
+	RESPONSE #100
+		SetGlobal("d2killgolem","GLOBAL",1)
+		SetGlobalTimer("d2killgolem","GLOBAL",6)
+		SetGlobalTimer("d2riftbalor","GLOBAL",6)
+END
+
+IF
+	!Global("d2riftga","GLOBAL",0)
+	!Global("d2killgolem","GLOBAL",1)
+	GlobalTimerNotExpired("d2riftbalor","GLOBAL")
+THEN
+	RESPONSE #100
+		SetGlobal("d2riftga","GLOBAL",0)
+		DisplayStringHead(Player1,@406)
+		DisplayStringHead(Player2,@407)
+		DisplayStringHead(Player3,@408)
+		DisplayStringHead(Player4,@409)
+		DisplayStringHead(Player5,@410)
+		DisplayStringHead(Player6,@411)
+END
+>>>>>>>>
+
+
+COPY - ~.../d2temp/rifts~     ~%workspace%/rifts.BAF~
+  EVALUATE_BUFFER
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~baldur.bcs~) BEGIN
+  EXTEND_BOTTOM ~baldur.bcs~  ~%workspace%/rifts.BAF~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~baldur25.bcs~) BEGIN
+  EXTEND_BOTTOM ~baldur25.bcs~  ~%workspace%/rifts.BAF~
+END
+
+
+
+/*
+*/

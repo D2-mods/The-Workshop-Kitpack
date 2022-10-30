@@ -1,0 +1,20 @@
+/*
+Edits katana usability to not restrict against cleric/druid kits.
+These kits still can't use katanas because the base classes are still restricted.
+What this does is allow usability flags to be used for mod kits without restricting against katanas.
+*/
+
+
+COPY_EXISTING_REGEXP ~.*\.ITM~  ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+    READ_STRREF 0x8  itemtype                  // unidentified name
+    PATCH_IF (~%itemtype%~ STRING_EQUAL_CASE ~Katana~) BEGIN
+      WRITE_BYTE 0x29 (THIS BAND BNOT BIT0)    // Talos
+      WRITE_BYTE 0x29 (THIS BAND BNOT BIT1)    // Helm
+      WRITE_BYTE 0x29 (THIS BAND BNOT BIT2)    // Lathander
+      WRITE_BYTE 0x29 (THIS BAND BNOT BIT3)    // Totemic
+      WRITE_BYTE 0x29 (THIS BAND BNOT BIT4)    // Shapeshifter
+      WRITE_BYTE 0x29 (THIS BAND BNOT BIT5)    // Avenger
+    END
+  END
+BUT_ONLY

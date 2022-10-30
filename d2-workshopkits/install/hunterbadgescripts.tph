@@ -1,0 +1,230 @@
+/*
+Hunter Badge scripts
+
+War Magician (5)    => Spark Hunter Badge
+Grave Warden (9)    => Radiant Sword Badge
+Blood Minister (11) => Cosmic Watcher Badge
+Powder Keg (7)      => Powder Keg Badge
+*/
+
+
+ACTION_IF (%nobeasthunter% = 0) BEGIN
+
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%warmagician%.2da~) BEGIN
+
+<<<<<<<< .../d2temp/badge_spark1
+IF
+	!Global("d2badge_spark","GLOBAL",1)
+	Kit(Player1,D2WARMAGICIAN)
+	ClassLevelGT(Player1,WIZARD,4)
+	OR(5)
+		Kit(Player2,D2BEASTHUNTER)
+		Kit(Player3,D2BEASTHUNTER)
+		Kit(Player4,D2BEASTHUNTER)
+		Kit(Player5,D2BEASTHUNTER)
+		Kit(Player6,D2BEASTHUNTER)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,AddSpecialAbility("%give_badge_spark%"))
+		SetGlobal("d2badge_spark","GLOBAL",1)
+END
+>>>>>>>>
+
+  COPY - ~.../d2temp/badge_spark1~       ~%workspace%/badge_spark1.BAF~
+    EVALUATE_BUFFER
+  COPY - ~%workspace%/badge_spark1.BAF~  ~%workspace%/badge_spark2.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player2~
+    REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_spark1.BAF~  ~%workspace%/badge_spark3.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player3~
+    REPLACE_TEXTUALLY ~Player3,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_spark1.BAF~  ~%workspace%/badge_spark4.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player4~
+    REPLACE_TEXTUALLY ~Player4,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_spark1.BAF~  ~%workspace%/badge_spark5.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player5~
+    REPLACE_TEXTUALLY ~Player5,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_spark1.BAF~  ~%workspace%/badge_spark6.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player6~
+    REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
+
+  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ BEGIN
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_spark1.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_spark2.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_spark3.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_spark4.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_spark5.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_spark6.BAF~
+    END
+  END
+
+END
+
+
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%gravewarden%.2da~) BEGIN
+
+<<<<<<<< .../d2temp/badge_radiant1
+IF
+	!Global("d2badge_radiant","GLOBAL",1)
+	Kit(Player1,D2GRAVEWARDEN)
+	ClassLevelGT(Player1,WARRIOR,8)
+	OR(5)
+		Kit(Player2,D2BEASTHUNTER)
+		Kit(Player3,D2BEASTHUNTER)
+		Kit(Player4,D2BEASTHUNTER)
+		Kit(Player5,D2BEASTHUNTER)
+		Kit(Player6,D2BEASTHUNTER)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,AddSpecialAbility("%give_badge_radiant%"))
+		SetGlobal("d2badge_radiant","GLOBAL",1)
+END
+>>>>>>>>
+
+  COPY - ~.../d2temp/badge_radiant1~       ~%workspace%/badge_radiant1.BAF~
+    EVALUATE_BUFFER
+  COPY - ~%workspace%/badge_radiant1.BAF~  ~%workspace%/badge_radiant2.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player2~
+    REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_radiant1.BAF~  ~%workspace%/badge_radiant3.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player3~
+    REPLACE_TEXTUALLY ~Player3,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_radiant1.BAF~  ~%workspace%/badge_radiant4.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player4~
+    REPLACE_TEXTUALLY ~Player4,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_radiant1.BAF~  ~%workspace%/badge_radiant5.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player5~
+    REPLACE_TEXTUALLY ~Player5,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_radiant1.BAF~  ~%workspace%/badge_radiant6.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player6~
+    REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
+
+  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ BEGIN
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_radiant1.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_radiant2.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_radiant3.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_radiant4.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_radiant5.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_radiant6.BAF~
+    END
+  END
+
+END
+
+
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bloodminister%.2da~) BEGIN
+
+<<<<<<<< .../d2temp/badge_cosmic1
+IF
+	!Global("d2badge_cosmic","GLOBAL",1)
+	Kit(Player1,D2BLOODMINISTER)
+	ClassLevelGT(Player1,PRIEST,10)
+	OR(5)
+		Kit(Player2,D2BEASTHUNTER)
+		Kit(Player3,D2BEASTHUNTER)
+		Kit(Player4,D2BEASTHUNTER)
+		Kit(Player5,D2BEASTHUNTER)
+		Kit(Player6,D2BEASTHUNTER)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,AddSpecialAbility("%give_badge_cosmic%"))
+		SetGlobal("d2badge_cosmic","GLOBAL",1)
+END
+>>>>>>>>
+
+  COPY - ~.../d2temp/badge_cosmic1~       ~%workspace%/badge_cosmic1.BAF~
+    EVALUATE_BUFFER
+  COPY - ~%workspace%/badge_cosmic1.BAF~  ~%workspace%/badge_cosmic2.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player2~
+    REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_cosmic1.BAF~  ~%workspace%/badge_cosmic3.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player3~
+    REPLACE_TEXTUALLY ~Player3,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_cosmic1.BAF~  ~%workspace%/badge_cosmic4.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player4~
+    REPLACE_TEXTUALLY ~Player4,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_cosmic1.BAF~  ~%workspace%/badge_cosmic5.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player5~
+    REPLACE_TEXTUALLY ~Player5,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_cosmic1.BAF~  ~%workspace%/badge_cosmic6.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player6~
+    REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
+
+  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ BEGIN
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_cosmic1.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_cosmic2.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_cosmic3.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_cosmic4.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_cosmic5.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_cosmic6.BAF~
+    END
+  END
+
+END
+
+
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%powderkeg%.2da~) BEGIN
+
+<<<<<<<< .../d2temp/badge_pkeg1
+IF
+	!Global("d2badge_pkeg","GLOBAL",1)
+	Kit(Player1,D2POWDERKEG)
+	ClassLevelGT(Player1,ROGUE,6)
+	OR(5)
+		Kit(Player2,D2BEASTHUNTER)
+		Kit(Player3,D2BEASTHUNTER)
+		Kit(Player4,D2BEASTHUNTER)
+		Kit(Player5,D2BEASTHUNTER)
+		Kit(Player6,D2BEASTHUNTER)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,AddSpecialAbility("%give_badge_pkeg%"))
+		SetGlobal("d2badge_pkeg","GLOBAL",1)
+END
+>>>>>>>>
+
+  COPY - ~.../d2temp/badge_pkeg1~       ~%workspace%/badge_pkeg1.BAF~
+    EVALUATE_BUFFER
+  COPY - ~%workspace%/badge_pkeg1.BAF~  ~%workspace%/badge_pkeg2.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player2~
+    REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_pkeg1.BAF~  ~%workspace%/badge_pkeg3.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player3~
+    REPLACE_TEXTUALLY ~Player3,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_pkeg1.BAF~  ~%workspace%/badge_pkeg4.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player4~
+    REPLACE_TEXTUALLY ~Player4,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_pkeg1.BAF~  ~%workspace%/badge_pkeg5.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player5~
+    REPLACE_TEXTUALLY ~Player5,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~%workspace%/badge_pkeg1.BAF~  ~%workspace%/badge_pkeg6.BAF~
+    REPLACE_TEXTUALLY ~Player1~         ~Player6~
+    REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
+
+  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ BEGIN
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_pkeg1.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_pkeg2.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_pkeg3.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_pkeg4.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_pkeg5.BAF~
+      EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_pkeg6.BAF~
+    END
+  END
+
+END
+
+
+END
+
+
+
+/*
+*/

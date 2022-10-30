@@ -1,0 +1,17 @@
+//Read config.ini
+
+COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
+  COUNT_REGEXP_INSTANCES  ~BeastHunter.*=.*[^0-9]0[^0-9]*$~         nobeasthunter
+  COUNT_REGEXP_INSTANCES  ~Warhound.*=.*[^0-9]0[^0-9]*$~            nowarhound
+  COUNT_REGEXP_INSTANCES  ~GraveWarden.*=.*[^0-9]0[^0-9]*$~         nogravewarden
+  COUNT_REGEXP_INSTANCES  ~MoonlightKnight.*=.*[^0-9]0[^0-9]*$~     nomoonlightknight
+  COUNT_REGEXP_INSTANCES  ~Confessor.*=.*[^0-9]0[^0-9]*$~           noconfessor
+  COUNT_REGEXP_INSTANCES  ~TempleKnight.*=.*[^0-9]0[^0-9]*$~        notempleknight
+  COUNT_REGEXP_INSTANCES  ~WarMagician.*=.*[^0-9]0[^0-9]*$~         nowarmagician
+  COUNT_REGEXP_INSTANCES  ~Starjammer.*=.*[^0-9]0[^0-9]*$~          nostarjammer
+  COUNT_REGEXP_INSTANCES  ~BloodMinister.*=.*[^0-9]0[^0-9]*$~       nobloodminister
+  COUNT_REGEXP_INSTANCES  ~CrowHunter.*=.*[^0-9]0[^0-9]*$~          nocrowhunter
+  COUNT_REGEXP_INSTANCES  ~PowderKeg.*=.*[^0-9]0[^0-9]*$~           nopowderkeg
+
+  COUNT_REGEXP_INSTANCES  ~PriestIDS.*=.*[^0-9]0[^0-9]*$~           nopriestids
+  COUNT_REGEXP_INSTANCES  ~WizardIDS.*=.*[^0-9]0[^0-9]*$~           nowizardids

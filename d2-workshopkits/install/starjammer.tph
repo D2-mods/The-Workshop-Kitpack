@@ -1,0 +1,346 @@
+//Starjammer (d2wk8)
+
+//Add passive effects
+COPY ~%passives%/spelljammer.SPL~   ~override/%e1%.SPL~
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_silence_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_deafness_arrays END
+
+  PATCH_IF (silence_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=38 opcode=328 parameter2=silence_immunity END
+  END
+
+COPY ~%passives%/fewerspells1.SPL~  ~override/%e2%.SPL~    // remove specialist bonus spells
+
+
+//Add Riftstep
+COPY - ~%abilities%/riftstepgibber.BAF~  ~%workspace%/%w1%g.BAF~    // add gibberlings
+COMPILE ~%workspace%/%w1%g.BAF~
+COPY ~%abilities%/riftstepgibber.ITM~    ~override/%w1%g.ITM~
+COPY ~%abilities%/riftstepgibber.CRE~    ~override/%w1%g.CRE~
+  SAY NAME1 @600
+  SAY NAME2 @600
+  REPLACE_CRE_ITEM ~%w1%g~ #0 #0 #0 ~none~ ~weapon1~ EQUIP
+  WRITE_ASCII 0x250 ~%w1%g~ #8     // class script
+  WRITE_ASCII 0x280 ~%w1%g~ #20    // script name
+COPY ~%abilities%/summonportal.EFF~   ~override/%w1%g.EFF~
+  WRITE_ASCII 0x30 ~%w1%g~ #8
+  WRITE_LONG 0x20 2
+
+COPY ~%abilities%/d2ddoor.VVC~           ~override~                 // add spell
+COPY ~%abilities%/riftsteptimestop.SPL~  ~override/%w1%a.SPL~
+COPY ~%abilities%/riftstep.SPL~          ~override/%w1%.SPL~
+  SAY NAME1 @40108
+  SAY UNIDENTIFIED_DESC @40208
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%w1%a~ END       // time stop
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~d2ddoor~ END     // visual
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%w1%g~ END       // gibberlings
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=265 STR_VAR resource=~d2riftst~ END    // variable for script action
+
+
+//Add Steady Current
+COPY - ~%abilities%/steadycurrent.PRO~  ~%workspace%/%w2%.PRO~
+  WRITE_ASCII 0x104 ~%w2%~ #8    // BAM animation
+ADD_PROJECTILE ~%workspace%/%w2%.PRO~
+COPY ~%icons%/steadycurrentc.BAM~       ~override/%w2%c.BAM~    // icon BAMs
+COPY ~%icons%/steadycurrentb.BAM~       ~override/%w2%b.BAM~
+COPY ~%abilities%/steadycurrent.BAM~    ~override/%w2%.BAM~     // animation BAM
+COPY ~%abilities%/steadycurrent.SPL~    ~override/%w2%.SPL~
+  SAY NAME1 @40109
+  SAY UNIDENTIFIED_DESC @40209
+  WRITE_SHORT 0x98 ~%w2%~        // projectile
+  WRITE_ASCII 0x3a ~%w2%c~ #8    // icons
+  WRITE_ASCII 0x76 ~%w2%b~ #8
+
+ACTION_IF (GAME_IS ~iwdee~) BEGIN    // add Evasion check for IWDEE
+  COPY_EXISTING ~%w2%.SPL~  ~override~
+    LPF d2_evasion_check END
+    WRITE_LONG 0xbe THIS | BIT10     // main target cannot evade
+  BUT_ONLY
+END
+
+
+//Add Gemini Swap
+COPY ~%abilities%/swapper.SPL~  ~override/%w3%.SPL~
+  SAY NAME1 @40110
+  SAY UNIDENTIFIED_DESC @40210
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~d2ddoor~ END
+
+
+//Add Pacifying Field
+COPY - ~%abilities%/pacifier.PRO~  ~%workspace%/%w4%.PRO~
+ADD_PROJECTILE ~%workspace%/%w4%.PRO~
+COPY_EXISTING ~SPPR109.SPL~  ~override/%w4%.SPL~    // clone Sanctuary
+  SAY NAME1 @40111
+  SAY UNIDENTIFIED_DESC @40211
+  
+  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END    // delete if multiple headers (IWDEE)
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END
+  LPF ALTER_SPELL_HEADER INT_VAR new_header_type=1 END
+
+  LPF d2_convert_spell_type INT_VAR type=1 level=4 END    // convert to level 4 Wizard spell
+  LPF ALTER_EFFECT INT_VAR target=2 END
+  LPF ALTER_EFFECT INT_VAR match_timing=0 duration=60 END
+  WRITE_SHORT 0x98 ~%w4%~         // projectile
+  WRITE_ASCII 0x3a SPPR350C #8    // icons
+  WRITE_ASCII 0x76 SPPR350B #8
+
+  PATCH_IF (GAME_IS ~iwdee~) BEGIN
+    LPF ALTER_EFFECT INT_VAR match_timing=4 duration=60 END
+  END
+
+  PATCH_IF (MOD_IS_INSTALLED ~setup-spell_rev.tp2~ (ID_OF_LABEL ~setup-spell_rev.tp2~ ~dv-spell_rev-main~)) BEGIN
+    LPF ALTER_EFFECT INT_VAR match_timing=4 duration=60 END
+  END
+
+
+//Add Jolt
+
+/*
+EEs have a main spell, with the actual effects on a subspell.
+Spell revisions puts everything on the main spell.
+Some functions are run silently because effects may be missing.
+*/
+
+COPY_EXISTING ~SPPR504.SPL~   ~override/%w5%.SPL~    // clone Raise Dead
+  SAY NAME1 @40112
+  SAY UNIDENTIFIED_DESC @40212
+
+  PATCH_IF (GAME_IS ~iwdee~) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_parameter2=15 END     // remove Elf immunity for IWDEE
+  END
+
+  LPF d2_convert_spell_type INT_VAR type=1 level=5 END    // convert to level 5 Wizard spell
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 STR_VAR resource=~%w5%~ END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=326 STR_VAR resource=~%w5%a~ END
+  WRITE_BYTE  0x25 8     // Alteration school
+  WRITE_SHORT 0x22 15    // casting animation
+  WRITE_SHORT 0x84 5     // casting speed
+  WRITE_ASCII 0x10 CAS_M04 #8     // casting sound
+  WRITE_ASCII 0x3a SPCL721C #8    // icons
+  WRITE_ASCII 0x76 SPCL721B #8
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~SPPR504A.SPL~) BEGIN
+  COPY_EXISTING ~SPPR504A.SPL~  ~override/%w5%a.SPL~    // subspell (applies the Raise Dead effect)
+    PATCH_IF (GAME_IS ~iwdee~) BEGIN
+      LPF DELETE_EFFECT INT_VAR match_opcode=174 END    // remove Elf immunity for IWDEE
+    END
+
+    LPF d2_convert_spell_type INT_VAR type=1 level=5 END    // convert to level 5 Wizard spell
+    LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~BDFAVSPI~ END
+    LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 STR_VAR resource=~EFF_E06~ END
+    WRITE_BYTE  0x25 8    // Alteration school
+END
+
+
+//Add Electrocannon
+COPY - ~%abilities%/electrocannon5.PRO~  ~%workspace%/%w6%.PRO~
+ADD_PROJECTILE ~%workspace%/%w6%.PRO~
+COPY ~%abilities%/electrocannon.SPL~    ~override/%w6%.SPL~
+  SAY NAME1 @40113
+  SAY UNIDENTIFIED_DESC @40213
+  WRITE_SHORT 0x98 ~%w6%~    // projectile
+
+  LPF CD_EXTEND-O-MATIC
+    INT_VAR
+      level_cap   = %spellcap%
+      min_lev_alt = 12
+  END
+
+  LPF ALTER_EFFECT INT_VAR header=1 parameter1=26 dicenumber=13 END    // level 13
+  LPF ALTER_EFFECT INT_VAR header=2 parameter1=28 dicenumber=14 END
+  LPF ALTER_EFFECT INT_VAR header=3 parameter1=30 dicenumber=15 END
+  LPF ALTER_EFFECT INT_VAR header=4 parameter1=32 dicenumber=16 END
+  LPF ALTER_EFFECT INT_VAR header=5 parameter1=34 dicenumber=17 END
+  LPF ALTER_EFFECT INT_VAR header=6 parameter1=36 dicenumber=18 END
+  LPF ALTER_EFFECT INT_VAR header=7 parameter1=38 dicenumber=19 END
+  LPF ALTER_EFFECT INT_VAR header=8 parameter1=40 dicenumber=20 END
+
+  PATCH_IF (GAME_IS ~iwdee~) BEGIN
+    LPF ALTER_EFFECT INT_VAR header=9 parameter1=42 dicenumber=21 END
+    LPF ALTER_EFFECT INT_VAR header=10 parameter1=44 dicenumber=22 END
+    LPF ALTER_EFFECT INT_VAR header=11 parameter1=46 dicenumber=23 END
+    LPF ALTER_EFFECT INT_VAR header=12 parameter1=48 dicenumber=24 END
+    LPF ALTER_EFFECT INT_VAR header=13 parameter1=50 dicenumber=25 END
+    LPF ALTER_EFFECT INT_VAR header=14 parameter1=52 dicenumber=26 END
+    LPF ALTER_EFFECT INT_VAR header=15 parameter1=54 dicenumber=27 END
+    LPF ALTER_EFFECT INT_VAR header=16 parameter1=56 dicenumber=28 END
+    LPF ALTER_EFFECT INT_VAR header=17 parameter1=58 dicenumber=29 END
+    LPF ALTER_EFFECT INT_VAR header=18 parameter1=60 dicenumber=30 END    // level 30
+  END
+
+ACTION_IF (GAME_IS ~iwdee~) BEGIN    // add Evasion check for IWDEE
+  COPY_EXISTING ~%w6%.SPL~  ~override~
+    LPF d2_evasion_check END
+  BUT_ONLY
+END
+
+
+//Add Revitalizer
+ACTION_IF (GAME_IS ~iwdee~) BEGIN OUTER_SET kitdesc = RESOLVE_STR_REF (@40314) END    // for IWDEE
+                       ELSE BEGIN OUTER_SET kitdesc = RESOLVE_STR_REF (@40214) END    // for BGEE games
+
+COPY - ~%abilities%/revitalizer.PRO~  ~%workspace%/%w7%.PRO~
+ADD_PROJECTILE ~%workspace%/%w7%.PRO~
+COPY_EXISTING ~SPPR502.SPL~  ~override/%w7%.SPL~    // clone a Cure Wounds spell
+  SAY NAME1 @40114
+  WRITE_LONG 0x50 kitdesc
+
+  LPF d2_convert_spell_type INT_VAR type=1 level=7 END    // convert to level 7 Wizard spell
+  LPF DELETE_EFFECT INT_VAR match_opcode=164 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=20 dicenumber=14 dicesize=4 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 STR_VAR resource=~%w7%~ END
+
+  WRITE_SHORT 0x22 15    // casting animation
+  WRITE_SHORT 0x84 1     // casting speed
+  WRITE_SHORT 0x80 30    // spell range
+  WRITE_SHORT 0x98 ~%w7%~         // projectile
+  WRITE_ASCII 0x3a SPPR317C #8    // icons
+  WRITE_ASCII 0x76 SPPR317B #8
+  WRITE_LONG 0x18 THIS | BIT24    // can target invisible/sanctuary
+
+  LPF CD_EXTEND-O-MATIC
+    INT_VAR
+      level_cap   = %spellcap%
+      min_lev_alt = 14
+  END
+
+  LPF ALTER_EFFECT INT_VAR header=1 dicenumber=15 END    // level 15
+  LPF ALTER_EFFECT INT_VAR header=2 dicenumber=16 END
+  LPF ALTER_EFFECT INT_VAR header=3 dicenumber=17 END
+  LPF ALTER_EFFECT INT_VAR header=4 dicenumber=18 END
+  LPF ALTER_EFFECT INT_VAR header=5 dicenumber=19 END
+  LPF ALTER_EFFECT INT_VAR header=6 dicenumber=20 END
+
+  PATCH_IF (GAME_IS ~iwdee~) BEGIN
+    LPF ALTER_EFFECT INT_VAR header=7 dicenumber=21 END
+    LPF ALTER_EFFECT INT_VAR header=8 dicenumber=22 END
+    LPF ALTER_EFFECT INT_VAR header=9 dicenumber=23 END
+    LPF ALTER_EFFECT INT_VAR header=10 dicenumber=24 END
+    LPF ALTER_EFFECT INT_VAR header=11 dicenumber=25 END
+    LPF ALTER_EFFECT INT_VAR header=12 dicenumber=26 END
+    LPF ALTER_EFFECT INT_VAR header=13 dicenumber=27 END
+    LPF ALTER_EFFECT INT_VAR header=14 dicenumber=28 END
+    LPF ALTER_EFFECT INT_VAR header=15 dicenumber=29 END
+    LPF ALTER_EFFECT INT_VAR header=16 dicenumber=30 END    // level 30
+  END
+
+
+//Add Riftgate
+COPY - ~%abilities%/riftgategolem.BAF~  ~%workspace%/%w8%g.BAF~    // add golem
+COMPILE ~%workspace%/%w8%g.BAF~
+COPY ~%abilities%/riftgategolem.CRE~  ~override/%w8%g.CRE~
+  SAY NAME1 @601 
+  SAY NAME2 @601
+  REPLACE_CRE_ITEM ~helmnoan~ #0 #0 #0 ~none~ ~helmet~ EQUIP
+  REPLACE_CRE_ITEM ~immune3~ #0 #0 #0 ~none~ ~lring~ EQUIP
+  REPLACE_CRE_ITEM ~goliro~ #0 #0 #0 ~none~ ~weapon1~ EQUIP
+  WRITE_ASCII 0x260 ~%w8%g~ #8     // general script
+  WRITE_ASCII 0x280 ~%w8%g~ #20    // script name
+COPY ~%abilities%/summonrift.EFF~     ~override/%w8%g.EFF~
+  WRITE_ASCII 0x30 ~%w8%g~ #8
+
+COPY - ~%abilities%/riftgatebalor.BAF~  ~%workspace%/%w8%d.BAF~    // add balor
+COMPILE ~%workspace%/%w8%d.BAF~
+COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~
+COPY ~%abilities%/riftgatebalor.CRE~    ~override/%w8%d.CRE~
+  SAY NAME1 @602 
+  SAY NAME2 @602
+  REPLACE_CRE_ITEM ~helmnoan~ #0 #0 #0 ~none~ ~helmet~ EQUIP
+  REPLACE_CRE_ITEM ~%w8%d~ #0 #0 #0 ~none~ ~weapon1~ EQUIP
+  WRITE_ASCII 0x250 ~%w8%d~ #8     // class script
+  WRITE_ASCII 0x280 ~%w8%d~ #20    // script name
+COPY ~%abilities%/summongate.EFF~     ~override/%w8%d.EFF~
+  WRITE_ASCII 0x30 ~%w8%d~ #8
+
+COPY ~%abilities%/riftgate.SPL~  ~override/%w8%.SPL~               // add spell
+  SAY NAME1 @40115
+  SAY UNIDENTIFIED_DESC @40215
+  LPF ALTER_EFFECT INT_VAR match_opcode=206 parameter1=RESOLVE_STR_REF (@303) STR_VAR resource=~%w8%~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~sumsunn~ resource=~%w8%g~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~sumzaam~ resource=~%w8%d~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=265 STR_VAR resource=~d2riftga~ END    // variable for script action
+
+
+//Add spells to spell.ids
+ACTION_IF (%nowizardids% = 0) BEGIN
+  OUTER_FOR (n = 1; n <= 8; ++n) BEGIN
+    LAF ADD_SPELL_EX INT_VAR type=2 level=%n% min=51 max=99 hide=1 STR_VAR file=~override/%w%n%%.SPL~ name=~D2%kitname%_W%n%~ RET spell_res END
+    OUTER_TEXT_SPRINT ~w%n%~  ~%spell_res%~
+  END
+END
+
+
+//Add Interference
+COPY - ~%abilities%/interference.PRO~ ~%workspace%/%s1%.PRO~
+ADD_PROJECTILE ~%workspace%/%s1%.PRO~
+COPY ~%abilities%/interference.SPL~   ~override/%s1%.SPL~
+  SAY NAME1 @111
+  SAY UNIDENTIFIED_DESC @211
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%~ END    // set projectile
+
+  LPF ALTER_EFFECT INT_VAR header=1 match_opcode=60 parameter1=30 END    // level 10 (casting failure)
+  LPF ALTER_EFFECT INT_VAR header=2 match_opcode=60 parameter1=35 END
+  LPF ALTER_EFFECT INT_VAR header=3 match_opcode=60 parameter1=40 END
+  LPF ALTER_EFFECT INT_VAR header=4 match_opcode=60 parameter1=45 END
+  LPF ALTER_EFFECT INT_VAR header=5 match_opcode=60 parameter1=50 END    // level 30
+  LPF ALTER_EFFECT INT_VAR header=6 match_opcode=60 parameter1=55 END
+  LPF ALTER_EFFECT INT_VAR header=7 match_opcode=60 parameter1=60 END
+  LPF ALTER_EFFECT INT_VAR header=8 match_opcode=60 parameter1=65 END
+  LPF ALTER_EFFECT INT_VAR header=9 match_opcode=60 parameter1=70 END    // level 50
+
+
+//Make 2da file
+ACTION_IF (FILE_EXISTS_IN_GAME ~CLABMA01.2DA~) BEGIN
+  COPY_EXISTING ~CLABMA01.2DA~  ~override/%kitid%.2DA~    // clone Mage 2da
+END 
+ELSE BEGIN
+  COPY ~%files%/kit0.2DA~       ~override/%kitid%.2DA~    // or add new
+END
+
+COPY_EXISTING ~%kitid%.2DA~   ~override~
+  LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%w1%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%w2%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%w3%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%w4%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%w5%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%w6%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%w7%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%w8%~ END
+  LPF d2_kit_ability_adder END
+BUT_ONLY
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    mixed = RESOLVE_STR_REF (@100801)
+    lower = RESOLVE_STR_REF (@100802)
+    help = RESOLVE_STR_REF (@100803)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    clab_path = ~%kitid%~
+    source_kit = DRAGON_DISCIPLE    // use Dragon Disciple as base (unkitted Sorcerer is missing from some tables)
+    abclsmod = ~0 -2 0 0 -2 0~      // -2 to Dex and Wis
+    clascolr = ~72 67 169 93 72~    // Kensai colors
+    hpclass = ~HPWIZ~               // same HP as Wizard
+  RET 
+    kit_id
+END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT starjammer  ~%kitid%~
+
+
+/*Additional info
+Despite using Dragon Disciple as base kit, sorcerer kits with this function use the base Sorcerer spells table.
+All mage/sorcerer kits also automatically gain +1 spells per spell level.
+To get the same spells as a regular sorcerer, this kit applies a -1 penalty to spells per spell level.
+*/

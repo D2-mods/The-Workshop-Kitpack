@@ -1,0 +1,295 @@
+/*
+*/
+
+
+//Crowfeather Cloak (cloak)
+COPY ~%files%/crowfeather.ITM~  ~override/%m1%.ITM~
+  SAY NAME2 @70105
+  SAY DESC @70205
+  WRITE_ASCII 0x3a ~IBDCLK05~ #8    // icon
+
+ACTION_IF (FILE_EXISTS ~override/%visceralattack%.SPL~) BEGIN
+
+  COPY_EXISTING ~%visceralattack%.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m1%a~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~%visceralremove%.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m1%a~ END
+  BUT_ONLY
+
+  COPY ~%abilities%/castspellself.EFF~  ~override/%m1%a.EFF~
+    WRITE_ASCII 0x30 ~%m1%a~ #8
+  COPY_EXISTING ~%visceralattack%.SPL~  ~override/%m1%a.SPL~
+    LPF DELETE_EFFECT INT_VAR match_opcode=142 END    // remove portrait icon
+    LPF DELETE_EFFECT INT_VAR match_opcode=50 END     // remove color pulse
+    LPF DELETE_EFFECT INT_VAR match_opcode=174 END    // remove sounds
+    WRITE_LONG 0x8 ~-1~                               // remove spell name
+
+  COPY_EXISTING ~%m1%.ITM~  ~override~    // add repeating effect
+    LPF CLONE_EFFECT 
+      INT_VAR multi_match=1 opcode=272 parameter1=3 parameter2=3
+      STR_VAR resource=~%m1%e~
+    END
+  BUT_ONLY
+
+  COPY ~%abilities%/castspellself.EFF~  ~override/%m1%e.EFF~
+    WRITE_ASCII 0x30 ~%m1%e~ #8
+  COPY ~%abilities%/useeffonkit.SPL~    ~override/%m1%e.SPL~
+    LPF CLONE_EFFECT 
+      INT_VAR multi_match=1 opcode=206 timing=0 duration=2 probability1=100 
+      STR_VAR resource=~%m1%e~ insert=~last~ 
+    END
+    LPF ALTER_EFFECT 
+      INT_VAR match_opcode=177 probability1=5 parameter1=IDS_OF_SYMBOL (kit ~D2CROWHUNTER~)
+      STR_VAR resource=~%m1%a~
+    END
+
+END
+
+
+
+//Etherbomb Songbook (item)
+COPY ~%files%/etherbomb.BAM~  ~override/%m2%.BAM~
+COPY ~%files%/etherbomb.ITM~  ~override/%m2%.ITM~
+  SAY NAME2 @70106
+  SAY DESC @70206
+  WRITE_ASCII 0x3a ~%m2%~ #8    // icon
+  WRITE_ASCII 0x76 ~%m2%~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 parameter2=~%lore80%~ STR_VAR resource=~%m2%e~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 parameter2=~%lore79%~ STR_VAR resource=~%m2%s~ END
+
+COPY ~%abilities%/powderkegcast.SPL~  ~override/%m2%e.SPL~
+  SAY NAME1 @615
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%f~ END    // hits enemies
+  LPF DELETE_EFFECT INT_VAR match_opcode=363 END
+
+COPY ~%abilities%/powderkegcast.SPL~  ~override/%m2%s.SPL~
+  SAY NAME1 @615
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%t~ END    // hits all
+  LPF DELETE_EFFECT INT_VAR match_opcode=363 END
+
+COPY - ~%files%/etherbomb.PRO~        ~%workspace%/%m2%p.PRO~               // projectile
+ADD_PROJECTILE ~%workspace%/%m2%p.PRO~
+
+COPY ~%files%/etherbomb.SPL~          ~override/%m2%f.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%m2%f~ END    // hits enemies
+  WRITE_SHORT 0x98 ~%m2%p~    // projectile
+
+COPY ~%files%/etherbomb.SPL~          ~override/%m2%t.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=318 END                            // hits all
+  WRITE_SHORT 0x98 ~%m2%p~    // projectile
+
+ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
+
+  COPY_EXISTING ~%cleareffects%.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m2%y~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~%m2%.ITM~  ~override~
+    LPF CLONE_EFFECT 
+      INT_VAR multi_match=1 opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2POWDERKEG~) parameter2=9
+      STR_VAR resource=~%m2%u~
+    END
+  BUT_ONLY
+
+COPY ~%abilities%/castspellself.EFF~   ~override/%m2%u.EFF~
+    WRITE_ASCII 0x30 ~%m2%u~ #8
+COPY ~%abilities%/changebardsong.SPL~  ~override/%m2%u.SPL~    // change Bard Song
+  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%m2%v~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%cleareffects%~ END
+  LPF DELETE_EFFECT INT_VAR check_headers=0 END
+
+COPY ~%abilities%/powderkegdisable.SPL~    ~override/%m2%x.SPL~
+COPY ~%abilities%/powderkegnosong.SPL~     ~override/%m2%y.SPL~
+  LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%m2%v~ END
+COPY ~%abilities%/powderkegcast.SPL~       ~override/%m2%v.SPL~
+  SAY NAME1 @615
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%f~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%m2%x~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%m2%y~ END
+
+END
+
+
+
+//Ether Booster (amulet)
+COPY ~%files%/etherbooster.EFF~     ~override/%m3%e.EFF~
+COPY ~%files%/etherbooster.ITM~     ~override/%m3%.ITM~
+  SAY NAME2 @70107
+  SAY DESC @70207
+
+ACTION_IF (FILE_EXISTS ~override/%unleashmagic%.SPL~) BEGIN
+
+  COPY_EXISTING ~%unleashmagic%.SPL~  ~override~
+    LPF CLONE_EFFECT 
+      INT_VAR multi_match=1 match_timing=0 opcode=272 parameter1=3 parameter2=3 duration=19
+      STR_VAR resource=~%unleashmagic%e~
+    END
+  BUT_ONLY
+
+  COPY ~%abilities%/castspellself.EFF~  ~override/%unleashmagic%e.EFF~
+    WRITE_ASCII 0x30 ~%unleashmagic%e~ #8
+  COPY ~%abilities%/useeffonkit.SPL~    ~override/%unleashmagic%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2WARMAGICIAN~)
+      STR_VAR resource=~%m3%s~ 
+    END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m3%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%unleashmagic%e~ END
+
+/*
+NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amulets)
+*/
+
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m3%s.EFF~
+    WRITE_ASCII 0x30 ~%m3%~ #8
+    WRITE_ASCII 0x70 ~%m3%x~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%m3%x.EFF~
+    WRITE_ASCII 0x30 ~%m3%x~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%m3%x.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%unleashmagic%e~ END
+
+END
+
+
+
+//Prisoner's Chain (ring)
+COPY ~%files%/prisonchain.BAM~  ~override/%m4%.BAM~
+COPY ~%files%/prisonchain.ITM~  ~override/%m4%.ITM~
+  SAY NAME2 @70108
+  SAY DESC @70208
+  WRITE_ASCII 0x3a ~%m4%~ #8    // icon
+
+
+
+//Cruciform (amulet)
+COPY ~%files%/cruciformb.BAM~  ~override/%m5%b.BAM~
+COPY ~%files%/cruciformc.BAM~  ~override/%m5%c.BAM~
+COPY ~%files%/cruciform.ITM~   ~override/%m5%.ITM~
+  SAY NAME2 @70109
+  SAY DESC @70209
+  WRITE_ASCII 0x3a ~%m5%b~ #8    // icon
+  WRITE_ASCII 0x58 ~%m5%c~ #8    // description image
+
+ACTION_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
+
+  COPY_EXISTING ~%bloodletter%.SPL~  ~override~
+    LPF CLONE_EFFECT 
+      INT_VAR multi_match=1 match_timing=0 opcode=272 parameter1=3 parameter2=3 duration=25
+      STR_VAR resource=~%bloodletter%e~
+    END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=272 STR_VAR resource=~%bloodletter%f~ END
+  BUT_ONLY
+
+  COPY ~%abilities%/castspellself.EFF~  ~override/%bloodletter%e.EFF~    // +1 bleed damage
+    WRITE_ASCII 0x30 ~%bloodletter%e~ #8
+  COPY ~%abilities%/useeffonkit.SPL~    ~override/%bloodletter%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2CONFESSOR~)
+      STR_VAR resource=~%m5%s~ 
+    END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m5%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%bloodletter%e~ END
+
+  COPY ~%abilities%/castspellself.EFF~  ~override/%bloodletter%f.EFF~    // +1 bleed damage
+    WRITE_ASCII 0x30 ~%bloodletter%f~ #8
+  COPY ~%abilities%/useeffonkit.SPL~    ~override/%bloodletter%f.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2CONFESSOR~)
+      STR_VAR resource=~%m5%s~ 
+    END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m5%f~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%bloodletter%f~ END
+
+/*
+NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amulets)
+*/
+
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m5%s.EFF~
+    WRITE_ASCII 0x30 ~%m5%~ #8
+    WRITE_ASCII 0x70 ~%m5%x~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%m5%x.EFF~
+    WRITE_ASCII 0x30 ~%m5%x~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%m5%x.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%bloodletter%e~ END
+    LPF CLONE_EFFECT STR_VAR resource=~%bloodletter%f~ END
+
+  COPY ~%abilities%/hiteffectmelee.EFF~   ~override/%m5%e.EFF~
+    WRITE_LONG 0x28 7
+    WRITE_ASCII 0x30 ~%m5%a~ #8
+  COPY ~%abilities%/hiteffectmelee.EFF~   ~override/%m5%f.EFF~
+    WRITE_LONG 0x28 7
+    WRITE_ASCII 0x30 ~%m5%b~ #8
+
+  COPY_EXISTING ~%bleeding%.EFF~  ~override/%m5%a.EFF~
+    WRITE_ASCII 0x30 ~%m5%a~ #8
+  COPY_EXISTING ~%bleeding%.SPL~  ~override/%m5%a.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%m5%a~ END
+    LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%m5%a~ END
+    LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+
+  COPY_EXISTING ~%bleeding%.EFF~  ~override/%m5%b.EFF~
+    WRITE_ASCII 0x30 ~%m5%b~ #8
+  COPY_EXISTING ~%bleeding%.SPL~  ~override/%m5%b.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%m5%b~ END
+    LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%m5%b~ END
+    LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+
+END
+
+
+
+//Golem Ring (ring)
+COPY ~%files%/golemring.BAM~  ~override/%m6%.BAM~
+COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
+  SAY NAME2 @70110
+  SAY DESC @70210
+  WRITE_ASCII 0x3a ~%m6%~ #8    // icon
+  WRITE_ASCII 0x76 ~%m6%~ #8    // icon (ability)
+
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_haste_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
+
+  PATCH_IF (haste_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=16 opcode=328 parameter2=haste_immunity END
+  END
+
+  PATCH_IF (slow_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=328 parameter2=slow_immunity END
+  END
+
+
+
+//Calamity Ring (ring)
+COPY ~%files%/calamity.BAM~  ~override/%m7%.BAM~
+COPY ~%files%/calamity.ITM~  ~override/%m7%.ITM~
+  SAY NAME2 @70111
+  SAY DESC @70211
+  WRITE_ASCII 0x3a ~%m7%~ #8    // icon
+
+
+
+//Add Evasion checks for IWDEE
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%m2%f~ END    // Etherbomb Song
+  LAF d2_evasion_check INT_VAR insert=0 STR_VAR spell=~%m2%t~ END
+END
+
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT crowfeather    ~%m1%~
+OUTER_TEXT_SPRINT etherbomb      ~%m2%~
+OUTER_TEXT_SPRINT etherbooster   ~%m3%~
+OUTER_TEXT_SPRINT prisonchain    ~%m4%~
+OUTER_TEXT_SPRINT cruciform      ~%m5%~
+OUTER_TEXT_SPRINT golemring      ~%m6%~
+OUTER_TEXT_SPRINT calamity       ~%m7%~
+
+OUTER_TEXT_SPRINT bleeding1      ~%m5%a~
+OUTER_TEXT_SPRINT bleeding2      ~%m5%b~
+
+
+/*
+*/

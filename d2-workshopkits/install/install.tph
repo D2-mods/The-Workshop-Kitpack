@@ -1,0 +1,132 @@
+/*
+Install kits
+*/
+
+//Beast Hunter (d2wk1)
+ACTION_IF (%nobeasthunter% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk1~
+  OUTER_TEXT_SPRINT kitname ~BEASTHUNTER~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/hunterbadges.tph~
+END
+
+//Warhound (d2wk2)
+ACTION_IF (%nowarhound% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk2~
+  OUTER_TEXT_SPRINT kitname ~WARHOUND~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+END
+
+//Grave Warden (d2wk3)
+ACTION_IF (%nogravewarden% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk3~
+  OUTER_TEXT_SPRINT kitname ~GRAVEWARDEN~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/usabilitykatanas.tph~
+  INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/dofspheres.tph~
+END
+
+//Moonlight Knight (d2wk4)
+ACTION_IF (%nomoonlightknight% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk4~
+  OUTER_TEXT_SPRINT kitname ~MOONLIGHTKNIGHT~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/nofallen.tph~
+  INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/dofspheres.tph~
+END
+
+//Confessor (d2wk5)
+ACTION_IF (%noconfessor% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk5~
+  OUTER_TEXT_SPRINT kitname ~CONFESSOR~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/fnppaladinfix.tph~
+  INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/dofspheres.tph~
+END
+
+//Temple Knight (d2wk6)
+ACTION_IF (%notempleknight% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk6~
+  OUTER_TEXT_SPRINT kitname ~TEMPLEKNIGHT~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/fnppaladinfix.tph~
+  INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/dofspheres.tph~
+END
+
+//War Magician (d2wk7)
+ACTION_IF (%nowarmagician% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk7~
+  OUTER_TEXT_SPRINT kitname ~WARMAGICIAN~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+END
+
+//Starjammer (d2wk8)
+ACTION_IF (%nostarjammer% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk8~
+  OUTER_TEXT_SPRINT kitname ~STARJAMMER~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/riftscripts.tph~
+END
+
+//Blood Minister (d2wk9)
+ACTION_IF (%nobloodminister% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk9~
+  OUTER_TEXT_SPRINT kitname ~BLOODMINISTER~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/dofspheres.tph~
+END
+
+//Crow Hunter (d2wka)
+ACTION_IF (%nocrowhunter% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wka~
+  OUTER_TEXT_SPRINT kitname ~CROWHUNTER~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+END
+
+//Powder Keg (d2wkb)
+ACTION_IF (%nopowderkeg% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkb~
+  OUTER_TEXT_SPRINT kitname ~POWDERKEG~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/rrbardsongs.tph~
+END
+
+
+//Extra stuff
+INCLUDE ~%install%/crosskiteffects.tph~
+INCLUDE ~%install%/hunterbadgescripts.tph~
+INCLUDE ~%install%/hunterbadgestores.tph~
+INCLUDE ~%install%/5ecastingspells.tph~
+//INCLUDE ~%install%/backupfiles.tph~
+
+
+
+/*
+*/

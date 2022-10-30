@@ -1,0 +1,289 @@
+//Powder Keg (d2wkb)
+
+//Fire resist
+COPY ~%passives%/resistup20fire.SPL~  ~override/%e1%.SPL~
+
+//Change bard song at level 1 (Blasting Song)
+COPY_EXISTING ~FJBARD.SPL~            ~override/%e2%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s1%s~ END
+
+
+//Abilities for changing Bard Song
+COPY ~%abilities%/changebardsong.SPL~  ~override/%s1%.SPL~    // Blasting Song
+  SAY NAME1 @115
+  SAY UNIDENTIFIED_DESC @215
+  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s1%s~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=177 STR_VAR resource=~%s0%~ END
+  LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s1%~ END
+  WRITE_ASCII 0x3a ~bard6~ #8    // icons
+  WRITE_ASCII 0x76 ~bard6~ #8
+
+COPY ~%abilities%/changebardsong.SPL~  ~override/%s2%.SPL~    // Booming Song
+  SAY NAME1 @116
+  SAY UNIDENTIFIED_DESC @216
+  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s2%s~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=177 STR_VAR resource=~%s0%~ END
+  LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s2%~ END
+  WRITE_ASCII 0x3a ~bard4~ #8    // icons
+  WRITE_ASCII 0x76 ~bard4~ #8
+
+COPY ~%abilities%/changebardsong.SPL~  ~override/%s3%.SPL~    // Dust Explosion
+  SAY NAME1 @117
+  SAY UNIDENTIFIED_DESC @217
+  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s3%s~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=177 STR_VAR resource=~%s0%~ END
+  LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s3%~ END
+  WRITE_ASCII 0x3a ~bard3~ #8    // icons
+  WRITE_ASCII 0x76 ~bard3~ #8
+
+COPY ~%abilities%/changebardsong.SPL~  ~override/%s4%.SPL~    // Frenzying Flame
+  SAY NAME1 @118
+  SAY UNIDENTIFIED_DESC @218
+  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s4%s~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=177 STR_VAR resource=~%s0%~ END
+  LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s4%~ END
+  WRITE_ASCII 0x3a ~bard2~ #8    // icons
+  WRITE_ASCII 0x76 ~bard2~ #8
+
+COPY ~%abilities%/changebardsong.SPL~  ~override/%s5%.SPL~    // Enhanced Bard Song
+  SAY NAME1 @119
+  SAY UNIDENTIFIED_DESC @219
+  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~SPCL920A~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=177 STR_VAR resource=~%s0%~ END
+  LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s5%~ END
+  WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
+  WRITE_ASCII 0x76 ~SPENBARB~ #8
+
+
+//Remove delayed effect if still active
+COPY ~%abilities%/castspellself.EFF~       ~override/%s0%.EFF~
+  WRITE_ASCII 0x30 ~%s0%~ #8
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%y~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%y~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s3%y~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s4%y~ END
+
+
+//Add Blasting Song
+COPY ~%abilities%/powderkegdisable.SPL~    ~override/%s1%x.SPL~
+COPY ~%abilities%/powderkegnosong.SPL~     ~override/%s1%y.SPL~
+  LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%s1%s~ END
+COPY ~%abilities%/powderkegcast.SPL~       ~override/%s1%s.SPL~
+  SAY NAME1 @607
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%e~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s1%x~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s1%y~ END
+
+COPY - ~%abilities%/powderkegblast.PRO~ ~%workspace%/%s1%e.PRO~
+ADD_PROJECTILE ~%workspace%/%s1%e.PRO~
+COPY ~%abilities%/powderkegblast.SPL~      ~override/%s1%e.SPL~
+  LPF ALTER_EFFECT INT_VAR match_timing=0 STR_VAR resource=~%s1%e~ END
+  WRITE_SHORT 0x98 ~%s1%e~    // projectile
+
+  LPF CD_EXTEND-O-MATIC
+    INT_VAR
+      level_cap = 20
+  END
+
+  LPF ALTER_EFFECT INT_VAR header=1 match_opcode=12 dicenumber=2 END
+  LPF ALTER_EFFECT INT_VAR header=2 match_opcode=12 dicenumber=3 END
+  LPF ALTER_EFFECT INT_VAR header=3 match_opcode=12 dicenumber=4 END
+  LPF ALTER_EFFECT INT_VAR header=4 match_opcode=12 dicenumber=5 END
+  LPF ALTER_EFFECT INT_VAR header=5 match_opcode=12 dicenumber=6 END
+  LPF ALTER_EFFECT INT_VAR header=6 match_opcode=12 dicenumber=7 END
+  LPF ALTER_EFFECT INT_VAR header=7 match_opcode=12 dicenumber=8 END
+  LPF ALTER_EFFECT INT_VAR header=8 match_opcode=12 dicenumber=9 END
+  LPF ALTER_EFFECT INT_VAR header=9 match_opcode=12 dicenumber=10 END
+  LPF ALTER_EFFECT INT_VAR header=10 match_opcode=12 dicenumber=11 END
+  LPF ALTER_EFFECT INT_VAR header=11 match_opcode=12 dicenumber=12 END
+  LPF ALTER_EFFECT INT_VAR header=12 match_opcode=12 dicenumber=13 END
+  LPF ALTER_EFFECT INT_VAR header=13 match_opcode=12 dicenumber=14 END
+  LPF ALTER_EFFECT INT_VAR header=14 match_opcode=12 dicenumber=15 END
+  LPF ALTER_EFFECT INT_VAR header=15 match_opcode=12 dicenumber=16 END
+  LPF ALTER_EFFECT INT_VAR header=16 match_opcode=12 dicenumber=17 END
+  LPF ALTER_EFFECT INT_VAR header=17 match_opcode=12 dicenumber=18 END
+  LPF ALTER_EFFECT INT_VAR header=18 match_opcode=12 dicenumber=19 END
+  LPF ALTER_EFFECT INT_VAR header=19 match_opcode=12 dicenumber=20 END
+
+
+//Add Booming Song
+COPY ~%abilities%/powderkegdisable.SPL~    ~override/%s2%x.SPL~
+COPY ~%abilities%/powderkegnosong.SPL~     ~override/%s2%y.SPL~
+  LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%s2%s~ END
+COPY ~%abilities%/powderkegcast.SPL~       ~override/%s2%s.SPL~
+  SAY NAME1 @608
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s2%e~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s2%x~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s2%y~ END
+
+COPY - ~%abilities%/powderkegboom.PRO~ ~%workspace%/%s2%e.PRO~
+ADD_PROJECTILE ~%workspace%/%s2%e.PRO~
+COPY ~%abilities%/powderkegboom.SPL~       ~override/%s2%e.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s2%e~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%a~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%b~ END
+  WRITE_SHORT 0x98 ~%s2%e~    // projectile
+
+COPY ~%abilities%/powderkegboomd.SPL~      ~override/%s2%a.SPL~    // deafness 2 rounds
+  LPF DELETE_EFFECT INT_VAR match_opcode=206 END
+
+COPY ~%abilities%/powderkegboomd.SPL~      ~override/%s2%b.SPL~    // deafness 4 rounds
+  LPF ALTER_EFFECT INT_VAR match_duration=12 duration=24 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%s2%a~ END
+  LPF ALTER_EFFECT INT_VAR savingthrow=1 END
+
+
+//Add Dust Explosion
+COPY ~%abilities%/powderkegdisable.SPL~  ~override/%s3%x.SPL~
+COPY ~%abilities%/powderkegnosong.SPL~   ~override/%s3%y.SPL~
+  LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%s3%s~ END
+COPY ~%abilities%/powderkegcast.SPL~     ~override/%s3%s.SPL~
+  SAY NAME1 @609
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%e~ END    // cloud
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%f~ END    // fake projectile
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%g~ END    // fake projectile
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%h~ END    // fake projectile
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%x~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%y~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%d~ END    // fireball
+
+COPY - ~%abilities%/powderkegdust.PRO~ ~%workspace%/%s3%e.PRO~
+ADD_PROJECTILE ~%workspace%/%s3%e.PRO~
+COPY ~%abilities%/powderkegdust.SPL~     ~override/%s3%e.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s3%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s3%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s3%c~ END
+  WRITE_SHORT 0x98 ~%s3%e~    // projectile
+
+COPY ~%abilities%/powderkegdust.SPL~     ~override/%s3%f.SPL~    // fake projectiles (for visuals)
+  WRITE_SHORT 0x98 ~%s3%e~    // projectile
+COPY_EXISTING ~%s3%f.SPL~  ~override/%s3%g.SPL~
+COPY_EXISTING ~%s3%f.SPL~  ~override/%s3%h.SPL~
+
+COPY ~%abilities%/powderkegdusta.SPL~    ~override/%s3%a.SPL~    // blindness
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s3%a~ END
+COPY ~%abilities%/powderkegdustb.SPL~    ~override/%s3%b.SPL~    // blur/invisible
+COPY ~%abilities%/powderkegdustc.SPL~    ~override/%s3%c.SPL~    // caster reduced visual
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s3%c~ END
+
+COPY - ~%abilities%/powderkegdustd.PRO~ ~%workspace%/%s3%d.PRO~    // fireball
+ADD_PROJECTILE ~%workspace%/%s3%d.PRO~
+COPY ~%abilities%/powderkegdustd.SPL~    ~override/%s3%d.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s3%d~ END
+  WRITE_SHORT 0x98 ~%s3%d~    // projectile
+
+
+//Add Frenzying Flame
+COPY ~%abilities%/powderkegdisable.SPL~  ~override/%s4%x.SPL~
+COPY ~%abilities%/powderkegnosong.SPL~   ~override/%s4%y.SPL~
+  LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%s4%s~ END
+COPY ~%abilities%/powderkegcast.SPL~     ~override/%s4%s.SPL~
+  SAY NAME1 @610
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s4%e~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s4%x~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s4%y~ END
+
+COPY - ~%abilities%/powderkegfrenzy.PRO~ ~%workspace%/%s4%e.PRO~
+ADD_PROJECTILE ~%workspace%/%s4%e.PRO~
+COPY ~%abilities%/powderkegfrenzy.SPL~   ~override/%s4%e.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=326 probability1=24 probability2=0  STR_VAR resource=~%s4%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 probability1=49 probability2=25 STR_VAR resource=~%s4%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 probability1=74 probability2=50 STR_VAR resource=~%s4%c~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 probability1=99 probability2=75 STR_VAR resource=~%s4%d~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s4%e~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%s4%e~ END
+  WRITE_SHORT 0x98 ~%s4%e~    // projectile
+
+COPY ~%abilities%/powderkegfrenzya.SPL~  ~override/%s4%a.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s4%a~ END
+COPY ~%abilities%/powderkegfrenzyb.SPL~  ~override/%s4%b.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@309) END    // "Confused"
+COPY ~%abilities%/powderkegfrenzyc.SPL~  ~override/%s4%c.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@310) END    // "Panic"
+COPY ~%abilities%/powderkegfrenzyd.SPL~  ~override/%s4%d.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@311) END    // "Berserk"
+
+
+//Add Dust Explosion to clearair.2da
+OUTER_SET dust = (~%%s3%e%~ - 1)    // projectl.ids number is 1 less than variable given by ADD_PROJECTILE
+APPEND ~CLEARAIR.2DA~  ~d2dustexplosion %dust%~
+
+COPY_EXISTING ~CLEARAIR.2DA~ ~override~
+  PRETTY_PRINT_2DA
+BUT_ONLY
+
+
+//Add Evasion check for IWDEE
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%s1%e~ END    // Blasting Song
+  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%s2%e~ END    // Booming Song
+  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%s3%d~ END    // Dust Explosion (fireball only)
+END
+
+
+//Clone base bard 2da file
+COPY_EXISTING ~CLABBA01.2DA~ ~override/%kitid%.2DA~
+  REPLACE_TEXTUALLY ~AP_FJBARD~  ~****~     // remove BG song
+  REPLACE_TEXTUALLY ~AP_#BARD-1~  ~****~    // remove IWD songs
+  REPLACE_TEXTUALLY ~GA_#BARD1~  ~****~
+  REPLACE_TEXTUALLY ~GA_#BARD2~  ~****~
+  REPLACE_TEXTUALLY ~GA_#BARD3~  ~****~
+  REPLACE_TEXTUALLY ~GA_#BARD4~  ~****~
+  REPLACE_TEXTUALLY ~GA_#BARD5~  ~****~
+  REPLACE_TEXTUALLY ~GA_#BARD6~  ~****~
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=1 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=10 STR_VAR resource=~%s3%~ END
+  LPF d2_kit_ability_adder INT_VAR level=15 STR_VAR resource=~%s4%~ END
+BUT_ONLY
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 5
+    mixed = RESOLVE_STR_REF (@101101)
+    lower = RESOLVE_STR_REF (@101102)
+    help = RESOLVE_STR_REF (@101103)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    clab_path = ~%kitid%~
+    thiefscl = ~25 0 0 0 0 0 0 0~    // 25% Pick Pocket
+    clascolr = ~67 46 47 2 43~       // use Sorcerer colors
+  RET 
+    kit_id
+END
+
+
+//Give ability to change to Enhanced Bard Song
+ACTION_IF (FILE_EXISTS_IN_GAME ~SPCL920.SPL~) BEGIN
+  COPY ~%abilities%/castspelltarget.EFF~  ~override/%s5%a.EFF~    // unmodded
+    WRITE_ASCII 0x30 ~%s5%a~ #8
+  COPY ~%passives%/giveability.SPL~       ~override/%s5%a.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%s5%~ END
+
+  COPY_EXISTING ~SPCL920.SPL~  ~override~
+    LPF CLONE_EFFECT
+      INT_VAR
+        multi_match   = 1
+        match_timing  = 9
+        opcode        = 177
+        parameter1    = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+        parameter2    = 9
+      STR_VAR
+        resource      = ~%s5%a~
+    END
+  BUT_ONLY
+END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT powderkeg  ~%kitid%~
+
+
+/*
+
+*/

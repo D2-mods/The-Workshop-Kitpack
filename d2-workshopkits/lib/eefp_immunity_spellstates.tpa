@@ -1,0 +1,14 @@
+ // use immunity spellstates, if available (e.g. EE Fixpack)
+  OUTER_SET confusion_immunity = IDS_OF_SYMBOL (~splstate~ ~CONFUSION_IMMUNITY~)  
+  OUTER_SET death_immunity     = IDS_OF_SYMBOL (~splstate~ ~DEATH_IMMUNITY~)   
+  OUTER_SET entangle_immunity  = IDS_OF_SYMBOL (~splstate~ ~ENTANGLE_IMMUNITY~)  
+  OUTER_SET haste_immunity     = IDS_OF_SYMBOL (~splstate~ ~HASTE_IMMUNITY~)  
+  OUTER_SET hold_immunity      = IDS_OF_SYMBOL (~splstate~ ~HOLD_IMMUNITY~)  
+  OUTER_SET panic_immunity     = IDS_OF_SYMBOL (~splstate~ ~PANIC_IMMUNITY~)  
+  OUTER_SET silence_immunity   = IDS_OF_SYMBOL (~splstate~ ~SILENCE_IMMUNITY~)   
+  OUTER_SET slow_immunity      = IDS_OF_SYMBOL (~splstate~ ~SLOW_IMMUNITY~)  
+  OUTER_SET stun_immunity      = IDS_OF_SYMBOL (~splstate~ ~STUN_IMMUNITY~)  
+  OUTER_SET web_immunity       = IDS_OF_SYMBOL (~splstate~ ~WEB_IMMUNITY~)    
+
+/*
+*/

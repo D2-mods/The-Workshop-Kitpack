@@ -1,0 +1,179 @@
+IF
+	!Global("d2riftgolem","LOCALS",1)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("d2riftgolem","GLOBAL",6)
+		SetGlobal("d2riftgolem","LOCALS",1)
+END
+
+IF
+	GlobalTimerNotExpired("d2killgolem","GLOBAL")
+	GlobalTimerNotExpired("d2riftgolem","GLOBAL")
+THEN
+	RESPONSE #100
+		CreateVisualEffectObject("SPFLAST2",Myself)
+		CreateVisualEffectObject("SPFLSRIN",Myself)
+		Kill(Myself)
+		SetGlobal("d2killgolem","GLOBAL",0)
+END
+
+IF
+	GlobalTimerNotExpired("d2randomwalk","LOCALS")
+	Range([PC],20)
+	!See(NearestEnemyOf())
+THEN
+	RESPONSE #100
+		NoAction()
+END
+
+IF
+	InMyArea(LastSummonerOf())
+	ActionListEmpty()
+	Allegiance(Myself,GOODCUTOFF)
+	!GlobalTimerNotExpired("d2randomwalk","LOCALS")
+	!Detect([PC])
+	!See(NearestEnemyOf())
+THEN
+	RESPONSE #100
+		SetGlobalTimer("d2randomwalk","LOCALS",12)
+		MoveToObject(LastSummonerOf())
+END
+
+IF
+	OR(2)
+		ActionListEmpty()
+		!Allegiance(Myself,GOODCUTOFF)
+	!GlobalTimerNotExpired("d2randomwalk","LOCALS")
+	!Detect([PC])
+	!See(NearestEnemyOf())
+THEN
+	RESPONSE #100
+		SetGlobalTimer("d2randomwalk","LOCALS",12)
+		MoveToObject(Player1)
+END
+
+IF
+	OR(2)
+		StateCheck(Myself,STATE_INVISIBLE)
+		CheckStat(Myself,1,SANCTUARY)
+	ActionListEmpty()
+	Allegiance(Myself,GOODCUTOFF)
+THEN
+	RESPONSE #100
+		NoAction()
+END
+
+IF
+	OR(2)
+		ActionListEmpty()
+		!Allegiance(Myself,GOODCUTOFF)
+	Range(NearestEnemyOf(),15)
+	Delay(15)
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,GOLEM_GASCLOUD)  // SPIN979.SPL (Gas Cloud)
+END
+
+IF
+	OR(2)
+		ActionListEmpty()
+		!Allegiance(Myself,GOODCUTOFF)
+	See(NearestEnemyOf())
+	StateCheck(LastSeenBy(),STATE_HELPLESS)
+	WeaponEffectiveVs(LastSeenBy(),MAINHAND)
+	WeaponCanDamage(LastSeenBy(),MAINHAND)
+THEN
+	RESPONSE #100
+		AttackOneRound(LastSeenBy())
+END
+
+IF
+	OR(2)
+		ActionListEmpty()
+		!Allegiance(Myself,GOODCUTOFF)
+	See(NearestEnemyOf())
+	Range(NearestEnemyOf(),5)
+	OR(2)
+		!WeaponEffectiveVs(LastSeenBy(),MAINHAND)
+		!WeaponCanDamage(LastSeenBy(),MAINHAND)
+	WeaponEffectiveVs(SecondNearestEnemyOf(),MAINHAND)
+	WeaponCanDamage(SecondNearestEnemyOf(),MAINHAND)
+THEN
+	RESPONSE #100
+		AttackOneRound(SecondNearestEnemyOf())
+END
+
+IF
+	OR(2)
+		ActionListEmpty()
+		!Allegiance(Myself,GOODCUTOFF)
+	See(SecondNearestEnemyOf())
+	Range(SecondNearestEnemyOf(),5)
+	OR(2)
+		!WeaponEffectiveVs(LastSeenBy(),MAINHAND)
+		!WeaponCanDamage(LastSeenBy(),MAINHAND)
+	WeaponEffectiveVs(NearestEnemyOf(),MAINHAND)
+	WeaponCanDamage(NearestEnemyOf(),MAINHAND)
+THEN
+	RESPONSE #100
+		AttackOneRound(NearestEnemyOf())
+END
+
+IF
+	OR(2)
+		ActionListEmpty()
+		!Allegiance(Myself,GOODCUTOFF)
+	See(NearestEnemyOf())
+	Range(NearestEnemyOf(),5)
+	OR(2)
+		!WeaponEffectiveVs(LastSeenBy(),MAINHAND)
+		!WeaponCanDamage(LastSeenBy(),MAINHAND)
+	WeaponEffectiveVs(ThirdNearestEnemyOf(),MAINHAND)
+	WeaponCanDamage(ThirdNearestEnemyOf(),MAINHAND)
+THEN
+	RESPONSE #100
+		AttackOneRound(ThirdNearestEnemyOf())
+END
+
+IF
+	OR(2)
+		ActionListEmpty()
+		!Allegiance(Myself,GOODCUTOFF)
+	See(NearestEnemyOf())
+	Range(NearestEnemyOf(),5)
+	OR(2)
+		!WeaponEffectiveVs(LastSeenBy(),MAINHAND)
+		!WeaponCanDamage(LastSeenBy(),MAINHAND)
+	WeaponEffectiveVs(TenthNearestEnemyOf(),MAINHAND)
+	WeaponCanDamage(TenthNearestEnemyOf(),MAINHAND)
+THEN
+	RESPONSE #100
+		AttackOneRound(TenthNearestEnemyOf())
+END
+
+IF
+	ActionListEmpty()
+	Allegiance(Myself,GOODCUTOFF)
+    AttackedBy([EVILCUTOFF],DEFAULT)
+THEN
+	RESPONSE #100
+		AttackOneRound(LastAttackerOf())
+END
+
+IF
+	!Allegiance(Myself,GOODCUTOFF)
+    AttackedBy([GOODCUTOFF],DEFAULT)
+THEN
+	RESPONSE #100
+		AttackOneRound(LastAttackerOf())
+END
+
+IF
+	OR(2)
+		ActionListEmpty()
+		!Allegiance(Myself,GOODCUTOFF)
+	See(NearestEnemyOf())
+THEN
+	RESPONSE #100
+		AttackReevaluate(NearestEnemyOf(),30)
+END

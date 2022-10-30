@@ -1,0 +1,1011 @@
+/*
+Text in this file appears in the game.
+*/
+
+//Ability messages
+@300 = ~Cannot use item.~
+@301 = ~Entangled~
+@302 = ~Bleeding~
+@303 = ~You cannot cast this spell until the current casting has run out.~
+@304 = ~~
+@305 = ~~
+@306 = ~Regenerating~
+@307 = ~Healed~
+@308 = ~Hasted~
+@309 = ~Confused~
+@310 = ~Panic~
+@311 = ~Berserk~
+@312 = ~~
+@313 = ~~
+
+
+
+//Floating text (Starjammer rift spells)
+@400 = ~There's something coming out of the rift!...~
+@401 = ~Stay in formation!~
+@402 = ~I can hear them coming!...~
+@403 = ~These guys aren't so tough...~
+@404 = ~Keep your guard up!~
+@405 = ~Don't underestimate them!~
+@406 = ~Something's destroyed the Golem!...~
+@407 = ~Stay back!~
+@408 = ~Do you hear that!?~
+@409 = ~What the...!?~
+@410 = ~Uhh, maybe this wasn't such a great idea...~
+@411 = ~Be careful!~
+@412 = ~~
+@413 = ~~
+@414 = ~~
+@415 = ~~
+
+
+
+//Names that don't fit in other sections
+@600 = ~Space Gibberling~            // Starjammer creatures
+@601 = ~Juggernaut Golem~
+@602 = ~Balor~
+@603 = ~Healing Blood~               // Blood Minister subspells
+@604 = ~Beast Blood~
+@605 = ~Madman's Blood~
+@606 = ~Lead Elixir~
+@607 = ~Blasting Song~               // Powder Keg songs (text in dialogue box when song is played)
+@608 = ~Booming Song~
+@609 = ~Dust Explosion~
+@610 = ~Frenzying Flame~
+@611 = ~Craft Spark Hunter Badge~    // Abilities for creating Hunter Badges
+@612 = ~Craft Radiant Sword Badge~
+@613 = ~Craft Cosmic Watcher Badge~
+@614 = ~Craft Powder Keg Badge~
+@615 = ~Ether Explosion~             // for Etherbomb Songbook
+@616 = ~~
+@617 = ~~
+@618 = ~~
+@619 = ~~
+@620 = ~~
+
+
+
+//Beast Hunter
+@100101 = ~Beast Hunter~
+@100102 = ~beast hunter~
+@100103 = ~BEAST HUNTER: Whereever there are beasts, there are hunters. Hunters may be protectors or mercenaries, or simply have an addiction for blood and slaughter. This class is particularly adept at combating several powerful types of monsters, including fiends and werewolves.
+
+Advantages:
+– +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.
+– 2nd level: May use the Fire Weapon ability once per day. Gains additional uses every 4 levels thereafter.
+
+FIRE WEAPON: Applies fire element to weapons for 1 turn. All melee attacks inflict an extra 1d3 fire damage for the duration. This ability can be enhanced by equipping special Hunter Badges.
+
+– 5th level: May use the Quicksilver ability once per day. Gains additional uses at levels 9 and 13.
+
+QUICKSILVER: Enhances ranged attacks for 1 turn, adding 2 points of piercing damage and a +5% chance to score a critical hit. All ammo types (arrows, bolts, and bullets) are also enchanted and become able to hit enemies that normally require magical or silver weapons to hit.
+
+Disadvantages:
+– May not wear armor heavier than studded leather.~
+@100104 = ~~
+@100105 = ~~
+
+
+//Warhound
+@100201 = ~Warhound~
+@100202 = ~warhound~
+@100203 = ~WARHOUND: Warhounds are armored soldiers specializing in long-range warfare. They are often members of elite squadrons, overwhelming enemy armies with a barrage of missiles.
+
+Advantages:
+– +1 bonus to Armor Class vs. missile, plus an additional +1 bonus every 5 levels.
+– +1 to attack and damage rolls with any ranged weapon every 5 levels.
+– May use the Shockwave and Incinerate abilities. Gains one use each at level 4, plus an additional use each every 4 levels, up to a maximum of 5 uses each at level 20.
+
+SHOCKWAVE: The next successful ranged attack explodes in a wave of energy. All creatures in a 15-ft. radius take 2d4 crushing damage and are propelled back a considerable distance (no save). The blast inflicts an additional 2d4 crushing damage every 4 levels thereafter, up to a maximum of 10d4 at level 20.
+
+INCINERATE: The next successful ranged attack expands into a fiery cloud, covering a 15-ft. radius. All creatures in the cloud suffer 1d6 fire damage each round for 4 rounds (Save vs. Breath for half). Damage per round increases by 1d6 every 4 levels thereafter, up to a maximum of 5d6 at level 20.
+
+Disadvantages:
+– May not Specialize in melee weapons.
+– May not Specialize in any fighting style.~
+@100204 = ~~
+@100205 = ~~
+
+
+//Gravewarden
+@100301 = ~Grave Warden~
+@100302 = ~grave warden~
+@100303 = ~GRAVE WARDEN: Far to the east, the Grave Wardens tend to the tombs of the slumbering dead, ensuring they remain undisturbed. They are guardians, guides, deterrents, and storytellers, and possess a unique ability to deny death.
+
+Advantages:
+– +4 bonus to Saving Throws vs. Paralysis/Poison/Death.
+– +10 bonus to Lore each level.
+– May cast three arcane spells as priest spells:
+  1st level: Chromatic Orb.
+  2nd level: Horror.
+  3rd level: Skull Trap.
+  
+– 5th level: May use the Denial ability once per day. Gains additional uses every 5 levels thereafter.
+
+DENIAL: This spell has two effects. First, the recipient becomes immune to all instant death effects for 3 turns. Second, if the recipient falls below 50% of maximum Hit Points, the spell activates and restores the character to full health, consuming the spell in the process.
+
+Disadvantages:
+– May not wear armor heavier than leather.
+– May not use the Charm Animal ability.~
+@100304 = ~Lost Class: Grave Warden~
+@100305 = ~~
+
+
+//Moonlight Knight
+@100401 = ~Moonlight Knight~
+@100402 = ~moonlight knight~
+@100403 = ~MOONLIGHT KNIGHT: Scholars tell of a decrepit, old dragon that lies atop a high plateau, hidden away from the rest of Toril. The Moonlight Knights, who have gazed upon the forbidden "Other" moon, travel to this place, seeking a revelation from things unseen.
+
+Advantages:
+– +2 bonus to all Saving Throws
+– May be of any alignment.
+– Will not fall due to reputation loss.
+– 2nd level: Gains the Torrent ability (passive).
+
+TORRENT: On a successful melee attack, the character has a 6% chance to become hasted for 10 seconds, gaining an extra attack per round and doubled movement speed. Chance of Haste increases by 1% every 2 levels thereafter, up to a maximum of 15% at level 20.
+
+– 6th level: May use the Moonlight Vortex ability once per day. Gains additional uses at levels 10 and 14.
+
+MOONLIGHT VORTEX: Unleashes a beam of torrential moonlight, which extends as far as the target point, inflicting 4d10 magic damage to enemies in its path. Undead and outerplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.
+
+Disadvantages:
+– May not Specialize in ranged weapons.
+– May not use stealth.~
+@100404 = ~Lost Class: Moonlight Knight~
+@100405 = ~~
+
+
+//Confessor
+@100501 = ~Confessor~
+@100502 = ~confessor~
+@100503 = ~CONFESSOR: The Confessor is a paladin who acts on behalf of a patron church, being adept at a variety of duties, including, but not limited to, gathering intel, exposing untruths, and hunting down enemies of the church.
+
+Advantages:
+– May cast four arcane spells as priest spells:
+  1st level: Blindness.
+  2nd level: Blur.
+  3rd level: Vampiric Touch.
+  4th level: Secret Word.
+
+– 2nd level: May use the Rooting Shot ability once per day. Gains additional uses every 4 levels thereafter.
+
+ROOTING SHOT: The next successful ranged attack entangles the target for 3 rounds, plus an additional 3 rounds on a failed save vs. Spell. An entangled creature can still attack, but suffers a -2 penalty to Armor Class and a 20% chance of spell failure.
+
+– 5th level: May use the Bloodletter ability once per day. Gains additional uses at levels 9 and 13.
+
+BLOODLETTER: For 5 rounds, the character is healed 1-4 Hit Points with melee attacks and the target suffers a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
+
+Disadvantages:
+– May not wear armor heavier than studded leather.
+– May not use the Lay On Hands ability.~
+@100504 = ~Lost Class: Confessor~
+@100505 = ~~
+
+
+//Temple Knight
+@100601 = ~Temple Knight~
+@100602 = ~temple knight~
+@100603 = ~TEMPLE KNIGHT: These heavily-clad knights can be found guarding the sanctity of temples and churches throughout Toril. They are righteous soldiers, who stand unwavering against any adversary.
+
+Advantages:
+– May achieve High Mastery (four slots) in polearms and blunt weapons.
+– May use the Lay On Hands ability three times per day.
+– 2nd level: May use the Force ability once per day. Gains additional uses every 4 levels thereafter.
+
+FORCE: Creates a shockwave. Inflicts no damage, but staggers nearby foes. All enemies within 15 feet are propelled back and stunned for 4 seconds (no save).
+
+– 12th level: May cast Bolt of Glory as a special ability once per day.
+– 16th level: May cast Bolt of Glory as a special ability twice per day.
+
+Disadvantages:
+– May not use missile weapons.
+– May not turn undead.~
+@100604 = ~Lost Class: Temple Knight~
+@100605 = ~~
+
+
+//War Magician
+@100701 = ~War Magician~
+@100702 = ~war magician~
+@100703 = ~WAR MAGICIAN: The War Magician learns to draw out and amplify innate magical energies, gaining abilities beyond that of a normal wizard, though the process is very physically draining.
+
+Advantages:
+– +10% bonus to fire, cold, electricity, acid, and magic damage resistances. Gains an additional +5% bonus every 5 levels, up to a maximum of 30% at level 20.
+– May use the Unleash Magic and Twisted Barricade abilities. Gains one use each at level 2 and an additional use each every 4 levels thereafter.
+
+UNLEASH MAGIC: The caster reverses elemental energies. For 4 rounds, each resistance bonus becomes a -10% penalty and the character gains a +10% bonus to all fire, cold, electrical, acid, and magic damage dealt. The bonuses and penalties increase as the caster's innate resistance bonuses increase.
+
+TWISTED BARRICADE: A whirlwind of magical energy envelopes the caster. For 4 rounds, each resistance bonus is tripled and all normal missiles are deflected away harmlessly. While in effect, the character's movement is slowed by half.
+
+Disadvantages:
+– Incurs a -2 penalty to Strength and Constitution.~
+@100704 = ~~
+@100705 = ~~
+
+
+//Starjammer
+@100801 = ~Starjammer~
+@100802 = ~starjammer~
+@100803 = ~STARJAMMER: Starjammers are drifters from beyond the stars who escaped a great Evil on their home planet, with several finding their way to Toril. As outsiders, they resemble powerful sorcerers, though the destruction of their home, and the subsequent flight, has taken a toll mentally and physically.
+
+Advantages:
+– Unaffected by magical spell failure, deafness, or silence.
+– Gains immediate access to a number of kit-specific spells, up to 8th level: Riftstep, Steady Current, Gemini Swap, Pacifying Field, Jolt, Electrocannon, Revitalizer, and Riftgate.
+– 5th level: May use the Interference ability once per day. Gains additional uses every 5 levels thereafter.
+
+INTERFERENCE: Disrupts missile and spell attacks in the area of effect. All enemies in a 30-ft. radius suffer a -3 penalty to ranged attack rolls and a 25% chance of spell failure for 1 turn (no save). The penalties increase by -1 to attack rolls and +5% spell failure every 5 levels thereafter.
+
+Disadvantages:
+– Incurs a -2 penalty to Dexterity and Wisdom.~
+@100804 = ~~
+@100805 = ~~
+
+
+//Blood Minister
+@100901 = ~Blood Minister~
+@100902 = ~blood minister~
+@100903 = ~BLOOD MINISTER: The heretical Healing Church was once the home of blood ministration, a medical remedy said to have the ability to cure any disease, whether natural or god-stricken. More recently, priests of the Healing Church have begun appearing again along the Sword Coast.
+
+Advantages:
+– Immune to level drain, poisons, and diseases.
+– May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 4 levels thereafter. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels:
+  2nd level: Healing Blood.
+  6th level: Beast Blood.
+  10th level: Madman's Blood.
+  14th level: Lead Elixir.
+
+HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls and damage dealt. This blood will also cure any poisons or diseases.
+
+BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood. The target recieves a +3 bonus to attack and damage rolls, but incurs a -3 penalty to Armor Class. The effects last for 12 hours. This blood will also prevent any poisons or diseases.
+
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The target recieves a +5 bonus to Intelligence and Wisdom and a +10% bonus to Magic Resistance, but incurs a -1 penalty to all Saving Throws. The effects last for 12 hours. This blood will also cure level drain.
+
+LEAD ELIXIR: A mysterious concoction that greatly enhances defense at the cost of health. The recipient has all physical damage resistances set to 50%, but incurs a -3 penalty to Constitution. The effects last for 3 turns. This blood will also prevent level drain.
+
+Disadvantages:
+– May not wear gauntlets or bracers.~
+@100904 = ~~
+@100905 = ~~
+
+
+//Crow Hunter
+@101001 = ~Crow Hunter~
+@101002 = ~crow hunter~
+@101003 = ~CROW HUNTER: A Crow Hunter acts swiftly and mercilessly against the chosen mark. This is a Hunter of Hunters, an experienced killer, and feared, though not necessarily cruel or evil, despite the unsavoriness of the work.
+
+Advantages:
+– +3 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races.
+– 4th level: May use the Splintering Shot ability once per day. Gains additional uses every 4 levels thereafter.
+
+SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15 ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
+
+– 11th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 15 and 19.
+
+VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 20 Hit Points and haste the character for 10 seconds.
+
+Disadvantages:
+– May only distribute 20 skill points per level among thieving skills.
+– May not use the Set Snare ability.~
+@101004 = ~~
+@101005 = ~~
+
+//Powder Keg
+@101101 = ~Powder Keg~
+@101102 = ~powder keg~
+@101103 = ~POWDER KEG: The Powder Kegs are a faction of bards, known for their love of intricate mechanical weapons and big booms. Their instruments double as incendiary devices and may cause a variety of other explosive effects.
+
+Advantages:
+– +20% bonus to Fire Resistance.
+– Gains Bard Songs unique to the Powder Kegs. Songs can be switched between from the special abilities menu. New songs become available at higher levels:
+  1st level: Blasting Song.
+  5th level: Booming Song.
+  10th level: Dust Explosion.
+  15th level: Frenzying Flame.
+
+BLASTING SONG: A ring of flame bursts outwards in a 15-ft. radius, inflicting 1d4 fire damage per character level to any creatures in the area of effect, up to a maximum of 20d4 at level 20 (Save vs. Breath for half). Only the person playing the song avoids being hit by the flames.
+
+BOOMING SONG: A crushing wave expands outwards in a 15-ft. radius, inflicting 2d4 crushing damage to enemies and causing deafness for 2 rounds, plus an additional 2 rounds on a failed save vs. Spell. Deafness causes a 50% chance to miscast spells.
+
+DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded, but also cannot be directly targeted, unless an attacker can see through invisibility. There is no Saving Throw, though the bard can see clearly within 5 feet.
+
+FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though magic resistance can prevent the status effects.
+
+NOTE: If the High-Level Ability "Enhanced Bard Song" is learned, the character will gain an ability to switch to this song.
+
+Disadvantages:
+– Bard Song is unusable for one turn after each use.
+– Only has one quarter the normal Pick Pockets score.~
+@101104 = ~~
+@101105 = ~~
+
+//
+@101201 = ~~
+@101202 = ~~
+@101203 = ~~
+@101204 = ~~
+@101205 = ~~
+
+//
+@101301 = ~~
+@101302 = ~~
+@101303 = ~~
+@101304 = ~~
+@101305 = ~~
+
+
+
+
+//Ability text
+@100 = ~Fire Weapon~
+@200 = ~Fire Weapon
+
+Applies fire element to weapons for 1 turn. All melee attacks inflict an extra 1d3 fire damage for the duration. This ability can be enhanced by equipping special Hunter Badges.~
+
+@101 = ~Quicksilver~
+@201 = ~Quicksilver
+
+Enhances ranged attacks for 1 turn, adding 2 points of piercing damage and a +5% chance to score a critical hit. All ammo types (arrows, bolts, and bullets) are also enchanted and become able to hit enemies that normally require magical or silver weapons to hit.
+
+NOTE: The enchantment bonus is at +4. It works against natural immunities and general weapon defenses, such as a Mantle or Protection From Normal Weapons spell. It does not work against spells that guard specifically against ranged weapons, such as Protection From Normal Missiles.~
+
+@102 = ~Shockwave~
+@202 = ~Shockwave
+
+The next successful ranged attack explodes in a wave of energy. All creatures in a 15-ft. radius take 2d4 crushing damage and are propelled back a considerable distance (no save). Damage increases to 4d4 at level 8, 6d4 at level 12, 8d4 at level 16, and 10d4 at level 20.
+
+The shot must be made within 2 rounds or the effect will dissipate.
+Cannot be used together with Incinerate.~
+
+@103 = ~Incinerate~
+@203 = ~Incinerate
+
+The next successful ranged attack expands into a fiery cloud, covering a 15-ft. radius. All creatures in the cloud suffer 1d6 fire damage each round for 4 rounds (Save vs. Breath for half). Damage per round increases to 2d6 at level 8, 3d6 at level 12, 4d6 at level 16, and 5d6 at level 20.
+
+The shot must be made within 2 rounds or the effect will dissipate.
+Cannot be used together with Shockwave.~
+
+@104 = ~Denial~
+@204 = ~Denial
+
+This spell has two effects. First, the recipient becomes immune to all instant death effects for 3 turns. Second, if the recipient falls below 50% of maximum Hit Points, the spell activates and restores the character to full health, consuming the spell in the process.~
+
+@105 = ~Moonlight Vortex~
+@205 = ~Moonlight Vortex
+
+Unleashes a beam of torrential moonlight, which extends as far as the target point, inflicting 4d10 magic damage to enemies in its path. Undead and outerplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.~
+
+@106 = ~Rooting Shot~
+@206 = ~Rooting Shot
+
+The next successful ranged attack entangles the target for 3 rounds, plus an additional 3 rounds on a failed save vs. Spell. An entangled creature can still attack, but suffers a -2 penalty to Armor Class and a 20% chance of spell failure (does not stack).
+
+The shot must be made within 2 rounds or the effect will dissipate.~
+
+@107 = ~Bloodletter~
+@207 = ~Bloodletter
+
+For 5 rounds, the character is healed 1-4 Hit Points with melee attacks and the target suffers a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.~
+
+@108 = ~Force~
+@208 = ~Force
+
+Creates a shockwave. Inflicts no damage, but staggers nearby foes. All enemies within 15 feet are propelled back and stunned for 4 seconds (no save).~
+
+@109 = ~Unleash Magic~
+@209 = ~Unleash Magic
+
+The caster reverses elemental energies. For 4 rounds, each resistance bonus becomes a -10% penalty and the character gains a +10% bonus to all fire, cold, electrical, acid, and magic damage dealt. The bonuses and penalties increase as the caster's innate resistance bonuses increase.
+
+This ability will cancel out Twisted Barricade.~
+
+@110 = ~Twisted Barricade~
+@210 = ~Twisted Barricade
+
+A whirlwind of magical energy envelopes the caster. For 4 rounds, each resistance bonus is tripled and all normal missiles are deflected away harmlessly. While in effect, the character's movement is slowed by half.
+
+This ability will cancel out Unleash Magic.~
+
+@111 = ~Interference~
+@211 = ~Interference
+
+Disrupts missile and spell attacks in the area of effect. All enemies in a 30-ft. radius suffer a -3 penalty to ranged attack rolls and a 25% chance of spell failure for 1 turn (no save). The penalties increase by -1 to attack rolls and +5% spell failure every 5 levels (after 5th level).~
+
+@112 = ~Blood Transfusion~
+@212 = ~Blood Transfusion
+
+When this ability is used, it opens a submenu with a list of transfusions. Once selected, cast the transfusion on a target creature, who must be an ally. A creature can only have one active blood effect at a time. If a new transfusion is applied, any existing effects will be removed. A Restoration or Greater Restoration spell will also remove any blood effects.
+  2nd level: Healing Blood.
+  6th level: Beast Blood.
+  10th level: Madman's Blood.
+  14th level: Lead Elixir.
+
+HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls and damage dealt. This blood will also cure any poisons or diseases.
+
+BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood. The target recieves a +3 bonus to attack and damage rolls, but incurs a -3 penalty to Armor Class. The effects last for 12 hours. This blood will also prevent any poisons or diseases.
+
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The target recieves a +5 bonus to Intelligence and Wisdom and a +10% bonus to Magic Resistance, but incurs a -1 penalty to all Saving Throws. The effects last for 12 hours. This blood will also cure level drain.
+
+LEAD ELIXIR: A mysterious concoction that greatly enhances defense at the cost of health. The recipient has all physical damage resistances set to 50%, but incurs a -3 penalty to Constitution. The effects last for 3 turns. This blood will also prevent level drain.~
+
+@113 = ~Splintering Shot~
+@213 = ~Splintering Shot
+
+For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15 ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.~
+
+@114 = ~Visceral Attack~
+@214 = ~Visceral Attack
+
+The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 20 Hit Points and haste the character for 10 seconds.~
+
+@115 = ~Change Song: Blasting Song~
+@215 = ~Blasting Song
+
+A ring of flame bursts outwards in a 15-ft. radius, inflicting 1d4 fire damage per character level to any creatures in the area of effect, up to a maximum of 20d4 at level 20 (Save vs. Breath for half). Only the person playing the song avoids being hit by the flames.
+
+This song fires once, then disables Bard Song for 1 turn.~
+
+@116 = ~Change Song: Booming Song~
+@216 = ~Booming Song
+
+A crushing wave expands outwards in a 15-ft. radius, inflicting 2d4 crushing damage to enemies and causing deafness for 2 rounds, plus an additional 2 rounds on a failed save vs. Spell. Deafness causes a 50% chance to miscast spells.
+
+This song fires once, then disables Bard Song for 1 turn.~
+
+@117 = ~Change Song: Dust Explosion~
+@217 = ~Dust Explosion
+
+The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded, but also cannot be directly targeted, unless an attacker can see through invisibility. There is no Saving Throw, though the bard can see clearly within 5 feet.
+
+This song fires once, then disables Bard Song for 1 turn.~
+
+@118 = ~Change Song: Frenzying Flame~
+@218 = ~Frenzying Flame
+
+Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though magic resistance can prevent the status effects.
+
+This song fires once, then disables Bard Song for 1 turn.~
+
+@119 = ~Change Song: Enhanced Bard Song~    // unmodded
+@219 = ~Enhanced Bard Song
+
+This is a powerful aid to both the Bard and to <PRO_HISHER> allies. The song gives the Bard <PRO_HIMHER>self a 10-point bonus to <PRO_HISHER> Armor Class and a 10% bonus to <PRO_HISHER> Magic Resistance due to the power of the song. The song also gives <PRO_HISHER> allies +4 to hit; +4 to damage; -4 to Armor Class; immunity to fear, stun, and confusion; +5% Magic Resistance; and immunity to normal weapons.~
+
+@120 = ~Change Song: Enhanced Bard Song~    // rr
+@220 = ~Enhanced Bard Song
+
+This mighty battle chant grants the Bard and his allies +4 to hit, +4 to all saving throws, +10% bonus to magic resistance and immunity to Fear and Charm. The Bard himself receives an 8-point bonus to all of his saving throws while singing the song.~
+
+@121 = ~~
+@221 = ~~
+
+@122 = ~~
+@222 = ~~
+
+
+
+
+//Spell text
+//prefix: 401 = name, 402 = bgee (or all games), 403 = iwdee, 404 = spell revisions
+//Only new or edited descriptions are included here
+
+@40100 = ~Chromatic Orb~
+@40200 = ~~
+@40300 = ~Chromatic Orb
+(Evocation)
+
+Level: 1
+Range: Visual range of the caster
+Duration: Special
+Casting Time: 1
+Area of Effect: 1 creature
+Saving Throw: Neg.
+
+This spell creates a 4-inch-diameter sphere that can be hurled unerringly to its target. The orb's effects depend on the level of the caster:
+
+– 1: Inflicts 1d4 magic damage and blinds the target for one round.
+– 2: Inflicts 1d6 fire damage and inflicts pain upon the victim (-1 penalty to Armor Class and THAC0) for one round.
+– 3: Inflicts 1d8 magic damage and burns the victim for 1d3 fire damage.
+– 4: Inflicts 1d10 magic damage and blinds the target for 4 rounds.
+– 5 to 6: Inflicts 1d12 magic damage and stuns the target for 3 rounds.
+– 7 and up: Inflicts 2d8 magic damage and paralyzes the victim for 13 rounds.
+
+A successful Save vs. Spell negates all effects.~
+@40400 = ~Chromatic Orb
+Level: 1
+School: Alteration
+Range: Long
+Duration: Special
+Casting Time: 1
+Area of Effect: 1 creature
+Saving Throw: Spell partial
+
+This spell causes a 2-foot-diameter sphere to appear in the caster's hand. When thrown, the sphere heads unerringly towards its target. The sphere inflicts magic damage and causes different effects depending upon its color. As the level of the caster improves, both the damage inflicted and number of colors known increases. The color of any given orb is chosen randomly from the colors known at the caster's level. The orb is occasionally even multicolored, causing multiple effects. The victim can save vs. spell against all special effects but gets no save against the damage. All special effects last for 5 rounds.
+
+1st level: 1d3 damage; White - Light (-4 penalty to saving throws)
+2nd level: 1d4 damage; Aquamarine - Magnetism (-4 penalty to AC)
+4th level: 1d6 damage; Red - Pain (-1 to strength and dexterity)
+6th level: 1d8 damage; Green - Poison (2hp/round)
+8th level: 1d10 damage; Yellow - Blindness
+10th level: 2d6 damage; Violet - Slow
+12th+ level:  2d8 damage; Blue - Paralysis~
+
+@40101 = ~Horror~
+@40201 = ~~
+@40301 = ~~
+@40401 = ~~
+
+@40102 = ~Skull Trap~
+@40202 = ~~
+@40302 = ~~
+@40402 = ~~
+
+@40103 = ~Blindness~
+@40203 = ~Blindness
+(Illusion/Phantasm)
+
+Level: 1
+Range: 40 ft.
+Duration: 2 hours
+Casting Time: 2
+Area of Effect: 1 creature
+Saving Throw: Neg.
+
+This 1st-level spell temporarily blinds its target. A Saving Throw is allowed and, if successful, there are no harmful effects. If a victim is blinded, <PRO_HESHE> receives a -4 penalty to <PRO_HISHER> attack rolls and Armor Class.~
+@40303 = ~Blindness
+(Illusion/Phantasm)
+
+Level: 1
+Range: Visual range of the caster
+Duration: 8 hours
+Casting Time: 2
+Area of Effect: 1 creature
+Saving Throw: Neg.
+
+This spell blinds its target. A Save vs. Spell is allowed and, if successful, there are no harmful effects. If a victim is blinded, <PRO_HESHE> receives a -4 penalty to <PRO_HISHER> attack rolls and Armor Class. Blind creatures are immune to gaze attacks.~
+@40403 = ~Obscuring Mist
+Level: 1
+School: Conjuration
+Range: Long
+Duration: 6 rounds
+Casting Time: 5
+Area of Effect: 20' radius
+Saving Throw: None
+
+When this spell is cast, a misty bank of fog billows out from the designated point obscuring all sight. Everyone within the cloud suffer -2 penalty to attack rolls, and have their line of sight halved. Anyone, inside or outside the cloud, trying to attack a creature concealed by the fog with ranged weapons will do so with a -4 penalty to attack rolls. Creatures with blindsight, or that do not rely on sight can fight within the cloud without penalties.~
+
+@40104 = ~Blur~
+@40204 = ~Blur
+(Illusion/Phantasm)
+
+Level: 2
+Range: 0
+Duration: 4 rounds + 2 rounds/level
+Casting Time: 2
+Area of Effect: The caster
+Saving Throw: None
+
+When a Blur spell is cast, the caster causes the outline of <PRO_HISHER> form to become blurred, shifting and wavering. This distortion causes all missile and melee attacks against the caster to be made with a -3 penalty. The caster also gains a +1 bonus to all of <PRO_HISHER> Saving Throws.~
+@40304 = ~Blur
+(Illusion/Phantasm)
+
+Level: 2
+Range: 0
+Duration: 3 rounds + 1 round/level
+Casting Time: 2
+Area of Effect: The caster
+Saving Throw: None
+
+Blur causes the caster's body to become blurred, shifting and wavering. This distortion gives the caster +1 to all Saving Throws, and all missile and melee attacks have a -3 penalty to hit <PRO_HIMHER>.~
+@40404 = ~Blur
+Level: 2
+School: Illusion
+Range: Personal
+Duration: 5 turns
+Casting Time: 2
+Area of Effect: Caster
+Saving Throw: None
+
+A Blur spell causes the caster's form and spirit to become blurred, shifting and wavering. This distortion causes all melee and missile attacks against the caster to be made with -3 penalties, whereas all saves vs. spell are made by the caster with a +3 bonus. Multiple castings of this spell are not cumulative.~
+
+@40105 = ~Vampiric Touch~
+@40205 = ~~
+@40305 = ~~
+@40405 = ~~
+
+@40106 = ~Secret Word~
+@40206 = ~~
+@40306 = ~~
+@40406 = ~~
+
+@40107 = ~Bolt of Glory~
+@40207 = ~Bolt of Glory
+(Invocation/Evocation)
+
+Level: 6
+Sphere: Combat, Summoning
+Range: 60 ft.
+Duration: Instant
+Casting Time: 3
+Area of Effect: 1 creature
+Saving Throw: None
+
+By casting this spell, the paladin channels a bolt of divine energy against the target. No attack roll is needed. Creatures struck suffer varying damage, depending on their plane of origin:
+
+Creature Type                       Damage
+ Prime Material Plane            6d6
+ Elemental                             3d4
+ Undead                                8d6
+ Demon                                 10d6~
+@40307 = ~Bolt of Glory
+(Invocation/Evocation)
+
+Level: 6
+Sphere: Combat, Summoning
+Range: 60 ft.
+Duration: Instant
+Casting Time: 3
+Area of Effect: 1 creature
+Saving Throw: None
+
+By casting this spell, the paladin channels a bolt of divine energy against the target. No attack roll is needed. Creatures struck suffer varying damage depending on their nature:
+
+– Prime: 6d6
+– Elemental: 3d4
+– Undead: 8d6
+– Fiend: 10d6~
+@40407 = ~Bolt of Glory
+Level: 6
+School: Evocation
+Sphere: Combat, Summoning
+Range: Long
+Duration: Instant
+Casting Time: 6
+Area of Effect: 1 creature
+Saving Throw: None
+
+By casting this spell, the paladin channels a bolt of divine energy against one creature. No attack roll is needed. Creatures struck suffer varying damage, depending on their plane of existence.
+
+Creature Type  --  Damage
+ Elemental  --  4d4
+ Humanoid  --  6d6
+ Undead  --  8d8
+ Demonic  --  10d10
+
+Magic resistance does not effect this spell.~
+
+@40108 = ~Riftstep~
+@40208 = ~Riftstep
+(Alteration)
+
+Level: 1
+Range: 0
+Duration: Special
+Casting Time: 1
+Area of Effect: The caster
+Saving Throw: None
+
+When Riftstep is cast, a portal opens up in front of the caster, who immediately steps through it. The character may move freely within the rift for 7 seconds while others are frozen in time, but cannot attack, cast spells, or use any items or abilities. After 7 seconds, another portal opens up and the caster steps out of the rift.
+
+A rift should be handled with caution. When this spell is cast, there is a 5% chance to attract the attention of 5 Space Gibberlings, who will savagely attack the caster and <PRO_HISHER> companions.~
+@40308 = ~~
+@40408 = ~~
+
+@40109 = ~Steady Current~
+@40209 = ~Steady Current
+(Evocation)
+
+Level: 2
+Range: 25 ft.
+Duration: 1 round
+Casting Time: 3
+Area of Effect: 2-ft. by 25-ft. beam
+Saving Throw: None
+
+The caster shoots a beam of pure energy that extends to a target, effectively linking the two for one round. The target and any creatures in the path of the beam take 3d6 electrical damage. The spell strikes a second time halfway through its duration, inflicting an additional 3d6 electrical damage. If either the target or the caster moves around, the beam will extend or shrink to maintain the link between the two.~
+@40309 = ~~
+@40409 = ~~
+
+@40110 = ~Gemini Swap~
+@40210 = ~Gemini Swap
+(Alteration)
+
+Level: 3
+Range: 500 ft.
+Duration: Instant
+Casting Time: 1
+Area of Effect: Special
+Saving Throw: None
+
+The caster selects a target and opens up two Dimension Doors, linked through the Astral Plane, which immediately transfer both target and caster, switching their positions. This spell can be used on both allies and enemies, and the target does not need to be in visual range. As long as the caster knows the target's position on the map, this spell can be cast on it.~
+@40310 = ~~
+@40410 = ~~
+
+@40111 = ~Pacifying Field~
+@40211 = ~Pacifying Field
+(Abjuration)
+
+Level: 4
+Range: 0
+Duration: 1 turn
+Casting Time: 4
+Area of Effect: 20-ft. radius
+Saving Throw: None
+
+A Pacifying Field covers a 20-ft. radius, centered on the caster. All creatures within the area at the time of casting, whether ally, enemy, or neutral, are enclosed by a protective Sanctuary for one turn. Creatures under a Sanctuary cannot be directly targeted by spells or attacks. There is no Saving Throw and the spell ignores magic resistance.
+
+A sanctuaried creature can move around or cast non-attack spells without breaking the spell. Any combat actions, for example, casting a Fireball, a True Sight, or a summoning spell, will remove the Sanctuary.~
+@40311 = ~~
+@40411 = ~~
+
+@40112 = ~Jolt~
+@40212 = ~Jolt
+(Alteration, Evocation) 
+
+Level: 5
+Range: Special
+Duration: Permanent 
+Casting Time: 5
+Area of Effect: 1 party member
+Saving Throw: Special
+
+Upon casting this spell, the caster restores a fallen creature back to a sliver of health. The target can be of any race and must be a member of the party. To use this spell, cast it on the dead character's portrait.
+
+Note that the body of the person must be whole, otherwise missing parts are still missing when the person is brought back to life. The person has but 1 Hit Point when raised and must regain the rest by natural healing or curative magic.~
+@40312 = ~~
+@40412 = ~~
+
+@40113 = ~Electrocannon~
+@40213 = ~Electrocannon
+(Evocation)
+
+Level: 6
+Range: Visual range of the caster
+Duration: Instant
+Casting Time: 6
+Area of Effect: 5-ft. radius
+Saving Throw: 1/2
+
+This spell fires an orb of pure energy at a creature, inflicting 1d4+2 points of electrical damage per level of the caster to the target and any within 5 feet. A 15th level caster, for example, would inflict 15d4+30 damage. Creatures may attempt a save vs. Spell for half damage.~
+@40313 = ~~
+@40413 = ~~
+
+@40114 = ~Revitalizer~
+@40214 = ~Revitalizer
+(Necromancy, Evocation)
+
+Level: 7
+Range: Visual range of the caster
+Duration: Permanent
+Casting Time: 1
+Area of Effect: 1 creature
+Saving Throw: None
+
+The caster shoots a golden, pulsating orb at a creature in visual range, restoring 20 + 1d4 Hit Points per level of the caster. A 15th level caster, for example, would restore 20 + 15d4 Hit Points.~
+@40314 = ~Revitalizer
+(Necromancy, Evocation)
+
+Level: 7
+Range: Visual range of the caster
+Duration: Permanent
+Casting Time: 1
+Area of Effect: 1 creature
+Saving Throw: None
+
+The caster shoots a golden, pulsating orb at a creature in visual range, restoring 20 + 1d4 Hit Points per level of the caster. A 15th level caster, for example, would restore 20 + 15d4 Hit Points. The spell does not affect creatures without corporeal bodies, those of extraplanar origin, or those not living.~
+@40414 = ~~
+
+@40115 = ~Riftgate~
+@40215 = ~Riftgate
+(Conjuration/Summoning)
+
+Level: 8
+Range: 30 ft.
+Duration: 1 turn
+Casting Time: 9
+Area of Effect: Special
+Saving Throw: None
+
+By means of this spell, the caster opens a rift in spacetime to a place far beyond the stars. After a moment, a Juggernaut Golem emerges from the rift. The golem stays for 1 turn and will obey the caster as long as it remains summoned. Due to the energy exerted in the summoning process, the caster must wait 1 turn between each use of this spell.
+
+A rift should be handled with caution. When this spell is cast, there is a 2% chance to attract the attention of a balor, who will destroy the golem and exit the rift in its place, intent only on tearing the caster and <PRO_HISHER> companions apart piece by piece. A Protection From Evil spell will not make the fiend ignore the party.~
+@40315 = ~~
+@40415 = ~~
+
+@40116 = ~~
+@40216 = ~~
+@40316 = ~~
+@40416 = ~~
+
+@40117 = ~~
+@40217 = ~~
+@40317 = ~~
+@40417 = ~~
+
+@40118 = ~~
+@40218 = ~~
+@40318 = ~~
+@40418 = ~~
+
+
+
+
+//Item text
+@70100 = ~Healing Church Holy Symbol~
+@70200 = ~Only the most worthy and devoted servants of the Healing Church are granted these powerful holy symbols. It is unclear which deity grants miracles to the Healing Church, but the members of the church were fully devoted to the slaughter of beasts. Its clerics and hunters would eventually become the most hideous beasts themselves.
+
+STATISTICS:
+
+Equipped abilities:
+– Strength: +1
+– Magic Resistance: +5%
+– Can memorize one extra 6th- and 7th-level Cleric spell
+
+Weight: 0~
+
+@70101 = ~Spark Hunter Badge~
+@70201 = ~Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge captures the essence of the darkbeast, whose body is wreathed in destructive energy.
+
+STATISTICS:
+
+Equipped abilities: 
+– Armor Class: +1
+– Saving Throws: +1
+– Electricity Resistance: 50%
+
+Special (Beast Hunter): 
+– Fire Weapon: Inflicts an extra +1d3 electrical damage
+
+Weight: 1~
+
+@70102 = ~Radiant Sword Badge~
+@70202 = ~Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge represents the divine holy blade, an old symbol of beast hunting.
+
+STATISTICS:
+
+Equipped abilities: 
+– Armor Class: +1
+– Saving Throws: +1
+– Protection From Evil
+
+Special (Beast Hunter): 
+– Fire Weapon: +5 magic damage vs. undead
+
+Weight: 1~
+
+@70103 = ~Cosmic Watcher Badge~
+@70203 = ~Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge depicts an eye wide open, gazing always towards the Cosmos.
+
+STATISTICS:
+
+Equipped abilities: 
+– Armor Class: +1
+– Saving Throws: +1
+– Magic Resistance: +10%
+
+Special (Beast Hunter): 
+– Fire Weapon: Target is drained 1 level on a failed save vs. Spell
+
+Weight: 1~
+
+@70104 = ~Powder Keg Badge~
+@70204 = ~Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. Fire is feared by beasts, and this badge was crafted by a Powder Keg to aid in the hunt.
+
+STATISTICS:
+
+Equipped abilities: 
+– Armor Class: +1
+– Saving Throws: +1
+– Fire Resistance: +20%
+
+Special (Beast Hunter): 
+– Fire Weapon: 10% chance of an extra +2d12 fire damage
+
+Weight: 1~
+
+@70105 = ~Crowfeather Cloak~
+@70205 = ~An attire worn by veteran Hunters of Hunters, who dressed as crows to suggest sky burial. The first Hunters came from a foreign land, and gave the dead a virtuous funeral ritual, with the hope that the fallen might find rest in the afterlife.
+
+STATISTICS:
+
+Equipped abilities:
+– Saving Throws: +1
+– Hide In Shadows: +15%
+– Move Silently: +15%
+
+Special (Crow Hunter):
+– 5% chance of a Visceral Attack (melee only)
+
+Weight: 3~
+
+@70106 = ~Etherbomb Songbook~
+@70206 = ~A songbook, said to have fallen out of the sky. The runes on the cover indicate cosmic origins, perhaps a gift left behind by a planar traveler.
+
+STATISTICS:
+
+Charge abilities:
+– Ether Explosion once per day
+  8d8 magic damage in a circle around the user (Save vs. Spell for half)
+  Special: If Lore is 80 or higher, the blast damages only enemies
+  Area of Effect: 15-ft. radius
+
+Special (Powder Keg): 
+– Bard Song is changed to Ether Explosion when item ability is used
+
+Weight: 2~
+
+@70107 = ~Ether Booster~
+@70207 = ~A strange rock discovered in the remains of a fallen meteorite. Can be worn as an amulet to harness the latent magic-enhancing powers.
+
+STATISTICS:
+
+Equipped abilities:
+– All magic and elemental damage inflicted by the wearer is increased by 20%
+– Slows casting speed by 3
+
+Special (War Magician): 
+– Unleash Magic: Casting speed penalty is reversed and becomes a +3 bonus
+
+Weight: 1~
+
+@70108 = ~Prisoner's Chain~
+@70208 = ~Portion of a steel chain used to restrain a great hero of old. A prisoner is one who has staked everything on a belief, a proclivity most apparent in the greatest of champions.
+
+STATISTICS:
+
+Equipped abilities:
+– THAC0: +1
+– Armor Class: +1
+– Saving Throws: +1
+– Hit Points: +15
+– Damage Resistance: -10% (all damage types)
+
+Weight: 0~
+
+@70109 = ~Cruciform~
+@70209 = ~A gem-encrusted stone shaped in the form of a cross. Rather worn from age. The fading blessing grants the wearer a small amount of regeneration.
+
+STATISTICS:
+
+Equipped abilities:
+– Save vs. Death: -2
+– Regenerate 2 Hit Points per round
+
+Special (Confessor): 
+– Bloodletter: Inflicts 3 bleeding wounds at a time
+
+Weight: 1~
+
+@70110 = ~Golem Ring~
+@70210 = ~These enchanted rings were crafted enmasse by a Halruaan wizard-inventor. In an instant, the wearer harnesses the raw minerals of the earth, seemingly turning flesh into iron.
+
+STATISTICS:
+
+Equipped abilities:
+– Armor Class: +3
+– Cannot be hasted or slowed
+
+Charge abilities:
+– Iron Flesh three times per day
+  The user's physical resistances are set to 80% and <PRO_HESHE> cannot be pushed or pulled by any force or spell, including a dragon's wing buffet, but movement speed is halved
+  Duration: 4 rounds
+
+Weight: 0~
+
+@70111 = ~Calamity Ring~
+@70211 = ~A ring depicting a dragon's eye, the sign of calamity. This ring exists only in the legends, quietly passed down amongst disciples of dragons.
+
+STATISTICS:
+
+Equipped abilities:
+– Receive double damage from all attacks
+
+Weight: 5~
+
+@70112 = ~~
+@70212 = ~~
+
+
+
+
+/*
+*/

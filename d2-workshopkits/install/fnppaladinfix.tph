@@ -1,0 +1,35 @@
+/*
+This file is only used if this mod is installed after FnP.
+FnP adds spheres to the base Paladin clab file (it doesn't for other classes)
+Because this mod clones the 2da file, these spheres are also in the kit 2das.
+This file will remove the default spheres, so kit-specific spheres can be added.
+*/
+
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~fnp_sphere_list.tpa~) BEGIN
+  COPY_EXISTING ~%kitid%.2DA~  ~override~
+    COUNT_2DA_ROWS 3 rows
+    READ_2DA_ENTRIES_NOW ~kit_table~ 3
+    FOR (r = (rows - 1); r > 0; r -= 1) BEGIN
+      READ_2DA_ENTRY_FORMER ~kit_table~ r 1 entry
+      PATCH_IF !(~%entry%~ STRING_MATCHES_REGEXP ~AP_D5SP.*~) BEGIN     // if entry DOES start with AP_D5SP
+        PATCH_IF (!(~%entry%~ STRING_EQUAL_CASE ~AP_D5SPUNI~) AND
+                  !(~%entry%~ STRING_EQUAL_CASE ~AP_D5SPMEM~)) BEGIN    // skip universal abilities
+          REMOVE_2DA_ROW r 3
+        END
+      END
+    END
+  BUT_ONLY IF ~AP_D5SP.*~    // only if relevant entries
+END
+
+
+
+/*using above instead
+ACTION_IF (FILE_EXISTS_IN_GAME ~fnp_sphere_list.tpa~) BEGIN
+  COPY_EXISTING ~%kitid%.2DA~  ~override~
+    LPF 2da_find_row_delete STR_VAR row_name = ~SPHERES~ END     // delete all rows starting with SPHERES
+    LPF d2_kit_ability_adder STR_VAR resource = ~D5SPUNI~ END    // add back FnP universal spells
+    LPF d2_kit_ability_adder STR_VAR resource = ~D5SPMEM~ END    // add back ability to memorize spells
+  BUT_ONLY IF ~AP_D5SP.*~    // only if relevant entries
+END
+*/

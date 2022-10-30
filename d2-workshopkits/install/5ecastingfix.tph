@@ -1,0 +1,23 @@
+/*
+This file should only be installed if using subtledoctor's 5e casting mod.
+Fixes War Magician spell slots (will match a regular Mage).
+This can be installed before or after 5e casting is installed.
+*/
+
+
+//War Magician (d2wk7)
+ACTION_IF (%nowarmagician% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk7~
+  OUTER_TEXT_SPRINT kitname ~WARMAGICIAN~
+  INCLUDE ~%install%/variables.tph~
+
+  ACTION_IF (FILE_EXISTS ~override/%kitid%.2DA~) BEGIN
+    COPY_EXISTING ~%kitid%.2DA~  ~override~
+      REPLACE_TEXTUALLY ~AP_%e3%~ ~****~
+      PRETTY_PRINT_2DA
+    BUT_ONLY
+  END
+  ELSE BEGIN
+    WARN @5    // message that file not found
+  END
+END

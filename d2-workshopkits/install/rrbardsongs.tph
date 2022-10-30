@@ -1,0 +1,84 @@
+/*
+Patch HLA songs added by Rogue Rebalancing (for Powder Keg kit)
+
+RR#BDF03 - gives RR#BDF04
+RR#BDF04 - HLA song (lasts 1 round)
+RR#BDF05 - gives RR#BDF06
+RR#BDF06 - HLA song (lasts 3 rounds)
+*/
+
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~RR#BDF03.SPL~) BEGIN
+  COPY ~%abilities%/changebardsong.SPL~  ~override/%s6%.SPL~
+    SAY NAME1 @120
+    SAY UNIDENTIFIED_DESC @220
+    LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~RR#BDF04~ END
+    LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=177 STR_VAR resource=~%s0%~ END
+    LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s6%~ END
+    WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
+    WRITE_ASCII 0x76 ~SPENBARB~ #8
+
+  COPY ~%abilities%/castspelltarget.EFF~  ~override/%s6%a.EFF~    // ability to change to HLA song
+    WRITE_ASCII 0x30 ~%s6%a~ #8
+  COPY ~%passives%/giveability.SPL~       ~override/%s6%a.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%s6%~ END
+
+  COPY_EXISTING ~RR#BDF03.SPL~  ~override~
+    LPF CLONE_EFFECT
+      INT_VAR
+        multi_match   = 1
+        match_timing  = 9
+        opcode        = 177
+        parameter1    = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+        parameter2    = 9
+      STR_VAR
+        resource      = ~%s6%a~
+    END
+  BUT_ONLY
+END
+
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~RR#BDF05.SPL~) BEGIN
+  COPY ~%abilities%/changebardsong.SPL~  ~override/%s7%.SPL~
+    SAY NAME1 @120
+    SAY UNIDENTIFIED_DESC @220
+    LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~RR#BDF06~ END
+    LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=177 STR_VAR resource=~%s0%~ END
+    LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s7%~ END
+    WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
+    WRITE_ASCII 0x76 ~SPENBARB~ #8
+
+  COPY ~%abilities%/castspelltarget.EFF~  ~override/%s7%a.EFF~    // ability to change to HLA song (lingering)
+    WRITE_ASCII 0x30 ~%s7%a~ #8
+  COPY ~%passives%/giveability.SPL~       ~override/%s7%a.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%s7%~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~  ~override/%s7%b.EFF~    // removes non-lingering version
+    WRITE_ASCII 0x30 ~%s7%b~ #8
+  COPY ~%passives%/removespell.SPL~       ~override/%s7%b.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%s6%~ END
+
+  COPY_EXISTING ~RR#BDF05.SPL~  ~override~
+    LPF CLONE_EFFECT
+      INT_VAR
+        multi_match   = 1
+        match_timing  = 9
+        opcode        = 177
+        parameter1    = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+        parameter2    = 9
+      STR_VAR
+        resource      = ~%s7%a~
+    END
+
+    LPF CLONE_EFFECT
+      INT_VAR
+        multi_match   = 1
+        match_timing  = 9
+        opcode        = 177
+        parameter1    = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+        parameter2    = 9
+      STR_VAR
+        resource      = ~%s7%b~
+    END
+  BUT_ONLY
+END

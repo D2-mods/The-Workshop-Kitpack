@@ -1,0 +1,12 @@
+/*
+This file is used to check for missing game resources.
+When a kit is installed, it checks the specific kit folder.
+Files are only copied to override if not already in the game.
+*/
+
+
+ACTION_BASH_FOR ~%kitfolder%~  ~.*~ BEGIN
+  ACTION_IF !(FILE_EXISTS_IN_GAME ~%BASH_FOR_FILE%~) BEGIN
+    COPY ~%BASH_FOR_FILESPEC%~  ~override~
+  END
+END
