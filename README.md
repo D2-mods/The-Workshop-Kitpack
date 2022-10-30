@@ -321,22 +321,22 @@ The unpatched HLAs just won't work 100% right with these kits.
 Additional Info (Kit Abilities):
 -
 
-- Affected by Wild/Dead Magic zones:
-&emsp;Denial (Grave Warden)
-&emsp;Moonlight Vortex (Moonlight Knight)
-&emsp;Force (Temple Knight)
+- Affected by Wild/Dead Magic zones:  
+&emsp;Denial (Grave Warden)  
+&emsp;Moonlight Vortex (Moonlight Knight)  
+&emsp;Force (Temple Knight)  
 &emsp;Bolt of Glory (Temple Knight)
 
-- Can be dispelled:
-&emsp;Denial
-&emsp;Moonlight Vortex (magic resist)
+- Can be dispelled:  
+&emsp;Denial  
+&emsp;Moonlight Vortex (magic resist)  
 &emsp;Frenzying Flame (status effects)
 
-- Can be removed by Zone of Sweet Air
-&emsp;Incinerate (Warhound)
+- Can be removed by Zone of Sweet Air  
+&emsp;Incinerate (Warhound)  
 &emsp;Dust Explosion (Powder Keg)
 
-- Blood transfusions will be removed by a Restoration or Greater Restoration.
+- Blood transfusions will be removed by a Restoration or Greater Restoration.  
 - Bleeding effects can be cured by Heal or Greater Restoration, or by the Blood Minister's "Healing Blood".
 
 A few other kit abilities are also spell-like, but I decided not to make them affected by Wild/Dead Magic. It's standard for kit abilities in these games not to be affected. The above abilities are cast like spells so I thought it'd look dumb for them not to be affected by Magic Zones.
