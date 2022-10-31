@@ -56,7 +56,7 @@ Kit info: See GitHub page, in-game descriptions, forum posts, etc.
 Crafting a Hunter Badge (amulets):
 - Certain kits will gain an ability to craft a Hunter Badge, once they reach a certain level.
 - These abilities are gained only if a Beast Hunter is also in the party.
-- Hunter Badges are usable by anyone, but Beast Hunter's gain additional effects.
+- Hunter Badges are usable by anyone, but Beast Hunters gain additional effects.
 - Badges can only be crafted once each per playthrough.
 NOTE: Beast Hunters don't gain a crafting ability, but they can still purchase these badges.
 
@@ -77,7 +77,7 @@ Spellcasting systems:
 
 HLA traps/songs:
 - The Crow Hunter and Powder Keg kits need specific handling of HLA traps and songs. 
-- Currently, this mod accounts for Rogue Rabalancing hlas.
+- Currently, this mod accounts for Rogue Rebalancing hlas.
 - If you know of any others, let me know and I can add it.
 - Only abilities gained by the base class are relevant for this.
 

@@ -296,7 +296,7 @@ Compatibility:
 -
 
 - These aren't hard rules, but compatibility will be best following these.
-- Install after Rogue Rebalancing. Several RR files need to be patched for full compatiblity.
+- Install after Rogue Rebalancing. Several RR files need to be patched for full compatibility.
 - Install after class revision mods, unless they specifically say to install after any kits.
 - Install after mods that revise or overwrite spells.
 
@@ -308,7 +308,7 @@ Compatibility:
 
 #### HLA traps/songs:
 - The Crow Hunter and Powder Keg kits need specific handling of HLA traps and songs. 
-- Currently, this mod accounts for Rogue Rabalancing hlas.
+- Currently, this mod accounts for Rogue Rebalancing hlas.
 - If you know of any others, let me know and I can add it.
 - Only abilities gained by the base class are relevant for this.
 
@@ -348,13 +348,13 @@ Hunter Badges
 #### Crafting a Hunter Badge (amulets):
 - Certain kits will gain an ability to craft a Hunter Badge, once they reach a certain level.
 - These abilities are gained only if a Beast Hunter is also in the party.
-- Hunter Badges are usable by anyone, but Beast Hunter's gain additional effects.
+- Hunter Badges are usable by anyone, but Beast Hunters gain additional effects.
 - Badges can only be crafted once each per playthrough.
 
 NOTE: Beast Hunters don't gain a crafting ability, but they can still purchase these badges.
 
 
-#### Hunter Badges (amulets):
+#### Hunter Badges:
 - Spark Hunter Badge
 - Radiant Sword Badge
 - Cosmic Watcher Badge
