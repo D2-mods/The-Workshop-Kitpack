@@ -36,15 +36,14 @@ Powder Keg (bard)
 1 Holy Symbol     - for the cleric kit
 4 Hunter Badges   - can be crafted (see below), can also be purchased
 8 new spells      - learned by the Starjammer kit
-many new kit abilities
-other misc items
+other misc items (all general use items, no weapons or armor)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
 Components:
 1. The Workshop Kitpack
-2. Misc item pack
+2. Misc item pack (Note: Hunter Badges are part of main component)
 3. Fix for subtledoctor's 5e casting mod
 
 config.ini: Set a kit to = 0 to prevent install
@@ -65,7 +64,7 @@ NOTE: Beast Hunters don't gain a crafting ability, but they can still purchase t
 
 Compatibility:
 - These aren't hard rules, but compatibility will be best following these.
-- Install after Rogue Rebalancing. Several RR files need to be patched for full compatiblity.
+- Install after Rogue Rebalancing. Several RR files need to be patched for full compatibility.
 - Install after class revision mods, unless they specifically say to install after any kits.
 - Install after mods that revise or overwrite spells.
 

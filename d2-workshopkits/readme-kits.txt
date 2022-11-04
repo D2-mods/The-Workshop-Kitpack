@@ -185,7 +185,7 @@ BLOOD MINISTER: The heretical Healing Church was once the home of blood ministra
 
 Advantages:
 – Immune to level drain, poisons, and diseases.
-– May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 4 levels thereafter. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels.
+– May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 4 levels thereafter. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels:
   2nd level: Healing Blood.
   6th level: Beast Blood.
   10th level: Madman's Blood.

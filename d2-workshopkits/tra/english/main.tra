@@ -289,6 +289,7 @@ Disadvantages:
 @101004 = ~~
 @101005 = ~~
 
+
 //Powder Keg
 @101101 = ~Powder Keg~
 @101102 = ~powder keg~
@@ -317,6 +318,7 @@ Disadvantages:
 – Only has one quarter the normal Pick Pockets score.~
 @101104 = ~~
 @101105 = ~~
+
 
 //
 @101201 = ~~
@@ -461,7 +463,7 @@ This song fires once, then disables Bard Song for 1 turn.~
 @118 = ~Change Song: Frenzying Flame~
 @218 = ~Frenzying Flame
 
-Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though magic resistance can prevent the status effects.
+Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though Magic Resistance can prevent the status effects.
 
 This song fires once, then disables Bard Song for 1 turn.~
 

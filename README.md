@@ -1,6 +1,7 @@
 # The Workshop Kitpack
 
-Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases
+Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases  
+Forum posts: [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)
 
 This is a kitpack I've been working on for a while. It currently has 11 kits—6 warrior, 5 non-warrior. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Also has a few misc items, some with kit-specific effects. Compatible with BGEE, BG2EE, IWDEE, and EET.
 
@@ -222,7 +223,7 @@ BLOOD MINISTER: The heretical Healing Church was once the home of blood ministra
 
 Advantages:  
 - Immune to level drain, poisons, and diseases.  
-- May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 4 levels thereafter. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels.  
+- May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 4 levels thereafter. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels:  
 &emsp;2nd level: Healing Blood.  
 &emsp;6th level: Beast Blood.  
 &emsp;10th level: Madman's Blood.  

@@ -2,6 +2,7 @@
 Install kits
 */
 
+
 //Beast Hunter (d2wk1)
 ACTION_IF (%nobeasthunter% = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk1~

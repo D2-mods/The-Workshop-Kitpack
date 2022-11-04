@@ -49,8 +49,8 @@ COPY_EXISTING ~SPLPROT.2DA~  ~override~
   PRETTY_PRINT_2DA
 BUT_ONLY
 
-PRINT ~lore80 is %lore80%     // lore >= 80~
-PRINT ~lore79 is %lore79%     // lore < 80~
+PRINT ~lore80 is %lore80%    // lore >= 80~
+PRINT ~lore79 is %lore79%    // lore < 80~
 
 
 /*

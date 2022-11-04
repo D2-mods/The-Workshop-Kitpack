@@ -35,8 +35,12 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~RIBALD3.STO~  ~override~
+  COPY_EXISTING ~PPSTOR01.STO~  ~override~
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~RIBALD3.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_cosmic%~ flags=~identified~ END
   BUT_ONLY
 
   COPY_EXISTING ~BERNARD2.STO~  ~override~
@@ -72,6 +76,10 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
 
   COPY_EXISTING ~SHLEHLAN.STO~  ~override~
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~flozem.CRE~ ~override~
+    ADD_CRE_ITEM ~%badge_cosmic%~ #0 #0 #0 ~none~ ~inv~
   BUT_ONLY
 
   COPY_EXISTING ~LDD_NYM.STO~  ~override~
