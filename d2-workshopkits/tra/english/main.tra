@@ -309,7 +309,7 @@ BOOMING SONG: A crushing wave expands outwards in a 15-ft. radius, inflicting 2d
 
 DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded, but also cannot be directly targeted, unless an attacker can see through invisibility. There is no Saving Throw, though the bard can see clearly within 5 feet.
 
-FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though magic resistance can prevent the status effects.
+FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though Magic Resistance can prevent the status effects.
 
 NOTE: If the High-Level Ability "Enhanced Bard Song" is learned, the character will gain an ability to switch to this song.
 
@@ -475,7 +475,7 @@ This is a powerful aid to both the Bard and to <PRO_HISHER> allies. The song giv
 @120 = ~Change Song: Enhanced Bard Song~    // rr
 @220 = ~Enhanced Bard Song
 
-This mighty battle chant grants the Bard and his allies +4 to hit, +4 to all saving throws, +10% bonus to magic resistance and immunity to Fear and Charm. The Bard himself receives an 8-point bonus to all of his saving throws while singing the song.~
+This mighty battle chant grants the Bard and his allies +4 to hit, +4 to all saving throws, +10% bonus to Magic Resistance and immunity to Fear and Charm. The Bard himself receives an 8-point bonus to all of his saving throws while singing the song.~
 
 @121 = ~~
 @221 = ~~
@@ -673,7 +673,7 @@ Creature Type  --  Damage
  Undead  --  8d8
  Demonic  --  10d10
 
-Magic resistance does not effect this spell.~
+Magic Resistance does not effect this spell.~
 
 @40108 = ~Riftstep~
 @40208 = ~Riftstep
@@ -733,7 +733,7 @@ Casting Time: 4
 Area of Effect: 20-ft. radius
 Saving Throw: None
 
-A Pacifying Field covers a 20-ft. radius, centered on the caster. All creatures within the area at the time of casting, whether ally, enemy, or neutral, are enclosed by a protective Sanctuary for one turn. Creatures under a Sanctuary cannot be directly targeted by spells or attacks. There is no Saving Throw and the spell ignores magic resistance.
+A Pacifying Field covers a 20-ft. radius, centered on the caster. All creatures within the area at the time of casting, whether ally, enemy, or neutral, are enclosed by a protective Sanctuary for one turn. Creatures under a Sanctuary cannot be directly targeted by spells or attacks. There is no Saving Throw and the spell ignores Magic Resistance.
 
 A sanctuaried creature can move around or cast non-attack spells without breaking the spell. Any combat actions, for example, casting a Fireball, a True Sight, or a summoning spell, will remove the Sanctuary.~
 @40311 = ~~

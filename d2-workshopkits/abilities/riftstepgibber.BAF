@@ -6,7 +6,7 @@ IF
 	!RACE(LastSeenBy(),GIBBERLING)
 THEN
 	RESPONSE #100
-		AttackOneRound(LastSeenBy())
+		AttackReevaluate(LastSeenBy(),30)
 END
 
 IF
@@ -65,7 +65,7 @@ IF
     AttackedBy([ANYONE],DEFAULT)
 THEN
 	RESPONSE #100
-		AttackOneRound(LastAttackerOf())
+		AttackReevaluate(LastSeenBy(),30)
 END
 
 IF
@@ -85,7 +85,7 @@ THEN
 END
 
 IF
-	See([GOODCUTOFF])
+	See(NearestEnemyOf())
 THEN
 	RESPONSE #100
 		AttackReevaluate(LastSeenBy(),30)
@@ -103,7 +103,7 @@ END
 IF
 	GlobalTimerNotExpired("d2randomwalk","LOCALS")
 	!See([GOODCUTOFF])
-	Detect([GOODCUTOFF])
+	Detect([PC])
 THEN
 	RESPONSE #100
 		RandomWalk()

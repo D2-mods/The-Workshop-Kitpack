@@ -84,7 +84,7 @@ IF
 	WeaponCanDamage(LastSeenBy(),MAINHAND)
 THEN
 	RESPONSE #100
-		AttackOneRound(LastSeenBy())
+		AttackReevaluate(LastSeenBy(),30)
 END
 
 IF
@@ -157,7 +157,7 @@ IF
     AttackedBy([EVILCUTOFF],DEFAULT)
 THEN
 	RESPONSE #100
-		AttackOneRound(LastAttackerOf())
+		AttackReevaluate(LastAttackerOf(),30)
 END
 
 IF
@@ -165,7 +165,7 @@ IF
     AttackedBy([GOODCUTOFF],DEFAULT)
 THEN
 	RESPONSE #100
-		AttackOneRound(LastAttackerOf())
+		AttackReevaluate(LastAttackerOf(),30)
 END
 
 IF

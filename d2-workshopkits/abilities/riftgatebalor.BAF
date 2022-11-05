@@ -3,120 +3,118 @@ IF
 	!Global("d2phase1","LOCALS",1)
 THEN
 	RESPONSE #100
-		ApplySpell(Myself,WIZARD_STONE_SKIN)  
-        ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+		SetGlobal("d2phase1","LOCALS",1)
+		ApplySpell(Myself,WIZARD_STONE_SKIN)
         ApplySpell(Myself,CLERIC_HEAL)
 		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_STUN)  
 		ForceSpell(Myself,WIZARD_SUN_FIRE)  
-		SetGlobal("d2phase1","LOCALS",1)
+		ReallyForceSpell(Myself,WIZARD_ANIMATE_DEAD)
+		ReallyForceSpell(Myself,WIZARD_ANIMATE_DEAD)
 END
 
 IF
 	See([ANYONE])
-	HPLT(Myself,140)
+	HPLT(Myself,180)
 	!Global("d2phase2","LOCALS",1)
 THEN
 	RESPONSE #100
-		ApplySpell(Myself,WIZARD_STONE_SKIN)  
-        ReallyForceSpell(Myself,CLERIC_AURA_OF_FLAMING_DEATH)
-		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_STUN)  
-		ForceSpell(Myself,WIZARD_SUN_FIRE)  
 		SetGlobal("d2phase2","LOCALS",1)
-		ReallyForceSpell(FifthNearestEnemyOf(),WIZARD_SUMMON_PLANATAR_EVIL)
+        ForceSpell(Myself,CLERIC_AURA_OF_FLAMING_DEATH)
+        ReallyForceSpell(Myself,CLERIC_REGENERATE)
+		ReallyForceSpell(Myself,WIZARD_ABI_DALZIMS_HORRID_WILTING)  
+		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_FEAR)  
+		ReallyForceSpell(Myself,WIZARD_SUMMON_PLANATAR_EVIL)
 END
 
 IF
 	See([ANYONE])
-	HPLT(Myself,70)
+	HPLT(Myself,80)
 	!Global("d2phase3","LOCALS",1)
 THEN
 	RESPONSE #100
-		ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
-        ReallyForceSpell(Myself,WIZARD_IMPROVED_HASTE)
-		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_STUN)  
-		ForceSpell(Myself,WIZARD_SUN_FIRE)  
 		SetGlobal("d2phase3","LOCALS",1)
-		ReallyForceSpell(NearestEnemyOf(),CLERIC_SUMMON_FALLEN_DEVA)
-		ReallyForceSpell(SixthNearestEnemyOf(),CLERIC_SUMMON_FALLEN_DEVA)
-END
-
-IF
-	See([CONTROLLED])
-	!GlobalTimerNotExpired("d2banish","LOCALS")
-THEN
-	RESPONSE #50
-		Continue()
-	RESPONSE #50
-		ForceSpell(LastSeenBy(),WIZARD_DEATH_SPELL)  
-		SetGlobalTimer("d2banish","LOCALS",12)
-END
-
-IF
-	See([GOODCUTOFF])
-	!StateCheck(LastSeenBy(),STATE_HELPLESS)
-	!GlobalTimerNotExpired("d2symbolstun","LOCALS")
-THEN
-	RESPONSE #50
-		Continue()
-	RESPONSE #50
-		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_STUN)  
-		SetGlobalTimer("d2symbolstun","LOCALS",12)
-END
-
-
-IF
-	!See([GOODCUTOFF])
-	See([ANYONE])
-	!StateCheck(LastSeenBy(),STATE_HELPLESS)
-	!GlobalTimerNotExpired("d2symbolstun","LOCALS")
-THEN
-	RESPONSE #100
-		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_STUN)  
-		SetGlobalTimer("d2symbolstun","LOCALS",12)
-END
-
-IF
-	See([ANYONE])
-	StateCheck(LastSeenBy(),STATE_HELPLESS)
-	WeaponEffectiveVs(LastSeenBy(),MAINHAND)
-	WeaponCanDamage(LastSeenBy(),MAINHAND)
-THEN
-	RESPONSE #100
-		AttackOneRound(LastSeenBy())
+		ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+        ForceSpell(Myself,WIZARD_IMPROVED_HASTE)
+		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_DEATH)  
+		ReallyForceSpell(Myself,WIZARD_METEOR_SWARM)
+		ReallyForceSpell(Myself,CLERIC_SUMMON_FALLEN_DEVA)
+		ReallyForceSpell(Myself,CLERIC_SUMMON_FALLEN_DEVA)
 END
 
 IF
 	See(NearestEnemyOf())
 	!GlobalTimerNotExpired("d2balordispel","LOCALS")
 THEN
-	RESPONSE #50
-		Continue()
-	RESPONSE #50
+	RESPONSE #100
 		ForceSpellRES("SPWI302",LastSeenBy())
-		SetGlobalTimer("d2balordispel","LOCALS",30)
+		SetGlobalTimer("d2balordispel","LOCALS",120)
+END
+
+IF
+	See([CONTROLLED])
+	!GlobalTimerNotExpired("d2banish","LOCALS")
+THEN
+	RESPONSE #100
+		ForceSpell(LastSeenBy(),WIZARD_DEATH_SPELL)  
+		SetGlobalTimer("d2banish","LOCALS",45)
+END
+
+IF
+	Range([PC],5)
+	!GlobalTimerNotExpired("d2unholyword","LOCALS")
+THEN
+	RESPONSE #100
+		ForceSpell(Myself,CLERIC_UNHOLY_WORD)
+		ReallyForceSpell(Myself,WIZARD_GREATER_MALISON)
+		SetGlobalTimer("d2unholyword","LOCALS",60)
+END
+
+IF
+	See([GOODCUTOFF])
+	!StateCheck(LastSeenBy(),STATE_HELPLESS)
+	!GlobalTimerNotExpired("d2balorstun","LOCALS")
+THEN
+	RESPONSE #100
+		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_STUN)  
+		SetGlobalTimer("d2balorstun","LOCALS",15)
 END
 
 IF
 	See(NearestEnemyOf())
 	!GlobalTimerNotExpired("d2balorconfuse","LOCALS")
 THEN
-	RESPONSE #50
-		Continue()
-	RESPONSE #50
+	RESPONSE #100
+		SetGlobalTimer("d2balorconfuse","LOCALS",36)
 		ForceSpell(LastSeenBy(),WIZARD_CONFUSION)
-		SetGlobalTimer("d2balorconfuse","LOCALS",18)
+	RESPONSE #100
+		SetGlobalTimer("d2balorconfuse","LOCALS",36)
+		ForceSpell(LastSeenBy(),WIZARD_CHAIN_LIGHTNING)
+	RESPONSE #100
+		SetGlobalTimer("d2balorconfuse","LOCALS",36)
+		ForceSpell(LastSeenBy(),WIZARD_DISINTEGRATE)
+	RESPONSE #100
+		SetGlobalTimer("d2balorconfuse","LOCALS",36)
+		ForceSpell(LastSeenBy(),WIZARD_EMOTION_HOPELESSNESS)
 END
 
 IF
-	See([GOODCUTOFF])
-	!StateCheck(LastSeenBy(),STATE_HELPLESS)
-	!GlobalTimerNotExpired("d2symbolstun2","LOCALS")
+	See([PC])
+	StateCheck(LastSeenBy(),STATE_HELPLESS)
+	WeaponEffectiveVs(LastSeenBy(),MAINHAND)
+	WeaponCanDamage(LastSeenBy(),MAINHAND)
 THEN
-	RESPONSE #80
-		Continue()
-	RESPONSE #20
-		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_STUN)  
-		SetGlobalTimer("d2symbolstun2","LOCALS",30)
+	RESPONSE #100
+		AttackReevaluate(LastSeenBy(),30)
+END
+
+IF
+	See([NOTEVIL])
+	StateCheck(LastSeenBy(),STATE_HELPLESS)
+	WeaponEffectiveVs(LastSeenBy(),MAINHAND)
+	WeaponCanDamage(LastSeenBy(),MAINHAND)
+THEN
+	RESPONSE #100
+		AttackReevaluate(LastSeenBy(),30)
 END
 
 IF
@@ -175,7 +173,7 @@ IF
     AttackedBy([ANYONE],DEFAULT)
 THEN
 	RESPONSE #100
-		AttackOneRound(LastAttackerOf())
+		AttackReevaluate(LastAttackerOf(),30)
 END
 
 IF
@@ -195,15 +193,7 @@ THEN
 END
 
 IF
-	See([GOODCUTOFF])
-THEN
-	RESPONSE #100
-		AttackReevaluate(LastSeenBy(),30)
-END
-
-IF
-	!See([PC])
-	See([ANYONE])
+	See(NearestEnemyOf())
 THEN
 	RESPONSE #100
 		AttackReevaluate(LastSeenBy(),30)
@@ -212,7 +202,7 @@ END
 IF
 	GlobalTimerNotExpired("d2randomwalk","LOCALS")
 	!See([GOODCUTOFF])
-	Detect([GOODCUTOFF])
+	Detect([PC])
 THEN
 	RESPONSE #100
 		RandomWalk()
@@ -223,6 +213,9 @@ IF
 	!See([GOODCUTOFF])
 THEN
 	RESPONSE #100
+		ApplySpell(Myself,WIZARD_STONE_SKIN)
+        ReallyForceSpell(Myself,CLERIC_AURA_OF_FLAMING_DEATH)
+        ReallyForceSpell(Myself,WIZARD_IMPROVED_HASTE)
 		SetGlobalTimer("d2randomwalk","LOCALS",12)
 		MoveToObject(Player1)
 END

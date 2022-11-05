@@ -242,7 +242,7 @@ BOOMING SONG: A crushing wave expands outwards in a 15-ft. radius, inflicting 2d
 
 DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded, but also cannot be directly targeted, unless an attacker can see through invisibility. There is no Saving Throw, though the bard can see clearly within 5 feet.
 
-FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though magic resistance can prevent the status effects.
+FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though Magic Resistance can prevent the status effects.
 
 NOTE: If the High-Level Ability "Enhanced Bard Song" is learned, the character will gain an ability to switch to this song.
 

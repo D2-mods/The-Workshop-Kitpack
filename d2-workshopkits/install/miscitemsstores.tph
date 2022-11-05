@@ -27,7 +27,7 @@ END
 //SoD
 ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
   COPY_EXISTING ~bdbelega.CRE~ ~override~
-    ADD_CRE_ITEM ~%etherbomb%~ #0 #0 #0 ~none~ ~inv~
+    ADD_CRE_ITEM ~%etherbomb%~ #1 #0 #0 ~none~ ~inv~
   BUT_ONLY
 
   COPY_EXISTING ~bdbeleg4.STO~  ~override~

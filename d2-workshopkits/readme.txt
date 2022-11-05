@@ -86,6 +86,19 @@ The unpatched HLAs just won't work 100% right with these kits.
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
+Version info:
+v1.2
+- One item in SoD was gained without charges. This is fixed.
+- Revised the balor script (Riftgate enemy). It has more spell variety, but also doesn't use annoying spells like Death Spell or Remove Magic as often. It no longer starts with Protection From Magical Weapons, but it has a couple summons instead. The phase 2 and phase 3 buffs also happen earlier.
+- Also made minor edits to the golem and gibberling scripts.
+
+v1.1
+- Added Cosmic Watcher Badge to BG2 and IWD main campaigns (they were already in the expansions). Both are very late game.
+- Adjusted location of one of the other badges in BG2.
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
 Custom functions (not including my own):
 - ADD_KIT_EX by Argent77 (https://github.com/Argent77/A7-add_kit_ex)
 
