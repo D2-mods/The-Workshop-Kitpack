@@ -87,6 +87,9 @@ The unpatched HLAs just won't work 100% right with these kits.
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+v1.3
+- Powder Keg: Fixed minor issue when installed after Rogue Rebalancing. The kit was starting with the RR song, though you could switch right away to Blasting Song. Now the kit starts with Blasting Song set as the Bard Song.
+
 v1.2
 - One item in SoD was gained without charges. This is fixed.
 - Revised the balor script (Riftgate enemy). It has more spell variety, but also doesn't use annoying spells like Death Spell or Remove Magic as often. It no longer starts with Protection From Magical Weapons, but it has a couple summons instead. The phase 2 and phase 3 buffs also happen earlier.

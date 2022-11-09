@@ -6,8 +6,8 @@ THEN
 		SetGlobal("d2phase1","LOCALS",1)
 		ApplySpell(Myself,WIZARD_STONE_SKIN)
         ApplySpell(Myself,CLERIC_HEAL)
-		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_STUN)  
-		ForceSpell(Myself,WIZARD_SUN_FIRE)  
+		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_STUN)
+		ForceSpell(Myself,WIZARD_SUN_FIRE)
 		ReallyForceSpell(Myself,WIZARD_ANIMATE_DEAD)
 		ReallyForceSpell(Myself,WIZARD_ANIMATE_DEAD)
 END
@@ -21,8 +21,8 @@ THEN
 		SetGlobal("d2phase2","LOCALS",1)
         ForceSpell(Myself,CLERIC_AURA_OF_FLAMING_DEATH)
         ReallyForceSpell(Myself,CLERIC_REGENERATE)
-		ReallyForceSpell(Myself,WIZARD_ABI_DALZIMS_HORRID_WILTING)  
-		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_FEAR)  
+		ReallyForceSpell(Myself,WIZARD_ABI_DALZIMS_HORRID_WILTING)
+		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_FEAR)
 		ReallyForceSpell(Myself,WIZARD_SUMMON_PLANATAR_EVIL)
 END
 
@@ -35,7 +35,7 @@ THEN
 		SetGlobal("d2phase3","LOCALS",1)
 		ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
         ForceSpell(Myself,WIZARD_IMPROVED_HASTE)
-		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_DEATH)  
+		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_DEATH)
 		ReallyForceSpell(Myself,WIZARD_METEOR_SWARM)
 		ReallyForceSpell(Myself,CLERIC_SUMMON_FALLEN_DEVA)
 		ReallyForceSpell(Myself,CLERIC_SUMMON_FALLEN_DEVA)
@@ -55,7 +55,7 @@ IF
 	!GlobalTimerNotExpired("d2banish","LOCALS")
 THEN
 	RESPONSE #100
-		ForceSpell(LastSeenBy(),WIZARD_DEATH_SPELL)  
+		ForceSpell(LastSeenBy(),WIZARD_DEATH_SPELL)
 		SetGlobalTimer("d2banish","LOCALS",45)
 END
 
@@ -75,7 +75,7 @@ IF
 	!GlobalTimerNotExpired("d2balorstun","LOCALS")
 THEN
 	RESPONSE #100
-		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_STUN)  
+		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_STUN)
 		SetGlobalTimer("d2balorstun","LOCALS",15)
 END
 
@@ -214,7 +214,7 @@ IF
 THEN
 	RESPONSE #100
 		ApplySpell(Myself,WIZARD_STONE_SKIN)
-        ReallyForceSpell(Myself,CLERIC_AURA_OF_FLAMING_DEATH)
+        ReallyForceSpell(Myself,CLERIC_REGENERATE)
         ReallyForceSpell(Myself,WIZARD_IMPROVED_HASTE)
 		SetGlobalTimer("d2randomwalk","LOCALS",12)
 		MoveToObject(Player1)
