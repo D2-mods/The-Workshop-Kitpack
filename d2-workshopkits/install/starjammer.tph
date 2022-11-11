@@ -159,17 +159,31 @@ COPY ~%abilities%/electrocannon.SPL~    ~override/%w6%.SPL~
   LPF ALTER_EFFECT INT_VAR header=7 parameter1=38 dicenumber=19 END
   LPF ALTER_EFFECT INT_VAR header=8 parameter1=40 dicenumber=20 END
 
-  PATCH_IF (GAME_IS ~iwdee~) BEGIN
-    LPF ALTER_EFFECT INT_VAR header=9 parameter1=42 dicenumber=21 END
-    LPF ALTER_EFFECT INT_VAR header=10 parameter1=44 dicenumber=22 END
-    LPF ALTER_EFFECT INT_VAR header=11 parameter1=46 dicenumber=23 END
-    LPF ALTER_EFFECT INT_VAR header=12 parameter1=48 dicenumber=24 END
-    LPF ALTER_EFFECT INT_VAR header=13 parameter1=50 dicenumber=25 END
-    LPF ALTER_EFFECT INT_VAR header=14 parameter1=52 dicenumber=26 END
-    LPF ALTER_EFFECT INT_VAR header=15 parameter1=54 dicenumber=27 END
-    LPF ALTER_EFFECT INT_VAR header=16 parameter1=56 dicenumber=28 END
-    LPF ALTER_EFFECT INT_VAR header=17 parameter1=58 dicenumber=29 END
-    LPF ALTER_EFFECT INT_VAR header=18 parameter1=60 dicenumber=30 END    // level 30
+  PATCH_IF (spellcap >= 30) BEGIN
+    FOR (n = 1; n <= 10; ++n) BEGIN
+      SET header = 8 + n
+      SET damage = 40 + (n*2)
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR header=header parameter1=damage dicenumber=dice END
+    END
+  END
+
+  PATCH_IF (spellcap >= 40) BEGIN
+    FOR (n = 11; n <= 20; ++n) BEGIN
+      SET header = 8 + n
+      SET damage = 40 + (n*2)
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR header=header parameter1=damage dicenumber=dice END
+    END
+  END
+
+  PATCH_IF (spellcap = 50) BEGIN
+    FOR (n = 21; n <= 30; ++n) BEGIN
+      SET header = 8 + n
+      SET damage = 40 + (n*2)
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR header=header parameter1=damage dicenumber=dice END
+    END
   END
 
 ACTION_IF (GAME_IS ~iwdee~) BEGIN    // add Evasion check for IWDEE
@@ -215,17 +229,28 @@ COPY_EXISTING ~SPPR502.SPL~  ~override/%w7%.SPL~    // clone a Cure Wounds spell
   LPF ALTER_EFFECT INT_VAR header=5 dicenumber=19 END
   LPF ALTER_EFFECT INT_VAR header=6 dicenumber=20 END
 
-  PATCH_IF (GAME_IS ~iwdee~) BEGIN
-    LPF ALTER_EFFECT INT_VAR header=7 dicenumber=21 END
-    LPF ALTER_EFFECT INT_VAR header=8 dicenumber=22 END
-    LPF ALTER_EFFECT INT_VAR header=9 dicenumber=23 END
-    LPF ALTER_EFFECT INT_VAR header=10 dicenumber=24 END
-    LPF ALTER_EFFECT INT_VAR header=11 dicenumber=25 END
-    LPF ALTER_EFFECT INT_VAR header=12 dicenumber=26 END
-    LPF ALTER_EFFECT INT_VAR header=13 dicenumber=27 END
-    LPF ALTER_EFFECT INT_VAR header=14 dicenumber=28 END
-    LPF ALTER_EFFECT INT_VAR header=15 dicenumber=29 END
-    LPF ALTER_EFFECT INT_VAR header=16 dicenumber=30 END    // level 30
+  PATCH_IF (spellcap >= 30) BEGIN
+    FOR (n = 1; n <= 10; ++n) BEGIN
+      SET header = 6 + n
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR header=header dicenumber=dice END
+    END
+  END
+
+  PATCH_IF (spellcap >= 40) BEGIN
+    FOR (n = 11; n <= 20; ++n) BEGIN
+      SET header = 6 + n
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR header=header dicenumber=dice END
+    END
+  END
+
+  PATCH_IF (spellcap = 50) BEGIN
+    FOR (n = 21; n <= 30; ++n) BEGIN
+      SET header = 6 + n
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR header=header dicenumber=dice END
+    END
   END
 
 
@@ -245,7 +270,6 @@ COPY ~%abilities%/summonrift.EFF~     ~override/%w8%g.EFF~
 
 COPY - ~%abilities%/riftgatebalor.BAF~  ~%workspace%/%w8%d.BAF~    // add balor
 COMPILE ~%workspace%/%w8%d.BAF~
-COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~
 COPY ~%abilities%/riftgatebalor.CRE~    ~override/%w8%d.CRE~
   SAY NAME1 @602 
   SAY NAME2 @602
@@ -255,6 +279,36 @@ COPY ~%abilities%/riftgatebalor.CRE~    ~override/%w8%d.CRE~
   WRITE_ASCII 0x280 ~%w8%d~ #20    // script name
 COPY ~%abilities%/summongate.EFF~     ~override/%w8%d.EFF~
   WRITE_ASCII 0x30 ~%w8%d~ #8
+
+COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~       // balor weapon
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_stun_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_slay_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_kill_target_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_sleep_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_hold_special_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_hold_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_web_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_silence_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END
+  PATCH_IF (stun_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=45 opcode=328 parameter2=stun_immunity END
+  END
+  PATCH_IF (slow_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=328 parameter2=slow_immunity END
+  END
+  PATCH_IF (death_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=55 opcode=328 parameter2=death_immunity END
+  END
+  PATCH_IF (hold_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=175 opcode=328 parameter2=hold_immunity END
+  END
+  PATCH_IF (web_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=157 opcode=328 parameter2=web_immunity END
+  END
+  PATCH_IF (silence_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=38 opcode=328 parameter2=silence_immunity END
+  END
 
 COPY ~%abilities%/riftgate.SPL~  ~override/%w8%.SPL~               // add spell
   SAY NAME1 @40115

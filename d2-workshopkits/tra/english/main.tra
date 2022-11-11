@@ -7,7 +7,7 @@ Text in this file appears in the game.
 @301 = ~Entangled~
 @302 = ~Bleeding~
 @303 = ~You cannot cast this spell until the current casting has run out.~
-@304 = ~~
+@304 = ~Activated Golem Ring~
 @305 = ~~
 @306 = ~Regenerating~
 @307 = ~Healed~
@@ -56,8 +56,8 @@ Text in this file appears in the game.
 @612 = ~Craft Radiant Sword Badge~
 @613 = ~Craft Cosmic Watcher Badge~
 @614 = ~Craft Powder Keg Badge~
-@615 = ~Ether Explosion~             // for Etherbomb Songbook
-@616 = ~~
+@615 = ~Ether Explosion~             // Etherbomb Songbook
+@616 = ~Iron Flesh~                  // Golem Ring
 @617 = ~~
 @618 = ~~
 @619 = ~~
@@ -1003,9 +1003,35 @@ Equipped abilities:
 
 Weight: 5~
 
-@70112 = ~~
-@70212 = ~~
+@70112 = ~Stone Ring~
+@70212 = ~The beloved ring of a forgotten hero. This ring is weighty, and the enchantment carries that weight to the wearer's attacks, strengthening the force of blows.
 
+STATISTICS:
+
+Equipped abilities:
+– THAC0: -2
+
+Combat abilities:
+– Melee: 15% chance to stun the target 4 seconds
+– Ranged: 25% chance to knock back the target
+
+Weight: 3~
+
+@70113 = ~Flynn's Ring~
+@70213 = ~Ring of an eulogized thief, who fought with the wind on his side. Flynn was small of stature, but packed a mighty punch. Strength of wind increases the damage of attacks.
+
+STATISTICS:
+
+Equipped abilities:
+– +20% increase to all physical damage dealt when not wearing armor or robes
+
+Weight: 0~
+
+@70114 = ~~
+@70214 = ~~
+
+@70115 = ~~
+@70215 = ~~
 
 
 

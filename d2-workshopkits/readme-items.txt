@@ -12,6 +12,8 @@ Prisoner's Chain (ring)
 Cruciform (amulet)
 Golem Ring (ring)
 Calamity Ring (ring)
+Stone Ring (ring)
+Flynn's Ring (ring)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -205,6 +207,36 @@ Equipped abilities:
 – Receive double damage from all attacks
 
 Weight: 5
+
+
+==================================================
+Stone Ring (ring)
+==================================================
+The beloved ring of a forgotten hero. This ring is weighty, and the enchantment carries that weight to the wearer's attacks, strengthening the force of blows.
+
+STATISTICS:
+
+Equipped abilities:
+– THAC0: -2
+
+Combat abilities:
+– Melee: 15% chance to stun the target 4 seconds
+– Ranged: 25% chance to knock back the target
+
+Weight: 3
+
+
+==================================================
+Flynn's Ring (ring)
+==================================================
+Ring of an eulogized thief, who fought with the wind on his side. Flynn was small of stature, but packed a mighty punch. Strength of wind increases the damage of attacks.
+
+STATISTICS:
+
+Equipped abilities:
+– +20% increase to all physical damage dealt when not wearing armor or robes
+
+Weight: 0
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

@@ -12,6 +12,10 @@ ACTION_IF (GAME_IS ~bgee~) BEGIN
   COPY_EXISTING ~AR2300.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%calamity%~ END
   BUT_ONLY
+
+  COPY_EXISTING ~AR2007.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=3 STR_VAR item_to_add=~%stonering%~ END
+  BUT_ONLY
 END
 
 ACTION_IF (GAME_IS ~eet~) BEGIN
@@ -21,6 +25,10 @@ ACTION_IF (GAME_IS ~eet~) BEGIN
 
   COPY_EXISTING ~BG2300.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%calamity%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~BG2007.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=3 STR_VAR item_to_add=~%stonering%~ END
   BUT_ONLY
 END
 
@@ -67,57 +75,67 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
     ADD_CRE_ITEM ~%calamity%~ #0 #0 #0 ~none~ ~inv~
   BUT_ONLY
 
+  COPY_EXISTING ~AR1106.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%stonering%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR0514.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%flynnring%~ END
+  BUT_ONLY
+
 
 //ToB (starting bags)
-  COPY_EXISTING ~bag28.STO~  ~override~
+  COPY_EXISTING ~bag28.STO~  ~override~     // Thief, F/T
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%crowfeather%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%flynnring%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bag25.STO~  ~override~     // Stalker
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%crowfeather%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~bag25.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%crowfeather%~ flags=~identified~ END
-  BUT_ONLY
-
-  COPY_EXISTING ~bag30.STO~  ~override~
+  COPY_EXISTING ~bag30.STO~  ~override~     // Bard
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 STR_VAR item_name=~%etherbomb%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%calamity%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%flynnring%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~bag29.STO~  ~override~
+  COPY_EXISTING ~bag29.STO~  ~override~     // Mage, Sorcerer, all Mage multiclasses
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%etherbooster%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~bag20.STO~  ~override~
+  COPY_EXISTING ~bag20.STO~  ~override~     // Fighter, Berserker, Blackguard
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~bag21.STO~  ~override~
+  COPY_EXISTING ~bag21.STO~  ~override~     // Wizard Slayer
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%calamity%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~bag22.STO~  ~override~
+  COPY_EXISTING ~bag22.STO~  ~override~     // Kensai
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~bag23.STO~  ~override~
+  COPY_EXISTING ~bag23.STO~  ~override~     // Monk
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%stonering%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~bag26.STO~  ~override~
+  COPY_EXISTING ~bag26.STO~  ~override~     // Cleric/Paladin, F/C, C/T, C/R
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%cruciform%~ flags=~identified~ END
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%calamity%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~bag27.STO~  ~override~
+  COPY_EXISTING ~bag27.STO~  ~override~     // Druid, F/D
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~bag24.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ flags=~identified~ END
+  COPY_EXISTING ~bag24.STO~  ~override~     // Ranger
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%stonering%~ flags=~identified~ END
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 STR_VAR item_name=~%etherbomb%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~BAG27A.STO~  ~override~
+  COPY_EXISTING ~BAG27A.STO~  ~override~    // Shaman
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ flags=~identified~ END
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%calamity%~ flags=~identified~ END
   BUT_ONLY
@@ -147,8 +165,16 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=21 STR_VAR item_to_add=~%cruciform%~ END
   BUT_ONLY
 
+  COPY_EXISTING ~AR2115.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%calamity%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR4002.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%stonering%~ END
+  BUT_ONLY
+
   COPY_EXISTING ~gerth.CRE~ ~override~
-    ADD_CRE_ITEM ~%calamity%~ #0 #0 #0 ~none~ ~inv~
+    ADD_CRE_ITEM ~%flynnring%~ #0 #0 #0 ~none~ ~inv~
   BUT_ONLY
 
 

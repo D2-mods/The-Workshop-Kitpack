@@ -87,6 +87,15 @@ The unpatched HLAs just won't work 100% right with these kits.
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+v1.4
+- Added spell cap option to config.ini: This affects 2 spells, Electrocannon and Revitalizer (Starjammer kit). The cap can be set to level 20, 30, 40, or 50. Any other number will revert to the defaults (20 for BG games and 30 for IWDEE).
+- More edits to the Riftgate balor (both buffs and nerfs). If you're unprepared for it, best thing to do would be to run to a different map (it will search you out if on the same map). It's also vulnerable to Imprisonment, if you can get the spell off.
+- Added 2 items to the "Misc items" component:
+	- Stone Ring
+	- Flynn's Ring
+- Golem Ring ability now says "Iron Flesh" by the portrait icon to differentiate from Stoneskin.
+- Might have made a few other minor adjustments.
+
 v1.3
 - Powder Keg: Fixed minor issue when installed after Rogue Rebalancing. The kit was starting with the RR song, though you could switch right away to Blasting Song. Now the kit starts with Blasting Song set as the Bard Song.
 

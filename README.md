@@ -331,14 +331,16 @@ Additional Info (Kit Abilities):
 - Can be dispelled:  
 	- Denial  
 	- Moonlight Vortex (magic resist)  
+	- Rooting Shot (entangled status)  
 	- Frenzying Flame (status effects)
 
-- Can be removed by Zone of Sweet Air  
+- Can be removed by Zone of Sweet Air:  
 	- Incinerate (Warhound)  
 	- Dust Explosion (Powder Keg)
 
-- Blood transfusions will be removed by a Restoration or Greater Restoration.
-- Bleeding effects can be cured by Heal or Greater Restoration, or by the Blood Minister's "Healing Blood".
+- Other:  
+	- Blood transfusions will be removed by a Restoration or Greater Restoration.
+	- Bleeding effects can be cured by Heal or Greater Restoration, or by the Blood Minister's "Healing Blood".
 
 A few other kit abilities are also spell-like, but I decided not to make them affected by Wild/Dead Magic. It's standard for kit abilities in these games not to be affected. The above abilities are cast like spells so I thought it'd look dumb for them not to be affected by Magic Zones.
 
@@ -441,7 +443,7 @@ Weight: 1
 </details>
 
 #### Purchasing the badges:
-- Only a couple badges are obtainable in BG1/SoD, and not until reaching the city of Baldur's Gate.
+- 2 badges are obtainable in BG1/SoD, but not until reaching the city of Baldur's Gate.
 - All badges can be obtained in BG2 and IWD, including additional badges in the expansions.
 
 
@@ -598,6 +600,8 @@ Misc items:
 - Cruciform (amulet)
 - Golem Ring (ring)
 - Calamity Ring (ring)
+- Stone Ring (ring)
+- Flynn's Ring (ring)
 
 <details>
   <summary>Descriptions</summary>
@@ -724,10 +728,40 @@ Weight: 5
 
 ---
 
+**Stone Ring (ring)**
+
+The beloved ring of a forgotten hero. This ring is weighty, and the enchantment carries that weight to the wearer's attacks, strengthening the force of blows.
+
+STATISTICS:
+
+Equipped abilities:
+- THAC0: -2
+
+Combat abilities:
+- Melee: 15% chance to stun the target 4 seconds
+- Ranged: 25% chance to knock back the target
+
+Weight: 3
+
+---
+
+**Flynn's Ring (ring)**
+
+Ring of an eulogized thief, who fought with the wind on his side. Flynn was small of stature, but packed a mighty punch. Strength of wind increases the damage of attacks.
+
+STATISTICS:
+
+Equipped abilities:
+- +20% increase to all physical damage dealt when not wearing armor or robes
+
+Weight: 0
+
+---
+
 </details>
 
 #### Non-spoilery item info:
-- BG1: Only Prisoner's Chain and Calamity Ring are obtainable (though all items are installed).
+- BG1: Prisoner's Chain, Calamity Ring, and Stone Ring are obtainable (other items are still installed).
 - SoD: Only Etherbomb Songbook and Golem Ring are obtainable. One of them must be pickpocketed/looted.
 - BG2: All items obtainable in SoA portion. If starting a new game in ToB, the starting bag will have 1 or 2 items.
 - IWD: Golem Ring is in TotL. The rest are in main IWD campaign. One item must be pickpocketed/looted.

@@ -1,4 +1,6 @@
 /*
+This file adds all effects for the "Misc items" component.
+Will also patch certain kit abilities, but only if the kit is installed.
 */
 
 
@@ -241,20 +243,22 @@ END
 
 
 //Golem Ring (ring)
+COPY ~%icons%/ironflesh.BAM~  ~override/%m6%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@616) STR_VAR bam=~%m6%i~ RET icon END
 COPY ~%files%/golemring.BAM~  ~override/%m6%.BAM~
 COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
   SAY NAME2 @70110
   SAY DESC @70210
   WRITE_ASCII 0x3a ~%m6%~ #8    // icon
   WRITE_ASCII 0x76 ~%m6%~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@304) END    // "Activated Golem Ring"
 
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_haste_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
-
   PATCH_IF (haste_immunity > 0) BEGIN 
     LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=16 opcode=328 parameter2=haste_immunity END
   END
-
   PATCH_IF (slow_immunity > 0) BEGIN 
     LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=328 parameter2=slow_immunity END
   END
@@ -267,6 +271,44 @@ COPY ~%files%/calamity.ITM~  ~override/%m7%.ITM~
   SAY NAME2 @70111
   SAY DESC @70211
   WRITE_ASCII 0x3a ~%m7%~ #8    // icon
+
+
+
+//Stone Ring (ring)
+COPY ~%files%/stonering.BAM~      ~override/%m8%.BAM~
+COPY ~%files%/stoneringstun.EFF~  ~override/%m8%a.EFF~    // stun
+COPY ~%files%/stoneringpush.EFF~  ~override/%m8%b.EFF~    // wing buffet
+COPY ~%files%/stonering.ITM~      ~override/%m8%.ITM~
+  SAY NAME2 @70112
+  SAY DESC @70212
+  WRITE_ASCII 0x3a ~%m8%~ #8    // icon
+  LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%m8%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%m8%b~ END
+
+
+
+//Flynn's Ring (ring)
+COPY ~%files%/flynnsring.EFF~  ~override/%m9%a.EFF~    // block item effects
+    WRITE_ASCII 0x30 ~%m9%~ #8
+COPY ~%files%/flynnsring.EFF~  ~override/%m9%b.EFF~    // block spell effects
+    WRITE_ASCII 0x30 ~%m9%s~ #8
+
+COPY ~%files%/flynnsring.BAM~  ~override/%m9%.BAM~
+COPY ~%files%/flynnsring.ITM~  ~override/%m9%.ITM~
+  SAY NAME2 @70113
+  SAY DESC @70213
+  WRITE_ASCII 0x3a ~%m9%~ #8    // icon
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m9%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m9%s~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%m9%s~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=183 STR_VAR resource=~%m9%a~ END
+
+COPY ~%abilities%/castspellself.EFF~  ~override/%m9%s.EFF~
+  WRITE_ASCII 0x30 ~%m9%s~ #8
+COPY ~%files%/flynnsring.SPL~  ~override/%m9%s.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m9%s~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=183 STR_VAR resource=~%m9%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%m9%s~ END
 
 
 
@@ -286,6 +328,8 @@ OUTER_TEXT_SPRINT prisonchain    ~%m4%~
 OUTER_TEXT_SPRINT cruciform      ~%m5%~
 OUTER_TEXT_SPRINT golemring      ~%m6%~
 OUTER_TEXT_SPRINT calamity       ~%m7%~
+OUTER_TEXT_SPRINT stonering      ~%m8%~
+OUTER_TEXT_SPRINT flynnring      ~%m9%~
 
 OUTER_TEXT_SPRINT bleeding1      ~%m5%a~
 OUTER_TEXT_SPRINT bleeding2      ~%m5%b~

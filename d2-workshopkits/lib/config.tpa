@@ -1,5 +1,6 @@
 //Read config.ini
 
+
 COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~BeastHunter.*=.*[^0-9]0[^0-9]*$~         nobeasthunter
   COUNT_REGEXP_INSTANCES  ~Warhound.*=.*[^0-9]0[^0-9]*$~            nowarhound
@@ -13,5 +14,41 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~CrowHunter.*=.*[^0-9]0[^0-9]*$~          nocrowhunter
   COUNT_REGEXP_INSTANCES  ~PowderKeg.*=.*[^0-9]0[^0-9]*$~           nopowderkeg
 
+  COUNT_REGEXP_INSTANCES  ~spellcapBG2.*=.*[^0-9]20[^0-9]*$~        bg2cap20
+  COUNT_REGEXP_INSTANCES  ~spellcapBG2.*=.*[^0-9]30[^0-9]*$~        bg2cap30
+  COUNT_REGEXP_INSTANCES  ~spellcapBG2.*=.*[^0-9]40[^0-9]*$~        bg2cap40
+  COUNT_REGEXP_INSTANCES  ~spellcapBG2.*=.*[^0-9]50[^0-9]*$~        bg2cap50
+  COUNT_REGEXP_INSTANCES  ~spellcapIWD.*=.*[^0-9]20[^0-9]*$~        iwdcap20
+  COUNT_REGEXP_INSTANCES  ~spellcapIWD.*=.*[^0-9]30[^0-9]*$~        iwdcap30
+  COUNT_REGEXP_INSTANCES  ~spellcapIWD.*=.*[^0-9]40[^0-9]*$~        iwdcap40
+  COUNT_REGEXP_INSTANCES  ~spellcapIWD.*=.*[^0-9]50[^0-9]*$~        iwdcap50
+
   COUNT_REGEXP_INSTANCES  ~PriestIDS.*=.*[^0-9]0[^0-9]*$~           nopriestids
   COUNT_REGEXP_INSTANCES  ~WizardIDS.*=.*[^0-9]0[^0-9]*$~           nowizardids
+
+
+
+//Set spell cap (Starjammer spells)
+
+OUTER_SET spellcapBG2  = 20                                      // default
+OUTER_SET spellcapIWD  = 30
+
+ACTION_IF (bg2cap20 > 0) BEGIN OUTER_SET spellcapBG2 = 20 END    // adjusted
+ACTION_IF (bg2cap30 > 0) BEGIN OUTER_SET spellcapBG2 = 30 END
+ACTION_IF (bg2cap40 > 0) BEGIN OUTER_SET spellcapBG2 = 40 END
+ACTION_IF (bg2cap50 > 0) BEGIN OUTER_SET spellcapBG2 = 50 END
+ACTION_IF (iwdcap20 > 0) BEGIN OUTER_SET spellcapIWD = 20 END
+ACTION_IF (iwdcap30 > 0) BEGIN OUTER_SET spellcapIWD = 30 END
+ACTION_IF (iwdcap40 > 0) BEGIN OUTER_SET spellcapIWD = 40 END
+ACTION_IF (iwdcap50 > 0) BEGIN OUTER_SET spellcapIWD = 50 END
+
+ACTION_IF (GAME_IS ~iwdee~) BEGIN 
+  OUTER_SET spellcap = spellcapIWD    // IWDEE cap
+END
+ELSE BEGIN
+  OUTER_SET spellcap = spellcapBG2    // BGEE cap
+END
+
+
+/*
+*/

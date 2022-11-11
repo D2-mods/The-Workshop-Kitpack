@@ -10,17 +10,18 @@ THEN
 		ForceSpell(Myself,WIZARD_SUN_FIRE)
 		ReallyForceSpell(Myself,WIZARD_ANIMATE_DEAD)
 		ReallyForceSpell(Myself,WIZARD_ANIMATE_DEAD)
+		ReallyForceSpell(Myself,WIZARD_ANIMATE_DEAD)
 END
 
 IF
 	See([ANYONE])
-	HPLT(Myself,180)
+	HPLT(Myself,200)
 	!Global("d2phase2","LOCALS",1)
 THEN
 	RESPONSE #100
 		SetGlobal("d2phase2","LOCALS",1)
-        ForceSpell(Myself,CLERIC_AURA_OF_FLAMING_DEATH)
-        ReallyForceSpell(Myself,CLERIC_REGENERATE)
+		ForceSpell(Myself,CLERIC_AURA_OF_FLAMING_DEATH)
+		ReallyForceSpell(Myself,CLERIC_REGENERATE)
 		ReallyForceSpell(Myself,WIZARD_ABI_DALZIMS_HORRID_WILTING)
 		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_FEAR)
 		ReallyForceSpell(Myself,WIZARD_SUMMON_PLANATAR_EVIL)
@@ -28,13 +29,13 @@ END
 
 IF
 	See([ANYONE])
-	HPLT(Myself,80)
+	HPLT(Myself,120)
 	!Global("d2phase3","LOCALS",1)
 THEN
 	RESPONSE #100
 		SetGlobal("d2phase3","LOCALS",1)
 		ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
-        ForceSpell(Myself,WIZARD_IMPROVED_HASTE)
+		ForceSpell(Myself,WIZARD_IMPROVED_HASTE)
 		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_DEATH)
 		ReallyForceSpell(Myself,WIZARD_METEOR_SWARM)
 		ReallyForceSpell(Myself,CLERIC_SUMMON_FALLEN_DEVA)
@@ -42,16 +43,29 @@ THEN
 END
 
 IF
+	See([ANYONE])
+	HPLT(Myself,40)
+	!Global("d2final","LOCALS",1)
+THEN
+	RESPONSE #100
+		SetGlobal("d2final","LOCALS",1)
+		ReallyForceSpell(Myself,CLERIC_STORM_OF_VENGEANCE)
+		ReallyForceSpell(Myself,CLERIC_FIRE_STORM)
+		ReallyForceSpell(Myself,CLERIC_FIRE_STORM)
+END
+
+IF
 	See(NearestEnemyOf())
+	!StateCheck(LastSeenBy(),STATE_HELPLESS)
 	!GlobalTimerNotExpired("d2balordispel","LOCALS")
 THEN
 	RESPONSE #100
 		ForceSpellRES("SPWI302",LastSeenBy())
-		SetGlobalTimer("d2balordispel","LOCALS",120)
+		SetGlobalTimer("d2balordispel","LOCALS",60)
 END
 
 IF
-	See([CONTROLLED])
+	See([GOODCUTOFF.0.0.0.0.SUMMONED])
 	!GlobalTimerNotExpired("d2banish","LOCALS")
 THEN
 	RESPONSE #100
@@ -66,6 +80,7 @@ THEN
 	RESPONSE #100
 		ForceSpell(Myself,CLERIC_UNHOLY_WORD)
 		ReallyForceSpell(Myself,WIZARD_GREATER_MALISON)
+		ReallyForceSpell(Myself,WIZARD_CLOUDKILL)
 		SetGlobalTimer("d2unholyword","LOCALS",60)
 END
 
@@ -81,6 +96,7 @@ END
 
 IF
 	See(NearestEnemyOf())
+	!StateCheck(LastSeenBy(),STATE_HELPLESS)
 	!GlobalTimerNotExpired("d2balorconfuse","LOCALS")
 THEN
 	RESPONSE #100
@@ -213,9 +229,12 @@ IF
 	!See([GOODCUTOFF])
 THEN
 	RESPONSE #100
+		SetGlobalTimer("d2balordispel","LOCALS",0)
+		SetGlobalTimer("d2banish","LOCALS",0)
+		SetGlobalTimer("d2unholyword","LOCALS",0)
+		SetGlobalTimer("d2balorconfuse","LOCALS",0)
 		ApplySpell(Myself,WIZARD_STONE_SKIN)
-        ReallyForceSpell(Myself,CLERIC_REGENERATE)
-        ReallyForceSpell(Myself,WIZARD_IMPROVED_HASTE)
+		ReallyForceSpell(Myself,CLERIC_REGENERATE)
 		SetGlobalTimer("d2randomwalk","LOCALS",12)
 		MoveToObject(Player1)
 END
