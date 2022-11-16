@@ -381,7 +381,10 @@ LAF ADD_KIT_EX
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
     source_kit = DRAGON_DISCIPLE    // use Dragon Disciple as base (unkitted Sorcerer is missing from some tables)
+    abclasrq = ~0 0 0 12 0 12~      // min stats
     abclsmod = ~0 -2 0 0 -2 0~      // -2 to Dex and Wis
+    abdcscrq = ~0 0 0 15 0 15~      // not used (dual class), this is just for aesthetics
+    abdcdsrq = ~0 0 0 17 0 17~      // not used (dual class)
     clascolr = ~72 67 169 93 72~    // Kensai colors
     hpclass = ~HPWIZ~               // same HP as Wizard
   RET 

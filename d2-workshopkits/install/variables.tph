@@ -71,21 +71,4 @@ OUTER_TEXT_SPRINT m0 ~%kitid%m0~
 
 
 /*
-//Set max spell level
-ACTION_IF (GAME_IS ~iwdee~) BEGIN 
-  OUTER_SET spellcap = 30
-  ACTION_FOR_EACH casterlevel IN ~%iwdcap20%~ ~%iwdcap30%~ ~%iwdcap40%~ BEGIN    // IWDEE
-    ACTION_IF (casterlevel > 0) BEGIN
-      OUTER_SET spellcap = casterlevel
-    END
-  END
-END
-ELSE BEGIN
-  OUTER_SET spellcap = 20
-  ACTION_FOR_EACH casterlevel IN ~%bg2cap20%~ ~%bg2cap30%~ ~%bg2cap40%~ BEGIN    // BGEE games
-    ACTION_IF (casterlevel > 0) BEGIN
-      OUTER_SET spellcap = casterlevel
-    END
-  END
-END
 */
