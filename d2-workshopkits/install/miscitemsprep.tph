@@ -13,6 +13,10 @@ ACTION_IF (FILE_EXISTS ~override/d2wkas2.SPL~) BEGIN
   OUTER_TEXT_SPRINT visceralattack  ~d2wkas2~
   OUTER_TEXT_SPRINT visceralhaste   ~d2wkas2a~
   OUTER_TEXT_SPRINT visceralremove  ~d2wkas2b~
+
+  COPY_EXISTING - ~kit.ids~ ~~
+    COUNT_REGEXP_INSTANCES ~D2CROWHUNTERFT~   crowhunterft
+    COUNT_REGEXP_INSTANCES ~D2CROWHUNTERFMT~  crowhunterfmt
 END
 
 //Confessor

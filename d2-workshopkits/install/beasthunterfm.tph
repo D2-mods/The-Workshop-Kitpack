@@ -1,0 +1,70 @@
+//Beast Hunter (f/m)
+
+
+ACTION_IF (nobeasthunterfm = 0) BEGIN
+
+
+INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
+
+
+//Remove specialist bonus slots
+COPY ~%passives%/fewerspells1.SPL~  ~override/%e4%.SPL~
+COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~         // only relevant for 5e casting mod
+  LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END
+
+
+//Ability tables (don't include base class abilities)
+COPY ~%files%/kit0.2DA~  ~override/%beasthunter%F.2DA~
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
+
+COPY ~%files%/kit6.2DA~  ~override/%beasthunter%M.2DA~
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 7
+    mixed = RESOLVE_STR_REF (@100101)
+    lower = RESOLVE_STR_REF (@100102)
+    help = RESOLVE_STR_REF (@100103)
+  STR_VAR
+    kit_name = ~D2%kitname%FM~
+    unusable = ~0x00010000~               // Stalker usability (no effect for multiclasses)
+    clab_base_f = ~%beasthunter%F.2DA~    // kit abilities added to Fighter table
+    clab_base_m = ~%beasthunter%M.2DA~    // -1 spell slots added to Mage table
+    clascolr = ~28 93 91 91 93~           // Archer colors
+  RET 
+    kit_id
+END
+
+
+//Usability - restrict to studded leather or lighter
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  READ_ASCII 0x22 itemtype (2) NULL                         // equipped appearance
+  PATCH_IF ((~%itemtype%~ STRING_EQUAL_CASE ~3A~) OR        // chain or splint
+            (~%itemtype%~ STRING_EQUAL_CASE ~4A~)) BEGIN    // plate mail
+    LPF ADD_ITEM_EQEFFECT
+      INT_VAR
+        opcode = 319
+        target = 1
+        parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
+        parameter2 = 9
+        timing = 2
+    END
+  END
+BUT_ONLY
+
+
+//Set variables for external use
+OUTER_SET beasthunterfm = 1
+
+
+END
+
+
+/* 
+*/

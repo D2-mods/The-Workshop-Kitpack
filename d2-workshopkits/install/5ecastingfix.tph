@@ -1,12 +1,12 @@
 /*
 This file should only be installed if using subtledoctor's 5e casting mod.
-Fixes War Magician spell slots (will match a regular Mage).
+Fixes spell slots of mage kits (will match a regular Mage).
 This can be installed before or after 5e casting is installed.
 */
 
 
 //War Magician (d2wk7)
-ACTION_IF (%nowarmagician% = 0) BEGIN
+ACTION_IF (nowarmagician = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk7~
   OUTER_TEXT_SPRINT kitname ~WARMAGICIAN~
   INCLUDE ~%install%/variables.tph~
@@ -16,6 +16,82 @@ ACTION_IF (%nowarmagician% = 0) BEGIN
       REPLACE_TEXTUALLY ~AP_%e3%~ ~****~
       PRETTY_PRINT_2DA
     BUT_ONLY
+  END
+  ELSE BEGIN
+    WARN @5    // message that file not found
+  END
+END
+
+
+//Beast Hunter (f/m)
+ACTION_IF (nobeasthunterfm = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk1~
+  OUTER_TEXT_SPRINT kitname ~BEASTHUNTER~
+  INCLUDE ~%install%/variables.tph~
+
+  ACTION_IF (FILE_EXISTS ~override/%kitid%M.2DA~) BEGIN
+    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
+      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
+        LPF DELETE_EFFECT STR_VAR match_resource=~%e4%#~ END
+      BUT_ONLY
+    END
+  END
+  ELSE BEGIN
+    WARN @5    // message that file not found
+  END
+END
+
+
+//Beast Hunter (f/m/c)
+ACTION_IF (nobeasthunterfmc = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk1~
+  OUTER_TEXT_SPRINT kitname ~BEASTHUNTER~
+  INCLUDE ~%install%/variables.tph~
+
+  ACTION_IF (FILE_EXISTS ~override/%kitid%C.2DA~) BEGIN
+    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
+      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
+        LPF DELETE_EFFECT STR_VAR match_resource=~%e4%#~ END
+      BUT_ONLY
+    END
+  END
+  ELSE BEGIN
+    WARN @5    // message that file not found
+  END
+END
+
+
+//Warhound (f/m)
+ACTION_IF (nowarhoundfm = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk2~
+  OUTER_TEXT_SPRINT kitname ~WARHOUND~
+  INCLUDE ~%install%/variables.tph~
+
+  ACTION_IF (FILE_EXISTS ~override/%kitid%M.2DA~) BEGIN
+    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
+      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
+        LPF DELETE_EFFECT STR_VAR match_resource=~%e4%#~ END
+      BUT_ONLY
+    END
+  END
+  ELSE BEGIN
+    WARN @5    // message that file not found
+  END
+END
+
+
+//Crow Hunter (f/m/t)
+ACTION_IF (nocrowhunterfmt = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wka~
+  OUTER_TEXT_SPRINT kitname ~CROWHUNTER~
+  INCLUDE ~%install%/variables.tph~
+
+  ACTION_IF (FILE_EXISTS ~override/%kitid%M.2DA~) BEGIN
+    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
+      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
+        LPF DELETE_EFFECT STR_VAR match_resource=~%e4%#~ END
+      BUT_ONLY
+    END
   END
   ELSE BEGIN
     WARN @5    // message that file not found

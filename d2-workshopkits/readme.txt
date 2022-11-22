@@ -87,6 +87,19 @@ The unpatched HLAs just won't work 100% right with these kits.
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+v2.0
+- Added 6 multiclass variants:
+	- Beast Hunter (f/m)
+	- Beast Hunter (f/m/c)
+	- Warhound (f/m)
+	- Moonlight Knight (c/r)
+	- Crow Hunter (f/t)
+	- Crow Hunter (f/m/t)
+- These are installed together with the single classes. As with the single class, each kit can be enabled or disabled from the config.ini file.
+- Blood Minister: Added weapon restrictions if using DoF spheres (blunt, crossbows, dagger, short sword, dart). These are implemented the same way as Raduziel's own kits (added directly to weapon files). This kit also wasn't getting "All" spheres up to 7th level. This is fixed.
+- Frenzying Flame: Added audio while the spell is active
+- Updated ADD_KIT_EX to v0.5.1
+
 v1.5
 - Starjammer: Minimum stats changed to be different from Dragon Disciple
 

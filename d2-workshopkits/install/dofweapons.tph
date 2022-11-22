@@ -1,0 +1,122 @@
+//
+
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) BEGIN
+
+
+/*
+ACTION_DEFINE_ASSOCIATIVE_ARRAY weapontype BEGIN    // weapon => usable
+  15 => 1    // bows
+  16 => 1    // daggers
+  17 => 1    // maces, clubs
+  18 => 1    // slings
+  19 => 1    // small swords (short sword, wakizashi)
+  20 => 1    // large swords (long sword, bastard sword, two handed sword, ninjato)
+  21 => 1    // hammers
+  22 => 1    // morning stars
+  23 => 1    // flails
+  24 => 1    // darts
+  25 => 1    // axes
+  26 => 1    // quarterstaff
+  27 => 1    // crossbows
+  28 => 1    // fist
+  29 => 1    // spears
+  30 => 1    // halberds
+END
+*/
+
+
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  READ_SHORT 0x1c itemtype
+
+  PHP_EACH weapontype AS type => usable BEGIN    // set weapon to %type% and usable to %usable%
+    PATCH_IF (type = itemtype) BEGIN
+      PATCH_IF (usable < 1) BEGIN
+        LPF ADD_ITEM_EQEFFECT
+          INT_VAR
+            opcode = 319
+            target = 1
+            parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+            parameter2 = 9
+            timing = 2
+        END
+      END
+    END
+  END
+BUT_ONLY
+
+
+COPY_EXISTING ~weapprof.2DA~  override
+  LPF weapprof_set_types INT_VAR entry=0 STR_VAR kit=~D2%kitname%~ RET col_number END
+
+  PHP_EACH weapontype AS type => usable BEGIN    // set weapon to %type% and usable to %usable%
+    PATCH_IF (usable > 0) BEGIN
+      PATCH_IF (type = 15) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 5 col_number 1     // bg1 bows
+        SET_2DA_ENTRY_LATER ~make_edits~ 27 col_number 1    // longbow
+        SET_2DA_ENTRY_LATER ~make_edits~ 28 col_number 1    // shortbow
+      END
+      PATCH_IF (type = 16) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 18 col_number 1    // dagger
+      END
+      PATCH_IF (type = 17) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 7 col_number 1     // bg1 blunt
+        SET_2DA_ENTRY_LATER ~make_edits~ 24 col_number 1    // mace
+        SET_2DA_ENTRY_LATER ~make_edits~ 20 col_number 1    // club
+      END
+      PATCH_IF (type = 18) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 30 col_number 1    // sling
+      END
+      PATCH_IF (type = 19) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 4 col_number 1     // bg1 small swords
+        SET_2DA_ENTRY_LATER ~make_edits~ 13 col_number 1    // short sword
+      END
+      PATCH_IF (type = 20) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 3 col_number 1     // bg1 large swords
+        SET_2DA_ENTRY_LATER ~make_edits~ 11 col_number 1    // bastard sword
+        SET_2DA_ENTRY_LATER ~make_edits~ 12 col_number 1    // long sword
+        SET_2DA_ENTRY_LATER ~make_edits~ 15 col_number 1    // 2 handed sword
+        SET_2DA_ENTRY_LATER ~make_edits~ 16 col_number 1    // katana
+        SET_2DA_ENTRY_LATER ~make_edits~ 17 col_number 1    // scimitar
+      END
+      PATCH_IF (type = 21) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 19 col_number 1    // warhammer
+      END
+      PATCH_IF (type = 23) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 8 col_number 1     // bg1 spiked
+        SET_2DA_ENTRY_LATER ~make_edits~ 23 col_number 1    // flail
+      END
+      PATCH_IF (type = 24) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 10 col_number 1    // bg1 missile
+        SET_2DA_ENTRY_LATER ~make_edits~ 29 col_number 1    // dart
+      END
+      PATCH_IF (type = 25) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 9 col_number 1     // bg1 axe
+        SET_2DA_ENTRY_LATER ~make_edits~ 14 col_number 1    // axe
+      END
+      PATCH_IF (type = 26) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 25 col_number 1    // staff
+      END
+      PATCH_IF (type = 27) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 26 col_number 1    // crossbow
+      END
+      PATCH_IF (type = 29) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 6 col_number 1     // bg1 spears
+        SET_2DA_ENTRY_LATER ~make_edits~ 21 col_number 1    // spear
+      END
+      PATCH_IF (type = 30) BEGIN
+        SET_2DA_ENTRY_LATER ~make_edits~ 22 col_number 1    // halberd
+      END
+    END
+  END
+
+  SET_2DA_ENTRIES_NOW ~make_edits~ 1
+  PRETTY_PRINT_2DA
+
+BUT_ONLY
+
+END
+
+
+/*
+*/

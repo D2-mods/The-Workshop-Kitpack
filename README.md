@@ -296,7 +296,7 @@ Disadvantages:
 Compatibility:
 -
 
-**IMPORTANT: If you're running into an issue with the arcane kits (i.e. Starjammer) where they don't have the full selection of spells when leveling up or at character creation, a current workaround is to install the [Tome & Blood](https://github.com/subtledoctor/TomeAndBlood/releases) mod's "No Opposition Schools" component". This tweak is safe to install at end of order.**
+**IMPORTANT: If you're running into an issue with the arcane kits (i.e. Starjammer) where they don't have the full selection of spells when leveling up or at character creation, a current workaround is to install the [Tome & Blood](https://github.com/subtledoctor/TomeAndBlood/releases) mod's "No Opposition Schools" component. This tweak is safe to install at end of order.**
 
 More info: Due to how the game detects mage specialists, once you get a high enough number of kits, any arcane kits added afterwards may share restricted schools with one or more specialists. For now, best thing to do if the issue comes up is to install the TnB component mentioned above.
 

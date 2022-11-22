@@ -46,6 +46,16 @@ ACTION_IF (FILE_EXISTS ~override/%visceralattack%.SPL~) BEGIN
       INT_VAR match_opcode=177 probability1=5 parameter1=IDS_OF_SYMBOL (kit ~D2CROWHUNTER~)
       STR_VAR resource=~%m1%a~
     END
+    PATCH_IF (crowhunterft > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2CROWHUNTERFT~)
+      END
+    END
+    PATCH_IF (crowhunterfmt > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2CROWHUNTERFMT~)
+      END
+    END
 
 END
 

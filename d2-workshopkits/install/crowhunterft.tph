@@ -1,0 +1,70 @@
+//Crow Hunter (f/t)
+
+
+ACTION_IF (nocrowhunterft = 0) BEGIN
+
+
+INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
+
+
+//Make 2da file (don't include base class abilities)
+COPY ~%files%/kit6.2DA~  ~override/%crowhunter%F.2DA~    // blank 2da
+COPY ~%files%/kit0.2DA~  ~override/%crowhunter%T.2DA~    // kit abilities
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=11 multi=1 increment=4 limit=19 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e2%~ END
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 9
+    mixed = RESOLVE_STR_REF (@101001)
+    lower = RESOLVE_STR_REF (@101002)
+    help = RESOLVE_STR_REF (@101003)
+  STR_VAR
+    kit_name = ~D2%kitname%FT~
+    clab_base_f = ~%crowhunter%F.2DA~         // no abilities added to Fighter table
+    clab_base_t = ~%crowhunter%T.2DA~         // kit abilities added to Thief table
+    thiefscl = ~100 100 100 100 100 100 0 0~  // no points in set traps
+    thiefskl = ~40 20~                        // start with 40, gain 20 per level
+    clascolr = ~93 182 136 184 93~            // use Stalker colors
+  RET 
+    kit_id
+END
+
+
+//Give 100 Set Traps when using HLA traps
+
+/*
+Works when used from EFF file.
+Does not work from SPL file (if set to 0 in thiefscl.2DA)
+*/
+
+ACTION_FOR_EACH ~trap~ IN ~SPCL910~ ~SPCL911~ ~SPCL912~ ~RR#THL04~ BEGIN
+
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%trap%.SPL~) BEGIN
+    COPY_EXISTING ~%trap%.SPL~  ~override~
+      LPF CLONE_EFFECT
+        INT_VAR
+          multi_match   = 1
+          opcode        = 177
+          target        = 1
+          timing        = 1
+          parameter1    = IDS_OF_SYMBOL (kit ~D2%kitname%FT~)
+          parameter2    = 9
+        STR_VAR
+          resource      = ~%e3%~
+      END
+    BUT_ONLY
+  END
+
+END
+
+
+END
+
+
+/*
+*/

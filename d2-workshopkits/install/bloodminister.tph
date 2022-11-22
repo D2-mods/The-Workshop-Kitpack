@@ -157,17 +157,15 @@ BUT_ONLY
 
 //Clone base cleric 2da file
 COPY_EXISTING ~CLABPR01.2DA~ ~override/%kitid%.2DA~
-  REPLACE_TEXTUALLY ~AP_CDHLYSYM~  ~AP_%e3%~
+  REPLACE_TEXTUALLY ~AP_CDHLYSYM~  ~****~    // remove Holy Symbol
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
-BUT_ONLY
 
-ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN    // fallback if the REPLACE_TEXTUALLY didn't work
-  COPY_EXISTING ~%kitid%.2DA~  ~override~
+  PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN       // add Holy Symbol
     LPF d2_kit_ability_adder INT_VAR level=25 passive=1 STR_VAR resource=~%e3%~ END
-  BUT_ONLY UNLESS ~%e3%~
-END
+  END
+BUT_ONLY
 
 
 //Kit function
@@ -183,6 +181,31 @@ LAF ADD_KIT_EX
     clascolr = ~72 46 47 2 93~    // Berserker colors
   RET 
     kit_id
+END
+
+
+//DoF weapon restrictions
+ACTION_IF (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) BEGIN
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY weapontype BEGIN    // weapon => usable
+  15 => 0    // bows
+  16 => 1    // daggers
+  17 => 1    // maces, clubs
+  18 => 1    // slings
+  19 => 1    // small swords (short sword, wakizashi)
+  20 => 0    // large swords (long sword, bastard sword, two handed sword, ninjato)
+  21 => 1    // hammers
+  22 => 1    // morning stars
+  23 => 1    // flails
+  24 => 1    // darts
+  25 => 0    // axes
+  26 => 1    // quarterstaff
+  27 => 1    // crossbows
+  28 => 1    // fist
+  29 => 0    // spears
+  30 => 0    // halberds
+END
+
 END
 
 

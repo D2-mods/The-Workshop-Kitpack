@@ -10,6 +10,9 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/%kitname%fm.tph~     // multiclass kit
+  INCLUDE ~%install%/%kitname%fmc.tph~    // multiclass kit
+  INCLUDE ~%install%/dofspheres.tph~
   INCLUDE ~%install%/hunterbadges.tph~
 END
 
@@ -20,6 +23,7 @@ ACTION_IF (%nowarhound% = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/%kitname%fm.tph~    // multiclass kit
 END
 
 //Grave Warden (d2wk3)
@@ -43,6 +47,8 @@ ACTION_IF (%nomoonlightknight% = 0) BEGIN
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/nofallen.tph~
   INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/dofspheres.tph~
+  INCLUDE ~%install%/%kitname%cr.tph~    // multiclass kit
   INCLUDE ~%install%/dofspheres.tph~
 END
 
@@ -98,6 +104,7 @@ ACTION_IF (%nobloodminister% = 0) BEGIN
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/fnpspheres.tph~
   INCLUDE ~%install%/dofspheres.tph~
+  INCLUDE ~%install%/dofweapons.tph~
 END
 
 //Crow Hunter (d2wka)
@@ -107,6 +114,8 @@ ACTION_IF (%nocrowhunter% = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/%kitname%ft.tph~     // multiclass kit
+  INCLUDE ~%install%/%kitname%fmt.tph~    // multiclass kit
 END
 
 //Powder Keg (d2wkb)

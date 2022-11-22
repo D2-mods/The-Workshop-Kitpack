@@ -154,7 +154,7 @@ END
 IF
 	ActionListEmpty()
 	Allegiance(Myself,GOODCUTOFF)
-    AttackedBy([EVILCUTOFF],DEFAULT)
+	AttackedBy([EVILCUTOFF],DEFAULT)
 THEN
 	RESPONSE #100
 		AttackReevaluate(LastAttackerOf(),30)
@@ -162,7 +162,7 @@ END
 
 IF
 	!Allegiance(Myself,GOODCUTOFF)
-    AttackedBy([GOODCUTOFF],DEFAULT)
+	AttackedBy([GOODCUTOFF],DEFAULT)
 THEN
 	RESPONSE #100
 		AttackReevaluate(LastAttackerOf(),30)
