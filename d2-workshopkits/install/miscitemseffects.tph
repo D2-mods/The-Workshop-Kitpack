@@ -3,28 +3,30 @@ External effects
 */
 
 
-ACTION_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
-
 //Bleeding removed by Heal or Greater Restoration
 COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
   READ_STRREF 0x8 spellname
   PATCH_IF ((~%spellname%~ STRING_EQUAL_CASE ~Greater Restoration~) OR
             (~%spellname%~ STRING_EQUAL_CASE ~Heal~)) BEGIN
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%bleeding1%~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%bleeding2%~ END
+    // remove Clawmark bleed
+    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%clawmarkbleed%~ END
+
+    //remove Cruciform bleed
+    PATCH_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
+      LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%bleeding1%~ END
+      LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%bleeding2%~ END
+    END
   END
 BUT_ONLY
 
 
 //Healing Blood can remove bleeding effects
 ACTION_IF (FILE_EXISTS ~override/%healingblood%.SPL~) BEGIN
-  ACTION_FOR_EACH ~bleeding~ IN ~%bleeding1%~ ~%bleeding2%~ BEGIN
+  ACTION_FOR_EACH ~bleeding~ IN ~%bleeding1%~ ~%bleeding2%~ ~%clawmarkbleed%~ BEGIN
     ACTION_IF (FILE_EXISTS_IN_GAME ~%bleeding%.SPL~) BEGIN
       COPY_EXISTING ~%healingblood%.SPL~  ~override~
         LPF CLONE_EFFECT INT_VAR multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%bleeding%~ END
       BUT_ONLY
     END
   END
-END
-
 END

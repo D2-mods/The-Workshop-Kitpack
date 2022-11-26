@@ -43,6 +43,7 @@ WARHOUND: Warhounds are armored soldiers specializing in long-range warfare. The
 Advantages:
 – +1 bonus to Armor Class vs. missile, plus an additional +1 bonus every 5 levels.
 – +1 to attack and damage rolls with any ranged weapon every 5 levels.
+– May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.
 – May use the Shockwave and Incinerate abilities. Gains one use each at level 4, plus an additional use each every 4 levels, up to a maximum of 5 uses each at level 20.
 
 SHOCKWAVE: The next successful ranged attack explodes in a wave of energy. All creatures in a 15-ft. radius take 2d4 crushing damage and are propelled back a considerable distance (no save). The blast inflicts an additional 2d4 crushing damage every 4 levels thereafter, up to a maximum of 10d4 at level 20.

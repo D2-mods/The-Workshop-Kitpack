@@ -34,7 +34,7 @@ LAF ADD_KIT_EX
     help = RESOLVE_STR_REF (@100103)
   STR_VAR
     kit_name = ~D2%kitname%FMC~
-    unusable = ~0x00010000~               // Stalker usability (no effect for multiclasses)
+//  unusable = ~0x00010000~               // Stalker usability (no effect for multiclasses)
     clab_base_f = ~%beasthunter%F.2DA~    // kit abilities added to Fighter table
     clab_base_m = ~%beasthunter%M.2DA~    // -1 spell slots added to Mage table
     clab_base_p = ~%beasthunter%C.2DA~    // no abilities added to Cleric table
@@ -63,6 +63,8 @@ BUT_ONLY
 
 //FnP spheres
 COPY ~%passives%/d5fpclsp.spl~  ~override/%e9%c.SPL~
+  LPF DELETE_EFFECT STR_VAR match_resource=~d5smdea#~ END
+  LPF DELETE_EFFECT STR_VAR match_resource=~d5spdes#~ END
   LPF ALTER_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~) END
 BUT_ONLY
 

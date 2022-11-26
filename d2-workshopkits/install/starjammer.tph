@@ -1,7 +1,7 @@
 //Starjammer (d2wk8)
 
 //Add passive effects
-COPY ~%passives%/spelljammer.SPL~   ~override/%e1%.SPL~
+COPY ~%passives%/starjammer.SPL~   ~override/%e1%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_silence_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_deafness_arrays END
 

@@ -157,6 +157,8 @@ BUT_ONLY
 
 //Clone base cleric 2da file
 COPY_EXISTING ~CLABPR01.2DA~ ~override/%kitid%.2DA~
+  REPLACE_TEXTUALLY ~AP_d2wk1e9c~  ~****~
+  REPLACE_TEXTUALLY ~AP_d2wk4e9c~  ~****~
   REPLACE_TEXTUALLY ~AP_CDHLYSYM~  ~****~    // remove Holy Symbol
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
@@ -185,7 +187,10 @@ END
 
 
 //DoF weapon restrictions
-ACTION_IF (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) BEGIN
+ACTION_IF ((FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
+           (FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
+           (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
+          ) BEGIN
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY weapontype BEGIN    // weapon => usable
   15 => 0    // bows
@@ -209,6 +214,17 @@ END
 END
 
 
+//2DA addition (only relevant for FnP)
+COPY ~%passives%/d5fpclsp.spl~  ~override/%e9%c.SPL~
+  LPF DELETE_EFFECT INT_VAR multi_match=10 END
+  LPF ALTER_EFFECT INT_VAR parameter1=0 parameter2=2 END
+BUT_ONLY
+
+COPY_EXISTING ~%kitid%.2DA~  ~override~
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%c~ END
+BUT_ONLY
+
+
 //Set variables for external use
 OUTER_TEXT_SPRINT bloodminister  ~%kitid%~
 OUTER_TEXT_SPRINT bloodtypea     ~%s1%a~    // healing blood
@@ -220,5 +236,4 @@ OUTER_TEXT_SPRINT fnpdeity       ~druid_lost_spheres~
 
 
 /*
-
 */

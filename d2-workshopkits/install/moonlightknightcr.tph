@@ -38,13 +38,10 @@ END
 
 
 //FnP spheres
-
-/*
-Uses nuFnP base cleric/ranger spheres.
-Add to clab files directly, instead of using FnP functions.
-*/
-
 COPY ~%passives%/d5fpclsp.spl~  ~override/%e9%c.SPL~
+  LPF DELETE_EFFECT STR_VAR match_resource=~d5spfir#~ END
+  LPF DELETE_EFFECT STR_VAR match_resource=~d5smwar#~ END
+  LPF DELETE_EFFECT STR_VAR match_resource=~d5splif#~ END
   LPF ALTER_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%CR~) END
 BUT_ONLY
 COPY ~%passives%/d5fprnsp.spl~  ~override/%e9%r.SPL~

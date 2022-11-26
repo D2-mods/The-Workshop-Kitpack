@@ -8,7 +8,7 @@ Text in this file appears in the game.
 @302 = ~Bleeding~
 @303 = ~You cannot cast this spell until the current casting has run out.~
 @304 = ~Activated Golem Ring~
-@305 = ~~
+@305 = ~^$A Caryll Rune has been etched in the minds of all party members.^-~    // symbols are for colored text
 @306 = ~Regenerating~
 @307 = ~Healed~
 @308 = ~Hasted~
@@ -94,6 +94,7 @@ Disadvantages:
 Advantages:
 – +1 bonus to Armor Class vs. missile, plus an additional +1 bonus every 5 levels.
 – +1 to attack and damage rolls with any ranged weapon every 5 levels.
+– May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.
 – May use the Shockwave and Incinerate abilities. Gains one use each at level 4, plus an additional use each every 4 levels, up to a maximum of 5 uses each at level 20.
 
 SHOCKWAVE: The next successful ranged attack explodes in a wave of energy. All creatures in a 15-ft. radius take 2d4 crushing damage and are propelled back a considerable distance (no save). The blast inflicts an additional 2d4 crushing damage every 4 levels thereafter, up to a maximum of 10d4 at level 20.
@@ -477,11 +478,22 @@ This is a powerful aid to both the Bard and to <PRO_HISHER> allies. The song giv
 
 This mighty battle chant grants the Bard and his allies +4 to hit, +4 to all saving throws, +10% bonus to Magic Resistance and immunity to Fear and Charm. The Bard himself receives an 8-point bonus to all of his saving throws while singing the song.~
 
-@121 = ~~
-@221 = ~~
+@121 = ~Craft Hunter Badge~
+@221 = ~Craft Hunter Badge
+
+Use this ability to craft 1 Hunter Badge. This action requires a full round to complete. If casting is interrupted before the badge is created, the ability can be regained after a full rest.~
 
 @122 = ~~
 @222 = ~~
+
+@123 = ~~
+@223 = ~~
+
+@124 = ~~
+@224 = ~~
+
+@125 = ~~
+@225 = ~~
 
 
 
@@ -1027,11 +1039,150 @@ Equipped abilities:
 
 Weight: 0~
 
-@70114 = ~~
-@70214 = ~~
+@70114 = ~Clawmark~
+@70214 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
-@70115 = ~~
-@70215 = ~~
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Clawmark (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 1 point of damage per round for one turn (no save); a target can be wounded once per round and the effects are cumulative
+
+Weight: 0~
+
+@70115 = ~Blood Rapture~
+@70215 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Blood Rapture (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  Critical hits restore 9 Hit Points
+
+Weight: 0~
+
+@70116 = ~Oedon Writhe~
+@70216 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Oedon Writhe (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  Critical hits restore 1 memorized spell
+
+Weight: 0~
+
+@70117 = ~Corruption~
+@70217 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Corruption (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  Regenerate 4 Hit Points per round at under 50% HP, 6 Hit Points per round at under 25% HP, and 8 Hit Points per round at under 10% HP
+
+Weight: 0~
+
+@70118 = ~Anti-Clockwise Metamorphosis~
+@70218 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Anti-Clockwise Metamorphosis (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +2 movement speed; +0.5 Attacks Per Round; -10% to maximum Hit Points
+
+Weight: 0~
+
+@70119 = ~Clockwise Metamorphosis~
+@70219 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Clockwise Metamorphosis (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +20% bonus to maximum Hit Points
+
+Weight: 0~
+
+@70120 = ~Great Lake~
+@70220 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Great Lake (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +10% to all physical damage resistances
+
+Weight: 0~
+
+@70121 = ~Fading Lake~
+@70221 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Fading Lake (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  80% Fire Resistance
+
+Weight: 0~
+
+@70122 = ~Beast's Embrace~
+@70222 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Beast's Embrace (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  Transform into a werewolf during combat; this action happens automatically and the character will revert back to natural form if no enemies are in visual range
+  Special: Clerics and Paladins transform into a greater werewolf
+
+Weight: 0~
+
+@70123 = ~~
+@70223 = ~~
+
+@70124 = ~~
+@70224 = ~~
+
+@70125 = ~~
+@70225 = ~~
 
 
 

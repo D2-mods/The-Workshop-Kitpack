@@ -10,7 +10,7 @@ Info:
 
 - If any spells were changed, then the revised spells may be learned by some kits. For example, the Confessor kit normally gains Blindness as a level 1 Priest spell. If you install Spell Revisions beforehand, it will instead gain Obscuring Mist.
 
-- Compatible with BGEE, BG2EE, IWDEE, and EET. My original plan was to also be compatible with classic BG2, but it's probably too late for that. This mod makes heavy use of EE-only opcodes.
+- Compatible with BG:EE, BG2:EE, IWD:EE, and EET. My original plan was to also be compatible with classic BG2, but it's probably too late for that. This mod makes heavy use of EE-only opcodes.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -32,11 +32,20 @@ Blood Minister (cleric)
 Crow Hunter (thief)
 Powder Keg (bard)
 
+//multiclass kits
+Beast Hunter (f/m)
+Beast Hunter (f/m/c)
+Warhound (f/m)
+Moonlight Knight (c/r)
+Crow Hunter (f/t)
+Crow Hunter (f/m/t)
+
 //misc
 1 Holy Symbol     - for the cleric kit
 4 Hunter Badges   - can be crafted (see below), can also be purchased
 8 new spells      - learned by the Starjammer kit
-other misc items (all general use items, no weapons or armor)
+9 Caryll Runes    - items with party-wide effects
+9 other items     - all general use items, no weapons or armor
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -88,6 +97,7 @@ The unpatched HLAs just won't work 100% right with these kits.
 
 Version info:
 v2.0
+New additions
 - Added 6 multiclass variants:
 	- Beast Hunter (f/m)
 	- Beast Hunter (f/m/c)
@@ -96,9 +106,18 @@ v2.0
 	- Crow Hunter (f/t)
 	- Crow Hunter (f/m/t)
 - These are installed together with the single classes. As with the single class, each kit can be enabled or disabled from the config.ini file.
-- Blood Minister: Added weapon restrictions if using DoF spheres (blunt, crossbows, dagger, short sword, dart). These are implemented the same way as Raduziel's own kits (added directly to weapon files). This kit also wasn't getting "All" spheres up to 7th level. This is fixed.
+- Added 9 Caryll Runes to Misc items component. These are items with party-wide effects, inspired by the similarly named items from Bloodborne. See GitHub page or forum posts for more details.
+
+Fixes/Tweaks:
+- Blood Minister
+	- DoF sphere system: Added weapon restrictions (blunt, crossbows, small piercing weapons). These are implemented the same way as Raduziel's own kits (added directly to weapon files). This kit also wasn't getting "All" spheres up to 7th level. This is fixed.
+	- FnP sphere system: Will now gain higher level healing spells, in addition to previous spheres.
 - Frenzying Flame: Added audio while the spell is active
+- Craft Hunter Badge: Added info about using the ability when right-clicking the icon
+- Fixed WeiDU error when installing after FnP.
+- Fixed proficiencies for Paladin and Ranger kits when installed after FnP.
 - Updated ADD_KIT_EX to v0.5.1
+
 
 v1.5
 - Starjammer: Minimum stats changed to be different from Dragon Disciple

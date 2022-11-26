@@ -187,21 +187,25 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
 //Create hunter badges (to be added to global scripts)
   COPY ~%abilities%/giveitem1use.SPL~  ~override/%m1%g.SPL~
     SAY NAME1 @611
+    SAY UNIDENTIFIED_DESC @221
     LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m1%~ END
     LPF ALTER_EFFECT INT_VAR match_opcode=172 STR_VAR resource=~%m1%g~ END
 
   COPY ~%abilities%/giveitem1use.SPL~  ~override/%m2%g.SPL~
     SAY NAME1 @612
+    SAY UNIDENTIFIED_DESC @221
     LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m2%~ END
     LPF ALTER_EFFECT INT_VAR match_opcode=172 STR_VAR resource=~%m2%g~ END
 
   COPY ~%abilities%/giveitem1use.SPL~  ~override/%m3%g.SPL~
     SAY NAME1 @613
+    SAY UNIDENTIFIED_DESC @221
     LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m3%~ END
     LPF ALTER_EFFECT INT_VAR match_opcode=172 STR_VAR resource=~%m3%g~ END
 
   COPY ~%abilities%/giveitem1use.SPL~  ~override/%m4%g.SPL~
     SAY NAME1 @614
+    SAY UNIDENTIFIED_DESC @221
     LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m4%~ END
     LPF ALTER_EFFECT INT_VAR match_opcode=172 STR_VAR resource=~%m4%g~ END
 

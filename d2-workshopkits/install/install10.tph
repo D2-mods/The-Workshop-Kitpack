@@ -4,15 +4,15 @@ Misc item pack
 
 
 //Install
-INCLUDE ~%install%/miscitemsprep.tph~
 OUTER_TEXT_SPRINT kitid ~d2wkz~
 OUTER_TEXT_SPRINT kitname ~miscitems~
 INCLUDE ~%install%/variables.tph~
 INCLUDE ~%install%/resources.tph~
+
+INCLUDE ~%install%/%kitname%prep.tph~
 INCLUDE ~%install%/%kitname%.tph~
+INCLUDE ~%install%/%kitname%runes.tph~
+INCLUDE ~%install%/%kitname%effects.tph~
+INCLUDE ~%install%/%kitname%stores.tph~
 
-
-//Extra
-INCLUDE ~%install%/miscitemseffects.tph~
-INCLUDE ~%install%/miscitemsstores.tph~
 //INCLUDE ~%install%/backupfiles.tph~

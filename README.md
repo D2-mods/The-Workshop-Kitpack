@@ -3,7 +3,7 @@
 Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases  
 Forum posts: [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)
 
-This is a kitpack I've been working on for a while. It currently has 11 kits—6 warrior, 5 non-warrior. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Also has a few misc items, some with kit-specific effects. Compatible with BGEE, BG2EE, IWDEE, and EET.
+This is a kitpack I've been working on for a while. It currently has 11 kits—6 warrior, 5 non-warrior + multiclass variants. Also adds 20+ items, including 4 Hunter Badges, 9 Caryll Runes, and 9 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 
 NOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
 
@@ -26,11 +26,20 @@ Mod contents:
 - Crow Hunter (thief)  
 - Powder Keg (bard)
 
+#### Multiclass kits
+- Beast Hunter (f/m)
+- Beast Hunter (f/m/c)
+- Warhound (f/m)
+- Moonlight Knight (c/r)
+- Crow Hunter (f/t)
+- Crow Hunter (f/m/t)
+
 #### Misc stuff
 - 1 Holy Symbol     - for the cleric kit  
 - 4 Hunter Badges   - can be crafted (see below), can also be purchased  
 - 8 new spells      - learned by the Starjammer kit  
-- other misc items (all general use items, no weapons or armor)
+- 9 Caryll Runes    - items with party-wide effects
+- 9 other items     - all general use items, no weapons or armor
 
 
 Components:
@@ -76,6 +85,7 @@ WARHOUND: Warhounds are armored soldiers specializing in long-range warfare. The
 Advantages:  
 - +1 bonus to Armor Class vs. missile, plus an additional +1 bonus every 5 levels.  
 - +1 to attack and damage rolls with any ranged weapon every 5 levels.  
+- May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.  
 - May use the Shockwave and Incinerate abilities. Gains one use each at level 4, plus an additional use each every 4 levels, up to a maximum of 5 uses each at level 20.
 
 SHOCKWAVE: The next successful ranged attack explodes in a wave of energy. All creatures in a 15-ft. radius take 2d4 crushing damage and are propelled back a considerable distance (no save). The blast inflicts an additional 2d4 crushing damage every 4 levels thereafter, up to a maximum of 10d4 at level 20.
@@ -278,7 +288,7 @@ BLASTING SONG: A ring of flame bursts outwards in a 15-ft. radius, inflicting 1d
 
 BOOMING SONG: A crushing wave expands outwards in a 15-ft. radius, inflicting 2d4 crushing damage to enemies and causing deafness for 2 rounds, plus an additional 2 rounds on a failed save vs. Spell. Deafness causes a 50% chance to miscast spells.
 
-DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded, but also cannot be directly targeted, unless an attacker can see through invisibility. There is no Saving Throw, though the bard can see clearly within 5 feet.
+DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded (no save), but also cannot be directly targeted, unless an attacker can see through invisibility.
 
 FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though magic resistance can prevent the status effects.
 
@@ -298,7 +308,7 @@ Compatibility:
 
 **IMPORTANT: If you're running into an issue with the arcane kits (i.e. Starjammer) where they don't have the full selection of spells when leveling up or at character creation, a current workaround is to install the [Tome & Blood](https://github.com/subtledoctor/TomeAndBlood/releases) mod's "No Opposition Schools" component. This tweak is safe to install at end of order.**
 
-More info: Due to how the game detects mage specialists, once you get a high enough number of kits, any arcane kits added afterwards may share restricted schools with one or more specialists. For now, best thing to do if the issue comes up is to install the TnB component mentioned above.
+More info: Due to how the game detects mage specialists, once you get a high enough number of kits, any arcane kits added afterwards may share restricted schools with one or more specialists. This only affects the spell selection screen. Mages and Bards can still memorize scrolls. This is a problem for Sorcerer kits, however. For now, best thing to do if the issue comes up is to install the TnB component mentioned above.
 
 
 #### These aren't hard rules, but compatibility will be best following these:
@@ -448,7 +458,7 @@ Weight: 1
 </details>
 
 #### Purchasing the badges:
-- 2 badges are obtainable in BG1/SoD, but not until reaching the city of Baldur's Gate.
+- BG1/SoD: 2 badges are obtainable, but not until reaching the city of Baldur's Gate.
 - All badges can be obtained in BG2 and IWD, including additional badges in the expansions.
 
 
@@ -770,3 +780,202 @@ Weight: 0
 - SoD: Only Etherbomb Songbook and Golem Ring are obtainable. One of them must be pickpocketed/looted.
 - BG2: All items obtainable in SoA portion. If starting a new game in ToB, the starting bag will have 1 or 2 items.
 - IWD: Golem Ring is in TotL. The rest are in main IWD campaign. One item must be pickpocketed/looted.
+
+
+Caryll Runes
+-
+
+#### Info:
+- These are usable items with party-wide effects.
+- Can be used at will. These items function best gameplay-wise if the player can freely switch between them.
+- Characters don't need to be on the same map to be affected.
+- Only one rune may be in effect at a time. When a rune is used, it first removes other rune effects.
+
+Note: Icons are slightly different for each rune. They're not amazing looking, but at least helps to differentiate them. The description image is the same for all runes. I couldn't draw anything I liked, so I just used one of the already-made BAM images from BG2.
+
+
+#### Caryll Runes:
+- Clawmark
+- Blood Rapture
+- Oedon Writhe
+- Corruption
+- Anti-Clockwise Metamorphosis
+- Clockwise Metamorphosis
+- Great Lake
+- Fading Lake
+- Beast's Embrace
+
+<details>
+  <summary>Descriptions</summary>
+
+---
+
+**Clawmark**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:  
+- Clawmark (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 1 point of damage per round for one turn (no save); a target can be wounded once per round and the effects are cumulative
+
+Weight: 0
+
+---
+
+**Blood Rapture**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:  
+- Blood Rapture (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  Critical hits restore 9 Hit Points
+
+Weight: 0
+
+---
+
+**Oedon Writhe**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:  
+- Oedon Writhe (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  Critical hits restore 1 memorized spell
+
+Weight: 0
+
+---
+
+**Corruption**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:  
+- Corruption (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  Regenerate 4 Hit Points per round at under 50% HP, 6 Hit Points per round at under 25% HP, and 8 Hit Points per round at under 10% HP
+
+Weight: 0
+
+---
+
+**Anti-Clockwise Metamorphosis**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:  
+- Anti-Clockwise Metamorphosis (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  +2 movement speed; +0.5 Attacks Per Round; -10% to maximum Hit Points
+
+Weight: 0
+
+---
+
+**Clockwise Metamorphosis**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:  
+- Clockwise Metamorphosis (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  +20% bonus to maximum Hit Points
+
+Weight: 0
+
+---
+
+**Great Lake**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:  
+- Great Lake (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  +10% to all physical damage resistances
+
+Weight: 0
+
+---
+
+**Fading Lake**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:  
+- Fading Lake (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  80% Fire Resistance
+
+Weight: 0
+
+---
+
+**Beast's Embrace**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+- Beast's Embrace (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  Transform into a werewolf during combat; this action happens automatically and the character will revert back to natural form if no enemies are in visual range  
+  Special: Clerics and Paladins transform into a greater werewolf
+
+Weight: 0
+
+---
+
+</details>
+
+#### Game notes:
+- BG1/SoD: 3 total runes are obtainable (2 are in SoD)
+- BG2: All obtainable in SoA portion. Also added to starting bags for some kits in ToB.
+- IWDEE/HoW: Spread throughout, in various dungeons and locations.

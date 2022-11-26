@@ -1,0 +1,258 @@
+/*
+Caryll Runes
+*/
+
+
+//Item Icons
+COPY ~%icons%/rune_clawmark.BAM~       ~override/%z1%i.BAM~
+COPY ~%icons%/rune_bloodrapture.BAM~   ~override/%z2%i.BAM~
+COPY ~%icons%/rune_oedonwrithe.BAM~    ~override/%z3%i.BAM~
+COPY ~%icons%/rune_corruption.BAM~     ~override/%z4%i.BAM~
+COPY ~%icons%/rune_anticlockwise.BAM~  ~override/%z5%i.BAM~
+COPY ~%icons%/rune_clockwise.BAM~      ~override/%z6%i.BAM~
+COPY ~%icons%/rune_greatlake.BAM~      ~override/%z7%i.BAM~
+COPY ~%icons%/rune_fadinglake.BAM~     ~override/%z8%i.BAM~
+COPY ~%icons%/rune_beastembrace.BAM~   ~override/%z9%i.BAM~
+
+
+//Remove rune effects
+COPY ~%abilities%/castspellself.EFF~        ~override/%z0%a.EFF~
+  WRITE_ASCII 0x30 ~%z0%a~ #8
+COPY ~%abilities%/removespelleffects.SPL~   ~override/%z0%a.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z2%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z3%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z4%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z5%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z5%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z6%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z7%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z8%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z9%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z9%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z9%b~ END
+
+
+//Visual effects
+COPY ~%abilities%/castspellself.EFF~  ~override/%z0%b.EFF~
+  WRITE_ASCII 0x30 ~%z0%b~ #8
+COPY ~%files%/rune_visual.SPL~        ~override/%z0%b.SPL~
+
+
+//Clawmark
+COPY ~%icons%/caryllrune.BAM~     ~override/%z1%.BAM~    // portrait icon
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70114) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_clawmark.ITM~  ~override/%z1%.ITM~
+  SAY NAME2 @70114
+  SAY DESC @70214
+  WRITE_ASCII 0x3a ~%z1%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%z1%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 STR_VAR resource=~%z1%a~ END             // critical effect
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%icons%/bleed.BAM~                ~override/%z1%a.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@302) STR_VAR bam=~%z1%a~ RET icon END
+COPY ~%abilities%/castspelltarget.EFF~  ~override/%z1%a.EFF~
+    WRITE_ASCII 0x30 ~%z1%a~ #8
+COPY ~%abilities%/bleed10rounds.SPL~    ~override/%z1%a.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@302) END    // "Bleeding"
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%z1%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%z1%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%z1%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%abilities%/castspelltarget.EFF~  ~override/%z1%b.EFF~
+    WRITE_ASCII 0x30 ~%z1%b~ #8
+COPY ~%abilities%/bleeddamage1.SPL~     ~override/%z1%b.SPL~
+
+
+//Blood Rapture
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70115) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_core.ITM~   ~override/%z2%.ITM~
+  SAY NAME2 @70115
+  SAY DESC @70215
+  WRITE_ASCII 0x3a ~%z2%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%z2%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 STR_VAR resource=~%z2%a~ END             // critical effect
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%abilities%/castspellself.EFF~    ~override/%z2%a.EFF~
+    WRITE_ASCII 0x30 ~%z2%a~ #8
+COPY ~%abilities%/healselfnosound.SPL~  ~override/%z2%a.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=9 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@307) END    // "Healed"
+
+
+//Oedon Writhe
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70116) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_core.ITM~   ~override/%z3%.ITM~
+  SAY NAME2 @70116
+  SAY DESC @70216
+  WRITE_ASCII 0x3a ~%z3%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%z3%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 STR_VAR resource=~%z3%a~ END             // critical effect
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%abilities%/castspellself.EFF~  ~override/%z3%a.EFF~
+    WRITE_ASCII 0x30 ~%z3%a~ #8
+COPY ~%abilities%/restore1spell.SPL~  ~override/%z3%a.SPL~
+
+
+//Corruption
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70117) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_corruption.ITM~  ~override/%z4%.ITM~
+  SAY NAME2 @70117
+  SAY DESC @70217
+  WRITE_ASCII 0x3a ~%z4%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%z4%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=232 match_parameter2=2 STR_VAR resource=~%z4%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=232 match_parameter2=3 STR_VAR resource=~%z4%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=232 match_parameter2=4 STR_VAR resource=~%z4%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%abilities%/healselfnosound.SPL~  ~override/%z4%a.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=61 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=4 END
+COPY_EXISTING ~override/%z4%a.SPL~      ~override/%z4%b.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=2 END
+
+
+//Anti-Clockwise Metamorphosis
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70118) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_move.ITM~  ~override/%z5%.ITM~
+  SAY NAME2 @70118
+  SAY DESC @70218
+  WRITE_ASCII 0x3a ~%z5%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%z5%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z5%a~ END             // +2 movement
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%z5%a~ END             // repeating EFF (+2 movement)
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%abilities%/castspellself.EFF~  ~override/%z5%a.EFF~
+    WRITE_ASCII 0x30 ~%z5%a~ #8
+COPY ~%files%/rune_move.SPL~          ~override/%z5%a.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%z5%a~ END
+
+
+//Clockwise Metamorphosis
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70119) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_core.ITM~  ~override/%z6%.ITM~
+  SAY NAME2 @70119
+  SAY DESC @70219
+  WRITE_ASCII 0x3a ~%z6%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%z6%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END         // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END                  // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END                  // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=18 parameter1=120 parameter2=5 END     // 120% HP
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+
+//Great Lake
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70120) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_core.ITM~  ~override/%z7%.ITM~
+  SAY NAME2 @70120
+  SAY DESC @70220
+  WRITE_ASCII 0x3a ~%z7%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%z7%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=89 parameter1=10 END              // missile resist
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=89 opcode=86 END               // slashing resist
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=89 opcode=87 END               // crushing resist
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=89 opcode=88 END               // piercing resist
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+
+//Fading Lake
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70121) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_core.ITM~  ~override/%z8%.ITM~
+  SAY NAME2 @70121
+  SAY DESC @70221
+  WRITE_ASCII 0x3a ~%z8%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%z8%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END        // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END                 // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END                 // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=30 parameter1=80 parameter2=1 END     // fire resist
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=30 opcode=84 END                   // magical fire resist
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+
+//Beast's Embrace
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70122) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_werewolf.ITM~  ~override/%z9%.ITM~
+  SAY NAME2 @70122
+  SAY DESC @70222
+  WRITE_ASCII 0x3a ~%z9%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%z9%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%z9%a~ END             // werewolf spell
+  LPF CLONE_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%z9%c~ END             // remove werewolf spell
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%files%/rune_werewolfa.SPL~     ~override/%z9%a.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~SPCL643~ END                                  // other classes
+  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=39 STR_VAR resource=~SPCL644~ END                    // Paladin
+  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=204 parameter2=105 STR_VAR resource=~SPCL644~ END    // Cleric
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z9%b~ insert=~below~ END                  // remove ability
+
+COPY ~%passives%/removespell.SPL~     ~override/%z9%b.SPL~
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=206 STR_VAR resource=~%z9%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=172 timing=4 duration=7 STR_VAR resource=~SPIN124~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=172 STR_VAR resource=~SPCL110~ END
+
+COPY ~%files%/rune_werewolfa.SPL~     ~override/%z9%c.SPL~
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%z9%c~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 timing=4 duration=15 STR_VAR resource=~%z9%x~ END
+
+COPY ~%files%/rune_werewolfa.SPL~     ~override/%z9%x.SPL~
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%z9%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%humanform%~ END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT clawmark        ~%z1%~
+OUTER_TEXT_SPRINT bloodrapture    ~%z2%~
+OUTER_TEXT_SPRINT oedonwrithe     ~%z3%~
+OUTER_TEXT_SPRINT corruption      ~%z4%~
+OUTER_TEXT_SPRINT anticlockwise   ~%z5%~
+OUTER_TEXT_SPRINT clockwise       ~%z6%~
+OUTER_TEXT_SPRINT greatlake       ~%z7%~
+OUTER_TEXT_SPRINT fadinglake      ~%z8%~
+OUTER_TEXT_SPRINT beastembrace    ~%z9%~
+
+OUTER_TEXT_SPRINT clawmarkbleed   ~%z1%a~
+
+
+
+/*
+*/

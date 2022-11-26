@@ -3,6 +3,48 @@ Set some variables for Misc items
 */
 
 
+//More filename variables
+OUTER_TEXT_SPRINT z1 ~%kitid%z1~
+OUTER_TEXT_SPRINT z2 ~%kitid%z2~
+OUTER_TEXT_SPRINT z3 ~%kitid%z3~
+OUTER_TEXT_SPRINT z4 ~%kitid%z4~
+OUTER_TEXT_SPRINT z5 ~%kitid%z5~
+OUTER_TEXT_SPRINT z6 ~%kitid%z6~
+OUTER_TEXT_SPRINT z7 ~%kitid%z7~
+OUTER_TEXT_SPRINT z8 ~%kitid%z8~
+OUTER_TEXT_SPRINT z9 ~%kitid%z9~
+OUTER_TEXT_SPRINT z0 ~%kitid%z0~
+
+OUTER_TEXT_SPRINT ma ~%kitid%ma~
+OUTER_TEXT_SPRINT mb ~%kitid%mb~
+OUTER_TEXT_SPRINT mc ~%kitid%mc~
+OUTER_TEXT_SPRINT md ~%kitid%md~
+OUTER_TEXT_SPRINT me ~%kitid%me~
+
+
+
+//Game-dependent variables
+
+//BG1 ARE files
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  OUTER_TEXT_SPRINT bg1 ~BG~    // EET
+END
+ELSE BEGIN
+  OUTER_TEXT_SPRINT bg1 ~AR~    // BGEE
+END
+
+//Beast's Embrace (natural form)
+ACTION_IF (GAME_IS ~iwdee~) BEGIN 
+  OUTER_TEXT_SPRINT humanform ~SPCL110~    // IWDEE
+END
+ELSE BEGIN 
+  OUTER_TEXT_SPRINT humanform ~SPIN124~    // BG games
+END
+
+
+
+//Kit variables
+
 //War Magician
 ACTION_IF (FILE_EXISTS ~override/d2wk7s1.SPL~) BEGIN
   OUTER_TEXT_SPRINT unleashmagic  ~d2wk7s1~

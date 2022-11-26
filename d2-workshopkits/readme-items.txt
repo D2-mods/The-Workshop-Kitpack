@@ -1,10 +1,10 @@
-//hunter badges (amulets)
+//Hunter Badges (amulets)
 Spark Hunter Badge
 Radiant Sword Badge
 Cosmic Watcher Badge
 Powder Keg Badge
 
-//misc items (optional component)
+//Misc items
 Crowfeather Cloak (cloak)
 Etherbomb Songbook (item)
 Ether Booster (amulet)
@@ -15,11 +15,22 @@ Calamity Ring (ring)
 Stone Ring (ring)
 Flynn's Ring (ring)
 
+//Caryll Runes (items)
+Clawmark
+Blood Rapture
+Oedon Writhe
+Corruption
+Anti-Clockwise Metamorphosis
+Clockwise Metamorphosis
+Great Lake
+Fading Lake
+Beast's Embrace
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
 ==================================================
-Spark Hunter Badge
+Spark Hunter Badge (amulet)
 ==================================================
 Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge captures the essence of the darkbeast, whose body is wreathed in destructive energy.
 
@@ -36,7 +47,7 @@ Special (Beast Hunter):
 Weight: 1
 
 ==================================================
-Radiant Sword Badge
+Radiant Sword Badge (amulet)
 ==================================================
 Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge represents the divine holy blade, an old symbol of beast hunting.
 
@@ -53,7 +64,7 @@ Special (Beast Hunter):
 Weight: 1
 
 ==================================================
-Cosmic Watcher Badge
+Cosmic Watcher Badge (amulet)
 ==================================================
 Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge depicts an eye wide open, gazing always towards the Cosmos.
 
@@ -70,7 +81,7 @@ Special (Beast Hunter):
 Weight: 1
 
 ==================================================
-Powder Keg Badge
+Powder Keg Badge (amulet)
 ==================================================
 Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. Fire is feared by beasts, and this badge was crafted by a Powder Keg to aid in the hunt.
 
@@ -235,6 +246,171 @@ STATISTICS:
 
 Equipped abilities:
 – +20% increase to all physical damage dealt when not wearing armor or robes
+
+Weight: 0
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+==================================================
+Clawmark (item)
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Clawmark (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 1 point of damage per round for one turn (no save); a target can be wounded once per round and the effects are cumulative
+
+Weight: 0
+
+
+==================================================
+Blood Rapture (item)
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Blood Rapture (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  Critical hits restore 9 Hit Points
+
+Weight: 0
+
+
+==================================================
+Oedon Writhe (item)
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Oedon Writhe (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  Critical hits restore 1 memorized spell
+
+Weight: 0
+
+
+==================================================
+Corruption (item)
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Corruption (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  Regenerate 4 Hit Points per round at under 50% HP, 6 Hit Points per round at under 25% HP, and 8 Hit Points per round at under 10% HP
+
+Weight: 0
+
+
+==================================================
+Anti-Clockwise Metamorphosis (item)
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Anti-Clockwise Metamorphosis (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +2 movement speed; +0.5 Attacks Per Round; -10% to maximum Hit Points
+
+Weight: 0
+
+
+==================================================
+Clockwise Metamorphosis (item)
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Clockwise Metamorphosis (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +20% bonus to maximum Hit Points
+
+Weight: 0
+
+
+==================================================
+Great Lake (item)
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Great Lake (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +10% to all physical damage resistances
+
+Weight: 0
+
+
+==================================================
+Fading Lake (item)
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Fading Lake (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  80% Fire Resistance
+
+Weight: 0
+
+
+==================================================
+Beast's Embrace (item)
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Beast's Embrace (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  Transform into a werewolf during combat; this action happens automatically and the character will revert back to natural form if no enemies are in visual range
+  Special: Clerics and Paladins transform into a greater werewolf
 
 Weight: 0
 
