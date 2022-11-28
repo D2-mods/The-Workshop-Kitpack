@@ -186,7 +186,13 @@ LAF ADD_KIT_EX
 END
 
 
-//DoF weapon restrictions
+//Weapon restrictions
+
+/*
+For DoF sphere system.
+Or if installed after FnP. If installed before, will use FnP default Cleric usability.
+*/
+
 ACTION_IF ((FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
            (FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
            (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
@@ -214,7 +220,13 @@ END
 END
 
 
-//2DA addition (only relevant for FnP)
+//Higher level healing for FnP
+
+/*
+Added this way instead of using the FnP function because it's too 
+much of a pain to re-arrange the way I've already set everything up.
+*/
+
 COPY ~%passives%/d5fpclsp.spl~  ~override/%e9%c.SPL~
   LPF DELETE_EFFECT INT_VAR multi_match=10 END
   LPF ALTER_EFFECT INT_VAR parameter1=0 parameter2=2 END

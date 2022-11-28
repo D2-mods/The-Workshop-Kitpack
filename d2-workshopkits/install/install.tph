@@ -3,6 +3,37 @@ Install kits
 */
 
 
+//Arcane kits (including multiclass)
+
+//Starjammer (d2wk8)
+ACTION_IF (%nostarjammer% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk8~
+  OUTER_TEXT_SPRINT kitname ~STARJAMMER~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/riftscripts.tph~
+END
+
+//War Magician (d2wk7)
+ACTION_IF (%nowarmagician% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk7~
+  OUTER_TEXT_SPRINT kitname ~WARMAGICIAN~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+END
+
+//Powder Keg (d2wkb)
+ACTION_IF (%nopowderkeg% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkb~
+  OUTER_TEXT_SPRINT kitname ~POWDERKEG~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/rrbardsongs.tph~
+END
+
 //Beast Hunter (d2wk1)
 ACTION_IF (%nobeasthunter% = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk1~
@@ -25,6 +56,21 @@ ACTION_IF (%nowarhound% = 0) BEGIN
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/%kitname%fm.tph~    // multiclass kit
 END
+
+//Crow Hunter (d2wka)
+ACTION_IF (%nocrowhunter% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wka~
+  OUTER_TEXT_SPRINT kitname ~CROWHUNTER~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/%kitname%ft.tph~     // multiclass kit
+  INCLUDE ~%install%/%kitname%fmt.tph~    // multiclass kit
+END
+
+
+
+//Non-arcane kits
 
 //Grave Warden (d2wk3)
 ACTION_IF (%nogravewarden% = 0) BEGIN
@@ -76,25 +122,6 @@ ACTION_IF (%notempleknight% = 0) BEGIN
   INCLUDE ~%install%/dofspheres.tph~
 END
 
-//War Magician (d2wk7)
-ACTION_IF (%nowarmagician% = 0) BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wk7~
-  OUTER_TEXT_SPRINT kitname ~WARMAGICIAN~
-  INCLUDE ~%install%/variables.tph~
-  INCLUDE ~%install%/resources.tph~
-  INCLUDE ~%install%/%kitname%.tph~
-END
-
-//Starjammer (d2wk8)
-ACTION_IF (%nostarjammer% = 0) BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wk8~
-  OUTER_TEXT_SPRINT kitname ~STARJAMMER~
-  INCLUDE ~%install%/variables.tph~
-  INCLUDE ~%install%/resources.tph~
-  INCLUDE ~%install%/%kitname%.tph~
-  INCLUDE ~%install%/riftscripts.tph~
-END
-
 //Blood Minister (d2wk9)
 ACTION_IF (%nobloodminister% = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk9~
@@ -105,27 +132,6 @@ ACTION_IF (%nobloodminister% = 0) BEGIN
   INCLUDE ~%install%/fnpspheres.tph~
   INCLUDE ~%install%/dofspheres.tph~
   INCLUDE ~%install%/dofweapons.tph~
-END
-
-//Crow Hunter (d2wka)
-ACTION_IF (%nocrowhunter% = 0) BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wka~
-  OUTER_TEXT_SPRINT kitname ~CROWHUNTER~
-  INCLUDE ~%install%/variables.tph~
-  INCLUDE ~%install%/resources.tph~
-  INCLUDE ~%install%/%kitname%.tph~
-  INCLUDE ~%install%/%kitname%ft.tph~     // multiclass kit
-  INCLUDE ~%install%/%kitname%fmt.tph~    // multiclass kit
-END
-
-//Powder Keg (d2wkb)
-ACTION_IF (%nopowderkeg% = 0) BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wkb~
-  OUTER_TEXT_SPRINT kitname ~POWDERKEG~
-  INCLUDE ~%install%/variables.tph~
-  INCLUDE ~%install%/resources.tph~
-  INCLUDE ~%install%/%kitname%.tph~
-  INCLUDE ~%install%/rrbardsongs.tph~
 END
 
 

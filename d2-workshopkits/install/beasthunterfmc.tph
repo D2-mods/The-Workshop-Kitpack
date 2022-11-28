@@ -25,6 +25,20 @@ COPY ~%files%/kit6.2DA~  ~override/%beasthunter%M.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
 
 
+//Set variable for proficiencies
+ACTION_IF ((vanillaclericprofs = 0) OR
+           (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
+           (FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
+           (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
+          ) BEGIN
+
+  OUTER_TEXT_SPRINT multikitprofs  ~2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3~
+END
+ELSE BEGIN
+  OUTER_TEXT_SPRINT multikitprofs  ~0 0 0 0 2 2 0 2 0 0 0 0 0 0 0 0 2 2 0 0 2 2 2 0 0 0 0 2 2 2 2 3~
+END
+
+
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
@@ -38,6 +52,7 @@ LAF ADD_KIT_EX
     clab_base_f = ~%beasthunter%F.2DA~    // kit abilities added to Fighter table
     clab_base_m = ~%beasthunter%M.2DA~    // -1 spell slots added to Mage table
     clab_base_p = ~%beasthunter%C.2DA~    // no abilities added to Cleric table
+    weapprof = ~%multikitprofs%~
     clascolr = ~28 93 91 91 93~           // Archer colors
   RET 
     kit_id

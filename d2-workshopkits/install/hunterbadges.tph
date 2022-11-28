@@ -18,6 +18,7 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
     LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=272 STR_VAR resource=~%s1%b~ END
     LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=272 STR_VAR resource=~%s1%c~ END
     LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=272 STR_VAR resource=~%s1%d~ END
+    LPF CLONE_EFFECT INT_VAR match_opcode=272 opcode=177 timing=1 parameter1=0 parameter2=2 END
   BUT_ONLY
 
 

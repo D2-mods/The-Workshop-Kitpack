@@ -96,6 +96,14 @@ The unpatched HLAs just won't work 100% right with these kits.
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+v2.1
+- Config.ini: Added proficiencies option for multiclass Clerics. If enabled, can place slots in all weapon types. This does not change usability by itself. This option is for use with tweaks that enable all weapons for Clerics. Note that this is automatically enabled if this mod is installed after Deities of Faerun or the Faiths and Powers usability component.
+- Rearranged order that kits are installed (Arcane kits moved to top).
+- Moonlight Knight (C/R): It was able to place slots in all weapon types by default, even though Cleric/Rangers are normally restricted to Cleric weapons. This is fixed.
+- Ether Booster: Bonus effect is applied immediately when Unleash Magic is used. The effect is applied every 3 seconds, but previously you had to wait 3 seconds for it to start.
+- Cruciform: Bonus effect is applied immediately when Bloodletter is used.
+- Hunter Badges: Bonus effects are applied immediately when Fire Weapon is used.
+
 v2.0
 New additions
 - Added 6 multiclass variants:

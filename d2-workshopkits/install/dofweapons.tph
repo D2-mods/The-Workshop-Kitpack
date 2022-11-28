@@ -1,7 +1,7 @@
 /*
 for single-class Clerics or Druids (no specialization)
 Make custom "weapontype" array, then INCLUDE this file
-Sets both proficiencies and weapon restrictions.
+Sets both proficiencies and weapon restrictions (DoF only).
 */
 
 
@@ -33,6 +33,9 @@ END
 */
 
 
+//Weapon restrictions (DoF only)
+ACTION_IF (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) BEGIN
+
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
   READ_SHORT 0x1c itemtype
 
@@ -52,7 +55,11 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
   END
 BUT_ONLY
 
+END
 
+
+
+//Weapon proficiencies (using unmodded prof table)
 COPY_EXISTING ~weapprof.2DA~  override
   LPF weapprof_set_types INT_VAR entry=0 STR_VAR kit=~D2%kitname%~ RET col_number END
 

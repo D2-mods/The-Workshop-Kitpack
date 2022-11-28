@@ -2,6 +2,8 @@
 
 
 COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
+
+//kit variables
   COUNT_REGEXP_INSTANCES  ~BeastHunter[^A-Z].*=.*[^0-9]0[^0-9]*$~       nobeasthunter
   COUNT_REGEXP_INSTANCES  ~Warhound[^A-Z].*=.*[^0-9]0[^0-9]*$~          nowarhound
   COUNT_REGEXP_INSTANCES  ~GraveWarden.*=.*[^0-9]0[^0-9]*$~             nogravewarden
@@ -14,6 +16,7 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~CrowHunter[^A-Z].*=.*[^0-9]0[^0-9]*$~        nocrowhunter
   COUNT_REGEXP_INSTANCES  ~PowderKeg.*=.*[^0-9]0[^0-9]*$~               nopowderkeg
 
+//spell cap variables
   COUNT_REGEXP_INSTANCES  ~spellcapBG2.*=.*[^0-9]20[^0-9]*$~            bg2cap20
   COUNT_REGEXP_INSTANCES  ~spellcapBG2.*=.*[^0-9]30[^0-9]*$~            bg2cap30
   COUNT_REGEXP_INSTANCES  ~spellcapBG2.*=.*[^0-9]40[^0-9]*$~            bg2cap40
@@ -23,15 +26,22 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~spellcapIWD.*=.*[^0-9]40[^0-9]*$~            iwdcap40
   COUNT_REGEXP_INSTANCES  ~spellcapIWD.*=.*[^0-9]50[^0-9]*$~            iwdcap50
 
+//spell ids variables
   COUNT_REGEXP_INSTANCES  ~PriestIDS.*=.*[^0-9]0[^0-9]*$~               nopriestids
   COUNT_REGEXP_INSTANCES  ~WizardIDS.*=.*[^0-9]0[^0-9]*$~               nowizardids
 
+//multiclass variables
   COUNT_REGEXP_INSTANCES  ~BeastHunterFM.*=.*[^0-9]0[^0-9]*$~           nobeasthunterfm
   COUNT_REGEXP_INSTANCES  ~BeastHunterFMC.*=.*[^0-9]0[^0-9]*$~          nobeasthunterfmc
   COUNT_REGEXP_INSTANCES  ~WarhoundFM.*=.*[^0-9]0[^0-9]*$~              nowarhoundfm
   COUNT_REGEXP_INSTANCES  ~MoonlightKnightCR.*=.*[^0-9]0[^0-9]*$~       nomoonlightknightcr
   COUNT_REGEXP_INSTANCES  ~CrowHunterFT.*=.*[^0-9]0[^0-9]*$~            nocrowhunterft
   COUNT_REGEXP_INSTANCES  ~CrowHunterFMT.*=.*[^0-9]0[^0-9]*$~           nocrowhunterfmt
+
+//warrior cleric variables
+  COUNT_REGEXP_INSTANCES  ~ClericAllProfs.*=.*[^0-9]0[^0-9]*$~          vanillaclericprofs
+  COUNT_REGEXP_INSTANCES  ~DruidAllProfs.*=.*[^0-9]0[^0-9]*$~           vanilladruidprofs
+
 
 
 

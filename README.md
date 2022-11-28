@@ -35,11 +35,11 @@ Mod contents:
 - Crow Hunter (f/m/t)
 
 #### Misc stuff
-- 1 Holy Symbol     - for the cleric kit  
-- 4 Hunter Badges   - can be crafted (see below), can also be purchased  
-- 8 new spells      - learned by the Starjammer kit  
-- 9 Caryll Runes    - items with party-wide effects
-- 9 other items     - all general use items, no weapons or armor
+- 1 Holy Symbol&emsp;&emsp;- for the cleric kit  
+- 4 Hunter Badges&emsp;- can be crafted (see below), can also be purchased  
+- 8 new spells&emsp;&emsp;&emsp;- learned by the Starjammer kit  
+- 9 Caryll Runes&emsp;&emsp;- items with party-wide effects
+- 9 other items &emsp; &emsp;- all general use items, no weapons or armor
 
 
 Components:
