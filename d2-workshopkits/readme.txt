@@ -96,6 +96,30 @@ The unpatched HLAs just won't work 100% right with these kits.
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+v2.2
+- BGEE:
+	- Status immunities should now block the correct display strings (they were only blocking the right strings in BG2). I went through abilities in each game to find the strings needed for each immunity. I still block a few "incorrect" strings in case some are used by other mods (they have the correct text, just not used by the game).
+- IWDEE:
+	- Healing Blood will cure poison now, rather than just slowing the damage. It was already working properly in the BG games. This mistake was made because I clone Slow Poison into a subspell, but forgot that it doesn't fully cure poison in IWD.
+	- Status immunities should now block the correct display strings.
+- Riftgate balor:
+	- No longer immune to critical hits.
+	- Summons Aerial Servants instead of a Fallen Planetar.
+	- Changed some of the scripted spells.
+	- Increased cooldown time for some script actions.
+	- Can now re-summon creatures indefinitely (on a timed delay).
+- Ether Booster (casting speed penalty):
+	- Made it so the kit abilities from this mod are not affected by casting speed penalties (non-spell abilities shouldn't be affected anyways). Exceptions are Denial, Moonlight Vortex, and Bolt of Glory.
+	- The Misc items component will also patch base game kit/NPC abilities and non-caster HLAs. Spell-like abilities, such as Shadowstep or Paladin abilities, are not patched.
+- Golem Ring (haste/slow immunity):
+	- In previous versions, simply equipping the ring would remove any haste or slow effects. At the same time, the Iron Flesh ability didn't give immunity to haste/slow, so you could cast it, then switch the ring out for a different one.
+	- I changed it so that equipping the ring won't remove any effects. It will just prevent future effects while equipped. Using Iron Flesh, however, will now remove any haste or slow effects, as well as make the character immune to both for the duration.
+- Beast's Embrace: Added effect to account for an EE Fixpack change.
+- Cruciform: Changed portrait icon to the standard one used by other items/spells.
+- Blood Transfusions: Added additional portrait icons ("Protection From Poison", etc.).
+- Corruption rune: Will now show a "Regenerating" icon, but only when under 50% HP.
+- Some other minor adjustments.
+
 v2.1
 - Config.ini: Added proficiencies option for multiclass Clerics. If enabled, can place slots in all weapon types. This does not change usability by itself. This option is for use with tweaks that enable all weapons for Clerics. Note that this is automatically enabled if this mod is installed after Deities of Faerun or the Faiths and Powers usability component.
 - Rearranged order that kits are installed (Arcane kits moved to top).

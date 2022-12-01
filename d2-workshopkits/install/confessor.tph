@@ -180,14 +180,16 @@ END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT confessor    ~%kitid%~
-OUTER_TEXT_SPRINT bloodletter  ~%s2%b~    // bleeding effect
-OUTER_TEXT_SPRINT fnpclass     ~zealot~
-OUTER_TEXT_SPRINT fnpdeity     ~auril_spheres~
-OUTER_TEXT_SPRINT confessor1    ~%p1%~
-OUTER_TEXT_SPRINT confessor2    ~%p2%~
-OUTER_TEXT_SPRINT confessor3    ~%p3%~
-OUTER_TEXT_SPRINT confessor4    ~%p4%~
+OUTER_TEXT_SPRINT confessor       ~%kitid%~
+OUTER_TEXT_SPRINT rootingshot     ~%s1%~
+OUTER_TEXT_SPRINT bloodletter     ~%s2%~
+OUTER_TEXT_SPRINT confessorbleed  ~%s2%b~
+OUTER_TEXT_SPRINT fnpclass        ~zealot~
+OUTER_TEXT_SPRINT fnpdeity        ~auril_spheres~
+OUTER_TEXT_SPRINT confessor1      ~%p1%~
+OUTER_TEXT_SPRINT confessor2      ~%p2%~
+OUTER_TEXT_SPRINT confessor3      ~%p3%~
+OUTER_TEXT_SPRINT confessor4      ~%p4%~
 
 
 /*

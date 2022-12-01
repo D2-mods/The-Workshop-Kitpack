@@ -136,6 +136,7 @@ END
 
 
 //Extra stuff
+INCLUDE ~%install%/castingspeed.tph~
 INCLUDE ~%install%/crosskiteffects.tph~
 INCLUDE ~%install%/hunterbadgescripts.tph~
 INCLUDE ~%install%/hunterbadgestores.tph~

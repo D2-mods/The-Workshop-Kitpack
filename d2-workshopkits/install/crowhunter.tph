@@ -145,8 +145,10 @@ END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT crowhunter       ~%kitid%~
-OUTER_TEXT_SPRINT splinteringshot  ~%s1%b~    // bleeding effect
+OUTER_TEXT_SPRINT crowhunter        ~%kitid%~
+OUTER_TEXT_SPRINT splinteringshot   ~%s1%~
+OUTER_TEXT_SPRINT visceralattack    ~%s2%~
+OUTER_TEXT_SPRINT crowhunterbleed  ~%s1%b~
 
 
 /*

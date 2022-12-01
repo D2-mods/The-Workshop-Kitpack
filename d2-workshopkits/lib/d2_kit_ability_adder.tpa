@@ -115,7 +115,7 @@ COPY_EXISTING ~%2da%.2da~ ~override~
   SET row_number = rows         // RET variable (this number might still change below)
   SET row_count = (rows - 1)    // count starts at 0 for some weidu actions
   PATCH_IF ((level < 1) OR (level > 50)) BEGIN SET level = 1 END
-  PATCH_IF ((limit < 1) OR (limit > 50)) BEGIN SET limit = 50 END
+  PATCH_IF ((limit < level) OR (limit > 50)) BEGIN SET limit = 50 END
 
 //Set entry name for ability
   PATCH_IF (~%resource%~ STRING_EQUAL_CASE ~~) BEGIN

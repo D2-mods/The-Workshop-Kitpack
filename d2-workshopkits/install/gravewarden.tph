@@ -114,6 +114,7 @@ END
 
 //Set variables for external use
 OUTER_TEXT_SPRINT gravewarden  ~%kitid%~
+OUTER_TEXT_SPRINT denial       ~%s1%~
 OUTER_TEXT_SPRINT fnpclass     ~ranger~
 OUTER_TEXT_SPRINT fnpdeity     ~ranger_jungle_spheres~
 OUTER_TEXT_SPRINT gravewarden1  ~%p1%~

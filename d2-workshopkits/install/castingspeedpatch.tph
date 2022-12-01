@@ -1,0 +1,90 @@
+/*
+Make base-game abilities unaffected by casting speed penalties (i.e. from Ether Booster)
+Some spell-like abilities are skipped (ex. Summon Spirit Animal or Cleric abilities)
+*/
+
+
+ACTION_FOR_EACH ~ability~ IN 
+    ~SPCL521~    // blade
+    ~SPCL522~
+    ~SPCL611~    // druid shapeshifts (bg)
+    ~SPCL612~
+    ~SPCL613~
+    ~SPIN124~
+    ~SPCL643~    // werewolf
+    ~SPCL644~
+    ~SPCL632~    // avenger
+    ~SPCL633~
+    ~SPCL634~
+    ~SPIN122~
+    ~SPIN160~    // salamander fire
+    ~SPCL321~    // berserker
+    ~SPCL144~    // kensai
+    ~SPCL152~    // barbarian
+    ~SPDWD02~    // defender
+    ~SPCL811~    // monk
+    ~SPCL815~
+    ~SPCL820~
+    ~SPDM105~    // frozen fist
+    ~SPCL238~    // flaming fists
+    ~SPCL423~    // poison weapon
+    ~SPCL311~    // charm animal
+    ~SPCL121~    // called shot
+    ~SPCL412~    // set snare
+    ~SPCL414~    // bounty hunter
+    ~SPCL900~    // fighter hlas
+    ~SPCL901~
+    ~SPCL902~
+    ~SPCL903~
+    ~SPCL904~
+    ~SPCL905~
+    ~SPCL906~
+    ~SPCL907~
+    ~SPCL908~ 
+    ~SPCL909~ 
+    ~SPCL910~    // thief hlas
+    ~SPCL911~
+    ~SPCL912~
+    ~SPCL913~
+    ~SPCL914~
+    ~SPCL916~
+    ~SPCL917~
+    ~SPCL918~
+    ~SPCL919~
+    ~SPCL921~    // magic flute
+    ~SPCL922~    // tracking (HLA and IWD)
+    ~SPCL938~    // shadow form
+    ~SPCL940~    // spirit form
+    ~#BARD1~     // IWD Bard Songs
+    ~#BARD2~
+    ~#BARD3~
+    ~#BARD4~
+    ~#BARD5~
+    ~#BARD6~
+    ~SPCL107~    // IWD Druid forms
+    ~SPCL108~
+    ~SPCL101~
+    ~SPCL112~
+    ~SPCL113~
+    ~SPCL114~
+    ~SPCL110~
+    ~SPIN117~    // Minsc rage
+    ~SPIN116~    // Eldoth arrows
+    ~spin119~    // Safana kiss
+    ~ohhdrain~   // Hexxat drain
+    ~ohrrage~    // Wilson rage
+    ~SPIN823~    // Slayer change
+    ~SPIN718~
+    ~SPINHUM~    // EE Fixpack
+BEGIN
+
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%ability%.SPL~) BEGIN
+    COPY_EXISTING ~%ability%.SPL~  ~override~
+      READ_SHORT 0x84 speed
+      LPF DELETE_EFFECT INT_VAR check_headers=0 match_opcode=189 match_timing=0 END
+      LPF ADD_SPELL_CFEFFECT INT_VAR opcode=189 target=1 parameter1=~%speed%~ parameter2=1 resist_dispel=2 duration=1 END
+    BUT_ONLY
+  END
+
+END
+

@@ -5,6 +5,11 @@ COPY ~%passives%/starjammer.SPL~   ~override/%e1%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_silence_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_deafness_arrays END
 
+  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
+    LPF d2_string_immunities END
+  END
+
   PATCH_IF (silence_immunity > 0) BEGIN 
     LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=38 opcode=328 parameter2=silence_immunity END
   END
@@ -255,30 +260,50 @@ COPY_EXISTING ~SPPR502.SPL~  ~override/%w7%.SPL~    // clone a Cure Wounds spell
 
 
 //Add Riftgate
-COPY - ~%abilities%/riftgategolem.BAF~  ~%workspace%/%w8%g.BAF~    // add golem
+COPY - ~%abilities%/riftgategolem.BAF~  ~%workspace%/%w8%g.BAF~    // golem script
 COMPILE ~%workspace%/%w8%g.BAF~
-COPY ~%abilities%/riftgategolem.CRE~  ~override/%w8%g.CRE~
+COPY ~%abilities%/riftgategolem.CRE~  ~override/%w8%g.CRE~         // add golem
   SAY NAME1 @601 
   SAY NAME2 @601
-  REPLACE_CRE_ITEM ~helmnoan~ #0 #0 #0 ~none~ ~helmet~ EQUIP
-  REPLACE_CRE_ITEM ~immune3~ #0 #0 #0 ~none~ ~lring~ EQUIP
+  REPLACE_CRE_ITEM ~helmnoan~ #0 #0 #0 ~none~ ~helmet~
+  REPLACE_CRE_ITEM ~immune3~ #0 #0 #0 ~none~ ~lring~
   REPLACE_CRE_ITEM ~goliro~ #0 #0 #0 ~none~ ~weapon1~ EQUIP
   WRITE_ASCII 0x260 ~%w8%g~ #8     // general script
   WRITE_ASCII 0x280 ~%w8%g~ #20    // script name
 COPY ~%abilities%/summonrift.EFF~     ~override/%w8%g.EFF~
   WRITE_ASCII 0x30 ~%w8%g~ #8
 
-COPY - ~%abilities%/riftgatebalor.BAF~  ~%workspace%/%w8%d.BAF~    // add balor
+COPY - ~%abilities%/riftgatebalor.BAF~  ~%workspace%/%w8%d.BAF~    // balor script
+  EVALUATE_BUFFER
+  PATCH_IF (GAME_IS ~bgee~) BEGIN
+    REPLACE_TEXTUALLY ~CLERIC_STORM_OF_VENGEANCE~     ~CLERIC_UNHOLY_BLIGHT~
+    REPLACE_TEXTUALLY ~CLERIC_SUMMON_FALLEN_DEVA~     ~CLERIC_AERIAL_SERVANT~
+    REPLACE_TEXTUALLY ~CLERIC_AURA_OF_FLAMING_DEATH~  ~WIZARD_FIRE_SHIELD_RED~
+    REPLACE_TEXTUALLY ~CLERIC_IMPLOSION~              ~WIZARD_CHROMATIC_ORB~
+  END
 COMPILE ~%workspace%/%w8%d.BAF~
-COPY ~%abilities%/riftgatebalor.CRE~    ~override/%w8%d.CRE~
+
+COPY ~%abilities%/riftgatebalor.CRE~    ~override/%w8%d.CRE~       // add balor
   SAY NAME1 @602 
   SAY NAME2 @602
-  REPLACE_CRE_ITEM ~helmnoan~ #0 #0 #0 ~none~ ~helmet~ EQUIP
+  REPLACE_CRE_ITEM ~%w8%y~ #0 #0 #0 ~none~ ~gloves~
+  REPLACE_CRE_ITEM ~%w8%x~ #0 #0 #0 ~none~ ~amulet~
+  REPLACE_CRE_ITEM ~%w8%v~ #0 #0 #0 ~none~ ~belt~
+  REPLACE_CRE_ITEM ~%w8%u~ #0 #0 #0 ~none~ ~boots~
   REPLACE_CRE_ITEM ~%w8%d~ #0 #0 #0 ~none~ ~weapon1~ EQUIP
   WRITE_ASCII 0x250 ~%w8%d~ #8     // class script
   WRITE_ASCII 0x280 ~%w8%d~ #20    // script name
 COPY ~%abilities%/summongate.EFF~     ~override/%w8%d.EFF~
   WRITE_ASCII 0x30 ~%w8%d~ #8
+
+COPY ~%abilities%/riftgatebalorhp.ITM~  ~override/%w8%u.ITM~       // balor HP breaks
+  LPF ALTER_EFFECT INT_VAR parameter1=280 END
+COPY ~%abilities%/riftgatebalorhp.ITM~  ~override/%w8%v.ITM~
+  LPF ALTER_EFFECT INT_VAR parameter1=180 END
+COPY ~%abilities%/riftgatebalorhp.ITM~  ~override/%w8%x.ITM~
+  LPF ALTER_EFFECT INT_VAR parameter1=80 END
+COPY ~%abilities%/riftgatebalorhp.ITM~  ~override/%w8%y.ITM~
+  LPF ALTER_EFFECT INT_VAR parameter1=1 END
 
 COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~       // balor weapon
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_stun_arrays END
@@ -291,6 +316,15 @@ COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~       // balor weap
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_web_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_silence_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END
+
+  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
+    LPF d2_string_immunities END
+  END
+  ELSE BEGIN
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=267 parameter1=335 END
+  END
+
   PATCH_IF (stun_immunity > 0) BEGIN 
     LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=45 opcode=328 parameter2=stun_immunity END
   END
@@ -317,6 +351,7 @@ COPY ~%abilities%/riftgate.SPL~  ~override/%w8%.SPL~               // add spell
   LPF ALTER_EFFECT STR_VAR match_resource=~sumsunn~ resource=~%w8%g~ END
   LPF ALTER_EFFECT STR_VAR match_resource=~sumzaam~ resource=~%w8%d~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=265 STR_VAR resource=~d2riftga~ END    // variable for script action
+
 
 
 //Add spells to spell.ids
@@ -393,7 +428,8 @@ END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT starjammer  ~%kitid%~
+OUTER_TEXT_SPRINT starjammer    ~%kitid%~
+OUTER_TEXT_SPRINT interference  ~%s1%~
 
 
 /*Additional info

@@ -82,3 +82,12 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~RR#BDF05.SPL~) BEGIN
     END
   BUT_ONLY
 END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT rrenhancedsong   ~%s6%~
+OUTER_TEXT_SPRINT rrlingeringsong  ~%s7%~
+
+
+/*
+*/

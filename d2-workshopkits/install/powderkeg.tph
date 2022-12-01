@@ -282,7 +282,12 @@ END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT powderkeg  ~%kitid%~
+OUTER_TEXT_SPRINT powderkeg         ~%kitid%~
+OUTER_TEXT_SPRINT blastingsong      ~%s1%~
+OUTER_TEXT_SPRINT boomingsong       ~%s2%~
+OUTER_TEXT_SPRINT dustexplosion     ~%s3%~
+OUTER_TEXT_SPRINT frenzyingflame    ~%s4%~
+OUTER_TEXT_SPRINT enhancedbardsong  ~%s5%~
 
 
 /*

@@ -18,6 +18,7 @@ COPY ~%abilities%/unleashmagic.SPL~  ~override/%s1%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=332 duration=26 END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 
@@ -96,7 +97,9 @@ END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT warmagician  ~%kitid%~
+OUTER_TEXT_SPRINT warmagician       ~%kitid%~
+OUTER_TEXT_SPRINT unleashmagic      ~%s1%~
+OUTER_TEXT_SPRINT twistedbarricade  ~%s2%~
 
 
 /*

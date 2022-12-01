@@ -115,6 +115,7 @@ END
 
 //Set variables for external use
 OUTER_TEXT_SPRINT moonlightknight  ~%kitid%~
+OUTER_TEXT_SPRINT moonlightvortex  ~%s1%~
 OUTER_TEXT_SPRINT fnpclass         ~ranger~
 OUTER_TEXT_SPRINT fnpdeity         ~ranger_forest_spheres~
 

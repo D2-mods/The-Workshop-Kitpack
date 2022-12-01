@@ -135,7 +135,7 @@ ACTION_IF (FILE_EXISTS ~override/%unleashmagic%.SPL~) BEGIN
 
   COPY_EXISTING ~%unleashmagic%.SPL~  ~override~
     LPF CLONE_EFFECT 
-      INT_VAR multi_match=1 match_timing=0 opcode=272 parameter1=3 parameter2=3 duration=19
+      INT_VAR check_globals=0 multi_match=1 match_timing=0 opcode=272 parameter1=3 parameter2=3 duration=19
       STR_VAR resource=~%unleashmagic%e~
     END
     LPF CLONE_EFFECT INT_VAR match_opcode=272 opcode=177 timing=1 parameter1=0 parameter2=2 END
@@ -189,7 +189,7 @@ ACTION_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
 
   COPY_EXISTING ~%bloodletter%.SPL~  ~override~
     LPF CLONE_EFFECT 
-      INT_VAR multi_match=1 match_timing=0 opcode=272 parameter1=3 parameter2=3 duration=25
+      INT_VAR check_globals=0 multi_match=1 match_timing=0 opcode=272 parameter1=3 parameter2=3 duration=25
       STR_VAR resource=~%bloodletter%e~
     END
     LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=272 STR_VAR resource=~%bloodletter%f~ END
@@ -268,6 +268,15 @@ COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
 
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_haste_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
+
+  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
+    LPF d2_string_immunities END
+  END
+  ELSE BEGIN
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=267 parameter1=335 END
+  END
+
   PATCH_IF (haste_immunity > 0) BEGIN 
     LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=16 opcode=328 parameter2=haste_immunity END
   END

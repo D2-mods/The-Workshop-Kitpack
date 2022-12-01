@@ -67,6 +67,8 @@ END
 
 //Set variables for external use
 OUTER_TEXT_SPRINT templeknight  ~%kitid%~
+OUTER_TEXT_SPRINT force         ~%s1%~
+OUTER_TEXT_SPRINT boltofglory   ~%s2%~
 OUTER_TEXT_SPRINT fnpclass      ~champion~
 OUTER_TEXT_SPRINT fnpdeity      ~clangeddin_spheres~
 

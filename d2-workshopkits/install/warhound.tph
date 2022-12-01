@@ -103,7 +103,9 @@ END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT warhound  ~%kitid%~
+OUTER_TEXT_SPRINT warhound   ~%kitid%~
+OUTER_TEXT_SPRINT shockwave  ~%s1%~
+OUTER_TEXT_SPRINT incinerate ~%s2%~
 
 
 /*Unused
