@@ -30,7 +30,7 @@ Beast's Embrace
 ----------------------------------------------------------------------------------------------------
 
 ==================================================
-Spark Hunter Badge (amulet)
+Spark Hunter Badge
 ==================================================
 Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge captures the essence of the darkbeast, whose body is wreathed in destructive energy.
 
@@ -47,7 +47,7 @@ Special (Beast Hunter):
 Weight: 1
 
 ==================================================
-Radiant Sword Badge (amulet)
+Radiant Sword Badge
 ==================================================
 Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge represents the divine holy blade, an old symbol of beast hunting.
 
@@ -64,7 +64,7 @@ Special (Beast Hunter):
 Weight: 1
 
 ==================================================
-Cosmic Watcher Badge (amulet)
+Cosmic Watcher Badge
 ==================================================
 Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge depicts an eye wide open, gazing always towards the Cosmos.
 
@@ -81,7 +81,7 @@ Special (Beast Hunter):
 Weight: 1
 
 ==================================================
-Powder Keg Badge (amulet)
+Powder Keg Badge
 ==================================================
 Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. Fire is feared by beasts, and this badge was crafted by a Powder Keg to aid in the hunt.
 
@@ -253,7 +253,7 @@ Weight: 0
 ----------------------------------------------------------------------------------------------------
 
 ==================================================
-Clawmark (item)
+Clawmark
 ==================================================
 One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
@@ -271,7 +271,7 @@ Weight: 0
 
 
 ==================================================
-Blood Rapture (item)
+Blood Rapture
 ==================================================
 One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
@@ -289,7 +289,7 @@ Weight: 0
 
 
 ==================================================
-Oedon Writhe (item)
+Oedon Writhe
 ==================================================
 One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
@@ -307,7 +307,7 @@ Weight: 0
 
 
 ==================================================
-Corruption (item)
+Corruption
 ==================================================
 One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
@@ -325,7 +325,7 @@ Weight: 0
 
 
 ==================================================
-Anti-Clockwise Metamorphosis (item)
+Anti-Clockwise Metamorphosis
 ==================================================
 One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
@@ -343,7 +343,7 @@ Weight: 0
 
 
 ==================================================
-Clockwise Metamorphosis (item)
+Clockwise Metamorphosis
 ==================================================
 One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
@@ -361,7 +361,7 @@ Weight: 0
 
 
 ==================================================
-Great Lake (item)
+Great Lake
 ==================================================
 One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
@@ -379,7 +379,7 @@ Weight: 0
 
 
 ==================================================
-Fading Lake (item)
+Fading Lake
 ==================================================
 One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
@@ -397,7 +397,7 @@ Weight: 0
 
 
 ==================================================
-Beast's Embrace (item)
+Beast's Embrace
 ==================================================
 One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 

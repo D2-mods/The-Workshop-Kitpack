@@ -72,30 +72,60 @@ NOTE: Beast Hunters don't gain a crafting ability, but they can still purchase t
 ----------------------------------------------------------------------------------------------------
 
 Compatibility:
-- These aren't hard rules, but compatibility will be best following these.
+
+General guidelines:
 - Install after Rogue Rebalancing. Several RR files need to be patched for full compatibility.
 - Install after class revision mods, unless they specifically say to install after any kits.
 - Install after mods that revise or overwrite spells.
+- Install after mods that add new weapons or armor.
 
 Spellcasting systems:
 - Compatible with Faiths and Powers spheres system. Can install before or after FnP.
+	- My multiclasses don't require the FnP multiclass mod for compatibility with FnP.
+	- I'd recommend installing this mod AFTER FnP multiclass, if using it. See info below.
 - Compatible with Deities of Faerun spheres system. Install this mod after DoF.
-- Compatible with subtledoctor's 5e casting mod. Install this mod before 5e casting.
+- Compatible with subtledoctor's 5e casting mod. Can install before or after 5e casting.
 	- You should also install the extra component related to 5e casting.
 
 HLA traps/songs:
 - The Crow Hunter and Powder Keg kits need specific handling of HLA traps and songs. 
 - Currently, this mod accounts for Rogue Rebalancing hlas.
 - If you know of any others, let me know and I can add it.
-- Only abilities gained by the base class are relevant for this.
+- Only abilities gained by the base class need to be patched.
 
-There are no game-breaking errors if a file isn't patched. 
-The unpatched HLAs just won't work 100% right with these kits.
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+Known Issues:
+
+FnP multiclass: 
+- Current versions of FnP multiclass hide the F/M/C class from the selection screen. 
+- It may possibly be updated to not disable F/M/C, but for now, there are a few ways around this:
+	1. Install this mod after FnP multiclass. It will automatically re-enable the class.
+	2. Use cdtweaks/Tweaks Anthology. It has components that make all classes (including FMC) available to all races.
+	3. Edit clsrcreq.2DA. Just find FIGHTER_MAGE_CLERIC, and set whichever races you want to 1.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v2.3
+- Updated Compatibility section with info on the FnP multiclass mod.
+- Kits are now selectable by any race if the base class is selectable. I made this change because there are some mods that enable all classes for all races, but don't enable all kits as well.
+- Multiclass Clerics will now gain holy symbols at around 4 million xp (BG2 only):
+	- Beast Hunter (FMC) gains it at Cleric level 14.
+	- Moonlight Knight (CR) gains it at Cleric level 17.
+	- This is compatible with any other mods or sphere system changes.
+- Deities of Faerun: 
+	- Revised spheres for most kits.
+	- Multiclass clerics weren't gaining holy symbols, even at Cleric level 25. This is fixed (using above levels).
+- Faiths & Powers: 
+	- Revised spheres for multiclass clerics. 
+	- My multiclasses don't require the FnP multiclass mod for compatibility with FnP.
+	- I'd recommend installing this mod AFTER FnP multiclass, if using it. More info in Compatibility section.
+- 5e casting mod: This mod can now be installed before or after 5e casting.
+
 v2.2
 - BGEE:
 	- Status immunities should now block the correct display strings (they were only blocking the right strings in BG2). I went through abilities in each game to find the strings needed for each immunity. I still block a few "incorrect" strings in case some are used by other mods (they have the correct text, just not used by the game).
@@ -115,7 +145,7 @@ v2.2
 	- In previous versions, simply equipping the ring would remove any haste or slow effects. At the same time, the Iron Flesh ability didn't give immunity to haste/slow, so you could cast it, then switch the ring out for a different one.
 	- I changed it so that equipping the ring won't remove any effects. It will just prevent future effects while equipped. Using Iron Flesh, however, will now remove any haste or slow effects, as well as make the character immune to both for the duration.
 - Beast's Embrace: Added effect to account for an EE Fixpack change.
-- Cruciform: Changed portrait icon to the standard one used by other items/spells.
+- Cruciform: Changed portrait icon to the standard "Regenerating" one used by other items/spells.
 - Blood Transfusions: Added additional portrait icons ("Protection From Poison", etc.).
 - Corruption rune: Will now show a "Regenerating" icon, but only when under 50% HP.
 - Some other minor adjustments.

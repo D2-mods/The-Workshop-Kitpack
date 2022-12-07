@@ -62,7 +62,7 @@ END
 
 
 //Etherbomb Songbook (item)
-COPY ~%files%/etherbomb.BAM~  ~override/%m2%.BAM~
+COPY ~%icons%/etherbomb.BAM~  ~override/%m2%.BAM~
 COPY ~%files%/etherbomb.ITM~  ~override/%m2%.ITM~
   SAY NAME2 @70106
   SAY DESC @70206
@@ -168,7 +168,7 @@ END
 
 
 //Prisoner's Chain (ring)
-COPY ~%files%/prisonchain.BAM~  ~override/%m4%.BAM~
+COPY ~%icons%/prisonchain.BAM~  ~override/%m4%.BAM~
 COPY ~%files%/prisonchain.ITM~  ~override/%m4%.ITM~
   SAY NAME2 @70108
   SAY DESC @70208
@@ -177,8 +177,8 @@ COPY ~%files%/prisonchain.ITM~  ~override/%m4%.ITM~
 
 
 //Cruciform (amulet)
-COPY ~%files%/cruciformb.BAM~  ~override/%m5%b.BAM~
-COPY ~%files%/cruciformc.BAM~  ~override/%m5%c.BAM~
+COPY ~%icons%/cruciformb.BAM~  ~override/%m5%b.BAM~
+COPY ~%icons%/cruciformc.BAM~  ~override/%m5%c.BAM~
 COPY ~%files%/cruciform.ITM~   ~override/%m5%.ITM~
   SAY NAME2 @70109
   SAY DESC @70209
@@ -257,7 +257,7 @@ END
 //Golem Ring (ring)
 COPY ~%icons%/ironflesh.BAM~  ~override/%m6%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@616) STR_VAR bam=~%m6%i~ RET icon END
-COPY ~%files%/golemring.BAM~  ~override/%m6%.BAM~
+COPY ~%icons%/golemring.BAM~  ~override/%m6%.BAM~
 COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
   SAY NAME2 @70110
   SAY DESC @70210
@@ -287,7 +287,7 @@ COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
 
 
 //Calamity Ring (ring)
-COPY ~%files%/calamity.BAM~  ~override/%m7%.BAM~
+COPY ~%icons%/calamity.BAM~  ~override/%m7%.BAM~
 COPY ~%files%/calamity.ITM~  ~override/%m7%.ITM~
   SAY NAME2 @70111
   SAY DESC @70211
@@ -296,7 +296,7 @@ COPY ~%files%/calamity.ITM~  ~override/%m7%.ITM~
 
 
 //Stone Ring (ring)
-COPY ~%files%/stonering.BAM~      ~override/%m8%.BAM~
+COPY ~%icons%/stonering.BAM~      ~override/%m8%.BAM~
 COPY ~%files%/stoneringstun.EFF~  ~override/%m8%a.EFF~    // stun
 COPY ~%files%/stoneringpush.EFF~  ~override/%m8%b.EFF~    // wing buffet
 COPY ~%files%/stonering.ITM~      ~override/%m8%.ITM~
@@ -314,7 +314,7 @@ COPY ~%files%/flynnsring.EFF~  ~override/%m9%a.EFF~    // block item effects
 COPY ~%files%/flynnsring.EFF~  ~override/%m9%b.EFF~    // block spell effects
     WRITE_ASCII 0x30 ~%m9%s~ #8
 
-COPY ~%files%/flynnsring.BAM~  ~override/%m9%.BAM~
+COPY ~%icons%/flynnsring.BAM~  ~override/%m9%.BAM~
 COPY ~%files%/flynnsring.ITM~  ~override/%m9%.ITM~
   SAY NAME2 @70113
   SAY DESC @70213

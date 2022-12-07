@@ -146,25 +146,24 @@ COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
 BUT_ONLY
 
 
-//Add Holy Symbol (only given in BG2EE but can be imported for other games)
-COPY ~%files%/holysymbol_blood.SPL~  ~override/%e3%.SPL~
+//Add Holy Symbol (only given in BG2EE)
+COPY ~%files%/holysymbol_core.SPL~    ~override/%m1%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m1%~ END
-COPY ~%files%/holysymbol_blooda.BAM~  ~override/%m1%a.BAM~
-COPY ~%files%/holysymbol_bloodb.BAM~  ~override/%m1%b.BAM~
+COPY ~%icons%/holysymbol_blood.BAM~   ~override/%m1%.BAM~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~belt12.itm~) BEGIN
-  COPY_EXISTING ~belt12.itm~  ~override/%m1%.ITM~    // clone Lathander symbol
-    WRITE_LONG 0x1e (THIS BAND BNOT BIT1)            // remove Evil restriction
-    WRITE_BYTE 0x29 (THIS BAND BNOT BIT6)            // remove Barbarian restriction
+  COPY_EXISTING ~belt12.itm~          ~override/%m1%.ITM~    // clone Lathander symbol
+    WRITE_LONG 0x1e (THIS BAND BNOT BIT1)                    // remove restrictions
+    WRITE_BYTE 0x29 (THIS BAND BNOT BIT6)
 END
 ELSE BEGIN
-  COPY ~%files%/holysymbol_blood.ITM~  ~override/%m1%.ITM~    // or add new
+  COPY ~%files%/holysymbol_core.ITM~  ~override/%m1%.ITM~    // or add new
 END
 
 COPY_EXISTING ~%m1%.ITM~  ~override~
   SAY NAME2 @70100
   SAY DESC @70200
-  WRITE_ASCII 0x3a ~%m1%a~ #8      // icon
+  WRITE_ASCII 0x3a ~%m1%~ #8       // icon
   WRITE_ASCII 0x58 ~camul01~ #8    // description image
 BUT_ONLY
 
@@ -179,7 +178,7 @@ COPY_EXISTING ~CLABPR01.2DA~ ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
 
   PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN       // add Holy Symbol
-    LPF d2_kit_ability_adder INT_VAR level=25 passive=1 STR_VAR resource=~%e3%~ END
+    LPF d2_kit_ability_adder INT_VAR level=25 passive=1 STR_VAR resource=~%m1%~ END
   END
 BUT_ONLY
 
@@ -194,6 +193,7 @@ LAF ADD_KIT_EX
   STR_VAR
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
+    clsrcreq = ~1 1 1 1 1 1 1~    // Usable by all races, if base class is usable
     clascolr = ~72 46 47 2 93~    // Berserker colors
   RET 
     kit_id

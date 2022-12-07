@@ -315,11 +315,14 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 - Install after Rogue Rebalancing. Several RR files need to be patched for full compatibility.
 - Install after class revision mods, unless they specifically say to install after any kits.
 - Install after mods that revise or overwrite spells.
+- Install after mods that add new weapons or armor.
 
 #### Spellcasting systems:
 - Compatible with Faiths and Powers spheres system. Can install before or after FnP.
+	- My multiclasses don't require the FnP multiclass mod for compatibility with FnP.
+	- I'd recommend installing this mod AFTER FnP multiclass, if using it. See info below.
 - Compatible with Deities of Faerun spheres system. Install this mod after DoF.
-- Compatible with subtledoctor's 5e casting mod. Install this mod before 5e casting.  
+- Compatible with subtledoctor's 5e casting mod. Can install before or after 5e casting.
 	- You should also install the extra component related to 5e casting.
 
 #### HLA traps/songs:
@@ -328,8 +331,12 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 - If you know of any others, let me know and I can add it.
 - Only abilities gained by the base class are relevant for this.
 
-There are no game-breaking errors if a file isn't patched.  
-The unpatched HLAs just won't work 100% right with these kits.
+#### FnP multiclass (known issue): 
+- Current versions of FnP multiclass hide the F/M/C class from the selection screen. 
+- It may possibly be updated to not disable F/M/C, but for now, there are a few ways around this:
+1. Install this mod after FnP multiclass. It will automatically re-enable the class.
+2. Use cdtweaks/Tweaks Anthology. It has components that make all classes (including FMC) available to all races.
+3. Edit clsrcreq.2DA. Just find FIGHTER_MAGE_CLERIC, and set whichever races you want to 1.
 
 ---
 ---

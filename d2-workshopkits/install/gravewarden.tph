@@ -106,6 +106,7 @@ LAF ADD_KIT_EX
     kit_name = ~D2%kitname%~
     unusable = ~0x20000000~        // Avenger usability (doesn't restrict weapons)
     clab_path = ~%kitid%~
+    clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
     clascolr = ~67 25 79 23 24~    // Priest of Lathander colors
   RET 
     kit_id

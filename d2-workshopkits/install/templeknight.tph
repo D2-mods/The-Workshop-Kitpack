@@ -58,6 +58,7 @@ LAF ADD_KIT_EX
     kit_name = ~D2%kitname%~
     unusable = ~0x00000008~        // Cavalier usability
     clab_path = ~%kitid%~
+    clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
     weapprof = ~2 2 0 4 4 4 2 0 2 2 2 2 2 2 2 2 4 4 4 4 4 4 4 0 0 0 0 0 2 2 2 3~
     clascolr = ~24 99 169 2 25~    // Skald colors
   RET 

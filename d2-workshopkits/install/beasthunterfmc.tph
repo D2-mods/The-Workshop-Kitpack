@@ -11,6 +11,16 @@ INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn'
 COPY ~%passives%/fewerspells1.SPL~  ~override/%e4%.SPL~
 COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~         // only relevant for 5e casting mod
   LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END
+  LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END
+
+
+//Holy Symbol stuff
+COPY ~%passives%/opcode206.SPL~  ~override/%e9%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~cdhlysym~ END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~cdhlysym.SPL~) BEGIN
+  COPY_EXISTING ~cdhlysym.SPL~   ~override/%m1%.SPL~
+END
 
 
 //Ability tables (don't include base class abilities)
@@ -20,6 +30,11 @@ COPY ~%files%/kit0.2DA~  ~override/%beasthunter%F.2DA~
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
 
 COPY ~%files%/kit6.2DA~  ~override/%beasthunter%C.2DA~
+  PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN
+    LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
+    LPF d2_kit_ability_adder INT_VAR level=14 passive=1 STR_VAR resource=~%m1%~ END
+  END
+
 COPY ~%files%/kit6.2DA~  ~override/%beasthunter%M.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
@@ -39,6 +54,35 @@ ELSE BEGIN
 END
 
 
+//Re-enable the F/M/C class (if installed after FnP multiclass)
+COPY_EXISTING - ~clsrcreq.2DA~  ~~
+  COUNT_2DA_ROWS 3 clsrcreq_rows
+  READ_2DA_ENTRIES_NOW ~clsrcreq_table~ 3
+
+COPY_EXISTING - ~clastext.2DA~  ~~
+  COUNT_2DA_ROWS 3 clastext_rows
+  READ_2DA_ENTRIES_NOW ~clastext_table~ 3
+  FOR (i = 1; i < clastext_rows; ++i) BEGIN
+    READ_2DA_ENTRY_FORMER ~clastext_table~ i 1 classid
+    PATCH_IF (classid = 17) BEGIN
+      READ_2DA_ENTRY_FORMER ~clastext_table~ i 0 classname1
+      INNER_ACTION BEGIN
+        COPY_EXISTING - ~clsrcreq.2DA~  ~~
+          FOR (r = 1; r < clsrcreq_rows; ++r) BEGIN
+            READ_2DA_ENTRY_FORMER ~clsrcreq_table~ r 0 classname2
+            PATCH_IF (~%classname1%~ STRING_EQUAL_CASE ~%classname2%~) BEGIN
+              SET_2DA_ENTRY_LATER ~make_edits~ r 3 1
+            END
+          END
+      END
+    END
+  END
+
+COPY_EXISTING ~clsrcreq.2DA~  ~override~
+  SET_2DA_ENTRIES_NOW ~make_edits~ 3
+BUT_ONLY
+
+
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
@@ -52,6 +96,7 @@ LAF ADD_KIT_EX
     clab_base_f = ~%beasthunter%F.2DA~    // kit abilities added to Fighter table
     clab_base_m = ~%beasthunter%M.2DA~    // -1 spell slots added to Mage table
     clab_base_p = ~%beasthunter%C.2DA~    // no abilities added to Cleric table
+    clsrcreq = ~1 1 1 1 1 1 1~            // Usable by all races, if base class is usable
     weapprof = ~%multikitprofs%~
     clascolr = ~28 93 91 91 93~           // Archer colors
   RET 
@@ -78,8 +123,8 @@ BUT_ONLY
 
 //FnP spheres
 COPY ~%passives%/d5fpclsp.spl~  ~override/%e9%c.SPL~
-  LPF DELETE_EFFECT STR_VAR match_resource=~d5smdea#~ END
-  LPF DELETE_EFFECT STR_VAR match_resource=~d5spdes#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5spdes#~ resource=~d5smear#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5smdea#~ resource=~d5smdre#~ END
   LPF ALTER_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~) END
 BUT_ONLY
 

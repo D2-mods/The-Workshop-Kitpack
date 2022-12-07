@@ -1,9 +1,27 @@
 /*
 This file should only be installed if using subtledoctor's 5e casting mod.
-Fixes spell slots of mage kits (will match a regular Mage).
 This can be installed before or after 5e casting is installed.
 */
 
+
+//Rangers: Check for missing ability (if installed after 5e casting)
+ACTION_FOR_EACH clab IN ~d2wk3~ ~d2wk4~ BEGIN
+  ACTION_IF (FILE_EXISTS ~override/%clab%.2DA~) BEGIN
+    COPY_EXISTING ~%clab%.2DA~  ~override~
+      COUNT_REGEXP_INSTANCES ~AP_D5ZZ000~ hasD5ZZ000
+      COUNT_REGEXP_INSTANCES ~AP_D5GARNS~ hasD5GARNS
+      PATCH_IF (hasD5ZZ000 > 0) BEGIN
+        PATCH_IF (hasD5GARNS = 0) BEGIN
+          LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~D5GARNS~ END
+        END
+      END
+    BUT_ONLY
+  END
+END
+
+
+
+//Fixes spell slots of Mage kits (will match regular Mage)
 
 //War Magician (d2wk7)
 ACTION_IF (nowarmagician = 0) BEGIN
@@ -97,3 +115,7 @@ ACTION_IF (nocrowhunterfmt = 0) BEGIN
     WARN @5    // message that file not found
   END
 END
+
+
+/*
+*/

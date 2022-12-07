@@ -25,11 +25,12 @@ LAF ADD_KIT_EX
     help = RESOLVE_STR_REF (@101003)
   STR_VAR
     kit_name = ~D2%kitname%FT~
-    clab_base_f = ~%crowhunter%F.2DA~         // no abilities added to Fighter table
-    clab_base_t = ~%crowhunter%T.2DA~         // kit abilities added to Thief table
-    thiefscl = ~100 100 100 100 100 100 0 0~  // no points in set traps
-    thiefskl = ~40 20~                        // start with 40, gain 20 per level
-    clascolr = ~93 182 136 184 93~            // use Stalker colors
+    clab_base_f = ~%crowhunter%F.2DA~           // no abilities added to Fighter table
+    clab_base_t = ~%crowhunter%T.2DA~           // kit abilities added to Thief table
+    clsrcreq = ~1 1 1 1 1 1 1~                  // Usable by all races, if base class is usable
+    thiefscl = ~100 100 100 100 100 100 0 0~    // no points in set traps
+    thiefskl = ~40 20~                          // start with 40, gain 20 per level
+    clascolr = ~93 182 136 184 93~              // use Stalker colors
   RET 
     kit_id
 END

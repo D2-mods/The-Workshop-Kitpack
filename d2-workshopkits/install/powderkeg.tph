@@ -252,6 +252,7 @@ LAF ADD_KIT_EX
   STR_VAR
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
+    clsrcreq = ~1 1 1 1 1 1 1~       // Usable by all races, if base class is usable
     thiefscl = ~25 0 0 0 0 0 0 0~    // 25% Pick Pocket
     clascolr = ~67 46 47 2 43~       // use Sorcerer colors
   RET 

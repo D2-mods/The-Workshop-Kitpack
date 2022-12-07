@@ -7,8 +7,40 @@ ACTION_IF (nomoonlightknightcr = 0) BEGIN
 INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
 
 
+//Prevent from getting the base cleric Holy Symbols
+COPY ~%passives%/opcode206.SPL~  ~override/%e9%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~cdhlysym~ END
+
+
+//Add Holy Symbol (only given in BG2EE)
+COPY ~%files%/holysymbol_core.SPL~    ~override/%m1%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m1%~ END
+COPY ~%icons%/holysymbol_moon.BAM~    ~override/%m1%.BAM~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~belt12.itm~) BEGIN
+  COPY_EXISTING ~belt12.itm~          ~override/%m1%.ITM~    // clone Lathander symbol
+    WRITE_LONG 0x1e (THIS BAND BNOT BIT1)                    // remove restrictions
+    WRITE_BYTE 0x29 (THIS BAND BNOT BIT6)
+END
+ELSE BEGIN
+  COPY ~%files%/holysymbol_core.ITM~  ~override/%m1%.ITM~    // or add new
+END
+
+COPY_EXISTING ~%m1%.ITM~  ~override~
+  SAY NAME2 @70123
+  SAY DESC @70223
+  WRITE_ASCII 0x3a ~%m1%~ #8       // icon
+  WRITE_ASCII 0x58 ~camul01~ #8    // description image
+BUT_ONLY
+
+
 //Ability tables (don't include base class abilities)
 COPY ~%files%/kit6.2DA~  ~override/%moonlightknight%C.2DA~
+  PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN
+    LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
+    LPF d2_kit_ability_adder INT_VAR level=17 passive=1 STR_VAR resource=~%m1%~ END
+  END
+
 COPY ~%files%/kit0.2DA~  ~override/%moonlightknight%R.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
@@ -41,11 +73,12 @@ LAF ADD_KIT_EX
     kit_name = ~D2%kitname%CR~
     clab_base_p = ~%moonlightknight%C.2DA~    // no abilities added to Cleric table
     clab_base_r = ~%moonlightknight%R.2DA~    // kit abilities added to Ranger table
+    clsrcreq = ~1 1 1 1 1 1 1~                // Usable by all races, if base class is usable
     alignmnt = ~1 1 1 1 1 1 1 1 1~
     weapprof = ~%multikitprofs%~
     clasiskl = ~0 0 0 0 0 0 0~
     thiefscl = ~0 0 0 0 0 0 0 0~
-    clascolr = ~93 72 169 93 72~    // Undead Hunter colors
+    clascolr = ~93 72 169 93 72~              // Undead Hunter colors
   RET 
     kit_id
 END
@@ -53,12 +86,18 @@ END
 
 //FnP spheres
 COPY ~%passives%/d5fpclsp.spl~  ~override/%e9%c.SPL~
-  LPF DELETE_EFFECT STR_VAR match_resource=~d5spfir#~ END
-  LPF DELETE_EFFECT STR_VAR match_resource=~d5smwar#~ END
-  LPF DELETE_EFFECT STR_VAR match_resource=~d5splif#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5smwar#~ resource=~d5smmag#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5spben#~ resource=~d5spear#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5splif#~ resource=~d5smlif#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5spkno#~ resource=~d5spexp#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5spfir#~ resource=~d5smast#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5smtho#~ resource=~d5smdec#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5smdea#~ resource=~d5smben#~ END
   LPF ALTER_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%CR~) END
 BUT_ONLY
+
 COPY ~%passives%/d5fprnsp.spl~  ~override/%e9%r.SPL~
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5sppla#~ resource=~d5smpla#~ END
   LPF ALTER_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%CR~) END
 BUT_ONLY
 

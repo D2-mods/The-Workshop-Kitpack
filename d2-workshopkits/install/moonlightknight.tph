@@ -103,6 +103,7 @@ LAF ADD_KIT_EX
   STR_VAR
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
+    clsrcreq = ~1 1 1 1 1 1 1~      // Usable by all races, if base class is usable
     alignmnt = ~1 1 1 1 1 1 1 1 1~
     weapprof = ~2 2 1 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 2 2 2 3~
     clasiskl = ~0 0 0 0 0 0 0~

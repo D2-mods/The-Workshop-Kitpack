@@ -1175,8 +1175,17 @@ Charge abilities:
 
 Weight: 0~
 
-@70123 = ~~
-@70223 = ~~
+@70123 = ~Unknown Holy Symbol~
+@70223 = ~A nondescript holy symbol, granted to the most worthy and devoted Moonlight Knights.
+
+STATISTICS:
+
+Equipped abilities:
+– Strength: +1
+– Magic Resistance: +5%
+– Can memorize one extra 6th- and 7th-level Cleric spell
+
+Weight: 0~
 
 @70124 = ~~
 @70224 = ~~

@@ -173,6 +173,7 @@ LAF ADD_KIT_EX
     kit_name = ~D2%kitname%~
     unusable = ~0x00010000~        // Stalker usability (does not restrict paladin items)
     clab_path = ~%kitid%~
+    clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
     clascolr = ~25 83 66 28 23~    // Priest of Talos colors
   RET 
     kit_id

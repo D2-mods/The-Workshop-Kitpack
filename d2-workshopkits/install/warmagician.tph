@@ -7,6 +7,7 @@ COPY ~%passives%/resistup5elements.SPL~  ~override/%e2%.SPL~    // 10% resists
 COPY ~%passives%/fewerspells1.SPL~  ~override/%e3%.SPL~         // remove specialist bonus spells
 COPY ~%passives%/opcode206.SPL~     ~override/%e4%.SPL~         // only relevant for 5e casting mod
   LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END
+  LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END
 
 
 //Add Unleash Magic
@@ -75,6 +76,7 @@ COPY_EXISTING ~%kitid%.2DA~   ~override~
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e3%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
+  REPLACE_TEXTUALLY ~AP_D5ZMSLT~  ~****~
   LPF d2_kit_ability_adder END
 BUT_ONLY
 
@@ -89,6 +91,7 @@ LAF ADD_KIT_EX
   STR_VAR
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
+    clsrcreq = ~1 1 1 1 1 1 1~    // Usable by all races, if base class is usable
     abclsmod = ~-2 0 -2 0 0 0~    // -2 to Str and Con
     clascolr = ~18 5 24 27 30~    // Helm colors
   RET 

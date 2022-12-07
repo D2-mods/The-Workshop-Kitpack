@@ -402,6 +402,9 @@ COPY_EXISTING ~%kitid%.2DA~   ~override~
   LPF d2_kit_ability_adder STR_VAR resource=~%w6%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%w7%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%w8%~ END
+  REPLACE_TEXTUALLY ~AP_D5ZZ000~  ~****~
+  REPLACE_TEXTUALLY ~AP_D5Z0SPL~  ~****~
+  REPLACE_TEXTUALLY ~AP_D5ZMSLT~  ~****~
   LPF d2_kit_ability_adder END
 BUT_ONLY
 
@@ -416,6 +419,7 @@ LAF ADD_KIT_EX
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
     source_kit = DRAGON_DISCIPLE    // use Dragon Disciple as base (unkitted Sorcerer is missing from some tables)
+    clsrcreq = ~1 1 1 1 1 1 1~      // Usable by all races, if base class is usable
     abclasrq = ~0 0 0 12 0 12~      // min stats
     abclsmod = ~0 -2 0 0 -2 0~      // -2 to Dex and Wis
     abdcscrq = ~0 0 0 15 0 15~      // not used (dual class), this is just for aesthetics

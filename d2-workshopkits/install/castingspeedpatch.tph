@@ -10,13 +10,11 @@ ACTION_FOR_EACH ~ability~ IN
     ~SPCL611~    // druid shapeshifts (bg)
     ~SPCL612~
     ~SPCL613~
-    ~SPIN124~
     ~SPCL643~    // werewolf
     ~SPCL644~
     ~SPCL632~    // avenger
     ~SPCL633~
     ~SPCL634~
-    ~SPIN122~
     ~SPIN160~    // salamander fire
     ~SPCL321~    // berserker
     ~SPCL144~    // kensai
@@ -67,15 +65,31 @@ ACTION_FOR_EACH ~ability~ IN
     ~SPCL112~
     ~SPCL113~
     ~SPCL114~
-    ~SPCL110~
+    ~SPIN974~    // Psionic Blast
+    ~SPIN829~    // Jan ability
     ~SPIN117~    // Minsc rage
     ~SPIN116~    // Eldoth arrows
     ~spin119~    // Safana kiss
     ~ohhdrain~   // Hexxat drain
     ~ohrrage~    // Wilson rage
     ~SPIN823~    // Slayer change
+    ~SPIN852~
+    ~SPINHUM~    // Shapeshift: Natural Form
+    ~SPCL110~
+    ~SPIN122~
+    ~SPIN123~
+    ~SPIN124~
+    ~SPIN123~
+    ~SPIN150~
+    ~SPIN151~
+    ~SPPR617A~
+    ~SPWI489~
+    ~SPWI490~
+    ~SPWI491~
+    ~SPIN529~    // End Slayer Change
+    ~SPIN667~
     ~SPIN718~
-    ~SPINHUM~    // EE Fixpack
+    ~SPMDSLAY~
 BEGIN
 
   ACTION_IF (FILE_EXISTS_IN_GAME ~%ability%.SPL~) BEGIN

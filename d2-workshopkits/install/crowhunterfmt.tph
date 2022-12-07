@@ -11,6 +11,7 @@ INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn'
 COPY ~%passives%/fewerspells1.SPL~  ~override/%e4%.SPL~
 COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~         // only relevant for 5e casting mod
   LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END
+  LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END
 
 
 //Ability tables (don't include base class abilities)
@@ -35,12 +36,13 @@ LAF ADD_KIT_EX
     help = RESOLVE_STR_REF (@101003)
   STR_VAR
     kit_name = ~D2%kitname%FMT~
-    clab_base_f = ~%crowhunter%F.2DA~         // no abilities added to Fighter table
-    clab_base_m = ~%crowhunter%M.2DA~         // -1 spell slots added to Mage table
-    clab_base_t = ~%crowhunter%T.2DA~         // kit abilities added to Thief table
-    thiefscl = ~100 100 100 100 100 100 0 0~  // no points in set traps
-    thiefskl = ~40 20~                        // start with 40, gain 20 per level
-    clascolr = ~93 182 136 184 93~            // use Stalker colors
+    clab_base_f = ~%crowhunter%F.2DA~           // no abilities added to Fighter table
+    clab_base_m = ~%crowhunter%M.2DA~           // -1 spell slots added to Mage table
+    clab_base_t = ~%crowhunter%T.2DA~           // kit abilities added to Thief table
+    clsrcreq = ~1 1 1 1 1 1 1~                  // Usable by all races, if base class is usable
+    thiefscl = ~100 100 100 100 100 100 0 0~    // no points in set traps
+    thiefskl = ~40 20~                          // start with 40, gain 20 per level
+    clascolr = ~93 182 136 184 93~              // use Stalker colors
   RET 
     kit_id
 END
