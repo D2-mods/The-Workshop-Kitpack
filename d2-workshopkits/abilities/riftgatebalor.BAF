@@ -47,7 +47,7 @@ THEN
 		ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
 		ForceSpell(Myself,WIZARD_IMPROVED_HASTE)
 		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_DEATH)
-		ReallyForceSpell(Myself,WIZARD_METEOR_SWARM)
+		ReallyForceSpell(Myself,CLERIC_FIRE_STORM)
 		DestroyItem("%w8%x")
 END
 
@@ -60,7 +60,7 @@ THEN
 	RESPONSE #100
 		SetGlobal("d2final","LOCALS",1)
 		ReallyForceSpell(Myself,CLERIC_STORM_OF_VENGEANCE)
-		ReallyForceSpell(Myself,CLERIC_FIRE_STORM)
+		ReallyForceSpell(Myself,WIZARD_STINKING_CLOUD)
 		ReallyForceSpell(Myself,CLERIC_INSECT_PLAGUE)
 		DestroyItem("%w8%y")
 END
@@ -149,19 +149,19 @@ IF
 	!GlobalTimerNotExpired("d2balorconfuse","LOCALS")
 THEN
 	RESPONSE #100
-		SetGlobalTimer("d2balorconfuse","LOCALS",36)
+		SetGlobalTimer("d2balorconfuse","LOCALS",24)
 		ForceSpell(LastSeenBy(),WIZARD_DOMINATION)
 		Continue()
 	RESPONSE #100
-		SetGlobalTimer("d2balorconfuse","LOCALS",36)
+		SetGlobalTimer("d2balorconfuse","LOCALS",24)
 		ForceSpell(LastSeenBy(),WIZARD_CHAIN_LIGHTNING)
 		Continue()
 	RESPONSE #100
-		SetGlobalTimer("d2balorconfuse","LOCALS",36)
+		SetGlobalTimer("d2balorconfuse","LOCALS",24)
 		ForceSpell(LastSeenBy(),CLERIC_IMPLOSION)
 		Continue()
 	RESPONSE #100
-		SetGlobalTimer("d2balorconfuse","LOCALS",36)
+		SetGlobalTimer("d2balorconfuse","LOCALS",24)
 		ForceSpell(LastSeenBy(),WIZARD_EMOTION_HOPELESSNESS)
 		Continue()
 END
@@ -247,6 +247,14 @@ END
 
 IF
 	See([PC])
+	Range(LastSeenBy(),4)
+THEN
+	RESPONSE #100
+		AttackReevaluate(LastSeenBy(),30)
+END
+
+IF
+	See([GOODCUTOFF])
 	Range(LastSeenBy(),10)
 THEN
 	RESPONSE #100
@@ -254,7 +262,7 @@ THEN
 END
 
 IF
-	See([NOTEVIL])
+	See([NEUTRAL])
 	Range(LastSeenBy(),4)
 THEN
 	RESPONSE #100
@@ -263,6 +271,14 @@ END
 
 IF
 	See(NearestEnemyOf())
+THEN
+	RESPONSE #100
+		AttackReevaluate(LastSeenBy(),30)
+END
+
+IF
+	See([ANYONE])
+	!Allegiance(LastSeenBy(),EVILCUTOFF)
 THEN
 	RESPONSE #100
 		AttackReevaluate(LastSeenBy(),30)
@@ -278,7 +294,7 @@ THEN
 END
 
 IF
-	HPLT(Myself,80)
+	HPLT(Myself,150)
 	!GlobalTimerNotExpired("d2regen","LOCALS")
 	!GlobalTimerNotExpired("d2randomwalk","LOCALS")
 	!See([GOODCUTOFF])

@@ -107,7 +107,7 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
     LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%d~ END
 
 
-//Effects removed unless badge is equipped
+//Remove effects unless badge is equipped
 
 /*
 NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amulets)
@@ -161,7 +161,7 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
     WRITE_ASCII 0x30 ~%m4%a~ #8
 
 
-//Add items + damage effects
+//Add item files
   COPY ~%files%/badge_spark.EFF~     ~override/%m1%a.EFF~    // Spark Hunter Badge
   COPY ~%files%/badge_spark.ITM~     ~override/%m1%.ITM~
     SAY NAME2 @70101
@@ -173,6 +173,12 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
   COPY ~%files%/badge_radiant.ITM~   ~override/%m2%.ITM~
     SAY NAME2 @70102
     SAY DESC @70202
+    PATCH_IF (GAME_IS ~iwdee~) BEGIN
+      LPF CLONE_EFFECT INT_VAR multi_match=1 match_timing=2 opcode=101 parameter2=5 END    // charm immunity
+      LPF cd_apply_batch STR_VAR array_name = cd_immunity_charm_arrays END
+      LPF DELETE_EFFECT INT_VAR match_opcode=267 END
+      LPF d2_string_immunities END
+    END
 
   COPY ~%files%/badge_cosmic.EFF~    ~override/%m3%a.EFF~    // Cosmic Watcher Badge
   COPY ~%files%/badge_cosmic.ITM~    ~override/%m3%.ITM~

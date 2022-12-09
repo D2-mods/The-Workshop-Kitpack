@@ -21,15 +21,27 @@ IF
 	GlobalTimerNotExpired("d2randomwalk","LOCALS")
 	Range([PC],20)
 	!See(NearestEnemyOf())
+	!ActuallyInCombat()
 THEN
 	RESPONSE #100
+		SetGlobalTimer("d2randomwalk","LOCALS",0)
 		NoAction()
 END
 
 IF
-	InMyArea(LastSummonerOf())
+	GlobalTimerNotExpired("d2randomwalk","LOCALS")
+	Range([PC],20)
+	See(NearestEnemyOf())
+THEN
+	RESPONSE #100
+		SetGlobalTimer("d2randomwalk","LOCALS",0)
+		Continue()
+END
+
+IF
 	ActionListEmpty()
 	Allegiance(Myself,GOODCUTOFF)
+	InMyArea(LastSummonerOf())
 	!GlobalTimerNotExpired("d2randomwalk","LOCALS")
 	!Detect([PC])
 	!See(NearestEnemyOf())
@@ -162,7 +174,7 @@ END
 
 IF
 	!Allegiance(Myself,GOODCUTOFF)
-	AttackedBy([GOODCUTOFF],DEFAULT)
+	AttackedBy([ANYONE],DEFAULT)
 THEN
 	RESPONSE #100
 		AttackReevaluate(LastAttackerOf(),30)

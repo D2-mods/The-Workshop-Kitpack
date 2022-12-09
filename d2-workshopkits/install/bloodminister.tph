@@ -147,23 +147,23 @@ BUT_ONLY
 
 
 //Add Holy Symbol (only given in BG2EE)
-COPY ~%files%/holysymbol_core.SPL~    ~override/%m1%.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m1%~ END
-COPY ~%icons%/holysymbol_blood.BAM~   ~override/%m1%.BAM~
+COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m9%~ END
+COPY ~%icons%/holysymbol_blood.BAM~   ~override/%m9%.BAM~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~belt12.itm~) BEGIN
-  COPY_EXISTING ~belt12.itm~          ~override/%m1%.ITM~    // clone Lathander symbol
+  COPY_EXISTING ~belt12.itm~          ~override/%m9%.ITM~    // clone Lathander symbol
     WRITE_LONG 0x1e (THIS BAND BNOT BIT1)                    // remove restrictions
     WRITE_BYTE 0x29 (THIS BAND BNOT BIT6)
 END
 ELSE BEGIN
-  COPY ~%files%/holysymbol_core.ITM~  ~override/%m1%.ITM~    // or add new
+  COPY ~%files%/holysymbol_core.ITM~  ~override/%m9%.ITM~    // or add new
 END
 
-COPY_EXISTING ~%m1%.ITM~  ~override~
+COPY_EXISTING ~%m9%.ITM~  ~override~
   SAY NAME2 @70100
   SAY DESC @70200
-  WRITE_ASCII 0x3a ~%m1%~ #8       // icon
+  WRITE_ASCII 0x3a ~%m9%~ #8       // icon
   WRITE_ASCII 0x58 ~camul01~ #8    // description image
 BUT_ONLY
 
@@ -178,7 +178,7 @@ COPY_EXISTING ~CLABPR01.2DA~ ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
 
   PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN       // add Holy Symbol
-    LPF d2_kit_ability_adder INT_VAR level=25 passive=1 STR_VAR resource=~%m1%~ END
+    LPF d2_kit_ability_adder INT_VAR level=25 passive=1 STR_VAR resource=~%m9%~ END
   END
 BUT_ONLY
 
@@ -241,13 +241,13 @@ Added this way instead of using the FnP function because it's too
 much of a pain to re-arrange the way I've already set everything up.
 */
 
-COPY ~%passives%/d5fpclsp.spl~  ~override/%e9%c.SPL~
+COPY ~%passives%/d5fpclsp.spl~  ~override/%e6%.SPL~
   LPF DELETE_EFFECT INT_VAR multi_match=10 END
   LPF ALTER_EFFECT INT_VAR parameter1=0 parameter2=2 END
 BUT_ONLY
 
 COPY_EXISTING ~%kitid%.2DA~  ~override~
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%c~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 BUT_ONLY
 
 

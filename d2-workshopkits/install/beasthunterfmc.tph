@@ -19,8 +19,16 @@ COPY ~%passives%/opcode206.SPL~  ~override/%e9%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~cdhlysym~ END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~cdhlysym.SPL~) BEGIN
-  COPY_EXISTING ~cdhlysym.SPL~   ~override/%m1%.SPL~
+  COPY_EXISTING ~cdhlysym.SPL~   ~override/%m9%.SPL~
 END
+
+
+//FnP spheres
+COPY ~%passives%/d5fpclsp.spl~  ~override/%e6%.SPL~
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5spdes#~ resource=~d5smear#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5smdea#~ resource=~d5smdre#~ END
+  LPF ALTER_EFFECT INT_VAR parameter1=0 parameter2=2 END
+BUT_ONLY
 
 
 //Ability tables (don't include base class abilities)
@@ -32,8 +40,9 @@ COPY ~%files%/kit0.2DA~  ~override/%beasthunter%F.2DA~
 COPY ~%files%/kit6.2DA~  ~override/%beasthunter%C.2DA~
   PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN
     LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
-    LPF d2_kit_ability_adder INT_VAR level=14 passive=1 STR_VAR resource=~%m1%~ END
+    LPF d2_kit_ability_adder INT_VAR level=14 passive=1 STR_VAR resource=~%m9%~ END
   END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 
 COPY ~%files%/kit6.2DA~  ~override/%beasthunter%M.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
@@ -54,7 +63,7 @@ ELSE BEGIN
 END
 
 
-//Re-enable the F/M/C class (if installed after FnP multiclass)
+//Re-enable the F/M/C class (i.e. if disabled by FnP multiclass)
 COPY_EXISTING - ~clsrcreq.2DA~  ~~
   COUNT_2DA_ROWS 3 clsrcreq_rows
   READ_2DA_ENTRIES_NOW ~clsrcreq_table~ 3
@@ -118,18 +127,6 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
         timing = 2
     END
   END
-BUT_ONLY
-
-
-//FnP spheres
-COPY ~%passives%/d5fpclsp.spl~  ~override/%e9%c.SPL~
-  LPF ALTER_EFFECT STR_VAR match_resource=~d5spdes#~ resource=~d5smear#~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~d5smdea#~ resource=~d5smdre#~ END
-  LPF ALTER_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~) END
-BUT_ONLY
-
-COPY_EXISTING ~CLABPR01.2DA~  ~override~
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%c~ END
 BUT_ONLY
 
 

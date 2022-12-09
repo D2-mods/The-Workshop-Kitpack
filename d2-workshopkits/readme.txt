@@ -41,7 +41,6 @@ Crow Hunter (f/t)
 Crow Hunter (f/m/t)
 
 //misc
-1 Holy Symbol     - for the cleric kit
 4 Hunter Badges   - can be crafted (see below), can also be purchased
 8 new spells      - learned by the Starjammer kit
 9 Caryll Runes    - items with party-wide effects
@@ -110,10 +109,17 @@ FnP multiclass:
 
 Version info:
 
+v2.4
+- IWDEE: Radiant Sword Badge now gives charm immunity (as per Protection From Evil in IWD)
+- Confessor: Rooting Shot sets movement to 0 for the entangle. Previously, this could be broken by applying another movement effect. This is fixed. The entangled status can still be dispelled or removed by Free Action.
+- Starjammer: More tweaks to Starjammer creature scripts (golem, gibberlings, balor)
+- Renamed a few files for better organization (ability/item files are unchanged)
+- Minor text edits (nothing important, I just make small edits sometimes)
+
 v2.3
 - Updated Compatibility section with info on the FnP multiclass mod.
 - Kits are now selectable by any race if the base class is selectable. I made this change because there are some mods that enable all classes for all races, but don't enable all kits as well.
-- Multiclass Clerics will now gain holy symbols at around 4 million xp (BG2 only):
+- The multiclass Cleric kits will now gain holy symbols at around 4 million xp (BG2 only):
 	- Beast Hunter (FMC) gains it at Cleric level 14.
 	- Moonlight Knight (CR) gains it at Cleric level 17.
 	- This is compatible with any other mods or sphere system changes.

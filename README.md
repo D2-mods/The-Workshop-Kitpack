@@ -35,7 +35,6 @@ Mod contents:
 - Crow Hunter (f/m/t)
 
 #### Misc stuff
-- 1 Holy Symbol&emsp;&emsp;- for the cleric kit  
 - 4 Hunter Badges&emsp;- can be crafted (see below), can also be purchased  
 - 8 new spells&emsp;&emsp;&emsp;- learned by the Starjammer kit  
 - 9 Caryll Runes&emsp;&emsp;- items with party-wide effects
@@ -288,7 +287,7 @@ BLASTING SONG: A ring of flame bursts outwards in a 15-ft. radius, inflicting 1d
 
 BOOMING SONG: A crushing wave expands outwards in a 15-ft. radius, inflicting 2d4 crushing damage to enemies and causing deafness for 2 rounds, plus an additional 2 rounds on a failed save vs. Spell. Deafness causes a 50% chance to miscast spells.
 
-DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded (no save), but also cannot be directly targeted, unless an attacker can see through invisibility.
+DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded but also cannot be directly targeted, unless an attacker can see through invisibility.
 
 FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though magic resistance can prevent the status effects.
 
@@ -311,7 +310,7 @@ Compatibility:
 More info: Due to how the game detects mage specialists, once you get a high enough number of kits, any arcane kits added afterwards may share restricted schools with one or more specialists. This only affects the spell selection screen. Mages and Bards can still memorize scrolls. This is a problem for Sorcerer kits, however. For now, best thing to do if the issue comes up is to install the TnB component mentioned above.
 
 
-#### These aren't hard rules, but compatibility will be best following these:
+#### General guidelines:
 - Install after Rogue Rebalancing. Several RR files need to be patched for full compatibility.
 - Install after class revision mods, unless they specifically say to install after any kits.
 - Install after mods that revise or overwrite spells.
@@ -363,6 +362,7 @@ Additional Info (Kit Abilities):
 - Other:  
 	- Blood transfusions will be removed by a Restoration or Greater Restoration.
 	- Bleeding effects can be cured by Heal or Greater Restoration, or by the Blood Minister's "Healing Blood".
+	- The multiclass Cleric kits will gain Holy Symbols at around 4 million XP (BG2/EET)
 
 A few other kit abilities are also spell-like, but I decided not to make them affected by Wild/Dead Magic. It's standard for kit abilities in these games not to be affected. The above abilities are cast like spells so I thought it'd look dumb for them not to be affected by Magic Zones.
 

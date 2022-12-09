@@ -7,30 +7,48 @@ ACTION_IF (nomoonlightknightcr = 0) BEGIN
 INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
 
 
-//Prevent from getting the base cleric Holy Symbols
+//Prevent from getting the vanilla Holy Symbols
 COPY ~%passives%/opcode206.SPL~  ~override/%e9%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~cdhlysym~ END
 
 
-//Add Holy Symbol (only given in BG2EE)
-COPY ~%files%/holysymbol_core.SPL~    ~override/%m1%.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m1%~ END
-COPY ~%icons%/holysymbol_moon.BAM~    ~override/%m1%.BAM~
+//Add Holy Symbol (only given in BG2)
+COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m9%~ END
+COPY ~%icons%/holysymbol_moon.BAM~    ~override/%m9%.BAM~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~belt12.itm~) BEGIN
-  COPY_EXISTING ~belt12.itm~          ~override/%m1%.ITM~    // clone Lathander symbol
+  COPY_EXISTING ~belt12.itm~          ~override/%m9%.ITM~    // clone Lathander symbol
     WRITE_LONG 0x1e (THIS BAND BNOT BIT1)                    // remove restrictions
     WRITE_BYTE 0x29 (THIS BAND BNOT BIT6)
 END
 ELSE BEGIN
-  COPY ~%files%/holysymbol_core.ITM~  ~override/%m1%.ITM~    // or add new
+  COPY ~%files%/holysymbol_core.ITM~  ~override/%m9%.ITM~    // or add new
 END
 
-COPY_EXISTING ~%m1%.ITM~  ~override~
+COPY_EXISTING ~%m9%.ITM~  ~override~
   SAY NAME2 @70123
   SAY DESC @70223
-  WRITE_ASCII 0x3a ~%m1%~ #8       // icon
+  WRITE_ASCII 0x3a ~%m9%~ #8       // icon
   WRITE_ASCII 0x58 ~camul01~ #8    // description image
+BUT_ONLY
+
+
+//FnP spheres
+COPY ~%passives%/d5fpclsp.spl~  ~override/%e6%.SPL~
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5smwar#~ resource=~d5smmag#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5spben#~ resource=~d5spear#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5splif#~ resource=~d5smlif#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5spkno#~ resource=~d5spexp#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5spfir#~ resource=~d5smast#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5smtho#~ resource=~d5smdec#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5smdea#~ resource=~d5smben#~ END
+  LPF ALTER_EFFECT INT_VAR parameter1=0 parameter2=2 END
+BUT_ONLY
+
+COPY ~%passives%/d5fprnsp.spl~  ~override/%e7%.SPL~
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5sppla#~ resource=~d5smpla#~ END
+  LPF ALTER_EFFECT INT_VAR parameter1=0 parameter2=2 END
 BUT_ONLY
 
 
@@ -38,14 +56,16 @@ BUT_ONLY
 COPY ~%files%/kit6.2DA~  ~override/%moonlightknight%C.2DA~
   PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN
     LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
-    LPF d2_kit_ability_adder INT_VAR level=17 passive=1 STR_VAR resource=~%m1%~ END
+    LPF d2_kit_ability_adder INT_VAR level=17 passive=1 STR_VAR resource=~%m9%~ END
   END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 
 COPY ~%files%/kit0.2DA~  ~override/%moonlightknight%R.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 passive=1 STR_VAR resource=~%e3%~ END
   LPF d2_kit_ability_adder INT_VAR level=6 multi=1 increment=4 limit=14 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e7%~ END
 
 
 //Set variable for proficiencies
@@ -82,31 +102,6 @@ LAF ADD_KIT_EX
   RET 
     kit_id
 END
-
-
-//FnP spheres
-COPY ~%passives%/d5fpclsp.spl~  ~override/%e9%c.SPL~
-  LPF ALTER_EFFECT STR_VAR match_resource=~d5smwar#~ resource=~d5smmag#~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~d5spben#~ resource=~d5spear#~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~d5splif#~ resource=~d5smlif#~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~d5spkno#~ resource=~d5spexp#~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~d5spfir#~ resource=~d5smast#~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~d5smtho#~ resource=~d5smdec#~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~d5smdea#~ resource=~d5smben#~ END
-  LPF ALTER_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%CR~) END
-BUT_ONLY
-
-COPY ~%passives%/d5fprnsp.spl~  ~override/%e9%r.SPL~
-  LPF ALTER_EFFECT STR_VAR match_resource=~d5sppla#~ resource=~d5smpla#~ END
-  LPF ALTER_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%CR~) END
-BUT_ONLY
-
-COPY_EXISTING ~CLABPR01.2DA~  ~override~
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%c~ END
-BUT_ONLY
-COPY_EXISTING ~CLABRN01.2DA~  ~override~
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%r~ END
-BUT_ONLY
 
 
 //DoF variables
