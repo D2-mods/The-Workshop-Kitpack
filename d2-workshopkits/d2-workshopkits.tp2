@@ -1,6 +1,6 @@
 BACKUP ~weidu_external/backup/d2-workshopkits~
 AUTHOR ~Dan_P~
-VERSION ~2.4~
+VERSION ~2.5~
 
 ALWAYS
   ACTION_BASH_FOR ~%MOD_FOLDER%/lib~ ~.*\.tpa~ BEGIN    // function list
@@ -27,14 +27,15 @@ LANGUAGE ~English~
          ~english~
          ~d2-workshopkits/tra/english/setup.tra~
          ~d2-workshopkits/tra/english/main.tra~
-		 
+
 LANGUAGE ~Français~
          ~french~
          ~d2-workshopkits/tra/english/setup.tra~
          ~d2-workshopkits/tra/english/main.tra~
          ~d2-workshopkits/tra/french/setup.tra~
-         ~d2-workshopkits/tra/french/main.tra~		 
-		 
+         ~d2-workshopkits/tra/french/main.tra~		
+
+
 /*
 The Workshop Kitpack
 */

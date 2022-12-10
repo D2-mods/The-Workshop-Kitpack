@@ -109,9 +109,9 @@ PROTECTEUR DE SÉPULTURES : Loin à l'est, les Protecteur de sépultures veillen
 Avantages :
 - Bonus de 4 aux jets de sauvegarde contre la paralysie, la mort et les poisons.
 - Bonus de 10 au score de connaissances tout les 4 niveaux.
-- Peut lancer trois sort profane à la manière d'un prêtre :
-  1er niveau : « Orbe chromatique ».
-  2ème niveau : « Horreur ».
+- Peut lancer trois sort profane à la manière d'un prêtre :  
+  1er niveau : « Orbe chromatique ».  
+  2ème niveau : « Horreur ».  
   3ème niveau : « Piège à crânes ».
   
 - 5ème niveau : Peut utiliser la capacité « Dénégation » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
@@ -152,10 +152,10 @@ Inconvénients :
 EXÉCUTEUR : L'Exécuteur est un paladin qui œuvre pour son église. Il est doué d'une grande variété de compétences, rechercher des informations, dévoiler les mensonges et traquer les ennemis de l'église ne sont que quelques unes des tâches qui lui sont confiées.
 
 Avantages :
-- Peut lancer quatre sort profane à la manière d'un prêtre :
-  1er niveau : « Cécité ».
-  2ème niveau : « Flou ».
-  3ème niveau : « Toucher vampirique ».
+- Peut lancer quatre sort profane à la manière d'un prêtre :  
+  1er niveau : « Cécité ».  
+  2ème niveau : « Flou ».  
+  3ème niveau : « Toucher vampirique ».  
   4ème niveau : « Mot secret ».
 
 - 2ème niveau : Peut utiliser la capacité « Empalement » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
@@ -239,10 +239,10 @@ ECCLÉSIASTE SANGLANT : L'ancienne Église de la Guérison aujourd'hui entaché 
 
 Avantages :
 - Immunité au drainage de niveau, aux poisons et aux maladies..
-- Peut utiliser la capacité « Injection » une fois par jour à partir du niveau 2, puis une fois supplémentaire tous les 4 niveaux. Lorsque cette capacité est activée, elle permet d'utiliser plusieurs type de transfusions. De nouvelles transfusions sont disponibles en fonction du niveau :
-  2ème niveau : « Guérison par le sang ».
-  6ème niveau : « Sang de la Bête ».
-  10ème niveau : « Sang du lunatique ».
+- Peut utiliser la capacité « Injection » une fois par jour à partir du niveau 2, puis une fois supplémentaire tous les 4 niveaux. Lorsque cette capacité est activée, elle permet d'utiliser plusieurs type de transfusions. De nouvelles transfusions sont disponibles en fonction du niveau :  
+  2ème niveau : « Guérison par le sang ».  
+  6ème niveau : « Sang de la Bête ».  
+  10ème niveau : « Sang du lunatique ».  
   14ème niveau : « Élixir sanglant ».
 
 GUÉRISON PAR LE SANG : Du sang prélevé sur une des sœurs de l'Église de la Guérison permet de régénérer 2 points de vie par round pendant 3 tours. Dans ce laps de temps, le bénéficiaire subit une pénalité de 1 aux jets d'attaque et de dégâts. Ce sang guérit également les empoisonnements et les maladies.
@@ -283,10 +283,10 @@ CHANTRE DE LA POUDRE : Les Chantres de la poudre sont une faction de bardes, con
 
 Avantages :
 - Bénéficie de 20 % de résistance au feu.
-- Accède à un chant du barde spécifique au Chantre de la poudre. Les chansons peuvent être sélectionnées à partir du menu des capacités spéciales. De nouvelles chansons sont disponibles en fonction du niveau :
-  1er niveau : « Chant enflammé ».
-  5ème niveau : « Son détonant ».
-  10ème niveau : « Déflagration de poussière ».
+- Accède à un chant du barde spécifique au Chantre de la poudre. Les chansons peuvent être sélectionnées à partir du menu des capacités spéciales. De nouvelles chansons sont disponibles en fonction du niveau :  
+  1er niveau : « Chant enflammé ».  
+  5ème niveau : « Son détonant ».  
+  10ème niveau : « Déflagration de poussière ».  
   15ème niveau : « Flamme frénétique ».
 
 CHANT ENFLAMMÉ : Un cercle de flammes se propage sur un rayon de 4,5 m, infligeant 1d4 points de dégâts de feu par niveau du personnage, jusqu'à un maximum de 20d4 au niveau 20, toute créature se trouvant dans la zone d'effet doit réussir un jet de sauvegarde contre les souffles pour réduire les dégâts de moitié. Seule la personne qui joue la chanson est à l'abri des flammes.

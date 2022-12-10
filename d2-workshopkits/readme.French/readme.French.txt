@@ -119,6 +119,9 @@ FnP multiclass
 
 Version info:
 
+v2.5
+- Added French translation, provided by 11jo.
+
 v2.4
 - IWDEE: Radiant Sword Badge now gives charm immunity (as per Protection From Evil in IWD)
 - Confessor: Rooting Shot sets movement to 0 for the entangle. Previously, this could be broken by applying another movement effect. This is fixed. The entangled status can still be dispelled or removed by Free Action.

@@ -1184,8 +1184,17 @@ Transformation en loup-garou pendant les combats ; la métamorphose est instanta
 
 Poids : 0~
 
-@70123 = ~~
-@70223 = ~~
+@70123 = ~Symbole sacré mystérieux~
+@70223 = ~Un symbole sacré mystérieux, accordé à certains Chevaliers au clair de lune méritants et dévoués.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+– Force : +1
+– Résistance à la magie : +5 %
+– Permet de mémoriser un sort divin supplémentaire de 6ème et 7ème niveau
+
+Poids : 0~
 
 @70124 = ~~
 @70224 = ~~

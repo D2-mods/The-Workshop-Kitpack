@@ -1,6 +1,7 @@
 The Workshop Kitpack
 GitHub: https://github.com/D2-mods/The-Workshop-Kitpack
 Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases
+Languages: English, French (by 11jo)
 
 
 Info:
@@ -108,6 +109,9 @@ FnP multiclass:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v2.5
+- Added French translation, provided by 11jo.
 
 v2.4
 - IWDEE: Radiant Sword Badge now gives charm immunity (as per Protection From Evil in IWD)

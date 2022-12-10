@@ -1,7 +1,8 @@
 # The Workshop Kitpack
 
 Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases  
-Forum posts: [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)
+Forum posts: [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)  
+Languages: English, French (by 11jo)
 
 This is a kitpack I've been working on for a while. It currently has 11 kits—6 warrior, 5 non-warrior + multiclass variants. Also adds 20+ items, including 4 Hunter Badges, 9 Caryll Runes, and 9 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 
@@ -362,7 +363,7 @@ Additional Info (Kit Abilities):
 - Other:  
 	- Blood transfusions will be removed by a Restoration or Greater Restoration.
 	- Bleeding effects can be cured by Heal or Greater Restoration, or by the Blood Minister's "Healing Blood".
-	- The multiclass Cleric kits will gain Holy Symbols at around 4 million XP (BG2/EET)
+	- The multiclass Cleric kits will gain Holy Symbols at around 4 million XP (BG2/EET).
 
 A few other kit abilities are also spell-like, but I decided not to make them affected by Wild/Dead Magic. It's standard for kit abilities in these games not to be affected. The above abilities are cast like spells so I thought it'd look dumb for them not to be affected by Magic Zones.
 
