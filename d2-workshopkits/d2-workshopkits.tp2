@@ -28,6 +28,12 @@ LANGUAGE ~English~
          ~d2-workshopkits/tra/english/setup.tra~
          ~d2-workshopkits/tra/english/main.tra~
 		 
+LANGUAGE ~Français~
+         ~french~
+         ~d2-workshopkits/tra/english/setup.tra~
+         ~d2-workshopkits/tra/english/main.tra~
+         ~d2-workshopkits/tra/french/setup.tra~
+         ~d2-workshopkits/tra/french/main.tra~		 
 		 
 /*
 The Workshop Kitpack
