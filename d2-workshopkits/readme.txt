@@ -110,6 +110,10 @@ FnP multiclass:
 
 Version info:
 
+v2.6
+- Cleaned up some of the abilities tables (no gameplay effect)
+- Some installer improvements.
+
 v2.5
 - Added French translation, provided by 11jo.
 
@@ -223,7 +227,7 @@ Custom functions (not including my own):
 
 - CD_EXTEND-O-MATIC by Camdawg (https://www.gibberlings3.net/forums/topic/28835-toss-your-semi-useful-weidu-macros-here/#comment-254220)
 
-- add_spell_ex by K4thos ((https://github.com/K4thos/IE-code-repository))
+- add_spell_ex by K4thos (https://github.com/K4thos/IE-code-repository)
 
 - immunity batch macros from BG2 Fixpack (https://www.gibberlings3.net/forums/topic/28834-bg2-modder-resource-effect-batch-macros)
 
@@ -234,6 +238,8 @@ Custom functions (not including my own):
 - fnp_compatibility.tpa for Faiths & Powers mod (https://github.com/UnearthedArcana/Faiths_and_Powers/releases)
 
 - semi_spontaneous.tpa for 5e casting mod (https://github.com/UnearthedArcana/5E_spellcasting/releases)
+
+- 2DA_MISSING_COLS by K4thos (https://github.com/K4thos/IE-code-repository)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

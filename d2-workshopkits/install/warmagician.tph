@@ -70,6 +70,9 @@ ELSE BEGIN
 END
 
 COPY_EXISTING ~%kitid%.2DA~   ~override~
+  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
+  REPLACE_TEXTUALLY ~AP_A7_CS05~  ~****~
+  REPLACE_TEXTUALLY ~AP_A7_CS06~  ~****~
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 limit=20 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END

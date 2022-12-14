@@ -7,6 +7,12 @@ ACTION_IF (nocrowhunterft = 0) BEGIN
 INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
 
 
+//Cannot gain Set Snares
+COPY ~%passives%/opcode206.SPL~     ~override/%e6%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END
+  LPF CLONE_EFFECT STR_VAR resource=~D5CL412~ END
+
+
 //Make 2da file (don't include base class abilities)
 COPY ~%files%/kit6.2DA~  ~override/%crowhunter%F.2DA~    // blank 2da
 COPY ~%files%/kit0.2DA~  ~override/%crowhunter%T.2DA~    // kit abilities
@@ -14,6 +20,7 @@ COPY ~%files%/kit0.2DA~  ~override/%crowhunter%T.2DA~    // kit abilities
   LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=11 multi=1 increment=4 limit=19 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 
 
 //Kit function

@@ -28,7 +28,6 @@ COPY ~%passives%/d5fpclsp.spl~  ~override/%e6%.SPL~
   LPF ALTER_EFFECT STR_VAR match_resource=~d5spdes#~ resource=~d5smear#~ END
   LPF ALTER_EFFECT STR_VAR match_resource=~d5smdea#~ resource=~d5smdre#~ END
   LPF ALTER_EFFECT INT_VAR parameter1=0 parameter2=2 END
-BUT_ONLY
 
 
 //Ability tables (don't include base class abilities)

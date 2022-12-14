@@ -88,12 +88,14 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%s2%b.SPL~
 
 //Clone base thief 2da file
 COPY_EXISTING ~CLABTH01.2DA~ ~override/%kitid%.2DA~
-  REPLACE_TEXTUALLY ~GA_SPCL412~  ~****~
+  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
+  REPLACE_TEXTUALLY ~GA_SPCL412~  ~****~    // remove traps
+  REPLACE_TEXTUALLY ~AP_D5CL412~  ~****~    // remove traps (subtledoctor)
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=11 multi=1 increment=4 limit=19 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e2%~ END
-BUT_ONLY
+  LPF d2_kit_ability_adder END
 
 
 //Kit function

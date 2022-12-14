@@ -41,8 +41,8 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
-  INCLUDE ~%install%/%kitname%fm.tph~     // multiclass kit
-  INCLUDE ~%install%/%kitname%fmc.tph~    // multiclass kit
+  INCLUDE ~%install%/%kitname%fm.tph~      // multiclass kit
+  INCLUDE ~%install%/%kitname%fmc.tph~     // multiclass kit
   INCLUDE ~%install%/dofspheres.tph~
   INCLUDE ~%install%/hunterbadges.tph~
 END
@@ -54,18 +54,19 @@ ACTION_IF (%nowarhound% = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
-  INCLUDE ~%install%/%kitname%fm.tph~    // multiclass kit
+  INCLUDE ~%install%/%kitname%fm.tph~      // multiclass kit
 END
 
 //Crow Hunter (d2wka)
 ACTION_IF (%nocrowhunter% = 0) BEGIN
+  INCLUDE ~%install%/backstabcheck.tph~
   OUTER_TEXT_SPRINT kitid ~d2wka~
   OUTER_TEXT_SPRINT kitname ~CROWHUNTER~
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
-  INCLUDE ~%install%/%kitname%ft.tph~     // multiclass kit
-  INCLUDE ~%install%/%kitname%fmt.tph~    // multiclass kit
+  INCLUDE ~%install%/%kitname%ft.tph~      // multiclass kit
+  INCLUDE ~%install%/%kitname%fmt.tph~     // multiclass kit
 END
 
 

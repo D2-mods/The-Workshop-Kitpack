@@ -158,7 +158,7 @@ COPY_EXISTING ~CLABPA01.2DA~ ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=9 STR_VAR resource=~%p4%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
-BUT_ONLY
+  LPF d2_kit_ability_adder END
 
 
 //Kit function

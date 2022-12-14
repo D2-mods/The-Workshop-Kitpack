@@ -1,7 +1,7 @@
 /*
 for single-class Clerics or Druids (no specialization)
 Make custom "weapontype" array, then INCLUDE this file
-Sets both proficiencies and weapon restrictions (DoF only).
+Sets both proficiencies and weapon restrictions (DoF and FnP).
 */
 
 
@@ -33,8 +33,10 @@ END
 */
 
 
-//Weapon restrictions (DoF only)
-ACTION_IF (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) BEGIN
+//Weapon restrictions (DoF)
+ACTION_IF (!(FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) AND
+           !(MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
+          ) BEGIN
 
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
   READ_SHORT 0x1c itemtype
@@ -59,7 +61,61 @@ END
 
 
 
-//Weapon proficiencies (using unmodded prof table)
+//Weapon restrictions (FnP)
+ACTION_DEFINE_ASSOCIATIVE_ARRAY fnpweapontype BEGIN    // fnptype => weapon
+  15 => 15    // bows
+  16 => 16    // daggers
+  17 => 17    // maces
+  18 => 18    // slings
+  19 => 19    // short sword
+  20 => 20    // long sword
+  21 => 21    // hammers
+  22 => 20    // bastard sword
+  23 => 23    // flails, morning star
+  24 => 24    // darts
+  25 => 25    // axes
+  26 => 26    // quarterstaff, clubs
+  27 => 27    // crossbows
+  28 => 28    // fist
+  29 => 20    // scimitar, wakizashi, ninjato
+  30 => 20    // katana
+  44 => 29    // spear
+  57 => 20    // greatsword
+  69 => 30    // halberd
+END
+
+ACTION_IF ((FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
+           (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
+          ) BEGIN
+
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  READ_SHORT 0x1c itemtype
+
+  PHP_EACH fnpweapontype AS fnptype => weapon BEGIN    // set fnptype to %fnptype% and weapon to %weapon%
+    PATCH_IF (fnptype = itemtype) BEGIN
+      PHP_EACH weapontype AS type => usable BEGIN      // set weapon to %type% and usable to %usable%
+        PATCH_IF (weapon = type) BEGIN
+          PATCH_IF (usable < 1) BEGIN
+            LPF ADD_ITEM_EQEFFECT
+              INT_VAR
+                opcode = 319
+                target = 1
+                parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+                parameter2 = 9
+                timing = 2
+            END
+          END
+        END
+      END
+    END
+  END
+BUT_ONLY
+
+END
+
+
+
+//Weapon proficiencies (unmodded profs)
 COPY_EXISTING ~weapprof.2DA~  override
   LPF weapprof_set_types INT_VAR entry=0 STR_VAR kit=~D2%kitname%~ RET col_number END
 

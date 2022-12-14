@@ -170,6 +170,8 @@ BUT_ONLY
 
 //Clone base cleric 2da file
 COPY_EXISTING ~CLABPR01.2DA~ ~override/%kitid%.2DA~
+  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
+  LPF 2da_find_row_delete STR_VAR row_name = ~CLER_SPLS~ END
   REPLACE_TEXTUALLY ~AP_d2wk1e9c~  ~****~
   REPLACE_TEXTUALLY ~AP_d2wk4e9c~  ~****~
   REPLACE_TEXTUALLY ~AP_CDHLYSYM~  ~****~    // remove Holy Symbol
@@ -180,7 +182,8 @@ COPY_EXISTING ~CLABPR01.2DA~ ~override/%kitid%.2DA~
   PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN       // add Holy Symbol
     LPF d2_kit_ability_adder INT_VAR level=25 passive=1 STR_VAR resource=~%m9%~ END
   END
-BUT_ONLY
+
+  LPF d2_kit_ability_adder END
 
 
 //Kit function
