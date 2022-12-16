@@ -111,6 +111,8 @@ FnP multiclass:
 Version info:
 
 v2.6
+- Improved icons for Caryll runes. The differences should be easier to see.
+- Adjusted timings of a couple visual effects.
 - Cleaned up some of the abilities tables (no gameplay effect)
 - Some installer improvements.
 
