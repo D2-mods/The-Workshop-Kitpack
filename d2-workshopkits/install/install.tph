@@ -59,7 +59,7 @@ END
 
 //Crow Hunter (d2wka)
 ACTION_IF (%nocrowhunter% = 0) BEGIN
-  INCLUDE ~%install%/backstabcheck.tph~
+  INCLUDE ~%install%/backstabprep.tph~
   OUTER_TEXT_SPRINT kitid ~d2wka~
   OUTER_TEXT_SPRINT kitname ~CROWHUNTER~
   INCLUDE ~%install%/variables.tph~

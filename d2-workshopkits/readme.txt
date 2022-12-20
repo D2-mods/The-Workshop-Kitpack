@@ -115,6 +115,7 @@ v2.6
 - Adjusted timings of a couple visual effects.
 - Cleaned up some of the abilities tables (no gameplay effect)
 - Some installer improvements.
+- Updated some of my old functions files.
 
 v2.5
 - Added French translation, provided by 11jo.
@@ -240,8 +241,6 @@ Custom functions (not including my own):
 - fnp_compatibility.tpa for Faiths & Powers mod (https://github.com/UnearthedArcana/Faiths_and_Powers/releases)
 
 - semi_spontaneous.tpa for 5e casting mod (https://github.com/UnearthedArcana/5E_spellcasting/releases)
-
-- 2DA_MISSING_COLS by K4thos (https://github.com/K4thos/IE-code-repository)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
