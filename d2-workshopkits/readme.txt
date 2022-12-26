@@ -110,6 +110,9 @@ FnP multiclass:
 
 Version info:
 
+v2.7
+- Beast Hunter (multiclass): Wasn't able to equip the "Big Metal Unit" armor (usable by every kit). This is fixed.
+
 v2.6
 - Improved icons for Caryll runes. The differences should be easier to see.
 - Adjusted timings of a couple visual effects.
