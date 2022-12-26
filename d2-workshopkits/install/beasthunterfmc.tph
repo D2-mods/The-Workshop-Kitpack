@@ -123,7 +123,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
         INT_VAR
           opcode = 319
           target = 1
-          parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
+          parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
           parameter2 = 9
           timing = 2
       END
