@@ -59,10 +59,26 @@ COPY ~%abilities%/bleeddamage1.SPL~     ~override/%s1%c.SPL~
 
 //Bleeding removed by Heal or Greater Restoration
 COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
+  READ_LONG   0x8 stringref
   READ_STRREF 0x8 spellname
-  PATCH_IF ((~%spellname%~ STRING_EQUAL_CASE ~Greater Restoration~) OR
-            (~%spellname%~ STRING_EQUAL_CASE ~Heal~)) BEGIN
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%s1%b~ END
+  PATCH_IF ((~%SOURCE_RES%~ STRING_EQUAL_CASE ~ohbresto~) OR    // if Greater Restoration
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr713~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish07~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish46~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~devaheal~) OR    // if Heal
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~senspihe~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spin679~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spin711~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr607~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish28~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish39~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwm168~) OR
+            (stringref = 26310) OR (stringref = 35603) OR (stringref = 36401) OR    // match stringref
+            (stringref = 25931) OR (stringref = 8786) OR
+            (~%spellname%~ STRING_EQUAL_CASE ~Greater Restoration~) OR              // match spellname (English only)
+            (~%spellname%~ STRING_EQUAL_CASE ~Heal~)
+           ) BEGIN
+    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%b~ END
   END
 BUT_ONLY
 
@@ -151,9 +167,8 @@ END
 OUTER_TEXT_SPRINT crowhunter        ~%kitid%~
 OUTER_TEXT_SPRINT splinteringshot   ~%s1%~
 OUTER_TEXT_SPRINT visceralattack    ~%s2%~
-OUTER_TEXT_SPRINT crowhunterbleed  ~%s1%b~
+OUTER_TEXT_SPRINT crowhunterbleed   ~%s1%b~
 
 
 /*
-
 */

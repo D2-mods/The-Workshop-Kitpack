@@ -63,8 +63,8 @@ END
 
 //Confessor
 ACTION_IF (FILE_EXISTS ~override/d2wk5s2.SPL~) BEGIN
-  OUTER_TEXT_SPRINT bloodletter  ~d2wk5s2~
-  OUTER_TEXT_SPRINT bleeding     ~d2wk5s2b~
+  OUTER_TEXT_SPRINT bloodletter       ~d2wk5s2~
+  OUTER_TEXT_SPRINT confessorbleed    ~d2wk5s2b~
 END
 
 //Blood Minister

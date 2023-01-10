@@ -236,16 +236,16 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
     WRITE_LONG 0x28 7
     WRITE_ASCII 0x30 ~%m5%b~ #8
 
-  COPY_EXISTING ~%bleeding%.EFF~  ~override/%m5%a.EFF~
+  COPY_EXISTING ~%confessorbleed%.EFF~  ~override/%m5%a.EFF~
     WRITE_ASCII 0x30 ~%m5%a~ #8
-  COPY_EXISTING ~%bleeding%.SPL~  ~override/%m5%a.SPL~
+  COPY_EXISTING ~%confessorbleed%.SPL~  ~override/%m5%a.SPL~
     LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%m5%a~ END
     LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%m5%a~ END
     LPF DELETE_EFFECT INT_VAR match_opcode=139 END
 
-  COPY_EXISTING ~%bleeding%.EFF~  ~override/%m5%b.EFF~
+  COPY_EXISTING ~%confessorbleed%.EFF~  ~override/%m5%b.EFF~
     WRITE_ASCII 0x30 ~%m5%b~ #8
-  COPY_EXISTING ~%bleeding%.SPL~  ~override/%m5%b.SPL~
+  COPY_EXISTING ~%confessorbleed%.SPL~  ~override/%m5%b.SPL~
     LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%m5%b~ END
     LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%m5%b~ END
     LPF DELETE_EFFECT INT_VAR match_opcode=139 END

@@ -136,12 +136,23 @@ COPY_EXISTING ~SPPR417.SPL~  ~override/%s1%z.SPL~    // clone Lesser Restoration
 
 //removed by Restoration or Greater Restoration
 COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
+  READ_LONG   0x8 stringref
   READ_STRREF 0x8 spellname
-  PATCH_IF !(~%spellname%~ STRING_MATCHES_REGEXP ~.*Restoration.*~) BEGIN    // if name DOES contain "Restoration"
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%s1%a~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%s1%b~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%s1%c~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%s1%d~ END
+  PATCH_IF ((~%SOURCE_RES%~ STRING_EQUAL_CASE ~cdpr417~) OR     // if Lesser Restoration
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr417~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spin581~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ohbresto~) OR    // if Greater Restoration
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr713~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish07~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish46~) OR
+            (stringref = 26226) OR (stringref = 55844) OR (stringref = 35957) OR    // match stringref
+            (stringref = 26310) OR (stringref = 35603) OR (stringref = 36401) OR
+            !(~%spellname%~ STRING_MATCHES_REGEXP ~.*Restoration.*~)                // match spellname (English only)
+           ) BEGIN
+    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%a~ END
+    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%b~ END
+    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%c~ END
+    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%d~ END
   END
 BUT_ONLY
 

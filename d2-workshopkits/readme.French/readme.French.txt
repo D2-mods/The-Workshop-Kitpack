@@ -119,6 +119,18 @@ FnP multiclass
 
 Version info:
 
+v2.7
+- Improved the way mass patching of spells or items is handled (depending on which kits are installed).
+- Beast Hunter (multiclass): Wasn't able to equip the "Big Metal Unit" armor (usable by every class/kit). This is fixed.
+- Grave Warden: Fixed potential usability issue on non-English installs of BG2EE.
+
+v2.6
+- Improved icons for Caryll runes. The differences should be easier to see.
+- Adjusted timings of a couple visual effects.
+- Cleaned up some of the abilities tables (no gameplay effect)
+- Some installer improvements.
+- Updated some of my old functions files.
+
 v2.5
 - Added French translation, provided by 11jo.
 

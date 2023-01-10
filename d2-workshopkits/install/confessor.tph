@@ -73,38 +73,94 @@ COPY ~%abilities%/removespelleffects.SPL~   ~override/%s1%c.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%s1%~ END
 
 
-//add Rooting Shot to items/spells that remove Entangle
-
-/*
-currently only checks for a few official names
-won't catch mod items/spells with unique names
-*/
-
-COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~    // check for Free Action
-  READ_STRREF 0x8 spellname
-  PATCH_IF !(~%spellname%~ STRING_MATCHES_REGEXP ~.*Free Action.*~) BEGIN    // if spellname DOES contain the text
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=0 opcode=206 STR_VAR resource=~%s1%a~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=0 opcode=206 STR_VAR resource=~%s1%b~ END
+//add Rooting Shot to spells that block Entangle (base-game only has Free Action)
+ACTION_BASH_FOR ~override~ ~.*\.SPL~ BEGIN
+  COPY_EXISTING ~%BASH_FOR_FILESPEC%~  ~override~        // check override files (i.e. mods)
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
     LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%a~ insert=first END
     LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%b~ insert=first END
-  END
-BUT_ONLY
+  BUT_ONLY
+END
 
-COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~    // check for item names
-  READ_STRREF 0xc itemname
-  PATCH_IF (!(~%itemname%~ STRING_MATCHES_REGEXP ~.*edventar's gift.*~) OR    // if itemname DOES contain the text
-            !(~%itemname%~ STRING_MATCHES_REGEXP ~.*ring of free action.*~) OR
-            !(~%itemname%~ STRING_MATCHES_REGEXP ~.*spider's bane.*~) OR
-             (~%SOURCE_RES%~ STRING_EQUAL_CASE ~gvalor1~) OR    // check for specific filenames
-             (~%SOURCE_RES%~ STRING_EQUAL_CASE ~bootmoa~) OR
-             (~%SOURCE_RES%~ STRING_EQUAL_CASE ~plywyvrn~) OR
-             (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ohrboot1~)) BEGIN
-    LPF ADD_ITEM_EQEFFECT INT_VAR opcode=206 target=1 timing=2 STR_VAR resource=~%s1%a~ END
-    LPF ADD_ITEM_EQEFFECT INT_VAR opcode=206 target=1 timing=2 STR_VAR resource=~%s1%b~ END
-    LPF ADD_ITEM_EQEFFECT INT_VAR opcode=321 target=1 timing=2 STR_VAR resource=~%s1%a~ END
-    LPF ADD_ITEM_EQEFFECT INT_VAR opcode=321 target=1 timing=2 STR_VAR resource=~%s1%b~ END
+ACTION_IF !(FILE_EXISTS ~override/sppr403.SPL~) BEGIN    // if Free Action not patched
+  COPY_EXISTING ~sppr403.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
+    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%a~ insert=first END
+    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%b~ insert=first END
+  BUT_ONLY
+END
+
+
+//add Rooting Shot to items that block Entangle
+ACTION_BASH_FOR ~override~ ~.*\.ITM~ BEGIN
+  COPY_EXISTING ~%BASH_FOR_FILESPEC%~  ~override~        // check override files (i.e. mods)
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
+  BUT_ONLY
+END
+
+ACTION_FOR_EACH noentangle IN    // files from BGEE, BG2EE, IWDEE
+  ~ABAZRING~
+  ~ALDETH~
+  ~BAZPATRG~
+  ~bdmisc1b~
+  ~bdmisc1c~
+  ~bdring09~
+  ~bdringge~
+  ~bdringgh~
+  ~BEHOLDER~
+  ~BLUN30~
+  ~BOOTMOA~
+  ~CIGBARD~
+  ~CIIGEN~
+  ~dragring~
+  ~FREEACT~
+  ~FREERING~
+  ~FSSPIR~
+  ~GORCHR~
+  ~GVALOR1~
+  ~HOLDRING~
+  ~INVULNER~
+  ~JWSUPER~
+  ~LABELT~
+  ~MAGE05~
+  ~NPPLAT~
+  ~OBJRING~
+  ~OHBDRKRG~
+  ~ohrboot1~
+  ~PALRING~
+  ~PLYWYVRN~
+  ~RING09~
+  ~RING97~
+  ~ROSSRING~
+  ~SHALT01~
+  ~SPER12~
+  ~SPRNGB03~
+  ~SPRNGB04~
+  ~SPRNGL03~
+  ~SPRNGL04~
+  ~SPRNGS01~
+  ~SPRNGS02~
+  ~SPRNGS03~
+  ~SPRNGS04~
+  ~SPRNGZ05~
+  ~SUREHP1~
+  ~SW2H06~
+  ~SW2H13~
+BEGIN
+
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%noentangle%.ITM~) BEGIN
+    ACTION_IF !(FILE_EXISTS ~override/%noentangle%.ITM~) BEGIN    // skip if already patched
+      COPY_EXISTING ~%noentangle%.ITM~  ~override~
+        LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
+        LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
+      BUT_ONLY
+    END
   END
-BUT_ONLY
+
+END
 
 
 //Add Bloodletter
@@ -141,10 +197,26 @@ COPY ~%abilities%/bleeddamage1.SPL~     ~override/%s2%c.SPL~
 
 //Bleeding removed by Heal or Greater Restoration
 COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
+  READ_LONG   0x8 stringref
   READ_STRREF 0x8 spellname
-  PATCH_IF ((~%spellname%~ STRING_EQUAL_CASE ~Greater Restoration~) OR
-            (~%spellname%~ STRING_EQUAL_CASE ~Heal~)) BEGIN
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 match_parameter2=0 opcode=321 STR_VAR resource=~%s2%b~ END
+  PATCH_IF ((~%SOURCE_RES%~ STRING_EQUAL_CASE ~ohbresto~) OR    // if Greater Restoration
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr713~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish07~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish46~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~devaheal~) OR    // if Heal
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~senspihe~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spin679~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spin711~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr607~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish28~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish39~) OR
+            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwm168~) OR
+            (stringref = 26310) OR (stringref = 35603) OR (stringref = 36401) OR    // match stringref
+            (stringref = 25931) OR (stringref = 8786) OR
+            (~%spellname%~ STRING_EQUAL_CASE ~Greater Restoration~) OR              // match spellname (English only)
+            (~%spellname%~ STRING_EQUAL_CASE ~Heal~)
+           ) BEGIN
+    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s2%b~ END
   END
 BUT_ONLY
 
@@ -194,5 +266,4 @@ OUTER_TEXT_SPRINT confessor4      ~%p4%~
 
 
 /*
-
 */
