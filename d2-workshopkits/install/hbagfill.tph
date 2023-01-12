@@ -1,0 +1,82 @@
+//Use to add items to ~d2#hbag (empty by default)
+
+
+COPY_EXISTING ~d2#hbag.STO~ ~override~
+
+//Hunter Badges
+  PATCH_IF (FILE_EXISTS ~override/%badge_spark%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%badge_radiant%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%badge_cosmic%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_cosmic%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%badge_pkeg%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
+  END
+
+//Caryll Runes
+  PATCH_IF (FILE_EXISTS ~override/%beastembrace%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%beastembrace%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%fadinglake%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%fadinglake%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%greatlake%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%greatlake%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%clockwise%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%clockwise%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%anticlockwise%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%anticlockwise%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%corruption%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%corruption%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%oedonwrithe%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%oedonwrithe%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%bloodrapture%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%bloodrapture%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%clawmark%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%clawmark%~ flags=~identified~ END
+  END
+
+//Misc items
+  PATCH_IF (FILE_EXISTS ~override/%flynnring%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%flynnring%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%stonering%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%stonering%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%calamity%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%calamity%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%golemring%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 overwrite=1 STR_VAR item_name=~%golemring%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%cruciform%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%cruciform%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%prisonchain%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%etherbooster%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%etherbooster%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%etherbomb%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 overwrite=1 STR_VAR item_name=~%etherbomb%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%crowfeather%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%crowfeather%~ flags=~identified~ END
+  END
+
+BUT_ONLY
+
+
+/*
+*/

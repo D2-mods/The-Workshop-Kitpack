@@ -1,0 +1,43 @@
+//Installs with Misc items component
+
+/*
+4 Hunter Badges
+9 Caryll Runes
+9 other misc items
+*/
+
+
+ACTION_IF !(FILE_EXISTS ~override/d2#hbag.ITM~) BEGIN
+
+ACTION_IF (GAME_IS ~bgee bg2ee eet~) BEGIN
+  COPY ~%files%/d2hbee1.ITM~  ~override/d2#hbag.ITM~
+    SAY NAME1 @70124 SAY UNIDENTIFIED_DESC @70224
+    SAY NAME2 @70124
+    WRITE_ASCII 0x3a ~d2#hbag~ #8    // set inventory icon
+	
+  COPY ~%files%/d2hbee1.STO~  ~override/d2#hbag.STO~
+    SAY 0xc @70124  /* Hunter's Item Sack */
+    LPF cannot_add_items END         // make it so items cannot be placed in the bag
+END
+  
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  COPY ~%files%/d2hbee0.ITM~  ~override/d2#hbag.ITM~
+    SAY NAME1 @70124
+    SAY NAME2 @70124 SAY DESC @70224
+    WRITE_ASCII 0x3a ~d2#hbag~ #8    // set inventory icon
+	
+  COPY ~%files%/d2hbee0.STO~  ~override/d2#hbag.STO~
+    SAY 0xc @70124  /* Hunter's Item Sack */
+    LPF cannot_add_items END         // make it so items cannot be placed in the bag
+END
+
+COPY ~%icons%/d2#hbag.BAM~ ~override~
+
+END
+
+
+INCLUDE ~%install%/hbagfill.tph~
+
+
+/*
+*/

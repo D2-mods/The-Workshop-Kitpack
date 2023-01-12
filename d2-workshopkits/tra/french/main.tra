@@ -1196,11 +1196,48 @@ Capacités d'équipement :
 
 Poids : 0~
 
-@70124 = ~~
-@70224 = ~~
+@70124 = ~Hunter's Item Sack~
+@70224 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. The label on the bag reads, "FOR TESTING PURPOSES ONLY". Items within can be removed, but strangely, a magical force prevents the party from placing items into the bag.
 
-@70125 = ~~
-@70225 = ~~
+PARAMÈTRES :
+
+Poids : 5~
+
+@70125 = ~Hunter~
+@70225 = ~Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
+
+Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, elle supprime d'abord les effets octroyés par la précédente.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– Hunter (peut être utilisé à volonté)
+  Zone d'effet : Le groupe
+  Durée : 24 heures
+  +1 bonus to attack rolls
+
+Poids : 0~
+
+@70126 = ~Moon~
+@70226 = ~Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
+
+Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, elle supprime d'abord les effets octroyés par la précédente.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– Moon (peut être utilisé à volonté)
+  Zone d'effet : Le groupe
+  Durée : 24 heures
+  +3% bonus to all Experience gained
+
+Poids : 0~
+
+@70127 = ~~
+@70227 = ~~
+
+@70128 = ~~
+@70228 = ~~
 
 
 

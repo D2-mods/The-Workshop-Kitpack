@@ -1187,11 +1187,48 @@ Equipped abilities:
 
 Weight: 0~
 
-@70124 = ~~
-@70224 = ~~
+@70124 = ~Hunter's Item Sack~
+@70224 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. The label on the bag reads, "FOR TESTING PURPOSES ONLY". Items within can be removed, but strangely, a magical force prevents the party from placing items into the bag.
 
-@70125 = ~~
-@70225 = ~~
+STATISTICS:
+
+Weight: 5~
+
+@70125 = ~Hunter~
+@70225 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Hunter (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +1 bonus to attack rolls
+
+Weight: 0~
+
+@70126 = ~Moon~
+@70226 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Moon (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +3% bonus to all Experience gained
+
+Weight: 0~
+
+@70127 = ~~
+@70227 = ~~
+
+@70128 = ~~
+@70228 = ~~
 
 
 

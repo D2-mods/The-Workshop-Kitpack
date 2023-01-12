@@ -15,5 +15,6 @@ INCLUDE ~%install%/%kitname%runes.tph~
 INCLUDE ~%install%/%kitname%effects.tph~
 INCLUDE ~%install%/%kitname%stores.tph~
 
+INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/castingspeedpatch.tph~
 //INCLUDE ~%install%/backupfiles.tph~

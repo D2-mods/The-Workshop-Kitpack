@@ -12,10 +12,10 @@ ALWAYS
   END
   
   OUTER_TEXT_SPRINT install    ~%MOD_FOLDER%/install~    // folder variables
-  OUTER_TEXT_SPRINT files      ~%MOD_FOLDER%/files~
   OUTER_TEXT_SPRINT abilities  ~%MOD_FOLDER%/abilities~
-  OUTER_TEXT_SPRINT passives   ~%MOD_FOLDER%/passives~
+  OUTER_TEXT_SPRINT files      ~%MOD_FOLDER%/files~
   OUTER_TEXT_SPRINT icons      ~%MOD_FOLDER%/icons~
+  OUTER_TEXT_SPRINT passives   ~%MOD_FOLDER%/passives~
   OUTER_TEXT_SPRINT workspace  ~weidu_external/Workspace~
 
   CLEAR_INLINED
