@@ -439,7 +439,7 @@ Equipped abilities:
 - Magic Resistance: +10%
 
 Special (Beast Hunter):  
-- Fire Weapon: Target is drained 1 level on a failed save vs. Spell
+- Fire Weapon: Target is drained 1 level on a failed save vs. Spell at -2
 
 Weight: 1
 
@@ -785,7 +785,7 @@ Weight: 0
 
 #### Non-spoilery item info:
 - BG1: Prisoner's Chain, Calamity Ring, and Stone Ring are obtainable (other items are still installed).
-- SoD: Only Etherbomb Songbook and Golem Ring are obtainable.
+- SoD: Etherbomb Songbook and Golem Ring are obtainable.
 - BG2: All items obtainable in SoA portion. If starting a new game in ToB, the starting bag will have 1 or 2 items.
 - IWD: Golem Ring is in TotL. The rest are in main IWD campaign. One item must be pickpocketed/looted.
 

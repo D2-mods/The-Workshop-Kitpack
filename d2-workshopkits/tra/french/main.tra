@@ -1196,8 +1196,8 @@ Capacités d'équipement :
 
 Poids : 0~
 
-@70124 = ~Hunter's Item Sack~
-@70224 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. The label on the bag reads, "FOR TESTING PURPOSES ONLY". Items within can be removed, but strangely, a magical force prevents the party from placing items into the bag.
+@70124 = ~Besace du chasseur~
+@70224 = ~Cette sacoche magique a été préparée pour <CHARNAME et ses camarades. On peut lire une étiquette : « POUR EFFECTUER DES TESTS UNIQUEMENT ». Vous pouvez retirer ce qui ce trouve à l'intérieur, mais étrangement, une force surnaturelle empêche le groupe d'y placer de nouveaux objets.
 
 PARAMÈTRES :
 
@@ -1229,7 +1229,7 @@ Capacités de charge :
 – Lune (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-  +3% bonus to all Experience gained
+Bonus de 3 % au gain d'expérience.
 
 Poids : 0~
 
