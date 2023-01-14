@@ -785,7 +785,7 @@ Weight: 0
 
 #### Non-spoilery item info:
 - BG1: Prisoner's Chain, Calamity Ring, and Stone Ring are obtainable (other items are still installed).
-- SoD: Only Etherbomb Songbook and Golem Ring are obtainable. One of them must be pickpocketed/looted.
+- SoD: Only Etherbomb Songbook and Golem Ring are obtainable.
 - BG2: All items obtainable in SoA portion. If starting a new game in ToB, the starting bag will have 1 or 2 items.
 - IWD: Golem Ring is in TotL. The rest are in main IWD campaign. One item must be pickpocketed/looted.
 

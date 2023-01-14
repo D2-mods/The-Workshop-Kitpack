@@ -24,8 +24,8 @@ END
 
 //SoD
 ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
-  COPY_EXISTING ~bdbelega.CRE~ ~override~
-    ADD_CRE_ITEM ~%etherbomb%~ #1 #0 #0 ~none~ ~inv~
+  COPY_EXISTING ~bd7210.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=1 STR_VAR item_to_add=~%etherbomb%~ END
   BUT_ONLY
 
   COPY_EXISTING ~bdbeleg4.STO~  ~override~

@@ -66,14 +66,26 @@ END
 
 //IWDEE stores
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  COPY_EXISTING ~ar2100.BCS~    ~override~
-    DECOMPILE_AND_PATCH BEGIN
-      REPLACE_TEXTUALLY 
-        ~AddStoreItem("KUORK0","SASH",1,1)~  
-        ~AddStoreItem("KUORK0","SASH",1,1) AddStoreItem("KUORK0","%badge_spark%",1,1)~
-    END
-  BUT_ONLY
 
+//Add badge to Orrick's store (by script)
+<<<<<<<< .../temp/sparkhunter
+IF
+	!Global("d2orricksparkhunter","GLOBAL",1)
+	GlobalGT("Chapter","GLOBAL",1)
+THEN
+	RESPONSE #100
+        SetGlobal("d2orricksparkhunter","GLOBAL",1)
+		AddStoreItem("KUORK0","%badge_spark%",1,1)
+		Continue()
+END
+>>>>>>>>
+
+COPY - ~.../temp/sparkhunter~  ~%workspace%/sparkhunter.BAF~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~AR2100.BCS~     ~%workspace%/sparkhunter.BAF~
+
+
+//add to store
   COPY_EXISTING ~SHLEHLAN.STO~  ~override~
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
   BUT_ONLY

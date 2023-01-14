@@ -82,7 +82,7 @@ Capacités d'équipement :
 – Résistance à la magie : +10 %
 
 Spécial (Chasseur): 
-– Coup de feu : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts.
+– Coup de feu : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
 
 Poids : 1
 

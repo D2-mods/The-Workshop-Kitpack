@@ -799,7 +799,7 @@ Poids : 0
 #### Infos sans spoiler :
 
 - BGEE : La chaîne du prisonnier, l'anneau de calamité et l'anneau de pierre peuvent être obtenus (les autres objets sont quand même installés).
-- SoD : Seuls le Livre de chants, le souffle de l'Éther et l'Anneau de Golem peuvent être obtenus. L'un d'eux doit être volé à la tire ou récupéré par la force.
+- SoD : Seuls le Livre de chants, le souffle de l'Éther et l'Anneau de Golem peuvent être obtenus.
 - BG2EE : Tous les objets pouvant être obtenus dans la partie SoA. Si vous commencez une nouvelle partie dans ToB, le sac de départ contiendra 1 ou 2 objets.
 - IWDEE : L'anneau du Golem se trouve dans l'extension Trial of the Lurmaster. Le reste se trouve dans la campagne principale de IWD. Un des objets doit être volé à la tire ou récupéré par la force.
 

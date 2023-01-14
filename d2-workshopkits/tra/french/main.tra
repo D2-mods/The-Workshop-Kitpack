@@ -906,7 +906,7 @@ Capacités d'équipement :
 – Résistance à la magie : +10 %
 
 Spécial (Chasseur): 
-– Coup de feu : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts.
+– Coup de feu : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
 
 Poids : 1~
 
@@ -1203,7 +1203,7 @@ PARAMÈTRES :
 
 Poids : 5~
 
-@70125 = ~Hunter~
+@70125 = ~Chasseur~
 @70225 = ~Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
 
 Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, elle supprime d'abord les effets octroyés par la précédente.
@@ -1211,14 +1211,14 @@ Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, el
 PARAMÈTRES :
 
 Capacités de charge :
-– Hunter (peut être utilisé à volonté)
+– Chasseur (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-  +1 bonus to attack rolls
+Bonus de 1 aux jets d'attaque.
 
 Poids : 0~
 
-@70126 = ~Moon~
+@70126 = ~Lune~
 @70226 = ~Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
 
 Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, elle supprime d'abord les effets octroyés par la précédente.
@@ -1226,7 +1226,7 @@ Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, el
 PARAMÈTRES :
 
 Capacités de charge :
-– Moon (peut être utilisé à volonté)
+– Lune (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
   +3% bonus to all Experience gained

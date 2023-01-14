@@ -120,9 +120,15 @@ FnP multiclass
 Version info:
 
 v2.7
-- Improved the way mass patching of spells or items is handled (depending on which kits are installed).
-- Beast Hunter (multiclass): Wasn't able to equip the "Big Metal Unit" armor (usable by every class/kit). This is fixed.
-- Grave Warden: Fixed potential usability issue on non-English installs of BG2EE.
+- Fixes:
+	- Beast Hunter (multiclass): Wasn't able to equip the "Big Metal Unit" armor (usable by every class/kit).
+	- Grave Warden: Fixed potential usability issue on non-English installs of BG2EE.
+	- Improved the way mass patching of spells/items by certain kits is handled.
+	- A few other minor adjustments to install files.
+- Changes:
+	- Cosmic Watcher badge: Saving throw against the level drain is now made at a -2 penalty.
+	- SoD: Changed one of the item locations.
+	- Added a bag of holding, containing items from this mod (d2#hbag.ITM). Not obtainable from normal gameplay.
 
 v2.6
 - Improved icons for Caryll runes. The differences should be easier to see.
