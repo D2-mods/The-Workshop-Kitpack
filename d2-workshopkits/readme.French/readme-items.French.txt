@@ -443,7 +443,7 @@ Poids : 0
 
 
 ==================================================
-La Bête
+Chasseur
 ==================================================
 
 Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
