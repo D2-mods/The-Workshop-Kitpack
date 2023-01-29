@@ -28,6 +28,8 @@
  Sérénité
  Ardeur
  La Bête
+ Chasseur
+ Lune
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -436,6 +438,44 @@ Capacités de charge :
   Durée : 24 heures
 Transformation en loup-garou pendant les combats ; la métamorphose est instantanée, le personnage reprendra sa forme naturelle si aucun ennemi ne se trouve à portée de vue.
   Spécial : Les clercs et les paladins se transforment en loup-garou majeur.
+
+Poids : 0
+
+
+==================================================
+Chasseur
+==================================================
+
+Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
+
+Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, elle supprime d'abord les effets octroyés par la précédente.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– Chasseur (peut être utilisé à volonté)
+  Zone d'effet : Le groupe
+  Durée : 24 heures
+Bonus de 1 aux jets d'attaque.
+
+Poids : 0
+
+
+==================================================
+Lune
+==================================================
+
+Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
+
+Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, elle supprime d'abord les effets octroyés par la précédente.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– Lune (peut être utilisé à volonté)
+  Zone d'effet : Le groupe
+  Durée : 24 heures
+35 points d'expérience supplémentaires pour chaque ennemi vaincu par le groupe.
 
 Poids : 0
 
