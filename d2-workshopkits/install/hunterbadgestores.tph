@@ -67,22 +67,23 @@ END
 //IWDEE stores
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
 
-//Add badge to Orrick's store (by script)
-<<<<<<<< .../temp/sparkhunter
+//Add badge to Gerth's store (by script)
+<<<<<<<< .../temp/gerthbadge
 IF
-	!Global("d2orricksparkhunter","GLOBAL",1)
+	!Global("d2gerthsparkhunter","GLOBAL",1)
 	GlobalGT("Chapter","GLOBAL",1)
 THEN
 	RESPONSE #100
-        SetGlobal("d2orricksparkhunter","GLOBAL",1)
-		AddStoreItem("KUORK0","%badge_spark%",1,1)
+        SetGlobal("d2gerthsparkhunter","GLOBAL",1)
+		AddStoreItem("KUGERTH","%badge_spark%",1,1)
 		Continue()
 END
 >>>>>>>>
 
-COPY - ~.../temp/sparkhunter~  ~%workspace%/sparkhunter.BAF~
-  EVALUATE_BUFFER
-EXTEND_BOTTOM ~AR2100.BCS~     ~%workspace%/sparkhunter.BAF~
+  COPY - ~.../temp/gerthbadge~  ~%workspace%/gerthbadge.BAF~
+    EVALUATE_BUFFER
+  EXTEND_BOTTOM ~ar2100.BCS~    ~%workspace%/gerthbadge.BAF~
+  EXTEND_BOTTOM ~ar2113.BCS~    ~%workspace%/gerthbadge.BAF~
 
 
 //add to store

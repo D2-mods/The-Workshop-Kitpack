@@ -44,7 +44,7 @@ Crow Hunter (f/m/t)
 //misc
 4 Hunter Badges   - can be crafted (see below), can also be purchased
 8 new spells      - learned by the Starjammer kit
-9 Caryll Runes    - items with party-wide effects
+11 Caryll Runes   - items with party-wide effects
 9 other items     - all general use items, no weapons or armor
 
 ----------------------------------------------------------------------------------------------------
@@ -109,6 +109,13 @@ FnP multiclass:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v2.8
+- What's new:
+	- Added 2 Caryll Runes: Hunter Rune and Moon Rune. Obtainable in all games (BGEE, BG2EE, IWDEE).
+- Changes
+	- IWDEE: Changed a couple item locations to account for new items.
+	- Calamity Ring: Added to expansion areas (SoD, ToB, HoW) if not already obtained.
 
 v2.7
 - Fixes:

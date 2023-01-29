@@ -25,6 +25,8 @@ Clockwise Metamorphosis
 Great Lake
 Fading Lake
 Beast's Embrace
+Hunter
+Moon
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -46,6 +48,7 @@ Special (Beast Hunter):
 
 Weight: 1
 
+
 ==================================================
 Radiant Sword Badge
 ==================================================
@@ -63,6 +66,7 @@ Special (Beast Hunter):
 
 Weight: 1
 
+
 ==================================================
 Cosmic Watcher Badge
 ==================================================
@@ -79,6 +83,7 @@ Special (Beast Hunter):
 – Fire Weapon: Target is drained 1 level on a failed save vs. Spell at -2
 
 Weight: 1
+
 
 ==================================================
 Powder Keg Badge
@@ -411,6 +416,42 @@ Charge abilities:
   Duration: 24 hours
   Transform into a werewolf during combat; this action happens automatically and the character will revert back to natural form if no enemies are in visual range
   Special: Clerics and Paladins transform into a greater werewolf
+
+Weight: 0
+
+
+==================================================
+Hunter
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Hunter (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +1 bonus to attack rolls
+
+Weight: 0
+
+
+==================================================
+Moon
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Moon (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  +35 bonus XP for each enemy slain by the party
 
 Weight: 0
 

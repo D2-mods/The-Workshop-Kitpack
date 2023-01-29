@@ -1,0 +1,147 @@
+/*
+for Misc items component
+Currently only used for Calamity Ring
+*/
+
+
+//Add Calamity Ring to SoD
+ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
+
+<<<<<<<< .../temp/variables
+IF
+	PartyHasItem("%calamity%")
+	!Global("d2SoDCalamityRing","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("d2SoDCalamityRing","GLOBAL",1)
+		Continue()
+END
+>>>>>>>>
+
+COPY - ~.../temp/variables~  ~%workspace%/variables.BAF~
+  EVALUATE_BUFFER
+
+ACTION_FOR_EACH script IN ~%bg1%2300~ ~bd0108~ BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
+    EXTEND_TOP ~%script%.BCS~  ~%workspace%/variables.BAF~
+  END
+END
+
+
+<<<<<<<< .../temp/calamity
+IF
+	!Global("d2SoDCalamityRing","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("d2SoDCalamityRing","GLOBAL",1)
+		ActionOverride("Container1",CreateItem("%calamity%",0,0,0))
+		Continue()
+END
+>>>>>>>>
+
+COPY - ~.../temp/calamity~  ~%workspace%/calamity.BAF~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~bd0108.BCS~     ~%workspace%/calamity.BAF~
+
+END
+
+
+
+//Add Calamity Ring to ToB
+ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
+
+<<<<<<<< .../temp/variables
+IF
+	PartyHasItem("%calamity%")
+	!Global("d2ToBCalamityRing","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("d2ToBCalamityRing","GLOBAL",1)
+		Continue()
+END
+>>>>>>>>
+
+COPY - ~.../temp/variables~  ~%workspace%/variables.BAF~
+  EVALUATE_BUFFER
+EXTEND_TOP ~AR0700.BCS~  ~%workspace%/variables.BAF~
+EXTEND_TOP ~AR2807.BCS~  ~%workspace%/variables.BAF~
+EXTEND_TOP ~AR4500.BCS~  ~%workspace%/variables.BAF~
+
+
+<<<<<<<< .../temp/dragon
+IF
+	!Global("d2ToBCalamityRing","GLOBAL",1)
+	!Global("d2BG2CalamityRing","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("d2BG2CalamityRing","GLOBAL",1)
+		GiveItemCreate("%calamity%","Dragblac",0,0,0)    // BG2EE: target script name in CRE file
+		Continue()
+END
+>>>>>>>>
+
+COPY - ~.../temp/dragon~    ~%workspace%/dragon.BAF~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~AR2807.BCS~  ~%workspace%/dragon.BAF~
+
+
+<<<<<<<< .../temp/calamity
+IF
+	!Global("d2ToBCalamityRing","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("d2ToBCalamityRing","GLOBAL",1)
+		ActionOverride("Container2",CreateItem("%calamity%",0,0,0))
+		Continue()
+END
+>>>>>>>>
+
+COPY - ~.../temp/calamity~  ~%workspace%/calamity.BAF~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~AR4500.BCS~     ~%workspace%/calamity.BAF~
+
+END
+
+
+
+//Add Calamity Ring to HoW
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+
+<<<<<<<< .../temp/variables
+IF
+	PartyHasItem("%calamity%")
+	!Global("d2HoWCalamityRing","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("d2HoWCalamityRing","GLOBAL",1)
+		Continue()
+END
+>>>>>>>>
+
+COPY - ~.../temp/variables~  ~%workspace%/variables.BAF~
+  EVALUATE_BUFFER
+EXTEND_TOP ~AR2100.BCS~  ~%workspace%/variables.BAF~
+EXTEND_TOP ~AR9600.BCS~  ~%workspace%/variables.BAF~
+EXTEND_TOP ~AR9604.BCS~  ~%workspace%/variables.BAF~
+
+
+<<<<<<<< .../temp/calamity
+IF
+	!Global("d2HoWCalamityRing","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("d2HoWCalamityRing","GLOBAL",1)
+		GiveItemCreate("%calamity%","Icasaracht",0,0,0)    // IWDEE: target actor name in ARE file
+		Continue()
+END
+>>>>>>>>
+
+COPY - ~.../temp/calamity~  ~%workspace%/calamity.BAF~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~AR9604.BCS~  ~%workspace%/calamity.BAF~
+
+END
+
+
+/*
+*/

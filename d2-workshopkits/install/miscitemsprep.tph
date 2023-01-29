@@ -14,6 +14,11 @@ OUTER_TEXT_SPRINT z7 ~%kitid%z7~
 OUTER_TEXT_SPRINT z8 ~%kitid%z8~
 OUTER_TEXT_SPRINT z9 ~%kitid%z9~
 OUTER_TEXT_SPRINT z0 ~%kitid%z0~
+OUTER_TEXT_SPRINT za ~%kitid%za~
+OUTER_TEXT_SPRINT zb ~%kitid%zb~
+OUTER_TEXT_SPRINT zc ~%kitid%zc~
+OUTER_TEXT_SPRINT zd ~%kitid%zd~
+OUTER_TEXT_SPRINT ze ~%kitid%ze~
 
 OUTER_TEXT_SPRINT ma ~%kitid%ma~
 OUTER_TEXT_SPRINT mb ~%kitid%mb~

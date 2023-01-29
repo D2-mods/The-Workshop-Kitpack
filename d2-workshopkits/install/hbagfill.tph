@@ -3,21 +3,13 @@
 
 COPY_EXISTING ~d2#hbag.STO~ ~override~
 
-//Hunter Badges
-  PATCH_IF (FILE_EXISTS ~override/%badge_spark%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
-  END
-  PATCH_IF (FILE_EXISTS ~override/%badge_radiant%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
-  END
-  PATCH_IF (FILE_EXISTS ~override/%badge_cosmic%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_cosmic%~ flags=~identified~ END
-  END
-  PATCH_IF (FILE_EXISTS ~override/%badge_pkeg%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
-  END
-
 //Caryll Runes
+  PATCH_IF (FILE_EXISTS ~override/%moon_rune%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%moon_rune%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%hunter_rune%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%hunter_rune%~ flags=~identified~ END
+  END
   PATCH_IF (FILE_EXISTS ~override/%beastembrace%.ITM~) BEGIN
     LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%beastembrace%~ flags=~identified~ END
   END
@@ -73,6 +65,20 @@ COPY_EXISTING ~d2#hbag.STO~ ~override~
   END
   PATCH_IF (FILE_EXISTS ~override/%crowfeather%.ITM~) BEGIN
     LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%crowfeather%~ flags=~identified~ END
+  END
+
+//Hunter Badges
+  PATCH_IF (FILE_EXISTS ~override/%badge_pkeg%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%badge_cosmic%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_cosmic%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%badge_radiant%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%badge_spark%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
   END
 
 BUT_ONLY

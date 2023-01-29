@@ -13,6 +13,8 @@ COPY ~%icons%/rune_clockwise.BAM~      ~override/%z6%i.BAM~
 COPY ~%icons%/rune_greatlake.BAM~      ~override/%z7%i.BAM~
 COPY ~%icons%/rune_fadinglake.BAM~     ~override/%z8%i.BAM~
 COPY ~%icons%/rune_beastembrace.BAM~   ~override/%z9%i.BAM~
+COPY ~%icons%/rune_hunter.BAM~         ~override/%za%i.BAM~
+COPY ~%icons%/rune_moon.BAM~           ~override/%zb%i.BAM~
 
 
 //Remove rune effects
@@ -31,12 +33,15 @@ COPY ~%abilities%/removespelleffects.SPL~   ~override/%z0%a.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z9%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z9%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z9%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%za%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%zb%~ END
 
 
 //Visual effects
 COPY ~%abilities%/castspellself.EFF~  ~override/%z0%b.EFF~
   WRITE_ASCII 0x30 ~%z0%b~ #8
 COPY ~%files%/rune_visual.SPL~        ~override/%z0%b.SPL~
+
 
 
 //Clawmark
@@ -223,25 +228,59 @@ COPY ~%files%/rune_werewolf.ITM~  ~override/%z9%.ITM~
   LPF CLONE_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%z9%c~ END             // remove werewolf spell
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY ~%files%/rune_werewolfa.SPL~     ~override/%z9%a.SPL~
+COPY ~%files%/rune_effects.SPL~      ~override/%z9%a.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~SPCL643~ END                                  // other classes
   LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=39 STR_VAR resource=~SPCL644~ END                    // Paladin
   LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=204 parameter2=105 STR_VAR resource=~SPCL644~ END    // Cleric
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z9%b~ insert=~below~ END                  // remove ability
 
-COPY ~%passives%/removespell.SPL~     ~override/%z9%b.SPL~
+COPY ~%passives%/removespell.SPL~    ~override/%z9%b.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=206 STR_VAR resource=~%z9%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=172 timing=4 duration=7 STR_VAR resource=~SPIN124~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~SPCL110~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~SPINHUM~ END
 
-COPY ~%files%/rune_werewolfa.SPL~     ~override/%z9%c.SPL~
+COPY ~%files%/rune_effects.SPL~      ~override/%z9%c.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%z9%c~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 timing=4 duration=15 STR_VAR resource=~%z9%x~ END
 
-COPY ~%files%/rune_werewolfa.SPL~     ~override/%z9%x.SPL~
+COPY ~%files%/rune_effects.SPL~      ~override/%z9%x.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%z9%b~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%humanform%~ END
+
+
+//Hunter
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70125) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_core.ITM~  ~override/%za%.ITM~
+  SAY NAME2 @70125
+  SAY DESC @70225
+  WRITE_ASCII 0x3a ~%za%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%za%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END        // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END                 // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END                 // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=278 parameter1=1 END                  // +1 THAC0
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+
+//Moon
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70126) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_core.ITM~  ~override/%zb%.ITM~
+  SAY NAME2 @70126
+  SAY DESC @70226
+  WRITE_ASCII 0x3a ~%zb%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%zb%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END                    // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END                             // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END                             // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=232 parameter2=12 STR_VAR resource=~%zb%a~ END    // +35 XP per kill
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%files%/rune_effects.SPL~    ~override/%zb%a.SPL~
+  LPF ALTER_EFFECT INT_VAR opcode=104 target=3 parameter1=35 timing=9 END
+
 
 
 //Set variables for external use
@@ -254,9 +293,10 @@ OUTER_TEXT_SPRINT clockwise       ~%z6%~
 OUTER_TEXT_SPRINT greatlake       ~%z7%~
 OUTER_TEXT_SPRINT fadinglake      ~%z8%~
 OUTER_TEXT_SPRINT beastembrace    ~%z9%~
+OUTER_TEXT_SPRINT hunter_rune     ~%za%~
+OUTER_TEXT_SPRINT moon_rune       ~%zb%~
 
 OUTER_TEXT_SPRINT clawmarkbleed   ~%z1%a~
-
 
 
 /*
