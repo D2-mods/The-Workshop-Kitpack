@@ -41,7 +41,7 @@ Contenu du mod :
   
 - 4 [Insignes de Chasseur](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#insignes-de-chasseur) &emsp;-&emsp;&emsp; peuvent être fabriqués (voir ci-dessous), ou achetés
 - 8 [Nouveaux sorts](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#sorts-du-vagabond-des-%C3%A9toiles-) &emsp;&emsp;&emsp;-&emsp;&emsp; pour le kit du Vagabond des étoiles 
-- 9 [Runes de Caryll](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#les-runes-de-caryll) &emsp;&emsp;-&emsp;&emsp; des objets ayant des effets sur l'ensemble du groupe
+- 11 [Runes de Caryll](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#les-runes-de-caryll) &emsp;&emsp;-&emsp;&emsp; des objets ayant des effets sur l'ensemble du groupe
 - 9 [Autres objets](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#objets-divers-) &emsp; &emsp;-&emsp;&emsp; tous des objets utilitaires, pas d'armes ni d'armures
 
 
@@ -799,7 +799,7 @@ Poids : 0
 #### Infos sans spoiler :
 
 - BGEE : La chaîne du prisonnier, l'anneau de calamité et l'anneau de pierre peuvent être obtenus (les autres objets sont quand même installés).
-- SoD : Seuls le Livre de chants, le souffle de l'Éther et l'Anneau de Golem peuvent être obtenus.
+- SoD : le Livre de chants, "le souffle de l'Éther" et l'Anneau de Golem peuvent être obtenus.
 - BG2EE : Tous les objets pouvant être obtenus dans la partie SoA. Si vous commencez une nouvelle partie dans ToB, le sac de départ contiendra 1 ou 2 objets.
 - IWDEE : L'anneau du Golem se trouve dans l'extension Trial of the Lurmaster. Le reste se trouve dans la campagne principale de IWD. Un des objets doit être volé à la tire ou récupéré par la force.
 

@@ -47,7 +47,7 @@ Contenu du mod :
  
 - 4 Insignes de Chasseur - peuvent être fabriqués (voir ci-dessous), ou achetés
 - 8 Nouveaux sorts - pour le kit du Vagabond des étoiles 
-- 9 Runes de Caryll - des objets ayant des effets sur l'ensemble du groupe
+- 11 Runes de Caryll - des objets ayant des effets sur l'ensemble du groupe
 - 9 Autres objets - tous des objets utilitaires, pas d'armes ni d'armures
 
 ----------------------------------------------------------------------------------------------------
@@ -118,6 +118,13 @@ FnP multiclass
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v2.8
+- What's new:
+	- Added 2 Caryll Runes: Hunter Rune and Moon Rune. Obtainable in all games (BGEE, BG2EE, IWDEE).
+- Changes
+	- IWDEE: Changed a couple item locations to account for new items.
+	- Calamity Ring: Added to expansion areas (SoD, ToB, HoW) if not already obtained.
 
 v2.7
 - Fixes:
