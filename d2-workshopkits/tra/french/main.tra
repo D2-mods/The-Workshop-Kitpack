@@ -65,6 +65,17 @@ Text in this file appears in the game.
 
 
 
+//Dialogues
+
+//Presio duel
+@50101 = ~Your words are meaningless to me, witch. You will be destroyed.~
+@50102 = ~I have nothing more to say to you, necromancer.~
+@50103 = ~Come then, witch, and face me in single combat. Or must you hide behind your minions?~
+
+
+
+//Kits
+
 //Beast Hunter
 @100101 = ~Chasseur~
 @100102 = ~chasseur~

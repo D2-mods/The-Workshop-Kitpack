@@ -65,6 +65,17 @@ Text in this file appears in the game.
 
 
 
+//Dialogues
+
+//Presio duel
+@50101 = ~Your words are meaningless to me, witch. You will be destroyed.~
+@50102 = ~I have nothing more to say to you, necromancer.~
+@50103 = ~Come then, witch, and face me in single combat. Or must you hide behind your minions?~
+
+
+
+//Kits
+
 //Beast Hunter
 @100101 = ~Beast Hunter~
 @100102 = ~beast hunter~
@@ -762,9 +773,9 @@ Casting Time: 5
 Area of Effect: 1 party member
 Saving Throw: Special
 
-Upon casting this spell, the caster restores a fallen creature back to a sliver of health. The target can be of any race and must be a member of the party. To use this spell, cast it on the dead character's portrait.
+This spell will restore a fallen creature back to a sliver of health. The target can be of any race and must be a member of the party. To use this spell, cast it on the dead character's portrait.
 
-Note that the body of the person must be whole, otherwise missing parts are still missing when the person is brought back to life. The person has but 1 Hit Point when raised and must regain the rest by natural healing or curative magic.~
+When cast on a living creature, the spell will cure any form of hold, paralysis, feeblemind, sleep, stun, and intoxication. Any cursed items or effects are also removed.~
 @40312 = ~~
 @40412 = ~~
 

@@ -104,23 +104,20 @@ COPY_EXISTING ~SPPR109.SPL~  ~override/%w4%.SPL~    // clone Sanctuary
 
 //Add Jolt
 
-/*
-EEs have a main spell, with the actual effects on a subspell.
+/*Raise Dead info
+EEs have the effects on a subspell.
 Spell revisions puts everything on the main spell.
-Some functions are run silently because effects may be missing.
 */
 
-COPY_EXISTING ~SPPR504.SPL~   ~override/%w5%.SPL~    // clone Raise Dead
+COPY_EXISTING ~SPPR504.SPL~   ~override/%w5%.SPL~         // clone Raise Dead
   SAY NAME1 @40112
   SAY UNIDENTIFIED_DESC @40212
 
   PATCH_IF (GAME_IS ~iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_parameter2=15 END     // remove Elf immunity for IWDEE
+    LPF DELETE_EFFECT INT_VAR match_parameter2=15 END     // remove Elf immunity (IWDEE)
   END
 
   LPF d2_convert_spell_type INT_VAR type=1 level=5 END    // convert to level 5 Wizard spell
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 STR_VAR resource=~%w5%~ END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=326 STR_VAR resource=~%w5%a~ END
   WRITE_BYTE  0x25 8     // Alteration school
   WRITE_SHORT 0x22 15    // casting animation
   WRITE_SHORT 0x84 5     // casting speed
@@ -128,16 +125,52 @@ COPY_EXISTING ~SPPR504.SPL~   ~override/%w5%.SPL~    // clone Raise Dead
   WRITE_ASCII 0x3a SPCL721C #8    // icons
   WRITE_ASCII 0x76 SPCL721B #8
 
+//EE edits  
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=326 STR_VAR resource=~%w5%a~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=326 parameter2=113 STR_VAR resource=~%w5%b~ END
+  LPF DELETE_EFFECT INT_VAR match_opcode=324 END
+
+//Spell Revisions edits
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=32 opcode=326 parameter1=3 parameter2=113 STR_VAR resource=~%w5%b~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=32 opcode=318 parameter1=3 parameter2=113 timing=0 STR_VAR resource=~%w5%~ END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 STR_VAR resource=~BDFAVSPI~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=215 opcode=174 STR_VAR resource=~EFF_E06~ END
+
 ACTION_IF (FILE_EXISTS_IN_GAME ~SPPR504A.SPL~) BEGIN
-  COPY_EXISTING ~SPPR504A.SPL~  ~override/%w5%a.SPL~    // subspell (applies the Raise Dead effect)
+  COPY_EXISTING ~SPPR504A.SPL~  ~override/%w5%a.SPL~        // clone EE subspell
     PATCH_IF (GAME_IS ~iwdee~) BEGIN
-      LPF DELETE_EFFECT INT_VAR match_opcode=174 END    // remove Elf immunity for IWDEE
+      LPF DELETE_EFFECT INT_VAR match_opcode=174 END        // remove IWDEE sound
     END
 
     LPF d2_convert_spell_type INT_VAR type=1 level=5 END    // convert to level 5 Wizard spell
     LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~BDFAVSPI~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 STR_VAR resource=~EFF_E06~ END
     WRITE_BYTE  0x25 8    // Alteration school
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~sppr308.SPL~) BEGIN         // clone Remove Paralysis
+  COPY_EXISTING  ~sppr308.SPL~  ~override/%w5%b.SPL~
+    LPF d2_convert_spell_type INT_VAR type=1 level=5 END    // convert to level 5 Wizard spell
+    WRITE_LONG 0x8 ~-1~
+    WRITE_BYTE  0x25 8          // Alteration school
+    WRITE_SHORT 0x22 0          // casting animation
+    WRITE_ASCII 0x10 None #8    // casting sound
+
+//visual
+    LPF ALTER_SPELL_HEADER INT_VAR target=1 range=1000 speed=0 projectile=241 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=61 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=50 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+    LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~BDFAVSPI~ END
+    LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 STR_VAR resource=~EFF_E06~ END
+
+//spell effects
+    LPF CLONE_EFFECT INT_VAR match_opcode=163 opcode=26 END     // break curse
+    LPF CLONE_EFFECT INT_VAR match_opcode=163 opcode=2 END      // cure sleep
+    LPF CLONE_EFFECT INT_VAR match_opcode=163 opcode=77 END     // cure feeblemind
+    LPF CLONE_EFFECT INT_VAR match_opcode=163 opcode=164 END    // cure intoxication
+    LPF CLONE_EFFECT INT_VAR match_opcode=2  opcode=240 parameter2=14 END
+    LPF CLONE_EFFECT INT_VAR match_opcode=77 opcode=240 parameter2=48 END
 END
 
 
@@ -199,8 +232,12 @@ END
 
 
 //Add Revitalizer
-ACTION_IF (GAME_IS ~iwdee~) BEGIN OUTER_SET kitdesc = RESOLVE_STR_REF (@40314) END    // for IWDEE
-                       ELSE BEGIN OUTER_SET kitdesc = RESOLVE_STR_REF (@40214) END    // for BGEE games
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  OUTER_SET kitdesc = RESOLVE_STR_REF (@40314)    // for IWDEE
+END
+ELSE BEGIN
+  OUTER_SET kitdesc = RESOLVE_STR_REF (@40214)    // for BGEE games
+END
 
 COPY - ~%abilities%/revitalizer.PRO~  ~%workspace%/%w7%.PRO~
 ADD_PROJECTILE ~%workspace%/%w7%.PRO~
@@ -227,18 +264,18 @@ COPY_EXISTING ~SPPR502.SPL~  ~override/%w7%.SPL~    // clone a Cure Wounds spell
       min_lev_alt = 14
   END
 
-  LPF ALTER_EFFECT INT_VAR header=1 dicenumber=15 END    // level 15
-  LPF ALTER_EFFECT INT_VAR header=2 dicenumber=16 END
-  LPF ALTER_EFFECT INT_VAR header=3 dicenumber=17 END
-  LPF ALTER_EFFECT INT_VAR header=4 dicenumber=18 END
-  LPF ALTER_EFFECT INT_VAR header=5 dicenumber=19 END
-  LPF ALTER_EFFECT INT_VAR header=6 dicenumber=20 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=1 dicenumber=15 END    // level 15
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=2 dicenumber=16 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=3 dicenumber=17 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=4 dicenumber=18 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=5 dicenumber=19 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=6 dicenumber=20 END
 
   PATCH_IF (spellcap >= 30) BEGIN
     FOR (n = 1; n <= 10; ++n) BEGIN
       SET header = 6 + n
       SET dice   = 20 + n
-      LPF ALTER_EFFECT INT_VAR header=header dicenumber=dice END
+      LPF ALTER_EFFECT INT_VAR match_opcode=17 header=header dicenumber=dice END
     END
   END
 
@@ -246,7 +283,7 @@ COPY_EXISTING ~SPPR502.SPL~  ~override/%w7%.SPL~    // clone a Cure Wounds spell
     FOR (n = 11; n <= 20; ++n) BEGIN
       SET header = 6 + n
       SET dice   = 20 + n
-      LPF ALTER_EFFECT INT_VAR header=header dicenumber=dice END
+      LPF ALTER_EFFECT INT_VAR match_opcode=17 header=header dicenumber=dice END
     END
   END
 
@@ -254,7 +291,7 @@ COPY_EXISTING ~SPPR502.SPL~  ~override/%w7%.SPL~    // clone a Cure Wounds spell
     FOR (n = 21; n <= 30; ++n) BEGIN
       SET header = 6 + n
       SET dice   = 20 + n
-      LPF ALTER_EFFECT INT_VAR header=header dicenumber=dice END
+      LPF ALTER_EFFECT INT_VAR match_opcode=17 header=header dicenumber=dice END
     END
   END
 

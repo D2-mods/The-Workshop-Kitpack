@@ -1,0 +1,37 @@
+/*
+Can initiate the Presio duel (IWDEE)
+Add to dialogue with "Undead Lieutenant 5" (AR4003)
+*/
+
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~DUNDLT2.DLG~) BEGIN
+
+
+<<<<<<<< .../temp/presioduel
+ADD_TRANS_TRIGGER ~DUNDLT2~ 0
+  ~ !Kit(LastSeenBy,D2%kitname%)
+  ~
+
+
+EXTEND_BOTTOM ~DUNDLT2~ 0
+
+IF ~ Kit(LastSeenBy,D2%kitname%)
+   ~ REPLY @50101 DO ~ Enemy()
+                     ~ EXIT
+
+IF ~ Kit(LastSeenBy,D2%kitname%)
+   ~ REPLY @50102 DO ~ Enemy()
+                     ~ EXIT
+
+IF ~ Kit(LastSeenBy,D2%kitname%)
+   ~ REPLY @50103 GOTO 5
+
+END
+>>>>>>>>
+
+COPY - ~.../temp/presioduel~  ~%workspace%/presioduel.d~
+  EVALUATE_BUFFER
+COMPILE ~%workspace%/presioduel.d~
+
+
+END
