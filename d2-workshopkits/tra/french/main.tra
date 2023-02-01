@@ -68,9 +68,9 @@ Text in this file appears in the game.
 //Dialogues
 
 //Presio duel
-@50101 = ~Your words are meaningless to me, witch. You will be destroyed.~
-@50102 = ~I have nothing more to say to you, necromancer.~
-@50103 = ~Come then, witch, and face me in single combat. Or must you hide behind your minions?~
+@50101 = ~Tes mots ne représentent rien pour moi, sorcière. Tu seras anéantie.~
+@50102 = ~Alors nous n'avons plus rien à nous dire, nécromancien.~
+@50103 = ~Approche toi, sorcière, et affronte-moi en combat singulier. Ou préfères-tu rester cachée derrière tes laquais ?~
 
 
 
@@ -784,7 +784,7 @@ Jet de sauvegarde : Spécial
 
 Ce sort ramène à la vie une créature tombée au combat. La cible peut être de n'importe quelle race, mais doit être membre du groupe.
 
-Notez que le corps de la personne doit être en un seul morceau, sinon les membres manquants le seront toujours lorsque celle-ci est ramenée à la vie. Le personnage ne disposera que d'un point de vie et devra regagner le reste par guérison naturelle ou grâce à une magie curative.~
+Si ce sort est lancé sur une créature vivante, il guérit l'immobilisation, la paralysie, la débilité mental, le sommeil, l'étourdissement et l'intoxication. Toute malédiction ou objet maudit est également retiré.~
 @40312 = ~~
 @40412 = ~~
 

@@ -124,6 +124,12 @@ v2.8
 	- Added 2 Caryll Runes: Hunter Rune and Moon Rune. Obtainable in all games (BGEE, BG2EE, IWDEE).
 - Changes
 	- IWDEE: Changed a couple item locations to account for new items.
+	- Grave Warden: Can challenge Presio (IWDEE).
+- Fixes:
+	- Revitalizer: Fixed visual/audio effects not showing if the target was higher level than the caster.
+- Changes:
+	- Revised Jolt spell: Still raises dead, but also breaks curses and cures several status effects
+	- Changed a couple item locations to account for new items.
 	- Calamity Ring: Added to expansion areas (SoD, ToB, HoW) if not already obtained.
 
 v2.7
