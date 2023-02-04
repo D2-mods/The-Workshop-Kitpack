@@ -128,7 +128,7 @@ Weight: 1
 ==================================================
 Old Hunter Badge
 ==================================================
-Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. The badge was a special privilege for the hunters of the past, and should not be dishonored.
+Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge was a special privilege for the hunters of the past, and should not be dishonored.
 
 STATISTICS:
 
