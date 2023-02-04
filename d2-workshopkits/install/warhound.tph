@@ -7,55 +7,61 @@ COPY ~%passives%/hitdamage1ranged.SPL~  ~override/%e2%.SPL~
 
 
 //Add Shockwave
-COPY ~%icons%/shockwave.BAM~       ~override/%s1%.BAM~
+COPY ~%icons%/shockwave.BAM~      ~override/%s1%.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@102) STR_VAR bam=~%s1%~ RET icon END
-COPY ~%abilities%/shockwave.SPL~    ~override/%s1%.SPL~
+COPY ~%abilities%/shockwave.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @102
   SAY UNIDENTIFIED_DESC @202
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s1%a~ END
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s1%b~ END
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s1%c~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%abilities%/hiteffectranged.SPL~     ~override/%s1%a.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%c~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s0%x~ END
 
 COPY - ~%abilities%/shockwave.PRO~ ~%workspace%/%s1%a.PRO~
 ADD_PROJECTILE ~%workspace%/%s1%a.PRO~
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%a.EFF~
-  WRITE_ASCII 0x30 ~%s1%a~ #8
-COPY ~%abilities%/shockwaveblast.SPL~   ~override/%s1%a.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%a~ END    // set projectile
 
-COPY ~%abilities%/shockwavepush.EFF~       ~override/%s1%b.EFF~
-COPY ~%abilities%/castspellself.EFF~       ~override/%s1%c.EFF~
-  WRITE_ASCII 0x30 ~%s1%c~ #8
-COPY ~%abilities%/removespelleffects.SPL~  ~override/%s1%c.SPL~
-  LPF ALTER_EFFECT STR_VAR resource=~%s1%~ END
+COPY ~%abilities%/castspelltarget.EFF~     ~override/%s1%b.EFF~
+  WRITE_ASCII 0x30 ~%s1%b~ #8
+COPY ~%abilities%/shockwaveblast.SPL~      ~override/%s1%b.SPL~
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%a~ END    // set projectile
+COPY ~%abilities%/shockwavepush.EFF~       ~override/%s1%c.EFF~
 
 
 //Add Incinerate
-COPY ~%icons%/incinerate.BAM~       ~override/%s2%.BAM~
+COPY ~%icons%/incinerate.BAM~      ~override/%s2%.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@103) STR_VAR bam=~%s2%~ RET icon END
-COPY ~%abilities%/incinerate.SPL~    ~override/%s2%.SPL~
+COPY ~%abilities%/incinerate.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @103
   SAY UNIDENTIFIED_DESC @203
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%a~ END
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%a~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%abilities%/hiteffectranged.SPL~     ~override/%s2%a.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s0%x~ END
 
 COPY - ~%abilities%/incinerate.PRO~ ~%workspace%/%s2%a.PRO~
 ADD_PROJECTILE ~%workspace%/%s2%a.PRO~
-COPY ~%abilities%/castspelltarget.EFF~   ~override/%s2%a.EFF~
-  WRITE_ASCII 0x30 ~%s2%a~ #8
-COPY ~%abilities%/incineratecloud.SPL~   ~override/%s2%a.SPL~
+
+COPY ~%abilities%/castspelltarget.EFF~     ~override/%s2%b.EFF~
+  WRITE_ASCII 0x30 ~%s2%b~ #8
+COPY ~%abilities%/incineratecloud.SPL~     ~override/%s2%b.SPL~
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s2%a~ END    // set projectile
 
-COPY ~%abilities%/castspellself.EFF~       ~override/%s2%b.EFF~
-  WRITE_ASCII 0x30 ~%s2%b~ #8
-COPY ~%abilities%/removespelleffects.SPL~  ~override/%s2%b.SPL~
-  LPF ALTER_EFFECT STR_VAR resource=~%s2%~ END
+
+//Remove effects
+COPY ~%abilities%/castspellself.EFF~       ~override/%s0%x.EFF~
+  WRITE_ASCII 0x30 ~%s0%x~ #8
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%a~ END
 
 
 //Add Incinerate to CLEARAIR.2DA
@@ -69,8 +75,8 @@ BUT_ONLY
 
 //Add Evasion checks for IWDEE
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  LAF d2_evasion_check STR_VAR spell=~%s1%a~ END
-  LAF d2_evasion_check STR_VAR spell=~%s2%a~ END
+  LAF d2_evasion_check STR_VAR spell=~%s1%b~ END
+  LAF d2_evasion_check STR_VAR spell=~%s2%b~ END
 END
 
 

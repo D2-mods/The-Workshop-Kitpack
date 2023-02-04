@@ -38,7 +38,7 @@ ELSE BEGIN
   OUTER_TEXT_SPRINT bg1 ~AR~    // BGEE
 END
 
-//Beast's Embrace (natural form)
+//Shapeshift: Natural Form
 ACTION_IF (GAME_IS ~iwdee~) BEGIN 
   OUTER_TEXT_SPRINT humanform ~SPCL110~    // IWDEE
 END
@@ -81,6 +81,20 @@ END
 ACTION_IF (FILE_EXISTS ~override/d2wkb.2DA~) BEGIN
   OUTER_TEXT_SPRINT powderkeg     ~d2wkb~
   OUTER_TEXT_SPRINT cleareffects  ~d2wkbs0~
+END
+
+//Warhound
+ACTION_IF (FILE_EXISTS ~override/d2wk2s1.SPL~) BEGIN
+  OUTER_TEXT_SPRINT shockwave          ~d2wk2s1~
+  OUTER_TEXT_SPRINT shockwaveeffects   ~d2wk2s1a~
+  OUTER_TEXT_SPRINT shockwaveblast     ~d2wk2s1b~
+  OUTER_TEXT_SPRINT incinerate         ~d2wk2s2~
+  OUTER_TEXT_SPRINT incinerateeffects  ~d2wk2s2a~
+  OUTER_TEXT_SPRINT incinerateblast    ~d2wk2s2b~
+  OUTER_TEXT_SPRINT warhoundremove     ~d2wk2s0x~
+
+  COPY_EXISTING - ~kit.ids~ ~~
+    COUNT_REGEXP_INSTANCES ~D2WARHOUNDFM~  warhoundfm
 END
 
 

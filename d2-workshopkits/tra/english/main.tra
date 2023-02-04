@@ -52,14 +52,14 @@ Text in this file appears in the game.
 @608 = ~Booming Song~
 @609 = ~Dust Explosion~
 @610 = ~Frenzying Flame~
-@611 = ~Craft Spark Hunter Badge~    // Abilities for creating Hunter Badges
+@611 = ~Craft Spark Hunter Badge~    // Craft Hunter Badges
 @612 = ~Craft Radiant Sword Badge~
 @613 = ~Craft Cosmic Watcher Badge~
 @614 = ~Craft Powder Keg Badge~
 @615 = ~Ether Explosion~             // Etherbomb Songbook
 @616 = ~Iron Flesh~                  // Golem Ring
-@617 = ~~
-@618 = ~~
+@617 = ~Craft Saw Hunter Badge~
+@618 = ~Craft Old Hunter Badge~
 @619 = ~~
 @620 = ~~
 
@@ -67,10 +67,13 @@ Text in this file appears in the game.
 
 //Dialogues
 
-//Presio duel
+//Presio duel (IWDEE)
 @50101 = ~Your words are meaningless to me, witch. You will be destroyed.~
 @50102 = ~I have nothing more to say to you, necromancer.~
 @50103 = ~Come then, witch, and face me in single combat. Or must you hide behind your minions?~
+
+//Old Jed (IWDEE)
+@50201 = ~*snore*... Sshtill here, eh, matey? I shuppose I can give you thissh rock... *snore* *snore* alienssh... milkweed... *snore*~
 
 
 
@@ -875,10 +878,10 @@ STATISTICS:
 Equipped abilities: 
 – Armor Class: +1
 – Saving Throws: +1
-– Electricity Resistance: 50%
+– Electricity Resistance: +50%
 
 Special (Beast Hunter): 
-– Fire Weapon: Inflicts an extra +1d3 electrical damage
+– Fire Weapon: Inflicts an extra 1d3 electrical damage
 
 Weight: 1~
 
@@ -923,7 +926,7 @@ Equipped abilities:
 – Fire Resistance: +20%
 
 Special (Beast Hunter): 
-– Fire Weapon: 10% chance of an extra +2d12 fire damage
+– Fire Weapon: 10% chance of an extra 2d12 fire damage
 
 Weight: 1~
 
@@ -934,8 +937,8 @@ STATISTICS:
 
 Equipped abilities:
 – Saving Throws: +1
-– Hide In Shadows: +15%
-– Move Silently: +15%
+– Hide In Shadows: +30%
+– Non-detectable by magical means such as Detect Invisibility and scrying
 
 Special (Crow Hunter):
 – 5% chance of a Visceral Attack (melee only)
@@ -993,6 +996,7 @@ STATISTICS:
 
 Equipped abilities:
 – Save vs. Death: -2
+– Can memorize two extra 2nd-level priest spells
 – Regenerate 2 Hit Points per round
 
 Special (Confessor): 
@@ -1235,12 +1239,75 @@ Charge abilities:
 
 Weight: 0~
 
-@70127 = ~~
-@70227 = ~~
+@70127 = ~Milkweed~
+@70227 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
-@70128 = ~~
-@70228 = ~~
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
 
+STATISTICS:
+
+Charge abilities:
+– Milkweed (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  Transform into a mind flayer during combat, but Wisdom and Constitution are set to 5; this action happens automatically and the character will revert back to natural form if no enemies are in visual range
+
+Weight: 0~
+
+@70128 = ~Ether Limiter~
+@70228 = ~The stone of this amulet, a meteoric iron, is known to exhibit strong magic and energy-suppressing properties.
+
+STATISTICS:
+
+Equipped abilities:
+– Crushing Resistance: +15%
+– Magic Damage Resistance: +50%
+– Save vs. Spell: +2
+– Spellcasting disabled
+
+Special (Warhound):
+– Shockwave and Incinerate damage only enemies
+
+Weight: 1~
+
+@70129 = ~Saw Hunter Badge~
+@70229 = ~Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. The saw, with its set of blood-letting teeth, has become a symbol of the hunt.
+
+STATISTICS:
+
+Equipped abilities:
+– THAC0: +1
+– Armor Class: +1
+– Saving Throws: +1
+
+Special (Beast Hunter): 
+– Fire Weapon: Target suffers a cumulative -1 penalty to Armor Class for 3 rounds
+
+Weight: 1~
+
+@70130 = ~Old Hunter Badge~
+@70230 = ~Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. The badge was a special privilege for the hunters of the past, and should not be dishonored.
+
+STATISTICS:
+
+Equipped abilities:
+– Armor Class: +1
+– Saving Throws: +1
+– Charisma: +2
+
+Special (Beast Hunter): 
+– Fire Weapon: +5% chance to score a critical hit
+
+Weight: 1~
+
+@70131 = ~~
+@70231 = ~~
+
+@70132 = ~~
+@70232 = ~~
+
+@70133 = ~~
+@70233 = ~~
 
 
 /*

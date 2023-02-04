@@ -41,11 +41,11 @@ Moonlight Knight (c/r)
 Crow Hunter (f/t)
 Crow Hunter (f/m/t)
 
-//misc
-4 Hunter Badges   - can be crafted (see below), can also be purchased
+//misc stuff
+6 Hunter Badges   - can be crafted (see below), can also be purchased
 8 new spells      - learned by the Starjammer kit
-11 Caryll Runes   - items with party-wide effects
-9 other items     - all general use items, no weapons or armor
+12 Caryll Runes   - items with party-wide effects
+10 other items    - all general use items, no weapons or armor
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -112,14 +112,18 @@ Version info:
 
 v2.8
 - What's new:
-	- Added 2 Caryll Runes: Hunter and Moon. Obtainable in all games (BGEE, BG2EE, IWDEE).
+	- Added 2 Hunter Badges: Saw Hunter Badge and Old Hunter Badge.
+	- Added 3 Caryll Runes: Hunter, Moon, and Milkweed.
+	- Added Ether Limiter amulet (has bonus effect for Warhound kit).
 	- Grave Warden: Can challenge Presio (IWDEE).
 - Fixes:
 	- Revitalizer: Fixed visual/audio effects not showing if the target was higher level than the caster.
 - Changes:
-	- Revised Jolt spell: Still raises dead, but also breaks curses and cures several status effects
+	- Revised Jolt spell: Still raises dead, but also breaks curses and cures several status effects.
 	- Changed a couple item locations to account for new items.
 	- Calamity Ring: Added to expansion areas (SoD, ToB, HoW) if not already obtained.
+	- Crowfeather Cloak: Added non-detection.
+	- Cruciform: Will also give 2 bonus 2nd-level priest spell slots.
 
 v2.7
 - Fixes:

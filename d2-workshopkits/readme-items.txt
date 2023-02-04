@@ -3,6 +3,8 @@ Spark Hunter Badge
 Radiant Sword Badge
 Cosmic Watcher Badge
 Powder Keg Badge
+Saw Hunter Badge
+Old Hunter Badge
 
 //Misc items
 Crowfeather Cloak (cloak)
@@ -10,10 +12,11 @@ Etherbomb Songbook (item)
 Ether Booster (amulet)
 Prisoner's Chain (ring)
 Cruciform (amulet)
-Golem Ring (ring)
-Calamity Ring (ring)
-Stone Ring (ring)
-Flynn's Ring (ring)
+Golem Ring
+Calamity Ring
+Stone Ring
+Flynn's Ring
+Ether Limiter (amulet)
 
 //Caryll Runes (items)
 Clawmark
@@ -27,6 +30,7 @@ Fading Lake
 Beast's Embrace
 Hunter
 Moon
+Milkweed
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -41,10 +45,10 @@ STATISTICS:
 Equipped abilities: 
 – Armor Class: +1
 – Saving Throws: +1
-– Electricity Resistance: 50%
+– Electricity Resistance: +50%
 
 Special (Beast Hunter): 
-– Fire Weapon: Inflicts an extra +1d3 electrical damage
+– Fire Weapon: Inflicts an extra 1d3 electrical damage
 
 Weight: 1
 
@@ -98,7 +102,43 @@ Equipped abilities:
 – Fire Resistance: +20%
 
 Special (Beast Hunter): 
-– Fire Weapon: 10% chance of an extra +2d12 fire damage
+– Fire Weapon: 10% chance of an extra 2d12 fire damage
+
+Weight: 1
+
+
+==================================================
+Saw Hunter Badge
+==================================================
+Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. The saw, with its set of blood-letting teeth, has become a symbol of the hunt.
+
+STATISTICS:
+
+Equipped abilities:
+– THAC0: +1
+– Armor Class: +1
+– Saving Throws: +1
+
+Special (Beast Hunter): 
+– Fire Weapon: Target suffers a cumulative -1 penalty to Armor Class for 3 rounds
+
+Weight: 1
+
+
+==================================================
+Old Hunter Badge
+==================================================
+Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. The badge was a special privilege for the hunters of the past, and should not be dishonored.
+
+STATISTICS:
+
+Equipped abilities:
+– Armor Class: +1
+– Saving Throws: +1
+– Charisma: +2
+
+Special (Beast Hunter): 
+– Fire Weapon: +5% chance to score a critical hit
 
 Weight: 1
 
@@ -114,8 +154,8 @@ STATISTICS:
 
 Equipped abilities:
 – Saving Throws: +1
-– Hide In Shadows: +15%
-– Move Silently: +15%
+– Hide In Shadows: +30%
+– Non-detectable by magical means such as Detect Invisibility and scrying
 
 Special (Crow Hunter):
 – 5% chance of a Visceral Attack (melee only)
@@ -185,6 +225,7 @@ STATISTICS:
 
 Equipped abilities:
 – Save vs. Death: -2
+– Can memorize two extra 2nd-level priest spells
 – Regenerate 2 Hit Points per round
 
 Special (Confessor): 
@@ -253,6 +294,25 @@ Equipped abilities:
 – +20% increase to all physical damage dealt when not wearing armor or robes
 
 Weight: 0
+
+
+==================================================
+Ether Limiter (amulet)
+==================================================
+The stone of this amulet, a meteoric iron, is known to exhibit strong magic and energy-suppressing properties.
+
+STATISTICS:
+
+Equipped abilities:
+– Crushing Resistance: +15%
+– Magic Damage Resistance: +50%
+– Save vs. Spell: +2
+– Spellcasting disabled
+
+Special (Warhound):
+– Shockwave and Incinerate damage only enemies
+
+Weight: 1
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -452,6 +512,24 @@ Charge abilities:
   Area of Effect: The party
   Duration: 24 hours
   +35 bonus XP for each enemy slain by the party
+
+Weight: 0
+
+
+==================================================
+Milkweed
+==================================================
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:
+– Milkweed (can be used at will)
+  Area of Effect: The party
+  Duration: 24 hours
+  Transform into a mind flayer during combat, but Wisdom and Constitution are set to 5; this action happens automatically and the character will revert back to natural form if no enemies are in visual range
 
 Weight: 0
 

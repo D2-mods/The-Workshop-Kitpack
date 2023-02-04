@@ -4,7 +4,9 @@ Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases
 Forum posts: [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)  
 Languages: English, French (by 11jo)
 
-This is a kitpack I've been working on for a while. It currently has 11 kits—6 warrior, 5 non-warrior + multiclass variants. Also adds 20+ items, including 4 Hunter Badges, 9 Caryll Runes, and 9 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
+**Readme is accurate for v2.8**
+
+This is a kitpack I've been working on for a while. It currently has 11 kits + 6 multiclass variants. Also adds 20+ items, including 6 Hunter Badges, 12 Caryll Runes, and 10 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 
 NOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
 
@@ -36,10 +38,10 @@ Mod contents:
 - Crow Hunter (f/m/t)
 
 #### Misc stuff
-- 4 Hunter Badges&emsp;- can be crafted (see below), can also be purchased  
-- 8 new spells&emsp;&emsp;&emsp;- learned by the Starjammer kit  
-- 9 Caryll Runes&emsp;&emsp;- items with party-wide effects
-- 9 other items &emsp; &emsp;- all general use items, no weapons or armor
+- 6 Hunter Badges&emsp;- can be crafted (see below), can also be purchased  
+- 8 new spells&emsp;&emsp;&emsp; - learned by the Starjammer kit  
+- 12 Caryll Runes&emsp;&emsp;- items with party-wide effects
+- 10 other items&emsp;&emsp;- all general use items, no weapons or armor
 
 
 Components:
@@ -385,6 +387,8 @@ NOTE: Beast Hunters don't gain a crafting ability, but they can still purchase t
 - Radiant Sword Badge
 - Cosmic Watcher Badge
 - Powder Keg Badge
+- Saw Hunter Badge
+- Old Hunter Badge
 
 <details>
   <summary>Descriptions</summary>
@@ -400,10 +404,10 @@ STATISTICS:
 Equipped abilities:  
 - Armor Class: +1  
 - Saving Throws: +1  
-- Electricity Resistance: 50%
+- Electricity Resistance: +50%
 
 Special (Beast Hunter):  
-- Fire Weapon: Inflicts an extra +1d3 electrical damage
+- Fire Weapon: Inflicts an extra 1d3 electrical damage
 
 Weight: 1
 
@@ -457,7 +461,43 @@ Equipped abilities:
 - Fire Resistance: +20%
 
 Special (Beast Hunter):  
-- Fire Weapon: 10% chance of an extra +2d12 fire damage
+- Fire Weapon: 10% chance of an extra 2d12 fire damage
+
+Weight: 1
+
+---
+
+**Saw Hunter Badge**
+
+Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. The saw, with its set of blood-letting teeth, has become a symbol of the hunt.
+
+STATISTICS:
+
+Equipped abilities:
+- THAC0: +1
+- Armor Class: +1
+- Saving Throws: +1
+
+Special (Beast Hunter): 
+- Fire Weapon: Target suffers a cumulative -1 penalty to Armor Class for 3 rounds
+
+Weight: 1
+
+---
+
+**Old Hunter Badge**
+
+Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. The badge was a special privilege for the hunters of the past, and should not be dishonored.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +1
+- Saving Throws: +1
+- Charisma: +2
+
+Special (Beast Hunter): 
+- Fire Weapon: +5% chance to score a critical hit
 
 Weight: 1
 
@@ -466,8 +506,9 @@ Weight: 1
 </details>
 
 #### Purchasing the badges:
-- BG1/SoD: 2 badges are obtainable, but not until reaching the city of Baldur's Gate.
-- All badges can be obtained in BG2 and IWD, including additional badges in the expansions.
+- BG1: 2 badges can be obtained once you reach the city of Baldur's Gate.
+- SoD: The 2 BG1 badges, plus 1 additional badge, are obtainable.
+- All badges are in BG2 and IWD, including additional badges in the expansions.
 
 
 Starjammer spells:
@@ -553,14 +594,14 @@ A sanctuaried creature can move around or cast non-attack spells without breakin
 
 Level: 5  
 Range: Special  
-Duration: Permanent   
+Duration: Permanent  
 Casting Time: 5  
 Area of Effect: 1 party member  
 Saving Throw: Special
 
-Upon casting this spell, the caster restores a fallen creature back to a sliver of health. The target can be of any race and must be a member of the party. To use this spell, cast it on the dead character's portrait.
+This spell will restore a fallen creature back to a sliver of health. The target can be of any race and must be a member of the party. To use this spell, cast it on the dead character's portrait.
 
-Note that the body of the person must be whole, otherwise missing parts are still missing when the person is brought back to life. The person has but 1 Hit Point when raised and must regain the rest by natural healing or curative magic.
+When cast on a living creature, the spell will cure any form of hold, paralysis, feeblemind, sleep, stun, and intoxication. Any cursed items or effects are also removed.
 
 ---
 
@@ -625,6 +666,7 @@ Misc items:
 - Calamity Ring (ring)
 - Stone Ring (ring)
 - Flynn's Ring (ring)
+- Ether Limiter (amulet)
 
 <details>
   <summary>Descriptions</summary>
@@ -638,9 +680,9 @@ An attire worn by veteran Hunters of Hunters, who dressed as crows to suggest sk
 STATISTICS:
 
 Equipped abilities:  
-- Saving Throws: +1  
-- Hide In Shadows: +15%  
-- Move Silently: +15%
+- Saving Throws: +1
+- Hide In Shadows: +30%
+- Non-detectable by magical means such as Detect Invisibility and scrying
 
 Special (Crow Hunter):  
 - 5% chance of a Visceral Attack (melee only)
@@ -709,7 +751,8 @@ A gem-encrusted stone shaped in the form of a cross. Rather worn from age. The f
 STATISTICS:
 
 Equipped abilities:  
-- Save vs. Death: -2  
+- Save vs. Death: -2
+- Can memorize two extra 2nd-level priest spells
 - Regenerate 2 Hit Points per round
 
 Special (Confessor):  
@@ -781,13 +824,32 @@ Weight: 0
 
 ---
 
+**Ether Limiter (amulet)**
+
+The stone of this amulet, a meteoric iron, is known to exhibit strong magic and energy-suppressing properties.
+
+STATISTICS:
+
+Equipped abilities:
+- Crushing Resistance: +15%
+- Magic Damage Resistance: +50%
+- Save vs. Spell: +2
+- Spellcasting disabled
+
+Special (Warhound):
+- Shockwave and Incinerate damage only enemies
+
+Weight: 1
+
+---
+
 </details>
 
 #### Non-spoilery item info:
 - BG1: Prisoner's Chain, Calamity Ring, and Stone Ring are obtainable (other items are still installed).
 - SoD: Etherbomb Songbook and Golem Ring are obtainable.
-- BG2: All items obtainable in SoA portion. If starting a new game in ToB, the starting bag will have 1 or 2 items.
-- IWD: Golem Ring is in TotL. The rest are in main IWD campaign. One item must be pickpocketed/looted.
+- BG2: All items obtainable in SoA. If starting a new game in ToB, the starting bag will have 1 or 2 items.
+- IWD: Golem Ring is in TotL. The rest are in main IWD campaign.
 
 
 Caryll Runes
@@ -812,6 +874,9 @@ Note: Icons are slightly different for each rune. They're not amazing looking, b
 - Great Lake
 - Fading Lake
 - Beast's Embrace
+- Hunter
+- Moon
+- Milkweed
 
 <details>
   <summary>Descriptions</summary>
@@ -981,9 +1046,63 @@ Weight: 0
 
 ---
 
+**Hunter**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:  
+- Hunter (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  +1 bonus to attack rolls
+
+Weight: 0
+
+---
+
+**Moon**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:  
+- Moon (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  +35 bonus XP for each enemy slain by the party
+
+Weight: 0
+
+---
+
+**Milkweed**
+
+One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
+
+Only one Caryll Rune may be in effect at a time. Using this rune will remove any previous rune effects.
+
+STATISTICS:
+
+Charge abilities:  
+- Milkweed (can be used at will)  
+  Area of Effect: The party  
+  Duration: 24 hours  
+  Transform into a mind flayer during combat, but Wisdom and Constitution are set to 5; this action happens automatically and the character will revert back to natural form if no enemies are in visual range
+
+Weight: 0
+
+---
+
 </details>
 
 #### Game notes:
-- BG1/SoD: 3 total runes are obtainable (2 are in SoD)
+- BG1/SoD: 5 total runes are obtainable (2 are in SoD)
 - BG2: All obtainable in SoA portion. Also added to starting bags for some kits in ToB.
 - IWDEE/HoW: Spread throughout, in various dungeons and locations.

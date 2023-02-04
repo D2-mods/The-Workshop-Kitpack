@@ -15,12 +15,13 @@ COPY ~%icons%/rune_fadinglake.BAM~     ~override/%z8%i.BAM~
 COPY ~%icons%/rune_beastembrace.BAM~   ~override/%z9%i.BAM~
 COPY ~%icons%/rune_hunter.BAM~         ~override/%za%i.BAM~
 COPY ~%icons%/rune_moon.BAM~           ~override/%zb%i.BAM~
+COPY ~%icons%/rune_milkweed.BAM~       ~override/%zc%i.BAM~
 
 
 //Remove rune effects
-COPY ~%abilities%/castspellself.EFF~        ~override/%z0%a.EFF~
+COPY ~%abilities%/castspellself.EFF~       ~override/%z0%a.EFF~
   WRITE_ASCII 0x30 ~%z0%a~ #8
-COPY ~%abilities%/removespelleffects.SPL~   ~override/%z0%a.SPL~
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%z0%a.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z1%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z2%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z3%~ END
@@ -35,6 +36,9 @@ COPY ~%abilities%/removespelleffects.SPL~   ~override/%z0%a.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z9%b~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%za%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%zb%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%zc%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%zc%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%zc%b~ END
 
 
 //Visual effects
@@ -282,6 +286,43 @@ COPY ~%files%/rune_effects.SPL~    ~override/%zb%a.SPL~
   LPF ALTER_EFFECT INT_VAR opcode=104 target=3 parameter1=35 timing=9 END
 
 
+//Milkweed
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70127) STR_VAR bam=~%z1%~ RET icon END
+COPY ~%files%/rune_werewolf.ITM~  ~override/%zc%.ITM~
+  SAY NAME2 @70127
+  SAY DESC @70227
+  WRITE_ASCII 0x3a ~%zc%i~ #8    // icon
+//  WRITE_ASCII 0x58 ~~ #8    // description image
+  WRITE_ASCII 0x76 ~%zc%i~ #8    // icon (ability)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%zc%a~ END             // polymorph
+  LPF CLONE_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%zc%c~ END             // remove polymorph
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%files%/rune_effects.SPL~      ~override/%zc%a.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~SPIN152~ END                                    // polymorph
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=10 timing=0 duration=7200 parameter1=5 parameter2=1 END    // CON modifier
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=49 timing=0 duration=7200 parameter1=5 parameter2=1 END    // WIS modifier
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%zc%b~ insert=~below~ END                    // remove ability
+
+COPY ~%passives%/removespell.SPL~    ~override/%zc%b.SPL~
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=206 STR_VAR resource=~%zc%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=172 timing=4 duration=7 STR_VAR resource=~spin151~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~spin152~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~SPINHUM~ END
+
+COPY ~%files%/rune_effects.SPL~      ~override/%zc%c.SPL~
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%c~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 timing=4 duration=15 STR_VAR resource=~%zc%x~ END
+
+COPY ~%files%/rune_effects.SPL~      ~override/%zc%x.SPL~
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%b~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%humanform%~ END
+
+
 
 //Set variables for external use
 OUTER_TEXT_SPRINT clawmark        ~%z1%~
@@ -295,6 +336,7 @@ OUTER_TEXT_SPRINT fadinglake      ~%z8%~
 OUTER_TEXT_SPRINT beastembrace    ~%z9%~
 OUTER_TEXT_SPRINT hunter_rune     ~%za%~
 OUTER_TEXT_SPRINT moon_rune       ~%zb%~
+OUTER_TEXT_SPRINT milkweed        ~%zc%~
 
 OUTER_TEXT_SPRINT clawmarkbleed   ~%z1%a~
 

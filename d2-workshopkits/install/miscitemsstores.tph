@@ -29,7 +29,7 @@ ACTION_IF (GAME_IS ~bgee eet~) BEGIN
   //add creature with item
   COPY_EXISTING ~chicke.cre~  ~override/d2wkmrc.CRE~
     WRITE_ASCII 0x280 ~d2wkmrc~ #32                           // set script name
-    ADD_CRE_ITEM ~%moon_rune%~ #0 #0 #0 ~none~ ~qitem inv~    // add rune
+    ADD_CRE_ITEM ~%moon_rune%~ #0 #0 #0 ~none~ ~inv~    // add rune
     READ_STRREF 0x8 chicken
 
   COPY_EXISTING ~%bg1%0400.ARE~  ~override~                   // add to area
@@ -55,8 +55,8 @@ ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=1 STR_VAR item_to_add=~%etherbomb%~ END
   BUT_ONLY
 
-  COPY_EXISTING ~bdbeleg4.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ position=~BEFORE bdring06~ flags=~identified~ END
+  COPY_EXISTING ~bdnazram.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ position=~AFTER bdring09~ flags=~identified~ END
   BUT_ONLY
 
   COPY_EXISTING ~bd5110.ARE~ ~override~
@@ -104,6 +104,11 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%flynnring%~ END
   BUT_ONLY
 
+  COPY_EXISTING ~AR0711.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%etherlimiter%~ END
+  BUT_ONLY
+
+  //runes
   COPY_EXISTING ~SHADRA01.CRE~ ~override~
     ADD_CRE_ITEM ~%clawmark%~ #0 #0 #0 ~none~ ~qitem inv quiver~
   BUT_ONLY
@@ -145,11 +150,15 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=10 STR_VAR item_to_add=~%calamity%~ END
   BUT_ONLY
 
+  COPY_EXISTING ~AR3021.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=3 STR_VAR item_to_add=~%milkweed%~ END
+  BUT_ONLY
+
 
   //add creature with item
   COPY_EXISTING ~chicke.cre~  ~override/d2wkmrc.CRE~
     WRITE_ASCII 0x280 ~d2wkmrc~ #32                           // set script name
-    ADD_CRE_ITEM ~%moon_rune%~ #0 #0 #0 ~none~ ~qitem inv~    // add rune
+    ADD_CRE_ITEM ~%moon_rune%~ #0 #0 #0 ~none~ ~inv~    // add rune
     READ_STRREF 0x8 chicken
 
   COPY_EXISTING ~AR1100.ARE~  ~override~                      // add to area
@@ -189,7 +198,7 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
   BUT_ONLY
 
   COPY_EXISTING ~bag20.STO~  ~override~     // Fighter, Berserker, Blackguard
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%etherlimiter%~ flags=~identified~ END
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%corruption%~ flags=~identified~ END
   BUT_ONLY
 
@@ -290,6 +299,7 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
 <<<<<<<< .../temp/gerthstore
 IF
 	!Global("d2gerthhunterrune","GLOBAL",1)
+	GlobalGT("MIREK_YETI","AR2100",0)
 THEN
 	RESPONSE #100
         SetGlobal("d2gerthhunterrune","GLOBAL",1)
@@ -306,6 +316,16 @@ THEN
 		AddStoreItem("KUGERTH","%flynnring%",1,1)
 		Continue()
 END
+
+IF
+	!Global("d2gerthetherlimiter","GLOBAL",1)
+	GlobalGT("Chapter","GLOBAL",3)
+THEN
+	RESPONSE #100
+        SetGlobal("d2gerthetherlimiter","GLOBAL",1)
+		AddStoreItem("KUGERTH","%etherlimiter%",1,1)
+		Continue()
+END
 >>>>>>>>
 
   COPY - ~.../temp/gerthstore~  ~%workspace%/gerthstore.BAF~
@@ -314,7 +334,8 @@ END
   EXTEND_BOTTOM ~ar2113.BCS~    ~%workspace%/gerthstore.BAF~
 
 
-//Add rune to creature (by script)
+
+//Add Moon rune (by script)
 <<<<<<<< .../temp/moonrune
 IF
 	!Global("d2moon_rune","GLOBAL",1)
@@ -329,6 +350,36 @@ END
   COPY - ~.../temp/moonrune~  ~%workspace%/moonrune.BAF~
     EVALUATE_BUFFER
   EXTEND_BOTTOM ~AR2000.BCS~  ~%workspace%/moonrune.BAF~
+
+
+
+//Add Milkweed rune (must have done Siren quest)
+<<<<<<<< .../temp/oldjed
+EXTEND_BOTTOM ~DOLDJED~ 14 15 16
+
+IF ~ GlobalGT("Siren_Quest","GLOBAL",2)
+     Global("d2JedMilkweed","GLOBAL",0)
+   ~ DO ~ SetGlobal("d2JedMilkweed","GLOBAL",1)
+          GiveItemCreate("%milkweed%",LastTalkedToBy,0,0,0) 
+        ~ GOTO JedMilkweed
+
+END
+
+
+APPEND ~DOLDJED~
+
+IF ~~ BEGIN JedMilkweed
+  SAY @50201  // Jed says stuff
+  COPY_TRANS ~DOLDJED~ 14    // Jed goes to sleep
+END
+
+END
+>>>>>>>>
+
+COPY - ~.../temp/oldjed~  ~%workspace%/oldjed.d~
+  EVALUATE_BUFFER
+COMPILE ~%workspace%/oldjed.d~
+
 
 
 //HoW
@@ -348,7 +399,6 @@ END
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%anticlockwise%~ END
   BUT_ONLY
 END
-
 
 
 /*

@@ -9,6 +9,7 @@ COPY ~%files%/crowfeather.ITM~  ~override/%m1%.ITM~
   SAY NAME2 @70105
   SAY DESC @70205
   WRITE_ASCII 0x3a ~IBDCLK05~ #8    // icon
+  WRITE_ASCII 0x58 ~CDCLCK01~ #8    // description image
 
 ACTION_IF (FILE_EXISTS ~override/%visceralattack%.SPL~) BEGIN
 
@@ -66,8 +67,10 @@ COPY ~%icons%/etherbomb.BAM~  ~override/%m2%.BAM~
 COPY ~%files%/etherbomb.ITM~  ~override/%m2%.ITM~
   SAY NAME2 @70106
   SAY DESC @70206
-  WRITE_ASCII 0x3a ~%m2%~ #8    // icon
-  WRITE_ASCII 0x76 ~%m2%~ #8    // icon (ability)
+  WRITE_ASCII 0x3a ~%m2%~ #8       // icon
+  WRITE_ASCII 0x76 ~%m2%~ #8       // icon (ability)
+  WRITE_ASCII 0x58 ~CBOOK89~ #8    // description image
+
   LPF ALTER_EFFECT INT_VAR match_opcode=326 parameter2=~%lore80%~ STR_VAR resource=~%m2%e~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 parameter2=~%lore79%~ STR_VAR resource=~%m2%s~ END
 
@@ -130,6 +133,8 @@ COPY ~%files%/etherbooster.EFF~     ~override/%m3%e.EFF~
 COPY ~%files%/etherbooster.ITM~     ~override/%m3%.ITM~
   SAY NAME2 @70107
   SAY DESC @70207
+  WRITE_ASCII 0x3a ~IAMUL24~ #8       // icon
+  WRITE_ASCII 0x58 ~PAMUL26~ #8    // description image
 
 ACTION_IF (FILE_EXISTS ~override/%unleashmagic%.SPL~) BEGIN
 
@@ -172,7 +177,8 @@ COPY ~%icons%/prisonchain.BAM~  ~override/%m4%.BAM~
 COPY ~%files%/prisonchain.ITM~  ~override/%m4%.ITM~
   SAY NAME2 @70108
   SAY DESC @70208
-  WRITE_ASCII 0x3a ~%m4%~ #8    // icon
+  WRITE_ASCII 0x3a ~%m4%~ #8       // icon
+  WRITE_ASCII 0x58 ~CRING29~ #8    // description image
 
 
 
@@ -261,8 +267,10 @@ COPY ~%icons%/golemring.BAM~  ~override/%m6%.BAM~
 COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
   SAY NAME2 @70110
   SAY DESC @70210
-  WRITE_ASCII 0x3a ~%m6%~ #8    // icon
-  WRITE_ASCII 0x76 ~%m6%~ #8    // icon (ability)
+  WRITE_ASCII 0x3a ~%m6%~ #8       // icon
+  WRITE_ASCII 0x76 ~%m6%~ #8       // icon (ability)
+  WRITE_ASCII 0x58 ~CRING26~ #8    // description image
+
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@304) END    // "Activated Golem Ring"
 
@@ -291,7 +299,8 @@ COPY ~%icons%/calamity.BAM~  ~override/%m7%.BAM~
 COPY ~%files%/calamity.ITM~  ~override/%m7%.ITM~
   SAY NAME2 @70111
   SAY DESC @70211
-  WRITE_ASCII 0x3a ~%m7%~ #8    // icon
+  WRITE_ASCII 0x3a ~%m7%~ #8       // icon
+  WRITE_ASCII 0x58 ~CRING36~ #8    // description image
 
 
 
@@ -302,7 +311,8 @@ COPY ~%files%/stoneringpush.EFF~  ~override/%m8%b.EFF~    // wing buffet
 COPY ~%files%/stonering.ITM~      ~override/%m8%.ITM~
   SAY NAME2 @70112
   SAY DESC @70212
-  WRITE_ASCII 0x3a ~%m8%~ #8    // icon
+  WRITE_ASCII 0x3a ~%m8%~ #8       // icon
+  WRITE_ASCII 0x58 ~CRING30~ #8    // description image
   LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%m8%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%m8%b~ END
 
@@ -318,7 +328,8 @@ COPY ~%icons%/flynnsring.BAM~  ~override/%m9%.BAM~
 COPY ~%files%/flynnsring.ITM~  ~override/%m9%.ITM~
   SAY NAME2 @70113
   SAY DESC @70213
-  WRITE_ASCII 0x3a ~%m9%~ #8    // icon
+  WRITE_ASCII 0x3a ~%m9%~ #8       // icon
+  WRITE_ASCII 0x58 ~CRING06~ #8    // description image
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m9%~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m9%s~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%m9%s~ END
@@ -333,10 +344,115 @@ COPY ~%files%/flynnsring.SPL~  ~override/%m9%s.SPL~
 
 
 
+//Ether Limiter (amulet)
+COPY ~%files%/etherlimiter.ITM~  ~override/%ma%.ITM~
+  SAY NAME2 @70128
+  SAY DESC @70228
+  WRITE_ASCII 0x3a ~IAMUL19~ #8    // icon
+  WRITE_ASCII 0x58 ~CAMUL20~ #8    // description image
+
+//Shockwave
+ACTION_IF (FILE_EXISTS ~override/%shockwave%.SPL~) BEGIN
+
+  COPY_EXISTING ~%shockwave%.SPL~  ~override~
+    LPF ALTER_EFFECT STR_VAR match_resource=~%shockwaveeffects%~ resource=~%shockwave%e~ END
+  BUT_ONLY
+
+  COPY ~%abilities%/useeffonkit.SPL~  ~override/%shockwave%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2WARHOUND~)
+      STR_VAR resource=~%ma%s~ 
+    END
+    PATCH_IF (warhoundfm > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2WARHOUNDFM~)
+      END
+    END
+    LPF CLONE_EFFECT STR_VAR resource=~%ma%a~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%shockwave%e~ END
+
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%ma%s.EFF~
+    WRITE_ASCII 0x30 ~%ma%~ #8
+    WRITE_ASCII 0x70 ~%ma%t~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%ma%t.EFF~
+    WRITE_ASCII 0x30 ~%ma%t~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%ma%t.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%shockwave%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%ma%a~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%shockwaveeffects%~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~  ~override/%ma%a.EFF~
+    WRITE_ASCII 0x30 ~%ma%a~ #8
+  COPY_EXISTING ~%shockwaveeffects%.SPL~  ~override/%ma%a.SPL~
+    LPF ALTER_EFFECT STR_VAR match_resource=~%shockwaveblast%~ resource=~%ma%b~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~  ~override/%ma%b.EFF~
+    WRITE_ASCII 0x30 ~%ma%b~ #8
+  COPY_EXISTING ~%shockwaveblast%.SPL~    ~override/%ma%b.SPL~
+    LPF DELETE_EFFECT INT_VAR match_parameter2=63 END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 timing=0 duration=0 parameter2=52 STR_VAR resource=~%ma%b~ END
+
+  COPY_EXISTING ~%warhoundremove%.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%ma%a~ END
+  BUT_ONLY
+
+END
+
+//Incinerate
+ACTION_IF (FILE_EXISTS ~override/%incinerate%.SPL~) BEGIN
+
+  COPY_EXISTING ~%incinerate%.SPL~  ~override~
+    LPF ALTER_EFFECT STR_VAR match_resource=~%incinerateeffects%~ resource=~%incinerate%e~ END
+  BUT_ONLY
+
+  COPY ~%abilities%/useeffonkit.SPL~  ~override/%incinerate%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2WARHOUND~)
+      STR_VAR resource=~%ma%u~ 
+    END
+    PATCH_IF (warhoundfm > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2WARHOUNDFM~)
+      END
+    END
+    LPF CLONE_EFFECT STR_VAR resource=~%ma%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%incinerate%e~ END
+
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%ma%u.EFF~
+    WRITE_ASCII 0x30 ~%ma%~ #8
+    WRITE_ASCII 0x70 ~%ma%v~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%ma%v.EFF~
+    WRITE_ASCII 0x30 ~%ma%v~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%ma%v.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%incinerate%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%ma%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%incinerateeffects%~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~   ~override/%ma%e.EFF~
+    WRITE_ASCII 0x30 ~%ma%e~ #8
+  COPY_EXISTING ~%incinerateeffects%.SPL~  ~override/%ma%e.SPL~
+    LPF ALTER_EFFECT STR_VAR match_resource=~%incinerateblast%~ resource=~%ma%f~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~  ~override/%ma%f.EFF~
+    WRITE_ASCII 0x30 ~%ma%f~ #8
+  COPY_EXISTING ~%incinerateblast%.SPL~    ~override/%ma%f.SPL~
+    LPF DELETE_EFFECT INT_VAR match_parameter2=63 END
+    LPF CLONE_EFFECT INT_VAR opcode=318 timing=0 dicenumber=0 dicesize=0 savingthrow=0 parameter2=52 special=0 STR_VAR resource=~%ma%f~ END
+
+  COPY_EXISTING ~%warhoundremove%.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%ma%e~ END
+  BUT_ONLY
+
+END
+
+
+
 //Add Evasion checks for IWDEE
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%m2%f~ END    // Etherbomb Songbook
   LAF d2_evasion_check INT_VAR insert=0 STR_VAR spell=~%m2%t~ END
+  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%ma%b~ END    // Ether Limiter
+  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%ma%f~ END
 END
 
 
@@ -351,6 +467,7 @@ OUTER_TEXT_SPRINT golemring      ~%m6%~
 OUTER_TEXT_SPRINT calamity       ~%m7%~
 OUTER_TEXT_SPRINT stonering      ~%m8%~
 OUTER_TEXT_SPRINT flynnring      ~%m9%~
+OUTER_TEXT_SPRINT etherlimiter   ~%ma%~
 
 OUTER_TEXT_SPRINT bleeding1      ~%m5%a~
 OUTER_TEXT_SPRINT bleeding2      ~%m5%b~
