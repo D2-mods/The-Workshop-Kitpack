@@ -229,18 +229,18 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
 //Install item files
 
 //Spark Hunter Badge
-  COPY ~%files%/badge_spark.EFF~      ~override/%m1%a.EFF~
-  COPY ~%files%/badge_spark.ITM~      ~override/%m1%.ITM~
+  COPY ~%files%/badge_spark.EFF~       ~override/%m1%a.EFF~
+  COPY ~%files%/badge_spark.ITM~       ~override/%m1%.ITM~
     SAY NAME2 @70101
     SAY DESC @70201
     WRITE_ASCII 0x3a ~IAMUL22~ #8    // icon
     WRITE_ASCII 0x58 ~CAMUL22~ #8    // description image
 
 //Radiant Sword Badge
-  COPY ~%files%/badge_radianta.EFF~   ~override/%m2%a.EFF~
+  COPY ~%files%/badge_radianta.EFF~    ~override/%m2%a.EFF~
     WRITE_ASCII 0x30 ~%m2%b~ #8
-  COPY ~%files%/badge_radiantb.EFF~   ~override/%m2%b.EFF~
-  COPY ~%files%/badge_radiant.ITM~    ~override/%m2%.ITM~
+  COPY ~%files%/badge_radiantb.EFF~    ~override/%m2%b.EFF~
+  COPY ~%files%/badge_radiant.ITM~     ~override/%m2%.ITM~
     SAY NAME2 @70102
     SAY DESC @70202
     WRITE_ASCII 0x3a ~IAMUL15~ #8    // icon
@@ -253,33 +253,37 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
     END
 
 //Cosmic Watcher Badge
-  COPY ~%files%/badge_cosmic.EFF~     ~override/%m3%a.EFF~
-  COPY ~%files%/badge_cosmic.ITM~     ~override/%m3%.ITM~
+  COPY ~%files%/badge_cosmic.EFF~      ~override/%m3%a.EFF~
+  COPY ~%files%/badge_cosmic.ITM~      ~override/%m3%.ITM~
     SAY NAME2 @70103
     SAY DESC @70203
     WRITE_ASCII 0x3a ~IAMUL23~ #8    // icon
     WRITE_ASCII 0x58 ~CAMUL15~ #8    // description image
 
 //Powder Keg Badge
-  COPY ~%files%/badge_pkeg.EFF~       ~override/%m4%a.EFF~
-  COPY ~%files%/badge_pkeg.ITM~       ~override/%m4%.ITM~
+  COPY ~%files%/badge_pkeg.EFF~        ~override/%m4%a.EFF~
+  COPY ~%files%/badge_pkeg.ITM~        ~override/%m4%.ITM~
     SAY NAME2 @70104
     SAY DESC @70204
     WRITE_ASCII 0x3a ~IAMUL25~ #8    // icon
     WRITE_ASCII 0x58 ~CAMUL25~ #8    // description image
 
 //Saw Hunter Badge
-  COPY ~%files%/badge_sawhunter.EFF~  ~override/%m5%a.EFF~
-  COPY ~%files%/badge_sawhunter.ITM~  ~override/%m5%.ITM~
+  COPY ~%files%/badge_sawhunter.EFF~   ~override/%m5%a.EFF~
+  COPY ~%files%/badge_sawhunter.ITM~   ~override/%m5%.ITM~
     SAY NAME2 @70129
     SAY DESC @70229
     WRITE_ASCII 0x3a ~IAMUL27~ #8    // icon
     WRITE_ASCII 0x58 ~CAMUL11~ #8    // description image
+  ACTION_IF !(GAME_IS ~bgee~) BEGIN
+    COPY ~%icons%/sawhunterbadge.BAM~  ~override/IAMUL27.BAM~    // icon fix
+  END
+
 
 //Old Hunter Badge
-  COPY ~%files%/badge_oldhunter.SPL~  ~override/%m6%a.SPL~
+  COPY ~%files%/badge_oldhunter.SPL~   ~override/%m6%a.SPL~
     LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m6%a~ END
-  COPY ~%files%/badge_oldhunter.ITM~  ~override/%m6%.ITM~
+  COPY ~%files%/badge_oldhunter.ITM~   ~override/%m6%.ITM~
     SAY NAME2 @70130
     SAY DESC @70230
     WRITE_ASCII 0x3a ~IAMUL20~ #8    // icon

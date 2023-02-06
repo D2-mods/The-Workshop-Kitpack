@@ -33,6 +33,8 @@ ACTION_FOR_EACH ~ability~ IN
     ~%give_badge_radiant%~
     ~%give_badge_cosmic%~
     ~%give_badge_pkeg%~
+    ~%give_badge_saw%~
+    ~%give_badge_old%~
 BEGIN
 
   ACTION_IF (FILE_EXISTS_IN_GAME ~%ability%.SPL~) BEGIN

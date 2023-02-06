@@ -58,8 +58,8 @@ Text in this file appears in the game.
 @614 = ~Création d'un Insigne du Chantre de la poudre~
 @615 = ~Expulsion d'Éther~             // Etherbomb Songbook
 @616 = ~Peau de fer~                  // Golem Ring
-@617 = ~Craft Saw Hunter Badge~
-@618 = ~Craft Old Hunter Badge~
+@617 = ~Création d'un Insigne de la Scie~
+@618 = ~Création d'un Insigne du Vétéran~
 @619 = ~~
 @620 = ~~
 
@@ -73,7 +73,7 @@ Text in this file appears in the game.
 @50103 = ~Approche toi, sorcière, et affronte-moi en combat singulier. Ou préfères-tu rester cachée derrière tes laquais ?~
 
 //Old Jed (IWDEE)
-@50201 = ~*snore*... Sshtill here, eh, matey? I shuppose I can give you thissh rock... *snore* *snore* alienssh... milkweed... *snore*~
+@50201 = ~*Ronfle*... Heiiin, encore là, vieille branche ? Je présume que j'peux te donner c'tte pierre... *zzzz* *mmrmh* shhhpas d'ici... sève... *Ronfle*~
 
 
 
