@@ -45,10 +45,10 @@ Contenu du mod :
 
 // Objets Divers
  
-- 4 Insignes de Chasseur - peuvent être fabriqués (voir ci-dessous), ou achetés
+- 6 Insignes de Chasseur - peuvent être fabriqués (voir ci-dessous), ou achetés
 - 8 Nouveaux sorts - pour le kit du Vagabond des étoiles 
-- 11 Runes de Caryll - des objets ayant des effets sur l'ensemble du groupe
-- 9 Autres objets - tous des objets utilitaires, pas d'armes ni d'armures
+- 12 Runes de Caryll - des objets ayant des effets sur l'ensemble du groupe
+- 10 Autres objets - tous des objets utilitaires, pas d'armes ni d'armures
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -121,16 +121,18 @@ Version info:
 
 v2.8
 - What's new:
-	- Added 2 Caryll Runes: Hunter Rune and Moon Rune. Obtainable in all games (BGEE, BG2EE, IWDEE).
-- Changes
-	- IWDEE: Changed a couple item locations to account for new items.
+	- Added 2 Hunter Badges: Saw Hunter Badge and Old Hunter Badge.
+	- Added 3 Caryll Runes: Hunter, Moon, and Milkweed.
+	- Added Ether Limiter amulet (has bonus effect for Warhound kit).
 	- Grave Warden: Can challenge Presio (IWDEE).
 - Fixes:
 	- Revitalizer: Fixed visual/audio effects not showing if the target was higher level than the caster.
 - Changes:
-	- Revised Jolt spell: Still raises dead, but also breaks curses and cures several status effects
+	- Revised Jolt spell: Still raises dead, but also breaks curses and cures several status effects.
 	- Changed a couple item locations to account for new items.
 	- Calamity Ring: Added to expansion areas (SoD, ToB, HoW) if not already obtained.
+	- Crowfeather Cloak: Added non-detection.
+	- Cruciform: Will also give 2 bonus 2nd-level priest spell slots.
 
 v2.7
 - Fixes:

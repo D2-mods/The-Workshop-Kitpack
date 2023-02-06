@@ -4,6 +4,8 @@
  Insigne de l'Épée radieuse
  Insigne du Veilleur
  Insigne du Chantre de la poudre
+Insigne de la Scie
+Insigne du Vétéran
 
 // Objets divers
 
@@ -12,10 +14,11 @@
  Amulette de l'Éther (amulette)
  Chaîne du prisonnier (anneau)
  Croix (amulette)
- Anneau du golem (anneau)
- Anneau de calamité (anneau)
- Anneau de pierre (anneau)
- Anneau de Flynn (anneau)
+ Anneau du golem
+ Anneau de calamité
+ Anneau de pierre
+ Anneau de Flynn
+ Atténuateur d'Éther (amulette)
 
 // Runes de Caryll (objets)
 
@@ -28,8 +31,9 @@
  Sérénité
  Ardeur
  La Bête
- Chasseur
- Lune
+ Acuité
+ Pleine Lune
+ Sève
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -45,7 +49,7 @@ PARAMÈTRES :
 Capacités d'équipement : 
 – Classe d'armure : +1
 – Jets de sauvegarde : +1
-– Résistance à l’électricité : 50 %
+– Résistance à l’électricité : +50 %
 
 Spécial (Chasseur): 
 – Coup de feu : Inflige 1d3 points de dégâts électriques supplémentaires.
@@ -106,6 +110,44 @@ Spécial (Chasseur):
 
 Poids : 1
 
+
+==================================================
+Insigne de la Scie
+==================================================
+
+Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont néanmoins très convoités par les Chasseurs. La scie et ses dents effilées capables de faire couler le sang est devenue un symbole de la chasse.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– TAC0 : Bonus de 1
+– Classe d'armure : Bonus de 1
+– Jets de sauvegarde : Bonus de 1
+
+Spécial (Chasseur): 
+– Coup de feu : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
+
+Poids : 1
+
+
+==================================================
+Insigne du Vétéran
+==================================================
+
+Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont néanmoins très convoités par les Chasseurs. This badge was a special privilege for the hunters of the past, and should not be dishonored.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– Classe d'armure : Bonus de 1
+– Jets de sauvegarde : Bonus de 1
+– Charisme : Bonus de 2
+
+Spécial (Chasseur): 
+– Coup de feu : +5 % de chance d’effectuer un coup critique
+
+Poids : 1
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -119,8 +161,8 @@ PARAMÈTRES :
 
 Capacités d'équipement :
 – Jets de sauvegarde : +1
-– Se cacher dans l'ombre : +15 %
-– Déplacement silencieux : +15 %
+– Se cacher dans l'ombre : +30 %
+- Indétectable par des moyens magiques tels que « Détection de l'invisibilité » et par la scrutation
 
 Spécial (Prédateur):
 – 5 % de chance de déclencher la capacité « Instinct » (seulement avec les attaques de mêlée)
@@ -194,6 +236,7 @@ PARAMÈTRES :
 
 Capacités d'équipement :
 – Jet de sauvegarde contre la mort : Bonus de 2
+- Peut mémoriser 2 sorts divins supplémentaires de niveau 2
 – Régénère 2 points de vie par round
 
 Spécial (Exécuteur): 
@@ -266,6 +309,27 @@ Capacités d'équipement :
 – Inflige 20 % de dégâts physiques supplémentaires lorsque vous ne portez pas d'armure ou de robe.
 
 Poids : 0
+
+
+==================================================
+Atténuateur d'Éther (amulette)
+==================================================
+
+La pierre de cette amulette, provenant d'une météorite, est connue pour présenter de puissantes propriétés magiques, elle est aussi capable d'atténuer les effets de l'énergie.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– Résistance aux dégâts contondants : +15 %
+– Résistance aux dégâts magiques : +50 %
+– Jets de sauvegarde contre les sorts : Bonus de 2
+– Empêche le lancement des sorts
+
+Spécial (Limier):
+– Onde de choc et Incinération n'infligent des dégâts qu'aux ennemis
+
+Poids : 1
+
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -443,7 +507,7 @@ Poids : 0
 
 
 ==================================================
-Chasseur
+Acuité
 ==================================================
 
 Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
@@ -453,7 +517,7 @@ Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, el
 PARAMÈTRES :
 
 Capacités de charge :
-– Chasseur (peut être utilisé à volonté)
+– Acuité (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
 Bonus de 1 aux jets d'attaque.
@@ -462,7 +526,7 @@ Poids : 0
 
 
 ==================================================
-Lune
+Pleine Lune
 ==================================================
 
 Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
@@ -472,10 +536,29 @@ Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, el
 PARAMÈTRES :
 
 Capacités de charge :
-– Lune (peut être utilisé à volonté)
+– Pleine Lune (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
 35 points d'expérience supplémentaires pour chaque ennemi vaincu par le groupe.
+
+Poids : 0
+
+
+==================================================
+Sève
+==================================================
+
+Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
+
+Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, elle supprime d'abord les effets octroyés par la précédente.
+
+PARAMÈTRES :
+
+Capacités de charge :
+- Sève (peut être utilisé à volonté)
+  Zone d'effet : Le groupe
+  Durée : 24 heures
+Transformation en flagelleur mental en cours de combats ; en contrepartie la sagesse et la constitution sont réduites à 5 pendant la métamorphose, le personnage reprendra sa forme naturelle si aucun ennemi ne se trouve à portée de vue.
 
 Poids : 0
 
