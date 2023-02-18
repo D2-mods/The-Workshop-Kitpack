@@ -4,7 +4,7 @@ Skipped: Denial, Moonlight Vortex, Bolt of Glory + all spells
 */
 
 
-ACTION_FOR_EACH ~ability~ IN 
+ACTION_FOR_EACH ability IN 
     ~%fireweapon%~
     ~%quicksilver%~
     ~%shockwave%~

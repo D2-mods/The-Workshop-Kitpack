@@ -1,6 +1,7 @@
 BACKUP ~weidu_external/backup/d2-workshopkits~
 AUTHOR ~Dan_P~
 VERSION ~2.8~
+AUTO_EVAL_STRINGS
 
 ALWAYS
   ACTION_BASH_FOR ~%MOD_FOLDER%/lib~ ~.*\.tpa~ BEGIN    // function list
@@ -20,8 +21,6 @@ ALWAYS
 
   CLEAR_INLINED
 END
-
-AUTO_EVAL_STRINGS
 
 LANGUAGE ~English~
          ~english~

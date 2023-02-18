@@ -137,6 +137,7 @@ ACTION_IF (%nobloodminister% = 0) BEGIN
 END
 
 
+
 //Extra stuff
 INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/castingspeed.tph~
@@ -145,7 +146,6 @@ INCLUDE ~%install%/hunterbadgescripts.tph~
 INCLUDE ~%install%/hunterbadgestores.tph~
 INCLUDE ~%install%/5ecastingspells.tph~
 //INCLUDE ~%install%/backupfiles.tph~
-
 
 
 /*

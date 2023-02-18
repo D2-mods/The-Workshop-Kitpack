@@ -110,6 +110,13 @@ FnP multiclass:
 
 Version info:
 
+v3.0
+- What's new:
+	- 
+- Changes
+	- Changed a couple item icons/BAM images.
+	- Changed a couple portrait icons.
+
 v2.8
 - What's new:
 	- Added 2 Hunter Badges: Saw Hunter Badge and Old Hunter Badge.

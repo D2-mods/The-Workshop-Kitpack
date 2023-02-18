@@ -4,7 +4,7 @@ Some spell-like abilities are skipped (ex. Summon Spirit Animal or Cleric abilit
 */
 
 
-ACTION_FOR_EACH ~ability~ IN 
+ACTION_FOR_EACH ability IN 
     ~SPCL521~    // blade
     ~SPCL522~
     ~SPCL611~    // druid shapeshifts (bg)

@@ -279,7 +279,6 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
     COPY ~%icons%/sawhunterbadge.BAM~  ~override/IAMUL27.BAM~    // icon fix
   END
 
-
 //Old Hunter Badge
   COPY ~%files%/badge_oldhunter.SPL~   ~override/%m6%a.SPL~
     LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m6%a~ END

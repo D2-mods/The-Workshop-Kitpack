@@ -65,15 +65,15 @@ BEGIN
   PATCH_IF ((multi != 0) OR (count1 = count2)) BEGIN
   
     FOR (n = 1; n < 51; ++n) BEGIN    // set all variables in line to **** as default
-      TEXT_SPRINT ~a%n%~ ~****~ 
+      TEXT_SPRINT EVAL ~a%n%~ ~****~ 
     END
 
     PATCH_IF (multi = 0) BEGIN    // add ability to variable(s)
-      TEXT_SPRINT ~a%level%~ ~%i%~
+      TEXT_SPRINT EVAL ~a%level%~ ~%i%~
     END
     ELSE BEGIN
       FOR (x = level; x <= limit; x += increment) BEGIN
-        TEXT_SPRINT ~a%x%~ ~%i%~
+        TEXT_SPRINT EVAL ~a%x%~ ~%i%~
       END
     END
 	
@@ -150,15 +150,15 @@ COPY_EXISTING ~%2da%.2da~ ~override~
   PATCH_IF ((multi != 0) OR (count1 = count2)) BEGIN
   
     FOR (n = 1; n < 51; ++n) BEGIN    // set all variables in line to **** as default
-      TEXT_SPRINT ~a%n%~ ~****~ 
+      TEXT_SPRINT EVAL ~a%n%~ ~****~ 
     END
 
     PATCH_IF (multi = 0) BEGIN    // add ability to variable(s)
-      TEXT_SPRINT ~a%level%~ ~%i%~
+      TEXT_SPRINT EVAL ~a%level%~ ~%i%~
     END
     ELSE BEGIN
       FOR (x = level; x <= limit; x += increment) BEGIN
-        TEXT_SPRINT ~a%x%~ ~%i%~
+        TEXT_SPRINT EVAL ~a%x%~ ~%i%~
       END
     END
 	
