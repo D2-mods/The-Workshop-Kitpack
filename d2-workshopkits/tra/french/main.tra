@@ -86,9 +86,9 @@ Text in this file appears in the game.
 
 Avantages :
 – Bonus de 3 aux jets d'attaque et de dégâts contre les lycanthropes et les démons.
-– 2ème niveau : Peut utiliser la capacité « Coup de feu » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
+– 2ème niveau : Peut utiliser la capacité « Techniques de chasseur » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
-COUP DE FEU : Le Chasseur peut enflammer ses armes, pendant 1 tour toutes les attaques de mêlée infligent 1d3 dégâts de feu supplémentaires. Cette capacité peut être améliorée en équipant des insignes spécifiquement destinés au Chasseur.
+TECHNIQUES DE CHASSEUR : Pendant 1 tour, le Chasseur voit sa vitesse augmenter de 4 points et toutes les attaques de mêlée infligent 1d3 dégâts d'acide supplémentaires. Cette capacité peut être améliorée en équipant des insignes spécifiquement destinés au Chasseur.
 
 – 5ème niveau : Peut utiliser la capacité « Projectile d'argent » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
 
@@ -141,7 +141,7 @@ DÉNÉGATION : Ce sort a deux effets. Tout d'abord, la cible devient immunisé, 
 Ensuite, si celle-ci voit ses points de vie tomber en dessous des 50 %, le deuxième effet du sort s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.
 
 Inconvénients : 
-– Ne peut pas porter d'armure plus lourde que l'armure de cuir.
+– Ne peut pas porter d'armure plus lourde que la cotte de mailles.
 – Ne peut utiliser la capacité « Charme-animal ».~
 @100304 = ~Déchu : Protecteur de sépultures~
 @100305 = ~~
@@ -336,28 +336,49 @@ Inconvénients :
 @101105 = ~~
 
 
-//
+//Drifter
 @101201 = ~~
 @101202 = ~~
 @101203 = ~~
 @101204 = ~~
 @101205 = ~~
 
-//
+//Medic
 @101301 = ~~
 @101302 = ~~
 @101303 = ~~
 @101304 = ~~
 @101305 = ~~
 
+//Noble Scion
+@101401 = ~~
+@101402 = ~~
+@101403 = ~~
+@101404 = ~~
+@101405 = ~~
+
+//
+@101501 = ~~
+@101502 = ~~
+@101503 = ~~
+@101504 = ~~
+@101505 = ~~
+
+//
+@101601 = ~~
+@101602 = ~~
+@101603 = ~~
+@101604 = ~~
+@101605 = ~~
+
 
 
 
 //Ability text
-@100 = ~Coup de feu~
-@200 = ~Coup de feu
+@100 = ~Techniques de chasseur~
+@200 = ~Techniques de chasseur
 
-Le Chasseur peut enflammer ses armes, pendant 1 tour toutes les attaques de mêlée infligent 1d3 dégâts de feu supplémentaires. Cette capacité peut être améliorée en équipant des insignes spécifiquement destinés au Chasseur.~
+Pendant 1 tour, le Chasseur voit sa vitesse augmenter de 4 points et toutes les attaques de mêlée infligent 1d3 dégâts d'acide supplémentaires. Cette capacité peut être améliorée en équipant des insignes spécifiquement destinés au Chasseur.~
 
 @101 = ~Projectile d'argent~
 @201 = ~Projectile d'argent
@@ -890,7 +911,7 @@ Capacités d'équipement :
 – Résistance à l’électricité : +50 %
 
 Spécial (Chasseur): 
-– Coup de feu : Inflige 1d3 points de dégâts électriques supplémentaires.
+– Techniques de chasseur : Inflige 1d3 points de dégâts électriques supplémentaires.
 
 Poids : 1~
 
@@ -905,7 +926,7 @@ Capacités d'équipement :
 – Protection contre le mal
 
 Spécial (Chasseur): 
-– Coup de feu : Inflige 5 points de dégâts magiques supplémentaires contre les morts-vivants.
+– Techniques de chasseur : Inflige 5 points de dégâts magiques supplémentaires contre les morts-vivants.
 
 Poids : 1~
 
@@ -920,7 +941,7 @@ Capacités d'équipement :
 – Résistance à la magie : +10 %
 
 Spécial (Chasseur): 
-– Coup de feu : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
+– Techniques de chasseur : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
 
 Poids : 1~
 
@@ -935,7 +956,7 @@ Capacités d'équipement :
 – Résistance au feu : +20 %
 
 Spécial (Chasseur): 
-– Coup de feu : 10 % de chance d'infliger 2d12 dégâts de feu supplémentaires.
+– Techniques de chasseur : 10 % de chance d'infliger 2d12 dégâts de feu supplémentaires.
 
 Poids : 1~
 
@@ -1290,7 +1311,7 @@ Capacités de charge :
 – Jets de sauvegarde : Bonus de 1
 
 Spécial (Chasseur): 
-– Coup de feu : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
+– Techniques de chasseur : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
 
 Poids : 1~
 
@@ -1305,7 +1326,7 @@ Capacités de charge :
 – Charisme : Bonus de 2
 
 Spécial (Chasseur): 
-– Coup de feu : +5 % de chance d’effectuer un coup critique
+– Techniques de chasseur : +5 % de chance d’effectuer un coup critique
 
 Poids : 1~
 

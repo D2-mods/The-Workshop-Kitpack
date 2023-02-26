@@ -52,7 +52,7 @@ Capacités d'équipement :
 – Résistance à l’électricité : +50 %
 
 Spécial (Chasseur): 
-– Coup de feu : Inflige 1d3 points de dégâts électriques supplémentaires.
+– Techniques de chasseur : Inflige 1d3 points de dégâts électriques supplémentaires.
 
 Poids : 1
 
@@ -70,7 +70,7 @@ Capacités d'équipement :
 – Protection contre le mal
 
 Spécial (Chasseur): 
-– Coup de feu : Inflige 5 points de dégâts magiques supplémentaires contre les morts-vivants.
+– Techniques de chasseur : Inflige 5 points de dégâts magiques supplémentaires contre les morts-vivants.
 
 Poids : 1
 
@@ -88,7 +88,7 @@ Capacités d'équipement :
 – Résistance à la magie : +10 %
 
 Spécial (Chasseur): 
-– Coup de feu : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
+– Techniques de chasseur : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
 
 Poids : 1
 
@@ -106,7 +106,7 @@ Capacités d'équipement :
 – Résistance au feu : +20 %
 
 Spécial (Chasseur): 
-– Coup de feu : 10 % de chance d'infliger 2d12 dégâts de feu supplémentaires.
+– Techniques de chasseur : 10 % de chance d'infliger 2d12 dégâts de feu supplémentaires.
 
 Poids : 1
 
@@ -125,7 +125,7 @@ Capacités de charge :
 – Jets de sauvegarde : Bonus de 1
 
 Spécial (Chasseur): 
-– Coup de feu : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
+– Techniques de chasseur : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
 
 Poids : 1
 
@@ -144,7 +144,7 @@ Capacités de charge :
 – Charisme : Bonus de 2
 
 Spécial (Chasseur): 
-– Coup de feu : +5 % de chance d’effectuer un coup critique
+– Techniques de chasseur : +5 % de chance d’effectuer un coup critique
 
 Poids : 1
 
