@@ -25,9 +25,9 @@ CHASSEUR : Quand il y a des bêtes, il y a des chasseurs. Ceux-ci peuvent être 
 
 Avantages :
 – Bonus de 3 aux jets d'attaque et de dégâts contre les lycanthropes et les démons.
-– 2ème niveau : Peut utiliser la capacité « Coup de feu » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
+– 2ème niveau : Peut utiliser la capacité « Techniques de chasseur » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
-COUP DE FEU : Le Chasseur peut enflammer ses armes, pendant 1 tour toutes les attaques de mêlée infligent 1d3 dégâts de feu supplémentaires. Cette capacité peut être améliorée en équipant des insignes spécifiquement destinés au Chasseur.
+TECHNIQUES DE CHASSEUR : Pendant 1 tour, le Chasseur voit sa vitesse augmenter de 4 points et toutes les attaques de mêlée infligent 1d3 dégâts d'acide supplémentaires. Cette capacité peut être améliorée en équipant des insignes spécifiquement destinés au Chasseur.
 
 – 5ème niveau : Peut utiliser la capacité « Projectile d'argent » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
 
@@ -76,7 +76,7 @@ DÉNÉGATION : Ce sort a deux effets. Tout d'abord, la cible devient immunisé, 
 Ensuite, si celle-ci voit ses points de vie tomber en dessous des 50 %, le deuxième effet du sort s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.
 
 Inconvénients : 
-– Ne peut pas porter d'armure plus lourde que l'armure de cuir.
+– Ne peut pas porter d'armure plus lourde que la cotte de mailles.
 – Ne peut utiliser la capacité « Charme-animal ».
 
 

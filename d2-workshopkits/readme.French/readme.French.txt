@@ -88,9 +88,9 @@ Instructions générales :
 
 Les systèmes de lancement de sorts :
 
-- Compatible avec le système de sphères de Faiths and Powers. Peut être installé avant ou après.
+- Compatible avec le système de sphères de Faiths and Powers. Ils peuvent être installé avant ou après.
 	- Mes kits multi-classes ne nécessitent pas le mod FnP multiclass pour être compatibles avec Faiths and Powers.
-	- Je recommande d'installer ce mod APRÈS FnP multiclass, si vous l'utilisez. Voir les informations ci-dessous.
+	- Voir les informations ci-dessous.
 - Compatible avec le système de sphères de Deities of Faerun. Installez ce mod après DoF.
 - Compatible avec le mod 5E_spellcasting de subtledoctor. Peut être installé avant ou après.
 	- Mais vous devez installer le composant supplémentaire lié au mod 5E_spellcasting.
@@ -105,9 +105,11 @@ Capacités de haut niveau (HLA) Pièges et Chants du barde :
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-Problèmes connus : 
+Information supplémentaire pour FnP :
 
-FnP multiclass
+NOTE : Les kits de Clerc multiclassés ne sont actuellement pas compatible avec la version beta de FnP. Utilisez la version v0.84.5 si vous voulez utiliser ces kits avec Faiths and Powers. 
+
+FnP multiclass :
 - La version actuelle de FnP multiclass masque la classe G/M/C (Guerrier / Mage / Clerc) de l'écran de sélection à la création du personnage. 
 - Il est possible que le mod FnP multiclass soit mis à jour pour ne pas désactiver la Multi-classe (Guerrier / Mage / Clerc), mais pour l'instant, il existe quelques moyens de contourner ce problème :
 1. Installez ce mod après FnP multiclass. Il la réactivera automatiquement.
@@ -118,6 +120,21 @@ FnP multiclass
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v3.0
+- Added kits:
+	- 
+	- 
+- Changes:
+	- Beast Hunter: "Fire Weapon" is now "Hunter Tools". Adds acid damage and boosts movement speed.
+	- Grave Warden: Can wear up to chain mail (was previously leather).
+	- IWDEE: Changed conditions for obtaining certain items.
+- Visual/Audio changes:
+	- Changed visual/audio for War Magician's "Twisted Barricade".
+	- Riftgate: Added portrait icon for the turn that the spell can't be recast.
+	- A couple other minor changes (sounds or BAM images)
+- Updated Compatibility section:
+	- FnP note: The multiclass Cleric kits are currently not compatible with the beta versions of FnP. Use v0.84.5 if you want to use the multiclass kits with FnP.
 
 v2.8
 - What's new:

@@ -69,9 +69,9 @@ CHASSEUR : Quand il y a des bêtes, il y a des chasseurs. Ceux-ci peuvent être 
 
 Avantages :
 - Bonus de 3 aux jets d'attaque et de dégâts contre les lycanthropes et les démons.
-- 2ème niveau : Peut utiliser la capacité « Coup de feu » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
+- 2ème niveau : Peut utiliser la capacité « Techniques de chasseur » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
-COUP DE FEU : Le Chasseur peut enflammer ses armes, pendant 1 tour toutes les attaques de mêlée infligent 1d3 dégâts de feu supplémentaires. Cette capacité peut être améliorée en équipant des insignes spécifiquement destinés au Chasseur.
+TECHNIQUES DE CHASSEUR : Pendant 1 tour, le Chasseur voit sa vitesse augmenter de 4 points et toutes les attaques de mêlée infligent 1d3 dégâts d'acide supplémentaires. Cette capacité peut être améliorée en équipant des insignes spécifiquement destinés au Chasseur.
 
 - 5ème niveau : Peut utiliser la capacité « Projectile d'argent » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
 
@@ -120,7 +120,7 @@ DÉNÉGATION : Ce sort a deux effets. Tout d'abord, la cible devient immunisé, 
 Ensuite, si celle-ci voit ses points de vie tomber en dessous des 50 %, le deuxième effet du sort s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.
 
 Inconvénients : 
-- Ne peut pas porter d'armure plus lourde que l'armure de cuir.
+- Ne peut pas porter d'armure plus lourde que la cotte de mailles.
 - Ne peut utiliser la capacité « Charme-animal ».
 
 ---
@@ -325,9 +325,9 @@ Informations supplémentaires : En raison de la façon dont le jeu détecte les 
 
 #### Les systèmes de lancement de sorts :
 
-- Compatible avec le système de sphères de Faiths and Powers. Peut être installé avant ou après.
+- Compatible avec le système de sphères de Faiths and Powers. Ils peuvent être installé avant ou après.
 	- Mes kits multi-classes ne nécessitent pas le mod FnP multiclass pour être compatibles avec Faiths and Powers.
-	- Je recommande d'installer ce mod APRÈS FnP multiclass, si vous l'utilisez. Voir les informations ci-dessous.
+	- Voir les informations ci-dessous.
 - Compatible avec le système de sphères de Deities of Faerun. Installez ce mod après DoF.
 - Compatible avec le mod 5E_spellcasting de subtledoctor. Peut être installé avant ou après.
 	- Mais vous devez installer le composant supplémentaire lié au mod 5E_spellcasting.
@@ -339,9 +339,11 @@ Informations supplémentaires : En raison de la façon dont le jeu détecte les 
 - Si vous en connaissez d'autres, faites-le moi savoir et je pourrai les ajouter.
 - Seules les capacités acquises par la classe de base sont concernées.
 
-#### Problèmes connus : 
+#### Information supplémentaire pour FnP : 
 
- FnP multiclass
+NOTE : Les kits de Clerc multiclassés ne sont actuellement pas compatible avec la version beta de FnP. Utilisez la version v0.84.5 si vous voulez utiliser ces kits avec Faiths and Powers.
+
+ FnP multiclass :
 - La version actuelle de FnP multiclass masque la classe G/M/C (Guerrier / Mage / Clerc) de l'écran de sélection à la création du personnage. 
 - Il est possible que le mod FnP multiclass soit mis à jour pour ne pas désactiver la Multi-classe (Guerrier / Mage / Clerc), mais pour l'instant, il existe quelques moyens de contourner ce problème :
 1. Installez ce mod après FnP multiclass. Il la réactivera automatiquement.
@@ -417,7 +419,7 @@ Capacités d'équipement :
 - Résistance à l’électricité : +50 %
 
 Spécial (Chasseur): 
-- Coup de feu : Inflige 1d3 points de dégâts électriques supplémentaires.
+- Techniques de chasseur : Inflige 1d3 points de dégâts électriques supplémentaires.
 
 Poids : 1
 
@@ -435,7 +437,7 @@ Capacités d'équipement :
 - Protection contre le mal
 
 Spécial (Chasseur): 
-- Coup de feu : Inflige 5 points de dégâts magiques supplémentaires contre les morts-vivants.
+- Techniques de chasseur : Inflige 5 points de dégâts magiques supplémentaires contre les morts-vivants.
 
 Poids : 1
 
@@ -453,7 +455,7 @@ Capacités d'équipement :
 - Résistance à la magie : +10 %
 
 Spécial (Chasseur): 
-- Coup de feu : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
+- Techniques de chasseur : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
 
 Poids : 1
 
@@ -471,7 +473,7 @@ Capacités d'équipement :
 - Résistance au feu : +20 %
 
 Spécial (Chasseur): 
-- Coup de feu : 10 % de chance d'infliger 2d12 dégâts de feu supplémentaires.
+- Techniques de chasseur : 10 % de chance d'infliger 2d12 dégâts de feu supplémentaires.
 
 Poids : 1
 
@@ -489,7 +491,7 @@ Capacités de charge :
 – Jets de sauvegarde : Bonus de 1
 
 Spécial (Chasseur): 
-– Coup de feu : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
+– Techniques de chasseur : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
 
 Poids : 1
 
@@ -507,7 +509,7 @@ Capacités de charge :
 – Charisme : Bonus de 2
 
 Spécial (Chasseur): 
-– Coup de feu : +5 % de chance d’effectuer un coup critique
+– Techniques de chasseur : +5 % de chance d’effectuer un coup critique
 
 Poids : 1
 
