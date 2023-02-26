@@ -32,19 +32,18 @@ COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%s2%a~ END    // repeating visual
-  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s2%b~ END    // protection from normal missiles
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s2%a~ END     // visual
+  LPF DELETE_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%s2%a~ END    // visual (old)
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s2%b~ END     // protection from normal missiles
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY ~%abilities%/castspelltarget.EFF~         ~override/%s2%a.EFF~    // repeating visual
-  WRITE_ASCII 0x30 ~%s2%a~ #8
-COPY ~%abilities%/twistedbarricadevisual.SPL~  ~override/%s2%a.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s2%a~ END
+COPY ~%abilities%/twistedbarricade.VVC~  ~override/%s2%a.VVC~    // v3.0: updated visual
+  WRITE_ASCII 0x80 ~EFF_P105~ #8
 
 
-//Add Twisted Barricade - protection from normal missiles
+//subspell - protection from normal missiles
 COPY_EXISTING ~SPWI311.SPL~  ~override/%s2%b.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END  // for IWDEE (or in case they change BGEE spell)
+  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END    // for IWDEE
   LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END
   LPF ALTER_SPELL_HEADER INT_VAR new_header_type=1 END
 
@@ -59,6 +58,7 @@ COPY_EXISTING ~SPWI311.SPL~  ~override/%s2%b.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=156 END
   LPF DELETE_EFFECT INT_VAR match_opcode=8 END
   LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+  LPF ALTER_EFFECT  INT_VAR resist_dispel=2 END
 
 
 //Make 2da file

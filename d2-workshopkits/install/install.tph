@@ -80,7 +80,7 @@ ACTION_IF (%nogravewarden% = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
-  INCLUDE ~%install%/usabilitykatanas.tph~
+//INCLUDE ~%install%/usabilitykatanas.tph~
   INCLUDE ~%install%/presioduel.tph~
   INCLUDE ~%install%/fnpspheres.tph~
   INCLUDE ~%install%/dofspheres.tph~

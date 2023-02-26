@@ -17,16 +17,20 @@ COPY ~%passives%/damagevstype3.EFF~   ~override/%e1%d.EFF~
   WRITE_LONG 0x1c IDS_OF_SYMBOL (race ~lycanthrope~)
 
 
-//Add Fire Weapon
+//Add Hunter Tools (previously Fire Weapon)
 COPY ~%icons%/fireweapon.BAM~        ~override/%s1%.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@100) STR_VAR bam=~%s1%~ RET icon END
 COPY ~%abilities%/fireweapon.EFF~    ~override/%s1%.EFF~
+  WRITE_SHORT 0x22 1    // v3.0: change to acid damage
 COPY ~%abilities%/fireweapon.SPL~    ~override/%s1%.SPL~
   SAY NAME1 @100
   SAY UNIDENTIFIED_DESC @200
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s1%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=126 parameter1=4 parameter2=0 END    // v3.0: movement bonus
+  WRITE_ASCII 0x3a ~SPIN758B~ #8    // icons
+  WRITE_ASCII 0x76 ~SPIN758B~ #8
 
 
 //Add Quicksilver

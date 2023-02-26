@@ -322,7 +322,7 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 #### Spellcasting systems:
 - Compatible with Faiths and Powers spheres system. Can install before or after FnP.
 	- My multiclasses don't require the FnP multiclass mod for compatibility with FnP.
-	- I'd recommend installing this mod AFTER FnP multiclass, if using it. See info below.
+	- See below for additional info.
 - Compatible with Deities of Faerun spheres system. Install this mod after DoF.
 - Compatible with subtledoctor's 5e casting mod. Can install before or after 5e casting.
 	- You should also install the extra component related to 5e casting.
@@ -333,7 +333,12 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 - If you know of any others, let me know and I can add it.
 - Only abilities gained by the base class are relevant for this.
 
-#### FnP multiclass (known issue): 
+#
+### FnP additional info:
+
+NOTE: The multiclass Cleric kits are currently not compatible with the beta versions of FnP. Use v0.84.5 if you want to use the multiclass kits with FnP.
+
+**FnP multiclass (known issue):**
 - Current versions of FnP multiclass hide the F/M/C class from the selection screen. 
 - It may possibly be updated to not disable F/M/C, but for now, there are a few ways around this:
 1. Install this mod after FnP multiclass. It will automatically re-enable the class.

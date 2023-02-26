@@ -28,11 +28,11 @@ ACTION_IF (GAME_IS ~bgee eet~) BEGIN
 
   //add creature with item
   COPY_EXISTING ~chicke.cre~  ~override/d2wkmrc.CRE~
-    WRITE_ASCII 0x280 ~d2wkmrc~ #32                           // set script name
+    WRITE_ASCII 0x280 ~d2wkmrc~ #32                     // set script name
     ADD_CRE_ITEM ~%moon_rune%~ #0 #0 #0 ~none~ ~inv~    // add rune
     READ_STRREF 0x8 chicken
 
-  COPY_EXISTING ~%bg1%0400.ARE~  ~override~                   // add to area
+  COPY_EXISTING ~%bg1%0400.ARE~  ~override~             // add to area
     LPF fj_are_structure
       INT_VAR
         fj_loc_x          = 2265
@@ -295,46 +295,6 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
   BUT_ONLY
 
 
-//Add items to Gerth's store (by script)
-<<<<<<<< .../temp/gerthstore
-IF
-	!Global("d2gerthhunterrune","GLOBAL",1)
-	GlobalGT("MIREK_YETI","AR2100",0)
-THEN
-	RESPONSE #100
-        SetGlobal("d2gerthhunterrune","GLOBAL",1)
-		AddStoreItem("KUGERTH","%hunter_rune%",1,1)
-		Continue()
-END
-
-IF
-	!Global("d2gerthflynnring","GLOBAL",1)
-	GlobalGT("Chapter","GLOBAL",2)
-THEN
-	RESPONSE #100
-        SetGlobal("d2gerthflynnring","GLOBAL",1)
-		AddStoreItem("KUGERTH","%flynnring%",1,1)
-		Continue()
-END
-
-IF
-	!Global("d2gerthetherlimiter","GLOBAL",1)
-	GlobalGT("Chapter","GLOBAL",3)
-THEN
-	RESPONSE #100
-        SetGlobal("d2gerthetherlimiter","GLOBAL",1)
-		AddStoreItem("KUGERTH","%etherlimiter%",1,1)
-		Continue()
-END
->>>>>>>>
-
-  COPY - ~.../temp/gerthstore~  ~%workspace%/gerthstore.BAF~
-    EVALUATE_BUFFER
-  EXTEND_BOTTOM ~ar2100.BCS~    ~%workspace%/gerthstore.BAF~
-  EXTEND_BOTTOM ~ar2113.BCS~    ~%workspace%/gerthstore.BAF~
-
-
-
 //Add Moon rune (by script)
 <<<<<<<< .../temp/moonrune
 IF
@@ -346,40 +306,9 @@ THEN
 		Continue()
 END
 >>>>>>>>
-
-  COPY - ~.../temp/moonrune~  ~%workspace%/moonrune.BAF~
-    EVALUATE_BUFFER
-  EXTEND_BOTTOM ~AR2000.BCS~  ~%workspace%/moonrune.BAF~
-
-
-
-//Add Milkweed rune (must have done Siren quest)
-<<<<<<<< .../temp/oldjed
-EXTEND_BOTTOM ~DOLDJED~ 14 15 16
-
-IF ~ GlobalGT("Siren_Quest","GLOBAL",2)
-     Global("d2JedMilkweed","GLOBAL",0)
-   ~ DO ~ SetGlobal("d2JedMilkweed","GLOBAL",1)
-          GiveItemCreate("%milkweed%",LastTalkedToBy,0,0,0) 
-        ~ GOTO JedMilkweed
-
-END
-
-
-APPEND ~DOLDJED~
-
-IF ~~ BEGIN JedMilkweed
-  SAY @50201  // Jed says stuff
-  COPY_TRANS ~DOLDJED~ 14    // Jed goes to sleep
-END
-
-END
->>>>>>>>
-
-COPY - ~.../temp/oldjed~  ~%workspace%/oldjed.d~
+COPY - ~.../temp/moonrune~  ~%workspace%/moonrune.BAF~
   EVALUATE_BUFFER
-COMPILE ~%workspace%/oldjed.d~
-
+EXTEND_BOTTOM ~AR2000.BCS~  ~%workspace%/moonrune.BAF~
 
 
 //HoW

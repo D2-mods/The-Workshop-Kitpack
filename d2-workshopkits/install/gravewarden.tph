@@ -63,7 +63,7 @@ COPY_EXISTING ~SPPR409.SPL~  ~override/%s1%.SPL~                      // clone D
 BUT_ONLY
 
 
-//Add Denial - Cure subspell
+//Add Cure subspell (for Denial)
 COPY_EXISTING ~SPPR103.SPL~  ~override/%s1%a.SPL~
   LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END       // change header type to 3 to prevent deletion
   LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END                   // delete headers of type 1
@@ -87,7 +87,7 @@ COPY_EXISTING ~CLABRN01.2DA~  ~override/%kitid%.2DA~
   LPF 2da_find_row_delete STR_VAR row_name = ~RAN_SPLS~ END
   REPLACE_TEXTUALLY ~GA_SPCL311~ ~****~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 limit=15 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 limit=20 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=3 STR_VAR resource=~%p1%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 STR_VAR resource=~%p2%~ END
   LPF d2_kit_ability_adder INT_VAR level=7 STR_VAR resource=~%p3%~ END
@@ -106,13 +106,29 @@ LAF ADD_KIT_EX
     fallen_notice = RESOLVE_STR_REF (@100304)
   STR_VAR
     kit_name = ~D2%kitname%~
-    unusable = ~0x20000000~        // Avenger usability (doesn't restrict weapons)
+    unusable = ~0x40000000~        // Barbarian usability (up to splint mail)
     clab_path = ~%kitid%~
     clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
     clascolr = ~67 25 79 23 24~    // Priest of Lathander colors
   RET 
     kit_id
 END
+
+
+//Usability - restrict splint mail
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  READ_LONG  0x8 stringref    // check unidentified name
+  PATCH_IF ((%stringref% = 6677) OR (%stringref% = 6678)) BEGIN    // if "Splint Mail" (same strings in all games)
+    LPF ADD_ITEM_EQEFFECT
+      INT_VAR
+        opcode = 319
+        target = 1
+        parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+        parameter2 = 9
+        timing = 2
+    END
+  END
+BUT_ONLY
 
 
 //Set variables for external use

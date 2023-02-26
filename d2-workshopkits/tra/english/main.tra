@@ -82,13 +82,13 @@ Text in this file appears in the game.
 //Beast Hunter
 @100101 = ~Beast Hunter~
 @100102 = ~beast hunter~
-@100103 = ~BEAST HUNTER: Whereever there are beasts, there are hunters. Hunters may be protectors or mercenaries, or simply have an addiction for blood and slaughter. This class is particularly adept at combating several powerful types of monsters, including fiends and werewolves.
+@100103 = ~BEAST HUNTER: Whereever there are beasts, there are hunters. Hunters may be protectors or mercenaries, or simply have an addiction for blood and slaughter. This class is particularly adept at combating several powerful types of monsters, including demons and werewolves.
 
 Advantages:
 – +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.
-– 2nd level: May use the Fire Weapon ability once per day. Gains additional uses every 4 levels thereafter.
+– 2nd level: May use the Hunter Tools ability once per day. Gains additional uses every 4 levels thereafter.
 
-FIRE WEAPON: Applies fire element to weapons for 1 turn. All melee attacks inflict an extra 1d3 fire damage for the duration. This ability can be enhanced by equipping special Hunter Badges.
+HUNTER TOOLS: For 1 turn, the character moves 4 points faster, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
 
 – 5th level: May use the Quicksilver ability once per day. Gains additional uses at levels 9 and 13.
 
@@ -140,7 +140,7 @@ Advantages:
 DENIAL: This spell has two effects. First, the recipient becomes immune to all instant death effects for 3 turns. Second, if the recipient falls below 50% of maximum Hit Points, the spell activates and restores the character to full health, consuming the spell in the process.
 
 Disadvantages:
-– May not wear armor heavier than leather.
+– May not wear armor heavier than chain mail.
 – May not use the Charm Animal ability.~
 @100304 = ~Lost Class: Grave Warden~
 @100305 = ~~
@@ -335,28 +335,49 @@ Disadvantages:
 @101105 = ~~
 
 
-//
+//Drifter
 @101201 = ~~
 @101202 = ~~
 @101203 = ~~
 @101204 = ~~
 @101205 = ~~
 
-//
+//Medic
 @101301 = ~~
 @101302 = ~~
 @101303 = ~~
 @101304 = ~~
 @101305 = ~~
 
+//Noble Scion
+@101401 = ~~
+@101402 = ~~
+@101403 = ~~
+@101404 = ~~
+@101405 = ~~
+
+//
+@101501 = ~~
+@101502 = ~~
+@101503 = ~~
+@101504 = ~~
+@101505 = ~~
+
+//
+@101601 = ~~
+@101602 = ~~
+@101603 = ~~
+@101604 = ~~
+@101605 = ~~
+
 
 
 
 //Ability text
-@100 = ~Fire Weapon~
-@200 = ~Fire Weapon
+@100 = ~Hunter Tools~
+@200 = ~Hunter Tools
 
-Applies fire element to weapons for 1 turn. All melee attacks inflict an extra 1d3 fire damage for the duration. This ability can be enhanced by equipping special Hunter Badges.~
+For 1 turn, the character moves 4 points faster, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.~
 
 @101 = ~Quicksilver~
 @201 = ~Quicksilver
@@ -881,7 +902,7 @@ Equipped abilities:
 – Electricity Resistance: +50%
 
 Special (Beast Hunter): 
-– Fire Weapon: Inflicts an extra 1d3 electrical damage
+– Hunter Tools: Inflicts an extra 1d3 electrical damage
 
 Weight: 1~
 
@@ -896,7 +917,7 @@ Equipped abilities:
 – Protection From Evil
 
 Special (Beast Hunter): 
-– Fire Weapon: +5 magic damage vs. undead
+– Hunter Tools: +5 magic damage vs. undead
 
 Weight: 1~
 
@@ -911,7 +932,7 @@ Equipped abilities:
 – Magic Resistance: +10%
 
 Special (Beast Hunter): 
-– Fire Weapon: Target is drained 1 level on a failed save vs. Spell at -2
+– Hunter Tools: Target is drained 1 level on a failed save vs. Spell at -2
 
 Weight: 1~
 
@@ -926,7 +947,7 @@ Equipped abilities:
 – Fire Resistance: +20%
 
 Special (Beast Hunter): 
-– Fire Weapon: 10% chance of an extra 2d12 fire damage
+– Hunter Tools: 10% chance of an extra 2d12 fire damage
 
 Weight: 1~
 
@@ -1281,7 +1302,7 @@ Equipped abilities:
 – Saving Throws: +1
 
 Special (Beast Hunter): 
-– Fire Weapon: Target suffers a cumulative -1 penalty to Armor Class for 3 rounds
+– Hunter Tools: Target suffers a cumulative -1 penalty to Armor Class for 3 rounds
 
 Weight: 1~
 
@@ -1296,7 +1317,7 @@ Equipped abilities:
 – Charisma: +2
 
 Special (Beast Hunter): 
-– Fire Weapon: +5% chance to score a critical hit
+– Hunter Tools: +5% chance to score a critical hit
 
 Weight: 1~
 

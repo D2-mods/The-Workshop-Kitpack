@@ -19,13 +19,13 @@ Powder Keg (bard)
 ==================================================
 Beast Hunter (Fighter)
 ==================================================
-BEAST HUNTER: Whereever there are beasts, there are hunters. Hunters may be protectors or mercenaries, or simply have an addiction for blood and slaughter. This class is particularly adept at combating several powerful types of monsters, including fiends and werewolves.
+BEAST HUNTER: Whereever there are beasts, there are hunters. Hunters may be protectors or mercenaries, or simply have an addiction for blood and slaughter. This class is particularly adept at combating several powerful types of monsters, including demons and werewolves.
 
 Advantages:
 – +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.
-– 2nd level: May use the Fire Weapon ability once per day. Gains additional uses every 4 levels thereafter.
+– 2nd level: May use the Hunter Tools ability once per day. Gains additional uses every 4 levels thereafter.
 
-FIRE WEAPON: Applies fire element to weapons for 1 turn. All melee attacks inflict an extra 1d3 fire damage for the duration. This ability can be enhanced by equipping special Hunter Badges.
+HUNTER TOOLS: For 1 turn, the character moves 4 points faster, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
 
 – 5th level: May use the Quicksilver ability once per day. Gains additional uses at levels 9 and 13.
 
@@ -73,7 +73,7 @@ Advantages:
 DENIAL: This spell has two effects. First, the recipient becomes immune to all instant death effects for 3 turns. Second, if the recipient falls below 50% of maximum Hit Points, the spell activates and restores the character to full health, consuming the spell in the process.
 
 Disadvantages:
-– May not wear armor heavier than leather.
+– May not wear armor heavier than chain mail.
 – May not use the Charm Animal ability.
 
 

@@ -94,7 +94,7 @@ COPY ~%abilities%/visceralattack.SPL~  ~override/%s2%.SPL~
 COPY ~%abilities%/castspellself.EFF~          ~override/%s2%a.EFF~    // cure/haste
     WRITE_ASCII 0x30 ~%s2%a~ #8
 COPY ~%abilities%/visceralattackeffects.SPL~  ~override/%s2%a.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@307) END    // "Healed"
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=14023 END      // "Hasted" in all games
 
 COPY ~%abilities%/castspellself.EFF~       ~override/%s2%b.EFF~       // remove effects
   WRITE_ASCII 0x30 ~%s2%b~ #8

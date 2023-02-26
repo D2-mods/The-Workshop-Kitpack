@@ -96,7 +96,8 @@ END
 
 IF
 	!Global("d2gerthcosmicwatcher","GLOBAL",1)
-	GlobalGT("Chapter","GLOBAL",5)
+	!Global("SPRITE_IS_DEADFLOZEM","GLOBAL",0)    // if killed Flozem
+	!Global("Flozem_Gone","GLOBAL",1)             // did not already drop item
 THEN
 	RESPONSE #100
         SetGlobal("d2gerthcosmicwatcher","GLOBAL",1)

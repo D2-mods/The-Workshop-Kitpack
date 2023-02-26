@@ -81,8 +81,8 @@ General guidelines:
 
 Spellcasting systems:
 - Compatible with Faiths and Powers spheres system. Can install before or after FnP.
-	- My multiclasses don't require the FnP multiclass mod for compatibility with FnP.
-	- I'd recommend installing this mod AFTER FnP multiclass, if using it. See info below.
+	- My multiclass kits don't require the FnP multiclass mod for compatibility with FnP.
+	- See below for additional info.
 - Compatible with Deities of Faerun spheres system. Install this mod after DoF.
 - Compatible with subtledoctor's 5e casting mod. Can install before or after 5e casting.
 	- You should also install the extra component related to 5e casting.
@@ -96,7 +96,9 @@ HLA traps/songs:
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-Known Issues:
+FnP additional info:
+
+NOTE: The multiclass Cleric kits are currently not compatible with the beta versions of FnP. Use v0.84.5 if you want to use the multiclass kits with FnP.
 
 FnP multiclass: 
 - Current versions of FnP multiclass hide the F/M/C class from the selection screen. 
@@ -111,11 +113,19 @@ FnP multiclass:
 Version info:
 
 v3.0
-- What's new:
+- Added kits:
 	- 
-- Changes
-	- Changed a couple item icons/BAM images.
-	- Changed a couple portrait icons.
+	- 
+- Changes:
+	- Beast Hunter: "Fire Weapon" is now "Hunter Tools". Adds acid damage and boosts movement speed.
+	- Grave Warden: Can wear up to chain mail (was previously leather).
+	- IWDEE: Changed conditions for obtaining certain items.
+- Visual/Audio changes:
+	- Changed visual/audio for War Magician's "Twisted Barricade".
+	- Riftgate: Added portrait icon for the turn that the spell can't be recast.
+	- A couple other minor changes (sounds or BAM images)
+- Updated Compatibility section:
+	- FnP note: The multiclass Cleric kits are currently not compatible with the beta versions of FnP. Use v0.84.5 if you want to use the multiclass kits with FnP.
 
 v2.8
 - What's new:

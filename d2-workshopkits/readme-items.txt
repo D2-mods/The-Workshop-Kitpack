@@ -48,7 +48,7 @@ Equipped abilities:
 – Electricity Resistance: +50%
 
 Special (Beast Hunter): 
-– Fire Weapon: Inflicts an extra 1d3 electrical damage
+– Hunter Tools: Inflicts an extra 1d3 electrical damage
 
 Weight: 1
 
@@ -66,7 +66,7 @@ Equipped abilities:
 – Protection From Evil
 
 Special (Beast Hunter): 
-– Fire Weapon: +5 magic damage vs. undead
+– Hunter Tools: +5 magic damage vs. undead
 
 Weight: 1
 
@@ -84,7 +84,7 @@ Equipped abilities:
 – Magic Resistance: +10%
 
 Special (Beast Hunter): 
-– Fire Weapon: Target is drained 1 level on a failed save vs. Spell at -2
+– Hunter Tools: Target is drained 1 level on a failed save vs. Spell at -2
 
 Weight: 1
 
@@ -102,7 +102,7 @@ Equipped abilities:
 – Fire Resistance: +20%
 
 Special (Beast Hunter): 
-– Fire Weapon: 10% chance of an extra 2d12 fire damage
+– Hunter Tools: 10% chance of an extra 2d12 fire damage
 
 Weight: 1
 
@@ -120,7 +120,7 @@ Equipped abilities:
 – Saving Throws: +1
 
 Special (Beast Hunter): 
-– Fire Weapon: Target suffers a cumulative -1 penalty to Armor Class for 3 rounds
+– Hunter Tools: Target suffers a cumulative -1 penalty to Armor Class for 3 rounds
 
 Weight: 1
 
@@ -138,7 +138,7 @@ Equipped abilities:
 – Charisma: +2
 
 Special (Beast Hunter): 
-– Fire Weapon: +5% chance to score a critical hit
+– Hunter Tools: +5% chance to score a critical hit
 
 Weight: 1
 

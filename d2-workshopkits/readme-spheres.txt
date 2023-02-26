@@ -1,7 +1,11 @@
 Sphere systems
 
 - for Faiths & Powers and Deities of Faerun mods
-- The lists here are accurate for v2.3+
+- tested with FnP v0.84.5
+- tested with DoF v1.9.8
+- The lists here are accurate for v2.3+ of this mod.
+
+FnP note: The multiclass Cleric kits are currently not compatible with the beta versions of FnP. Use v0.84.5 if you want to use the multiclass kits with FnP.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

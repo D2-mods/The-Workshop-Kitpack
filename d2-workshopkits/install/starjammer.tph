@@ -381,6 +381,8 @@ COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~       // balor weap
     LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=38 opcode=328 parameter2=silence_immunity END
   END
 
+COPY ~%icons%/riftgate.BAM~      ~override/%w8%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@40115) STR_VAR bam=~%w8%~ RET icon END
 COPY ~%abilities%/riftgate.SPL~  ~override/%w8%.SPL~               // add spell
   SAY NAME1 @40115
   SAY UNIDENTIFIED_DESC @40215
@@ -388,6 +390,7 @@ COPY ~%abilities%/riftgate.SPL~  ~override/%w8%.SPL~               // add spell
   LPF ALTER_EFFECT STR_VAR match_resource=~sumsunn~ resource=~%w8%g~ END
   LPF ALTER_EFFECT STR_VAR match_resource=~sumzaam~ resource=~%w8%d~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=265 STR_VAR resource=~d2riftga~ END    // variable for script action
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 
 

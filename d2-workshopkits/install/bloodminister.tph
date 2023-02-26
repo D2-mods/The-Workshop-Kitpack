@@ -174,8 +174,8 @@ END
 COPY_EXISTING ~%m9%.ITM~  ~override~
   SAY NAME2 @70100
   SAY DESC @70200
-  WRITE_ASCII 0x3a ~%m9%~ #8       // icon
-  WRITE_ASCII 0x58 ~camul01~ #8    // description image
+  WRITE_ASCII 0x3a ~%m9%~ #8        // icon
+  WRITE_ASCII 0x58 ~1cband06~ #8    // description image
 BUT_ONLY
 
 

@@ -44,7 +44,6 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
 
 
 
-
 //Set spell cap (Starjammer spells)
 
 OUTER_SET spellcapBG2  = 20                                      // default

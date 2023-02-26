@@ -269,15 +269,13 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
     WRITE_ASCII 0x58 ~CAMUL25~ #8    // description image
 
 //Saw Hunter Badge
+  COPY ~%icons%/sawhunterbadge.BAM~    ~override/%m5%i.BAM~
   COPY ~%files%/badge_sawhunter.EFF~   ~override/%m5%a.EFF~
   COPY ~%files%/badge_sawhunter.ITM~   ~override/%m5%.ITM~
     SAY NAME2 @70129
     SAY DESC @70229
-    WRITE_ASCII 0x3a ~IAMUL27~ #8    // icon
+    WRITE_ASCII 0x3a ~%m5%i~ #8      // icon
     WRITE_ASCII 0x58 ~CAMUL11~ #8    // description image
-  ACTION_IF !(GAME_IS ~bgee~) BEGIN
-    COPY ~%icons%/sawhunterbadge.BAM~  ~override/IAMUL27.BAM~    // icon fix
-  END
 
 //Old Hunter Badge
   COPY ~%files%/badge_oldhunter.SPL~   ~override/%m6%a.SPL~
