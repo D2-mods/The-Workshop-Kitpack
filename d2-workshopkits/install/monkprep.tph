@@ -1,0 +1,16 @@
+/*
+There's at least one mod that disables the Monk class.
+This patch will re-enable the class (for Humans only).
+*/
+
+
+COPY_EXISTING ~clsrcreq.2DA~  ~override~
+  COUNT_2DA_ROWS 3 clsrcreq_rows
+  READ_2DA_ENTRIES_NOW ~clsrcreq_table~ 3
+  FOR (r = 1; r < clsrcreq_rows; ++r) BEGIN
+    READ_2DA_ENTRY_FORMER ~clsrcreq_table~ r 0 class
+    PATCH_IF (~%class%~ STRING_EQUAL_CASE ~MONK~) BEGIN
+      SET_2DA_ENTRY r 1 3 1
+    END
+  END
+BUT_ONLY

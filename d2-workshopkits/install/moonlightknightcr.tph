@@ -96,7 +96,7 @@ LAF ADD_KIT_EX
     weapprof = ~%multikitprofs%~
     clasiskl = ~0 0 0 0 0 0 0~
     thiefscl = ~0 0 0 0 0 0 0 0~
-    clascolr = ~93 72 169 93 72~              // Undead Hunter colors
+    clascolr = ~137 141 142 24 138~           // shaman colors
   RET 
     kit_id
 END

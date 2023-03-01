@@ -1,4 +1,4 @@
-//warrior kits
+//warrior kits (v1.0)
 Beast Hunter (fighter)
 Warhound (fighter)
 Grave Warden (ranger)
@@ -6,12 +6,15 @@ Moonlight Knight (ranger)
 Confessor (paladin)
 Temple Knight (paladin)
 
-//non-warrior kits
+//non-warrior kits (v1.0)
 War Magician (mage)
 Starjammer (sorcerer)
 Blood Minister (cleric)
 Crow Hunter (thief)
 Powder Keg (bard)
+
+//v3.0+ kits
+Drifter (ranger)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -250,6 +253,26 @@ NOTE: If the High-Level Ability "Enhanced Bard Song" is learned, the character w
 Disadvantages:
 – Bard Song is unusable for one turn after each use.
 – Only has one quarter the normal Pick Pockets score.
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+==================================================
+Drifter (Ranger)
+==================================================
+DRIFTER: An aimless wanderer, at home in adverse terrain. Countless battles have honed the abilities of these finely skilled warriors.
+
+Advantages:
+– +4 bonus to Saving Throws vs. Breath.
+– +1 bonus to Armor Class, plus an additional +1 bonus every 5 levels.
+– +1 bonus to attack and damage rolls every 5 levels.
+– Moves 2 points faster than other characters.
+– 6th level: Immune to Grease, Web, Entangle, Spike Growth, and Spike Stones.
+– 12th level: Immune to Cloudkill, Death Fog, Stinking Cloud, Writhing Fog, and Cloud of Pestilence.
+
+Disadvantages:
+– May not cast Priest spells
+– May only wear leather or hide armor.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

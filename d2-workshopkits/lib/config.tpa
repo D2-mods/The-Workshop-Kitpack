@@ -16,6 +16,11 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~CrowHunter[^A-Z].*=.*[^0-9]0[^0-9]*$~        nocrowhunter
   COUNT_REGEXP_INSTANCES  ~PowderKeg.*=.*[^0-9]0[^0-9]*$~               nopowderkeg
 
+//kit variables (v3.0/v4.0)
+  COUNT_REGEXP_INSTANCES  ~Drifter.*=.*[^0-9]0[^0-9]*$~                 nodrifter
+  COUNT_REGEXP_INSTANCES  ~Medic.*=.*[^0-9]0[^0-9]*$~                   nomedic
+  COUNT_REGEXP_INSTANCES  ~NobleScion.*=.*[^0-9]0[^0-9]*$~              nonoblescion
+
 //spell cap variables
   COUNT_REGEXP_INSTANCES  ~spellcapBG2.*=.*[^0-9]20[^0-9]*$~            bg2cap20
   COUNT_REGEXP_INSTANCES  ~spellcapBG2.*=.*[^0-9]30[^0-9]*$~            bg2cap30

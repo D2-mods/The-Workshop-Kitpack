@@ -114,16 +114,18 @@ Version info:
 
 v3.0
 - Added kits:
+	- Drifter (ranger)
 	- 
 	- 
 - Changes:
 	- Beast Hunter: "Fire Weapon" is now "Hunter Tools". Adds acid damage and boosts movement speed.
 	- Grave Warden: Can wear up to chain mail (was previously leather).
+	- Any kits that gain custom spells will learn them all at level 1.
 	- IWDEE: Changed conditions for obtaining certain items.
 - Visual/Audio changes:
 	- Changed visual/audio for War Magician's "Twisted Barricade".
 	- Riftgate: Added portrait icon for the turn that the spell can't be recast.
-	- A couple other minor changes (sounds or BAM images)
+	- A couple other minor changes (sounds or BAM images).
 - Updated Compatibility section:
 	- FnP note: The multiclass Cleric kits are currently not compatible with the beta versions of FnP. Use v0.84.5 if you want to use the multiclass kits with FnP.
 

@@ -80,7 +80,6 @@ ACTION_IF (%nogravewarden% = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
-//INCLUDE ~%install%/usabilitykatanas.tph~
   INCLUDE ~%install%/presioduel.tph~
   INCLUDE ~%install%/fnpspheres.tph~
   INCLUDE ~%install%/dofspheres.tph~
@@ -136,6 +135,35 @@ ACTION_IF (%nobloodminister% = 0) BEGIN
   INCLUDE ~%install%/dofweapons.tph~
 END
 
+//Drifter (d2wkc)
+ACTION_IF (%nodrifter% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkc~
+  OUTER_TEXT_SPRINT kitname ~DRIFTER~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+END
+
+
+/*
+//Medic (d2wkd)
+ACTION_IF (%nomedic% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkd~
+  OUTER_TEXT_SPRINT kitname ~MEDIC~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+END
+
+//Noble Scion (d2wke)
+ACTION_IF (%nonoblescion% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wke~
+  OUTER_TEXT_SPRINT kitname ~NOBLESCION~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+END
+*/
 
 
 //Extra stuff

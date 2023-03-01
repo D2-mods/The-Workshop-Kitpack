@@ -335,12 +335,29 @@ Disadvantages:
 @101105 = ~~
 
 
+
+
+//v3.0+ kits
+
 //Drifter
-@101201 = ~~
-@101202 = ~~
-@101203 = ~~
-@101204 = ~~
+@101201 = ~Drifter~
+@101202 = ~drifter~
+@101203 = ~DRIFTER: An aimless wanderer, at home in adverse terrain. Countless battles have honed the abilities of these finely skilled warriors.
+
+Advantages:
+– +4 bonus to Saving Throws vs. Breath.
+– +1 bonus to Armor Class, plus an additional +1 bonus every 5 levels.
+– +1 bonus to attack and damage rolls every 5 levels.
+– Moves 2 points faster than other characters.
+– 6th level: Immune to Grease, Web, Entangle, Spike Growth, and Spike Stones.
+– 12th level: Immune to Cloudkill, Death Fog, Stinking Cloud, Writhing Fog, and Cloud of Pestilence.
+
+Disadvantages:
+– May not cast Priest spells
+– May only wear leather or hide armor.~
+@101204 = ~Lost Class: Drifter~
 @101205 = ~~
+
 
 //Medic
 @101301 = ~~
@@ -348,6 +365,7 @@ Disadvantages:
 @101303 = ~~
 @101304 = ~~
 @101305 = ~~
+
 
 //Noble Scion
 @101401 = ~~

@@ -224,12 +224,12 @@ BUT_ONLY
 //Clone base paladin clab
 COPY_EXISTING ~CLABPA01.2DA~ ~override/%kitid%.2DA~
   REPLACE_TEXTUALLY ~GA_SPCL211~ ~****~    // remove Lay On Hands
-  LPF d2_kit_ability_adder INT_VAR level=3 STR_VAR resource=~%p1%~ END
-  LPF d2_kit_ability_adder INT_VAR level=5 STR_VAR resource=~%p2%~ END
-  LPF d2_kit_ability_adder INT_VAR level=7 STR_VAR resource=~%p3%~ END
-  LPF d2_kit_ability_adder INT_VAR level=9 STR_VAR resource=~%p4%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%p1%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%p2%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%p3%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%p4%~ END
   LPF d2_kit_ability_adder END
 
 
@@ -255,6 +255,8 @@ END
 //Set variables for external use
 OUTER_TEXT_SPRINT confessor       ~%kitid%~
 OUTER_TEXT_SPRINT rootingshot     ~%s1%~
+OUTER_TEXT_SPRINT entangle36      ~%s1%a~
+OUTER_TEXT_SPRINT entangle18      ~%s1%b~
 OUTER_TEXT_SPRINT bloodletter     ~%s2%~
 OUTER_TEXT_SPRINT confessorbleed  ~%s2%b~
 OUTER_TEXT_SPRINT fnpclass        ~zealot~

@@ -1,0 +1,111 @@
+//
+//
+
+//Check spell.IDS
+ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_terrain_immunities BEGIN
+  CLERIC_ENTANGLE                 => ground
+  WIZARD_GREASE                   => ground
+  WIZARD_WEB                      => ground
+  CLERIC_SPIKE_GROWTH             => ground
+  CLERIC_SPIKE_STONES             => ground
+  CLERIC_ASSASSIN_VINES           => ground  // from FnP mod
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_cloud_immunities BEGIN
+  CLERIC_WRITHING_FOG             => cloud
+  CLERIC_CLOUD_OF_PESTILENCE      => cloud
+  WIZARD_CLOUDKILL                => cloud
+  WIZARD_STINKING_CLOUD           => cloud
+  WIZARD_DEATH_FOG                => cloud
+//WIZARD_INCENDIARY_CLOUD         => flame
+  TRAP_CLOUDKILL                  => cloud
+  TRAP_STINKING_CLOUD             => cloud
+  TRAP_DEATH_FOG                  => cloud
+  WIZARD_FOG_CLOUD                => cloud
+  MEPHIT_STINKING_CLOUD           => cloud
+  POISONOUS_CLOUD                 => cloud
+  GOLEM_GASCLOUD                  => cloud
+  INNATE_IRON_GOLEM_CLOUD         => cloud
+  INNATE_BOMBARDIER_BEETLE_CLOUD  => cloud
+  BOMBARDIER_BEETLE_CLOUD         => cloud
+  WIZARD_MALAVONS_CORROSIVE_FOG   => cloud
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_storm_immunities BEGIN
+  CLERIC_CLOUDBURST               => storm
+  WIZARD_ACID_STORM               => storm
+  WIZARD_ICE_STORM                => storm
+  CLERIC_STORM_OF_VENGEANCE       => storm
+//CLERIC_FIRE_STORM               => flame
+//WIZARD_METEOR_SWARM             => flame
+  DRAGON_RAIN                     => storm
+  MEPHIT_RAINSTORM                => storm
+END
+
+
+//Check spells not in spell.ids (also a few items)
+ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_not_spellids BEGIN
+  SPIN688   => ground
+  SPWM111   => ground
+//talongf   => ground  // skipped because item gives resistances as well
+  holdfst   => ground
+  gasp      => ground
+  SPIN673   => cloud
+  SPWM187   => cloud
+  ohbwfog   => cloud
+//SW1H58    => ground  // skipped because item causes level drain as well
+//SW1H59    => ground  // skipped because item causes level drain as well
+  MOUND     => ground
+  HGNYA01   => ground
+  KUOSPER   => ground
+  MEPR754D  => ground  // OlvynSpells
+  MEPR754E  => ground
+  MEWI657   => cloud
+  ca#cckil  => cloud   // Faiths & Powers
+  ca#cstin  => cloud
+END
+
+
+
+//Spell names (string refs)
+ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_bgee_strings BEGIN
+  26127   => ground
+  26344   => ground
+  25864   => ground
+  25927   => cloud
+  26575   => cloud
+  26074   => cloud
+  32350   => cloud
+  26447   => storm
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_bg2ee_strings BEGIN
+  12119   => ground
+  12030   => ground
+  12057   => ground
+  12065   => cloud
+  7621    => cloud
+  12056   => cloud
+  103067  => cloud
+  12062   => storm
+  63742   => storm
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_iwdee_strings BEGIN
+  12119   => ground
+  12030   => ground
+  12057   => ground
+  12065   => cloud
+  7621    => cloud
+  12056   => cloud
+  40895   => cloud
+  21419   => storm
+  21404   => storm
+  12062   => storm
+  1208    => storm
+  36414   => storm
+END
+
+
+/*
+*/

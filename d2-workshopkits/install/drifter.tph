@@ -1,0 +1,193 @@
+//Drifter (d2wkc)
+
+
+//Add combat bonuses
+COPY ~%passives%/acbonus1.SPL~         ~override/%e1%.SPL~
+COPY ~%passives%/hitdamage1.SPL~       ~override/%e2%.SPL~
+COPY ~%passives%/savebonus4death.SPL~  ~override/%e3%.SPL~    // Save vs. Breath
+  LPF ALTER_EFFECT INT_VAR opcode=36 END
+COPY ~%passives%/movebonus2.SPL~       ~override/%e4%.SPL~
+COPY ~%passives%/disablebutton.SPL~    ~override/%e5%.SPL~
+  LPF ALTER_EFFECT INT_VAR parameter2=2 END
+COPY ~%passives%/nocasting.SPL~        ~override/%e8%.SPL~
+COPY ~%passives%/fewerspells1.SPL~     ~override/%e9%.SPL~
+  LPF ALTER_EFFECT INT_VAR opcode=62 parameter2=127 END
+
+
+//Add SPL for immunities to ground spells
+COPY ~%passives%/drifter.SPL~  ~override/%e6%.SPL~
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_entangle_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_grease_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_web_arrays END
+
+  PATCH_IF (entangle_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=154 opcode=328 parameter2=entangle_immunity END
+  END
+  PATCH_IF (web_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=157 opcode=328 parameter2=web_immunity END
+  END
+
+  PATCH_IF (GAME_IS ~bgee~) BEGIN
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=157 opcode=267 parameter1=25866 END  // string for BGEE
+  END
+  PATCH_IF (GAME_IS ~iwdee~) BEGIN
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=154 opcode=267 parameter1=37709 END  // string for IWDEE
+  END
+
+COPY_EXISTING - ~spell.ids~ ~~
+  PHP_EACH ~ids_terrain_immunities~ AS spell_to_add => style BEGIN
+    COUNT_REGEXP_INSTANCES ~[^_]%spell_to_add%[^_]~ spell_is_listed
+    PATCH_IF (spell_is_listed > 0) BEGIN
+      LPF RES_NUM_OF_SPELL_NAME STR_VAR spell_name=~%spell_to_add%~ RET spell_res END
+      INNER_ACTION BEGIN
+        ACTION_IF (FILE_EXISTS_IN_GAME ~%spell_res%.SPL~) BEGIN
+          COPY ~override/%e6%.SPL~  ~override~
+            LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell_res%~ END
+            LPF DELETE_EFFECT INT_VAR match_opcode=206 STR_VAR match_resource=~%spell_res%~ END
+          BUT_ONLY
+        END
+      END
+    END
+  END
+
+
+//Add SPL for immunity to cloud spells
+COPY ~%passives%/opcode206.SPL~  ~override/%e7%.SPL~
+
+COPY_EXISTING - ~spell.ids~ ~~
+  PHP_EACH ~ids_cloud_immunities~ AS spell_to_add => style BEGIN
+    COUNT_REGEXP_INSTANCES ~[^_]%spell_to_add%[^_]~ spell_is_listed
+    PATCH_IF (spell_is_listed > 0) BEGIN
+      LPF RES_NUM_OF_SPELL_NAME STR_VAR spell_name=~%spell_to_add%~ RET spell_res END
+      INNER_ACTION BEGIN
+        ACTION_IF (FILE_EXISTS_IN_GAME ~%spell_res%.SPL~) BEGIN
+          COPY ~override/%e7%.SPL~  ~override~
+            LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell_res%~ END
+          BUT_ONLY
+        END
+      END
+    END
+  END
+
+
+//Check spells not in spell.IDS
+ACTION_PHP_EACH ~drifter_not_spellids~ AS spell_to_add => style BEGIN
+
+  ACTION_IF (~%style%~ STR_EQ ~ground~) BEGIN
+    COPY ~override/%e6%.SPL~  ~override~
+      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell_to_add%~ END
+      LPF DELETE_EFFECT INT_VAR match_opcode=206 STR_VAR match_resource=~%spell_to_add%~ END
+    BUT_ONLY
+  END
+
+  ACTION_IF (~%style%~ STR_EQ ~cloud~) BEGIN
+    COPY ~override/%e7%.SPL~  ~override~
+      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell_to_add%~ END
+    BUT_ONLY
+  END
+
+END
+
+
+//check spells names in override (catch clones of spells)
+ACTION_BASH_FOR ~override~ ~.*\.SPL~ BEGIN
+  ACTION_IF !(FILE_IS_IN_COMPRESSED_BIFF ~%BASH_FOR_FILE%~) BEGIN
+    COPY - ~override/%BASH_FOR_FILE%~  ~~
+      READ_LONG 0x8 stringref
+      PHP_EACH ~drifter_%ee_game%_strings~ AS string => style BEGIN
+    
+        PATCH_IF (string = stringref) BEGIN
+          INNER_ACTION BEGIN
+            ACTION_IF (~%style%~ STR_EQ ~ground~) BEGIN
+              COPY ~override/%e6%.SPL~  ~override~
+                LPF DELETE_EFFECT INT_VAR match_opcode=318 STR_VAR match_resource=~%BASH_FOR_RES%~ END
+                LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%BASH_FOR_RES%~ END
+              BUT_ONLY
+            END
+      
+            ACTION_IF (~%style%~ STR_EQ ~cloud~) BEGIN
+              COPY ~override/%e7%.SPL~  ~override~
+                LPF DELETE_EFFECT INT_VAR match_opcode=318 STR_VAR match_resource=~%BASH_FOR_RES%~ END
+                LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%BASH_FOR_RES%~ END
+              BUT_ONLY
+            END
+          END
+        END
+
+      END
+  END
+END
+
+
+//Clone base Ranger 2da file
+COPY_EXISTING ~CLABRN01.2DA~  ~override/%kitid%.2DA~
+  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
+  LPF 2da_find_row_delete STR_VAR row_name = ~RAN_SPLS~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e3%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
+  LPF d2_kit_ability_adder INT_VAR level=6 passive=1 STR_VAR resource=~%e6%~ END
+  LPF d2_kit_ability_adder INT_VAR level=12 passive=1 STR_VAR resource=~%e7%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e8%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e9%~ END
+  LPF d2_kit_ability_adder END
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 12
+    mixed = RESOLVE_STR_REF (@101201)
+    lower = RESOLVE_STR_REF (@101202)
+    help = RESOLVE_STR_REF (@101203)
+    fallen_notice = RESOLVE_STR_REF (@101204)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    unusable = ~0x00010000~        // Stalker usability (studded leather)
+    clab_path = ~%kitid%~
+    clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
+    clascolr = ~24 99 144 2 93~    // bounty hunter colors
+  RET 
+    kit_id
+END
+
+
+//Usability - restrict studded leather
+
+/*
+The reason I'm not using Avenger usability (restrict to leather) is 
+because FnP changes the Avenger settings to be able to use studded leather.
+
+To work around that, I needed to add this section, so might as well just use Stalker usability.
+Probably safer to use a kit in the same class, to avoid possible conflicts with tweaks.
+*/
+
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  READ_LONG  0x8 stringref    // check unidentified name
+  PATCH_IF ((%stringref% = 6664) OR    // if Studded Leather (same strings in all games)
+            (%stringref% = 6665) OR 
+            (%stringref% = 6666)
+    ) BEGIN
+    LPF ADD_ITEM_EQEFFECT
+      INT_VAR
+        opcode = 319
+        target = 1
+        parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+        parameter2 = 9
+        timing = 2
+    END
+  END
+BUT_ONLY
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT drifter             ~%kitid%~
+OUTER_TEXT_SPRINT drifter_immunities  ~%e6%~
+OUTER_TEXT_SPRINT cloud_immunities    ~%e7%~
+
+
+/*
+*/
