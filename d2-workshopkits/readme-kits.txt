@@ -1,4 +1,4 @@
-//warrior kits (v1.0)
+//warrior kits
 Beast Hunter (fighter)
 Warhound (fighter)
 Grave Warden (ranger)
@@ -6,7 +6,7 @@ Moonlight Knight (ranger)
 Confessor (paladin)
 Temple Knight (paladin)
 
-//non-warrior kits (v1.0)
+//non-warrior kits
 War Magician (mage)
 Starjammer (sorcerer)
 Blood Minister (cleric)
@@ -15,6 +15,7 @@ Powder Keg (bard)
 
 //v3.0+ kits
 Drifter (ranger)
+Medic (monk)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -120,7 +121,7 @@ ROOTING SHOT: The next successful ranged attack entangles the target for 3 round
 
 – 5th level: May use the Bloodletter ability once per day. Gains additional uses at levels 9 and 13.
 
-BLOODLETTER: For 5 rounds, the character is healed 1-4 Hit Points with melee attacks and the target suffers a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
+BLOODLETTER: For 5 rounds, the character is healed 1d4 Hit Points with melee attacks and the target suffers a bleeding wound, which inflicts 2 points of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
 
 Disadvantages:
 – May not wear armor heavier than studded leather.
@@ -189,7 +190,7 @@ BLOOD MINISTER: The heretical Healing Church was once the home of blood ministra
 
 Advantages:
 – Immune to level drain, poisons, and diseases.
-– May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 4 levels thereafter. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels:
+– May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 2 levels, up to a maximum of 10 uses at level 20. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels:
   2nd level: Healing Blood.
   6th level: Beast Blood.
   10th level: Madman's Blood.
@@ -216,11 +217,11 @@ Advantages:
 – +3 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races.
 – 4th level: May use the Splintering Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
-SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15 ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
+SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 2 points of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
 
 – 11th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 15 and 19.
 
-VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 20 Hit Points and haste the character for 10 seconds.
+VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 8 Hit Points and haste the character for 10 seconds.
 
 Disadvantages:
 – May only distribute 20 skill points per level among thieving skills.
@@ -244,7 +245,7 @@ BLASTING SONG: A ring of flame bursts outwards in a 15-ft. radius, inflicting 1d
 
 BOOMING SONG: A crushing wave expands outwards in a 15-ft. radius, inflicting 2d4 crushing damage to enemies and causing deafness for 2 rounds, plus an additional 2 rounds on a failed save vs. Spell. Deafness causes a 50% chance to miscast spells.
 
-DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded but also cannot be directly targeted, unless an attacker can see through invisibility.
+DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15-ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20-ft. radius. All creatures in the cloud are blinded but also cannot be directly targeted, unless an attacker can see through invisibility.
 
 FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though Magic Resistance can prevent the status effects.
 
@@ -271,8 +272,32 @@ Advantages:
 – 12th level: Immune to Cloudkill, Death Fog, Stinking Cloud, Writhing Fog, and Cloud of Pestilence.
 
 Disadvantages:
-– May not cast Priest spells
+– May not cast priest spells.
 – May only wear leather or hide armor.
+
+
+==================================================
+Medic (Monk)
+==================================================
+MEDIC: This Monk is a skilled medical practioner, as well as warrior, and has undergone special training, applying powerful herbal remedies to aid in combat.
+
+Advantages:
+– May use the Black Remedy and White Remedy abilities. Gains one use each at level 1 and an additional use each every 5 levels thereafter.
+
+BLACK REMEDY: All attacks in the next 10 seconds spread a healing remedy. Restores 1d8 Hit Points to allies in a 7-ft. radius.
+
+WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 4-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
+
+– 5th level: May cast Slow Poison three times per day.
+– 7th level: May cast Cure Disease once per day.
+– 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
+
+HEALING RAIN: Crystal healing shards rain down in a 10-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
+
+Disadvantages:
+– May not use the Lay On Hands ability.
+– May not use the Stunning Blow ability.
+– May not wear gauntlets or bracers.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

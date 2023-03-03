@@ -188,7 +188,7 @@ COPY_EXISTING ~CLABPR01.2DA~ ~override/%kitid%.2DA~
   REPLACE_TEXTUALLY ~AP_CDHLYSYM~  ~****~    // remove Holy Symbol
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
-  LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=2 limit=20 STR_VAR resource=~%s1%~ END
 
   PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN       // add Holy Symbol
     LPF d2_kit_ability_adder INT_VAR level=25 passive=1 STR_VAR resource=~%m9%~ END

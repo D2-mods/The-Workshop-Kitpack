@@ -192,7 +192,7 @@ COPY ~%abilities%/bleed10rounds.SPL~    ~override/%s2%b.SPL~
 
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%c.EFF~    // bleed damage
     WRITE_ASCII 0x30 ~%s2%c~ #8
-COPY ~%abilities%/bleeddamage1.SPL~     ~override/%s2%c.SPL~
+COPY ~%abilities%/bleeddamage2.SPL~     ~override/%s2%c.SPL~
 
 
 //Bleeding removed by Heal or Greater Restoration

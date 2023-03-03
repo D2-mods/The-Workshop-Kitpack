@@ -188,7 +188,7 @@ ROOTING SHOT: The next successful ranged attack entangles the target for 3 round
 
 – 5th level: May use the Bloodletter ability once per day. Gains additional uses at levels 9 and 13.
 
-BLOODLETTER: For 5 rounds, the character is healed 1-4 Hit Points with melee attacks and the target suffers a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
+BLOODLETTER: For 5 rounds, the character is healed 1d4 Hit Points with melee attacks and the target suffers a bleeding wound, which inflicts 2 points of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
 
 Disadvantages:
 – May not wear armor heavier than studded leather.
@@ -263,7 +263,7 @@ Disadvantages:
 
 Advantages:
 – Immune to level drain, poisons, and diseases.
-– May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 4 levels thereafter. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels:
+– May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 2 levels, up to a maximum of 10 uses at level 20. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels:
   2nd level: Healing Blood.
   6th level: Beast Blood.
   10th level: Madman's Blood.
@@ -292,11 +292,11 @@ Advantages:
 – +3 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races.
 – 4th level: May use the Splintering Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
-SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15 ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
+SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 2 points of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
 
 – 11th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 15 and 19.
 
-VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 20 Hit Points and haste the character for 10 seconds.
+VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 8 Hit Points and haste the character for 10 seconds.
 
 Disadvantages:
 – May only distribute 20 skill points per level among thieving skills.
@@ -322,7 +322,7 @@ BLASTING SONG: A ring of flame bursts outwards in a 15-ft. radius, inflicting 1d
 
 BOOMING SONG: A crushing wave expands outwards in a 15-ft. radius, inflicting 2d4 crushing damage to enemies and causing deafness for 2 rounds, plus an additional 2 rounds on a failed save vs. Spell. Deafness causes a 50% chance to miscast spells.
 
-DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded but also cannot be directly targeted, unless an attacker can see through invisibility.
+DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15-ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20-ft. radius. All creatures in the cloud are blinded but also cannot be directly targeted, unless an attacker can see through invisibility.
 
 FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though Magic Resistance can prevent the status effects.
 
@@ -353,16 +353,34 @@ Advantages:
 – 12th level: Immune to Cloudkill, Death Fog, Stinking Cloud, Writhing Fog, and Cloud of Pestilence.
 
 Disadvantages:
-– May not cast Priest spells
+– May not cast priest spells.
 – May only wear leather or hide armor.~
 @101204 = ~Lost Class: Drifter~
 @101205 = ~~
 
 
 //Medic
-@101301 = ~~
-@101302 = ~~
-@101303 = ~~
+@101301 = ~Medic~
+@101302 = ~medic~
+@101303 = ~MEDIC: This Monk is a skilled medical practioner, as well as warrior, and has undergone special training, applying powerful herbal remedies to aid in combat.
+
+Advantages:
+– May use the Black Remedy and White Remedy abilities. Gains one use each at level 1 and an additional use each every 5 levels thereafter.
+
+BLACK REMEDY: All attacks in the next 10 seconds spread a healing remedy. Restores 1d8 Hit Points to allies in a 7-ft. radius.
+
+WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 4-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
+
+– 5th level: May cast Slow Poison three times per day.
+– 7th level: May cast Cure Disease once per day.
+– 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
+
+HEALING RAIN: Crystal healing shards rain down in a 10-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
+
+Disadvantages:
+– May not use the Lay On Hands ability.
+– May not use the Stunning Blow ability.
+– May not wear gauntlets or bracers.~
 @101304 = ~~
 @101305 = ~~
 
@@ -440,7 +458,7 @@ The shot must be made within 2 rounds or the effect will dissipate.~
 @107 = ~Bloodletter~
 @207 = ~Bloodletter
 
-For 5 rounds, the character is healed 1-4 Hit Points with melee attacks and the target suffers a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.~
+For 5 rounds, the character is healed 1d4 Hit Points with melee attacks and the target suffers a bleeding wound, which inflicts 2 points of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.~
 
 @108 = ~Force~
 @208 = ~Force
@@ -470,6 +488,8 @@ Disrupts missile and spell attacks in the area of effect. All enemies in a 30-ft
 @212 = ~Blood Transfusion
 
 When this ability is used, it opens a submenu with a list of transfusions. Once selected, cast the transfusion on a target creature, who must be an ally. A creature can only have one active blood effect at a time. If a new transfusion is applied, any existing effects will be removed. A Restoration or Greater Restoration spell will also remove any blood effects.
+
+The following transfusions are gained:
   2nd level: Healing Blood.
   6th level: Beast Blood.
   10th level: Madman's Blood.
@@ -486,7 +506,7 @@ LEAD ELIXIR: A mysterious concoction that greatly enhances defense at the cost o
 @113 = ~Splintering Shot~
 @213 = ~Splintering Shot
 
-For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15 ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.~
+For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 2 points of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.~
 
 @114 = ~Visceral Attack~
 @214 = ~Visceral Attack
@@ -510,7 +530,7 @@ This song fires once, then disables Bard Song for 1 turn.~
 @117 = ~Change Song: Dust Explosion~
 @217 = ~Dust Explosion
 
-The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded but also cannot be directly targeted, unless an attacker can see through invisibility. There is no Saving Throw for the cloud's effects.
+The initial explosion inflicts 5d6 fire damage to enemies in a 15-ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20-ft. radius. All creatures in the cloud are blinded but also cannot be directly targeted, unless an attacker can see through invisibility. There is no Saving Throw for the cloud's effects.
 
 This song fires once, then disables Bard Song for 1 turn.~
 
@@ -536,17 +556,26 @@ This mighty battle chant grants the Bard and his allies +4 to hit, +4 to all sav
 
 Use this ability to craft 1 Hunter Badge. This action requires a full round to complete. If casting is interrupted before the badge is created, the ability can be regained after a full rest.~
 
-@122 = ~~
-@222 = ~~
+@122 = ~Black Remedy~
+@222 = ~Black Remedy
 
-@123 = ~~
-@223 = ~~
+All attacks in the next 10 seconds spread a healing remedy. Restores 1d8 Hit Points to allies in a 7-ft. radius.~
 
-@124 = ~~
-@224 = ~~
+@123 = ~White Remedy~
+@223 = ~White Remedy
+
+All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 4-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.~
+
+@124 = ~Healing Rain~
+@224 = ~Healing Rain
+
+Crystal healing shards rain down in a 10-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.~
 
 @125 = ~~
 @225 = ~~
+
+@126 = ~~
+@226 = ~~
 
 
 
@@ -1104,7 +1133,7 @@ Charge abilities:
 – Clawmark (can be used at will)
   Area of Effect: The party
   Duration: 24 hours
-  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 1 point of damage per round for one turn (no save); a target can be wounded once per round and the effects are cumulative
+  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 2 points of damage per round for 1 turn (no save); a target can be wounded once per round and the effects are cumulative
 
 Weight: 0~
 

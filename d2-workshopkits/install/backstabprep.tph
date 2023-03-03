@@ -41,7 +41,7 @@ END
 
 /*
 fix lines for some Expanded Classes kits (incorrect values or column numbers)
-Fixes an issue when installing a thief kit after these kits, using ADD_KIT_EX
+Fixes an issue when installing a thief kit after these kits, using ADD_KIT_EX.
 */
 
 ACTION_IF !(MOD_IS_INSTALLED ~d2-modfixes.tp2~ 2) BEGIN    // skip if d2-modfixes component is installed

@@ -33,6 +33,10 @@ Blood Minister (cleric)
 Crow Hunter (thief)
 Powder Keg (bard)
 
+//v3.0+ kits
+Drifter (ranger)
+Medic (monk)
+
 //multiclass kits
 Beast Hunter (f/m)
 Beast Hunter (f/m/c)
@@ -115,12 +119,15 @@ Version info:
 v3.0
 - Added kits:
 	- Drifter (ranger)
-	- 
+	- Medic (monk)
 	- 
 - Changes:
 	- Beast Hunter: "Fire Weapon" is now "Hunter Tools". Adds acid damage and boosts movement speed.
 	- Grave Warden: Can wear up to chain mail (was previously leather).
-	- Any kits that gain custom spells will learn them all at level 1.
+	- Blood Minister: Will now gain Blood Tranfusion every 2 levels (max 10 uses).
+	- Crow Hunter: Visceral Attack healing reduced from 20 HP to 8 HP.
+	- All bleeding effects increased to 2 damage per round (affects Confessor kit, Crow Hunter kit, Clawmark Rune item)
+	- Any kits that gain custom spells will learn them all in the spellbook at level 1.
 	- IWDEE: Changed conditions for obtaining certain items.
 - Visual/Audio changes:
 	- Changed visual/audio for War Magician's "Twisted Barricade".

@@ -330,7 +330,7 @@ Charge abilities:
 – Clawmark (can be used at will)
   Area of Effect: The party
   Duration: 24 hours
-  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 1 point of damage per round for one turn (no save); a target can be wounded once per round and the effects are cumulative
+  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 2 points of damage per round for 1 turn (no save); a target can be wounded once per round and the effects are cumulative
 
 Weight: 0
 

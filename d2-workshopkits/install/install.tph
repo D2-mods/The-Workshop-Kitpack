@@ -3,6 +3,12 @@ Install kits
 */
 
 
+//Prep
+INCLUDE ~%install%/backstabprep.tph~
+INCLUDE ~%install%/monkprep.tph~
+//INCLUDE ~%install%/usabilitykatanas.tph~
+
+
 //Arcane kits (including multiclass)
 
 //Starjammer (d2wk8)
@@ -59,7 +65,6 @@ END
 
 //Crow Hunter (d2wka)
 ACTION_IF (%nocrowhunter% = 0) BEGIN
-  INCLUDE ~%install%/backstabprep.tph~
   OUTER_TEXT_SPRINT kitid ~d2wka~
   OUTER_TEXT_SPRINT kitname ~CROWHUNTER~
   INCLUDE ~%install%/variables.tph~
@@ -144,8 +149,6 @@ ACTION_IF (%nodrifter% = 0) BEGIN
   INCLUDE ~%install%/%kitname%.tph~
 END
 
-
-/*
 //Medic (d2wkd)
 ACTION_IF (%nomedic% = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wkd~
@@ -155,6 +158,9 @@ ACTION_IF (%nomedic% = 0) BEGIN
   INCLUDE ~%install%/%kitname%.tph~
 END
 
+
+
+/*
 //Noble Scion (d2wke)
 ACTION_IF (%nonoblescion% = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wke~
@@ -166,7 +172,7 @@ END
 */
 
 
-//Extra stuff
+//End stuff
 INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/castingspeed.tph~
 INCLUDE ~%install%/crosskiteffects.tph~

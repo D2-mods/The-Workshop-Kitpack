@@ -76,7 +76,7 @@ COPY ~%abilities%/bleed10rounds.SPL~    ~override/%z1%a.SPL~
 
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%z1%b.EFF~
     WRITE_ASCII 0x30 ~%z1%b~ #8
-COPY ~%abilities%/bleeddamage1.SPL~     ~override/%z1%b.SPL~
+COPY ~%abilities%/bleeddamage2.SPL~     ~override/%z1%b.SPL~
 
 
 //Blood Rapture
