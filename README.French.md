@@ -3,7 +3,7 @@
 Téléchargement : https://github.com/D2-mods/The-Workshop-Kitpack/releases  
 Forum : [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)
 
-C'est un pack de Kits sur lequel je travaille depuis un moment. Il comporte actuellement 11 kits - 6 combattants, 5 non-combattants + des déclinaisons pour multi-classes. Il contient également plus de 20 objets, dont 4 insignes de Chasseur, 9 Runes de Caryll et 9 autres objets divers. Fortement inspiré par les jeux Soulsborne de FromSoft et probablement d'autres sources. Ce mod est compatible avec BG:EE, BG2:EE, IWD:EE et EET.
+C'est un pack de Kits sur lequel je travaille depuis un moment. Il comporte actuellement 14 kits + 6 déclinaisons pour multi-classes. Il contient également plus de 20 objets, dont 6 insignes de Chasseur, 12 Runes de Caryll et 10 autres objets divers. Fortement inspiré par les jeux Soulsborne de FromSoft et probablement d'autres sources. Ce mod est compatible avec BG:EE, BG2:EE, IWD:EE et EET.
 
 NOTE : Les tables de capacités pour ces kits sont créées au moment de l'installation. Chaque kit clone la table de la classe de base (si elle existe). Cela signifie que toute modification de classe installée au préalable sera incluse dans les kits du mod.
 
@@ -27,6 +27,11 @@ Contenu du mod :
 - Ecclésiaste sanglant (Clerc)
 - Prédateur (Voleur)
 - Chantre de la poudre (barde)
+
+#### [v3.0+ kits](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#descriptions-des-kits-)
+- Vagabond (rôdeur)
+- Chirurgien (moine)
+- Seigneur Scion (paladin)
 
 #### Kits Multi-classes
 
@@ -164,7 +169,7 @@ EMPALEMENT : La prochaine attaque à distance réussie enchevêtre la cible pend
 
 - 5ème niveau : Peut utiliser la capacité « Évangile sanguinolente » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
 
-ÉVANGILE SANGUINOLENTE : Pendant 5 rounds, le personnage récupère 1 à 4 points de vie grâce aux attaques de mêlée et provoque une hémorragie à sa cible, lui infligeant 1 point de dégâts par round pendant 1 tour (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.
+ÉVANGILE SANGUINOLENTE : Pendant 5 rounds, le personnage récupère 1d4 points de vie grâce aux attaques de mêlée et provoque une hémorragie à sa cible, lui infligeant 2 point de dégâts par round pendant 1 tour (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.
 
 Inconvénients : 
 - Ne peut pas porter d'armure plus lourde que la besantine.
@@ -239,7 +244,7 @@ ECCLÉSIASTE SANGLANT : L'ancienne Église de la Guérison aujourd'hui entaché 
 
 Avantages :
 - Immunité au drainage de niveau, aux poisons et aux maladies..
-- Peut utiliser la capacité « Injection » une fois par jour à partir du niveau 2, puis une fois supplémentaire tous les 4 niveaux. Lorsque cette capacité est activée, elle permet d'utiliser plusieurs type de transfusions. De nouvelles transfusions sont disponibles en fonction du niveau :  
+- Peut utiliser la capacité « Injection » une fois par jour à partir du niveau 2, puis une fois supplémentaire tous les 2 niveaux pour un maximum de 10 au niveau 20. Lorsque cette capacité est activée, elle permet d'utiliser plusieurs type de transfusions. De nouvelles transfusions sont disponibles en fonction du niveau :  
   2ème niveau : « Guérison par le sang ».  
   6ème niveau : « Sang de la Bête ».  
   10ème niveau : « Sang du lunatique ».  
@@ -266,11 +271,11 @@ Avantages :
 - Bonus de 3 bonus aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille.
 - 4ème niveau : Peut utiliser la capacité « Tir éclatant » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
-TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 1 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
+TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 2 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
 - 11ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 15 et 19.
 
-INSTINCT : La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 20 points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.
+INSTINCT : La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 12 points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.
 
 Inconvénients : 
 - Ne dispose que de 20 points par niveau pour les talents de voleur.
@@ -302,6 +307,73 @@ REMARQUE : Si la capacité de haut niveau « Chant du barde amélioré » est ac
 Inconvénients : 
 - Le chant du barde est inutilisable pendant un tour après chaque usage.
 - N'obtient qu'un quart du score de Vol à la tire.
+
+---
+
+</details>
+
+<details>
+  <summary>v3.0+ kits:</summary>
+
+---
+
+**Vagabond (Rôdeur)**
+
+VAGABOND : Le Vagabond erre sans attache ni dessein dans les contrées les plus inhospitalières. Ses remarquables aptitudes au combat ont été affûté par d'innombrables batailles.
+
+Avantages :
+– Bonus de 4 aux jets de sauvegarde contre les souffles.
+– Bonus de 1 à la classe d'armure, bénéficie d'un bonus supplémentaire de 1 tous les 5 niveaux.
+– Bonus de 1 aux jets d'attaque et de dégâts tous les 5 niveaux.
+– Ne sera pas déchu en raison de la réputation.
+– Vitesse de déplacement augmentée de 2.
+– 6ème niveau : Immunité à « Glisse », « Toile d'araignée », « Enchevêtrement », « Croissance d'épines », et « Pierres acérées ».
+– 12ème niveau : Immunité à « Nuage mortel », « Brume mortelle », « Nuage puant », « Brouillard putride », et « Nuage de pestilence ».
+
+Inconvénients :
+– N'a pas accès aux sorts de prêtre.
+– Ne peut pas porter d'armure plus lourde que l'armure de cuir ou l'armure de peau.
+
+**Chirurgien (Moine)**
+
+CHIRURGIEN : Le Chirurgien est un guerrier disposant d'une connaissance approfondie en médecine. Il a bénéficié d'un entraînement spécifique lui conférant la capacité de concocter de puissants remèdes à base de plantes pour renforcer ses alliés au cours des combats.
+
+Avantages :
+– Peut utiliser les capacités « Sombre Remède » et « Remède Vital » une fois par jour au niveau 1, puis une fois supplémentaire tous les 5 niveaux.
+
+SOMBRE REMÈDE : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède curatif qui restaure 1d8 points de vie à tous les alliés dans un rayon de 2,1 mètres.
+
+REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède apaisant. Tous les ennemis présents dans un rayon de 2,1 m sont ralentis durant 1 round, et doivent effectuer un jet de sauvegarde contre la mort ou s'endormir pendant 5 rounds, à moins d'être attaqués dans leur sommeil.
+
+– 5ème niveau : Peut utiliser « Ralentissement du poison » trois fois par jour.
+– 7ème niveau : Peut utiliser « Guérison des maladies » une fois par jour.
+– 9ème niveau : Peut utiliser la capacité « Déluge Salvateur » une fois par jour, puis une fois supplémentaire au niveau 12 et 15.
+
+DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
+
+Inconvénients :
+– Ne peut utiliser « Imposition des mains ».
+– Ne peut utiliser « Coup étourdissant ».
+– Ne peut porter de gantelets ou de bracelets.
+
+**Seigneur Scion (Paladin)**
+
+SEIGNEUR SCION : Descendant d'une lignée honorable, le Seigneur Scion a foi dans son héritage. Ce justicier excelle dans le combat à distance et imprègne ses munitions de sang pour réaliser des tirs dévastateurs.
+
+Avantages :
+– Bonus de 1 aux jets d'attaque avec les armes à distance au niveau 1, puis tous les 5 niveaux.
+– Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes
+– 3ème niveau : Peut utiliser la capacité « Bullet ability » une fois par jour, puis tous les 3 niveaux.
+
+TIR SAIGNANT : Le personnage sacrifie 2d4 points de vie. Ainsi pendant les 2 rounds suivants, toutes ses attaques à distance infligent 1d3 points de dégâts perforants supplémentaires par tranche de 3 niveaux du personnage.
+
+– 8ème niveau :  +5 % de chance d’effectuer un coup critique avec les armes à distance.
+– 16ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
+
+Inconvénients :
+– Ne peut pas porter d'armure plus lourde que l'armure feuilletée.
+– Ne peut se spécialiser avec les armes de mêlée.
+– Ne peut se spécialiser dans aucun style de combat.
 
 ---
 
@@ -509,7 +581,7 @@ Capacités de charge :
 – Charisme : Bonus de 2
 
 Spécial (Chasseur): 
-– Techniques de chasseur : +5 % de chance d’effectuer un coup critique
+– Techniques de chasseur : +5 % de chance d’effectuer un coup critique avec les armes de mêlée
 
 Poids : 1
 
@@ -912,7 +984,7 @@ Capacités de charge :
 - Zone d'effet : Le groupe
 - Durée : 24 heures
 
-5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 1 point de dégâts par round pendant un tour (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
+5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 2 point de dégâts par round pendant un tour (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
 Poids : 0
 

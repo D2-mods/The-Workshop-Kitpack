@@ -43,6 +43,11 @@ Contenu du mod :
 - Prédateur (Guerrier / Voleur)
 - Prédateur (Guerrier / Mage / Voleur)
 
+//v3.0+ kits
+Vagabond (rôdeur)
+Chirurgien (moine)
+Seigneur Scion (paladin)
+
 // Objets Divers
  
 - 6 Insignes de Chasseur - peuvent être fabriqués (voir ci-dessous), ou achetés
@@ -123,16 +128,23 @@ Version info:
 
 v3.0
 - Added kits:
-	- 
-	- 
-- Changes:
+	- Drifter (ranger)
+	- Medic (monk)
+	- Noble Scion (paladin)
+- Kit/ability Changes:
 	- Beast Hunter: "Fire Weapon" is now "Hunter Tools". Adds acid damage and boosts movement speed.
 	- Grave Warden: Can wear up to chain mail (was previously leather).
+	- Blood Minister: Will now gain Blood Tranfusion every 2 levels (max 10 uses).
+	- Crow Hunter: Visceral Attack healing reduced from 20 HP to 12 HP.
+	- All bleeding effects increased to 2 damage per round (affects Confessor kit, Crow Hunter kit, Clawmark Rune item)
+	- Any kits that gain custom spells will learn them all in the spellbook at level 1.
+- Item stuff:
+	- Old/Saw Hunter Badges can now be crafted (by 2 of the new kits).
 	- IWDEE: Changed conditions for obtaining certain items.
 - Visual/Audio changes:
 	- Changed visual/audio for War Magician's "Twisted Barricade".
 	- Riftgate: Added portrait icon for the turn that the spell can't be recast.
-	- A couple other minor changes (sounds or BAM images)
+	- A couple other minor changes (sounds or BAM images).
 - Updated Compatibility section:
 	- FnP note: The multiclass Cleric kits are currently not compatible with the beta versions of FnP. Use v0.84.5 if you want to use the multiclass kits with FnP.
 

@@ -144,7 +144,7 @@ Capacités de charge :
 – Charisme : Bonus de 2
 
 Spécial (Chasseur): 
-– Techniques de chasseur : +5 % de chance d’effectuer un coup critique
+– Techniques de chasseur : +5 % de chance d’effectuer un coup critique avec les armes de mêlée
 
 Poids : 1
 
@@ -348,7 +348,7 @@ Capacités de charge :
 – Griffure (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 1 point de dégâts par round pendant un tour (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
+5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 2 point de dégâts par round pendant un tour (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
 Poids : 0
 
