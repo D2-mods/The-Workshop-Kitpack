@@ -101,10 +101,8 @@ END
 //Set variables for external use
 OUTER_TEXT_SPRINT noblescion   ~%kitid%~
 OUTER_TEXT_SPRINT bloodbullet  ~%s1%~
-
-//placeholders, still deciding
 OUTER_TEXT_SPRINT fnpclass     ~champion~
-OUTER_TEXT_SPRINT fnpdeity     ~vanilla_undead_hunter_spheres~
+OUTER_TEXT_SPRINT fnpdeity     ~corellon_spheres~
 
 
 /*

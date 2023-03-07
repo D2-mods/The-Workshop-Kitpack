@@ -127,6 +127,9 @@ FnP multiclass :
 Version info:
 
 v3.0
+- Fixes:
+	- Fixed potential issue with IWDEE (caused by the file #BONECIR.SPL, if it was in the override).
+	- Fixed Starjammer's Jolt spell effects when installed with the Deities of Faerun mod.
 - Added kits:
 	- Drifter (ranger)
 	- Medic (monk)

@@ -31,6 +31,10 @@ Temple Knight:
 	- Major: Life, Destruction, Protection, Vigor, Earth
 	- Minor: Knowledge, Dread, Light, Magic
 
+Noble Scion: 
+	- Major: Life, Protection, Knowledge, Vigor, Light, Magic
+	- Minor: Destruction, Exploration, Thought, Plant, Water, Air
+
 Blood Minister: 
 	- Major: Life, Death, Vigor, Plant, Earth, Water, Air, Astral
 	- Minor: Exploration, Knowledge, Thought, Affliction, Animal, Fire, Shadow
@@ -62,6 +66,10 @@ Temple Knight:
 	- Major: All, Law, Protection, War, Vigor, Earth, Radiance
 	- Minor: Death, Chaos, Perception
 
+Noble Scion: 
+	- Major: All, Law, Protection, War, Perception, Vigor, Radiance
+	- Minor: Chaos, Time, Thought, Plant, Water
+
 Blood Minister: 
     - Major: All, Death, Vigor, Plant, Earth, Air, Spirit
     - Minor: Perception, Animal, Fire, Shadow
@@ -92,6 +100,10 @@ Confessor:
 Temple Knight: 
 	- Major: Healing, Law, Chaos, Protection, Combat, Creation, Earth
 	- Minor: Travelers, Divination, Wards, Sun
+
+Noble Scion: 
+	- Major: Healing, Law, Protection, Combat, Travelers, Divination, Sun
+	- Minor: Chaos, Thought, Plant, Water, Air, Numbers
 
 Blood Minister: 
 	- Major: Healing, Necromantic, Summoning, Animals, Plant, Earth, Water, Air, Numbers
@@ -126,6 +138,9 @@ Confessor:
 
 Temple Knight: 
 	- All, Healing, Protection, Combat, Vocal
+
+Noble Scion: 
+	- All, Protection, Sun, Combat, Weave
 
 Blood Minister: 
 	- Major: All, Healing, Plant, Darkness, Air, Divination
