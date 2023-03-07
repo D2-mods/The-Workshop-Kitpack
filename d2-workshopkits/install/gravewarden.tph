@@ -57,7 +57,7 @@ COPY_EXISTING ~SPPR409.SPL~  ~override/%s1%.SPL~                      // clone D
     STR_VAR resource=~%s1%a~
   END
 
-  WRITE_ASCII 0x3a SPWI803C #8  // icon BAMs
+  WRITE_ASCII 0x3a SPWI803B #8  // icon BAMs
   WRITE_ASCII 0x76 SPWI803B #8
   WRITE_SHORT 0x84 5            // casting speed
 BUT_ONLY

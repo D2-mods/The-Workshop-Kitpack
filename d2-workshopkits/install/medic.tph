@@ -16,6 +16,17 @@ COPY_EXISTING ~SPPR317.SPL~       ~override/%s5%.SPL~
   LPF ALTER_SPELL_HEADER INT_VAR speed=0 END    // casting speed
 
 
+//Add Remedy projectiles
+COPY - ~%abilities%/remedy7.PRO~ ~%workspace%/%s9%a.PRO~     // 7-ft. radius
+ADD_PROJECTILE ~%workspace%/%s9%a.PRO~
+
+COPY - ~%abilities%/remedy4.PRO~ ~%workspace%/%s9%b.PRO~     // 4-ft. radius
+ADD_PROJECTILE ~%workspace%/%s9%b.PRO~
+
+COPY - ~%abilities%/remedy15.PRO~ ~%workspace%/%s9%c.PRO~    // 15-ft. radius
+ADD_PROJECTILE ~%workspace%/%s9%c.PRO~
+
+
 //Add Black Remedy
 COPY ~%icons%/blackremedy.BAM~          ~override/%s1%.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@122) STR_VAR bam=~%s1%~ RET icon END
@@ -30,13 +41,10 @@ COPY ~%abilities%/remedy.SPL~           ~override/%s1%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY - ~%abilities%/remedy7.PRO~ ~%workspace%/%s1%a.PRO~
-ADD_PROJECTILE ~%workspace%/%s1%a.PRO~
-
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%a.EFF~
   WRITE_ASCII 0x30 ~%s1%a~ #8
 COPY ~%abilities%/remedyblack.SPL~      ~override/%s1%a.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%a~ END    // set projectile
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s9%a~ END    // set projectile
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%a~ END
 
 
@@ -58,22 +66,19 @@ COPY ~%abilities%/remedy.SPL~           ~override/%s2%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY - ~%abilities%/remedy4.PRO~ ~%workspace%/%s2%a.PRO~
-ADD_PROJECTILE ~%workspace%/%s2%a.PRO~
-
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%a.EFF~
   WRITE_ASCII 0x30 ~%s2%a~ #8
 COPY ~%abilities%/remedywhite.SPL~      ~override/%s2%a.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s2%a~ END    // set projectile
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s9%a~ END    // set projectile
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s2%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=~%sleep_string%~ END    // "Sleep"
 
 
-//Remedy on-hit lighting
-COPY ~%abilities%/remedyvisual.VVC~  ~override/%s1%a.VVC~    // copy visual (same for both Remedy types)
-ACTION_FOR_EACH projectile IN ~%s1%a~ ~%s2%a~ BEGIN          // write VVC into projectiles
+//Remedy lighting (write into projectile)
+COPY ~%abilities%/remedyvisual.VVC~  ~override/%s9%e.VVC~
+ACTION_FOR_EACH projectile IN ~%s9%a~ ~%s9%b~ ~%s9%c~ BEGIN
   COPY ~override/%projectile%.PRO~   ~override~
-    WRITE_ASCII 0x21c  ~%s1%a~ #8
+    WRITE_ASCII 0x21c  ~%s9%e~ #8
   BUT_ONLY
 END
 
@@ -137,6 +142,9 @@ OUTER_TEXT_SPRINT whiteremedy  ~%s2%~
 OUTER_TEXT_SPRINT healingrain  ~%s3%~
 OUTER_TEXT_SPRINT mediccure1   ~%s4%~
 OUTER_TEXT_SPRINT mediccure2   ~%s5%~
+OUTER_TEXT_SPRINT remedy7      ~%s9%a~
+OUTER_TEXT_SPRINT remedy4      ~%s9%b~
+OUTER_TEXT_SPRINT remedy15     ~%s9%c~
 
 
 /*

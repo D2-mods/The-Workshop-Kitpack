@@ -36,6 +36,7 @@ Powder Keg (bard)
 //v3.0+ kits
 Drifter (ranger)
 Medic (monk)
+Noble Scion (paladin)
 
 //multiclass kits
 Beast Hunter (f/m)
@@ -120,14 +121,16 @@ v3.0
 - Added kits:
 	- Drifter (ranger)
 	- Medic (monk)
-	- 
-- Changes:
+	- Noble Scion (paladin)
+- Kit/ability Changes:
 	- Beast Hunter: "Fire Weapon" is now "Hunter Tools". Adds acid damage and boosts movement speed.
 	- Grave Warden: Can wear up to chain mail (was previously leather).
 	- Blood Minister: Will now gain Blood Tranfusion every 2 levels (max 10 uses).
-	- Crow Hunter: Visceral Attack healing reduced from 20 HP to 8 HP.
+	- Crow Hunter: Visceral Attack healing reduced from 20 HP to 12 HP.
 	- All bleeding effects increased to 2 damage per round (affects Confessor kit, Crow Hunter kit, Clawmark Rune item)
 	- Any kits that gain custom spells will learn them all in the spellbook at level 1.
+- Item stuff:
+	- Old/Saw Hunter Badges can now be crafted (by 2 of the new kits).
 	- IWDEE: Changed conditions for obtaining certain items.
 - Visual/Audio changes:
 	- Changed visual/audio for War Magician's "Twisted Barricade".

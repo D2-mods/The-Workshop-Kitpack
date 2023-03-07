@@ -16,6 +16,7 @@ Powder Keg (bard)
 //v3.0+ kits
 Drifter (ranger)
 Medic (monk)
+Noble Scion (paladin)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -87,7 +88,7 @@ Moonlight Knight (Ranger)
 MOONLIGHT KNIGHT: Scholars tell of a decrepit, old dragon that lies atop a high plateau, hidden away from the rest of Toril. The Moonlight Knights, who have gazed upon the forbidden "Other" moon, travel to this place, seeking a revelation from things unseen.
 
 Advantages:
-– +2 bonus to all Saving Throws
+– +2 bonus to all Saving Throws.
 – May be of any alignment.
 – Will not fall due to reputation loss.
 – 2nd level: Gains the Torrent ability (passive).
@@ -221,7 +222,7 @@ SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multip
 
 – 11th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 15 and 19.
 
-VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 8 Hit Points and haste the character for 10 seconds.
+VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 12 Hit Points and haste the character for 10 seconds.
 
 Disadvantages:
 – May only distribute 20 skill points per level among thieving skills.
@@ -267,6 +268,7 @@ Advantages:
 – +4 bonus to Saving Throws vs. Breath.
 – +1 bonus to Armor Class, plus an additional +1 bonus every 5 levels.
 – +1 bonus to attack and damage rolls every 5 levels.
+– Will not fall due to reputation loss.
 – Moves 2 points faster than other characters.
 – 6th level: Immune to Grease, Web, Entangle, Spike Growth, and Spike Stones.
 – 12th level: Immune to Cloudkill, Death Fog, Stinking Cloud, Writhing Fog, and Cloud of Pestilence.
@@ -286,7 +288,7 @@ Advantages:
 
 BLACK REMEDY: All attacks in the next 10 seconds spread a healing remedy. Restores 1d8 Hit Points to allies in a 7-ft. radius.
 
-WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 4-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
+WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
 
 – 5th level: May cast Slow Poison three times per day.
 – 7th level: May cast Cure Disease once per day.
@@ -298,6 +300,27 @@ Disadvantages:
 – May not use the Lay On Hands ability.
 – May not use the Stunning Blow ability.
 – May not wear gauntlets or bracers.
+
+
+==================================================
+Noble Scion (Paladin)
+==================================================
+NOBLE SCION: Scion to a respectable line with faith in your pedigree. This holy avenger excels at ranged combat and imbues ammo with blood to fire devastating shots.
+
+Advantages:
+– +1 bonus to ranged attack rolls at 1st level, plus an additional +1 bonus every 5 levels.
+– May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.
+– 3rd level: May use the Blood Bullet ability once per day. Gains additional uses every 3 levels thereafter.
+
+BLOOD BULLET: The character sacrifices 2d4 Hit Points. For the next 2 rounds, all ranged attacks deal an extra 1d3 piercing damage for every 3 levels of the character.
+
+– 8th level: +5% chance to score a critical hit with ranged attacks.
+– 16th level: +5% chance to score a critical hit with ranged attacks.
+
+Disadvantages:
+– May not wear armor heavier than splint mail.
+– May not Specialize in melee weapons.
+– May not Specialize in any fighting style.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

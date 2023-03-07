@@ -4,9 +4,10 @@ Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases
 Forum posts: [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)  
 Languages: English, French (by 11jo)
 
-**Readme is accurate for v2.8**
+**Readme is accurate for the files in the repo**  
+**NOTE: I'll put up a v3.0 update in 1-2 days.**
 
-This is a kitpack I've been working on for a while. It currently has 11 kits + 6 multiclass variants. Also adds 20+ items, including 6 Hunter Badges, 12 Caryll Runes, and 10 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
+This is a kitpack I've been working on for a while. It currently has 14 kits + 6 multiclass variants. Also adds 20+ items, including 6 Hunter Badges, 12 Caryll Runes, and 10 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 
 NOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
 
@@ -14,7 +15,7 @@ NOTE: The abilities tables for these kits are made at install time. Every kit cl
 Mod contents:
 -
 
-#### Warrior kits
+#### Warrior kits (v1.0)
 - Beast Hunter (fighter)  
 - Warhound (fighter)  
 - Grave Warden (ranger)  
@@ -22,12 +23,17 @@ Mod contents:
 - Confessor (paladin)  
 - Temple Knight (paladin)
 
-#### Non-warrior kits
+#### Non-warrior kits (v1.0)
 - War Magician (mage)  
 - Starjammer (sorcerer)  
 - Blood Minister (cleric)  
 - Crow Hunter (thief)  
 - Powder Keg (bard)
+
+#### v3.0+ kits
+- Drifter (ranger)
+- Medic (monk)
+- Noble Scion (paladin)
 
 #### Multiclass kits
 - Beast Hunter (f/m)
@@ -63,19 +69,19 @@ Kit descriptions:
 
 **Beast Hunter (Fighter)**
 
-BEAST HUNTER: Whereever there are beasts, there are hunters. Hunters may be protectors or mercenaries, or simply have an addiction for blood and slaughter. This class is particularly adept at combating several powerful types of monsters, including fiends and werewolves.
+BEAST HUNTER: Whereever there are beasts, there are hunters. Hunters may be protectors or mercenaries, or simply have an addiction for blood and slaughter. This class is particularly adept at combating several powerful types of monsters, including demons and werewolves.
 
-Advantages:  
-- +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.  
-- 2nd level: May use the Fire Weapon ability once per day. Gains additional uses every 4 levels thereafter.
+Advantages:
+- +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.
+- 2nd level: May use the Hunter Tools ability once per day. Gains additional uses every 4 levels thereafter.
 
-FIRE WEAPON: Applies fire element to weapons for 1 turn. All melee attacks inflict an extra 1d3 fire damage for the duration. This ability can be enhanced by equipping special Hunter Badges.
+HUNTER TOOLS: For 1 turn, the character moves 4 points faster, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
 
 - 5th level: May use the Quicksilver ability once per day. Gains additional uses at levels 9 and 13.
 
 QUICKSILVER: Enhances ranged attacks for 1 turn, adding 2 points of piercing damage and a +5% chance to score a critical hit. All ammo types (arrows, bolts, and bullets) are also enchanted and become able to hit enemies that normally require magical or silver weapons to hit.
 
-Disadvantages:  
+Disadvantages:
 - May not wear armor heavier than studded leather.
   
 ---
@@ -117,7 +123,7 @@ Advantages:
 DENIAL: This spell has two effects. First, the recipient becomes immune to all instant death effects for 3 turns. Second, if the recipient falls below 50% of maximum Hit Points, the spell activates and restores the character to full health, consuming the spell in the process.
 
 Disadvantages:  
-- May not wear armor heavier than leather.  
+- May not wear armor heavier than chain mail.
 - May not use the Charm Animal ability.
 
 ---
@@ -127,7 +133,7 @@ Disadvantages:
 MOONLIGHT KNIGHT: Scholars tell of a decrepit, old dragon that lies atop a high plateau, hidden away from the rest of Toril. The Moonlight Knights, who have gazed upon the forbidden "Other" moon, travel to this place, seeking a revelation from things unseen.
 
 Advantages:  
-- +2 bonus to all Saving Throws  
+- +2 bonus to all Saving Throws.  
 - May be of any alignment.  
 - Will not fall due to reputation loss.  
 - 2nd level: Gains the Torrent ability (passive).
@@ -161,7 +167,7 @@ ROOTING SHOT: The next successful ranged attack entangles the target for 3 round
 
 - 5th level: May use the Bloodletter ability once per day. Gains additional uses at levels 9 and 13.
 
-BLOODLETTER: For 5 rounds, the character is healed 1-4 Hit Points with melee attacks and the target suffers a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
+BLOODLETTER: For 5 rounds, the character is healed 1d4 Hit Points with melee attacks and the target suffers a bleeding wound, which inflicts 2 points of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
 
 Disadvantages:  
 - May not wear armor heavier than studded leather.  
@@ -235,7 +241,7 @@ BLOOD MINISTER: The heretical Healing Church was once the home of blood ministra
 
 Advantages:  
 - Immune to level drain, poisons, and diseases.  
-- May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 4 levels thereafter. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels:  
+- May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 2 levels, up to a maximum of 10 uses at level 20. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels:  
 &emsp;2nd level: Healing Blood.  
 &emsp;6th level: Beast Blood.  
 &emsp;10th level: Madman's Blood.  
@@ -262,11 +268,11 @@ Advantages:
 - +3 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races.  
 - 4th level: May use the Splintering Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
-SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15 ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
+SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 2 points of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
 
 - 11th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 15 and 19.
 
-VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 20 Hit Points and haste the character for 10 seconds.
+VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 12 Hit Points and haste the character for 10 seconds.
 
 Disadvantages:  
 - May only distribute 20 skill points per level among thieving skills.  
@@ -299,6 +305,77 @@ NOTE: If the High-Level Ability "Enhanced Bard Song" is learned, the character w
 Disadvantages:  
 - Bard Song is unusable for one turn after each use.  
 - Only has one quarter the normal Pick Pockets score.
+
+---
+
+</details>
+
+<details>
+  <summary>v3.0+ kits:</summary>
+
+---
+
+**Drifter (Ranger)**
+
+DRIFTER: An aimless wanderer, at home in adverse terrain. Countless battles have honed the abilities of these finely skilled warriors.
+
+Advantages:
+- +4 bonus to Saving Throws vs. Breath.
+- +1 bonus to Armor Class, plus an additional +1 bonus every 5 levels.
+- +1 bonus to attack and damage rolls every 5 levels.
+- Will not fall due to reputation loss.
+- Moves 2 points faster than other characters.
+- 6th level: Immune to Grease, Web, Entangle, Spike Growth, and Spike Stones.
+- 12th level: Immune to Cloudkill, Death Fog, Stinking Cloud, Writhing Fog, and Cloud of Pestilence.
+
+Disadvantages:
+- May not cast priest spells.
+- May only wear leather or hide armor.
+
+---
+
+**Medic (Monk)**
+
+MEDIC: This Monk is a skilled medical practioner, as well as warrior, and has undergone special training, applying powerful herbal remedies to aid in combat.
+
+Advantages:
+- May use the Black Remedy and White Remedy abilities. Gains one use each at level 1 and an additional use each every 5 levels thereafter.
+
+BLACK REMEDY: All attacks in the next 10 seconds spread a healing remedy. Restores 1d8 Hit Points to allies in a 7-ft. radius.
+
+WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
+
+- 5th level: May cast Slow Poison three times per day.
+- 7th level: May cast Cure Disease once per day.
+- 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
+
+HEALING RAIN: Crystal healing shards rain down in a 10-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
+
+Disadvantages:
+- May not use the Lay On Hands ability.
+- May not use the Stunning Blow ability.
+- May not wear gauntlets or bracers.
+
+---
+
+**Noble Scion (Paladin)**
+
+NOBLE SCION: Scion to a respectable line with faith in your pedigree. This holy avenger excels at ranged combat and imbues ammo with blood to fire devastating shots.
+
+Advantages:
+- +1 bonus to ranged attack rolls at 1st level, plus an additional +1 bonus every 5 levels.
+- May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.
+- 3rd level: May use the Blood Bullet ability once per day. Gains additional uses every 3 levels thereafter.
+
+BLOOD BULLET: The character sacrifices 2d4 Hit Points. For the next 2 rounds, all ranged attacks deal an extra 1d3 piercing damage for every 3 levels of the character.
+
+- 8th level: +5% chance to score a critical hit with ranged attacks.
+- 16th level: +5% chance to score a critical hit with ranged attacks.
+
+Disadvantages:
+- May not wear armor heavier than splint mail.
+- May not Specialize in melee weapons.
+- May not Specialize in any fighting style.
 
 ---
 
@@ -412,7 +489,7 @@ Equipped abilities:
 - Electricity Resistance: +50%
 
 Special (Beast Hunter):  
-- Fire Weapon: Inflicts an extra 1d3 electrical damage
+- Hunter Tools: Inflicts an extra 1d3 electrical damage
 
 Weight: 1
 
@@ -430,7 +507,7 @@ Equipped abilities:
 - Protection From Evil
 
 Special (Beast Hunter):  
-- Fire Weapon: +5 magic damage vs. undead
+- Hunter Tools: +5 magic damage vs. undead
 
 Weight: 1
 
@@ -448,7 +525,7 @@ Equipped abilities:
 - Magic Resistance: +10%
 
 Special (Beast Hunter):  
-- Fire Weapon: Target is drained 1 level on a failed save vs. Spell at -2
+- Hunter Tools: Target is drained 1 level on a failed save vs. Spell at -2
 
 Weight: 1
 
@@ -466,7 +543,7 @@ Equipped abilities:
 - Fire Resistance: +20%
 
 Special (Beast Hunter):  
-- Fire Weapon: 10% chance of an extra 2d12 fire damage
+- Hunter Tools: 10% chance of an extra 2d12 fire damage
 
 Weight: 1
 
@@ -484,7 +561,7 @@ Equipped abilities:
 - Saving Throws: +1
 
 Special (Beast Hunter): 
-- Fire Weapon: Target suffers a cumulative -1 penalty to Armor Class for 3 rounds
+- Hunter Tools: Target suffers a cumulative -1 penalty to Armor Class for 3 rounds
 
 Weight: 1
 
@@ -502,7 +579,7 @@ Equipped abilities:
 - Charisma: +2
 
 Special (Beast Hunter): 
-- Fire Weapon: +5% chance to score a critical hit
+- Hunter Tools: +5% chance to score a critical hit with melee attacks
 
 Weight: 1
 
@@ -900,7 +977,7 @@ Charge abilities:
 - Clawmark (can be used at will)  
   Area of Effect: The party  
   Duration: 24 hours  
-  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 1 point of damage per round for one turn (no save); a target can be wounded once per round and the effects are cumulative
+  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 2 points of damage per round for 1 turn (no save); a target can be wounded once per round and the effects are cumulative
 
 Weight: 0
 

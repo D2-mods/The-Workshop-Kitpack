@@ -189,3 +189,30 @@
 		~Time~ => 0
 		~Vocal~ => 0
 	END
+
+	ACTION_DEFINE_ASSOCIATIVE_ARRAY	$priestspherelist(~D2NOBLESCION~) BEGIN
+		~Healing~ => 4
+		~Necromantic~ => 0
+		~Suffering~ => 0
+		~Animal~ => 0
+		~Vermin~ => 0
+		~Plant~ => 0
+		~Protection~ => 0
+		~Sun~ => 4
+		~Moon~ => 0
+		~Darkness~ => 0
+		~Thought~ => 0
+		~Combat~ => 4
+		~Creation~ => 0
+		~Summoning~ => 0
+		~Air~ => 0
+		~Water~ => 0
+		~Earth~ => 0
+		~Fire~ => 0
+		~Divination~ => 0
+		~Travelers~ => 0
+		~Weave~ => 0
+		~Trickery~ => 0
+		~Time~ => 4
+		~Vocal~ => 0
+	END

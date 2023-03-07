@@ -1,25 +1,25 @@
 //Crow Hunter (d2wka)
 
 //Add passive effects
-COPY ~%passives%/useeff.SPL~          ~override/%e1%.SPL~
+COPY ~%passives%/useeff.SPL~         ~override/%e1%.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%b~ END
   
-COPY ~%passives%/attackvstype3.EFF~   ~override/%e1%a.EFF~
+COPY ~%passives%/attackvstype3.EFF~  ~override/%e1%a.EFF~
   WRITE_LONG 0x20 3
   WRITE_LONG 0x1c IDS_OF_SYMBOL (general ~humanoid~)
-COPY ~%passives%/damagevstype3.EFF~   ~override/%e1%b.EFF~
+COPY ~%passives%/damagevstype3.EFF~  ~override/%e1%b.EFF~
   WRITE_LONG 0x20 3
   WRITE_LONG 0x1c IDS_OF_SYMBOL (general ~humanoid~)
 
-COPY ~%passives%/removespell.SPL~     ~override/%e2%.SPL~
+COPY ~%passives%/removespell.SPL~    ~override/%e2%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END
 
 
 //Add Splintering Shot
-COPY ~%icons%/splinteringshot.BAM~       ~override/%s1%.BAM~
+COPY ~%icons%/calledshot.BAM~           ~override/%s1%.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@113) STR_VAR bam=~%s1%~ RET icon END
-COPY ~%abilities%/splinteringshot.SPL~   ~override/%s1%.SPL~
+COPY ~%abilities%/splinteringshot.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @113
   SAY UNIDENTIFIED_DESC @213
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
@@ -35,9 +35,9 @@ COPY ~%abilities%/splinteringshottarget.SPL~  ~override/%s1%a.SPL~
 
 COPY - ~%abilities%/invisible15enemy.PRO~ ~%workspace%/%s1%s.PRO~
 ADD_PROJECTILE ~%workspace%/%s1%s.PRO~
-COPY ~%abilities%/castspelltarget.EFF~       ~override/%s1%s.EFF~
+COPY ~%abilities%/castspelltarget.EFF~        ~override/%s1%s.EFF~
   WRITE_ASCII 0x30 ~%s1%s~ #8
-COPY ~%abilities%/splinteringshotburst.SPL~  ~override/%s1%s.SPL~
+COPY ~%abilities%/splinteringshotburst.SPL~   ~override/%s1%s.SPL~
   WRITE_SHORT 0x98 ~%s1%s~    // projectile
 
 COPY ~%icons%/bleed.BAM~                ~override/%s1%b.BAM~
@@ -84,21 +84,24 @@ BUT_ONLY
 
 
 //Add Visceral Attack
+COPY ~%icons%/visceralattack.BAM~      ~override/%s2%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@114) STR_VAR bam=~%s2%~ RET icon END
 COPY ~%abilities%/visceralattack.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @114
   SAY UNIDENTIFIED_DESC @214
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%a~ END
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%abilities%/castspellself.EFF~          ~override/%s2%a.EFF~    // cure/haste
     WRITE_ASCII 0x30 ~%s2%a~ #8
 COPY ~%abilities%/visceralattackeffects.SPL~  ~override/%s2%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=14023 END      // "Hasted" in all games
 
-COPY ~%abilities%/castspellself.EFF~       ~override/%s2%b.EFF~       // remove effects
+COPY ~%abilities%/castspellself.EFF~          ~override/%s2%b.EFF~       // remove effects
   WRITE_ASCII 0x30 ~%s2%b~ #8
-COPY ~%abilities%/removespelleffects.SPL~  ~override/%s2%b.SPL~
+COPY ~%abilities%/removespelleffects.SPL~     ~override/%s2%b.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%s2%~ END
 
 

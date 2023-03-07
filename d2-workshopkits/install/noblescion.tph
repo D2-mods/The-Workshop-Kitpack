@@ -1,0 +1,111 @@
+//Noble Scion (d2wke)
+
+
+//add passives
+COPY ~%passives%/hitdamage1ranged.SPL~  ~override/%e1%.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=286 END
+COPY ~%passives%/critbonus1.SPL~        ~override/%e2%.SPL~
+  LPF ALTER_EFFECT INT_VAR special=2 END
+
+
+//Blood Bullet array
+ACTION_DEFINE_ASSOCIATIVE_ARRAY bloodbullets BEGIN
+  1 => a
+  2 => b
+  3 => c
+  4 => d
+  5 => e
+  6 => f
+  7 => g
+  8 => h
+  9 => i
+  10 => j
+  11 => k
+  12 => l
+  13 => m
+  14 => n
+  15 => o
+  16 => p
+END
+
+
+//add Blood Bullet
+COPY ~%icons%/bloodbullet.BAM~       ~override/%s1%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@125) STR_VAR bam=~%s1%~ RET icon END
+COPY ~%abilities%/bloodbullets.SPL~  ~override/%s1%.SPL~
+  SAY NAME1 @125
+  SAY UNIDENTIFIED_DESC @225
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%a~ END    // melee hit effect
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END    // other effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%abilities%/bloodbulletsbuff.SPL~  ~override/%s1%a.SPL~
+  LPF CD_EXTEND-O-MATIC
+    INT_VAR
+      base_dur=12
+      step_dur=0
+      step_size=3
+      level_cap=50
+      min_lev_alt=3
+  END
+
+  FOR (n = 1; n <= 16; ++n) BEGIN
+    SET header = n - 1
+    PHP_EACH bloodbullets AS damage => res BEGIN
+      PATCH_IF (damage = n) BEGIN
+        LPF ALTER_EFFECT INT_VAR header=header STR_VAR resource=~%s9%%res%~ END
+        INNER_ACTION BEGIN
+          COPY ~%abilities%/bloodbulletspiercing.EFF~  ~override/%s9%%res%.EFF~
+            WRITE_LONG 0x38 damage
+        END
+      END
+    END
+  END
+
+
+//remove Blood Bullet
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT STR_VAR resource=~%s1%a~ END
+
+
+//Clone base paladin clab
+COPY_EXISTING ~CLABPA01.2DA~ ~override/%kitid%.2DA~
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 multi=1 increment=8 limit=16 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=3 multi=1 increment=3 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder END
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 6
+    mixed = RESOLVE_STR_REF (@101401)
+    lower = RESOLVE_STR_REF (@101402)
+    help = RESOLVE_STR_REF (@101403)
+    fallen_notice = RESOLVE_STR_REF (@101404)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    unusable = ~0x40000000~        // Barbarian usability (splint mail)
+    clab_path = ~%kitid%~
+    clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
+    weapprof = ~1 1 5 1 1 1 1 5 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 5 5 5 5 5 1 1 1 1~
+    clascolr = ~67 25 70 94 43~    // dragon disciple colors
+  RET 
+    kit_id
+END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT noblescion   ~%kitid%~
+OUTER_TEXT_SPRINT bloodbullet  ~%s1%~
+
+//placeholders, still deciding
+OUTER_TEXT_SPRINT fnpclass     ~champion~
+OUTER_TEXT_SPRINT fnpdeity     ~vanilla_undead_hunter_spheres~
+
+
+/*
+*/

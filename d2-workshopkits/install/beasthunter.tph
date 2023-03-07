@@ -46,8 +46,7 @@ COPY ~%abilities%/quicksilverbolts3.EFF~    ~override/%s2%g.EFF~
 COPY ~%abilities%/quicksilverbullets.EFF~   ~override/%s2%h.EFF~
 COPY ~%abilities%/quicksilverbullets2.EFF~  ~override/%s2%i.EFF~
 COPY ~%abilities%/quicksilverbullets3.EFF~  ~override/%s2%j.EFF~
-COPY ~%icons%/quicksilvericonc.BAM~         ~override/%s2%c.BAM~    // icon files
-COPY ~%icons%/quicksilvericonb.BAM~         ~override/%s2%b.BAM~
+COPY ~%icons%/quicksilvericon.BAM~          ~override/%s2%i.BAM~
 COPY ~%abilities%/quicksilver.SPL~          ~override/%s2%.SPL~
   SAY NAME1 @101
   SAY UNIDENTIFIED_DESC @201
@@ -63,8 +62,8 @@ COPY ~%abilities%/quicksilver.SPL~          ~override/%s2%.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%i~ END
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%j~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
-  WRITE_ASCII 0x3a ~%s2%c~ #8    // icons
-  WRITE_ASCII 0x76 ~%s2%b~ #8
+  WRITE_ASCII 0x3a ~%s2%i~ #8    // icons
+  WRITE_ASCII 0x76 ~%s2%i~ #8
 
 
 //Clone base Fighter 2da file

@@ -38,7 +38,7 @@ END
 
 
 //Add Rooting Shot
-COPY ~%icons%/calledshot.BAM~               ~override/%s1%.BAM~
+COPY ~%icons%/rootingshot.BAM~              ~override/%s1%.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@106) STR_VAR bam=~%s1%~ RET icon END
 COPY ~%abilities%/rootingshot.SPL~          ~override/%s1%.SPL~
   SAY NAME1 @106

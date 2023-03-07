@@ -76,7 +76,7 @@ END
 
 
 
-//Non-arcane kits
+//Non-arcane kits (v1.0)
 
 //Grave Warden (d2wk3)
 ACTION_IF (%nogravewarden% = 0) BEGIN
@@ -140,6 +140,10 @@ ACTION_IF (%nobloodminister% = 0) BEGIN
   INCLUDE ~%install%/dofweapons.tph~
 END
 
+
+
+//v3.0+ kits (non-arcane)
+
 //Drifter (d2wkc)
 ACTION_IF (%nodrifter% = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wkc~
@@ -147,6 +151,7 @@ ACTION_IF (%nodrifter% = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/nofallen.tph~
 END
 
 //Medic (d2wkd)
@@ -158,13 +163,25 @@ ACTION_IF (%nomedic% = 0) BEGIN
   INCLUDE ~%install%/%kitname%.tph~
 END
 
-
-
-/*
 //Noble Scion (d2wke)
 ACTION_IF (%nonoblescion% = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wke~
   OUTER_TEXT_SPRINT kitname ~NOBLESCION~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/fnppaladinfix.tph~
+  INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/dofspheres.tph~
+END
+
+
+
+/*
+//Astrologer (d2wkf)
+ACTION_IF (%noastrologer% = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkf~
+  OUTER_TEXT_SPRINT kitname ~ASTROLOGER~
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
