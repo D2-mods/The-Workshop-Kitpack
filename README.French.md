@@ -194,7 +194,6 @@ FORCE : Produit une onde de choc qui n'inflige aucun dégât, mais étourdit les
 Inconvénients : 
 - Ne peut pas utiliser les armes à projectiles.
 - Ne peut pas repousser les morts-vivants.~
-@100604 = ~Déchu : Champion du temple
 
 ---
 
