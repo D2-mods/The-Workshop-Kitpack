@@ -117,6 +117,20 @@ FnP multiclass:
 
 Version info:
 
+v3.1
+- Fixes:
+	- SoD: The crafting abilities for hunter badges couldn't be learned. This is fixed.
+- Changes:
+	- Noble Scion: Self-damage from Blood Bullet won't kill the character if falling to 0 HP.
+	- Oedon Writhe: Spell restore capped at 6th level spells.
+	- Anti-Clockwise Metamorphosis: Movement speed bonus increased from +2 to +4.
+	- Changed a few item description images.
+- Some kits will gain the bonus effects from certain Beamdog items:
+	- Archer's Eyes - Warhound, Warhound FM, Noble Scion
+	- Belt of the Skillful Blade - Drifter
+	- Screaming Bagpipes - Powder Keg
+	- Stalker Gauntlets - Crow Hunter, Crow Hunter FT, Crow Hunter FMT
+
 v3.0
 - Fixes:
 	- Fixed potential issue with IWDEE (caused by the file #BONECIR.SPL, if it was in the override).

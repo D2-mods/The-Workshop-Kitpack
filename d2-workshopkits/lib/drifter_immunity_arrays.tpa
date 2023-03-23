@@ -43,25 +43,38 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_storm_immunities BEGIN
 END
 
 
+
 //Check spells not in spell.ids (also a few items)
+
+/*
+206 can be used to specific opcode 206 (instead of op318 or op324)
+*/
+
 ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_not_spellids BEGIN
   SPIN688   => ground
   SPWM111   => ground
-//talongf   => ground  // skipped because item gives resistances as well
+//talongf   => ground    // Talon of the Gloomfrost
   holdfst   => ground
   gasp      => ground
+  SPDR201   => ground
+  SPIN575   => ground
+  SPIN683   => ground
+  bdspidga  => ground
   SPIN673   => cloud
+  SPIN897   => cloud
   SPWM187   => cloud
   ohbwfog   => cloud
-//SW1H58    => ground  // skipped because item causes level drain as well
-//SW1H59    => ground  // skipped because item causes level drain as well
+//SW1H58    => ground    // Short Sword of Mask +4
+//SW1H59    => ground    // Short Sword of Mask +5
   MOUND     => ground
   HGNYA01   => ground
   KUOSPER   => ground
-  MEPR754D  => ground  // OlvynSpells
+  bdbow06   => ground206
+  bdshamb   => ground206
+  MEPR754D  => ground    // OlvynSpells
   MEPR754E  => ground
   MEWI657   => cloud
-  ca#cckil  => cloud   // Faiths & Powers
+  ca#cckil  => cloud     // Faiths & Powers
   ca#cstin  => cloud
 END
 

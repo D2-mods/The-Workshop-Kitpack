@@ -1,4 +1,5 @@
 //misc stuff
+//
 
 //game variables
 ACTION_IF (GAME_IS ~bgee~)       BEGIN OUTER_TEXT_SPRINT ee_game ~bgee~ END
@@ -12,3 +13,72 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~#BONECIR.SPL~) BEGIN
     WRITE_ASCII 0x0 ~SPL ~ #4
   BUT_ONLY
 END
+
+
+//some Beamdog items have kit-specific effects
+ACTION_DEFINE_ASSOCIATIVE_ARRAY item_kit_effects BEGIN
+  bdamul02 => archer
+  bdbelt02 => blade
+  bdbrac05 => stalker
+  bdbrd04  => jester
+  bdsw1h04 => kensai
+//bdsw2h01 => berserk         // not needed (effect based on STATE_ENRAGED spell state)
+  BDAMUL11 => shapeshifter
+  bdboot03 => wizardslayer
+  bdsw1h25 => wizardslayer
+  bdamul06 => helm
+  bdshld03 => lathander
+  dtkamul1 => archer          // sod2bg2 mod
+  dtkboot2 => wizardslayer    // sod2bg2 mod
+END
+
+//
+ACTION_DEFINE_ASSOCIATIVE_ARRAY kit_ids_array BEGIN
+  barbarian      => 1073741824
+  wildmage       => 2147483648
+  wild_mage      => 2147483648
+  berserk        => 16385
+  wizslayer      => 16386
+  wizardslayer   => 16386
+  wizard_slayer  => 16386
+  kensai         => 16387
+  cavalier       => 16388
+  inquisitor     => 16389
+  undeadhunter   => 16390
+  undead_hunter  => 16390
+  archer         => 16391
+  feralan        => 16391
+  stalker        => 16392
+  beastmaster    => 16393
+  beast_master   => 16393
+  assassin       => 16394
+  assasin        => 16394
+  bounty         => 16395
+  swash          => 16396
+  blade          => 16397
+  jester         => 16398
+  skald          => 16399
+  totemic        => 16400
+  shapeshifter   => 16401
+  avenger        => 16402
+  beastfriend    => 16402
+  talos          => 16403
+  helm           => 16404
+  lathander      => 16405
+  blackguard     => 16416
+  shadowdancer   => 16417
+  dwarvendef     => 16418
+  dwarven_def    => 16418
+  dragondisc     => 16419
+  dragon_disc    => 16419
+  darkmoon       => 16420
+  dark_moon      => 16420
+  sunsoul        => 16421
+  sun_soul       => 16421
+  tyr            => 16424
+  tempus         => 16425
+END
+
+
+/*
+*/

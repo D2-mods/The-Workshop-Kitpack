@@ -1012,7 +1012,7 @@ Charge abilities:
 - Oedon Writhe (can be used at will)  
   Area of Effect: The party  
   Duration: 24 hours  
-  Critical hits restore 1 memorized spell
+  Critical hits restore 1 memorized spell (up to 6th level)
 
 Weight: 0
 
@@ -1048,7 +1048,7 @@ Charge abilities:
 - Anti-Clockwise Metamorphosis (can be used at will)  
   Area of Effect: The party  
   Duration: 24 hours  
-  +2 movement speed; +0.5 Attacks Per Round; -10% to maximum Hit Points
+  +4 movement speed; +0.5 Attacks Per Round; -10% to maximum Hit Points
 
 Weight: 0
 

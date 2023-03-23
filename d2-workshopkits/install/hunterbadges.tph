@@ -244,7 +244,7 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
     SAY NAME2 @70102
     SAY DESC @70202
     WRITE_ASCII 0x3a ~IAMUL15~ #8    // icon
-    WRITE_ASCII 0x58 ~CAMUL14~ #8    // description image
+    WRITE_ASCII 0x58 ~CMISCAD~ #8    // description image
     PATCH_IF (GAME_IS ~iwdee~) BEGIN
       LPF CLONE_EFFECT INT_VAR multi_match=1 match_timing=2 opcode=101 parameter2=5 END    // charm immunity
       LPF cd_apply_batch STR_VAR array_name = cd_immunity_charm_arrays END
@@ -253,12 +253,13 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
     END
 
 //Cosmic Watcher Badge
+  COPY ~%icons%/badge_cosmic.BAM~      ~override/%m3%c.BAM~
   COPY ~%files%/badge_cosmic.EFF~      ~override/%m3%a.EFF~
   COPY ~%files%/badge_cosmic.ITM~      ~override/%m3%.ITM~
     SAY NAME2 @70103
     SAY DESC @70203
     WRITE_ASCII 0x3a ~IAMUL23~ #8    // icon
-    WRITE_ASCII 0x58 ~CAMUL15~ #8    // description image
+    WRITE_ASCII 0x58 ~%m3%c~ #8    // description image
 
 //Powder Keg Badge
   COPY ~%files%/badge_pkeg.EFF~        ~override/%m4%a.EFF~
@@ -269,13 +270,13 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
     WRITE_ASCII 0x58 ~CAMUL25~ #8    // description image
 
 //Saw Hunter Badge
-  COPY ~%icons%/sawhunterbadge.BAM~    ~override/%m5%i.BAM~
+  COPY ~%icons%/badge_sawhunter.BAM~   ~override/%m5%i.BAM~
   COPY ~%files%/badge_sawhunter.EFF~   ~override/%m5%a.EFF~
   COPY ~%files%/badge_sawhunter.ITM~   ~override/%m5%.ITM~
     SAY NAME2 @70129
     SAY DESC @70229
     WRITE_ASCII 0x3a ~%m5%i~ #8      // icon
-    WRITE_ASCII 0x58 ~CAMUL11~ #8    // description image
+    WRITE_ASCII 0x58 ~CMISC7R~ #8    // description image
 
 //Old Hunter Badge
   COPY ~%files%/badge_oldhunter.SPL~   ~override/%m6%a.SPL~

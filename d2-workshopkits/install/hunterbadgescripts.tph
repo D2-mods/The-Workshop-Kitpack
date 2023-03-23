@@ -62,7 +62,7 @@ END
     REPLACE_TEXTUALLY ~Player1~         ~Player6~
     REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
 
-  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ BEGIN
+  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ ~bdbaldur~ BEGIN
     ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_spark1.BAF~
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_spark2.BAF~
@@ -126,7 +126,7 @@ END
     REPLACE_TEXTUALLY ~Player1~         ~Player6~
     REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
 
-  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ BEGIN
+  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ ~bdbaldur~ BEGIN
     ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_radiant1.BAF~
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_radiant2.BAF~
@@ -190,7 +190,7 @@ END
     REPLACE_TEXTUALLY ~Player1~         ~Player6~
     REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
 
-  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ BEGIN
+  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ ~bdbaldur~ BEGIN
     ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_cosmic1.BAF~
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_cosmic2.BAF~
@@ -254,7 +254,7 @@ END
     REPLACE_TEXTUALLY ~Player1~         ~Player6~
     REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
 
-  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ BEGIN
+  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ ~bdbaldur~ BEGIN
     ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_pkeg1.BAF~
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_pkeg2.BAF~
@@ -318,7 +318,7 @@ END
     REPLACE_TEXTUALLY ~Player1~         ~Player6~
     REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
 
-  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ BEGIN
+  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ ~bdbaldur~ BEGIN
     ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_saw1.BAF~
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_saw2.BAF~
@@ -382,7 +382,7 @@ END
     REPLACE_TEXTUALLY ~Player1~         ~Player6~
     REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
 
-  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ BEGIN
+  ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ ~bdbaldur~ BEGIN
     ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_old1.BAF~
       EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/badge_old2.BAF~

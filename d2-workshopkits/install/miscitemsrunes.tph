@@ -117,6 +117,7 @@ COPY ~%files%/rune_core.ITM~   ~override/%z3%.ITM~
 COPY ~%abilities%/castspellself.EFF~  ~override/%z3%a.EFF~
     WRITE_ASCII 0x30 ~%z3%a~ #8
 COPY ~%abilities%/restore1spell.SPL~  ~override/%z3%a.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=261 parameter1=6 END
 
 
 //Corruption
