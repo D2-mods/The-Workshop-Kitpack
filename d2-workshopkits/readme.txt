@@ -119,8 +119,11 @@ Version info:
 
 v3.1
 - Fixes:
-	- SoD: The crafting abilities for hunter badges couldn't be learned. This is fixed.
+	- Drifter: Some enemy entangling effects were getting through.
+	- Noble Scion: Wasn't able to use some Paladin items (i.e. Carsomyr).
+	- SoD: The crafting abilities for hunter badges couldn't be learned.
 - Changes:
+	- Drifter: Added more mod spells to immunities lists (MiH spellpack, Deities of Faerun, sod2bg2).
 	- Noble Scion: Self-damage from Blood Bullet won't kill the character if falling to 0 HP.
 	- Oedon Writhe: Spell restore capped at 6th level spells.
 	- Anti-Clockwise Metamorphosis: Movement speed bonus increased from +2 to +4.

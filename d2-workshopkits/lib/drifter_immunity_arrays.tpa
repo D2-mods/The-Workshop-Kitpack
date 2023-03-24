@@ -1,5 +1,10 @@
+//Drifter immunity arrays (for ground and cloud spells)
 //
-//
+
+/*
+NOTE: Current version of drifter doesn't gain immunity to storms or fire clouds
+*/
+
 
 //Check spell.IDS
 ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_terrain_immunities BEGIN
@@ -8,27 +13,35 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_terrain_immunities BEGIN
   WIZARD_WEB                      => ground
   CLERIC_SPIKE_GROWTH             => ground
   CLERIC_SPIKE_STONES             => ground
-  CLERIC_ASSASSIN_VINES           => ground  // from FnP mod
+  CLERIC_ASSASSIN_VINES           => ground    // FnP
+  CLERIC_GRASPING_SHADOWS         => ground    // sod2bg2
+  CLERIC_CAUSTIC_QUAGMIRE         => ground
+  CLERIC_PENETRATING_COLD         => ground
+  WIZARD_CATACLYSM                => ground
+  WIZARD_EVARDS_BLACK_TENTACLES   => ground    // MiH spells
 END
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_cloud_immunities BEGIN
-  CLERIC_WRITHING_FOG             => cloud
-  CLERIC_CLOUD_OF_PESTILENCE      => cloud
-  WIZARD_CLOUDKILL                => cloud
-  WIZARD_STINKING_CLOUD           => cloud
-  WIZARD_DEATH_FOG                => cloud
-//WIZARD_INCENDIARY_CLOUD         => flame
-  TRAP_CLOUDKILL                  => cloud
-  TRAP_STINKING_CLOUD             => cloud
-  TRAP_DEATH_FOG                  => cloud
-  WIZARD_FOG_CLOUD                => cloud
-  MEPHIT_STINKING_CLOUD           => cloud
-  POISONOUS_CLOUD                 => cloud
-  GOLEM_GASCLOUD                  => cloud
-  INNATE_IRON_GOLEM_CLOUD         => cloud
-  INNATE_BOMBARDIER_BEETLE_CLOUD  => cloud
-  BOMBARDIER_BEETLE_CLOUD         => cloud
-  WIZARD_MALAVONS_CORROSIVE_FOG   => cloud
+  CLERIC_WRITHING_FOG                => cloud
+  CLERIC_CLOUD_OF_PESTILENCE         => cloud
+  WIZARD_CLOUDKILL                   => cloud
+  WIZARD_STINKING_CLOUD              => cloud
+  WIZARD_DEATH_FOG                   => cloud
+//WIZARD_INCENDIARY_CLOUD            => flame
+  TRAP_CLOUDKILL                     => cloud
+  TRAP_STINKING_CLOUD                => cloud
+  TRAP_DEATH_FOG                     => cloud
+  WIZARD_FOG_CLOUD                   => cloud
+  MEPHIT_STINKING_CLOUD              => cloud
+  POISONOUS_CLOUD                    => cloud
+  GOLEM_GASCLOUD                     => cloud
+  INNATE_IRON_GOLEM_CLOUD            => cloud
+  INNATE_BOMBARDIER_BEETLE_CLOUD     => cloud
+  BOMBARDIER_BEETLE_CLOUD            => cloud
+  WIZARD_MALAVONS_CORROSIVE_FOG      => cloud
+  CLERIC_DEVOURING_DARKNESS          => cloud    // sod2bg2
+  WIZARD_DELETERIOUS_NIMBUS          => cloud
+  HLA_WIZARD_TOLODINES_KILLING_WIND  => cloud    // MiH spells
 END
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_storm_immunities BEGIN
@@ -40,6 +53,10 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_storm_immunities BEGIN
 //WIZARD_METEOR_SWARM             => flame
   DRAGON_RAIN                     => storm
   MEPHIT_RAINSTORM                => storm
+  WIZARD_MAELSTROM                => storm    // sod2bg2
+  CLERIC_ICE_STORM                => storm    // MiH spells
+  CLERIC_LIGHTNING_STORM          => storm
+  WIZARD_STYGIAN_ICE_STORM        => storm
 END
 
 
@@ -47,7 +64,7 @@ END
 //Check spells not in spell.ids (also a few items)
 
 /*
-206 can be used to specific opcode 206 (instead of op318 or op324)
+The ones marked 206 should use op206 (instead of op318 or op324)
 */
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_not_spellids BEGIN
@@ -74,8 +91,25 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_not_spellids BEGIN
   MEPR754D  => ground    // OlvynSpells
   MEPR754E  => ground
   MEWI657   => cloud
-  ca#cckil  => cloud     // Faiths & Powers
+  ca#cckil  => cloud     // FnP
   ca#cstin  => cloud
+  d5_rf81   => ground    // MnG
+  d5_rf24b  => ground
+  d5_rf82   => cloud
+  dtkwfog   => cloud     // sod2bg2
+  RAWI101   => ground    // DoF
+  RASHIA2   => ground
+  RAIBRA3   => ground
+  RAYOND5   => ground
+  RAWI502   => cloud
+  RAWI213   => cloud
+  RAWI614   => cloud
+  RATLNA5   => cloud
+  RAWI810   => flame
+  RAAURI4   => storm
+  RAULUT2   => storm
+  RAWI404   => storm
+  RAWI724   => storm
 END
 
 

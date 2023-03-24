@@ -88,7 +88,7 @@ LAF ADD_KIT_EX
     fallen_notice = RESOLVE_STR_REF (@101404)
   STR_VAR
     kit_name = ~D2%kitname%~
-    unusable = ~0x40000000~        // Barbarian usability (splint mail)
+//  unusable = ~0x40000000~        // Barbarian usability - restricts some Paladin items
     clab_path = ~%kitid%~
     clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
     weapprof = ~1 1 5 1 1 1 1 5 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 5 5 5 5 5 1 1 1 1~
@@ -96,6 +96,25 @@ LAF ADD_KIT_EX
   RET 
     kit_id
 END
+
+
+//Usability - restrict plate mail
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  PATCH_IF (!(~%SOURCE_RES%~ STRING_EQUAL_CASE ~secret05~) AND    // skip Big Metal Unit
+            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec05~)) BEGIN
+    READ_ASCII 0x22 itemtype (2) NULL                             // equipped appearance
+    PATCH_IF (~%itemtype%~ STRING_EQUAL_CASE ~4A~) BEGIN          // plate mail
+      LPF ADD_ITEM_EQEFFECT
+        INT_VAR
+          opcode = 319
+          target = 1
+          parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+          parameter2 = 9
+          timing = 2
+      END
+    END
+  END
+BUT_ONLY
 
 
 //Gains archer effects from items
