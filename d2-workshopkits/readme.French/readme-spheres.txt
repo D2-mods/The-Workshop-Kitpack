@@ -1,21 +1,25 @@
 Sphere systems
 
 - for Faiths & Powers and Deities of Faerun mods
-- tested with FnP v0.84.5
+- tested with FnP v0.84.5 (update: tested with beta/v0.85)
 - tested with DoF v1.9.8
-- The lists here are accurate for v2.3+ of this mod.
+- The lists here are accurate for v3.0+ of this mod.
 
-FnP note: The multiclass Cleric kits are currently not compatible with the beta versions of FnP. Use v0.84.5 if you want to use the multiclass kits with FnP.
+
+FnP install info:
+- The multiclass kits do not require the FnP multiclass mod for compatibility with FnP.
+- For best compatibility, install this mod AFTER applying the sphere system.
+- It will still work if installed before FnP, but Air and Water spheres will be switched for some kits.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
 Faiths & Powers
 
-NOTE: Some FnP spells are given by more than one sphere. However, the description will still only show one sphere. That's why you may see some spells with spheres that aren't listed here for a kit.
+NOTE: Some FnP spells are given by more than one sphere. However, the description will still only say one sphere. That's why you may see some spells with spheres that aren't listed here for a kit.
 
 
-This info is for the oFnP sphere system, not including Universal sphere:
+oFnP sphere system (not including Universal sphere):
 =====================================================================
 Grave Warden: 
 	- Life, Vermin, Protection, Exploration, Knowledge, Vigor, Affliction, Plant, Water, Shadow
@@ -50,7 +54,7 @@ Moonlight Knight (C/R)
 =====================================================================
 
 
-This info is for the nuFnP sphere system. Note that "All" sphere is similar to the "Life" sphere from the oFnP system:
+nuFnP sphere system:
 =====================================================================
 Grave Warden: 
 	- Perception, Insects, Vigor, Plant, Water, Shadow
@@ -71,8 +75,8 @@ Noble Scion:
 	- Minor: Chaos, Time, Thought, Plant, Water
 
 Blood Minister: 
-    - Major: All, Death, Vigor, Plant, Earth, Air, Spirit
-    - Minor: Perception, Animal, Fire, Shadow
+	- Major: All, Death, Vigor, Plant, Earth, Air, Spirit/Astral
+	- Minor: Perception, Animal, Fire, Shadow
 NOTE: "All" will be listed as Minor in the kit description
 
 Beast Hunter (F/M/C)
@@ -81,7 +85,7 @@ Beast Hunter (F/M/C)
 
 Moonlight Knight (C/R)
 	- Major: Chaos, Protection, Time, Vigor, Animal, Earth, Radiance
-	- Minor: All, Law, Perception, Deceit, Plant, Spirit
+	- Minor: All, Law, Perception, Deceit, Plant, Spirit/Astral
 =====================================================================
 
 
@@ -106,7 +110,7 @@ Noble Scion:
 	- Minor: Chaos, Thought, Plant, Water, Air, Numbers
 
 Blood Minister: 
-	- Major: Healing, Necromantic, Summoning, Animals, Plant, Earth, Water, Air, Numbers
+	- Major: Healing, Necromantic, Summoning, Animal, Plant, Earth, Water, Air, Numbers
 	- Minor: Travelers, Divination, Thought, Fire, Weather
 NOTE: "Healing" will be listed as Minor in the kit description
 

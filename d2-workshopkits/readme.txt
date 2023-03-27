@@ -85,11 +85,13 @@ General guidelines:
 - Install after mods that add new weapons or armor.
 
 Spellcasting systems:
-- Compatible with Faiths and Powers spheres system. Can install before or after FnP.
-	- My multiclass kits don't require the FnP multiclass mod for compatibility with FnP.
+- Compatible with Faiths and Powers spheres system.
+	- Can install before or after FnP (but I'd recommend after).
 	- See below for additional info.
-- Compatible with Deities of Faerun spheres system. Install this mod after DoF.
-- Compatible with subtledoctor's 5e casting mod. Can install before or after 5e casting.
+- Compatible with Deities of Faerun spheres system. 
+	- Install this mod after DoF.
+- Compatible with subtledoctor's 5e casting mod. 
+	- Can install before or after 5e casting.
 	- You should also install the extra component related to 5e casting.
 
 HLA traps/songs:
@@ -102,15 +104,22 @@ HLA traps/songs:
 ----------------------------------------------------------------------------------------------------
 
 FnP additional info:
-
-NOTE: The multiclass Cleric kits are currently not compatible with the beta versions of FnP. Use v0.84.5 if you want to use the multiclass kits with FnP.
+- The multiclass kits do not require the FnP multiclass mod for compatibility with FnP.
+- For best compatibility, install this mod AFTER applying the sphere system.
+- It will still work if installed before FnP, but some spheres may be incorrect (will update if it gets fixed).
 
 FnP multiclass: 
 - Current versions of FnP multiclass hide the F/M/C class from the selection screen. 
 - It may possibly be updated to not disable F/M/C, but for now, there are a few ways around this:
-	1. Install this mod after FnP multiclass. It will automatically re-enable the class.
-	2. Use cdtweaks/Tweaks Anthology. It has components that make all classes (including FMC) available to all races.
-	3. Edit clsrcreq.2DA. Just find FIGHTER_MAGE_CLERIC, and set whichever races you want to 1.
+1. Install this mod after FnP multiclass. It will automatically re-enable the class.
+2. Use cdtweaks/Tweaks Anthology. It has components that make all classes (including FMC) available to all races.
+3. Edit clsrcreq.2DA. Just find FIGHTER_MAGE_CLERIC, and set whichever races you want to 1.
+
+This is how I'd do the install:
+1. FnP spheres, kits, usability
+2. The Workshop Kitpack
+3. FnP multiclass kits (if using)
+4. cdtweaks - enable all classes/multiclasses for all races
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -127,12 +136,14 @@ v3.1
 	- Noble Scion: Self-damage from Blood Bullet won't kill the character if falling to 0 HP.
 	- Oedon Writhe: Spell restore capped at 6th level spells.
 	- Anti-Clockwise Metamorphosis: Movement speed bonus increased from +2 to +4.
-	- Changed a few item description images.
-- Some kits will gain the bonus effects from certain Beamdog items:
-	- Archer's Eyes - Warhound, Warhound FM, Noble Scion
-	- Belt of the Skillful Blade - Drifter
-	- Screaming Bagpipes - Powder Keg
-	- Stalker Gauntlets - Crow Hunter, Crow Hunter FT, Crow Hunter FMT
+- Beamdog items (bonus effects):
+	- Archer's Eyes: Warhound, Warhound FM, Noble Scion
+	- Belt of the Skillful Blade: Drifter
+	- Screaming Bagpipes: Powder Keg
+	- Stalker Gauntlets: Crow Hunter, Crow Hunter FT, Crow Hunter FMT
+- Updated Compatibility info (with FnP mod):
+	- I now recommend to install this mod after applying a FnP sphere system. See Compatibility section.
+	- Fixed compatibility with FnP beta/v0.85 (Still backwards compatible with v0.84.5).
 
 v3.0
 - Fixes:

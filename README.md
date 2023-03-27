@@ -4,7 +4,7 @@ Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases
 Forum posts: [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)  
 Languages: English, French (by 11jo)
 
-**Readme is accurate for v3.0**  
+**Readme is accurate for v3.x**
 
 This is a kitpack I've been working on for a while. It currently has 14 kits + 6 multiclass variants. Also adds 20+ items, including 6 Hunter Badges, 12 Caryll Runes, and 10 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 
@@ -396,11 +396,13 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 - Install after mods that add new weapons or armor.
 
 #### Spellcasting systems:
-- Compatible with Faiths and Powers spheres system. Can install before or after FnP.
-	- My multiclasses don't require the FnP multiclass mod for compatibility with FnP.
+- Compatible with Faiths and Powers spheres system.
+	- Can install before or after FnP (but I'd recommend after).
 	- See below for additional info.
-- Compatible with Deities of Faerun spheres system. Install this mod after DoF.
-- Compatible with subtledoctor's 5e casting mod. Can install before or after 5e casting.
+- Compatible with Deities of Faerun spheres system. 
+	- Install this mod after DoF.
+- Compatible with subtledoctor's 5e casting mod. 
+	- Can install before or after 5e casting.
 	- You should also install the extra component related to 5e casting.
 
 #### HLA traps/songs:
@@ -411,8 +413,9 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 
 #
 ### FnP additional info:
-
-NOTE: The multiclass Cleric kits are currently not compatible with the beta versions of FnP. Use v0.84.5 if you want to use the multiclass kits with FnP.
+- The multiclass kits do not require the FnP multiclass mod for compatibility with FnP.
+- For best compatibility, install this mod AFTER applying the sphere system.
+- It will still work if installed before FnP, but some spheres may be incorrect (will update if it gets fixed).
 
 **FnP multiclass (known issue):**
 - Current versions of FnP multiclass hide the F/M/C class from the selection screen. 
@@ -420,6 +423,12 @@ NOTE: The multiclass Cleric kits are currently not compatible with the beta vers
 1. Install this mod after FnP multiclass. It will automatically re-enable the class.
 2. Use cdtweaks/Tweaks Anthology. It has components that make all classes (including FMC) available to all races.
 3. Edit clsrcreq.2DA. Just find FIGHTER_MAGE_CLERIC, and set whichever races you want to 1.
+
+**This is how I'd do the install:**
+1. FnP spheres, kits, usability
+2. The Workshop Kitpack
+3. FnP multiclass kits (if using)
+4. cdtweaks - enable all classes/multiclasses for all races
 
 ---
 ---
@@ -449,6 +458,12 @@ Additional Info (Kit Abilities):
 	- The multiclass Cleric kits will gain Holy Symbols at around 4 million XP (BG2/EET).
 
 A few other kit abilities are also spell-like, but I decided not to make them affected by Wild/Dead Magic. It's standard for kit abilities in these games not to be affected. The above abilities are cast like spells so I thought it'd look dumb for them not to be affected by Magic Zones.
+
+#### Beamdog items (bonus effects):
+	- Archer's Eyes: Warhound, Warhound FM, Noble Scion
+	- Belt of the Skillful Blade: Drifter
+	- Screaming Bagpipes: Powder Keg
+	- Stalker Gauntlets: Crow Hunter, Crow Hunter FT, Crow Hunter FMT
 
 
 Hunter Badges
@@ -1012,7 +1027,7 @@ Charge abilities:
 - Oedon Writhe (can be used at will)  
   Area of Effect: The party  
   Duration: 24 hours  
-  Critical hits restore 1 memorized spell
+  Critical hits restore 1 memorized spell (up to 6th level)
 
 Weight: 0
 
@@ -1048,7 +1063,7 @@ Charge abilities:
 - Anti-Clockwise Metamorphosis (can be used at will)  
   Area of Effect: The party  
   Duration: 24 hours  
-  +2 movement speed; +0.5 Attacks Per Round; -10% to maximum Hit Points
+  +4 movement speed; +0.5 Attacks Per Round; -10% to maximum Hit Points
 
 Weight: 0
 
