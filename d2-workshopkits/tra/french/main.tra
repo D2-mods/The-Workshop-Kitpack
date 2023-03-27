@@ -356,7 +356,7 @@ Inconvénients :
 //Medic
 @101301 = ~Chirurgien~
 @101302 = ~chirurgien~
-@101303 = ~CHIRURGIEN : Le Chirurgien est un guerrier disposant d'une connaissance approfondie en médecine. Il a bénéficié d'un entraînement spécifique lui conférant la capacité de concocter de puissants remèdes à base de plantes pour renforcer ses alliés au cours des combats.
+@101303 = ~CHIRURGIEN : Le Chirurgien est un combattant disposant d'une connaissance approfondie en médecine. Il a bénéficié d'un entraînement spécifique lui conférant la capacité de concocter de puissants remèdes à base de plantes pour renforcer ses alliés au cours des combats.
 
 Avantages :
 – Peut utiliser les capacités « Sombre Remède » et « Remède Vital » une fois par jour au niveau 1, puis une fois supplémentaire tous les 5 niveaux.
@@ -1159,7 +1159,7 @@ Capacités de charge :
 - Distorsion (utilisable à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-  Les coups critiques restaurent 1 sort mémorisé.
+  Les coups critiques restaurent 1 sort mémorisé (de niveau 6 ou inférieur).
 
 Poids : 0~
 
@@ -1189,7 +1189,7 @@ Capacités de charge :
 - Anomalie inversée (utilisable à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-Vitesse de déplacement augmentée de 2 ; 1/2 attaque supplémentaire par round ; pénalité de 10 % au maximum de points de vie.
+Vitesse de déplacement augmentée de 4 ; 1/2 attaque supplémentaire par round ; pénalité de 10 % au maximum de points de vie.
 
 Poids : 0~
 
