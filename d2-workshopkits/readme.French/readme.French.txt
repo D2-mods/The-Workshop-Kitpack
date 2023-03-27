@@ -126,6 +126,25 @@ FnP multiclass :
 
 Version info:
 
+v3.1
+- Fixes:
+	- Drifter: Some enemy entangling effects were getting through.
+	- Noble Scion: Wasn't able to use some Paladin items (i.e. Carsomyr).
+	- SoD: The crafting abilities for hunter badges couldn't be learned.
+- Changes:
+	- Drifter: Added more mod spells to immunities lists (MiH spellpack, Deities of Faerun, sod2bg2).
+	- Noble Scion: Self-damage from Blood Bullet won't kill the character if falling to 0 HP.
+	- Oedon Writhe: Spell restore capped at 6th level spells.
+	- Anti-Clockwise Metamorphosis: Movement speed bonus increased from +2 to +4.
+- Beamdog items (bonus effects):
+	- Archer's Eyes: Warhound, Warhound FM, Noble Scion
+	- Belt of the Skillful Blade: Drifter
+	- Screaming Bagpipes: Powder Keg
+	- Stalker Gauntlets: Crow Hunter, Crow Hunter FT, Crow Hunter FMT
+- Updated Compatibility info (with FnP mod):
+	- I now recommend to install this mod after applying a FnP sphere system. See Compatibility section.
+	- Fixed compatibility with FnP beta/v0.85 (Still backwards compatible with v0.84.5).
+
 v3.0
 - Fixes:
 	- Fixed potential issue with IWDEE (caused by the file #BONECIR.SPL, if it was in the override).

@@ -1021,7 +1021,7 @@ Capacités de charge :
 - Zone d'effet : Le groupe
 - Durée : 24 heures
 
-Les coups critiques restaurent 1 sort mémorisé.
+Les coups critiques restaurent 1 sort mémorisé (de niveau 6 ou inférieur).
 
 Poids : 0
 
@@ -1059,7 +1059,7 @@ Capacités de charge :
 - Zone d'effet : Le groupe
 - Durée : 24 heures
 
-Vitesse de déplacement augmentée de 2 ; 1/2 attaque supplémentaire par round ; pénalité de 10 % au maximum de points de vie.
+Vitesse de déplacement augmentée de 4 ; 1/2 attaque supplémentaire par round ; pénalité de 10 % au maximum de points de vie.
 
 Poids : 0
 
