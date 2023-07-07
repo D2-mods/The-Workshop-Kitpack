@@ -248,9 +248,9 @@ Advantages:
 
 HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls and damage dealt. This blood will also cure any poisons or diseases.
 
-BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood. The target recieves a +3 bonus to attack and damage rolls, but incurs a -3 penalty to Armor Class. The effects last for 12 hours. This blood will also prevent any poisons or diseases.
+BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood. The target receives a +3 bonus to attack and damage rolls, but incurs a -3 penalty to Armor Class. The effects last for 12 hours. This blood will also prevent any poisons or diseases.
 
-MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The target recieves a +5 bonus to Intelligence and Wisdom and a +10% bonus to Magic Resistance, but incurs a -1 penalty to all Saving Throws. The effects last for 12 hours. This blood will also cure level drain.
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The target receives a +5 bonus to Intelligence and Wisdom and a +10% bonus to Magic Resistance, but incurs a -1 penalty to all Saving Throws. The effects last for 12 hours. This blood will also cure level drain.
 
 LEAD ELIXIR: A mysterious concoction that greatly enhances defense at the cost of health. The recipient has all physical damage resistances set to 50%, but incurs a -3 penalty to Constitution. The effects last for 3 turns. This blood will also prevent level drain.
 

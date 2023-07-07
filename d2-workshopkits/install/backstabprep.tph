@@ -47,7 +47,7 @@ Fixes an issue when installing a thief kit after these kits, using ADD_KIT_EX.
 ACTION_IF !(MOD_IS_INSTALLED ~d2-modfixes.tp2~ 2) BEGIN    // skip if d2-modfixes component is installed
 
 //Kensai (Thief)
-ACTION_IF FILE_EXISTS ~override/CLABUSKT.2DA~ BEGIN
+ACTION_IF (FILE_EXISTS ~override/CLABUSKT.2DA~) BEGIN
   COPY_EXISTING ~BACKSTAB.2DA~ ~override~
     LPF 2da_find_row_delete STR_VAR row_name = ~USKT00~ RET row_number columns END
     INSERT_2DA_ROW row_number columns ~USKT00 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4~
@@ -68,7 +68,7 @@ ACTION_IF FILE_EXISTS ~override/CLABUSKT.2DA~ BEGIN
 END
 
 //Vampyre
-ACTION_IF FILE_EXISTS ~override/CLABUSVA.2DA~ BEGIN
+ACTION_IF (FILE_EXISTS ~override/CLABUSVA.2DA~) BEGIN
   COPY_EXISTING ~BACKSTAB.2DA~ ~override~
     LPF 2da_find_row_delete STR_VAR row_name = ~USVA00~ RET row_number columns END
     INSERT_2DA_ROW row_number columns ~USVA00 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2~
@@ -89,7 +89,7 @@ ACTION_IF FILE_EXISTS ~override/CLABUSVA.2DA~ BEGIN
 END
 
 //Seducer
-ACTION_IF FILE_EXISTS ~override/CLABUSSD.2DA~ BEGIN
+ACTION_IF (FILE_EXISTS ~override/CLABUSSD.2DA~) BEGIN
   COPY_EXISTING ~BACKSTAB.2DA~ ~override~
     LPF 2da_find_row_delete STR_VAR row_name = ~USSD77~ RET row_number columns END
     INSERT_2DA_ROW row_number columns ~USSD77 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2~
@@ -110,7 +110,7 @@ ACTION_IF FILE_EXISTS ~override/CLABUSSD.2DA~ BEGIN
 END
 
 //Shapechanger
-ACTION_IF FILE_EXISTS ~override/CLABUSSC.2DA~ BEGIN
+ACTION_IF (FILE_EXISTS ~override/CLABUSSC.2DA~) BEGIN
   COPY_EXISTING ~BACKSTAB.2DA~ ~override~
     LPF 2da_find_row_delete STR_VAR row_name = ~USSC00~ RET row_number columns END
     INSERT_2DA_ROW row_number columns ~USSC00 1 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4~

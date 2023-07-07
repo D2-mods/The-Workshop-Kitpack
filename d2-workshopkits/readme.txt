@@ -126,6 +126,16 @@ This is how I'd do the install:
 
 Version info:
 
+v3.2
+- Fixes:
+	- Grave Warden: Fixed usability issue (wasn't able to wear Montolio's Cloak in BG2).
+	- Drifter: Record screen will no longer show a line for Backstab (just a visual fix).
+- Kit changes:
+	- 
+- Item changes:
+	- Moon (rune): Increased XP bonus from +35 to +65 per kill.
+	- Powder Keg Badge: Increased chance of fire damage from 10% to 15%.
+
 v3.1
 - Fixes:
 	- Drifter: Some enemy entangling effects were getting through.

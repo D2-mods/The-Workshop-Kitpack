@@ -152,7 +152,7 @@ LAF ADD_KIT_EX
     fallen_notice = RESOLVE_STR_REF (@101204)
   STR_VAR
     kit_name = ~D2%kitname%~
-    unusable = ~0x00010000~        // Stalker usability (studded leather)
+    unusable = ~0x00008000~        // Archer usability (studded leather)
     clab_path = ~%kitid%~
     clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
     clascolr = ~24 99 144 2 93~    // bounty hunter colors
@@ -164,9 +164,9 @@ END
 //Usability - restrict studded leather
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
   READ_LONG  0x8 stringref    // check unidentified name
-  PATCH_IF ((%stringref% = 6664) OR    // if Studded Leather (same strings in all games)
-            (%stringref% = 6665) OR 
-            (%stringref% = 6666)
+  PATCH_IF ((stringref = 6664) OR    // if Studded Leather (same strings in all games)
+            (stringref = 6665) OR 
+            (stringref = 6666)
     ) BEGIN
     LPF ADD_ITEM_EQEFFECT
       INT_VAR

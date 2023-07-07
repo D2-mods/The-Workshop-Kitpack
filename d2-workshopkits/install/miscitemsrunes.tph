@@ -280,11 +280,11 @@ COPY ~%files%/rune_core.ITM~  ~override/%zb%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END                    // dialogue message
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END                             // visual
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END                             // remove rune effects
-  LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=232 parameter2=12 STR_VAR resource=~%zb%a~ END    // +35 XP per kill
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=232 parameter2=12 STR_VAR resource=~%zb%a~ END    // +65 XP per kill
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%files%/rune_effects.SPL~    ~override/%zb%a.SPL~
-  LPF ALTER_EFFECT INT_VAR opcode=104 target=3 parameter1=35 timing=9 END
+  LPF ALTER_EFFECT INT_VAR opcode=104 target=3 parameter1=65 timing=9 END
 
 
 //Milkweed

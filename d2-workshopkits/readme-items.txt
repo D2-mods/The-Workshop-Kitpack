@@ -102,7 +102,7 @@ Equipped abilities:
 – Fire Resistance: +20%
 
 Special (Beast Hunter): 
-– Hunter Tools: 10% chance of an extra 2d12 fire damage
+– Hunter Tools: 15% chance of an extra 2d12 fire damage
 
 Weight: 1
 
@@ -511,7 +511,7 @@ Charge abilities:
 – Moon (can be used at will)
   Area of Effect: The party
   Duration: 24 hours
-  +35 bonus XP for each enemy slain by the party
+  +65 bonus XP for each enemy slain by the party
 
 Weight: 0
 
