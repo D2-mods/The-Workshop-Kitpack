@@ -4,7 +4,7 @@ Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases
 Forum posts: [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)  
 Languages: English, French (by 11jo)
 
-**Readme is accurate for v3.x**
+---
 
 This is a kitpack I've been working on for a while. It currently has 14 kits + 6 multiclass variants. Also adds 20+ items, including 6 Hunter Badges, 12 Caryll Runes, and 10 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 

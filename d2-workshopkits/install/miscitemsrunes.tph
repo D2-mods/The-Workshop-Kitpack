@@ -67,7 +67,7 @@ COPY ~%icons%/bleed.BAM~                ~override/%z1%a.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@302) STR_VAR bam=~%z1%a~ RET icon END
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%z1%a.EFF~
     WRITE_ASCII 0x30 ~%z1%a~ #8
-COPY ~%abilities%/bleed10rounds.SPL~    ~override/%z1%a.SPL~
+COPY ~%abilities%/bleed4rounds.SPL~    ~override/%z1%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@302) END    // "Bleeding"
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%z1%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%z1%b~ END

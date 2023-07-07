@@ -25,10 +25,12 @@ COPY ~%abilities%/fireweapon.EFF~    ~override/%s1%.EFF~
 COPY ~%abilities%/fireweapon.SPL~    ~override/%s1%.SPL~
   SAY NAME1 @100
   SAY UNIDENTIFIED_DESC @200
+  LPF ALTER_EFFECT INT_VAR match_duration=60 duration=72 END    // duration = 12 rounds
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s1%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
-  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=126 parameter1=4 parameter2=0 END    // v3.0: movement bonus
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=22 parameter1=1 parameter2=0 END     // +1 Luck
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=325 parameter1=1 parameter2=0 END    // +1 Saving Throws
   WRITE_ASCII 0x3a ~SPIN758B~ #8    // icons
   WRITE_ASCII 0x76 ~SPIN758B~ #8
 
@@ -50,6 +52,7 @@ COPY ~%icons%/quicksilvericon.BAM~          ~override/%s2%i.BAM~
 COPY ~%abilities%/quicksilver.SPL~          ~override/%s2%.SPL~
   SAY NAME1 @101
   SAY UNIDENTIFIED_DESC @201
+  LPF ALTER_EFFECT INT_VAR match_duration=60 duration=36 END    // duration = 6 rounds
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%s2%a~ END
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%b~ END

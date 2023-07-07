@@ -12,7 +12,7 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
 //EFF every 3 seconds on Fire Weapon (op272)
   COPY_EXISTING ~%s1%.SPL~  ~override~
     LPF CLONE_EFFECT 
-      INT_VAR check_globals=0 multi_match=1 match_timing=0 opcode=272 parameter1=3 parameter2=3 duration=55
+      INT_VAR check_globals=0 multi_match=1 match_timing=0 opcode=272 parameter1=3 parameter2=3 duration=67
       STR_VAR resource=~%s1%a~ 
     END
     LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=272 STR_VAR resource=~%s1%b~ END
