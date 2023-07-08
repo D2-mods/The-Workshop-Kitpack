@@ -76,11 +76,11 @@ Avantages :
 - Bonus de 3 aux jets d'attaque et de dégâts contre les lycanthropes et les démons.
 - 2ème niveau : Peut utiliser la capacité « Techniques de chasseur » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
-TECHNIQUES DE CHASSEUR : Pendant 1 tour, le Chasseur voit sa vitesse augmenter de 4 points et toutes les attaques de mêlée infligent 1d3 dégâts d'acide supplémentaires. Cette capacité peut être améliorée en équipant des insignes spécifiquement destinés au Chasseur.
+TECHNIQUES DE CHASSEUR : Pendant 12 rounds, les attaques de mêlée du Chasseur infligent 1d3 dégâts d'acide supplémentaires, il bénéficie aussi d'un bonus de 1 à la chance et aux jets de sauvegarde. Cette capacité peut être améliorée en équipant des insignes spécifiquement destinés au Chasseur.
 
 - 5ème niveau : Peut utiliser la capacité « Projectile d'argent » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
 
-PROJECTILE D'ARGENT : Pendant 1 tour toutes les attaques à distance sont amplifiées, infligeant 2 points de dégâts perforants supplémentaires, elles bénéficient également de 5 % de chances de réaliser un coup critique. Tous les types de munitions (flèches, carreaux et billes) sont également enchantés, devenant ainsi capables de toucher les ennemis nécessitant des armes magiques ou en argent.
+PROJECTILE D'ARGENT : Pendant 6 rounds toutes les attaques à distance sont amplifiées, infligeant 2 points de dégâts perforants supplémentaires, elles bénéficient également de 5 % de chances de réaliser un coup critique. Tous les types de munitions (flèches, carreaux et billes) sont également enchantés, devenant ainsi capables de toucher les ennemis nécessitant des armes magiques ou en argent.
 
 Inconvénients : 
 - Ne peut pas porter d'armure plus lourde que la besantine.
@@ -93,7 +93,7 @@ LIMIER : Les Limiers sont des soldats cuirassés spécialisés dans les combats 
 
 Avantages :
 - Bonus de 1 à la classe d'armure contre les projectiles au niveau 1 et un bonus supplémentaire tout les 4 niveaux.
-- Bonus de 1 aux jets d'attaque et de dégâts avec les armes à distance tout les 5 niveaux.
+- Bonus de 1 aux jets d'attaque et de dégâts avec les armes à distance au niveau 3, puis une fois supplémentaire tous les 5 niveaux.
 - Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes.
 - Peut utiliser les capacités « Onde de choc » et « Incinération » au niveau 4, puis une fois supplémentaire tous les 4 niveaux, jusqu'à un maximum de 5 au niveau 20
 
@@ -169,7 +169,7 @@ EMPALEMENT : La prochaine attaque à distance réussie enchevêtre la cible pend
 
 - 5ème niveau : Peut utiliser la capacité « Évangile sanguinolente » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
 
-ÉVANGILE SANGUINOLENTE : Pendant 5 rounds, le personnage récupère 1d4 points de vie grâce aux attaques de mêlée et provoque une hémorragie à sa cible, lui infligeant 2 point de dégâts par round pendant 1 tour (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.
+ÉVANGILE SANGUINOLENTE : Pendant 5 rounds, le personnage récupère 1d4 points de vie à chaque attaque de mêlée réussie et provoque une hémorragie à sa cible, lui infligeant 2 point de dégâts par round pendant 8 rounds (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.
 
 Inconvénients : 
 - Ne peut pas porter d'armure plus lourde que la besantine.
@@ -249,13 +249,13 @@ Avantages :
   10ème niveau : « Sang du lunatique ».  
   14ème niveau : « Élixir sanglant ».
 
-GUÉRISON PAR LE SANG : Du sang prélevé sur une des sœurs de l'Église de la Guérison permet de régénérer 2 points de vie par round pendant 3 tours. Dans ce laps de temps, le bénéficiaire subit une pénalité de 1 aux jets d'attaque et de dégâts. Ce sang guérit également les empoisonnements et les maladies.
+GUÉRISON PAR LE SANG : Du sang prélevé sur une des sœurs de l'Église de la Guérison permet de régénérer 2 points de vie par round pendant 3 tours. Dans ce laps de temps, le bénéficiaire subit une pénalité de 1 aux jets d'attaque. Ce sang guérit également les empoisonnements et les maladies.
 
-SANG DE LA BÊTE : Administrez ce sang confère temporairement les aptitudes d'une bête. La cible bénéficie d'un bonus de 3 aux jets d'attaque et de dégâts, mais subit une pénalité de 3 à la classe d'armure. Les effets durent 12 heures. Ce sang protège également contre les poisons et les maladies.
+SANG DE LA BÊTE : Administrez ce sang confère temporairement les aptitudes d'une bête. Pendant 3 tours la cible bénéficie d'un bonus de 1 aux dégâts et elle reçoit un bonus de 1 supplémentaire pendant 2 rounds pour chaque attaque réussie, mais subit une pénalité de 3 à la classe d'armure. Ce sang protège également contre les poisons et les maladies.
 
-SANG DU LUNATIQUE : Cette injection donne un léger aperçu du cosmos et de ses mystères. La cible bénéficie d'un bonus de 5 à l'intelligence et à la sagesse, ainsi qu'un bonus de 10 % de résistance à la magie, mais elle subit aussi une pénalité de 1 à tous ses jets de sauvegarde. Les effets durent 12 heures. Ce sang restaure également les niveaux perdus.
+SANG DU LUNATIQUE : Cette injection donne un léger aperçu du cosmos et de ses mystères. La cible bénéficie d'un bonus de 5 à l'intelligence, un bonus de 3 à la sagesse, 10 % de résistance supplémentaire à la magie et un bonus de 1 à la vitesse d'incantation, mais elle subit aussi une pénalité de 1 à tous ses jets de sauvegarde. Les effets durent 3 tours. Ce sang restaure également les niveaux perdus.
 
-ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment de la santé. Le destinataire voit toutes sa résistance à tous les dégâts physiques fixées à 50 %, mais subit aussi une pénalité de 3 à la Constitution. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.
+ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment d'autres capacités. Le destinataire voit sa résistance à tous les dégâts physiques fixées à 50 %, mais subit aussi une pénalité de 1 à la chance. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.
 
 Inconvénients : 
 - Ne peut porter de gantelets ou de bracelets.
@@ -270,7 +270,7 @@ Avantages :
 - Bonus de 3 bonus aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille.
 - 4ème niveau : Peut utiliser la capacité « Tir éclatant » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
-TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 2 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
+TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 2 point de dégâts supplémentaires par round pendant 6 rounds (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
 - 11ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 15 et 19.
 
@@ -340,7 +340,7 @@ CHIRURGIEN : Le Chirurgien est un guerrier disposant d'une connaissance approfon
 Avantages :
 – Peut utiliser les capacités « Sombre Remède » et « Remède Vital » une fois par jour au niveau 1, puis une fois supplémentaire tous les 5 niveaux.
 
-SOMBRE REMÈDE : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède curatif qui restaure 1d8 points de vie à tous les alliés dans un rayon de 2,1 mètres.
+SOMBRE REMÈDE : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède curatif qui restaure 2d6 points de vie à tous les alliés dans un rayon de 2,1 mètres.
 
 REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède apaisant. Tous les ennemis présents dans un rayon de 2,1 m sont ralentis durant 1 round, et doivent effectuer un jet de sauvegarde contre la mort ou s'endormir pendant 5 rounds, à moins d'être attaqués dans leur sommeil.
 
@@ -544,7 +544,7 @@ Capacités d'équipement :
 - Résistance au feu : +20 %
 
 Spécial (Chasseur): 
-- Techniques de chasseur : 10 % de chance d'infliger 2d12 dégâts de feu supplémentaires.
+- Techniques de chasseur : 15 % de chance d'infliger 2d12 dégâts de feu supplémentaires.
 
 Poids : 1
 
@@ -983,7 +983,7 @@ Capacités de charge :
 - Zone d'effet : Le groupe
 - Durée : 24 heures
 
-5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 2 point de dégâts par round pendant un tour (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
+5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 2 point de dégâts par round pendant 4 rounds (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
 Poids : 0
 
@@ -1173,7 +1173,7 @@ Capacités de charge :
 – Pleine Lune (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-35 points d'expérience supplémentaires pour chaque ennemi vaincu par le groupe.
+65 points d'expérience supplémentaires pour chaque ennemi vaincu par le groupe.
 
 Poids : 0
 

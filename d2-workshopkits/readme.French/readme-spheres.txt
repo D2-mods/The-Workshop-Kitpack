@@ -1,7 +1,7 @@
 Sphere systems
 
 - for Faiths & Powers and Deities of Faerun mods
-- tested with FnP v0.84.5 (update: tested with beta/v0.85)
+- tested with FnP v0.84.5 (update: tested with v0.85sd19)
 - tested with DoF v1.9.8
 - The lists here are accurate for v3.0+ of this mod.
 
