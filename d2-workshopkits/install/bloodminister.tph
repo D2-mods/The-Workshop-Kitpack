@@ -67,6 +67,7 @@ COPY ~%abilities%/bloodtypeb.SPL~  ~override/%s1%b.SPL~    // Beast Blood
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%b~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%c~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%d~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=248 STR_VAR resource=~%s1%u~ END    // +1 damage (v3.2 update)
   LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
   WRITE_ASCII 0x3a ~%s1%b~ #8    // icon BAMs
   LPF ALTER_SPELL_HEADER STR_VAR icon=~%s1%b~ END
@@ -132,6 +133,10 @@ COPY_EXISTING ~SPPR417.SPL~  ~override/%s1%z.SPL~    // clone Lesser Restoration
   LPF DELETE_EFFECT INT_VAR match_opcode=61 END
   LPF DELETE_EFFECT INT_VAR match_opcode=93 END
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+
+COPY ~%abilities%/castspellself.EFF~  ~override/%s1%u.EFF~    // +1 damage bonus (Beast Blood)
+  WRITE_ASCII 0x30 ~%s1%u~ #8
+COPY ~%abilities%/damageup1.SPL~      ~override/%s1%u.SPL~
 
 
 //removed by Restoration or Greater Restoration

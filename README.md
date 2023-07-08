@@ -74,11 +74,11 @@ Advantages:
 - +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.
 - 2nd level: May use the Hunter Tools ability once per day. Gains additional uses every 4 levels thereafter.
 
-HUNTER TOOLS: For 1 turn, the character moves 4 points faster, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
+HUNTER TOOLS: For 12 rounds, the character gains a +1 bonus to Luck and a +1 bonus to Saving Throws, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
 
 - 5th level: May use the Quicksilver ability once per day. Gains additional uses at levels 9 and 13.
 
-QUICKSILVER: Enhances ranged attacks for 1 turn, adding 2 points of piercing damage and a +5% chance to score a critical hit. All ammo types (arrows, bolts, and bullets) are also enchanted and become able to hit enemies that normally require magical or silver weapons to hit.
+QUICKSILVER: Enhances ranged attacks for 6 rounds, adding 2 points of piercing damage and a +5% chance to score a critical hit. All ammo types (arrows, bolts, and bullets) are also enchanted and become able to hit enemies that normally require magical or silver weapons to hit.
 
 Disadvantages:
 - May not wear armor heavier than studded leather.
@@ -91,7 +91,7 @@ WARHOUND: Warhounds are armored soldiers specializing in long-range warfare. The
 
 Advantages:  
 - +1 bonus to Armor Class vs. missile, plus an additional +1 bonus every 5 levels.  
-- +1 to attack and damage rolls with any ranged weapon every 5 levels.  
+- +1 to ranged attack and damage rolls at 3rd level and an additional +1 bonus every 5 levels thereafter.
 - May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.  
 - May use the Shockwave and Incinerate abilities. Gains one use each at level 4, plus an additional use each every 4 levels, up to a maximum of 5 uses each at level 20.
 
@@ -166,7 +166,7 @@ ROOTING SHOT: The next successful ranged attack entangles the target for 3 round
 
 - 5th level: May use the Bloodletter ability once per day. Gains additional uses at levels 9 and 13.
 
-BLOODLETTER: For 5 rounds, the character is healed 1d4 Hit Points with melee attacks and the target suffers a bleeding wound, which inflicts 2 points of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
+BLOODLETTER: For 5 rounds, each successful melee attack restores 1d4+1 Hit Points. As well, the target suffers a bleeding wound, taking 2 points of damage per round for 8 rounds (no save). A target can be wounded once per round and the effects are cumulative.
 
 Disadvantages:  
 - May not wear armor heavier than studded leather.  
@@ -246,13 +246,13 @@ Advantages:
 &emsp;10th level: Madman's Blood.  
 &emsp;14th level: Lead Elixir.
 
-HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls and damage dealt. This blood will also cure any poisons or diseases.
+HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
 
-BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood. The target receives a +3 bonus to attack and damage rolls, but incurs a -3 penalty to Armor Class. The effects last for 12 hours. This blood will also prevent any poisons or diseases.
+BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The target receives a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the target incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
 
-MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The target receives a +5 bonus to Intelligence and Wisdom and a +10% bonus to Magic Resistance, but incurs a -1 penalty to all Saving Throws. The effects last for 12 hours. This blood will also cure level drain.
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The target receives +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
 
-LEAD ELIXIR: A mysterious concoction that greatly enhances defense at the cost of health. The recipient has all physical damage resistances set to 50%, but incurs a -3 penalty to Constitution. The effects last for 3 turns. This blood will also prevent level drain.
+LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhibit other abilities. The recipient has all physical damage resistances set to 50%, but incurs a -1 penalty to Luck. The effects last for 3 turns. This blood will also prevent level drain.
 
 Disadvantages:  
 - May not wear gauntlets or bracers.
@@ -267,7 +267,7 @@ Advantages:
 - +3 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races.  
 - 4th level: May use the Splintering Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
-SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 2 points of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
+SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 2 points of damage per round for 6 rounds (no save). A target can be wounded once per round and the effects are cumulative.
 
 - 11th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 15 and 19.
 
@@ -340,7 +340,7 @@ MEDIC: This Monk is a skilled medical practioner, as well as warrior, and has un
 Advantages:
 - May use the Black Remedy and White Remedy abilities. Gains one use each at level 1 and an additional use each every 5 levels thereafter.
 
-BLACK REMEDY: All attacks in the next 10 seconds spread a healing remedy. Restores 1d8 Hit Points to allies in a 7-ft. radius.
+BLACK REMEDY: All attacks in the next 10 seconds spread a healing remedy. Restores 2d6 Hit Points to allies in a 7-ft. radius.
 
 WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
 
@@ -557,7 +557,7 @@ Equipped abilities:
 - Fire Resistance: +20%
 
 Special (Beast Hunter):  
-- Hunter Tools: 10% chance of an extra 2d12 fire damage
+- Hunter Tools: 15% chance of an extra 2d12 fire damage
 
 Weight: 1
 
@@ -991,7 +991,7 @@ Charge abilities:
 - Clawmark (can be used at will)  
   Area of Effect: The party  
   Duration: 24 hours  
-  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 2 points of damage per round for 1 turn (no save); a target can be wounded once per round and the effects are cumulative
+  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 2 points of damage per round for 4 rounds (no save); a target can be wounded once per round and the effects are cumulative
 
 Weight: 0
 
@@ -1172,7 +1172,7 @@ Charge abilities:
 - Moon (can be used at will)  
   Area of Effect: The party  
   Duration: 24 hours  
-  +35 bonus XP for each enemy slain by the party
+  +65 bonus XP for each enemy slain by the party
 
 Weight: 0
 

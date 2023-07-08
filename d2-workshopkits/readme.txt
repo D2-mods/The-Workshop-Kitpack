@@ -130,17 +130,13 @@ v3.2
 - Fixes:
 	- Grave Warden: Fixed usability issue (wasn't able to wear Montolio's Cloak in BG2).
 	- Drifter: Record screen will no longer show a line for Backstab (just a visual fix).
-- Beast Hunter changes:
-	- Hunter Tools: Revised effects (Luck bonus instead of movement speed). Changed duration to 12 rounds.
-	- Quicksilver: Reduced duration from 10 rounds to 6 rounds.
-- Blood Minister changes:
-	- 
-	- 
-- Other kit changes:
+- Kit changes:
 	- Warhound: The first bonus to hit/damage is now gained at level 3, then every 5 levels thereafter (so 3, 8, 13, 18, etc.).
 	- Confessor: Increased healing (1d4+1) and reduced bleed duration (8 rounds) for Bloodletter.
 	- Medic: Increased healing (2d6) for Black Remedy.
 	- Crow Hunter: Reduced bleed duration (6 rounds) for Splintering Shot.
+	- Beast Hunter: Revised Hunter Tools. Reduced duration for Quicksilver.
+	- Blood Minister: Tweaked/revised all blood types.
 - Item changes:
 	- Clawmark (rune): Bleed duration reduced from 10 rounds to 4 rounds.
 	- Moon (rune): Increased XP bonus from +35 to +65 per kill.
