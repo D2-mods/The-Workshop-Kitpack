@@ -143,12 +143,7 @@ OUTER_TEXT_SPRINT shockwave  ~%s1%~
 OUTER_TEXT_SPRINT incinerate ~%s2%~
 
 
-/*Unused
-
+/*
 - op183 doesn't work on launchers
-COPY ~%passives%/useeffitemtype.SPL~   ~override/%e1%.SPL~
-  LPF DELETE_EFFECT INT_VAR multi_match=2 END
-  LPF ALTER_EFFECT INT_VAR multi_match=1 parameter2=0x000f STR_VAR match_resource=~demdam3~ resource=~%e1%~ END
-  LPF ALTER_EFFECT INT_VAR multi_match=1 parameter2=0x001b STR_VAR match_resource=~demdam3~ resource=~%e1%~ END
-
+- can't give bonus when equipped with a launcher
 */

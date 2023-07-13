@@ -6,7 +6,7 @@ Languages: English, French (by 11jo)
 
 ---
 
-This is a kitpack I've been working on for a while. It currently has 14 kits + 6 multiclass variants. Also adds 20+ items, including 6 Hunter Badges, 12 Caryll Runes, and 10 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
+This is a kitpack I've been working on for a while. It currently has 14 kits + 6 multiclass variants. Also adds 30+ items, including 6 Hunter Badges, 12 Caryll Runes, and 15 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 
 NOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
 
@@ -14,7 +14,7 @@ NOTE: The abilities tables for these kits are made at install time. Every kit cl
 Mod contents:
 -
 
-#### Warrior kits (v1.0)
+#### Warrior kits
 - Beast Hunter (fighter)  
 - Warhound (fighter)  
 - Grave Warden (ranger)  
@@ -22,14 +22,14 @@ Mod contents:
 - Confessor (paladin)  
 - Temple Knight (paladin)
 
-#### Non-warrior kits (v1.0)
+#### Non-warrior kits
 - War Magician (mage)  
 - Starjammer (sorcerer)  
 - Blood Minister (cleric)  
 - Crow Hunter (thief)  
 - Powder Keg (bard)
 
-#### v3.0+ kits
+#### v3.0 kits
 - Drifter (ranger)
 - Medic (monk)
 - Noble Scion (paladin)
@@ -46,7 +46,7 @@ Mod contents:
 - 6 Hunter Badges&emsp;- can be crafted (see below), can also be purchased  
 - 8 new spells&emsp;&emsp;&emsp; - learned by the Starjammer kit  
 - 12 Caryll Runes&emsp;&emsp;- items with party-wide effects
-- 10 other items&emsp;&emsp;- all general use items, no weapons or armor
+- 15 other items&emsp;&emsp;- all general use items, no weapons or armor
 
 
 Components:
@@ -248,9 +248,9 @@ Advantages:
 
 HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
 
-BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The target receives a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the target incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
+BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The recipient gains a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the recipient incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
 
-MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The target receives +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
 
 LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhibit other abilities. The recipient has all physical damage resistances set to 50%, but incurs a -1 penalty to Luck. The effects last for 3 turns. This blood will also prevent level drain.
 
@@ -310,7 +310,7 @@ Disadvantages:
 </details>
 
 <details>
-  <summary>v3.0+ kits:</summary>
+  <summary>v3.0 kits:</summary>
 
 ---
 
@@ -321,7 +321,7 @@ DRIFTER: An aimless wanderer, at home in adverse terrain. Countless battles have
 Advantages:
 - +4 bonus to Saving Throws vs. Breath.
 - +1 bonus to Armor Class, plus an additional +1 bonus every 5 levels.
-- +1 bonus to attack and damage rolls every 5 levels.
+- +1 to attack and damage rolls at 3rd level and an additional +1 bonus every 5 levels thereafter.
 - Will not fall due to reputation loss.
 - Moves 2 points faster than other characters.
 - 6th level: Immune to Grease, Web, Entangle, Spike Growth, and Spike Stones.
@@ -348,7 +348,7 @@ WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All e
 - 7th level: May cast Cure Disease once per day.
 - 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
 
-HEALING RAIN: Crystal healing shards rain down in a 10-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
+HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
 
 Disadvantages:
 - May not use the Lay On Hands ability.
@@ -459,7 +459,7 @@ Additional Info (Kit Abilities):
 
 A few other kit abilities are also spell-like, but I decided not to make them affected by Wild/Dead Magic. It's standard for kit abilities in these games not to be affected. The above abilities are cast like spells so I thought it'd look dumb for them not to be affected by Magic Zones.
 
-#### Beamdog items (bonus effects):
+#### Some kits will gain the bonus effects from certain Beamdog items:
 	- Archer's Eyes: Warhound, Warhound FM, Noble Scion
 	- Belt of the Skillful Blade: Drifter
 	- Screaming Bagpipes: Powder Keg
@@ -941,11 +941,97 @@ Weight: 1
 
 </details>
 
+
+**v3.3+ items**
+- Gold Scarab (amulet)
+- Winged Sword Insignia (ring)
+- Red Tearstone Ring (ring)
+- Hunter Bone (quick item)
+- Jade Feather (amulet)
+
+<details>
+  <summary>Descriptions</summary>
+
+---
+
+**Gold Scarab (amulet)**
+
+This type of amulet takes the form of a sculpted beetle and is typically only found in areas around Mulhorand. The golden scarab increases the amount of experience points obtained from defeating enemies.
+
+STATISTICS:
+
+Equipped abilities:
+- +300 bonus XP for each enemy slain by the wearer
+
+Weight: 1
+
+---
+
+**Winged Sword Insignia (ring)**
+
+An honor bestowed upon the most devoted knights, lured into battles of death. The insignia symbolizes the relentless blade, and raises attack power with successive attacks.
+
+STATISTICS:
+
+Combat abilities:
+- 33% chance of gaining a +1 bonus to damage for 2 rounds (melee only)
+
+Weight: 0
+
+---
+
+**Red Tearstone Ring (ring)**
+
+The red tearstone boosts the attack of its wearer when in danger. Once, a goddess mourned the undeserving dead, shedding tears as red as blood. It is said that the stone set in this ring is one such tear.
+
+STATISTICS:
+
+Equipped abilities:
+- At under 25% HP, all damage inflicted by the wearer is increased by 40%
+
+Weight: 0
+
+---
+
+**Hunter Bone (quick item)**
+
+The bone of an old hunter whose name is lost. Hold this bone to use the art of Quickening, a technique particular to the first hunters.
+
+STATISTICS:
+
+Charge abilities:
+- Blur-Haste three times per day  
+  Duration: 20 seconds  
+  Area of Effect: The user
+  
+Weight: 1
+
+---
+
+**Jade Feather (amulet)**
+
+A talisman facsimile of a feather. The jade feather rejects death magic of all forms.
+
+STATISTICS:
+
+Equipped abilities:
+- Save vs. Spell: +3
+- Immunity to petrification
+- Death Ward
+
+Special (Medic):
+- 15-ft. radius for Black Remedy and White Remedy effects
+
+Weight: 1
+
+---
+
+</details>
+
 #### Non-spoilery item info:
-- BG1: Prisoner's Chain, Calamity Ring, and Stone Ring are obtainable (other items are still installed).
-- SoD: Etherbomb Songbook and Golem Ring are obtainable.
-- BG2: All items obtainable in SoA. If starting a new game in ToB, the starting bag will have 1 or 2 items.
-- IWD: Golem Ring is in TotL. The rest are in main IWD campaign.
+- BG1/SoD: 5 items are obtainable (2 are in SoD). Other items are still installed.
+- BG2: All items obtainable in SoA. If starting a new game in ToB, the starting bag will have 2 items each.
+- IWDEE/HoW: Spread throughout, in various dungeons and locations.
 
 
 Caryll Runes
@@ -1154,7 +1240,7 @@ Charge abilities:
 - Hunter (can be used at will)  
   Area of Effect: The party  
   Duration: 24 hours  
-  +1 bonus to attack rolls
+  +1 bonus to attack rolls; +5 bonus to all thieving skills
 
 Weight: 0
 

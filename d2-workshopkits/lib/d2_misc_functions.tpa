@@ -2,9 +2,10 @@
 //
 
 /*functions:
-d2_portrait_icon    	ACTION function
-d2_evasion_check    	PATCH or ACTION
-d2_string_immunities    PATCH function for IWDEE and BGEE/SoD
+d2_portrait_icon             ACTION function
+d2_evasion_check             PATCH or ACTION
+d2_string_immunities         PATCH function for IWDEE and BGEE/SoD
+d2_subspell_remove_effects
 */
 
 ////////////////////////////////////////////////////////////
@@ -264,6 +265,26 @@ BEGIN
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=134 opcode=267 parameter1=38043 END   // petrify
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=3 opcode=267 parameter1=37605 END     // berserk
   END
+
+END
+
+////////////////////////////////////////////////////////////
+
+//Removes casting effects
+//Removes header effects (including projectile)
+
+DEFINE_PATCH_FUNCTION d2_subspell_remove_effects
+
+BEGIN
+
+  WRITE_LONG  0x8 ~-1~
+  WRITE_ASCII 0x10 ~None~ #8
+  WRITE_SHORT 0x1c 0
+  WRITE_SHORT 0x22 0
+  WRITE_BYTE  0x25 0
+  WRITE_BYTE  0x27 0
+  WRITE_LONG  0x34 1
+  LPF ALTER_SPELL_HEADER INT_VAR target=1 speed=0 projectile=1 END
 
 END
 

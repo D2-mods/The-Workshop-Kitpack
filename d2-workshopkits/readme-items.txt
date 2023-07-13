@@ -8,17 +8,24 @@ Old Hunter Badge
 
 //Misc items
 Crowfeather Cloak (cloak)
-Etherbomb Songbook (item)
+Etherbomb Songbook (quick item)
 Ether Booster (amulet)
 Prisoner's Chain (ring)
 Cruciform (amulet)
-Golem Ring
-Calamity Ring
-Stone Ring
-Flynn's Ring
+Golem Ring (ring)
+Calamity Ring (ring)
+Stone Ring (ring)
+Flynn's Ring (ring)
 Ether Limiter (amulet)
 
-//Caryll Runes (items)
+//v3.3+ items
+Gold Scarab (amulet)
+Winged Sword Insignia (ring)
+Red Tearstone Ring (ring)
+Hunter Bone (quick item)
+Jade Feather (amulet)
+
+//Caryll Runes (quick items)
 Clawmark
 Blood Rapture
 Oedon Writhe
@@ -34,6 +41,8 @@ Milkweed
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+//Hunter Badges (amulets)
 
 ==================================================
 Spark Hunter Badge
@@ -145,6 +154,8 @@ Weight: 1
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
+//Misc items
+
 ==================================================
 Crowfeather Cloak (cloak)
 ==================================================
@@ -164,7 +175,7 @@ Weight: 3
 
 
 ==================================================
-Etherbomb Songbook (item)
+Etherbomb Songbook (quick item)
 ==================================================
 A songbook, said to have fallen out of the sky. The runes on the cover indicate cosmic origins, perhaps a gift left behind by a planar traveler.
 
@@ -316,6 +327,84 @@ Weight: 1
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+//v3.3+ items
+
+==================================================
+Gold Scarab (amulet)
+==================================================
+This type of amulet takes the form of a sculpted beetle and is typically only found in areas around Mulhorand. The golden scarab increases the amount of experience points obtained from defeating enemies.
+
+STATISTICS:
+
+Equipped abilities:
+– +300 bonus XP for each enemy slain by the wearer
+
+Weight: 1
+
+
+==================================================
+Winged Sword Insignia (ring)
+==================================================
+An honor bestowed upon the most devoted knights, lured into battles of death. The insignia symbolizes the relentless blade, and raises attack power with successive attacks.
+
+STATISTICS:
+
+Combat abilities:
+– 33% chance of gaining a +1 bonus to damage for 2 rounds (melee only)
+
+Weight: 0
+
+
+==================================================
+Red Tearstone Ring (ring)
+==================================================
+The red tearstone boosts the attack of its wearer when in danger. Once, a goddess mourned the undeserving dead, shedding tears as red as blood. It is said that the stone set in this ring is one such tear.
+
+STATISTICS:
+
+Equipped abilities:
+– At under 25% HP, all damage inflicted by the wearer is increased by 40%
+
+Weight: 0
+
+
+==================================================
+Hunter Bone (quick item)
+==================================================
+The bone of an old hunter whose name is lost. Hold this bone to use the art of Quickening, a technique particular to the first hunters.
+
+STATISTICS:
+
+Charge abilities:
+– Blur-Haste three times per day
+  Duration: 20 seconds
+  Area of Effect: The user
+  
+Weight: 1
+
+
+==================================================
+Jade Feather (amulet)
+==================================================
+A talisman facsimile of a feather. The jade feather rejects death magic of all forms.
+
+STATISTICS:
+
+Equipped abilities:
+– Save vs. Spell: +3
+– Immunity to petrification
+– Death Ward
+
+Special (Medic):
+– 15-ft. radius for Black Remedy and White Remedy effects
+
+Weight: 1
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+//Caryll Runes (quick items)
 
 ==================================================
 Clawmark
@@ -493,7 +582,7 @@ Charge abilities:
 – Hunter (can be used at will)
   Area of Effect: The party
   Duration: 24 hours
-  +1 bonus to attack rolls
+  +1 bonus to attack rolls; +5 bonus to all thieving skills
 
 Weight: 0
 

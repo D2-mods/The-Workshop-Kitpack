@@ -55,6 +55,23 @@ COPY_EXISTING ~d2#hbag.STO~ ~override~
     LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%etherlimiter%~ flags=~identified~ position=~last~ END
   END
 
+//Misc items (v3.3+)
+  PATCH_IF (FILE_EXISTS ~override/%goldscarab%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%goldscarab%~ flags=~identified~ position=~last~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%wingedsword%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%wingedsword%~ flags=~identified~ position=~last~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%redtearstone%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%redtearstone%~ flags=~identified~ position=~last~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%hunterbone%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 overwrite=1 STR_VAR item_name=~%hunterbone%~ flags=~identified~ position=~last~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%jadefeather%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%jadefeather%~ flags=~identified~ position=~last~ END
+  END
+
 //Caryll Runes
   PATCH_IF (FILE_EXISTS ~override/%clawmark%.ITM~) BEGIN
     LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%clawmark%~ flags=~identified~ position=~last~ END

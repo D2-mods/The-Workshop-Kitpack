@@ -231,8 +231,8 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
 //Spark Hunter Badge
   COPY ~%files%/badge_spark.EFF~       ~override/%m1%a.EFF~
   COPY ~%files%/badge_spark.ITM~       ~override/%m1%.ITM~
-    SAY NAME2 @70101
-    SAY DESC @70201
+    SAY NAME1 @70101 SAY UNIDENTIFIED_DESC @70201
+    SAY NAME2 @70101 SAY DESC @70201
     WRITE_ASCII 0x3a ~IAMUL22~ #8    // icon
     WRITE_ASCII 0x58 ~CAMUL22~ #8    // description image
 
@@ -241,8 +241,8 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
     WRITE_ASCII 0x30 ~%m2%b~ #8
   COPY ~%files%/badge_radiantb.EFF~    ~override/%m2%b.EFF~
   COPY ~%files%/badge_radiant.ITM~     ~override/%m2%.ITM~
-    SAY NAME2 @70102
-    SAY DESC @70202
+    SAY NAME1 @70102 SAY UNIDENTIFIED_DESC @70202
+    SAY NAME2 @70102 SAY DESC @70202
     WRITE_ASCII 0x3a ~IAMUL15~ #8    // icon
     WRITE_ASCII 0x58 ~CMISCAD~ #8    // description image
     PATCH_IF (GAME_IS ~iwdee~) BEGIN
@@ -256,16 +256,16 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
   COPY ~%icons%/badge_cosmic.BAM~      ~override/%m3%c.BAM~
   COPY ~%files%/badge_cosmic.EFF~      ~override/%m3%a.EFF~
   COPY ~%files%/badge_cosmic.ITM~      ~override/%m3%.ITM~
-    SAY NAME2 @70103
-    SAY DESC @70203
+    SAY NAME1 @70103 SAY UNIDENTIFIED_DESC @70203
+    SAY NAME2 @70103 SAY DESC @70203
     WRITE_ASCII 0x3a ~IAMUL23~ #8    // icon
     WRITE_ASCII 0x58 ~%m3%c~ #8    // description image
 
 //Powder Keg Badge
   COPY ~%files%/badge_pkeg.EFF~        ~override/%m4%a.EFF~
   COPY ~%files%/badge_pkeg.ITM~        ~override/%m4%.ITM~
-    SAY NAME2 @70104
-    SAY DESC @70204
+    SAY NAME1 @70104 SAY UNIDENTIFIED_DESC @70204
+    SAY NAME2 @70104 SAY DESC @70204
     WRITE_ASCII 0x3a ~IAMUL25~ #8    // icon
     WRITE_ASCII 0x58 ~CAMUL25~ #8    // description image
 
@@ -273,8 +273,8 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
   COPY ~%icons%/badge_sawhunter.BAM~   ~override/%m5%i.BAM~
   COPY ~%files%/badge_sawhunter.EFF~   ~override/%m5%a.EFF~
   COPY ~%files%/badge_sawhunter.ITM~   ~override/%m5%.ITM~
-    SAY NAME2 @70129
-    SAY DESC @70229
+    SAY NAME1 @70129 SAY UNIDENTIFIED_DESC @70229
+    SAY NAME2 @70129 SAY DESC @70229
     WRITE_ASCII 0x3a ~%m5%i~ #8      // icon
     WRITE_ASCII 0x58 ~CMISC7R~ #8    // description image
 
@@ -282,8 +282,8 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
   COPY ~%files%/badge_oldhunter.SPL~   ~override/%m6%a.SPL~
     LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m6%a~ END
   COPY ~%files%/badge_oldhunter.ITM~   ~override/%m6%.ITM~
-    SAY NAME2 @70130
-    SAY DESC @70230
+    SAY NAME1 @70130 SAY UNIDENTIFIED_DESC @70230
+    SAY NAME2 @70130 SAY DESC @70230
     WRITE_ASCII 0x3a ~IAMUL20~ #8    // icon
     WRITE_ASCII 0x58 ~PAMUL27~ #8    // description image
 

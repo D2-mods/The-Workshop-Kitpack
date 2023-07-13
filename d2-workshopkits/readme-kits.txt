@@ -13,13 +13,15 @@ Blood Minister (cleric)
 Crow Hunter (thief)
 Powder Keg (bard)
 
-//v3.0+ kits
+//v3.0 kits
 Drifter (ranger)
 Medic (monk)
 Noble Scion (paladin)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+//warrior kits
 
 ==================================================
 Beast Hunter (Fighter)
@@ -69,9 +71,9 @@ Advantages:
 – +4 bonus to Saving Throws vs. Paralysis/Poison/Death.
 – +10 bonus to Lore each level.
 – May cast three arcane spells as priest spells:
-  1st level: Chromatic Orb.
-  2nd level: Horror.
-  3rd level: Skull Trap.
+ 1st level: Chromatic Orb.
+ 2nd level: Horror.
+ 3rd level: Skull Trap.
   
 – 5th level: May use the Denial ability once per day. Gains additional uses every 5 levels thereafter.
 
@@ -111,10 +113,10 @@ CONFESSOR: The Confessor is a paladin who acts on behalf of a patron church, bei
 
 Advantages:
 – May cast four arcane spells as priest spells:
-  1st level: Blindness.
-  2nd level: Blur.
-  3rd level: Vampiric Touch.
-  4th level: Secret Word.
+ 1st level: Blindness.
+ 2nd level: Blur.
+ 3rd level: Vampiric Touch.
+ 4th level: Secret Word.
 
 – 2nd level: May use the Rooting Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
@@ -150,6 +152,8 @@ Disadvantages:
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+//non-warrior kits
 
 ==================================================
 War Magician (Mage)
@@ -199,9 +203,9 @@ Advantages:
 
 HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
 
-BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The target receives a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the target incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
+BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The recipient gains a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the recipient incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
 
-MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The target receives +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
 
 LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhibit other abilities. The recipient has all physical damage resistances set to 50%, but incurs a -1 penalty to Luck. The effects last for 3 turns. This blood will also prevent level drain.
 
@@ -259,6 +263,8 @@ Disadvantages:
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
+//v3.0 kits
+
 ==================================================
 Drifter (Ranger)
 ==================================================
@@ -267,7 +273,7 @@ DRIFTER: An aimless wanderer, at home in adverse terrain. Countless battles have
 Advantages:
 – +4 bonus to Saving Throws vs. Breath.
 – +1 bonus to Armor Class, plus an additional +1 bonus every 5 levels.
-– +1 bonus to attack and damage rolls every 5 levels.
+– +1 to attack and damage rolls at 3rd level and an additional +1 bonus every 5 levels thereafter.
 – Will not fall due to reputation loss.
 – Moves 2 points faster than other characters.
 – 6th level: Immune to Grease, Web, Entangle, Spike Growth, and Spike Stones.
@@ -294,7 +300,7 @@ WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All e
 – 7th level: May cast Cure Disease once per day.
 – 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
 
-HEALING RAIN: Crystal healing shards rain down in a 10-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
+HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
 
 Disadvantages:
 – May not use the Lay On Hands ability.

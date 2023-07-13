@@ -52,8 +52,8 @@ COPY ~%files%/rune_visual.SPL~        ~override/%z0%b.SPL~
 COPY ~%icons%/caryllrune.BAM~     ~override/%z1%.BAM~    // portrait icon
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70114) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_clawmark.ITM~  ~override/%z1%.ITM~
-  SAY NAME2 @70114
-  SAY DESC @70214
+  SAY NAME1 @70114 SAY UNIDENTIFIED_DESC @70214
+  SAY NAME2 @70114 SAY DESC @70214
   WRITE_ASCII 0x3a ~%z1%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%z1%i~ #8    // icon (ability)
@@ -82,8 +82,8 @@ COPY ~%abilities%/bleeddamage2.SPL~     ~override/%z1%b.SPL~
 //Blood Rapture
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70115) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_core.ITM~   ~override/%z2%.ITM~
-  SAY NAME2 @70115
-  SAY DESC @70215
+  SAY NAME1 @70115 SAY UNIDENTIFIED_DESC @70215
+  SAY NAME2 @70115 SAY DESC @70215
   WRITE_ASCII 0x3a ~%z2%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%z2%i~ #8    // icon (ability)
@@ -103,8 +103,8 @@ COPY ~%abilities%/healselfnosound.SPL~  ~override/%z2%a.SPL~
 //Oedon Writhe
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70116) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_core.ITM~   ~override/%z3%.ITM~
-  SAY NAME2 @70116
-  SAY DESC @70216
+  SAY NAME1 @70116 SAY UNIDENTIFIED_DESC @70216
+  SAY NAME2 @70116 SAY DESC @70216
   WRITE_ASCII 0x3a ~%z3%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%z3%i~ #8    // icon (ability)
@@ -123,8 +123,8 @@ COPY ~%abilities%/restore1spell.SPL~  ~override/%z3%a.SPL~
 //Corruption
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70117) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_corruption.ITM~  ~override/%z4%.ITM~
-  SAY NAME2 @70117
-  SAY DESC @70217
+  SAY NAME1 @70117 SAY UNIDENTIFIED_DESC @70217
+  SAY NAME2 @70117 SAY DESC @70217
   WRITE_ASCII 0x3a ~%z4%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%z4%i~ #8    // icon (ability)
@@ -150,8 +150,8 @@ COPY ~%abilities%/healselfnosound.SPL~  ~override/%z4%b.SPL~                   /
 //Anti-Clockwise Metamorphosis
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70118) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_move.ITM~  ~override/%z5%.ITM~
-  SAY NAME2 @70118
-  SAY DESC @70218
+  SAY NAME1 @70118 SAY UNIDENTIFIED_DESC @70218
+  SAY NAME2 @70118 SAY DESC @70218
   WRITE_ASCII 0x3a ~%z5%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%z5%i~ #8    // icon (ability)
@@ -171,8 +171,8 @@ COPY ~%files%/rune_move.SPL~          ~override/%z5%a.SPL~
 //Clockwise Metamorphosis
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70119) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_core.ITM~  ~override/%z6%.ITM~
-  SAY NAME2 @70119
-  SAY DESC @70219
+  SAY NAME1 @70119 SAY UNIDENTIFIED_DESC @70219
+  SAY NAME2 @70119 SAY DESC @70219
   WRITE_ASCII 0x3a ~%z6%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%z6%i~ #8    // icon (ability)
@@ -186,8 +186,8 @@ COPY ~%files%/rune_core.ITM~  ~override/%z6%.ITM~
 //Great Lake
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70120) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_core.ITM~  ~override/%z7%.ITM~
-  SAY NAME2 @70120
-  SAY DESC @70220
+  SAY NAME1 @70120 SAY UNIDENTIFIED_DESC @70220
+  SAY NAME2 @70120 SAY DESC @70220
   WRITE_ASCII 0x3a ~%z7%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%z7%i~ #8    // icon (ability)
@@ -204,8 +204,8 @@ COPY ~%files%/rune_core.ITM~  ~override/%z7%.ITM~
 //Fading Lake
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70121) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_core.ITM~  ~override/%z8%.ITM~
-  SAY NAME2 @70121
-  SAY DESC @70221
+  SAY NAME1 @70121 SAY UNIDENTIFIED_DESC @70221
+  SAY NAME2 @70121 SAY DESC @70221
   WRITE_ASCII 0x3a ~%z8%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%z8%i~ #8    // icon (ability)
@@ -221,8 +221,8 @@ COPY ~%files%/rune_core.ITM~  ~override/%z8%.ITM~
 //Beast's Embrace
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70122) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_werewolf.ITM~  ~override/%z9%.ITM~
-  SAY NAME2 @70122
-  SAY DESC @70222
+  SAY NAME1 @70122 SAY UNIDENTIFIED_DESC @70222
+  SAY NAME2 @70122 SAY DESC @70222
   WRITE_ASCII 0x3a ~%z9%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%z9%i~ #8    // icon (ability)
@@ -257,23 +257,30 @@ COPY ~%files%/rune_effects.SPL~      ~override/%z9%x.SPL~
 //Hunter
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70125) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_core.ITM~  ~override/%za%.ITM~
-  SAY NAME2 @70125
-  SAY DESC @70225
+  SAY NAME1 @70125 SAY UNIDENTIFIED_DESC @70225
+  SAY NAME2 @70125 SAY DESC @70225
   WRITE_ASCII 0x3a ~%za%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%za%i~ #8    // icon (ability)
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END        // dialogue message
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END                 // visual
-  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END                 // remove rune effects
-  LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=278 parameter1=1 END                  // +1 THAC0
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END  // dialogue message
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END           // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END           // remove rune effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=278 parameter1=1 END            // +1 THAC0
+  LPF CLONE_EFFECT INT_VAR match_opcode=278 opcode=277 parameter1=5 END            // +5 thief skills
+  LPF CLONE_EFFECT INT_VAR match_opcode=278 opcode=276 parameter1=5 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=278 opcode=275 parameter1=5 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=278 opcode=92  parameter1=5 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=278 opcode=91  parameter1=5 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=278 opcode=90  parameter1=5 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=278 opcode=59  parameter1=5 END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 
 //Moon
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70126) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_core.ITM~  ~override/%zb%.ITM~
-  SAY NAME2 @70126
-  SAY DESC @70226
+  SAY NAME1 @70126 SAY UNIDENTIFIED_DESC @70226
+  SAY NAME2 @70126 SAY DESC @70226
   WRITE_ASCII 0x3a ~%zb%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%zb%i~ #8    // icon (ability)
@@ -290,8 +297,8 @@ COPY ~%files%/rune_effects.SPL~    ~override/%zb%a.SPL~
 //Milkweed
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70127) STR_VAR bam=~%z1%~ RET icon END
 COPY ~%files%/rune_werewolf.ITM~  ~override/%zc%.ITM~
-  SAY NAME2 @70127
-  SAY DESC @70227
+  SAY NAME1 @70127 SAY UNIDENTIFIED_DESC @70227
+  SAY NAME2 @70127 SAY DESC @70227
   WRITE_ASCII 0x3a ~%zc%i~ #8    // icon
 //  WRITE_ASCII 0x58 ~~ #8    // description image
   WRITE_ASCII 0x76 ~%zc%i~ #8    // icon (ability)

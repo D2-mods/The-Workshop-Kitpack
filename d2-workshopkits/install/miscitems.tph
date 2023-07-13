@@ -1,13 +1,15 @@
 /*
-This file adds all effects for the "Misc items" component.
+This file adds effects for items from the "Misc items" component.
 Will also patch certain kit abilities, but only if the kit is installed.
+
+Caryll runes are in a separate file (miscitemsrunes.tph).
 */
 
 
 //Crowfeather Cloak (cloak)
 COPY ~%files%/crowfeather.ITM~  ~override/%m1%.ITM~
-  SAY NAME2 @70105
-  SAY DESC @70205
+  SAY NAME1 @70105 SAY UNIDENTIFIED_DESC @70205
+  SAY NAME2 @70105 SAY DESC @70205
   WRITE_ASCII 0x3a ~IBDCLK05~ #8    // icon
   WRITE_ASCII 0x58 ~CDCLCK01~ #8    // description image
 
@@ -62,11 +64,11 @@ END
 
 
 
-//Etherbomb Songbook (item)
+//Etherbomb Songbook (quick item)
 COPY ~%icons%/etherbomb.BAM~  ~override/%m2%.BAM~
 COPY ~%files%/etherbomb.ITM~  ~override/%m2%.ITM~
-  SAY NAME2 @70106
-  SAY DESC @70206
+  SAY NAME1 @70106 SAY UNIDENTIFIED_DESC @70206
+  SAY NAME2 @70106 SAY DESC @70206
   WRITE_ASCII 0x3a ~%m2%~ #8       // icon
   WRITE_ASCII 0x76 ~%m2%~ #8       // icon (ability)
   WRITE_ASCII 0x58 ~CBOOK89~ #8    // description image
@@ -131,8 +133,8 @@ END
 //Ether Booster (amulet)
 COPY ~%files%/etherbooster.EFF~     ~override/%m3%e.EFF~
 COPY ~%files%/etherbooster.ITM~     ~override/%m3%.ITM~
-  SAY NAME2 @70107
-  SAY DESC @70207
+  SAY NAME1 @70107 SAY UNIDENTIFIED_DESC @70207
+  SAY NAME2 @70107 SAY DESC @70207
   WRITE_ASCII 0x3a ~IAMUL24~ #8       // icon
   WRITE_ASCII 0x58 ~PAMUL26~ #8    // description image
 
@@ -175,8 +177,8 @@ END
 //Prisoner's Chain (ring)
 COPY ~%icons%/prisonchain.BAM~  ~override/%m4%.BAM~
 COPY ~%files%/prisonchain.ITM~  ~override/%m4%.ITM~
-  SAY NAME2 @70108
-  SAY DESC @70208
+  SAY NAME1 @70108 SAY UNIDENTIFIED_DESC @70208
+  SAY NAME2 @70108 SAY DESC @70208
   WRITE_ASCII 0x3a ~%m4%~ #8       // icon
   WRITE_ASCII 0x58 ~CRING29~ #8    // description image
 
@@ -186,8 +188,8 @@ COPY ~%files%/prisonchain.ITM~  ~override/%m4%.ITM~
 COPY ~%icons%/cruciformb.BAM~  ~override/%m5%b.BAM~
 COPY ~%icons%/cruciformc.BAM~  ~override/%m5%c.BAM~
 COPY ~%files%/cruciform.ITM~   ~override/%m5%.ITM~
-  SAY NAME2 @70109
-  SAY DESC @70209
+  SAY NAME1 @70109 SAY UNIDENTIFIED_DESC @70209
+  SAY NAME2 @70109 SAY DESC @70209
   WRITE_ASCII 0x3a ~%m5%b~ #8    // icon
   WRITE_ASCII 0x58 ~%m5%c~ #8    // description image
 
@@ -265,8 +267,8 @@ COPY ~%icons%/ironflesh.BAM~  ~override/%m6%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@616) STR_VAR bam=~%m6%i~ RET icon END
 COPY ~%icons%/golemring.BAM~  ~override/%m6%.BAM~
 COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
-  SAY NAME2 @70110
-  SAY DESC @70210
+  SAY NAME1 @70110 SAY UNIDENTIFIED_DESC @70210
+  SAY NAME2 @70110 SAY DESC @70210
   WRITE_ASCII 0x3a ~%m6%~ #8       // icon
   WRITE_ASCII 0x76 ~%m6%~ #8       // icon (ability)
   WRITE_ASCII 0x58 ~CRING26~ #8    // description image
@@ -297,8 +299,8 @@ COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
 //Calamity Ring (ring)
 COPY ~%icons%/calamity.BAM~  ~override/%m7%.BAM~
 COPY ~%files%/calamity.ITM~  ~override/%m7%.ITM~
-  SAY NAME2 @70111
-  SAY DESC @70211
+  SAY NAME1 @70111 SAY UNIDENTIFIED_DESC @70211
+  SAY NAME2 @70111 SAY DESC @70211
   WRITE_ASCII 0x3a ~%m7%~ #8       // icon
   WRITE_ASCII 0x58 ~CRING36~ #8    // description image
 
@@ -309,8 +311,8 @@ COPY ~%icons%/stonering.BAM~      ~override/%m8%.BAM~
 COPY ~%files%/stoneringstun.EFF~  ~override/%m8%a.EFF~    // stun
 COPY ~%files%/stoneringpush.EFF~  ~override/%m8%b.EFF~    // wing buffet
 COPY ~%files%/stonering.ITM~      ~override/%m8%.ITM~
-  SAY NAME2 @70112
-  SAY DESC @70212
+  SAY NAME1 @70112 SAY UNIDENTIFIED_DESC @70212
+  SAY NAME2 @70112 SAY DESC @70212
   WRITE_ASCII 0x3a ~%m8%~ #8       // icon
   WRITE_ASCII 0x58 ~CRING30~ #8    // description image
   LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%m8%a~ END
@@ -326,8 +328,8 @@ COPY ~%files%/flynnsring.EFF~  ~override/%m9%b.EFF~    // block spell effects
 
 COPY ~%icons%/flynnsring.BAM~  ~override/%m9%.BAM~
 COPY ~%files%/flynnsring.ITM~  ~override/%m9%.ITM~
-  SAY NAME2 @70113
-  SAY DESC @70213
+  SAY NAME1 @70113 SAY UNIDENTIFIED_DESC @70213
+  SAY NAME2 @70113 SAY DESC @70213
   WRITE_ASCII 0x3a ~%m9%~ #8       // icon
   WRITE_ASCII 0x58 ~CRING06~ #8    // description image
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m9%~ END
@@ -346,8 +348,8 @@ COPY ~%files%/flynnsring.SPL~  ~override/%m9%s.SPL~
 
 //Ether Limiter (amulet)
 COPY ~%files%/etherlimiter.ITM~  ~override/%ma%.ITM~
-  SAY NAME2 @70128
-  SAY DESC @70228
+  SAY NAME1 @70128 SAY UNIDENTIFIED_DESC @70228
+  SAY NAME2 @70128 SAY DESC @70228
   WRITE_ASCII 0x3a ~IAMUL19~ #8    // icon
   WRITE_ASCII 0x58 ~CAMUL20~ #8    // description image
 
@@ -447,6 +449,209 @@ END
 
 
 
+//Gold Scarab (amulet)
+COPY ~%icons%/goldscarab.BAM~  ~override/%mb%.BAM~
+COPY ~%files%/goldscarab.ITM~  ~override/%mb%.ITM~
+  SAY NAME1 @70131 SAY UNIDENTIFIED_DESC @70231
+  SAY NAME2 @70131 SAY DESC @70231
+  WRITE_ASCII 0x3a ~%mb%~ #8       // icon
+  WRITE_ASCII 0x58 ~CAMUL16~ #8    // description image
+  LPF ALTER_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%mb%e~ END
+  PATCH_IF (GAME_IS ~iwdee~) BEGIN
+    WRITE_LONG 0x34 10000    // higher price for IWDEE
+  END
+
+COPY ~%files%/goldscarab.SPL~  ~override/%mb%e.SPL~
+
+
+
+//Winged Sword Insignia (ring)
+COPY ~%icons%/wingedsword.BAM~  ~override/%mc%.BAM~
+COPY ~%files%/wingedsword.ITM~  ~override/%mc%.ITM~
+  SAY NAME1 @70132 SAY UNIDENTIFIED_DESC @70232
+  SAY NAME2 @70132 SAY DESC @70232
+  WRITE_ASCII 0x3a ~%mc%~ #8       // icon
+  WRITE_ASCII 0x58 ~CRING38~ #8    // description image
+  LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%mc%e~ END
+
+COPY ~%abilities%/castspellself.EFF~  ~override/%mc%e.EFF~    // +1 damage bonus
+  WRITE_ASCII 0x30 ~%mc%e~ #8
+COPY ~%abilities%/damageup1.SPL~      ~override/%mc%e.SPL~
+  LPF ALTER_EFFECT INT_VAR probability1=33 END
+
+
+
+//Red Tearstone Ring (ring)
+COPY ~%icons%/redtearstoneicon.BAM~      ~override/%md%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70133) STR_VAR bam=~%md%i~ RET icon END
+
+COPY ~%icons%/redtearstone.BAM~  ~override/%md%.BAM~
+COPY ~%files%/redtearstone.ITM~  ~override/%md%.ITM~
+  SAY NAME1 @70133 SAY UNIDENTIFIED_DESC @70233
+  SAY NAME2 @70133 SAY DESC @70233
+  WRITE_ASCII 0x3a ~%md%~ #8       // icon
+  WRITE_ASCII 0x58 ~CMISC8O~ #8    // description image
+  LPF ALTER_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%md%e~ END
+
+COPY ~%files%/redtearstone.SPL~  ~override/%md%e.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%md%e~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+
+
+//Hunter Bone (quick item)
+COPY ~%icons%/hunterbone.BAM~      ~override/%me%.BAM~
+COPY ~%icons%/hunterbonedesc.BAM~  ~override/%me%d.BAM~
+COPY ~%files%/hunterbone.ITM~      ~override/%me%.ITM~
+  SAY NAME1 @70134 SAY UNIDENTIFIED_DESC @70234
+  SAY NAME2 @70134 SAY DESC @70234
+  WRITE_ASCII 0x3a ~%me%~ #8     // icon
+  WRITE_ASCII 0x76 ~%me%~ #8     // icon (ability)
+  WRITE_ASCII 0x58 ~%me%d~ #8    // description image
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%me%a~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%me%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@312) END    // "Activated Hunter Bone"
+
+//clone Blur
+COPY_EXISTING ~SPWI201.SPL~  ~override/%me%a.SPL~
+  LPF ALTER_SPELL_HEADER  INT_VAR header=1 new_header_type=0 END
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=2 END
+  LPF ALTER_SPELL_HEADER  INT_VAR new_header_type=1 END
+
+  LPF d2_subspell_remove_effects END
+  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=321 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF ALTER_EFFECT INT_VAR match_timing=0 duration=20 END
+
+//clone Haste
+COPY_EXISTING ~SPWI305.SPL~  ~override/%me%b.SPL~
+  LPF ALTER_SPELL_HEADER  INT_VAR header=1 new_header_type=0 END
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=2 END
+  LPF ALTER_SPELL_HEADER  INT_VAR new_header_type=1 END
+
+  LPF d2_subspell_remove_effects END
+  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=141 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=215 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=61 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=93 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=206 END
+  LPF DELETE_EFFECT INT_VAR match_timing=4 END
+  LPF ALTER_EFFECT INT_VAR match_timing=0 duration=20 END
+
+
+
+//Jade Feather (amulet)
+COPY ~%icons%/jadefeather.BAM~  ~override/%mf%.BAM~
+COPY ~%files%/jadefeather.ITM~  ~override/%mf%.ITM~
+  SAY NAME1 @70135 SAY UNIDENTIFIED_DESC @70235
+  SAY NAME2 @70135 SAY DESC @70235
+  WRITE_ASCII 0x3a ~%mf%~ #8        // icon
+  WRITE_ASCII 0x58 ~BDCFEATH~ #8    // description image
+
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_kill_target_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_slay_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_petrification_arrays END
+
+  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
+    LPF d2_string_immunities END
+  END
+
+  PATCH_IF (death_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=13 opcode=328 parameter2=death_immunity END
+  END
+
+//Black Remedy
+ACTION_IF (FILE_EXISTS ~override/%blackremedy%.SPL~) BEGIN
+
+  COPY_EXISTING ~%blackremedy%.SPL~  ~override~
+    LPF ALTER_EFFECT STR_VAR match_resource=~%blackremedyeffects%~ resource=~%blackremedy%e~ END
+  BUT_ONLY
+
+  COPY ~%abilities%/useeffonkit.SPL~  ~override/%blackremedy%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2MEDIC~)
+      STR_VAR resource=~%mf%s~ 
+    END
+    LPF CLONE_EFFECT STR_VAR resource=~%mf%a~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%blackremedy%e~ END
+
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%mf%s.EFF~
+    WRITE_ASCII 0x30 ~%mf%~ #8
+    WRITE_ASCII 0x70 ~%mf%t~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%mf%t.EFF~
+    WRITE_ASCII 0x30 ~%mf%t~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%mf%t.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%blackremedy%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%mf%a~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%blackremedyeffects%~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~    ~override/%mf%a.EFF~
+    WRITE_ASCII 0x30 ~%mf%a~ #8
+  COPY_EXISTING ~%blackremedyeffects%.SPL~  ~override/%mf%a.SPL~
+    LPF ALTER_EFFECT STR_VAR match_resource=~%blackremedyblast%~ resource=~%mf%b~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~    ~override/%mf%b.EFF~
+    WRITE_ASCII 0x30 ~%mf%b~ #8
+  COPY_EXISTING ~%blackremedyblast%.SPL~    ~override/%mf%b.SPL~
+    LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy15%~ END
+    LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%mf%b~ END
+
+  COPY_EXISTING ~%medicremove%.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%mf%a~ END
+  BUT_ONLY
+
+END
+
+//White Remedy
+ACTION_IF (FILE_EXISTS ~override/%whiteremedy%.SPL~) BEGIN
+
+  COPY_EXISTING ~%whiteremedy%.SPL~  ~override~
+    LPF ALTER_EFFECT STR_VAR match_resource=~%whiteremedyeffects%~ resource=~%whiteremedy%e~ END
+  BUT_ONLY
+
+  COPY ~%abilities%/useeffonkit.SPL~  ~override/%whiteremedy%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2MEDIC~)
+      STR_VAR resource=~%mf%u~ 
+    END
+    LPF CLONE_EFFECT STR_VAR resource=~%mf%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%whiteremedy%e~ END
+
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%mf%u.EFF~
+    WRITE_ASCII 0x30 ~%mf%~ #8
+    WRITE_ASCII 0x70 ~%mf%v~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%mf%v.EFF~
+    WRITE_ASCII 0x30 ~%mf%v~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%mf%v.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%whiteremedy%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%mf%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%whiteremedyeffects%~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~    ~override/%mf%e.EFF~
+    WRITE_ASCII 0x30 ~%mf%e~ #8
+  COPY_EXISTING ~%whiteremedyeffects%.SPL~  ~override/%mf%e.SPL~
+    LPF ALTER_EFFECT STR_VAR match_resource=~%whiteremedyblast%~ resource=~%mf%f~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~    ~override/%mf%f.EFF~
+    WRITE_ASCII 0x30 ~%mf%f~ #8
+  COPY_EXISTING ~%whiteremedyblast%.SPL~    ~override/%mf%f.SPL~
+    LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy15%~ END
+    LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%mf%f~ END
+
+  COPY_EXISTING ~%medicremove%.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%mf%e~ END
+  BUT_ONLY
+
+END
+
+
+
 //Add Evasion checks for IWDEE
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%m2%f~ END    // Etherbomb Songbook
@@ -468,6 +673,11 @@ OUTER_TEXT_SPRINT calamity       ~%m7%~
 OUTER_TEXT_SPRINT stonering      ~%m8%~
 OUTER_TEXT_SPRINT flynnring      ~%m9%~
 OUTER_TEXT_SPRINT etherlimiter   ~%ma%~
+OUTER_TEXT_SPRINT goldscarab     ~%mb%~
+OUTER_TEXT_SPRINT wingedsword    ~%mc%~
+OUTER_TEXT_SPRINT redtearstone   ~%md%~
+OUTER_TEXT_SPRINT hunterbone     ~%me%~
+OUTER_TEXT_SPRINT jadefeather    ~%mf%~
 
 OUTER_TEXT_SPRINT bleeding1      ~%m5%a~
 OUTER_TEXT_SPRINT bleeding2      ~%m5%b~

@@ -108,6 +108,27 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%etherlimiter%~ END
   BUT_ONLY
 
+  COPY_EXISTING ~AR3012.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%goldscarab%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR0712.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=3 STR_VAR item_to_add=~%wingedsword%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR2603.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%redtearstone%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR2401.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=2 charges1=3 STR_VAR item_to_add=~%hunterbone%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR2206.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=4 STR_VAR item_to_add=~%jadefeather%~ END
+  BUT_ONLY
+
+
   //runes
   COPY_EXISTING ~SHADRA01.CRE~ ~override~
     ADD_CRE_ITEM ~%clawmark%~ #0 #0 #0 ~none~ ~qitem inv quiver~
@@ -183,7 +204,7 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
   BUT_ONLY
 
   COPY_EXISTING ~bag25.STO~  ~override~     // Stalker
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%crowfeather%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%clawmark%~ flags=~identified~ END
   BUT_ONLY
 
@@ -204,17 +225,17 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
 
   COPY_EXISTING ~bag21.STO~  ~override~     // Wizard Slayer
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%anticlockwise%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%corruption%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%hunterbone%~ flags=~identified~ END
   BUT_ONLY
 
   COPY_EXISTING ~bag22.STO~  ~override~     // Kensai
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%wingedsword%~ flags=~identified~ END
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%bloodrapture%~ flags=~identified~ END
   BUT_ONLY
 
   COPY_EXISTING ~bag23.STO~  ~override~     // Monk
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%prisonchain%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%stonering%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%jadefeather%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%fadinglake%~ flags=~identified~ END
   BUT_ONLY
 
   COPY_EXISTING ~bag26.STO~  ~override~     // Cleric/Paladin, F/C, C/T, C/R
@@ -234,7 +255,7 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
 
   COPY_EXISTING ~BAG27A.STO~  ~override~    // Shaman
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%greatlake%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%fadinglake%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%redtearstone%~ flags=~identified~ END
   BUT_ONLY
 END
 
@@ -270,6 +291,20 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%stonering%~ END
   BUT_ONLY
 
+  COPY_EXISTING ~THERIK.CRE~ ~override~
+    ADD_CRE_ITEM ~%redtearstone%~ #0 #0 #0 ~none~ ~ring~ NOMOVE
+  BUT_ONLY
+
+  COPY_EXISTING ~AR8011.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%wingedsword%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR8007.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=3 STR_VAR item_to_add=~%jadefeather%~ END
+  BUT_ONLY
+
+
+  //runes
   COPY_EXISTING ~AR5001.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=7 STR_VAR item_to_add=~%clawmark%~ END
   BUT_ONLY
@@ -326,6 +361,14 @@ EXTEND_BOTTOM ~AR2000.BCS~  ~%workspace%/moonrune.BAF~
 
   COPY_EXISTING ~AR9714.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%anticlockwise%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~WAUKEEN.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%goldscarab%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR9500.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=3 STR_VAR item_to_add=~%hunterbone%~ END
   BUT_ONLY
 END
 

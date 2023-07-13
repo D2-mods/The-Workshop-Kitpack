@@ -25,6 +25,8 @@ OUTER_TEXT_SPRINT mb ~%kitid%mb~
 OUTER_TEXT_SPRINT mc ~%kitid%mc~
 OUTER_TEXT_SPRINT md ~%kitid%md~
 OUTER_TEXT_SPRINT me ~%kitid%me~
+OUTER_TEXT_SPRINT mf ~%kitid%mf~
+OUTER_TEXT_SPRINT mg ~%kitid%mg~
 
 
 
@@ -50,12 +52,12 @@ END
 
 //Kit variables
 
-//War Magician
+//War Magician (d2wk7)
 ACTION_IF (FILE_EXISTS ~override/d2wk7s1.SPL~) BEGIN
   OUTER_TEXT_SPRINT unleashmagic  ~d2wk7s1~
 END
 
-//Crow Hunter
+//Crow Hunter (d2wka)
 ACTION_IF (FILE_EXISTS ~override/d2wkas2.SPL~) BEGIN
   OUTER_TEXT_SPRINT visceralattack  ~d2wkas2~
   OUTER_TEXT_SPRINT visceralhaste   ~d2wkas2a~
@@ -66,24 +68,24 @@ ACTION_IF (FILE_EXISTS ~override/d2wkas2.SPL~) BEGIN
     COUNT_REGEXP_INSTANCES ~D2CROWHUNTERFMT~  crowhunterfmt
 END
 
-//Confessor
+//Confessor (d2wk5)
 ACTION_IF (FILE_EXISTS ~override/d2wk5s2.SPL~) BEGIN
   OUTER_TEXT_SPRINT bloodletter       ~d2wk5s2~
   OUTER_TEXT_SPRINT confessorbleed    ~d2wk5s2b~
 END
 
-//Blood Minister
+//Blood Minister (d2wk9)
 ACTION_IF (FILE_EXISTS ~override/d2wk9s1a.SPL~) BEGIN
   OUTER_TEXT_SPRINT healingblood  ~d2wk9s1a~
 END
 
-//Powder Keg
+//Powder Keg (d2wkb)
 ACTION_IF (FILE_EXISTS ~override/d2wkb.2DA~) BEGIN
   OUTER_TEXT_SPRINT powderkeg     ~d2wkb~
   OUTER_TEXT_SPRINT cleareffects  ~d2wkbs0~
 END
 
-//Warhound
+//Warhound (d2wk2)
 ACTION_IF (FILE_EXISTS ~override/d2wk2s1.SPL~) BEGIN
   OUTER_TEXT_SPRINT shockwave          ~d2wk2s1~
   OUTER_TEXT_SPRINT shockwaveeffects   ~d2wk2s1a~
@@ -95,6 +97,21 @@ ACTION_IF (FILE_EXISTS ~override/d2wk2s1.SPL~) BEGIN
 
   COPY_EXISTING - ~kit.ids~ ~~
     COUNT_REGEXP_INSTANCES ~D2WARHOUNDFM~  warhoundfm
+END
+
+//Medic (d2wkd)
+ACTION_IF (FILE_EXISTS ~override/d2wkds1.SPL~) BEGIN
+  OUTER_TEXT_SPRINT blackremedy         ~d2wkds1~
+  OUTER_TEXT_SPRINT blackremedyeffects  ~d2wkds1a~
+  OUTER_TEXT_SPRINT blackremedyblast    ~d2wkds1b~
+  OUTER_TEXT_SPRINT whiteremedy         ~d2wkds2~
+  OUTER_TEXT_SPRINT whiteremedyeffects  ~d2wkds2a~
+  OUTER_TEXT_SPRINT whiteremedyblast    ~d2wkds2b~
+  OUTER_TEXT_SPRINT medicremove         ~d2wkds0x~
+
+  OUTER_SET remedy7  = 1 + IDS_OF_SYMBOL (PROJECTL ~d2wkds9a~)
+  OUTER_SET remedy4  = 1 + IDS_OF_SYMBOL (PROJECTL ~d2wkds9b~)
+  OUTER_SET remedy15 = 1 + IDS_OF_SYMBOL (PROJECTL ~d2wkds9c~)
 END
 
 

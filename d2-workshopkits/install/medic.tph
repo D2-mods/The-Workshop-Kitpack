@@ -19,33 +19,40 @@ COPY_EXISTING ~SPPR317.SPL~       ~override/%s5%.SPL~
 //Add Remedy projectiles
 COPY - ~%abilities%/remedy7.PRO~ ~%workspace%/%s9%a.PRO~     // 7-ft. radius
 ADD_PROJECTILE ~%workspace%/%s9%a.PRO~
-
 COPY - ~%abilities%/remedy4.PRO~ ~%workspace%/%s9%b.PRO~     // 4-ft. radius
 ADD_PROJECTILE ~%workspace%/%s9%b.PRO~
-
 COPY - ~%abilities%/remedy15.PRO~ ~%workspace%/%s9%c.PRO~    // 15-ft. radius
 ADD_PROJECTILE ~%workspace%/%s9%c.PRO~
 
+OUTER_TEXT_SPRINT remedy7      ~%s9%a~
+OUTER_TEXT_SPRINT remedy4      ~%s9%b~
+OUTER_TEXT_SPRINT remedy15     ~%s9%c~
+
 
 //Add Black Remedy
-COPY ~%icons%/blackremedy.BAM~          ~override/%s1%.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@122) STR_VAR bam=~%s1%~ RET icon END
-COPY ~%abilities%/remedy.SPL~           ~override/%s1%.SPL~
+COPY ~%icons%/blackremedyicon.BAM~  ~override/%s1%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@122) STR_VAR bam=~%s1%i~ RET icon END
+
+COPY ~%icons%/blackremedy.BAM~      ~override/%s1%.BAM~
+COPY ~%abilities%/remedy.SPL~       ~override/%s1%.SPL~
   SAY NAME1 @122
   SAY UNIDENTIFIED_DESC @222
-  WRITE_ASCII 0x3a ~SPWI902B~ #8
-  WRITE_ASCII 0x76 ~SPWI902B~ #8
-  LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s1%a~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%s1%a~ END
+  WRITE_ASCII 0x3a ~%s1%~ #8
+  WRITE_ASCII 0x76 ~%s1%~ #8
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=20 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%a.EFF~
-  WRITE_ASCII 0x30 ~%s1%a~ #8
-COPY ~%abilities%/remedyblack.SPL~      ~override/%s1%a.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s9%a~ END    // set projectile
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%a~ END
+COPY ~%abilities%/hiteffectall.SPL~     ~override/%s1%a.SPL~
+  LPF ALTER_EFFECT INT_VAR duration=10 STR_VAR resource=~%s1%b~ END
+
+COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%b.EFF~
+  WRITE_ASCII 0x30 ~%s1%b~ #8
+COPY ~%abilities%/remedyblack.SPL~      ~override/%s1%b.SPL~
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy7%~ END    // set projectile
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%b~ END
+
 
 
 //Add White Remedy
@@ -53,30 +60,32 @@ ACTION_IF (GAME_IS ~bgee~)      BEGIN OUTER_SET sleep_string = 26371 END
 ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN OUTER_SET sleep_string = 14001 END
 ACTION_IF (GAME_IS ~iwdee~)     BEGIN OUTER_SET sleep_string = 37613 END
 
-COPY ~%icons%/whiteremedy.BAM~          ~override/%s2%.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@123) STR_VAR bam=~%s2%~ RET icon END
-COPY ~%abilities%/remedy.SPL~           ~override/%s2%.SPL~
+COPY ~%icons%/whiteremedyicon.BAM~  ~override/%s2%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@123) STR_VAR bam=~%s2%i~ RET icon END
+COPY ~%abilities%/remedy.SPL~       ~override/%s2%.SPL~
   SAY NAME1 @123
   SAY UNIDENTIFIED_DESC @223
   WRITE_ASCII 0x3a ~SPWI903B~ #8
   WRITE_ASCII 0x76 ~SPWI903B~ #8
-  LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%a~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%s2%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%a~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=30 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%a.EFF~
-  WRITE_ASCII 0x30 ~%s2%a~ #8
-COPY ~%abilities%/remedywhite.SPL~      ~override/%s2%a.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s9%a~ END    // set projectile
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s2%a~ END
+COPY ~%abilities%/hiteffectall.SPL~     ~override/%s2%a.SPL~
+  LPF ALTER_EFFECT INT_VAR duration=10 STR_VAR resource=~%s2%b~ END
+
+COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%b.EFF~
+  WRITE_ASCII 0x30 ~%s2%b~ #8
+COPY ~%abilities%/remedywhite.SPL~      ~override/%s2%b.SPL~
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy7%~ END    // set projectile
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s2%b~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=~%sleep_string%~ END    // "Sleep"
 
 
 //Remedy lighting (write into projectile)
 COPY ~%abilities%/remedyvisual.VVC~  ~override/%s9%e.VVC~
-ACTION_FOR_EACH projectile IN ~%s9%a~ ~%s9%b~ ~%s9%c~ BEGIN
+ACTION_FOR_EACH projectile IN ~%remedy7%~ ~%remedy4%~ ~%remedy15%~ BEGIN
   COPY ~override/%projectile%.PRO~   ~override~
     WRITE_ASCII 0x21c  ~%s9%e~ #8
   BUT_ONLY
@@ -85,19 +94,21 @@ END
 //Remove effects
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%a~ END
 
 
 //Add Healing Rain
 COPY - ~%abilities%/healingrain.PRO~ ~%workspace%/%s3%a.PRO~
 ADD_PROJECTILE ~%workspace%/%s3%a.PRO~
 
-COPY ~%icons%/healingrain.BAM~      ~override/%s3%i.BAM~
+COPY ~%icons%/healingrain.BAM~      ~override/%s3%.BAM~
 COPY ~%abilities%/healingrain.SPL~  ~override/%s3%.SPL~
   SAY NAME1 @124
   SAY UNIDENTIFIED_DESC @224
-  WRITE_ASCII 0x3a ~%s3%i~ #8
-  WRITE_ASCII 0x76 ~%s3%i~ #8
+  WRITE_ASCII 0x3a ~%s3%~ #8
+  WRITE_ASCII 0x76 ~%s3%~ #8
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s3%a~ END    // set projectile
 
 
@@ -142,9 +153,6 @@ OUTER_TEXT_SPRINT whiteremedy  ~%s2%~
 OUTER_TEXT_SPRINT healingrain  ~%s3%~
 OUTER_TEXT_SPRINT mediccure1   ~%s4%~
 OUTER_TEXT_SPRINT mediccure2   ~%s5%~
-OUTER_TEXT_SPRINT remedy7      ~%s9%a~
-OUTER_TEXT_SPRINT remedy4      ~%s9%b~
-OUTER_TEXT_SPRINT remedy15     ~%s9%c~
 
 
 /*

@@ -50,7 +50,7 @@ Crow Hunter (f/m/t)
 6 Hunter Badges   - can be crafted (see below), can also be purchased
 8 new spells      - learned by the Starjammer kit
 12 Caryll Runes   - items with party-wide effects
-10 other items    - all general use items, no weapons or armor
+15 other items    - all general use items, no weapons or armor
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -125,6 +125,17 @@ This is how I'd do the install:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v3.3
+- New items:
+	- Added 5 items to the "Misc items" component. Obtainable in BG2 and IWD/HoW.
+	- One of the new items, Jade Feather, enhances the Medic's remedy abilities.
+- Kit Changes:
+	- Medic: Increased Healing Rain area to 12-ft. radius.
+	- Drifter: The first bonus to hit/damage is now gained at level 3, then every 5 levels thereafter.
+- Other Changes:
+	- Hunter (rune): Added +5 to all thieving skills (in addition to +1 THAC0 bonus)
+	- Changed icons for some abilities.
 
 v3.2
 - Fixes:

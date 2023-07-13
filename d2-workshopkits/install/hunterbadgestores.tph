@@ -130,7 +130,7 @@ END
   BUT_ONLY
 
 //HoW stores
-  COPY_EXISTING ~WAUKEEN.STO~  ~override~
+  COPY_EXISTING ~KIERAN2.STO~  ~override~
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
   BUT_ONLY

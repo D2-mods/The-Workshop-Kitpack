@@ -7,7 +7,7 @@ Text in this file appears in the game.
 @301 = ~Entangled~
 @302 = ~Bleeding~
 @303 = ~You cannot cast this spell until the current casting has run out.~
-@304 = ~Activated Golem Ring~
+@304 = ~^$Activated Golem Ring^-~
 @305 = ~^$A Caryll Rune has been etched in the minds of all party members.^-~    // symbols are for colored text
 @306 = ~Regenerating~
 @307 = ~Healed~
@@ -15,6 +15,7 @@ Text in this file appears in the game.
 @309 = ~Confused~
 @310 = ~Panic~
 @311 = ~Berserk~
+@312 = ~^$Used Hunter Bone^-~
 
 
 
@@ -69,7 +70,7 @@ Text in this file appears in the game.
 
 
 
-//Kits
+//Warrior kits (v1.0)
 
 //Beast Hunter
 @100101 = ~Beast Hunter~
@@ -123,10 +124,10 @@ Advantages:
 – +4 bonus to Saving Throws vs. Paralysis/Poison/Death.
 – +10 bonus to Lore each level.
 – May cast three arcane spells as priest spells:
-  1st level: Chromatic Orb.
-  2nd level: Horror.
-  3rd level: Skull Trap.
-  
+ 1st level: Chromatic Orb.
+ 2nd level: Horror.
+ 3rd level: Skull Trap.
+
 – 5th level: May use the Denial ability once per day. Gains additional uses every 5 levels thereafter.
 
 DENIAL: This spell has two effects. First, the recipient becomes immune to all instant death effects for 3 turns. Second, if the recipient falls below 50% of maximum Hit Points, the spell activates and restores the character to full health, consuming the spell in the process.
@@ -169,10 +170,10 @@ Disadvantages:
 
 Advantages:
 – May cast four arcane spells as priest spells:
-  1st level: Blindness.
-  2nd level: Blur.
-  3rd level: Vampiric Touch.
-  4th level: Secret Word.
+ 1st level: Blindness.
+ 2nd level: Blur.
+ 3rd level: Vampiric Touch.
+ 4th level: Secret Word.
 
 – 2nd level: May use the Rooting Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
@@ -210,6 +211,9 @@ Disadvantages:
 @100604 = ~Lost Class: Temple Knight~
 @100605 = ~~
 
+
+
+//non-Warrior kits (v1.0)
 
 //War Magician
 @100701 = ~War Magician~
@@ -263,9 +267,9 @@ Advantages:
 
 HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
 
-BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The target receives a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the target incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
+BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The recipient gains a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the recipient incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
 
-MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The target receives +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
 
 LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhibit other abilities. The recipient has all physical damage resistances set to 50%, but incurs a -1 penalty to Luck. The effects last for 3 turns. This blood will also prevent level drain.
 
@@ -328,8 +332,7 @@ Disadvantages:
 
 
 
-
-//v3.0+ kits
+//v3.0 kits
 
 //Drifter
 @101201 = ~Drifter~
@@ -339,7 +342,7 @@ Disadvantages:
 Advantages:
 – +4 bonus to Saving Throws vs. Breath.
 – +1 bonus to Armor Class, plus an additional +1 bonus every 5 levels.
-– +1 bonus to attack and damage rolls every 5 levels.
+– +1 to attack and damage rolls at 3rd level and an additional +1 bonus every 5 levels thereafter.
 – Will not fall due to reputation loss.
 – Moves 2 points faster than other characters.
 – 6th level: Immune to Grease, Web, Entangle, Spike Growth, and Spike Stones.
@@ -368,7 +371,7 @@ WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All e
 – 7th level: May cast Cure Disease once per day.
 – 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
 
-HEALING RAIN: Crystal healing shards rain down in a 10-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
+HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
 
 Disadvantages:
 – May not use the Lay On Hands ability.
@@ -399,15 +402,6 @@ Disadvantages:
 – May not Specialize in any fighting style.~
 @101404 = ~Lost Class: Noble Scion~
 @101405 = ~~
-
-
-/*
-@101501 = ~~
-@101502 = ~~
-@101503 = ~~
-@101504 = ~~
-@101505 = ~~
-*/
 
 
 
@@ -500,9 +494,9 @@ The following transfusions are gained:
 
 HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
 
-BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The target receives a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the target incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
+BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The recipient gains a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the recipient incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
 
-MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The target receives +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
 
 LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhibit other abilities. The recipient has all physical damage resistances set to 50%, but incurs a -1 penalty to Luck. The effects last for 3 turns. This blood will also prevent level drain.~
 
@@ -572,7 +566,7 @@ All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-
 @124 = ~Healing Rain~
 @224 = ~Healing Rain
 
-Crystal healing shards rain down in a 10-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.~
+Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.~
 
 @125 = ~Blood Bullet~
 @225 = ~Blood Bullet
@@ -1288,7 +1282,7 @@ Charge abilities:
 – Hunter (can be used at will)
   Area of Effect: The party
   Duration: 24 hours
-  +1 bonus to attack rolls
+  +1 bonus to attack rolls; +5 bonus to all thieving skills
 
 Weight: 0~
 
@@ -1369,10 +1363,65 @@ Special (Beast Hunter):
 Weight: 1~
 
 
-/*
-@70131 = ~~
-@70231 = ~~
-*/
+
+//v3.3+ items
+
+@70131 = ~Gold Scarab~
+@70231 = ~This type of amulet takes the form of a sculpted beetle and is typically only found in areas around Mulhorand. The golden scarab increases the amount of experience points obtained from defeating enemies.
+
+STATISTICS:
+
+Equipped abilities:
+– +300 bonus XP for each enemy slain by the wearer
+
+Weight: 1~
+
+@70132 = ~Winged Sword Insignia~
+@70232 = ~An honor bestowed upon the most devoted knights, lured into battles of death. The insignia symbolizes the relentless blade, and raises attack power with successive attacks.
+
+STATISTICS:
+
+Combat abilities:
+– 33% chance of gaining a +1 bonus to damage for 2 rounds (melee only)
+
+Weight: 0~
+
+@70133 = ~Red Tearstone Ring~
+@70233 = ~The red tearstone boosts the attack of its wearer when in danger. Once, a goddess mourned the undeserving dead, shedding tears as red as blood. It is said that the stone set in this ring is one such tear.
+
+STATISTICS:
+
+Equipped abilities:
+– At under 25% HP, all damage inflicted by the wearer is increased by 40%
+
+Weight: 0~
+
+@70134 = ~Hunter Bone~
+@70234 = ~The bone of an old hunter whose name is lost. Hold this bone to use the art of Quickening, a technique particular to the first hunters.
+
+STATISTICS:
+
+Charge abilities:
+– Blur-Haste three times per day
+  Duration: 20 seconds
+  Area of Effect: The user
+  
+Weight: 1~
+
+@70135 = ~Jade Feather~
+@70235 = ~A talisman facsimile of a feather. The jade feather rejects death magic of all forms.
+
+STATISTICS:
+
+Equipped abilities:
+– Save vs. Spell: +3
+– Immunity to petrification
+– Death Ward
+
+Special (Medic):
+– 15-ft. radius for Black Remedy and White Remedy effects
+
+Weight: 1~
 
 
 /*
