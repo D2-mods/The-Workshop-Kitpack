@@ -48,6 +48,7 @@ Contenu du mod :
 - 8 [Nouveaux sorts](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#sorts-du-vagabond-des-%C3%A9toiles-) &emsp;&emsp;&emsp;-&emsp;&emsp; pour le kit du Vagabond des étoiles 
 - 12 [Runes de Caryll](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#les-runes-de-caryll) &emsp;&emsp;-&emsp;&emsp; des objets ayant des effets sur l'ensemble du groupe
 - 15 [Autres objets](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#objets-divers-) &emsp; &emsp;-&emsp;&emsp; tous des objets utilitaires, pas d'armes ni d'armures
+- [v33-items](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#v33-items-)
 
 
 Composants :
@@ -937,7 +938,8 @@ Poids : 1
 </details>
 
 
-**v3.3+ items**
+v3.3+ items :
+- 
 - Scarabée en or (amulette)
 - Insigne de l'épée suspendue (anneau) (ring)
 - Pierre de larme sanglante (anneau)ing)
