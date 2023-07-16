@@ -4,21 +4,28 @@
  Insigne de l'Épée radieuse
  Insigne du Veilleur
  Insigne du Chantre de la poudre
-Insigne de la Scie
-Insigne du Vétéran
+ Insigne de la Scie
+ Insigne du Vétéran
 
 // Objets divers
 
  Manteau de plumes de corbeau (cape)
- Livre de chants, le souffle de l'Éther (objet)
+ Livre de chants, le souffle de l'Éther (objet rapide)
  Amulette de l'Éther (amulette)
  Chaîne du prisonnier (anneau)
  Croix (amulette)
- Anneau du golem
- Anneau de calamité
- Anneau de pierre
- Anneau de Flynn
+ Anneau du golem (anneau)
+ Anneau de calamité (anneau)
+ Anneau de pierre (anneau)
+ Anneau de Flynn (anneau)
  Atténuateur d'Éther (amulette)
+
+//v3.3+ items
+Scarabée en or (amulette)
+Insigne de l'épée suspendue (anneau)
+Pierre de larme sanglante (anneau)
+L'os du chasseur (objet rapide)
+La plume de Jade (amulette)
 
 // Runes de Caryll (objets)
 
@@ -37,6 +44,8 @@ Insigne du Vétéran
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+//Hunter Badges (amulets)
 
 ==================================================
 Insigne Étincelant
@@ -151,6 +160,8 @@ Poids : 1
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
+//Misc items
+
 ==================================================
 Manteau de plumes de corbeau (cape)
 ==================================================
@@ -171,7 +182,7 @@ Poids : 3
 
 
 ==================================================
-Livre de chants, le souffle de l'Éther (objet)
+Livre de chants, le souffle de l'Éther (objet rapide)
 ==================================================
 
 La rumeur raconte que ce livre de chants serait tombé du ciel. Les runes qui ornent la couverture évoquent des origines extra-planaire, peut-être un présent laissé par un voyageur venu d'un autre univers.
@@ -333,6 +344,89 @@ Poids : 1
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+//v3.3+ items
+
+==================================================
+Scarabée en or (amulette)
+==================================================
+
+Ce modèle d'amulette principalement fabriqué dans les environs de Mulhorand représente un scarabée d'or. Celui-ci accroît l'expérience acquise en terrassant ses ennemis.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+– Bonus de 300 points d’expérience pour chaque ennemi vaincu par le porteur
+
+Poids : 1
+
+
+==================================================
+Insigne de l'épée suspendue (anneau)
+==================================================
+
+Un des plus grand honneur accordé aux plus dévoués des chevaliers, appelés à combattre et à affronter la mort. L'insigne symbolise une lame implacable et augmente la puissance de son porteur au fil de ses attaques.
+
+PARAMÈTRES :
+
+Capacités de combat :
+– À chaque attaque réussie, 33 % de chance de bénéficier d'un bonus de 1 aux dégâts pour 2 rounds (Attaque de mêlée uniquement)
+
+Poids : 0
+
+
+==================================================
+Pierre de larme sanglante (anneau)
+==================================================
+
+La pierre de larme sanglante amplifie les attaques de son porteur lorsqu'il se trouve en péril. L'histoire mentionne une déesse de jadis, endeuillée par la mort injuste d'innocentes victimes et dont les larmes étaient aussi rouge que le sang. La légende raconte que l'une de ces larmes est sertie dans cet anneau.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+– Si le porteur voit ses points de vie passer en dessous des 25 %, tous les dégâts qu'il inflige seront majorés de 40 %
+
+Poids : 0
+
+
+==================================================
+L'os du chasseur (objet rapide)
+==================================================
+
+Un des os d'un vieux chasseur oublié depuis longtemps. Celui où celle qui brandit cet os peut invoquer le Quickening, une technique ancestrale des tout premiers chasseurs.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– Hâte-Flou trois fois par jour
+  Durée : 20 seconds
+  Zone d'effet :l'utilisateur
+  
+Poids : 1
+
+
+==================================================
+La plume de Jade (amulette)
+==================================================
+
+Un talisman en forme de plume qui expulse tous les types de mort magique.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+– Jets de sauvegarde contre les sorts : +3
+– Immunité à la pétrification
+– Protection contre la mort
+
+Spécial  (Chirurgien):
+– « Sombre Remède » et « Remède Vital » bénéficieront d'un rayon de 4,5 m de portée
+
+Poids : 1
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+//Caryll Runes (objet rapide)
 
 ==================================================
 Griffure
@@ -520,7 +614,7 @@ Capacités de charge :
 – Acuité (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-Bonus de 1 aux jets d'attaque.
+Bonus de 1 aux jets d'attaque ainsi qu'un bonus de 5 à toutes les compétences de voleur.
 
 Poids : 0
 
