@@ -3,7 +3,7 @@
 Téléchargement : https://github.com/D2-mods/The-Workshop-Kitpack/releases  
 Forum : [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)
 
-C'est un pack de Kits sur lequel je travaille depuis un moment. Il comporte actuellement 14 kits + 6 déclinaisons pour multi-classes. Il contient également plus de 20 objets, dont 6 insignes de Chasseur, 12 Runes de Caryll et 10 autres objets divers. Fortement inspiré par les jeux Soulsborne de FromSoft et probablement d'autres sources. Ce mod est compatible avec BG:EE, BG2:EE, IWD:EE et EET.
+C'est un pack de Kits sur lequel je travaille depuis un moment. Il comporte actuellement 14 kits + 6 déclinaisons pour multi-classes. Il contient également plus de 30 objets, dont 6 insignes de Chasseur, 12 Runes de Caryll et 15 autres objets divers. Fortement inspiré par les jeux Soulsborne de FromSoft et probablement d'autres sources. Ce mod est compatible avec BG:EE, BG2:EE, IWD:EE et EET.
 
 NOTE : Les tables de capacités pour ces kits sont créées au moment de l'installation. Chaque kit clone la table de la classe de base (si elle existe). Cela signifie que toute modification de classe installée au préalable sera incluse dans les kits du mod.
 
@@ -28,7 +28,7 @@ Contenu du mod :
 - Prédateur (Voleur)
 - Chantre de la poudre (barde)
 
-#### [v3.0+ kits](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#descriptions-des-kits-)
+#### [v3.0 kits](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#descriptions-des-kits-)
 - Vagabond (rôdeur)
 - Chirurgien (moine)
 - Seigneur Scion (paladin)
@@ -47,7 +47,8 @@ Contenu du mod :
 - 6 [Insignes de Chasseur](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#insignes-de-chasseur) &emsp;-&emsp;&emsp; peuvent être fabriqués (voir ci-dessous), ou achetés
 - 8 [Nouveaux sorts](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#sorts-du-vagabond-des-%C3%A9toiles-) &emsp;&emsp;&emsp;-&emsp;&emsp; pour le kit du Vagabond des étoiles 
 - 12 [Runes de Caryll](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#les-runes-de-caryll) &emsp;&emsp;-&emsp;&emsp; des objets ayant des effets sur l'ensemble du groupe
-- 10 [Autres objets](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#objets-divers-) &emsp; &emsp;-&emsp;&emsp; tous des objets utilitaires, pas d'armes ni d'armures
+- 15 [Autres objets](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#objets-divers-) &emsp; &emsp;-&emsp;&emsp; tous des objets utilitaires, pas d'armes ni d'armures
+- [v3.3+ items](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#v33-items-)
 
 
 Composants :
@@ -312,7 +313,7 @@ Inconvénients :
 </details>
 
 <details>
-  <summary>v3.0+ kits:</summary>
+  <summary>v3.0 kits:</summary>
 
 ---
 
@@ -323,7 +324,7 @@ VAGABOND : Le Vagabond erre sans attache ni dessein dans les contrées les plus 
 Avantages :
 – Bonus de 4 aux jets de sauvegarde contre les souffles.
 – Bonus de 1 à la classe d'armure, bénéficie d'un bonus supplémentaire de 1 tous les 5 niveaux.
-– Bonus de 1 aux jets d'attaque et de dégâts tous les 5 niveaux.
+– Bonus de 1 aux jets d'attaque et de dégâts au niveau 3, puis une fois supplémentaire tous les 5 niveaux.
 – Ne sera pas déchu en raison de la réputation.
 – Vitesse de déplacement augmentée de 2.
 – 6ème niveau : Immunité à « Glisse », « Toile d'araignée », « Enchevêtrement », « Croissance d'épines », et « Pierres acérées ».
@@ -348,7 +349,7 @@ REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes 
 – 7ème niveau : Peut utiliser « Guérison des maladies » une fois par jour.
 – 9ème niveau : Peut utiliser la capacité « Déluge Salvateur » une fois par jour, puis une fois supplémentaire au niveau 12 et 15.
 
-DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
+DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
 
 Inconvénients :
 – Ne peut utiliser « Imposition des mains ».
@@ -449,6 +450,13 @@ Informations additionnelles (Les capacités des kits) :
 	- Les kits de clerc multi-classes obtiendront leur symbole sacré lorsqu'il atteindrons 4 million XP (BG2EE / EET)
 
 D'autres capacités sont aussi des sorts, mais j'ai décidé qu'elles ne seraient pas affectées par les zones sans magie ou d'entropie. C'est la norme, de ne pas être affectées, pour les capacités de kit dans le jeux. Les capacités ci-dessus sont utilisées comme des sorts, donc j'ai pensé que cela aurait l'air idiot qu'elles ne soient pas affectées par les zones sans magie ou d'entropie.
+
+
+#### Certains kits bénéficieront des effets bonus de certains objets des Enhanced Éditions. :
+	- Yeux d'archer : Limier, Limier (Guerrier / Mage), Seigneur Scion
+	- Ceinture de la fine lame : Vagabond 
+	- Cornemuse hurlante : Chantre de la poudre
+	- Gantelets du traqueur : Prédateur , Prédateur (Guerrier / Voleur), Prédateur (Guerrier / Mage / Voleur)
 
 
 Insignes de Chasseur
@@ -929,12 +937,99 @@ Poids : 1
 
 </details>
 
+
+v3.3+ items :
+- 
+- Scarabée en or (amulette)
+- Insigne de l'épée suspendue (anneau) (ring)
+- Pierre de larme sanglante (anneau)ing)
+- L'os du chasseur (objet rapide)em)
+- La plume de Jade (amulette)
+
+<details>
+  <summary>Descriptions</summary>
+
+---
+
+**Scarabée en or (amulette)**
+
+Ce modèle d'amulette principalement fabriqué dans les environs de Mulhorand représente un scarabée d'or. Celui-ci accroît l'expérience acquise en terrassant ses ennemis.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+– Bonus de 300 points d’expérience pour chaque ennemi vaincu par le porteur
+
+Poids : 1
+
+---
+
+**Insigne de l'épée suspendue (anneau)**
+
+Un des plus grand honneur accordé aux plus dévoués des chevaliers, appelés à combattre et à affronter la mort. L'insigne symbolise une lame implacable et augmente la puissance de son porteur au fil de ses attaques.
+
+PARAMÈTRES :
+
+Capacités de combat :
+– À chaque attaque réussie, 33 % de chance de bénéficier d'un bonus de 1 aux dégâts pour 2 rounds (Attaque de mêlée uniquement)
+
+Poids : 0
+
+---
+
+**Pierre de larme sanglante (anneau)**
+
+La pierre de larme sanglante amplifie les attaques de son porteur lorsqu'il se trouve en péril. L'histoire mentionne une déesse de jadis, endeuillée par la mort injuste d'innocentes victimes et dont les larmes étaient aussi rouge que le sang. La légende raconte que l'une de ces larmes est sertie dans cet anneau.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+– Si le porteur voit ses points de vie passer en dessous des 25 %, tous les dégâts qu'il inflige seront majorés de 40 %
+
+Poids : 0
+
+---
+
+**L'os du chasseur (objet rapide)**
+
+Un des os d'un vieux chasseur oublié depuis longtemps. Celui où celle qui brandit cet os peut invoquer le Quickening, une technique ancestrale des tout premiers chasseurs.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– Hâte-Flou trois fois par jour
+  Durée : 20 seconds
+  Zone d'effet :l'utilisateur
+  
+Poids : 1
+
+---
+
+**La plume de Jade (amulette)**
+
+Un talisman en forme de plume qui expulse tous les types de mort magique.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+– Jets de sauvegarde contre les sorts : +3
+– Immunité à la pétrification
+– Protection contre la mort
+
+Spécial  (Chirurgien):
+– « Sombre Remède » et « Remède Vital » bénéficieront d'un rayon de 4,5 m de portée
+
+Poids : 1
+
+---
+
+</details>
+
 #### Infos sans spoiler :
 
-- BGEE : La chaîne du prisonnier, l'anneau de calamité et l'anneau de pierre peuvent être obtenus (les autres objets sont quand même installés).
-- SoD : le Livre de chants, "le souffle de l'Éther" et l'Anneau de Golem peuvent être obtenus.
+- BGEE / SoD : 5 objets peuvent être obtenus (les autres objets sont quand même installés).
 - BG2EE : Tous les objets pouvant être obtenus dans SoA. Si vous commencez une nouvelle partie dans ToB, le sac de départ contiendra 1 ou 2 objets.
-- IWDEE : L'anneau du Golem se trouve dans l'extension Trial of the Lurmaster. Le reste se trouve dans la campagne principale de IWD.
+- IWDEE / HOW : Les objets sont dispersés dans de nombreux endroits.
 
 
 Les Runes de Caryll
@@ -1155,7 +1250,7 @@ Capacités de charge :
 – Acuité (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-Bonus de 1 aux jets d'attaque.
+Bonus de 1 aux jets d'attaque ainsi qu'un bonus de 5 à toutes les compétences de voleur.
 
 Poids : 0
 

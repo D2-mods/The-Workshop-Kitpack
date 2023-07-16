@@ -53,7 +53,7 @@ Seigneur Scion (paladin)
 - 6 Insignes de Chasseur - peuvent être fabriqués (voir ci-dessous), ou achetés
 - 8 Nouveaux sorts - pour le kit du Vagabond des étoiles 
 - 12 Runes de Caryll - des objets ayant des effets sur l'ensemble du groupe
-- 10 Autres objets - tous des objets utilitaires, pas d'armes ni d'armures
+- 15 Autres objets - tous des objets utilitaires, pas d'armes ni d'armures
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -125,6 +125,17 @@ FnP multiclass :
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v3.3
+- New items:
+	- Added 5 items to the "Misc items" component. Obtainable in BG2 and IWD/HoW.
+	- One of the new items, Jade Feather, enhances the Medic's remedy abilities.
+- Kit Changes:
+	- Medic: Increased Healing Rain area to 12-ft. radius.
+	- Drifter: The first bonus to hit/damage is now gained at level 3, then every 5 levels thereafter.
+- Other Changes:
+	- Hunter (rune): Added +5 to all thieving skills (in addition to +1 THAC0 bonus)
+	- Changed icons for some abilities.
 
 v3.2
 - Fixes:

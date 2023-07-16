@@ -15,13 +15,15 @@
 - Prédateur (Voleur)
 - Chantre de la poudre (barde)
 
-//v3.0+ kits
+//v3.0 kits
 Vagabond (rôdeur)
 Chirurgien (moine)
 Seigneur Scion (paladin)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+//warrior kits
 
 ==================================================
 Beast Hunter (Guerrier)
@@ -155,6 +157,8 @@ Inconvénients :
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
+//non-warrior kits
+
 ==================================================
 War Magician (Mage)
 ==================================================
@@ -263,6 +267,8 @@ Inconvénients :
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
+//v3.0 kits
+
 ==================================================
 Drifter (Ranger)
 ==================================================
@@ -271,7 +277,7 @@ VAGABOND : Le Vagabond erre sans attache ni dessein dans les contrées les plus 
 Avantages :
 – Bonus de 4 aux jets de sauvegarde contre les souffles.
 – Bonus de 1 à la classe d'armure, bénéficie d'un bonus supplémentaire de 1 tous les 5 niveaux.
-– Bonus de 1 aux jets d'attaque et de dégâts tous les 5 niveaux.
+– Bonus de 1 aux jets d'attaque et de dégâts au niveau 3, puis une fois supplémentaire tous les 5 niveaux.
 – Ne sera pas déchu en raison de la réputation.
 – Vitesse de déplacement augmentée de 2.
 – 6ème niveau : Immunité à « Glisse », « Toile d'araignée », « Enchevêtrement », « Croissance d'épines », et « Pierres acérées ».
@@ -300,7 +306,7 @@ REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes 
 – 7ème niveau : Peut utiliser « Guérison des maladies » une fois par jour.
 – 9ème niveau : Peut utiliser la capacité « Déluge Salvateur » une fois par jour, puis une fois supplémentaire au niveau 12 et 15.
 
-DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
+DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
 
 Inconvénients :
 – Ne peut utiliser « Imposition des mains ».

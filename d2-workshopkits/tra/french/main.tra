@@ -7,7 +7,7 @@ Text in this file appears in the game.
 @301 = ~Enchevêtré(e)~
 @302 = ~Hémorragie~ 
 @303 = ~Vous ne pouvez pas lancer ce sort tant que le sort précédent n’a pas expiré.~
-@304 = ~Anneau du Golem activé~
+@304 = ~^$Anneau du Golem activé^-~
 @305 = ~^$Une Rune de Caryll a été gravée dans l'esprit de tous les membres du groupe.^-~    // symbols are for colored text
 @306 = ~Régénération~
 @307 = ~Guéri~
@@ -15,6 +15,7 @@ Text in this file appears in the game.
 @309 = ~Confus~
 @310 = ~Panique~
 @311 = ~Berserk~
+@312 = ~^$Used Hunter Bone^-~
 
 
 
@@ -212,6 +213,9 @@ Inconvénients :
 @100605 = ~~
 
 
+
+//non-Warrior kits (v1.0)
+
 //War Magician
 @100701 = ~Mage de bataille~
 @100702 = ~mage de bataille~
@@ -330,7 +334,7 @@ Inconvénients :
 
 
 
-//v3.0+ kits
+//v3.0 kits
 
 //Drifter
 @101201 = ~Vagabond~
@@ -340,7 +344,7 @@ Inconvénients :
 Avantages :
 – Bonus de 4 aux jets de sauvegarde contre les souffles.
 – Bonus de 1 à la classe d'armure, bénéficie d'un bonus supplémentaire de 1 tous les 5 niveaux.
-– Bonus de 1 aux jets d'attaque et de dégâts tous les 5 niveaux.
+– Bonus de 1 aux jets d'attaque et de dégâts au niveau 3, puis une fois supplémentaire tous les 5 niveaux.
 – Ne sera pas déchu en raison de la réputation.
 – Vitesse de déplacement augmentée de 2.
 – 6ème niveau : Immunité à « Glisse », « Toile d'araignée », « Enchevêtrement », « Croissance d'épines », et « Pierres acérées ».
@@ -369,7 +373,7 @@ REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes 
 – 7ème niveau : Peut utiliser « Guérison des maladies » une fois par jour.
 – 9ème niveau : Peut utiliser la capacité « Déluge Salvateur » une fois par jour, puis une fois supplémentaire au niveau 12 et 15.
 
-DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
+DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
 
 Inconvénients :
 – Ne peut utiliser « Imposition des mains ».
@@ -400,15 +404,6 @@ Inconvénients :
 – Ne peut se spécialiser dans aucun style de combat.~
 @101404 = ~Lost Class: Noble Scion~
 @101405 = ~~
-
-
-/*
-@101501 = ~~
-@101502 = ~~
-@101503 = ~~
-@101504 = ~~
-@101505 = ~~
-*/
 
 
 
@@ -573,7 +568,7 @@ Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un rem
 @124 = ~Déluge salvateur~
 @224 = ~Déluge salvateur 
 
-Des éclats cristallins bénéfiques déferlent dans un rayon de 3 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.~
+Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.~
 
 @125 = ~Tir saignant~
 @225 = ~Tir saignant
@@ -1284,7 +1279,7 @@ Capacités de charge :
 – Acuité (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-Bonus de 1 aux jets d'attaque.
+Bonus de 1 aux jets d'attaque ainsi qu'un bonus de 5 à toutes les compétences de voleur.
 
 Poids : 0~
 
@@ -1365,14 +1360,65 @@ Spécial (Chasseur):
 Poids : 1~
 
 
-/*
-@70131 = ~~
-@70231 = ~~
-*/
 
+//v3.3+ items
 
-/*
-*/
+@70131 = ~Scarabée en or~
+@70231 = ~Ce modèle d'amulette principalement fabriqué dans les environs de Mulhorand représente un scarabée d'or. Celui-ci accroît l'expérience acquise en terrassant ses ennemis.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+– Bonus de 300 points d’expérience pour chaque ennemi vaincu par le porteur
+
+Poids : 1~
+
+@70132 = ~Insigne de l'épée suspendue~
+@70232 = ~Un des plus grand honneur accordé aux plus dévoués des chevaliers, appelés à combattre et à affronter la mort. L'insigne symbolise une lame implacable et augmente la puissance de son porteur au fil de ses attaques.
+
+PARAMÈTRES :
+
+Capacités de combat :
+– À chaque attaque réussie, 33 % de chance de bénéficier d'un bonus de 1 aux dégâts pour 2 rounds (Attaque de mêlée uniquement)
+
+Poids : 0~
+
+@70133 = ~Pierre de larme sanglante~
+@70233 = ~La pierre de larme sanglante amplifie les attaques de son porteur lorsqu'il se trouve en péril. L'histoire mentionne une déesse de jadis, endeuillée par la mort injuste d'innocentes victimes et dont les larmes étaient aussi rouge que le sang. La légende raconte que l'une de ces larmes est sertie dans cet anneau.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+– Si le porteur voit ses points de vie passer en dessous des 25 %, tous les dégâts qu'il inflige seront majorés de 40 %
+
+Poids : 0~
+
+@70134 = ~L'os du chasseur~
+@70234 = ~Un des os d'un vieux chasseur oublié depuis longtemps. Celui où celle qui brandit cet os peut invoquer le Quickening, une technique ancestrale des tout premiers chasseurs.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– Hâte-Flou trois fois par jour
+  Durée : 20 seconds
+  Zone d'effet :l'utilisateur
+  
+Poids : 1~
+
+@70135 = ~La plume de Jade~
+@70235 = ~Un talisman en forme de plume qui expulse tous les types de mort magique.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+– Jets de sauvegarde contre les sorts : +3
+– Immunité à la pétrification
+– Protection contre la mort
+
+Spécial  (Chirurgien):
+– « Sombre Remède » et « Remède Vital » bénéficieront d'un rayon de 4,5 m de portée
+
+Poids : 1~
 
 
 /*
