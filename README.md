@@ -34,7 +34,7 @@ Mod contents:
 - Medic (monk)
 - Noble Scion (paladin)
 
-#### Multiclass kits
+#### Multiclass variants
 - Beast Hunter (f/m)
 - Beast Hunter (f/m/c)
 - Warhound (f/m)
@@ -113,9 +113,9 @@ Advantages:
 - +4 bonus to Saving Throws vs. Paralysis/Poison/Death.  
 - +10 bonus to Lore each level.  
 - May cast three arcane spells as priest spells:  
-&emsp;1st level: Chromatic Orb.  
-&emsp;2nd level: Horror.  
-&emsp;3rd level: Skull Trap.
+	- 1st level: Chromatic Orb.  
+	- 2nd level: Horror.  
+	- 3rd level: Skull Trap.
   
 - 5th level: May use the Denial ability once per day. Gains additional uses every 5 levels thereafter.
 
@@ -155,10 +155,10 @@ CONFESSOR: The Confessor is a paladin who acts on behalf of a patron church, bei
 
 Advantages:  
 - May cast four arcane spells as priest spells:  
-&emsp;1st level: Blindness.  
-&emsp;2nd level: Blur.  
-&emsp;3rd level: Vampiric Touch.  
-&emsp;4th level: Secret Word.
+	- 1st level: Blindness.  
+	- 2nd level: Blur.  
+	- 3rd level: Vampiric Touch.  
+	- 4th level: Secret Word.
 
 - 2nd level: May use the Rooting Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
@@ -241,10 +241,10 @@ BLOOD MINISTER: The heretical Healing Church was once the home of blood ministra
 Advantages:  
 - Immune to level drain, poisons, and diseases.  
 - May use the Blood Transfusion ability. Gains one use at level 2 and an additional use every 2 levels, up to a maximum of 10 uses at level 20. When this ability is used, it opens a submenu with a list of transfusions. New transfusions become available at higher levels:  
-&emsp;2nd level: Healing Blood.  
-&emsp;6th level: Beast Blood.  
-&emsp;10th level: Madman's Blood.  
-&emsp;14th level: Lead Elixir.
+	- 2nd level: Healing Blood.  
+	- 6th level: Beast Blood.  
+	- 10th level: Madman's Blood.  
+	- 14th level: Lead Elixir.
 
 HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
 
@@ -286,10 +286,10 @@ POWDER KEG: The Powder Kegs are a faction of bards, known for their love of intr
 Advantages:  
 - +20% bonus to Fire Resistance.  
 - Gains Bard Songs unique to the Powder Kegs. Songs can be switched between from the special abilities menu. New songs become available at higher levels:  
-&emsp;1st level: Blasting Song.  
-&emsp;5th level: Booming Song.  
-&emsp;10th level: Dust Explosion.  
-&emsp;15th level: Frenzying Flame.
+	- 1st level: Blasting Song.  
+	- 5th level: Booming Song.  
+	- 10th level: Dust Explosion.  
+	- 15th level: Frenzying Flame.
 
 BLASTING SONG: A ring of flame bursts outwards in a 15-ft. radius, inflicting 1d4 fire damage per character level to any creatures in the area of effect, up to a maximum of 20d4 at level 20 (Save vs. Breath for half). Only the person playing the song avoids being hit by the flames.
 
@@ -754,7 +754,7 @@ Misc items:
 - 
 
 - Crowfeather Cloak (cloak)
-- Etherbomb Songbook (item)
+- Etherbomb Songbook (quick item)
 - Ether Booster (amulet)
 - Prisoner's Chain (ring)
 - Cruciform (amulet)

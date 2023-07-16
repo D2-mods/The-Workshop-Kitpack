@@ -64,10 +64,6 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
 BUT_ONLY
 
 
-//Set variables for external use
-OUTER_SET beasthunterfm = 1
-
-
 END
 
 

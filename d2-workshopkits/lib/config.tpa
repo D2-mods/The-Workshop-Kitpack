@@ -3,31 +3,34 @@
 
 COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
 
-//check kits
-  COUNT_REGEXP_INSTANCES  ~BeastHunter[^A-Z].*=.*[^0-9]0[^0-9]*$~       nobeasthunter
-  COUNT_REGEXP_INSTANCES  ~Warhound[^A-Z].*=.*[^0-9]0[^0-9]*$~          nowarhound
-  COUNT_REGEXP_INSTANCES  ~GraveWarden.*=.*[^0-9]0[^0-9]*$~             nogravewarden
-  COUNT_REGEXP_INSTANCES  ~MoonlightKnight[^A-Z].*=.*[^0-9]0[^0-9]*$~   nomoonlightknight
-  COUNT_REGEXP_INSTANCES  ~Confessor.*=.*[^0-9]0[^0-9]*$~               noconfessor
-  COUNT_REGEXP_INSTANCES  ~TempleKnight.*=.*[^0-9]0[^0-9]*$~            notempleknight
-  COUNT_REGEXP_INSTANCES  ~WarMagician.*=.*[^0-9]0[^0-9]*$~             nowarmagician
-  COUNT_REGEXP_INSTANCES  ~Starjammer.*=.*[^0-9]0[^0-9]*$~              nostarjammer
-  COUNT_REGEXP_INSTANCES  ~BloodMinister.*=.*[^0-9]0[^0-9]*$~           nobloodminister
-  COUNT_REGEXP_INSTANCES  ~CrowHunter[^A-Z].*=.*[^0-9]0[^0-9]*$~        nocrowhunter
-  COUNT_REGEXP_INSTANCES  ~PowderKeg.*=.*[^0-9]0[^0-9]*$~               nopowderkeg
+//check kits (v1.0 kits)
+  COUNT_REGEXP_INSTANCES  ~BeastHunter[^A-Z].*=.*[^0-9]0[^0-9]*$~             nobeasthunter
+  COUNT_REGEXP_INSTANCES  ~Warhound[^A-Z].*=.*[^0-9]0[^0-9]*$~                nowarhound
+  COUNT_REGEXP_INSTANCES  ~GraveWarden[^A-Z].*=.*[^0-9]0[^0-9]*$~             nogravewarden
+  COUNT_REGEXP_INSTANCES  ~MoonlightKnight[^A-Z].*=.*[^0-9]0[^0-9]*$~         nomoonlightknight
+  COUNT_REGEXP_INSTANCES  ~Confessor[^A-Z].*=.*[^0-9]0[^0-9]*$~               noconfessor
+  COUNT_REGEXP_INSTANCES  ~TempleKnight[^A-Z].*=.*[^0-9]0[^0-9]*$~            notempleknight
+  COUNT_REGEXP_INSTANCES  ~WarMagician[^A-Z].*=.*[^0-9]0[^0-9]*$~             nowarmagician
+  COUNT_REGEXP_INSTANCES  ~Starjammer[^A-Z].*=.*[^0-9]0[^0-9]*$~              nostarjammer
+  COUNT_REGEXP_INSTANCES  ~BloodMinister[^A-Z].*=.*[^0-9]0[^0-9]*$~           nobloodminister
+  COUNT_REGEXP_INSTANCES  ~CrowHunter[^A-Z].*=.*[^0-9]0[^0-9]*$~              nocrowhunter
+  COUNT_REGEXP_INSTANCES  ~PowderKeg[^A-Z].*=.*[^0-9]0[^0-9]*$~               nopowderkeg
 
-//check kits (v3.0/v4.0)
-  COUNT_REGEXP_INSTANCES  ~Drifter.*=.*[^0-9]0[^0-9]*$~                 nodrifter
-  COUNT_REGEXP_INSTANCES  ~Medic.*=.*[^0-9]0[^0-9]*$~                   nomedic
-  COUNT_REGEXP_INSTANCES  ~NobleScion.*=.*[^0-9]0[^0-9]*$~              nonoblescion
+//check kits (v3.0+)
+  COUNT_REGEXP_INSTANCES  ~Drifter[^A-Z].*=.*[^0-9]0[^0-9]*$~                 nodrifter
+  COUNT_REGEXP_INSTANCES  ~Medic[^A-Z].*=.*[^0-9]0[^0-9]*$~                   nomedic
+  COUNT_REGEXP_INSTANCES  ~NobleScion[^A-Z].*=.*[^0-9]0[^0-9]*$~              nonoblescion
+  COUNT_REGEXP_INSTANCES  ~FullMetalJaguar[^A-Z].*=.*[^0-9]0[^0-9]*$~         nofullmetaljaguar
+  COUNT_REGEXP_INSTANCES  ~Nurse[^A-Z].*=.*[^0-9]0[^0-9]*$~                   nonurse
+  COUNT_REGEXP_INSTANCES  ~SpellFencer[^A-Z].*=.*[^0-9]0[^0-9]*$~             nospellfencer
 
-//multiclass
-  COUNT_REGEXP_INSTANCES  ~BeastHunterFM.*=.*[^0-9]0[^0-9]*$~           nobeasthunterfm
-  COUNT_REGEXP_INSTANCES  ~BeastHunterFMC.*=.*[^0-9]0[^0-9]*$~          nobeasthunterfmc
-  COUNT_REGEXP_INSTANCES  ~WarhoundFM.*=.*[^0-9]0[^0-9]*$~              nowarhoundfm
-  COUNT_REGEXP_INSTANCES  ~MoonlightKnightCR.*=.*[^0-9]0[^0-9]*$~       nomoonlightknightcr
-  COUNT_REGEXP_INSTANCES  ~CrowHunterFT.*=.*[^0-9]0[^0-9]*$~            nocrowhunterft
-  COUNT_REGEXP_INSTANCES  ~CrowHunterFMT.*=.*[^0-9]0[^0-9]*$~           nocrowhunterfmt
+//multiclass variants
+  COUNT_REGEXP_INSTANCES  ~BeastHunterFM[^A-Z].*=.*[^0-9]0[^0-9]*$~           nobeasthunterfm
+  COUNT_REGEXP_INSTANCES  ~BeastHunterFMC[^A-Z].*=.*[^0-9]0[^0-9]*$~          nobeasthunterfmc
+  COUNT_REGEXP_INSTANCES  ~WarhoundFM[^A-Z].*=.*[^0-9]0[^0-9]*$~              nowarhoundfm
+  COUNT_REGEXP_INSTANCES  ~MoonlightKnightCR[^A-Z].*=.*[^0-9]0[^0-9]*$~       nomoonlightknightcr
+  COUNT_REGEXP_INSTANCES  ~CrowHunterFT[^A-Z].*=.*[^0-9]0[^0-9]*$~            nocrowhunterft
+  COUNT_REGEXP_INSTANCES  ~CrowHunterFMT[^A-Z].*=.*[^0-9]0[^0-9]*$~           nocrowhunterfmt
 
 //spell cap
   COUNT_REGEXP_INSTANCES  ~spellcapBG2.*=.*[^0-9]20[^0-9]*$~            bg2cap20

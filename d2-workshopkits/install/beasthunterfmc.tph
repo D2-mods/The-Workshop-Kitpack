@@ -135,7 +135,6 @@ BUT_ONLY
 //Set variables for external use
 OUTER_TEXT_SPRINT kitid    ~%kitid%C~
 OUTER_TEXT_SPRINT kitname  ~%kitname%FMC~
-OUTER_SET beasthunterfmc = 1
 
 
 END
