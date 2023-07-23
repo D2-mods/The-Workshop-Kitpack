@@ -54,26 +54,24 @@ BUT_ONLY
 
 
 //Add Moonlight Vortex
-COPY - ~%abilities%/moonlightspell.PRO~  ~%workspace%/%s1%a.PRO~
-  WRITE_ASCII 0x104 ~%s1%a~ #8    // BAM animation
-ADD_PROJECTILE ~%workspace%/%s1%a.PRO~
-COPY ~%abilities%/moonlightspell.BAM~  ~override/%s1%a.BAM~
-COPY ~%abilities%/moonlightspell.EFF~  ~override/%s1%a.EFF~
-
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%b.EFF~
-  WRITE_ASCII 0x30 ~%s1%b~ #8
-COPY ~%abilities%/moonlighttarget.SPL~  ~override/%s1%b.SPL~
-  LPF ALTER_EFFECT STR_VAR resource=~%s1%a~ END
+COPY - ~%abilities%/moonlightspell.PRO~  ~%workspace%/%s9%a.PRO~     // projectile
+  WRITE_ASCII 0x104 ~%s9%a~ #8    // BAM animation
+ADD_PROJECTILE ~%workspace%/%s9%a.PRO~
+COPY ~%abilities%/moonlightspell.BAM~   ~override/%s9%a.BAM~
 
 COPY ~%abilities%/moonlightvortex.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @105
   SAY UNIDENTIFIED_DESC @205
-  WRITE_SHORT 0x98 ~%s1%a~
-  LPF ALTER_EFFECT STR_VAR match_resource=~archhit~ resource=~%s1%a~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~archmov~ resource=~%s1%b~ END
+  WRITE_SHORT 0x98 ~%s9%a~
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s1%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%b~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%c~ END
 
-COPY ~%abilities%/moonlightmagicresist.SPL~  ~override/%s1%c.SPL~
+COPY ~%abilities%/moonlightspell.EFF~   ~override/%s1%a.EFF~         // damage
+COPY ~%abilities%/moonlighttarget.SPL~  ~override/%s1%b.SPL~         // target 
+  LPF ALTER_EFFECT STR_VAR resource=~%s1%a~ END
+
+COPY ~%abilities%/moonlightmagicresist.SPL~  ~override/%s1%c.SPL~    // 20% resist
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%c~ END
 
 
@@ -123,14 +121,5 @@ OUTER_TEXT_SPRINT fnpclass         ~ranger~
 OUTER_TEXT_SPRINT fnpdeity         ~ranger_forest_spheres~
 
 
-/*removed
-COPY ~%abilities%/moonlightweapon.EFF~   ~override/%s1%c.EFF~
-COPY ~%abilities%/moonlightweapon.SPL~   ~override/%s1%c.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%c~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s1%c~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%s1%c~ END
-
-  PATCH_IF (GAME_IS ~iwdee~)          BEGIN SET icon = 202 END
-  PATCH_IF (GAME_IS ~bgee bg2ee eet~) BEGIN SET icon = 188 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+/*
 */

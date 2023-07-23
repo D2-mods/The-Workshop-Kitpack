@@ -1,0 +1,136 @@
+//Beast Hunter (f/c)
+
+
+ACTION_IF (nobeasthunterfc = 0) BEGIN
+
+
+INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
+
+
+//Holy Symbol stuff
+COPY ~%passives%/opcode206.SPL~  ~override/%e9%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~cdhlysym~ END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~BELT12.ITM~) BEGIN
+  COPY ~%passives%/useeff.SPL~  ~override/%m9%.SPL~
+      LPF ALTER_EFFECT INT_VAR multi_match=1 parameter1=33 parameter2=8 STR_VAR resource=~%m9%a~ END  // Lathander
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=49 parameter2=8 STR_VAR resource=~%m9%a~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=50 parameter2=8 STR_VAR resource=~%m9%a~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=34 parameter2=8 STR_VAR resource=~%m9%b~ END  // Helm
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=17 parameter2=8 STR_VAR resource=~%m9%b~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=18 parameter2=8 STR_VAR resource=~%m9%b~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=19 parameter2=8 STR_VAR resource=~%m9%b~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=35 parameter2=8 STR_VAR resource=~%m9%c~ END  // Talos
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=51 parameter2=8 STR_VAR resource=~%m9%c~ END
+
+  COPY ~%abilities%/applyeffects.EFF~   ~override/%m9%a.EFF~
+    WRITE_ASCII 0x30 ~%m9%a~ #8
+  COPY ~%abilities%/applyeffects.EFF~   ~override/%m9%b.EFF~
+    WRITE_ASCII 0x30 ~%m9%b~ #8
+  COPY ~%abilities%/applyeffects.EFF~   ~override/%m9%c.EFF~
+    WRITE_ASCII 0x30 ~%m9%c~ #8
+
+  COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%a.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT12~ END  // Lathander
+  COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%b.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT13~ END  // Helm
+  COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%c.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT14~ END  // Talos
+END
+
+
+//FnP spheres
+COPY ~%passives%/d5fpclsp.spl~  ~override/%e6%.SPL~
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5spdes#~ resource=~d5smear#~ END
+  LPF ALTER_EFFECT STR_VAR match_resource=~d5smdea#~ resource=~d5smdre#~ END
+  LPF ALTER_EFFECT INT_VAR parameter1=0 parameter2=2 END
+
+
+//Ability tables (don't include base class abilities)
+COPY ~%files%/kit0.2DA~  ~override/%beasthunter%F.2DA~
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
+
+COPY ~%files%/kit6.2DA~  ~override/%beasthunter%C.2DA~
+  PATCH_IF (holysymbols > 0) BEGIN
+    LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
+    LPF d2_kit_ability_adder INT_VAR level=17 passive=1 STR_VAR resource=~%m9%~ END    // holy symbol (level 17)
+  END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
+
+
+//Set variable for proficiencies
+ACTION_IF ((vanillaclericprofs = 0) OR
+           (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
+           (FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
+           (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
+          ) BEGIN
+
+  OUTER_TEXT_SPRINT multikitprofs  ~2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3~
+END
+ELSE BEGIN
+  OUTER_TEXT_SPRINT multikitprofs  ~0 0 0 0 2 2 0 2 0 0 0 0 0 0 0 0 2 2 0 0 2 2 2 0 0 0 0 2 2 2 2 3~
+END
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 8
+    mixed = RESOLVE_STR_REF (@100101)
+    lower = RESOLVE_STR_REF (@100102)
+    help = RESOLVE_STR_REF (@100103)
+  STR_VAR
+    kit_name = ~D2%kitname%FC~
+//  unusable = ~0x00010000~               // Stalker usability (no effect for multiclasses)
+    clab_base_f = ~%beasthunter%F.2DA~    // kit abilities added to Fighter table
+    clab_base_p = ~%beasthunter%C.2DA~    // holy symbol added to Cleric table
+    clsrcreq = ~1 1 1 1 1 1 1~            // Usable by all races, if base class is usable
+    weapprof = ~%multikitprofs%~
+    clascolr = ~28 93 91 91 93~           // Archer colors
+  RET 
+    kit_id
+END
+
+
+//Usability - restrict to studded leather or lighter
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  PATCH_IF (!(~%SOURCE_RES%~ STRING_EQUAL_CASE ~secret05~) AND    // skip Big Metal Unit
+            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec05~)) BEGIN
+    READ_ASCII 0x22 itemtype (2) NULL                             // equipped appearance
+    PATCH_IF ((~%itemtype%~ STRING_EQUAL_CASE ~3A~) OR            // chain or splint
+              (~%itemtype%~ STRING_EQUAL_CASE ~4A~)) BEGIN        // plate mail
+      LPF ADD_ITEM_EQEFFECT
+        INT_VAR
+          opcode = 319
+          target = 1
+          parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
+          parameter2 = 9
+          timing = 2
+      END
+    END
+  END
+BUT_ONLY
+
+
+//DoF compatibility
+OUTER_TEXT_SPRINT kitid    ~%kitid%C~
+OUTER_TEXT_SPRINT kitname  ~%kitname%FC~
+INCLUDE ~%install%/dofspheres.tph~
+OUTER_TEXT_SPRINT kitid    ~d2wk1~
+OUTER_TEXT_SPRINT kitname  ~BEASTHUNTER~
+
+
+//Set Variable
+OUTER_SET beasthunterfc = 1
+
+END ELSE BEGIN
+
+OUTER_SET beasthunterfc = 0
+
+END
+
+
+/* 
+*/

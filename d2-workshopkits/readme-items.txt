@@ -248,7 +248,7 @@ Weight: 1
 ==================================================
 Golem Ring (ring)
 ==================================================
-These enchanted rings were crafted enmasse by a Halruaan wizard-inventor. In an instant, the wearer harnesses the raw minerals of the earth, seemingly turning flesh into iron.
+These enchanted rings were crafted en masse by a Halruaan wizard-inventor. In an instant, the wearer harnesses the raw minerals of the earth, seemingly turning flesh into iron.
 
 STATISTICS:
 
@@ -351,7 +351,7 @@ An honor bestowed upon the most devoted knights, lured into battles of death. Th
 STATISTICS:
 
 Combat abilities:
-– 33% chance of gaining a +1 bonus to damage for 2 rounds (melee only)
+– 33% chance of a cumulative +1 bonus to damage for 2 rounds (melee only)
 
 Weight: 0
 

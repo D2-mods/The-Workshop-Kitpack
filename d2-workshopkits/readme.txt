@@ -33,18 +33,23 @@ Blood Minister (cleric)
 Crow Hunter (thief)
 Powder Keg (bard)
 
-//v3.0+ kits
+//v3.0 kits
 Drifter (ranger)
 Medic (monk)
 Noble Scion (paladin)
 
-//multiclass kits
-Beast Hunter (f/m)
-Beast Hunter (f/m/c)
-Warhound (f/m)
-Moonlight Knight (c/r)
-Crow Hunter (f/t)
-Crow Hunter (f/m/t)
+//v4.0 kits
+Full Metal Jaguar (fighter)
+Nurse (thief)
+Spell Fencer (fighter/mage)
+
+//multiclass variants
+Beast Hunter (FM, FMC, FC)
+Warhound FM
+Moonlight Knight CR
+Crow Hunter (FT, FMT, MT)
+Full Metal Jaguar (FM, FT)
+Nurse MT
 
 //misc stuff
 6 Hunter Badges   - can be crafted (see below), can also be purchased
@@ -57,10 +62,14 @@ Crow Hunter (f/m/t)
 
 Components:
 1. The Workshop Kitpack
+	- Option 1: Base kits + multiclass variants
+	- Option 2: Base kits only
 2. Misc item pack (Note: Hunter Badges are part of main component)
-3. Fix for subtledoctor's 5e casting mod
+3. Component for subtledoctor's 5e casting mod
 
 config.ini: Set a kit to = 0 to prevent install
+Option 2 will skip all multiclass variants, regardless of config settings.
+
 Kit info: See GitHub page, in-game descriptions, forum posts, etc.
 
 ----------------------------------------------------------------------------------------------------
@@ -125,6 +134,30 @@ This is how I'd do the install:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v4.0
+- Split install into 2 subcomponents:
+	- Option 1: Base kits + multiclass variants
+	- Option 2: Base kits only
+- New kits:
+	- Full Metal Jaguar (fighter)
+	- Nurse (thief)
+	- Spell Fencer (fighter/mage)
+- New multiclass variants:
+	- Beast Hunter FC
+	- Crow Hunter MT
+	- Full Metal Jaguar (FM, FT)
+	- Nurse MT
+- Fixes:
+	- Fixed a possible install error, related to config settings.
+	- Spelling fixes.
+- Kit updates:
+	- Moonlight Knight: Moonlight Vortex will now always do some damage to undead and outerplanar creatures. Magic resist, for these creatures, will halve the damage instead of negating it.
+	- Confessor: The saving throw for Rooting Shot was previously checked immediately on-hit. It will now be checked after the initial 3 rounds of entangle. The effects are still the same.
+- Other changes:
+	- Moved a few item locations.
+	- Other minor changes (sounds, icons, kit colors, etc.)
+	- Added Config option for Holy Symbols in IWDEE (disabled by default)
 
 v3.3
 - New items:

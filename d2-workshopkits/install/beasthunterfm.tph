@@ -9,7 +9,7 @@ INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn'
 
 //Remove specialist bonus slots
 COPY ~%passives%/fewerspells1.SPL~  ~override/%e4%.SPL~
-COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~         // only relevant for 5e casting mod
+COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~    // only relevant for 5e casting mod
   LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END
   LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END
 
@@ -63,6 +63,13 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
   END
 BUT_ONLY
 
+
+//Set Variable
+OUTER_SET beasthunterfm = 1
+
+END ELSE BEGIN
+
+OUTER_SET beasthunterfm = 0
 
 END
 

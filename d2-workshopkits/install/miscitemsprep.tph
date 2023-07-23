@@ -66,6 +66,7 @@ ACTION_IF (FILE_EXISTS ~override/d2wkas2.SPL~) BEGIN
   COPY_EXISTING - ~kit.ids~ ~~
     COUNT_REGEXP_INSTANCES ~D2CROWHUNTERFT~   crowhunterft
     COUNT_REGEXP_INSTANCES ~D2CROWHUNTERFMT~  crowhunterfmt
+    COUNT_REGEXP_INSTANCES ~D2CROWHUNTERMT~   crowhuntermt
 END
 
 //Confessor (d2wk5)

@@ -1,0 +1,108 @@
+//Full Metal Jaguar (d2wkf)
+
+
+//Add passive effects
+COPY ~%passives%/hitdamage1.SPL~  ~override/%e1%.SPL~
+COPY ~%passives%/nobackstab.SPL~  ~override/%e2%.SPL~
+
+
+//Add Critical Boost
+COPY ~%passives%/hiteffect1ranged.SPL~     ~override/%e3%.SPL~     // ranged effect
+  LPF ALTER_EFFECT STR_VAR resource=~%e3%a~ END
+
+COPY ~%icons%/criticalboost.BAM~           ~override/%e3%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@620) STR_VAR bam=~%e3%i~ RET icon END
+
+COPY ~%abilities%/castspellself.EFF~       ~override/%e3%a.EFF~
+  WRITE_ASCII 0x30 ~%e3%a~ #8
+COPY ~%abilities%/critbonus1melee.SPL~     ~override/%e3%a.SPL~    // crit bonus
+  LPF ALTER_EFFECT INT_VAR duration=18 parameter1=1 END
+  LPF CLONE_EFFECT INT_VAR opcode=142 parameter2=%icon% END
+
+
+//Critical miss removes crit bonus
+COPY ~%passives%/criticalmisseffect.SPL~   ~override/%e4%.SPL~     // critical miss effect
+  LPF ALTER_EFFECT STR_VAR resource=~%e4%a~ END
+
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%e4%a.SPL~    // remove crit bonus
+  LPF ALTER_EFFECT STR_VAR resource=~%e3%a~ END
+
+
+//Add Ghostwalker
+COPY ~%icons%/ghostwalker.BAM~      ~override/%s1%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@128) STR_VAR bam=~%s1%i~ RET icon END
+
+COPY ~%abilities%/ghostwalker.SPL~  ~override/%s1%.SPL~
+  SAY NAME1 @128
+  SAY UNIDENTIFIED_DESC @228
+  WRITE_ASCII 0x3a ~SPPR732B~ #8
+  WRITE_ASCII 0x76 ~SPPR732B~ #8
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=4 duration=24 STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=4 duration=18 STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=4 duration=12 STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=4 duration=6  STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=1 duration=0  STR_VAR resource=~%s1%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%abilities%/ghostwalkerimage.SPL~  ~override/%s1%a.SPL~
+  LPF CD_EXTEND-O-MATIC INT_VAR base_dur=7 step_dur=0 step_size=5 level_cap=20 min_lev_alt=5 END
+  LPF ALTER_EFFECT INT_VAR header=1 match_opcode=159 parameter1=2 END
+  LPF ALTER_EFFECT INT_VAR header=2 match_opcode=159 parameter1=3 END
+  LPF ALTER_EFFECT INT_VAR header=3 match_opcode=159 parameter1=4 END
+
+
+//Clone base Fighter 2da file
+COPY_EXISTING ~CLABFI01.2DA~ ~override/%kitid%.2DA~
+  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e3%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e4%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder END
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 2
+    mixed = RESOLVE_STR_REF (@101501)
+    lower = RESOLVE_STR_REF (@101502)
+    help = RESOLVE_STR_REF (@101503)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    clab_path = ~%kitid%~
+    clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
+    clascolr = ~24 67 56 2 25~     // blade/jester colors
+  RET 
+    kit_id
+END
+
+
+//Usability - restrict plate mail
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  PATCH_IF (!(~%SOURCE_RES%~ STRING_EQUAL_CASE ~secret05~) AND    // skip Big Metal Unit
+            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec05~)) BEGIN
+    READ_ASCII 0x22 itemtype (2) NULL                             // equipped appearance
+    PATCH_IF (~%itemtype%~ STRING_EQUAL_CASE ~4A~) BEGIN          // plate mail
+      LPF ADD_ITEM_EQEFFECT
+        INT_VAR
+          opcode = 319
+          target = 1
+          parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+          parameter2 = 9
+          timing = 2
+      END
+    END
+  END
+BUT_ONLY
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT fullmetaljaguar  ~%kitid%~
+OUTER_TEXT_SPRINT ghostwalker      ~%s1%~
+
+
+/*
+*/

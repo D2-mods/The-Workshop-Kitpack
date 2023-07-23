@@ -1,10 +1,10 @@
 /*
+This file isn't used in the current version of the mod.
+
 In BG2 only, katanas are restricted against cleric and druid kits.
 This patch edits katanas to remove these restrictions.
 The kits still can't use katanas if the base class can't.
 Allows usability flags to be used by warrior kits without restricting against katanas.
-
-This file isn't used in the current version of the mod.
 */
 
 

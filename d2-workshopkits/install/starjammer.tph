@@ -445,7 +445,7 @@ COPY_EXISTING ~%kitid%.2DA~   ~override~
   LPF d2_kit_ability_adder STR_VAR resource=~%w6%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%w7%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%w8%~ END
-  REPLACE_TEXTUALLY ~AP_D5ZZ000~  ~****~
+  REPLACE_TEXTUALLY ~AP_D5ZZ000~  ~****~    // fix if installed after 5e casting
   REPLACE_TEXTUALLY ~AP_D5Z0SPL~  ~****~
   REPLACE_TEXTUALLY ~AP_D5ZMSLT~  ~****~
   LPF d2_kit_ability_adder END

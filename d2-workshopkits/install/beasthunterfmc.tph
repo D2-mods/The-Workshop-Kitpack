@@ -9,7 +9,7 @@ INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn'
 
 //Remove specialist bonus slots
 COPY ~%passives%/fewerspells1.SPL~  ~override/%e4%.SPL~
-COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~         // only relevant for 5e casting mod
+COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~    // only relevant for 5e casting mod
   LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END
   LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END
 
@@ -18,8 +18,31 @@ COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~         // only relevant
 COPY ~%passives%/opcode206.SPL~  ~override/%e9%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~cdhlysym~ END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~cdhlysym.SPL~) BEGIN
-  COPY_EXISTING ~cdhlysym.SPL~   ~override/%m9%.SPL~
+ACTION_IF (FILE_EXISTS_IN_GAME ~BELT12.ITM~) BEGIN
+  COPY ~%passives%/useeff.SPL~  ~override/%m9%.SPL~
+      LPF ALTER_EFFECT INT_VAR multi_match=1 parameter1=33 parameter2=8 STR_VAR resource=~%m9%a~ END  // Lathander
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=49 parameter2=8 STR_VAR resource=~%m9%a~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=50 parameter2=8 STR_VAR resource=~%m9%a~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=34 parameter2=8 STR_VAR resource=~%m9%b~ END  // Helm
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=17 parameter2=8 STR_VAR resource=~%m9%b~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=18 parameter2=8 STR_VAR resource=~%m9%b~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=19 parameter2=8 STR_VAR resource=~%m9%b~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=35 parameter2=8 STR_VAR resource=~%m9%c~ END  // Talos
+      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=51 parameter2=8 STR_VAR resource=~%m9%c~ END
+
+  COPY ~%abilities%/applyeffects.EFF~   ~override/%m9%a.EFF~
+    WRITE_ASCII 0x30 ~%m9%a~ #8
+  COPY ~%abilities%/applyeffects.EFF~   ~override/%m9%b.EFF~
+    WRITE_ASCII 0x30 ~%m9%b~ #8
+  COPY ~%abilities%/applyeffects.EFF~   ~override/%m9%c.EFF~
+    WRITE_ASCII 0x30 ~%m9%c~ #8
+
+  COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%a.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT12~ END  // Lathander
+  COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%b.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT13~ END  // Helm
+  COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%c.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT14~ END  // Talos
 END
 
 
@@ -37,9 +60,9 @@ COPY ~%files%/kit0.2DA~  ~override/%beasthunter%F.2DA~
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
 
 COPY ~%files%/kit6.2DA~  ~override/%beasthunter%C.2DA~
-  PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN
+  PATCH_IF (holysymbols > 0) BEGIN
     LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
-    LPF d2_kit_ability_adder INT_VAR level=14 passive=1 STR_VAR resource=~%m9%~ END
+    LPF d2_kit_ability_adder INT_VAR level=14 passive=1 STR_VAR resource=~%m9%~ END    // holy symbol (level 14)
   END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 
@@ -103,7 +126,7 @@ LAF ADD_KIT_EX
 //  unusable = ~0x00010000~               // Stalker usability (no effect for multiclasses)
     clab_base_f = ~%beasthunter%F.2DA~    // kit abilities added to Fighter table
     clab_base_m = ~%beasthunter%M.2DA~    // -1 spell slots added to Mage table
-    clab_base_p = ~%beasthunter%C.2DA~    // no abilities added to Cleric table
+    clab_base_p = ~%beasthunter%C.2DA~    // holy symbol added to Cleric table
     clsrcreq = ~1 1 1 1 1 1 1~            // Usable by all races, if base class is usable
     weapprof = ~%multikitprofs%~
     clascolr = ~28 93 91 91 93~           // Archer colors
@@ -132,10 +155,20 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
 BUT_ONLY
 
 
-//Set variables for external use
+//DoF compatibility
 OUTER_TEXT_SPRINT kitid    ~%kitid%C~
 OUTER_TEXT_SPRINT kitname  ~%kitname%FMC~
+INCLUDE ~%install%/dofspheres.tph~
+OUTER_TEXT_SPRINT kitid    ~d2wk1~
+OUTER_TEXT_SPRINT kitname  ~BEASTHUNTER~
 
+
+//Set Variable
+OUTER_SET beasthunterfmc = 1
+
+END ELSE BEGIN
+
+OUTER_SET beasthunterfmc = 0
 
 END
 

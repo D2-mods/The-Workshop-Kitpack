@@ -12,7 +12,7 @@ COPY ~%passives%/opcode206.SPL~  ~override/%e9%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~cdhlysym~ END
 
 
-//Add Holy Symbol (only given in BG2)
+//Add Holy Symbol
 COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m9%~ END
 COPY ~%icons%/holysymbol_moon.BAM~    ~override/%m9%.BAM~
@@ -52,9 +52,9 @@ COPY ~%passives%/d5fprnsp.spl~  ~override/%e7%.SPL~
 
 //Ability tables (don't include base class abilities)
 COPY ~%files%/kit6.2DA~  ~override/%moonlightknight%C.2DA~
-  PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN
+  PATCH_IF (holysymbols > 0) BEGIN
     LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
-    LPF d2_kit_ability_adder INT_VAR level=17 passive=1 STR_VAR resource=~%m9%~ END
+    LPF d2_kit_ability_adder INT_VAR level=17 passive=1 STR_VAR resource=~%m9%~ END    // holy symbol (level 17)
   END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 
@@ -89,7 +89,7 @@ LAF ADD_KIT_EX
     help = RESOLVE_STR_REF (@100403)
   STR_VAR
     kit_name = ~D2%kitname%CR~
-    clab_base_p = ~%moonlightknight%C.2DA~    // no abilities added to Cleric table
+    clab_base_p = ~%moonlightknight%C.2DA~    // holy symbol added to Cleric table
     clab_base_r = ~%moonlightknight%R.2DA~    // kit abilities added to Ranger table
     clsrcreq = ~1 1 1 1 1 1 1~                // Usable by all races, if base class is usable
     alignmnt = ~1 1 1 1 1 1 1 1 1~
@@ -102,9 +102,12 @@ LAF ADD_KIT_EX
 END
 
 
-//DoF variables
-OUTER_TEXT_SPRINT kitid     ~%kitid%C~
-OUTER_TEXT_SPRINT kitname   ~%kitname%CR~
+//DoF compatibility
+OUTER_TEXT_SPRINT kitid    ~%kitid%C~
+OUTER_TEXT_SPRINT kitname  ~%kitname%CR~
+INCLUDE ~%install%/dofspheres.tph~
+OUTER_TEXT_SPRINT kitid    ~d2wk4~
+OUTER_TEXT_SPRINT kitname  ~MOONLIGHTKNIGHT~
 
 
 END

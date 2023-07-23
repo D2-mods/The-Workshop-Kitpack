@@ -1,6 +1,8 @@
 /*
 This file should only be installed if using subtledoctor's 5e casting mod.
 This can be installed before or after 5e casting is installed.
+
+Not used for sorcerers (see Starjammer file for a different fix).
 */
 
 
@@ -35,14 +37,11 @@ ACTION_IF (nowarmagician = 0) BEGIN
       PRETTY_PRINT_2DA
     BUT_ONLY
   END
-  ELSE BEGIN
-    WARN @5    // message that file not found
-  END
 END
 
 
-//Beast Hunter (f/m)
-ACTION_IF (nobeasthunterfm = 0) BEGIN
+//Beast Hunter (FM or FMC)
+ACTION_IF ((nobeasthunterfm = 0) OR (nobeasthunterfmc = 0))BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk1~
   OUTER_TEXT_SPRINT kitname ~BEASTHUNTER~
   INCLUDE ~%install%/variables.tph~
@@ -54,32 +53,10 @@ ACTION_IF (nobeasthunterfm = 0) BEGIN
       BUT_ONLY
     END
   END
-  ELSE BEGIN
-    WARN @5    // message that file not found
-  END
 END
 
 
-//Beast Hunter (f/m/c)
-ACTION_IF (nobeasthunterfmc = 0) BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wk1~
-  OUTER_TEXT_SPRINT kitname ~BEASTHUNTER~
-  INCLUDE ~%install%/variables.tph~
-
-  ACTION_IF (FILE_EXISTS ~override/%kitid%C.2DA~) BEGIN
-    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
-      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
-        LPF DELETE_EFFECT STR_VAR match_resource=~%e4%#~ END
-      BUT_ONLY
-    END
-  END
-  ELSE BEGIN
-    WARN @5    // message that file not found
-  END
-END
-
-
-//Warhound (f/m)
+//Warhound FM
 ACTION_IF (nowarhoundfm = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk2~
   OUTER_TEXT_SPRINT kitname ~WARHOUND~
@@ -92,14 +69,11 @@ ACTION_IF (nowarhoundfm = 0) BEGIN
       BUT_ONLY
     END
   END
-  ELSE BEGIN
-    WARN @5    // message that file not found
-  END
 END
 
 
-//Crow Hunter (f/m/t)
-ACTION_IF (nocrowhunterfmt = 0) BEGIN
+//Crow Hunter (FMT or MT)
+ACTION_IF ((nocrowhunterfmt = 0) OR (nocrowhuntermt = 0)) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wka~
   OUTER_TEXT_SPRINT kitname ~CROWHUNTER~
   INCLUDE ~%install%/variables.tph~
@@ -111,8 +85,37 @@ ACTION_IF (nocrowhunterfmt = 0) BEGIN
       BUT_ONLY
     END
   END
-  ELSE BEGIN
-    WARN @5    // message that file not found
+END
+
+
+//Full Metal Jaguar FM
+ACTION_IF (nofullmetaljaguarfm = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkf~
+  OUTER_TEXT_SPRINT kitname ~FULLMETALJAGUAR~
+  INCLUDE ~%install%/variables.tph~
+
+  ACTION_IF (FILE_EXISTS ~override/%kitid%M.2DA~) BEGIN
+    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
+      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
+        LPF DELETE_EFFECT STR_VAR match_resource=~%e6%#~ END
+      BUT_ONLY
+    END
+  END
+END
+
+
+//Nurse MT
+ACTION_IF (nonursemt = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkg~
+  OUTER_TEXT_SPRINT kitname ~NURSE~
+  INCLUDE ~%install%/variables.tph~
+
+  ACTION_IF (FILE_EXISTS ~override/%kitid%M.2DA~) BEGIN
+    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
+      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
+        LPF DELETE_EFFECT STR_VAR match_resource=~%e4%#~ END
+      BUT_ONLY
+    END
   END
 END
 

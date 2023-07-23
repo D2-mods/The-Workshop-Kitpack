@@ -8,7 +8,7 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
 
 //BGEE stores
 ACTION_IF (GAME_INCLUDES ~bg1~) BEGIN
-  COPY_EXISTING ~STO0703.STO~  ~override~
+  COPY_EXISTING ~sto0706.STO~  ~override~
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
   BUT_ONLY
 
@@ -20,7 +20,7 @@ END
 //SoD stores
 ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
   COPY_EXISTING ~BDKAZZRE.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_spark%~ position=~AFTER bdamul24~ flags=~identified~ END
   BUT_ONLY
 
   COPY_EXISTING ~BDHEROD.STO~  ~override~

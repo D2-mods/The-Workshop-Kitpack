@@ -59,6 +59,10 @@ ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ position=~AFTER bdring09~ flags=~identified~ END
   BUT_ONLY
 
+  COPY_EXISTING ~bdbeleg4.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%goldscarab%~ position=~AFTER bdamul24~ flags=~identified~ END
+  BUT_ONLY
+
   COPY_EXISTING ~bd5110.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=4 STR_VAR item_to_add=~%clawmark%~ END
   BUT_ONLY
@@ -108,8 +112,12 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%etherlimiter%~ END
   BUT_ONLY
 
-  COPY_EXISTING ~AR3012.ARE~ ~override~
-    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%goldscarab%~ END
+  COPY_EXISTING ~GOVWAU01.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%goldscarab%~ flags=~identified~ END    // soa
+  BUT_ONLY
+
+  COPY_EXISTING ~SARTEM01.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%goldscarab%~ flags=~identified~ END    // tob
   BUT_ONLY
 
   COPY_EXISTING ~AR0712.ARE~ ~override~
@@ -293,6 +301,10 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
 
   COPY_EXISTING ~THERIK.CRE~ ~override~
     ADD_CRE_ITEM ~%redtearstone%~ #0 #0 #0 ~none~ ~ring~ NOMOVE
+  BUT_ONLY
+
+  COPY_EXISTING ~KUTEMPLE.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%goldscarab%~ flags=~identified~ END
   BUT_ONLY
 
   COPY_EXISTING ~AR8011.ARE~ ~override~

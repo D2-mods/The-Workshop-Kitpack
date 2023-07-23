@@ -59,6 +59,11 @@ ACTION_IF (FILE_EXISTS ~override/%visceralattack%.SPL~) BEGIN
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2CROWHUNTERFMT~)
       END
     END
+    PATCH_IF (crowhuntermt > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2CROWHUNTERMT~)
+      END
+    END
 
 END
 
@@ -113,9 +118,10 @@ ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
 COPY ~%abilities%/castspellself.EFF~   ~override/%m2%u.EFF~
     WRITE_ASCII 0x30 ~%m2%u~ #8
 COPY ~%abilities%/changebardsong.SPL~  ~override/%m2%u.SPL~    // change Bard Song
+  LPF DELETE_EFFECT INT_VAR check_headers=0 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%m2%v~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%cleareffects%~ END
-  LPF DELETE_EFFECT INT_VAR check_headers=0 END
 
 COPY ~%abilities%/powderkegdisable.SPL~    ~override/%m2%x.SPL~
 COPY ~%abilities%/powderkegnosong.SPL~     ~override/%m2%y.SPL~
@@ -457,9 +463,9 @@ COPY ~%files%/goldscarab.ITM~  ~override/%mb%.ITM~
   WRITE_ASCII 0x3a ~%mb%~ #8       // icon
   WRITE_ASCII 0x58 ~CAMUL16~ #8    // description image
   LPF ALTER_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%mb%e~ END
-  PATCH_IF (GAME_IS ~iwdee~) BEGIN
-    WRITE_LONG 0x34 10000    // higher price for IWDEE
-  END
+//  PATCH_IF (GAME_IS ~iwdee~) BEGIN
+//    WRITE_LONG 0x34 10000    // higher price for IWDEE
+//  END
 
 COPY ~%files%/goldscarab.SPL~  ~override/%mb%e.SPL~
 

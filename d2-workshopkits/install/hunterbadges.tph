@@ -6,8 +6,6 @@ This file adds all abilities to make the badges work.
 
 ACTION_IF (%nobeasthunter% = 0) BEGIN
 
-  OUTER_TEXT_SPRINT kitname ~BEASTHUNTER~    // reset "kitname" variable
-
 
 //EFF every 3 seconds on Fire Weapon (op272)
   COPY_EXISTING ~%s1%.SPL~  ~override~
@@ -32,14 +30,19 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
       INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
       STR_VAR resource=~%m1%s~ 
     END
-    PATCH_IF (nobeasthunterfm = 0) BEGIN
+    PATCH_IF (beasthunterfm > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
       END
     END
-    PATCH_IF (nobeasthunterfmc = 0) BEGIN
+    PATCH_IF (beasthunterfmc > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
+      END
+    END
+    PATCH_IF (beasthunterfc > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
       END
     END
     LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m1%e~ END
@@ -53,14 +56,19 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
       INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
       STR_VAR resource=~%m2%s~ 
     END
-    PATCH_IF (nobeasthunterfm = 0) BEGIN
+    PATCH_IF (beasthunterfm > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
       END
     END
-    PATCH_IF (nobeasthunterfmc = 0) BEGIN
+    PATCH_IF (beasthunterfmc > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
+      END
+    END
+    PATCH_IF (beasthunterfc > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
       END
     END
     LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m2%e~ END
@@ -74,14 +82,19 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
       INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
       STR_VAR resource=~%m3%s~ 
     END
-    PATCH_IF (nobeasthunterfm = 0) BEGIN
+    PATCH_IF (beasthunterfm > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
       END
     END
-    PATCH_IF (nobeasthunterfmc = 0) BEGIN
+    PATCH_IF (beasthunterfmc > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
+      END
+    END
+    PATCH_IF (beasthunterfc > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
       END
     END
     LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m3%e~ END
@@ -95,14 +108,19 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
       INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
       STR_VAR resource=~%m4%s~ 
     END
-    PATCH_IF (nobeasthunterfm = 0) BEGIN
+    PATCH_IF (beasthunterfm > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
       END
     END
-    PATCH_IF (nobeasthunterfmc = 0) BEGIN
+    PATCH_IF (beasthunterfmc > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
+      END
+    END
+    PATCH_IF (beasthunterfc > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
       END
     END
     LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m4%e~ END
@@ -116,14 +134,19 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
       INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
       STR_VAR resource=~%m5%s~ 
     END
-    PATCH_IF (nobeasthunterfm = 0) BEGIN
+    PATCH_IF (beasthunterfm > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
       END
     END
-    PATCH_IF (nobeasthunterfmc = 0) BEGIN
+    PATCH_IF (beasthunterfmc > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
+      END
+    END
+    PATCH_IF (beasthunterfc > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
       END
     END
     LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m5%e~ END
@@ -137,14 +160,19 @@ ACTION_IF (%nobeasthunter% = 0) BEGIN
       INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
       STR_VAR resource=~%m6%s~ 
     END
-    PATCH_IF (nobeasthunterfm = 0) BEGIN
+    PATCH_IF (beasthunterfm > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
       END
     END
-    PATCH_IF (nobeasthunterfmc = 0) BEGIN
+    PATCH_IF (beasthunterfmc > 0) BEGIN
       LPF CLONE_EFFECT 
         INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
+      END
+    END
+    PATCH_IF (beasthunterfc > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
       END
     END
     LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m6%e~ END

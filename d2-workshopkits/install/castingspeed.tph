@@ -40,6 +40,9 @@ ACTION_FOR_EACH ability IN
     ~%mediccure1%~
     ~%mediccure2%~
     ~%bloodbullet%~
+    ~%medicaldarts%~
+    ~%injectionshot%~
+    ~%ghostwalker%~
 BEGIN
 
   ACTION_IF (FILE_EXISTS_IN_GAME ~%ability%.SPL~) BEGIN

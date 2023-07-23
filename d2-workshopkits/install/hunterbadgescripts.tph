@@ -13,6 +13,43 @@ Noble Scion (10)    => Old Hunter Badge
 ACTION_IF (%nobeasthunter% = 0) BEGIN
 
 
+//number of kits to check
+OUTER_SET beasthuntermulti = beasthunterfm + beasthunterfmc + beasthunterfc
+OUTER_SET beasthuntermulti *= 5
+OUTER_SET beasthuntermulti += 5
+
+
+//function for multiclass kits
+DEFINE_PATCH_FUNCTION hunterscripts BEGIN
+
+PATCH_IF (beasthunterfm > 0) BEGIN
+  REPLACE_TEXTUALLY ~Kit(Player2,D2BEASTHUNTER)~  ~Kit(Player2,D2BEASTHUNTER) Kit(Player2,D2BEASTHUNTERFM)~
+  REPLACE_TEXTUALLY ~Kit(Player3,D2BEASTHUNTER)~  ~Kit(Player3,D2BEASTHUNTER) Kit(Player3,D2BEASTHUNTERFM)~
+  REPLACE_TEXTUALLY ~Kit(Player4,D2BEASTHUNTER)~  ~Kit(Player4,D2BEASTHUNTER) Kit(Player4,D2BEASTHUNTERFM)~
+  REPLACE_TEXTUALLY ~Kit(Player5,D2BEASTHUNTER)~  ~Kit(Player5,D2BEASTHUNTER) Kit(Player5,D2BEASTHUNTERFM)~
+  REPLACE_TEXTUALLY ~Kit(Player6,D2BEASTHUNTER)~  ~Kit(Player6,D2BEASTHUNTER) Kit(Player6,D2BEASTHUNTERFM)~
+END
+
+PATCH_IF (beasthunterfmc > 0) BEGIN
+  REPLACE_TEXTUALLY ~Kit(Player2,D2BEASTHUNTER)~  ~Kit(Player2,D2BEASTHUNTER) Kit(Player2,D2BEASTHUNTERFMC)~
+  REPLACE_TEXTUALLY ~Kit(Player3,D2BEASTHUNTER)~  ~Kit(Player3,D2BEASTHUNTER) Kit(Player3,D2BEASTHUNTERFMC)~
+  REPLACE_TEXTUALLY ~Kit(Player4,D2BEASTHUNTER)~  ~Kit(Player4,D2BEASTHUNTER) Kit(Player4,D2BEASTHUNTERFMC)~
+  REPLACE_TEXTUALLY ~Kit(Player5,D2BEASTHUNTER)~  ~Kit(Player5,D2BEASTHUNTER) Kit(Player5,D2BEASTHUNTERFMC)~
+  REPLACE_TEXTUALLY ~Kit(Player6,D2BEASTHUNTER)~  ~Kit(Player6,D2BEASTHUNTER) Kit(Player6,D2BEASTHUNTERFMC)~
+END
+
+PATCH_IF (beasthunterfc > 0) BEGIN
+  REPLACE_TEXTUALLY ~Kit(Player2,D2BEASTHUNTER)~  ~Kit(Player2,D2BEASTHUNTER) Kit(Player2,D2BEASTHUNTERFC)~
+  REPLACE_TEXTUALLY ~Kit(Player3,D2BEASTHUNTER)~  ~Kit(Player3,D2BEASTHUNTER) Kit(Player3,D2BEASTHUNTERFC)~
+  REPLACE_TEXTUALLY ~Kit(Player4,D2BEASTHUNTER)~  ~Kit(Player4,D2BEASTHUNTER) Kit(Player4,D2BEASTHUNTERFC)~
+  REPLACE_TEXTUALLY ~Kit(Player5,D2BEASTHUNTER)~  ~Kit(Player5,D2BEASTHUNTER) Kit(Player5,D2BEASTHUNTERFC)~
+  REPLACE_TEXTUALLY ~Kit(Player6,D2BEASTHUNTER)~  ~Kit(Player6,D2BEASTHUNTER) Kit(Player6,D2BEASTHUNTERFC)~
+END
+
+END
+
+
+
 //Spark Hunter Badge
 ACTION_IF (FILE_EXISTS_IN_GAME ~%warmagician%.2da~) BEGIN
 
@@ -21,22 +58,12 @@ IF
 	!Global("d2badge_spark","GLOBAL",1)
 	Kit(Player1,D2WARMAGICIAN)
 	ClassLevelGT(Player1,WIZARD,4)
-	OR(15)
+	OR(5)
 		Kit(Player2,D2BEASTHUNTER)
 		Kit(Player3,D2BEASTHUNTER)
 		Kit(Player4,D2BEASTHUNTER)
 		Kit(Player5,D2BEASTHUNTER)
 		Kit(Player6,D2BEASTHUNTER)
-		Kit(Player2,D2BEASTHUNTERFM)
-		Kit(Player3,D2BEASTHUNTERFM)
-		Kit(Player4,D2BEASTHUNTERFM)
-		Kit(Player5,D2BEASTHUNTERFM)
-		Kit(Player6,D2BEASTHUNTERFM)
-		Kit(Player2,D2BEASTHUNTERFMC)
-		Kit(Player3,D2BEASTHUNTERFMC)
-		Kit(Player4,D2BEASTHUNTERFMC)
-		Kit(Player5,D2BEASTHUNTERFMC)
-		Kit(Player6,D2BEASTHUNTERFMC)
 THEN
 	RESPONSE #100
 		ActionOverride(Player1,AddSpecialAbility("%give_badge_spark%"))
@@ -46,6 +73,8 @@ END
 
   COPY - ~.../d2temp/badge_spark1~       ~%workspace%/badge_spark1.BAF~
     EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%beasthuntermulti%)~
+    LPF hunterscripts END
   COPY - ~%workspace%/badge_spark1.BAF~  ~%workspace%/badge_spark2.BAF~
     REPLACE_TEXTUALLY ~Player1~         ~Player2~
     REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
@@ -85,22 +114,12 @@ IF
 	!Global("d2badge_radiant","GLOBAL",1)
 	Kit(Player1,D2GRAVEWARDEN)
 	ClassLevelGT(Player1,WARRIOR,8)
-	OR(15)
+	OR(5)
 		Kit(Player2,D2BEASTHUNTER)
 		Kit(Player3,D2BEASTHUNTER)
 		Kit(Player4,D2BEASTHUNTER)
 		Kit(Player5,D2BEASTHUNTER)
 		Kit(Player6,D2BEASTHUNTER)
-		Kit(Player2,D2BEASTHUNTERFM)
-		Kit(Player3,D2BEASTHUNTERFM)
-		Kit(Player4,D2BEASTHUNTERFM)
-		Kit(Player5,D2BEASTHUNTERFM)
-		Kit(Player6,D2BEASTHUNTERFM)
-		Kit(Player2,D2BEASTHUNTERFMC)
-		Kit(Player3,D2BEASTHUNTERFMC)
-		Kit(Player4,D2BEASTHUNTERFMC)
-		Kit(Player5,D2BEASTHUNTERFMC)
-		Kit(Player6,D2BEASTHUNTERFMC)
 THEN
 	RESPONSE #100
 		ActionOverride(Player1,AddSpecialAbility("%give_badge_radiant%"))
@@ -110,6 +129,8 @@ END
 
   COPY - ~.../d2temp/badge_radiant1~       ~%workspace%/badge_radiant1.BAF~
     EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%beasthuntermulti%)~
+    LPF hunterscripts END
   COPY - ~%workspace%/badge_radiant1.BAF~  ~%workspace%/badge_radiant2.BAF~
     REPLACE_TEXTUALLY ~Player1~         ~Player2~
     REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
@@ -149,22 +170,12 @@ IF
 	!Global("d2badge_cosmic","GLOBAL",1)
 	Kit(Player1,D2BLOODMINISTER)
 	ClassLevelGT(Player1,PRIEST,10)
-	OR(15)
+	OR(5)
 		Kit(Player2,D2BEASTHUNTER)
 		Kit(Player3,D2BEASTHUNTER)
 		Kit(Player4,D2BEASTHUNTER)
 		Kit(Player5,D2BEASTHUNTER)
 		Kit(Player6,D2BEASTHUNTER)
-		Kit(Player2,D2BEASTHUNTERFM)
-		Kit(Player3,D2BEASTHUNTERFM)
-		Kit(Player4,D2BEASTHUNTERFM)
-		Kit(Player5,D2BEASTHUNTERFM)
-		Kit(Player6,D2BEASTHUNTERFM)
-		Kit(Player2,D2BEASTHUNTERFMC)
-		Kit(Player3,D2BEASTHUNTERFMC)
-		Kit(Player4,D2BEASTHUNTERFMC)
-		Kit(Player5,D2BEASTHUNTERFMC)
-		Kit(Player6,D2BEASTHUNTERFMC)
 THEN
 	RESPONSE #100
 		ActionOverride(Player1,AddSpecialAbility("%give_badge_cosmic%"))
@@ -174,6 +185,8 @@ END
 
   COPY - ~.../d2temp/badge_cosmic1~       ~%workspace%/badge_cosmic1.BAF~
     EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%beasthuntermulti%)~
+    LPF hunterscripts END
   COPY - ~%workspace%/badge_cosmic1.BAF~  ~%workspace%/badge_cosmic2.BAF~
     REPLACE_TEXTUALLY ~Player1~         ~Player2~
     REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
@@ -213,22 +226,12 @@ IF
 	!Global("d2badge_pkeg","GLOBAL",1)
 	Kit(Player1,D2POWDERKEG)
 	ClassLevelGT(Player1,ROGUE,6)
-	OR(15)
+	OR(5)
 		Kit(Player2,D2BEASTHUNTER)
 		Kit(Player3,D2BEASTHUNTER)
 		Kit(Player4,D2BEASTHUNTER)
 		Kit(Player5,D2BEASTHUNTER)
 		Kit(Player6,D2BEASTHUNTER)
-		Kit(Player2,D2BEASTHUNTERFM)
-		Kit(Player3,D2BEASTHUNTERFM)
-		Kit(Player4,D2BEASTHUNTERFM)
-		Kit(Player5,D2BEASTHUNTERFM)
-		Kit(Player6,D2BEASTHUNTERFM)
-		Kit(Player2,D2BEASTHUNTERFMC)
-		Kit(Player3,D2BEASTHUNTERFMC)
-		Kit(Player4,D2BEASTHUNTERFMC)
-		Kit(Player5,D2BEASTHUNTERFMC)
-		Kit(Player6,D2BEASTHUNTERFMC)
 THEN
 	RESPONSE #100
 		ActionOverride(Player1,AddSpecialAbility("%give_badge_pkeg%"))
@@ -238,6 +241,8 @@ END
 
   COPY - ~.../d2temp/badge_pkeg1~       ~%workspace%/badge_pkeg1.BAF~
     EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%beasthuntermulti%)~
+    LPF hunterscripts END
   COPY - ~%workspace%/badge_pkeg1.BAF~  ~%workspace%/badge_pkeg2.BAF~
     REPLACE_TEXTUALLY ~Player1~         ~Player2~
     REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
@@ -277,22 +282,12 @@ IF
 	!Global("d2badge_saw","GLOBAL",1)
 	Kit(Player1,D2MEDIC)
 	ClassLevelGT(Player1,WARRIOR,12)
-	OR(15)
+	OR(5)
 		Kit(Player2,D2BEASTHUNTER)
 		Kit(Player3,D2BEASTHUNTER)
 		Kit(Player4,D2BEASTHUNTER)
 		Kit(Player5,D2BEASTHUNTER)
 		Kit(Player6,D2BEASTHUNTER)
-		Kit(Player2,D2BEASTHUNTERFM)
-		Kit(Player3,D2BEASTHUNTERFM)
-		Kit(Player4,D2BEASTHUNTERFM)
-		Kit(Player5,D2BEASTHUNTERFM)
-		Kit(Player6,D2BEASTHUNTERFM)
-		Kit(Player2,D2BEASTHUNTERFMC)
-		Kit(Player3,D2BEASTHUNTERFMC)
-		Kit(Player4,D2BEASTHUNTERFMC)
-		Kit(Player5,D2BEASTHUNTERFMC)
-		Kit(Player6,D2BEASTHUNTERFMC)
 THEN
 	RESPONSE #100
 		ActionOverride(Player1,AddSpecialAbility("%give_badge_saw%"))
@@ -302,6 +297,8 @@ END
 
   COPY - ~.../d2temp/badge_saw1~       ~%workspace%/badge_saw1.BAF~
     EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%beasthuntermulti%)~
+    LPF hunterscripts END
   COPY - ~%workspace%/badge_saw1.BAF~  ~%workspace%/badge_saw2.BAF~
     REPLACE_TEXTUALLY ~Player1~         ~Player2~
     REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
@@ -341,22 +338,12 @@ IF
 	!Global("d2badge_old","GLOBAL",1)
 	Kit(Player1,D2NOBLESCION)
 	ClassLevelGT(Player1,WARRIOR,9)
-	OR(15)
+	OR(5)
 		Kit(Player2,D2BEASTHUNTER)
 		Kit(Player3,D2BEASTHUNTER)
 		Kit(Player4,D2BEASTHUNTER)
 		Kit(Player5,D2BEASTHUNTER)
 		Kit(Player6,D2BEASTHUNTER)
-		Kit(Player2,D2BEASTHUNTERFM)
-		Kit(Player3,D2BEASTHUNTERFM)
-		Kit(Player4,D2BEASTHUNTERFM)
-		Kit(Player5,D2BEASTHUNTERFM)
-		Kit(Player6,D2BEASTHUNTERFM)
-		Kit(Player2,D2BEASTHUNTERFMC)
-		Kit(Player3,D2BEASTHUNTERFMC)
-		Kit(Player4,D2BEASTHUNTERFMC)
-		Kit(Player5,D2BEASTHUNTERFMC)
-		Kit(Player6,D2BEASTHUNTERFMC)
 THEN
 	RESPONSE #100
 		ActionOverride(Player1,AddSpecialAbility("%give_badge_old%"))
@@ -366,6 +353,8 @@ END
 
   COPY - ~.../d2temp/badge_old1~       ~%workspace%/badge_old1.BAF~
     EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%beasthuntermulti%)~
+    LPF hunterscripts END
   COPY - ~%workspace%/badge_old1.BAF~  ~%workspace%/badge_old2.BAF~
     REPLACE_TEXTUALLY ~Player1~         ~Player2~
     REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~

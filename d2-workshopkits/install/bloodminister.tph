@@ -162,7 +162,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
 BUT_ONLY
 
 
-//Add Holy Symbol (only given in BG2EE)
+//Add Holy Symbol
 COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m9%~ END
 COPY ~%icons%/holysymbol_blood.BAM~   ~override/%m9%.BAM~
@@ -195,7 +195,7 @@ COPY_EXISTING ~CLABPR01.2DA~ ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=2 limit=20 STR_VAR resource=~%s1%~ END
 
-  PATCH_IF (GAME_INCLUDES ~bg2~) BEGIN       // add Holy Symbol
+  PATCH_IF (holysymbols > 0) BEGIN    // add Holy Symbol
     LPF d2_kit_ability_adder INT_VAR level=25 passive=1 STR_VAR resource=~%m9%~ END
   END
 
@@ -212,8 +212,8 @@ LAF ADD_KIT_EX
   STR_VAR
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
-    clsrcreq = ~1 1 1 1 1 1 1~    // Usable by all races, if base class is usable
-    clascolr = ~72 46 47 2 93~    // Berserker colors
+    clsrcreq = ~1 1 1 1 1 1 1~          // Usable by all races, if base class is usable
+    clascolr = ~171 174 190 171 171~    // Necromancer colors
   RET 
     kit_id
 END

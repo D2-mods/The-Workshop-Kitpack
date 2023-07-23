@@ -1,0 +1,71 @@
+//Full Metal Jaguar FM
+
+
+ACTION_IF (nofullmetaljaguarfm = 0) BEGIN
+
+
+INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
+
+
+//Remove specialist bonus slots
+COPY ~%passives%/fewerspells1.SPL~  ~override/%e6%.SPL~
+COPY ~%passives%/opcode206.SPL~     ~override/%e7%.SPL~    // only relevant for 5e casting mod
+  LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END
+  LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END
+
+
+//Ability tables (don't include base class abilities)
+COPY ~%files%/kit0.2DA~  ~override/%fullmetaljaguar%F.2DA~
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e3%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e4%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
+
+COPY ~%files%/kit6.2DA~  ~override/%fullmetaljaguar%M.2DA~
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e7%~ END
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 7
+    mixed = RESOLVE_STR_REF (@101501)
+    lower = RESOLVE_STR_REF (@101502)
+    help = RESOLVE_STR_REF (@101503)
+  STR_VAR
+    kit_name = ~D2%kitname%FM~
+    clab_base_f = ~%fullmetaljaguar%F.2DA~    // kit abilities added to Fighter table
+    clab_base_m = ~%fullmetaljaguar%M.2DA~    // -1 spell slots added to Mage table
+    clsrcreq = ~1 1 1 1 1 1 1~                // Usable by all races, if base class is usable
+    clascolr = ~24 67 56 2 25~                // blade/jester colors
+  RET 
+    kit_id
+END
+
+
+//Usability - restrict plate mail
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  PATCH_IF (!(~%SOURCE_RES%~ STRING_EQUAL_CASE ~secret05~) AND    // skip Big Metal Unit
+            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec05~)) BEGIN
+    READ_ASCII 0x22 itemtype (2) NULL                             // equipped appearance
+    PATCH_IF (~%itemtype%~ STRING_EQUAL_CASE ~4A~) BEGIN          // plate mail
+      LPF ADD_ITEM_EQEFFECT
+        INT_VAR
+          opcode = 319
+          target = 1
+          parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
+          parameter2 = 9
+          timing = 2
+      END
+    END
+  END
+BUT_ONLY
+
+
+END
+
+
+/* 
+*/

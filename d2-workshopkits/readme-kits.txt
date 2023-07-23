@@ -18,6 +18,11 @@ Drifter (ranger)
 Medic (monk)
 Noble Scion (paladin)
 
+//v4.0 kits
+Full Metal Jaguar (fighter)
+Nurse (thief)
+Spell Fencer (fighter/mage)
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -26,7 +31,7 @@ Noble Scion (paladin)
 ==================================================
 Beast Hunter (Fighter)
 ==================================================
-BEAST HUNTER: Whereever there are beasts, there are hunters. Hunters may be protectors or mercenaries, or simply have an addiction for blood and slaughter. This class is particularly adept at combating several powerful types of monsters, including demons and werewolves.
+BEAST HUNTER: Wherever there are beasts, there are hunters. Hunters may be protectors or mercenaries, or simply have an addiction for blood and slaughter. This class is particularly adept at combating several powerful types of monsters, including demons and werewolves.
 
 Advantages:
 – +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.
@@ -287,7 +292,7 @@ Disadvantages:
 ==================================================
 Medic (Monk)
 ==================================================
-MEDIC: This Monk is a skilled medical practioner, as well as warrior, and has undergone special training, applying powerful herbal remedies to aid in combat.
+MEDIC: This Monk is a skilled medical practitioner, as well as warrior, and has undergone special training, applying powerful herbal remedies to aid in combat.
 
 Advantages:
 – May use the Black Remedy and White Remedy abilities. Gains one use each at level 1 and an additional use each every 5 levels thereafter.
@@ -327,6 +332,68 @@ Disadvantages:
 – May not wear armor heavier than splint mail.
 – May not Specialize in melee weapons.
 – May not Specialize in any fighting style.
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+//v4.0 kits
+
+==================================================
+Full Metal Jaguar (Fighter)
+==================================================
+FULL METAL JAGUAR: A highly capable and versatile warrior, the Full Metal Jaguar leads with a burst of projectiles before leaping in to strike down foes.
+
+Advantages:
+– +1 bonus to attack and damage rolls.
+– Immune to backstab.
+– 5th level: May use the Ghostwalker ability once per day. Gains additional uses every 5 levels thereafter.
+
+GHOSTWALKER: This ability lasts 5 rounds. Once each round, 1 mirror image is created on the character, which can absorb one attack during that round. The number of images created increases to 2 per round at level 10, 3 per round at level 15, and 4 per round at level 20.
+
+– 8th level: Gains the Critical Boost ability (passive)
+
+CRITICAL BOOST: Ranged attacks boost melee critical chance. Each hit with a ranged weapon gives a cumulative +5% bonus for 3 rounds. A critical miss resets the bonus.
+
+Disadvantages:
+– May not wear armor heavier than splint mail.
+
+
+==================================================
+Nurse (Thief)
+==================================================
+NURSE: A born specialist, the Nurse is an adept alchemist, as well as marksman, fit for sleuthing or academia.
+
+Advantages:
+– +1 bonus to ranged attack rolls at 1st level, plus an additional +1 bonus every 5 levels.
+– May prepare a set of 8 Medical Darts. Gains one use at level 1, one use at level 5, and an additional use every 5 levels thereafter. The darts are automatically equipped and remain in the hand until thrown or expired (1 hour).
+
+MEDICAL DARTS: These darts will heal allies or deal poison damage to enemies. The amount of healing or damage is equal to 1d3 + 1 Hit Point per 3 levels, up to a maximum of 1d3 + 5. Medical Darts are treated as magical weapons with a +5 enchantment, and attacks are made with a +5 bonus. A character's proficiency with darts does not affect attack rolls.
+
+– 11th level: May use the Injection Shot ability once per day. Gains additional uses at levels 15 and 19.
+
+INJECTION SHOT: The next successful ranged attack forces the target to make a save vs. Death at -2 or become feebleminded. If the Saving Throw is made, the target is confused for 5 rounds.
+
+Disadvantages:
+– May only distribute 15 skill points per level among thieving skills.
+– May not wear armor heavier than leather.
+
+
+==================================================
+Spell Fencer (Fighter/Mage)
+==================================================
+SPELL FENCER: This class is an expert duelist, and a natural talent of both weapons and arcane magic.
+
+Advantages:
+– May cast one additional spell per level.
+– +1 bonus to Armor Class, plus an additional +1 bonus every 5 Fighter levels.
+– +1 bonus to Saving Throws vs. Spell every 4 Mage levels, up to a maximum of +5 at level 20.
+– Gains the Flash Cast ability (passive). This ability requires 5 levels in Fighter and 5 levels in Mage.
+
+FLASH CAST: With each successful melee attack, the character gains a cumulative +2 bonus to casting speed for 10 seconds. A critical miss resets the bonus.
+
+Disadvantages:
+– May not specialize in ranged weapons.
+– May not wear armor heavier than chain mail.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

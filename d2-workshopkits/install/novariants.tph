@@ -1,0 +1,18 @@
+/*
+Disable multiclass variants
+*/
+
+
+OUTER_SET nobeasthunterfm      = 1
+OUTER_SET nobeasthunterfmc     = 1
+OUTER_SET nobeasthunterfc      = 1
+OUTER_SET nowarhoundfm         = 1
+OUTER_SET nomoonlightknightcr  = 1
+OUTER_SET nocrowhunterft       = 1
+OUTER_SET nocrowhunterfmt      = 1
+OUTER_SET nocrowhuntermt       = 1
+OUTER_SET nofullmetaljaguarfm  = 1
+OUTER_SET nofullmetaljaguarft  = 1
+OUTER_SET nonursemt            = 1
+
+INCLUDE ~%install%/install.tph~

@@ -1,0 +1,109 @@
+//Spell Fencer (d2wkh)
+
+
+INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
+
+
+//passive effects
+COPY ~%passives%/acbonus1.SPL~         ~override/%e1%.SPL~
+COPY ~%passives%/savebonus4death.SPL~  ~override/%e2%.SPL~
+  LPF ALTER_EFFECT INT_VAR opcode=37 parameter1=1 END    // change to +1 to Save vs. Spell
+
+//for 5e casting mod (blocks effect)
+COPY ~%passives%/opcode206.SPL~        ~override/%e5%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END    // -1 to spell slots to mage kits
+
+
+//Add Flash Cast
+COPY ~%passives%/hiteffect1melee.SPL~  ~override/%e3%.SPL~     // melee effect
+  LPF ALTER_EFFECT STR_VAR resource=~%e3%a~ END
+
+COPY ~%icons%/flashcast.BAM~           ~override/%e3%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@621) STR_VAR bam=~%e3%i~ RET icon END
+
+COPY ~%abilities%/castspellself.EFF~   ~override/%e3%a.EFF~
+  WRITE_ASCII 0x30 ~%e3%a~ #8
+COPY ~%abilities%/castingspeed1.SPL~   ~override/%e3%a.SPL~    // +2 casting speed
+  LPF ALTER_EFFECT INT_VAR target=1 parameter1=2 END
+  LPF CLONE_EFFECT INT_VAR opcode=142 parameter2=%icon% END
+
+
+//Critical miss removes bonus
+COPY ~%passives%/criticalmisseffect.SPL~   ~override/%e4%.SPL~     // critical miss effect
+  LPF ALTER_EFFECT STR_VAR resource=~%e4%a~ END
+
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%e4%a.SPL~    // remove crit bonus
+  LPF ALTER_EFFECT STR_VAR resource=~%e3%a~ END
+
+
+//block effect (until 5 fighter levels)
+COPY ~%passives%/opcode206.SPL~            ~override/%e6%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%e3%a~ END
+
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%e7%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%e6%~ END
+
+
+//Ability tables (don't include base class abilities)
+COPY ~%files%/kit0.2DA~  ~override/%kitid%F.2DA~
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 STR_VAR resource=~%e7%~ END
+
+COPY ~%files%/kit0.2DA~  ~override/%kitid%M.2DA~
+  LPF d2_kit_ability_adder INT_VAR level=4 passive=1 multi=1 increment=4 limit=20 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 STR_VAR resource=~%e3%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 STR_VAR resource=~%e4%~ END
+
+
+//Kit function
+LAF ADD_KIT_EX
+  INT_VAR
+    kit_class = 7
+    mixed = RESOLVE_STR_REF (@101701)
+    lower = RESOLVE_STR_REF (@101702)
+    help = RESOLVE_STR_REF (@101703)
+  STR_VAR
+    kit_name = ~D2%kitname%~
+    clab_base_f = ~%kitid%F.2DA~     // added to fighter table
+    clab_base_m = ~%kitid%M.2DA~     // added to mage table
+    clsrcreq = ~1 1 1 1 1 1 1~       // Usable by all races, if base class is usable
+    weapprof = ~2 2 1 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 2 2 2 3~
+    clascolr = ~93 99 169 93 72~     // swashbuckler colors
+  RET 
+    kit_id
+END
+
+
+//Usability - restrict splint/plate mail
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  PATCH_IF (!(~%SOURCE_RES%~ STRING_EQUAL_CASE ~secret05~) AND    // skip Big Metal Unit
+            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec05~)
+    ) BEGIN
+    READ_LONG  0x8 stringref                                      // check unidentified name
+    READ_ASCII 0x22 itemtype (2) NULL                             // check equipped appearance
+    PATCH_IF ((stringref = 6677) OR                               // if splint mail (same strings in all EEs)
+              (stringref = 6678) OR
+              (~%itemtype%~ STRING_EQUAL_CASE ~4A~)               // if plate mail
+      ) BEGIN
+      LPF ADD_ITEM_EQEFFECT
+        INT_VAR
+          opcode = 319
+          target = 1
+          parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+          parameter2 = 9
+          timing = 2
+      END
+    END
+  END
+BUT_ONLY
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT spellfencer  ~%kitid%~
+
+
+/* 
+*/

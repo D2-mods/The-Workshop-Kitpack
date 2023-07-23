@@ -162,6 +162,34 @@
 		~Vocal~ => 7
 	END
 
+	ACTION_DEFINE_ASSOCIATIVE_ARRAY	$priestspherelist(~D2BEASTHUNTERFC~) BEGIN
+		~All~ => 7 
+		~Healing~ => 7
+		~Necromantic~ => 0
+		~Suffering~ => 0
+		~Animal~ => 0
+		~Vermin~ => 7
+		~Plant~ => 0
+		~Protection~ => 7
+		~Sun~ => 7
+		~Moon~ => 0
+		~Darkness~ => 0
+		~Thought~ => 0
+		~Combat~ => 3
+		~Creation~ => 3
+		~Summoning~ => 0
+		~Air~ => 0
+		~Water~ => 0
+		~Earth~ => 0
+		~Fire~ => 3
+		~Divination~ => 3
+		~Travelers~ => 0
+		~Weave~ => 0
+		~Trickery~ => 0
+		~Time~ => 0
+		~Vocal~ => 7
+	END
+
 	ACTION_DEFINE_ASSOCIATIVE_ARRAY	$priestspherelist(~D2MOONLIGHTKNIGHTCR~) BEGIN
 		~All~ => 7 
 		~Healing~ => 0

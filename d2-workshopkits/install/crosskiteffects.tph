@@ -20,7 +20,7 @@ END
 //Drifter is immune to Confessor's Rooting Shot
 ACTION_IF (%nodrifter% = 0) BEGIN
 
-  ACTION_FOR_EACH ~entanglement~ IN ~%entangle36%~ ~%entangle18%~ BEGIN
+  ACTION_FOR_EACH ~entanglement~ IN ~%entangle18%~ ~%entangle36%~ ~%confessorentangle%~ BEGIN
     ACTION_IF (FILE_EXISTS ~override/%entanglement%.SPL~) BEGIN
       COPY_EXISTING ~%drifter_immunities%.SPL~  ~override~
         LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%entanglement%~ END

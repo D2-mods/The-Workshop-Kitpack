@@ -6,7 +6,7 @@ Languages: English, French (by 11jo)
 
 ---
 
-This is a kitpack I've been working on for a while. It currently has 14 kits + 6 multiclass variants. Also adds 30+ items, including 6 Hunter Badges, 12 Caryll Runes, and 15 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
+This is a kitpack I've been working on for a while. It currently has 17 kits + 11 multiclass variants. Also adds 30+ items, including 6 Hunter Badges, 12 Caryll Runes, and 15 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 
 NOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
 
@@ -34,13 +34,18 @@ Mod contents:
 - Medic (monk)
 - Noble Scion (paladin)
 
+#### v4.0 kits
+- Full Metal Jaguar (fighter)
+- Nurse (thief)
+- Spell Fencer (fighter/mage)
+
 #### Multiclass variants
-- Beast Hunter (f/m)
-- Beast Hunter (f/m/c)
-- Warhound (f/m)
-- Moonlight Knight (c/r)
-- Crow Hunter (f/t)
-- Crow Hunter (f/m/t)
+- Beast Hunter (FM, FMC, FC)
+- Warhound FM
+- Moonlight Knight CR
+- Crow Hunter (FT, FMT, MT)
+- Full Metal Jaguar (FM, FT)
+- Nurse MT
 
 #### Misc stuff
 - 6 Hunter Badges&emsp;- can be crafted (see below), can also be purchased  
@@ -52,10 +57,13 @@ Mod contents:
 Components:
 -
 1. The Workshop Kitpack
+	- Option 1: Base kits + multiclass variants
+	- Option 2: Base kits only
 2. Misc item pack (Note: Hunter Badges are part of main component)
-3. Fix for subtledoctor's 5e casting mod
+3. Component for subtledoctor's 5e casting mod
 
-config.ini: Set a kit to = 0 to prevent install
+config.ini: Set a kit to = 0 to prevent install  
+Option 2 will skip all multiclass variants, regardless of config settings.
 
 
 Kit descriptions:
@@ -68,7 +76,7 @@ Kit descriptions:
 
 **Beast Hunter (Fighter)**
 
-BEAST HUNTER: Whereever there are beasts, there are hunters. Hunters may be protectors or mercenaries, or simply have an addiction for blood and slaughter. This class is particularly adept at combating several powerful types of monsters, including demons and werewolves.
+BEAST HUNTER: Wherever there are beasts, there are hunters. Hunters may be protectors or mercenaries, or simply have an addiction for blood and slaughter. This class is particularly adept at combating several powerful types of monsters, including demons and werewolves.
 
 Advantages:
 - +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.
@@ -335,7 +343,7 @@ Disadvantages:
 
 **Medic (Monk)**
 
-MEDIC: This Monk is a skilled medical practioner, as well as warrior, and has undergone special training, applying powerful herbal remedies to aid in combat.
+MEDIC: This Monk is a skilled medical practitioner, as well as warrior, and has undergone special training, applying powerful herbal remedies to aid in combat.
 
 Advantages:
 - May use the Black Remedy and White Remedy abilities. Gains one use each at level 1 and an additional use each every 5 levels thereafter.
@@ -375,6 +383,71 @@ Disadvantages:
 - May not wear armor heavier than splint mail.
 - May not Specialize in melee weapons.
 - May not Specialize in any fighting style.
+
+---
+
+</details>
+
+<details>
+  <summary>v4.0 kits:</summary>
+
+---
+
+**Full Metal Jaguar (Fighter)**
+
+FULL METAL JAGUAR: A highly capable and versatile warrior, the Full Metal Jaguar leads with a burst of projectiles before leaping in to strike down foes.
+
+Advantages:
+- +1 bonus to attack and damage rolls.
+- Immune to backstab.
+- 5th level: May use the Ghostwalker ability once per day. Gains additional uses every 5 levels thereafter.
+
+GHOSTWALKER: This ability lasts 5 rounds. Once each round, 1 mirror image is created on the character, which can absorb one attack during that round. The number of images created increases to 2 per round at level 10, 3 per round at level 15, and 4 per round at level 20.
+
+- 8th level: Gains the Critical Boost ability (passive)
+
+CRITICAL BOOST: Ranged attacks boost melee critical chance. Each hit with a ranged weapon gives a cumulative +5% bonus for 3 rounds. A critical miss resets the bonus.
+
+Disadvantages:
+- May not wear armor heavier than splint mail.
+
+---
+
+**Nurse (Thief)**
+
+NURSE: A born specialist, the Nurse is an adept alchemist, as well as marksman, fit for sleuthing or academia.
+
+Advantages:
+- +1 bonus to ranged attack rolls at 1st level, plus an additional +1 bonus every 5 levels.
+- May prepare a set of 8 Medical Darts. Gains one use at level 1, one use at level 5, and an additional use every 5 levels thereafter. The darts are automatically equipped and remain in the hand until thrown or expired (1 hour).
+
+MEDICAL DARTS: These darts will heal allies or deal poison damage to enemies. The amount of healing or damage is equal to 1d3 + 1 Hit Point per 3 levels, up to a maximum of 1d3 + 5. Medical Darts are treated as magical weapons with a +5 enchantment, and attacks are made with a +5 bonus. A character's proficiency with darts does not affect attack rolls.
+
+- 11th level: May use the Injection Shot ability once per day. Gains additional uses at levels 15 and 19.
+
+INJECTION SHOT: The next successful ranged attack forces the target to make a save vs. Death at -2 or become feebleminded. If the Saving Throw is made, the target is confused for 5 rounds.
+
+Disadvantages:
+- May only distribute 15 skill points per level among thieving skills.
+- May not wear armor heavier than leather.
+
+---
+
+**Spell Fencer (Fighter/Mage)**
+
+SPELL FENCER: This class is an expert duelist, and a natural talent of both weapons and arcane magic.
+
+Advantages:
+- May cast one additional spell per level.
+- +1 bonus to Armor Class, plus an additional +1 bonus every 5 Fighter levels.
+- +1 bonus to Saving Throws vs. Spell every 4 Mage levels, up to a maximum of +5 at level 20.
+- Gains the Flash Cast ability (passive). This ability requires 5 levels in Fighter and 5 levels in Mage.
+
+FLASH CAST: With each successful melee attack, the character gains a cumulative +2 bonus to casting speed for 10 seconds. A critical miss resets the bonus.
+
+Disadvantages:
+- May not specialize in ranged weapons.
+- May not wear armor heavier than chain mail.
 
 ---
 
@@ -436,34 +509,32 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 Additional Info (Kit Abilities):
 -
 
-- Affected by Wild/Dead Magic zones:  
+- **Affected by Wild/Dead Magic zones:**
 	- Denial (Grave Warden)  
 	- Moonlight Vortex (Moonlight Knight)  
 	- Force (Temple Knight)  
 	- Bolt of Glory (Temple Knight)
 
-- Can be dispelled:  
+- **Can be dispelled:**
 	- Denial  
 	- Moonlight Vortex (magic resist)  
 	- Rooting Shot (entangled status)  
 	- Frenzying Flame (status effects)
 
-- Can be removed by Zone of Sweet Air:  
+- **Can be removed by Zone of Sweet Air:**
 	- Incinerate (Warhound)  
 	- Dust Explosion (Powder Keg)
 
-- Other:  
+- **Other:**
 	- Blood transfusions will be removed by a Restoration or Greater Restoration.
 	- Bleeding effects can be cured by Heal or Greater Restoration, or by the Blood Minister's "Healing Blood".
 	- The multiclass Cleric kits will gain Holy Symbols at around 4 million XP (BG2/EET).
 
-A few other kit abilities are also spell-like, but I decided not to make them affected by Wild/Dead Magic. It's standard for kit abilities in these games not to be affected. The above abilities are cast like spells so I thought it'd look dumb for them not to be affected by Magic Zones.
-
-#### Some kits will gain the bonus effects from certain Beamdog items:
-	- Archer's Eyes: Warhound, Warhound FM, Noble Scion
+- **Some kits will gain the bonus effects from certain Beamdog items:**
+	- Archer's Eyes: Warhound, Noble Scion, Nurse
 	- Belt of the Skillful Blade: Drifter
 	- Screaming Bagpipes: Powder Keg
-	- Stalker Gauntlets: Crow Hunter, Crow Hunter FT, Crow Hunter FMT
+	- Stalker Gauntlets: Crow Hunter
 
 
 Hunter Badges
@@ -860,7 +931,7 @@ Weight: 1
 
 **Golem Ring (ring)**
 
-These enchanted rings were crafted enmasse by a Halruaan wizard-inventor. In an instant, the wearer harnesses the raw minerals of the earth, seemingly turning flesh into iron.
+These enchanted rings were crafted en masse by a Halruaan wizard-inventor. In an instant, the wearer harnesses the raw minerals of the earth, seemingly turning flesh into iron.
 
 STATISTICS:
 
@@ -974,7 +1045,7 @@ An honor bestowed upon the most devoted knights, lured into battles of death. Th
 STATISTICS:
 
 Combat abilities:
-- 33% chance of gaining a +1 bonus to damage for 2 rounds (melee only)
+- 33% chance of a cumulative +1 bonus to damage for 2 rounds (melee only)
 
 Weight: 0
 
@@ -1029,8 +1100,8 @@ Weight: 1
 </details>
 
 #### Non-spoilery item info:
-- BG1/SoD: 5 items are obtainable (2 are in SoD). Other items are still installed.
-- BG2: All items obtainable in SoA. If starting a new game in ToB, the starting bag will have 2 items each.
+- BG1/SoD: 6 items are obtainable (3 are in SoD). Other items are still installed.
+- BG2: All items obtainable in SoA. If starting a new game in ToB, the starting bag will have 1-2 items.
 - IWDEE/HoW: Spread throughout, in various dungeons and locations.
 
 

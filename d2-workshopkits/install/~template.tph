@@ -39,8 +39,8 @@ END
 - example variables for ADD_KIT_EX
   STR_VAR
     unusable = ~0x00000008~    // Cavalier usability (no ranged)
-    unusable = ~0x40000000~    // Barbarian usability (splint mail) - has extra restrictions (ex. Carsomyr)
-    unusable = ~0x00010000~    // Stalker usability (studded leather)
+    unusable = ~0x40000000~    // Barbarian usability (splint mail) - NOTE: don't use for ranger/paladin kits
+    unusable = ~0x00008000~    // Archer usability (studded leather)
     unusable = ~0x20000000~    // Avenger usability (normal leather) - NOTE: restricts katanas in BG2
     unusable = ~0x10000000~    // Shapeshifter usability (no armor)  - NOTE: restricts katanas in BG2
     alignmnt = ~0 0 0 1 1 1 1 1 1~    // no lawful

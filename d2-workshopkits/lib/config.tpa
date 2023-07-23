@@ -27,10 +27,15 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
 //multiclass variants
   COUNT_REGEXP_INSTANCES  ~BeastHunterFM[^A-Z].*=.*[^0-9]0[^0-9]*$~           nobeasthunterfm
   COUNT_REGEXP_INSTANCES  ~BeastHunterFMC[^A-Z].*=.*[^0-9]0[^0-9]*$~          nobeasthunterfmc
+  COUNT_REGEXP_INSTANCES  ~BeastHunterFC[^A-Z].*=.*[^0-9]0[^0-9]*$~           nobeasthunterfc
   COUNT_REGEXP_INSTANCES  ~WarhoundFM[^A-Z].*=.*[^0-9]0[^0-9]*$~              nowarhoundfm
   COUNT_REGEXP_INSTANCES  ~MoonlightKnightCR[^A-Z].*=.*[^0-9]0[^0-9]*$~       nomoonlightknightcr
   COUNT_REGEXP_INSTANCES  ~CrowHunterFT[^A-Z].*=.*[^0-9]0[^0-9]*$~            nocrowhunterft
   COUNT_REGEXP_INSTANCES  ~CrowHunterFMT[^A-Z].*=.*[^0-9]0[^0-9]*$~           nocrowhunterfmt
+  COUNT_REGEXP_INSTANCES  ~CrowHunterMT[^A-Z].*=.*[^0-9]0[^0-9]*$~            nocrowhuntermt
+  COUNT_REGEXP_INSTANCES  ~FullMetalJaguarFM[^A-Z].*=.*[^0-9]0[^0-9]*$~       nofullmetaljaguarfm
+  COUNT_REGEXP_INSTANCES  ~FullMetalJaguarFT[^A-Z].*=.*[^0-9]0[^0-9]*$~       nofullmetaljaguarft
+  COUNT_REGEXP_INSTANCES  ~NurseMT[^A-Z].*=.*[^0-9]0[^0-9]*$~                 nonursemt
 
 //spell cap
   COUNT_REGEXP_INSTANCES  ~spellcapBG2.*=.*[^0-9]20[^0-9]*$~            bg2cap20
@@ -46,9 +51,13 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~PriestIDS.*=.*[^0-9]0[^0-9]*$~               nopriestids
   COUNT_REGEXP_INSTANCES  ~WizardIDS.*=.*[^0-9]0[^0-9]*$~               nowizardids
 
-//warrior cleric proficiencies
+//cleric multiclass proficiencies
   COUNT_REGEXP_INSTANCES  ~ClericAllProfs.*=.*[^0-9]0[^0-9]*$~          vanillaclericprofs
   COUNT_REGEXP_INSTANCES  ~DruidAllProfs.*=.*[^0-9]0[^0-9]*$~           vanilladruidprofs
+
+//Holy Symbols
+  COUNT_REGEXP_INSTANCES  ~HolySymbolsBG2.*=.*[^0-9]0[^0-9]*$~          noholysymbolsBG2
+  COUNT_REGEXP_INSTANCES  ~HolySymbolsIWD.*=.*[^0-9]0[^0-9]*$~          noholysymbolsIWD
 
 
 
@@ -72,6 +81,19 @@ END
 ELSE BEGIN
   OUTER_SET spellcap = spellcapBG2    // BGEE cap
 END
+
+
+
+//prep for Holy Symbols
+ACTION_IF (GAME_IS ~iwdee~) BEGIN 
+  OUTER_SET noholysymbols = noholysymbolsIWD
+END
+ELSE BEGIN
+  OUTER_SET noholysymbols = noholysymbolsBG2
+END
+
+ACTION_IF (noholysymbols = 0) BEGIN OUTER_SET holysymbols = 1 END
+ACTION_IF (noholysymbols > 0) BEGIN OUTER_SET holysymbols = 0 END
 
 
 /*
