@@ -55,7 +55,7 @@ Nurse MT
 6 Hunter Badges   - can be crafted (see below), can also be purchased
 8 new spells      - learned by the Starjammer kit
 12 Caryll Runes   - items with party-wide effects
-15 other items    - all general use items, no weapons or armor
+17 other items    - all general use items, no weapons or armor
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -134,6 +134,21 @@ This is how I'd do the install:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v4.1
+- Added 2 consumable/limited use items:
+	- Colorless Demon Soul
+	- Shaman Bone Blade
+- Adjusted bleeding effects again:
+	- Bloodletter (Confessor): 2 damage per round for 6 rounds
+	- Splintering Shot (Crow Hunter): 1 damage per round for 1 turn
+	- Clawmark (rune): 1d3 damage per round for 4 rounds
+- Medic kit changes:
+	- Removed restriction: May not wear gauntlets or bracers.
+	- Added restriction: May not use bladed weapons, other than short swords or daggers.
+- Other:
+	- Hunter Bone: AC/saves bonuses no longer stack. Changed BAM images (previous BAM files now used for Shaman Bone Blade).
+	- Golem Ring: Added sound effect when Iron Flesh duration ends.
 
 v4.0
 - Split install into 2 subcomponents:

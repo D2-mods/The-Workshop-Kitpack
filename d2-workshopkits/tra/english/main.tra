@@ -19,7 +19,7 @@ Text in this file appears in the game.
 @301 = ~Entangled~
 @302 = ~Bleeding~
 @303 = ~You cannot cast this spell until the current casting has run out.~
-@304 = ~^$Activated Golem Ring^-~
+@304 = ~^AActivated Golem Ring^-~
 @305 = ~^$A Caryll Rune has been etched in the minds of all party members.^-~    // symbols are for colored text
 @306 = ~Regenerating~
 @307 = ~Healed~
@@ -27,7 +27,8 @@ Text in this file appears in the game.
 @309 = ~Confused~
 @310 = ~Panic~
 @311 = ~Berserk~
-@312 = ~^$Used Hunter Bone^-~
+@312 = ~^AUsed Hunter Bone^-~
+@313 = ~^AConsumed Demon Soul^-~
 
 
 
@@ -196,7 +197,7 @@ ROOTING SHOT: The next successful ranged attack entangles the target for 3 round
 
 – 5th level: May use the Bloodletter ability once per day. Gains additional uses at levels 9 and 13.
 
-BLOODLETTER: For 5 rounds, each successful melee attack restores 1d4+1 Hit Points. As well, the target suffers a bleeding wound, taking 2 points of damage per round for 8 rounds (no save). A target can be wounded once per round and the effects are cumulative.
+BLOODLETTER: For 5 rounds, each successful melee attack restores 1d4+1 Hit Points. As well, the target suffers a bleeding wound, taking 2 points of damage per round for 6 rounds (no save). A target can be wounded once per round and the effects are cumulative.
 
 Disadvantages:
 – May not wear armor heavier than studded leather.
@@ -303,7 +304,7 @@ Advantages:
 – +3 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races.
 – 4th level: May use the Splintering Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
-SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 2 points of damage per round for 6 rounds (no save). A target can be wounded once per round and the effects are cumulative.
+SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
 
 – 11th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 15 and 19.
 
@@ -389,9 +390,9 @@ WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All e
 HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
 
 Disadvantages:
+– May not use bladed weapons, other than short swords or daggers.
 – May not use the Lay On Hands ability.
-– May not use the Stunning Blow ability.
-– May not wear gauntlets or bracers.~
+– May not use the Stunning Blow ability.~
 @101304 = ~~
 @101305 = ~~
 
@@ -480,7 +481,7 @@ Advantages:
 FLASH CAST: With each successful melee attack, the character gains a cumulative +2 bonus to casting speed for 10 seconds. A critical miss resets the bonus.
 
 Disadvantages:
-– May not specialize in ranged weapons.
+– May not Specialize in ranged weapons.
 – May not wear armor heavier than chain mail.~
 @101704 = ~~
 @101705 = ~~
@@ -564,7 +565,7 @@ The shot must be made within 2 rounds or the effect will dissipate.~
 @107 = ~Bloodletter~
 @207 = ~Bloodletter
 
-For 5 rounds, each successful melee attack restores 1d4+1 Hit Points. As well, the target suffers a bleeding wound, taking 2 points of damage per round for 8 rounds (no save). A target can be wounded once per round and the effects are cumulative.~
+For 5 rounds, each successful melee attack restores 1d4+1 Hit Points. As well, the target suffers a bleeding wound, taking 2 points of damage per round for 6 rounds (no save). A target can be wounded once per round and the effects are cumulative.~
 
 @108 = ~Force~
 @208 = ~Force
@@ -612,7 +613,7 @@ LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhi
 @113 = ~Splintering Shot~
 @213 = ~Splintering Shot
 
-For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 2 points of damage per round for 6 rounds (no save). A target can be wounded once per round and the effects are cumulative.~
+For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.~
 
 @114 = ~Visceral Attack~
 @214 = ~Visceral Attack
@@ -1253,7 +1254,7 @@ Charge abilities:
 – Clawmark (can be used at will)
   Area of Effect: The party
   Duration: 24 hours
-  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 2 points of damage per round for 4 rounds (no save); a target can be wounded once per round and the effects are cumulative
+  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 1d3 damage per round for 4 rounds (no save); a target can be wounded once per round and the effects are cumulative
 
 Weight: 0~
 
@@ -1546,6 +1547,27 @@ Equipped abilities:
 
 Special (Medic):
 – 15-ft. radius for Black Remedy and White Remedy effects
+
+Weight: 1~
+
+@70136 = ~Colorless Demon Soul~
+@70236 = ~The twisted soul of a primeval demon, seeped in strength. Grants the user a large amount of experience, but...
+
+STATISTICS:
+
+Special: +200,000 XP
+Wisdom: -1
+Charisma: -2
+Duration: Permanent
+
+Weight: 10~
+
+@70137 = ~Shaman Bone Blade~
+@70237 = ~A ritual bone blade, coated in a gruesome spinal fluid. Breaks easily, but cuts deep and causes the victim to turn on former allies.
+
+STATISTICS:
+
+Special: Target must make a save vs. Spell or be charmed for 4 rounds; if the Saving Throw is made, the target goes berserk for 4 rounds
 
 Weight: 1~
 

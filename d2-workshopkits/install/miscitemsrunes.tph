@@ -66,7 +66,7 @@ COPY ~%files%/rune_clawmark.ITM~  ~override/%z1%.ITM~
 COPY ~%icons%/bleed.BAM~                ~override/%z1%a.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@302) STR_VAR bam=~%z1%a~ RET icon END
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%z1%a.EFF~
-    WRITE_ASCII 0x30 ~%z1%a~ #8
+  WRITE_ASCII 0x30 ~%z1%a~ #8
 COPY ~%abilities%/bleed4rounds.SPL~    ~override/%z1%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@302) END    // "Bleeding"
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%z1%a~ END
@@ -75,8 +75,9 @@ COPY ~%abilities%/bleed4rounds.SPL~    ~override/%z1%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%z1%b.EFF~
-    WRITE_ASCII 0x30 ~%z1%b~ #8
+  WRITE_ASCII 0x30 ~%z1%b~ #8
 COPY ~%abilities%/bleeddamage2.SPL~     ~override/%z1%b.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=0 dicenumber=1 dicesize=3 END
 
 
 //Blood Rapture
@@ -94,7 +95,7 @@ COPY ~%files%/rune_core.ITM~   ~override/%z2%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%abilities%/castspellself.EFF~    ~override/%z2%a.EFF~
-    WRITE_ASCII 0x30 ~%z2%a~ #8
+  WRITE_ASCII 0x30 ~%z2%a~ #8
 COPY ~%abilities%/healselfnosound.SPL~  ~override/%z2%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=9 END
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@307) END    // "Healed"
@@ -115,7 +116,7 @@ COPY ~%files%/rune_core.ITM~   ~override/%z3%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%abilities%/castspellself.EFF~  ~override/%z3%a.EFF~
-    WRITE_ASCII 0x30 ~%z3%a~ #8
+  WRITE_ASCII 0x30 ~%z3%a~ #8
 COPY ~%abilities%/restore1spell.SPL~  ~override/%z3%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=261 parameter1=6 END
 
@@ -163,7 +164,7 @@ COPY ~%files%/rune_move.ITM~  ~override/%z5%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%abilities%/castspellself.EFF~  ~override/%z5%a.EFF~
-    WRITE_ASCII 0x30 ~%z5%a~ #8
+  WRITE_ASCII 0x30 ~%z5%a~ #8
 COPY ~%files%/rune_move.SPL~          ~override/%z5%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%z5%a~ END
 

@@ -71,6 +71,12 @@ COPY_EXISTING ~d2#hbag.STO~ ~override~
   PATCH_IF (FILE_EXISTS ~override/%jadefeather%.ITM~) BEGIN
     LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%jadefeather%~ flags=~identified~ position=~last~ END
   END
+  PATCH_IF (FILE_EXISTS ~override/%demonsoul%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=2 overwrite=1 STR_VAR item_name=~%demonsoul%~ flags=~identified~ position=~last~ END
+  END
+  PATCH_IF (FILE_EXISTS ~override/%shamanbone%.ITM~) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=7 overwrite=1 STR_VAR item_name=~%shamanbone%~ flags=~identified~ position=~last~ END
+  END
 
 //Caryll Runes
   PATCH_IF (FILE_EXISTS ~override/%clawmark%.ITM~) BEGIN

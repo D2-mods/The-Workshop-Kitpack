@@ -178,15 +178,15 @@ COPY ~%abilities%/bloodletter.SPL~  ~override/%s2%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%abilities%/castspellself.EFF~    ~override/%s2%a.EFF~    // healing
-    WRITE_ASCII 0x30 ~%s2%a~ #8
+  WRITE_ASCII 0x30 ~%s2%a~ #8
 COPY ~%abilities%/bloodletterheal.SPL~  ~override/%s2%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@307) END    // "Healed"
 
 COPY ~%icons%/bleed.BAM~                ~override/%s2%b.BAM~    // bleeding
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@302) STR_VAR bam=~%s2%b~ RET icon END
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%b.EFF~
-    WRITE_ASCII 0x30 ~%s2%b~ #8
-COPY ~%abilities%/bleed8rounds.SPL~    ~override/%s2%b.SPL~
+  WRITE_ASCII 0x30 ~%s2%b~ #8
+COPY ~%abilities%/bleed6rounds.SPL~    ~override/%s2%b.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@302) END    // "Bleeding"
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s2%b~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s2%c~ END
@@ -194,7 +194,7 @@ COPY ~%abilities%/bleed8rounds.SPL~    ~override/%s2%b.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%c.EFF~    // bleed damage
-    WRITE_ASCII 0x30 ~%s2%c~ #8
+  WRITE_ASCII 0x30 ~%s2%c~ #8
 COPY ~%abilities%/bleeddamage2.SPL~     ~override/%s2%c.SPL~
 
 

@@ -208,6 +208,7 @@ ACTION_IF (nomedic = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/%kitname%profs.tph~
 END
 
 

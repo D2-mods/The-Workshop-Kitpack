@@ -24,6 +24,8 @@ Winged Sword Insignia (ring)
 Red Tearstone Ring (ring)
 Hunter Bone (quick item)
 Jade Feather (amulet)
+Colorless Demon Soul (consumable)
+Shaman Bone Blade (quick item)
 
 //Caryll Runes (quick items)
 Clawmark
@@ -401,6 +403,33 @@ Special (Medic):
 
 Weight: 1
 
+
+==================================================
+Colorless Demon Soul (consumable)
+==================================================
+The twisted soul of a primeval demon, seeped in strength. Grants the user a large amount of experience, but...
+
+STATISTICS:
+
+Special: +200,000 XP
+Wisdom: -1
+Charisma: -2
+Duration: Permanent
+
+Weight: 10
+
+
+==================================================
+Shaman Bone Blade (quick item)
+==================================================
+A ritual bone blade, coated in a gruesome spinal fluid. Breaks easily, but cuts deep and causes the victim to turn on former allies.
+
+STATISTICS:
+
+Special: Target must make a save vs. Spell or be charmed for 4 rounds; if the Saving Throw is made, the target goes berserk for 4 rounds
+
+Weight: 1
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -419,7 +448,7 @@ Charge abilities:
 – Clawmark (can be used at will)
   Area of Effect: The party
   Duration: 24 hours
-  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 2 points of damage per round for 4 rounds (no save); a target can be wounded once per round and the effects are cumulative
+  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 1d3 damage per round for 4 rounds (no save); a target can be wounded once per round and the effects are cumulative
 
 Weight: 0
 

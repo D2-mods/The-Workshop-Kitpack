@@ -25,6 +25,10 @@ ACTION_IF (GAME_IS ~bgee eet~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=3 STR_VAR item_to_add=~%hunter_rune%~ END
   BUT_ONLY
 
+  COPY_EXISTING ~%bg1%2002.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=2 charges1=3 STR_VAR item_to_add=~%shamanbone%~ END
+  BUT_ONLY
+
 
   //add creature with item
   COPY_EXISTING ~chicke.cre~  ~override/d2wkmrc.CRE~
@@ -70,6 +74,10 @@ ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
   COPY_EXISTING ~bd0130.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=15 STR_VAR item_to_add=~%fadinglake%~ END
   BUT_ONLY
+
+  COPY_EXISTING ~bd7220.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=7 STR_VAR item_to_add=~%shamanbone%~ END
+  BUT_ONLY
 END
 
 
@@ -112,6 +120,8 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%etherlimiter%~ END
   BUT_ONLY
 
+
+  //v3.3+ items
   COPY_EXISTING ~GOVWAU01.STO~  ~override~
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%goldscarab%~ flags=~identified~ END    // soa
   BUT_ONLY
@@ -134,6 +144,34 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
 
   COPY_EXISTING ~AR2206.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=4 STR_VAR item_to_add=~%jadefeather%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~OBSDEM01.CRE~ ~override~
+    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~none~ ~inv~    // planar sphere
+  BUT_ONLY
+
+  COPY_EXISTING ~TELBAL1.CRE~ ~override~
+    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~none~ ~inv~    // watcher's keep
+  BUT_ONLY
+
+  COPY_EXISTING ~AR1904.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=6 STR_VAR item_to_add=~%shamanbone%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR0802.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=4 charges1=11 STR_VAR item_to_add=~%shamanbone%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~sahpr1.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=20 STR_VAR item_name=~%shamanbone%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AMSMUG01.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=10 STR_VAR item_name=~%shamanbone%~ flags=~identified~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~amsmug02.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 unlimited=1 STR_VAR item_name=~%shamanbone%~ flags=~identified~ END
   BUT_ONLY
 
 
@@ -186,11 +224,11 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
 
   //add creature with item
   COPY_EXISTING ~chicke.cre~  ~override/d2wkmrc.CRE~
-    WRITE_ASCII 0x280 ~d2wkmrc~ #32                           // set script name
+    WRITE_ASCII 0x280 ~d2wkmrc~ #32                     // set script name
     ADD_CRE_ITEM ~%moon_rune%~ #0 #0 #0 ~none~ ~inv~    // add rune
     READ_STRREF 0x8 chicken
 
-  COPY_EXISTING ~AR1100.ARE~  ~override~                      // add to area
+  COPY_EXISTING ~AR1100.ARE~  ~override~                // add to area
     LPF fj_are_structure
       INT_VAR
         fj_loc_x          = 2673
@@ -299,6 +337,8 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%stonering%~ END
   BUT_ONLY
 
+
+  //v3.3+ items
   COPY_EXISTING ~THERIK.CRE~ ~override~
     ADD_CRE_ITEM ~%redtearstone%~ #0 #0 #0 ~none~ ~ring~ NOMOVE
   BUT_ONLY
@@ -313,6 +353,14 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
 
   COPY_EXISTING ~AR8007.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=3 STR_VAR item_to_add=~%jadefeather%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR2002.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=3 STR_VAR item_to_add=~%shamanbone%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR4001.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=3 charges1=8 STR_VAR item_to_add=~%shamanbone%~ END
   BUT_ONLY
 
 
@@ -360,7 +408,8 @@ EXTEND_BOTTOM ~AR2000.BCS~  ~%workspace%/moonrune.BAF~
 
 //HoW
   COPY_EXISTING ~hobart.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ position=~BEFORE extheal~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ position=~AFTER sbowebu~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=1 STR_VAR item_name=~%demonsoul%~ position=~BEFORE bagh01~ flags=~identified~ END
   BUT_ONLY
 
   COPY_EXISTING ~AR9400.ARE~ ~override~
@@ -381,6 +430,10 @@ EXTEND_BOTTOM ~AR2000.BCS~  ~%workspace%/moonrune.BAF~
 
   COPY_EXISTING ~AR9500.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=3 STR_VAR item_to_add=~%hunterbone%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AR9200.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=9 STR_VAR item_to_add=~%shamanbone%~ END
   BUT_ONLY
 END
 

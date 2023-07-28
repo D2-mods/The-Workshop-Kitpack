@@ -129,7 +129,7 @@ ROOTING SHOT: The next successful ranged attack entangles the target for 3 round
 
 – 5th level: May use the Bloodletter ability once per day. Gains additional uses at levels 9 and 13.
 
-BLOODLETTER: For 5 rounds, each successful melee attack restores 1d4+1 Hit Points. As well, the target suffers a bleeding wound, taking 2 points of damage per round for 8 rounds (no save). A target can be wounded once per round and the effects are cumulative.
+BLOODLETTER: For 5 rounds, each successful melee attack restores 1d4+1 Hit Points. As well, the target suffers a bleeding wound, taking 2 points of damage per round for 6 rounds (no save). A target can be wounded once per round and the effects are cumulative.
 
 Disadvantages:
 – May not wear armor heavier than studded leather.
@@ -227,7 +227,7 @@ Advantages:
 – +3 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races.
 – 4th level: May use the Splintering Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
-SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 2 points of damage per round for 6 rounds (no save). A target can be wounded once per round and the effects are cumulative.
+SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
 
 – 11th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 15 and 19.
 
@@ -308,9 +308,9 @@ WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All e
 HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
 
 Disadvantages:
+– May not use bladed weapons, other than short swords or daggers.
 – May not use the Lay On Hands ability.
 – May not use the Stunning Blow ability.
-– May not wear gauntlets or bracers.
 
 
 ==================================================
@@ -392,7 +392,7 @@ Advantages:
 FLASH CAST: With each successful melee attack, the character gains a cumulative +2 bonus to casting speed for 10 seconds. A critical miss resets the bonus.
 
 Disadvantages:
-– May not specialize in ranged weapons.
+– May not Specialize in ranged weapons.
 – May not wear armor heavier than chain mail.
 
 ----------------------------------------------------------------------------------------------------

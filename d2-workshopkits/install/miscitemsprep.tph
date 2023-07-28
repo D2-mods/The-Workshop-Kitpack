@@ -27,6 +27,10 @@ OUTER_TEXT_SPRINT md ~%kitid%md~
 OUTER_TEXT_SPRINT me ~%kitid%me~
 OUTER_TEXT_SPRINT mf ~%kitid%mf~
 OUTER_TEXT_SPRINT mg ~%kitid%mg~
+OUTER_TEXT_SPRINT mh ~%kitid%mh~
+OUTER_TEXT_SPRINT mi ~%kitid%mi~
+OUTER_TEXT_SPRINT mj ~%kitid%mj~
+OUTER_TEXT_SPRINT mk ~%kitid%mk~
 
 
 

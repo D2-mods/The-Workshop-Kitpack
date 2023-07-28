@@ -6,7 +6,7 @@ Languages: English, French (by 11jo)
 
 ---
 
-This is a kitpack I've been working on for a while. It currently has 17 kits + 11 multiclass variants. Also adds 30+ items, including 6 Hunter Badges, 12 Caryll Runes, and 15 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
+This is a kitpack I've been working on for a while. It currently has 17 kits + 11 multiclass variants. Also adds 30+ items, including 6 Hunter Badges, 12 Caryll Runes, and 17 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 
 NOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
 
@@ -51,7 +51,7 @@ Mod contents:
 - 6 Hunter Badges&emsp;- can be crafted (see below), can also be purchased  
 - 8 new spells&emsp;&emsp;&emsp; - learned by the Starjammer kit  
 - 12 Caryll Runes&emsp;&emsp;- items with party-wide effects
-- 15 other items&emsp;&emsp;- all general use items, no weapons or armor
+- 17 other items&emsp;&emsp;- all general use items, no weapons or armor
 
 
 Components:
@@ -174,7 +174,7 @@ ROOTING SHOT: The next successful ranged attack entangles the target for 3 round
 
 - 5th level: May use the Bloodletter ability once per day. Gains additional uses at levels 9 and 13.
 
-BLOODLETTER: For 5 rounds, each successful melee attack restores 1d4+1 Hit Points. As well, the target suffers a bleeding wound, taking 2 points of damage per round for 8 rounds (no save). A target can be wounded once per round and the effects are cumulative.
+BLOODLETTER: For 5 rounds, each successful melee attack restores 1d4+1 Hit Points. As well, the target suffers a bleeding wound, taking 2 points of damage per round for 6 rounds (no save). A target can be wounded once per round and the effects are cumulative.
 
 Disadvantages:  
 - May not wear armor heavier than studded leather.  
@@ -275,7 +275,7 @@ Advantages:
 - +3 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races.  
 - 4th level: May use the Splintering Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
-SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 2 points of damage per round for 6 rounds (no save). A target can be wounded once per round and the effects are cumulative.
+SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
 
 - 11th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 15 and 19.
 
@@ -305,7 +305,7 @@ BOOMING SONG: A crushing wave expands outwards in a 15-ft. radius, inflicting 2d
 
 DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded but also cannot be directly targeted, unless an attacker can see through invisibility.
 
-FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though magic resistance can prevent the status effects.
+FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though Magic Resistance can prevent the status effects.
 
 NOTE: If the High-Level Ability "Enhanced Bard Song" is learned, the character will gain an ability to switch to this song.
 
@@ -359,9 +359,9 @@ WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All e
 HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
 
 Disadvantages:
+- May not use bladed weapons, other than short swords or daggers.
 - May not use the Lay On Hands ability.
 - May not use the Stunning Blow ability.
-- May not wear gauntlets or bracers.
 
 ---
 
@@ -530,7 +530,7 @@ Additional Info (Kit Abilities):
 	- Bleeding effects can be cured by Heal or Greater Restoration, or by the Blood Minister's "Healing Blood".
 	- The multiclass Cleric kits will gain Holy Symbols at around 4 million XP (BG2/EET).
 
-- **Some kits will gain the bonus effects from certain Beamdog items:**
+- **Beamdog items (bonus effects):**
 	- Archer's Eyes: Warhound, Noble Scion, Nurse
 	- Belt of the Skillful Blade: Drifter
 	- Screaming Bagpipes: Powder Keg
@@ -750,7 +750,7 @@ Casting Time: 4
 Area of Effect: 20-ft. radius  
 Saving Throw: None
 
-A Pacifying Field covers a 20-ft. radius, centered on the caster. All creatures within the area at the time of casting, whether ally, enemy, or neutral, are enclosed by a protective Sanctuary for one turn. Creatures under a Sanctuary cannot be directly targeted by spells or attacks. There is no Saving Throw and the spell ignores magic resistance.
+A Pacifying Field covers a 20-ft. radius, centered on the caster. All creatures within the area at the time of casting, whether ally, enemy, or neutral, are enclosed by a protective Sanctuary for one turn. Creatures under a Sanctuary cannot be directly targeted by spells or attacks. There is no Saving Throw and the spell ignores Magic Resistance.
 
 A sanctuaried creature can move around or cast non-attack spells without breaking the spell. Any combat actions, for example, casting a Fireball, a True Sight, or a summoning spell, will remove the Sanctuary.
 
@@ -1019,6 +1019,8 @@ Weight: 1
 - Red Tearstone Ring (ring)
 - Hunter Bone (quick item)
 - Jade Feather (amulet)
+- Colorless Demon Soul (consumable)
+- Shaman Bone Blade (quick item)
 
 <details>
   <summary>Descriptions</summary>
@@ -1097,10 +1099,37 @@ Weight: 1
 
 ---
 
+**Colorless Demon Soul (consumable)**
+
+The twisted soul of a primeval demon, seeped in strength. Grants the user a large amount of experience, but...
+
+STATISTICS:
+
+Special: +200,000 XP  
+Wisdom: -1  
+Charisma: -2  
+Duration: Permanent
+
+Weight: 10
+
+---
+
+**Shaman Bone Blade (quick item)**
+
+A ritual bone blade, coated in a gruesome spinal fluid. Breaks easily, but cuts deep and causes the victim to turn on former allies.
+
+STATISTICS:
+
+Special: Target must make a save vs. Spell or be charmed for 4 rounds; if the Saving Throw is made, the target goes berserk for 4 rounds
+
+Weight: 1
+
+---
+
 </details>
 
 #### Non-spoilery item info:
-- BG1/SoD: 6 items are obtainable (3 are in SoD). Other items are still installed.
+- BG1/SoD: 7 items are obtainable (3 are in SoD). Other items are still installed.
 - BG2: All items obtainable in SoA. If starting a new game in ToB, the starting bag will have 1-2 items.
 - IWDEE/HoW: Spread throughout, in various dungeons and locations.
 
@@ -1148,7 +1177,7 @@ Charge abilities:
 - Clawmark (can be used at will)  
   Area of Effect: The party  
   Duration: 24 hours  
-  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 2 points of damage per round for 4 rounds (no save); a target can be wounded once per round and the effects are cumulative
+  +5% chance to score a critical hit and critical hits cause bleeding, which inflicts 1d3 damage per round for 4 rounds (no save); a target can be wounded once per round and the effects are cumulative
 
 Weight: 0
 

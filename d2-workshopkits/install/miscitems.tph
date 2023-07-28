@@ -116,7 +116,7 @@ ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
   BUT_ONLY
 
 COPY ~%abilities%/castspellself.EFF~   ~override/%m2%u.EFF~
-    WRITE_ASCII 0x30 ~%m2%u~ #8
+  WRITE_ASCII 0x30 ~%m2%u~ #8
 COPY ~%abilities%/changebardsong.SPL~  ~override/%m2%u.SPL~    // change Bard Song
   LPF DELETE_EFFECT INT_VAR check_headers=0 END
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END
@@ -328,9 +328,9 @@ COPY ~%files%/stonering.ITM~      ~override/%m8%.ITM~
 
 //Flynn's Ring (ring)
 COPY ~%files%/flynnsring.EFF~  ~override/%m9%a.EFF~    // block item effects
-    WRITE_ASCII 0x30 ~%m9%~ #8
+  WRITE_ASCII 0x30 ~%m9%~ #8
 COPY ~%files%/flynnsring.EFF~  ~override/%m9%b.EFF~    // block spell effects
-    WRITE_ASCII 0x30 ~%m9%s~ #8
+  WRITE_ASCII 0x30 ~%m9%s~ #8
 
 COPY ~%icons%/flynnsring.BAM~  ~override/%m9%.BAM~
 COPY ~%files%/flynnsring.ITM~  ~override/%m9%.ITM~
@@ -517,6 +517,8 @@ COPY ~%files%/hunterbone.ITM~      ~override/%me%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%me%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%me%b~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@312) END    // "Activated Hunter Bone"
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%me%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%me%b~ END
 
 //clone Blur
 COPY_EXISTING ~SPWI201.SPL~  ~override/%me%a.SPL~
@@ -658,6 +660,41 @@ END
 
 
 
+//Colorless Demon Soul (consumable)
+COPY ~%icons%/demonsoul.BAM~      ~override/%mg%.BAM~
+COPY ~%icons%/demonsouldesc.BAM~  ~override/%mg%d.BAM~
+COPY ~%files%/demonsoul.ITM~      ~override/%mg%.ITM~
+  SAY NAME1 @70136 SAY UNIDENTIFIED_DESC @70236
+  SAY NAME2 @70136 SAY DESC @70236
+  WRITE_ASCII 0x3a ~%mg%~ #8     // icon
+  WRITE_ASCII 0x76 ~%mg%~ #8     // icon (ability)
+  WRITE_ASCII 0x58 ~%mg%d~ #8    // description image
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@313) END    // "Consumed Demon Soul"
+
+
+
+//Shaman Bone Blade (quick item)
+COPY ~%icons%/shamanbone.BAM~      ~override/%mh%.BAM~
+COPY ~%icons%/shamanbonedesc.BAM~  ~override/%mh%d.BAM~
+COPY ~%files%/shamanbone.ITM~      ~override/%mh%.ITM~
+  SAY NAME1 @70137 SAY UNIDENTIFIED_DESC @70237
+  SAY NAME2 @70137 SAY DESC @70237
+  WRITE_ASCII 0x3a ~%mh%~ #8     // icon
+  WRITE_ASCII 0x76 ~%mh%~ #8     // icon (ability)
+  WRITE_ASCII 0x58 ~%mh%d~ #8    // description image
+  LPF ALTER_EFFECT INT_VAR match_opcode=324 STR_VAR resource=~%mh%~ END    // undead/golems immune
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%mh%b~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%mh%a~ END
+
+COPY ~%files%/shamanbonea.SPL~  ~override/%mh%a.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 match_duration=2 STR_VAR resource=~%mh%b~ END    // block berserk
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 match_duration=0 STR_VAR resource=~%mh%a~ END    // elf resistance
+
+COPY ~%files%/shamanboneb.SPL~  ~override/%mh%b.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@311) END    // "Berserk"
+
+
+
 //Add Evasion checks for IWDEE
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%m2%f~ END    // Etherbomb Songbook
@@ -684,6 +721,8 @@ OUTER_TEXT_SPRINT wingedsword    ~%mc%~
 OUTER_TEXT_SPRINT redtearstone   ~%md%~
 OUTER_TEXT_SPRINT hunterbone     ~%me%~
 OUTER_TEXT_SPRINT jadefeather    ~%mf%~
+OUTER_TEXT_SPRINT demonsoul      ~%mg%~
+OUTER_TEXT_SPRINT shamanbone     ~%mh%~
 
 OUTER_TEXT_SPRINT bleeding1      ~%m5%a~
 OUTER_TEXT_SPRINT bleeding2      ~%m5%b~

@@ -1,9 +1,11 @@
 //Medic (d2wkd)
 
 
+/*
 //no gauntlets
 COPY ~%passives%/noitemtype.SPL~  ~override/%e1%.SPL~
   LPF ALTER_EFFECT INT_VAR opcode=181 special=RESOLVE_STR_REF (@300) END    // "Cannot use item."
+*/
 
 //add Slow Poison
 COPY_EXISTING ~SPPR212.SPL~       ~override/%s4%.SPL~
@@ -118,7 +120,7 @@ COPY_EXISTING ~CLABMO01.2DA~  ~override/%kitid%.2DA~
   REPLACE_TEXTUALLY ~GA_SPCL811~ ~****~    // stunning blow
   REPLACE_TEXTUALLY ~GA_QDMNKA1~ ~****~    // stunning blows (monastic orders pre-0.42)
   REPLACE_TEXTUALLY ~GA_QDMNKA2~ ~****~    // wholeness of body (monastic orders pre-0.42)
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+//  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END  // no gauntlets
   LPF d2_kit_ability_adder INT_VAR multi=1 increment=5 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR multi=1 increment=5 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR level=9 multi=1 increment=3 limit=15 STR_VAR resource=~%s3%~ END
@@ -143,6 +145,17 @@ LAF ADD_KIT_EX
     clascolr = ~115 24 25 24 72~    // enchanter colors
   RET 
     kit_id
+END
+
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY weapontype BEGIN    // weapon => usable
+  16 => 1    // daggers
+  17 => 1    // maces, clubs
+  18 => 1    // slings
+  19 => 1    // small swords (short sword, wakizashi)
+  20 => 0    // large swords (long sword, bastard sword, two handed sword, ninjato)
+  24 => 1    // darts
+  26 => 1    // quarterstaff (used for club by FnP)
 END
 
 
