@@ -63,16 +63,16 @@ ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ position=~AFTER bdring09~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~bdbeleg4.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%goldscarab%~ position=~AFTER bdamul24~ flags=~identified~ END
-  BUT_ONLY
-
   COPY_EXISTING ~bd5110.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=4 STR_VAR item_to_add=~%clawmark%~ END
   BUT_ONLY
 
   COPY_EXISTING ~bd0130.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=15 STR_VAR item_to_add=~%fadinglake%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~bdbeleg4.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%goldscarab%~ position=~AFTER bdamul24~ flags=~identified~ END
   BUT_ONLY
 
   COPY_EXISTING ~bd7220.ARE~ ~override~
@@ -317,10 +317,6 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=1 STR_VAR item_to_add=~%etherbomb%~ END
   BUT_ONLY
 
-  COPY_EXISTING ~AR4005.ARE~ ~override~
-    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=15 STR_VAR item_to_add=~%etherbooster%~ END
-  BUT_ONLY
-
   COPY_EXISTING ~AR3602.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%prisonchain%~ END
   BUT_ONLY
@@ -355,12 +351,20 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=3 STR_VAR item_to_add=~%jadefeather%~ END
   BUT_ONLY
 
+  COPY_EXISTING ~TANARRI.CRE~ ~override~
+    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~none~ ~inv~
+  BUT_ONLY
+
   COPY_EXISTING ~AR2002.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=3 STR_VAR item_to_add=~%shamanbone%~ END
   BUT_ONLY
 
   COPY_EXISTING ~AR4001.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=3 charges1=8 STR_VAR item_to_add=~%shamanbone%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~BANDOTH.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=20 STR_VAR item_name=~%shamanbone%~ position=~BEFORE potn08~ flags=~identified~ END
   BUT_ONLY
 
 
@@ -378,7 +382,7 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
   BUT_ONLY
 
   COPY_EXISTING ~AR7004.ARE~ ~override~
-    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=14 STR_VAR item_to_add=~%corruption%~ END
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=12 STR_VAR item_to_add=~%corruption%~ END
   BUT_ONLY
 
   COPY_EXISTING ~AR8009.ARE~ ~override~
@@ -407,6 +411,10 @@ EXTEND_BOTTOM ~AR2000.BCS~  ~%workspace%/moonrune.BAF~
 
 
 //HoW
+  COPY_EXISTING ~EDION.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%etherbooster%~ position=~AFTER ulring~ flags=~identified~ END
+  BUT_ONLY
+
   COPY_EXISTING ~hobart.STO~  ~override~
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ position=~AFTER sbowebu~ flags=~identified~ END
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=1 STR_VAR item_name=~%demonsoul%~ position=~BEFORE bagh01~ flags=~identified~ END
@@ -435,6 +443,11 @@ EXTEND_BOTTOM ~AR2000.BCS~  ~%workspace%/moonrune.BAF~
   COPY_EXISTING ~AR9200.ARE~ ~override~
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 charges1=9 STR_VAR item_to_add=~%shamanbone%~ END
   BUT_ONLY
+
+  COPY_EXISTING ~KIERAN2.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=10 STR_VAR item_name=~%shamanbone%~ position=~AFTER thrym~ flags=~identified~ END
+  BUT_ONLY
+
 END
 
 

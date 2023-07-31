@@ -1120,7 +1120,7 @@ A ritual bone blade, coated in a gruesome spinal fluid. Breaks easily, but cuts 
 
 STATISTICS:
 
-Special: Target must make a save vs. Spell or be charmed for 4 rounds; if the Saving Throw is made, the target goes berserk for 4 rounds
+Special: Target must make a save vs. Polymorph or be charmed for 4 rounds; if the Saving Throw is made, the target goes berserk for 4 rounds
 
 Weight: 1
 

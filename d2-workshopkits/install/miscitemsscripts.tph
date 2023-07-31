@@ -109,7 +109,7 @@ END
 
 
 
-//IWDEE: Scripts or dialogues
+//IWDEE scripts
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
 
 
@@ -150,49 +150,6 @@ COPY - ~.../temp/gerthstore~  ~%workspace%/gerthstore.BAF~
   EVALUATE_BUFFER
 EXTEND_BOTTOM ~ar2100.BCS~    ~%workspace%/gerthstore.BAF~
 EXTEND_BOTTOM ~ar2113.BCS~    ~%workspace%/gerthstore.BAF~
-
-
-
-//Add Cosmic Watcher Badge (if Flozem leaves)
-<<<<<<<< .../temp/flozem_badge
-ADD_TRANS_ACTION ~DFLOZEM~ BEGIN 4 END    // state list
-                           BEGIN 0 1 END  // transition list
-  ~CreateItem("%badge_cosmic%",0,0,0)~
->>>>>>>>
-
-COPY - ~.../temp/flozem_badge~  ~%workspace%/flozem_badge.d~
-  EVALUATE_BUFFER
-COMPILE ~%workspace%/flozem_badge.d~
-
-
-
-//Add Milkweed rune (by dialogue)
-<<<<<<<< .../temp/oldjed
-EXTEND_BOTTOM ~DOLDJED~ 14 15 16
-
-IF ~ GlobalGT("Siren_Quest","GLOBAL",2)  // did Siren quest
-     GlobalGT("Arbor_Total","GLOBAL",3)  // did Arboretum quest
-     Global("d2JedMilkweed","GLOBAL",0)
-   ~ DO ~ SetGlobal("d2JedMilkweed","GLOBAL",1)
-          GiveItemCreate("%milkweed%",LastTalkedToBy,0,0,0) 
-        ~ GOTO JedMilkweed
-
-END
-
-
-APPEND ~DOLDJED~
-
-IF ~~ BEGIN JedMilkweed
-  SAY @50201  // Jed says stuff
-  COPY_TRANS ~DOLDJED~ 14    // Jed goes to sleep
-END
-
-END
->>>>>>>>
-
-COPY - ~.../temp/oldjed~  ~%workspace%/oldjed.d~
-  EVALUATE_BUFFER
-COMPILE ~%workspace%/oldjed.d~
 
 
 

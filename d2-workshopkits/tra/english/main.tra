@@ -74,15 +74,26 @@ Text in this file appears in the game.
 
 
 
-//Dialogues
+//Dialogues (IWDEE)
 
-//Presio duel (IWDEE)
+//Presio duel
 @50101 = ~Your words are meaningless to me, witch. You will be destroyed.~
 @50102 = ~I have nothing more to say to you, necromancer.~
 @50103 = ~Come then, witch, and face me in single combat. Or must you hide behind your minions?~
 
-//Old Jed (IWDEE)
+//Old Jed
 @50201 = ~*snore*... Sshtill here, eh, matey? I shuppose I can give you thissh rock... *snore* *snore* alienssh... milkweed... *snore*~
+
+//Mirek (PC speaks)
+@50301 = ~Mirek, you must know the locals here pretty well. Anyone with magical trinkets they would be willing to part with?~
+
+	//Mirek (response)
+	@50311 = ~Hmm. Well, Orrick might have what you need. He lives over in the tower west of the great tree.~
+	@50312 = ~Also, you might want to go see Gerth—his shop's near Kuldahar Run, north of the bridge. I hear he procures the odd magical item from time to time.~
+
+//Mirek (journal)
+@50391 = ~Interesting! Mirek tells us that Gerth sometimes procures the odd magical item. We should remember to check his shop from time to time.~
+
 
 
 
@@ -1567,7 +1578,7 @@ Weight: 10~
 
 STATISTICS:
 
-Special: Target must make a save vs. Spell or be charmed for 4 rounds; if the Saving Throw is made, the target goes berserk for 4 rounds
+Special: Target must make a save vs. Polymorph or be charmed for 4 rounds; if the Saving Throw is made, the target goes berserk for 4 rounds
 
 Weight: 1~
 

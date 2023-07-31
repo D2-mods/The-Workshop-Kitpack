@@ -59,6 +59,10 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~HolySymbolsBG2.*=.*[^0-9]0[^0-9]*$~          noholysymbolsBG2
   COUNT_REGEXP_INSTANCES  ~HolySymbolsIWD.*=.*[^0-9]0[^0-9]*$~          noholysymbolsIWD
 
+//Hunter Badges
+  COUNT_REGEXP_INSTANCES  ~HunterBadgesToB.*=.*[^0-9]0[^0-9]*$~         nohunterbadgesToB
+  COUNT_REGEXP_INSTANCES  ~HunterBadgesHoW.*=.*[^0-9]0[^0-9]*$~         nohunterbadgesHoW
+
 
 
 //Set spell cap (Starjammer spells)

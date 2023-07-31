@@ -1,0 +1,94 @@
+/*
+Dialogue + related scripts
+*/
+
+
+//SoD
+//BG2EE
+
+
+//IWDEE
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+
+
+//Mirek talk (hint for Gerth items)
+<<<<<<<< .../temp/mirekgerth
+EXTEND_BOTTOM ~DMIREK~ 8 10 12
+
+IF ~~ REPLY @50301 GOTO MirekGerthStore
+
+END
+
+
+APPEND ~DMIREK~
+
+IF ~~ BEGIN MirekGerthStore
+  SAY   @50311  // Mirek says stuff
+      = @50312
+  IF ~~ DO ~ SetGlobal("d2MirekGerth","GLOBAL",1)
+             MoveToSavedLocation("#savedloc","LOCALS")
+           ~ EXIT
+END
+
+END
+>>>>>>>>
+
+COPY - ~.../temp/mirekgerth~  ~%workspace%/mirekgerth.d~
+  EVALUATE_BUFFER
+COMPILE ~%workspace%/mirekgerth.d~
+
+
+//Mirek talk (journal entry)
+<<<<<<<< .../temp/mirekjournal
+IF
+	!Global("d2MirekGerth","GLOBAL",0)
+	Global("d2MirekGerthJournal","GLOBAL",0)
+THEN
+	RESPONSE #100
+        SetGlobal("d2MirekGerthJournal","GLOBAL",1)
+		AddJournalEntry(@50391,INFO)
+		Continue()
+END
+>>>>>>>>
+COPY - ~.../temp/mirekjournal~  ~%workspace%/mirekjournal.BAF~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~AR2100.BCS~  ~%workspace%/mirekjournal.BAF~
+
+ADD_JOURNAL @50391
+
+
+
+//Add Milkweed rune
+<<<<<<<< .../temp/oldjed
+EXTEND_BOTTOM ~DOLDJED~ 14 15 16
+
+IF ~ GlobalGT("Siren_Quest","GLOBAL",2)  // did Siren quest
+     GlobalGT("Arbor_Total","GLOBAL",3)  // did Arboretum quest
+     Global("d2JedMilkweed","GLOBAL",0)
+   ~ DO ~ SetGlobal("d2JedMilkweed","GLOBAL",1)
+          GiveItemCreate("%milkweed%",LastTalkedToBy,0,0,0) 
+        ~ GOTO JedMilkweed
+
+END
+
+
+APPEND ~DOLDJED~
+
+IF ~~ BEGIN JedMilkweed
+  SAY @50201  // Jed says stuff
+  COPY_TRANS ~DOLDJED~ 14    // Jed goes to sleep
+END
+
+END
+>>>>>>>>
+
+COPY - ~.../temp/oldjed~  ~%workspace%/oldjed.d~
+  EVALUATE_BUFFER
+COMPILE ~%workspace%/oldjed.d~
+
+
+END
+
+
+/*
+*/

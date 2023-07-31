@@ -135,6 +135,22 @@ This is how I'd do the install:
 
 Version info:
 
+v4.2
+- IWDEE notes:
+	- If the Misc items component is installed, an NPC in Kuldahar will now give a hint for where some of the items from this mod become available.
+	- Moved a couple items that were in the main game to HoW (including 1 Hunter Badge).
+	- Added a Colorless Demon Soul to the main game. So now 2 are obtainable (the other in TotLM).
+	- More Shaman Bone Blade locations.
+	- Can no longer purchase additional Hunter Badges in HoW (see note below).
+- Other:
+	- Shaman Bone Blade: Saving throw changed to a Save vs. Polymorph.
+	- Adjusted a few item icons.
+	- BG1/BG2: Changed location for 1-2 Hunter Badges in each game.
+- Note on Hunter Badge availability in Throne of Bhaal or Heart of Winter:
+	- This is now a config.ini option, instead of always installed.
+	- Enables adding additional Hunter Badges to merchants in ToB or HoW.
+	- By default, this is ON for ToB and OFF for HoW.
+
 v4.1
 - Added 2 consumable/limited use items:
 	- Colorless Demon Soul

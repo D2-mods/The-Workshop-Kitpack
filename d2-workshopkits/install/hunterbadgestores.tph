@@ -12,7 +12,7 @@ ACTION_IF (GAME_INCLUDES ~bg1~) BEGIN
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~STOBLACK.STO~  ~override~
+  COPY_EXISTING ~TEM0131.STO~  ~override~
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
   BUT_ONLY
 END
@@ -52,29 +52,31 @@ ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~PPSTOR01.STO~  ~override~
+  COPY_EXISTING ~udduer01.STO~  ~override~
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_saw%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~SUELF10.STO~  ~override~
+  COPY_EXISTING ~PPSTOR01.STO~  ~override~
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_old%~ flags=~identified~ END
   BUT_ONLY
 
 //ToB stores
-  COPY_EXISTING ~25SPELL.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_cosmic%~ flags=~identified~ END
-  BUT_ONLY
+  ACTION_IF (nohunterbadgesToB = 0) BEGIN
+    COPY_EXISTING ~25SPELL.STO~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_cosmic%~ flags=~identified~ END
+    BUT_ONLY
 
-  COPY_EXISTING ~HGKAR01.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
-  BUT_ONLY
+    COPY_EXISTING ~HGKAR01.STO~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_saw%~ flags=~identified~ END
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
+    BUT_ONLY
 
-  COPY_EXISTING ~AMBAR01.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_old%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_saw%~ flags=~identified~ END
-  BUT_ONLY
+    COPY_EXISTING ~AMBAR01.STO~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_old%~ flags=~identified~ END
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
+    BUT_ONLY
+  END
 END
 
 
@@ -93,26 +95,50 @@ THEN
 		AddStoreItem("KUGERTH","%badge_spark%",1,1)
 		Continue()
 END
+>>>>>>>>
 
+COPY - ~.../temp/gerthbadge~  ~%workspace%/gerthbadge.BAF~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~ar2100.BCS~    ~%workspace%/gerthbadge.BAF~
+EXTEND_BOTTOM ~ar2113.BCS~    ~%workspace%/gerthbadge.BAF~
+
+
+
+//Add badge to Orrick store (did not convince Flozem to leave)
+<<<<<<<< .../temp/orrickbadge
 IF
-	!Global("d2gerthcosmicwatcher","GLOBAL",1)
+	!Global("d2orrickcosmicwatcher","GLOBAL",1)
 	!Global("SPRITE_IS_DEADFLOZEM","GLOBAL",0)    // if killed Flozem
-	!Global("Flozem_Gone","GLOBAL",1)             // did not already drop item
+	!Global("Flozem_Gone","GLOBAL",1)             // did not convince Flozem to leave
 THEN
 	RESPONSE #100
-        SetGlobal("d2gerthcosmicwatcher","GLOBAL",1)
-		AddStoreItem("KUGERTH","%badge_cosmic%",1,1)
+        SetGlobal("d2orrickcosmicwatcher","GLOBAL",1)
+		AddStoreItem("KUORK0","%badge_cosmic%",1,1)
 		Continue()
 END
 >>>>>>>>
 
-  COPY - ~.../temp/gerthbadge~  ~%workspace%/gerthbadge.BAF~
-    EVALUATE_BUFFER
-  EXTEND_BOTTOM ~ar2100.BCS~    ~%workspace%/gerthbadge.BAF~
-  EXTEND_BOTTOM ~ar2113.BCS~    ~%workspace%/gerthbadge.BAF~
+COPY - ~.../temp/orrickbadge~  ~%workspace%/orrickbadge.BAF~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~ar2100.BCS~     ~%workspace%/orrickbadge.BAF~
+EXTEND_BOTTOM ~AR2102.BCS~     ~%workspace%/orrickbadge.BAF~
 
 
-//add to store
+
+//Add Cosmic Watcher Badge (convinced Flozem to leave)
+<<<<<<<< .../temp/flozem_badge
+ADD_TRANS_ACTION ~DFLOZEM~ BEGIN 4 END    // state list
+                           BEGIN 0 1 END  // transition list
+  ~CreateItem("%badge_cosmic%",0,0,0)~
+>>>>>>>>
+
+COPY - ~.../temp/flozem_badge~  ~%workspace%/flozem_badge.d~
+  EVALUATE_BUFFER
+COMPILE ~%workspace%/flozem_badge.d~
+
+
+
+//add to store/container
   COPY_EXISTING ~SHLEHLAN.STO~  ~override~
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
   BUT_ONLY
@@ -125,25 +151,28 @@ END
     LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_saw%~ flags=~identified~ END
   BUT_ONLY
 
-  COPY_EXISTING ~BANDOTH.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%badge_old%~ flags=~identified~ END
+  COPY_EXISTING ~AR9101.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=2 STR_VAR item_to_add=~%badge_old%~ END
   BUT_ONLY
+
 
 //HoW stores
-  COPY_EXISTING ~KIERAN2.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
-  BUT_ONLY
+  ACTION_IF (nohunterbadgesHoW = 0) BEGIN
+    COPY_EXISTING ~KIERAN2.STO~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_radiant%~ flags=~identified~ END
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_spark%~ flags=~identified~ END
+    BUT_ONLY
 
-  COPY_EXISTING ~EDION.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_cosmic%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
-  BUT_ONLY
+    COPY_EXISTING ~EDION.STO~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_cosmic%~ flags=~identified~ END
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_old%~ flags=~identified~ END
+    BUT_ONLY
 
-  COPY_EXISTING ~EMMERIC.STO~  ~override~
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_saw%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_old%~ flags=~identified~ END
-  BUT_ONLY
+    COPY_EXISTING ~EMMERIC.STO~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_saw%~ flags=~identified~ END
+      LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 STR_VAR item_name=~%badge_pkeg%~ flags=~identified~ END
+    BUT_ONLY
+  END
 END
 
 
