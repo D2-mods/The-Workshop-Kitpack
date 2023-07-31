@@ -673,9 +673,9 @@ Weight: 1
 </details>
 
 #### Purchasing the badges:
-- BG1: 2 badges can be obtained once you reach the city of Baldur's Gate.
-- SoD: The 2 BG1 badges, plus 1 additional badge, are obtainable.
-- All badges are in BG2 and IWD, including additional badges in the expansions.
+- BG1/SoD: 3 badge types are obtainable (2 in BG1, all 3 in SoD).
+- BG2: All obtainable in SoA. Can purchase additional badges in ToB.
+- IWDEE/HoW: Spread throughout + Config option for additional badges in HoW.
 
 
 Starjammer spells:
