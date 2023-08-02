@@ -176,8 +176,11 @@ END
 
 //Add Electrocannon
 COPY - ~%abilities%/electrocannon5.PRO~  ~%workspace%/%w6%.PRO~
+  WRITE_ASCII 0x104 ~%w6%~ #8
 ADD_PROJECTILE ~%workspace%/%w6%.PRO~
-COPY ~%abilities%/electrocannon.SPL~    ~override/%w6%.SPL~
+COPY ~%abilities%/electrocannon.BAM~     ~override/%w6%.BAM~
+
+COPY ~%abilities%/electrocannon.SPL~     ~override/%w6%.SPL~
   SAY NAME1 @40113
   SAY UNIDENTIFIED_DESC @40213
   WRITE_SHORT 0x98 ~%w6%~    // projectile

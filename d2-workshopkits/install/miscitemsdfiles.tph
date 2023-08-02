@@ -3,6 +3,7 @@ Dialogue + related scripts
 */
 
 
+//BGEE
 //SoD
 //BG2EE
 
@@ -45,11 +46,12 @@ IF
 	Global("d2MirekGerthJournal","GLOBAL",0)
 THEN
 	RESPONSE #100
-        SetGlobal("d2MirekGerthJournal","GLOBAL",1)
+		SetGlobal("d2MirekGerthJournal","GLOBAL",1)
 		AddJournalEntry(@50391,INFO)
 		Continue()
 END
 >>>>>>>>
+
 COPY - ~.../temp/mirekjournal~  ~%workspace%/mirekjournal.BAF~
   EVALUATE_BUFFER
 EXTEND_BOTTOM ~AR2100.BCS~  ~%workspace%/mirekjournal.BAF~
@@ -88,6 +90,48 @@ COMPILE ~%workspace%/oldjed.d~
 
 
 END
+
+
+
+//Moon Rune chicken (all games)
+<<<<<<<< .../temp/moonrunechicken
+BEGIN ~d2wkmrc~
+
+IF ~ NumTimesTalkedTo(0) 
+   ~ BEGIN chicken1
+  SAY @60101
+  IF ~~ EXIT
+END
+
+IF ~ NumTimesTalkedToGT(0)
+     Global("d2moonrunechicken","GLOBAL",0)
+   ~ BEGIN chicken2
+  SAY @60102
+  IF ~RandomNumGT(10,5)~ REPLY @60111 GOTO chickenrun
+  IF ~RandomNumLT(10,6)~ REPLY @60111 GOTO chickendrop
+  IF ~~ REPLY @60112 EXIT
+END
+
+IF ~~ BEGIN chickenrun
+  SAY @60121 
+  IF ~~ DO ~ ApplySpellRES("runrun",Myself)
+             RunAwayFrom(LastTalkedToBy,60)
+           ~ EXIT
+END
+
+IF ~~ BEGIN chickendrop
+  SAY @60131 
+  IF ~~ DO ~ SetGlobal("d2moonrunechicken","GLOBAL",50)
+             DropItem("%moon_rune%",[-1.-1])
+             ApplySpellRES("runrun",Myself)
+             RunAwayFrom(LastTalkedToBy,60)
+           ~ EXIT
+END
+>>>>>>>>
+
+COPY - ~.../temp/moonrunechicken~  ~%workspace%/moonrunechicken.d~
+  EVALUATE_BUFFER
+COMPILE ~%workspace%/moonrunechicken.d~
 
 
 /*

@@ -3,12 +3,13 @@ Text in this file appears in the weidu installer.
 */
 
 //Setup
-@1  = ~The Workshop Kitpack / Les Kits de l'Atelier~
+@9999  = ~The Workshop Kitpack / Les Kits de l'Atelier~
 @10 = ~Pack d'objets divers~
 @50 = ~Installer si vous utilisez le mod 5E_spellcasting de subtledoctor~
 
-@2 = ~Base kits + multiclass variants~
-@3 = ~Base kits only~
+@1 = ~Base kits + multiclass variants~
+@2 = ~Base kits only~
+@3 = ~Misc item pack (no kits)~
 @4 = ~~
 @5 = ~Fichier non trouvé. Aucune modification n'a été effectuée.~
 

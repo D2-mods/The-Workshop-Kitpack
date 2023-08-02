@@ -1,6 +1,6 @@
 BACKUP ~weidu_external/backup/d2-workshopkits~
 AUTHOR ~Dan_P~
-VERSION ~4.2~
+VERSION ~4.3~
 AUTO_EVAL_STRINGS
 
 ALWAYS
@@ -39,17 +39,22 @@ LANGUAGE ~Français~
 The Workshop Kitpack
 */
 
-BEGIN @2    // Base kits + multiclass variants
+BEGIN @1    // Base kits + multiclass variants
 DESIGNATED 9999
 REQUIRE_PREDICATE (GAME_IS ~bgee bg2ee iwdee eet~) ~Game not supported~
-SUBCOMPONENT @1
+SUBCOMPONENT @9999
 LABEL ~D2_WORKSHOP_KITS~
 INCLUDE ~%install%/install.tph~
 
-BEGIN @3    // Base kits only
-SUBCOMPONENT @1
+BEGIN @2    // Base kits only
+SUBCOMPONENT @9999
 LABEL ~D2_WORKSHOP_NOVARIANTS~
 INCLUDE ~%install%/novariants.tph~
+
+BEGIN @3    // Misc items only (no kits or Hunter Badges)
+SUBCOMPONENT @9999
+LABEL ~D2_WORKSHOP_NOKITS~
+INCLUDE ~%install%/install10.tph~
 
 
 /*

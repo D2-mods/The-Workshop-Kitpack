@@ -74,6 +74,20 @@ Text in this file appears in the game.
 
 
 
+//Dialogues (BG2 or all games)
+
+//Chicken talk
+@60101 = ~Something seems off about this chicken...~
+@60102 = ~You notice a strange stone hidden under the bird's feathers.~
+
+	@60111 = ~Reach in to grab the stone.~
+	@60112 = ~Leave it alone.~
+
+@60121 = ~It runs away!~
+@60131 = ~It dropped something!~
+ 
+
+
 //Dialogues (IWDEE)
 
 //Presio duel

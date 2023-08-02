@@ -64,11 +64,20 @@ Components:
 1. The Workshop Kitpack
 	- Option 1: Base kits + multiclass variants
 	- Option 2: Base kits only
-2. Misc item pack (Note: Hunter Badges are part of main component)
+	- Option 3: Misc items only (no kits or Hunter Badges)
+2. Misc item pack
 3. Component for subtledoctor's 5e casting mod
 
-config.ini: Set a kit to = 0 to prevent install
-Option 2 will skip all multiclass variants, regardless of config settings.
+--
+
+Additional Info:
+- If Option 1/2 is installed, then "Misc items" will be the next (separate) component.
+- If Option 3 is installed, it will skip the rest of the components.
+- Hunter Badges are installed together with the Beast Hunter kit.
+
+Config:
+- config.ini: Set a kit to = 0 to prevent install
+- Option 2 will skip all multiclass variants, regardless of config settings.
 
 Kit info: See GitHub page, in-game descriptions, forum posts, etc.
 
@@ -134,6 +143,18 @@ This is how I'd do the install:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v4.3
+- Main component now has 3 subcomponents:
+	- Option 1: Base kits + multiclass variants
+	- Option 2: Base kits only
+	- Option 3: Misc items only (no kits or Hunter Badges)
+- Additional info:
+	- If you install kits here, the item pack is still a separate component afterwards.
+	- If you install the item pack here, kits cannot be installed later.
+- Other:
+	- Made it a bit easier to find one of the items (for all games). It's an intentionally hidden item, but you can get it through dialogue now, instead of killing or stealing.
+	- Other minor changes.
 
 v4.2
 - IWDEE notes:

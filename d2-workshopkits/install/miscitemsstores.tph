@@ -9,8 +9,8 @@ ACTION_IF (GAME_IS ~bgee eet~) BEGIN
     LPF ADD_AREA_ITEM INT_VAR container_to_add_to=4 STR_VAR item_to_add=~%prisonchain%~ END
   BUT_ONLY
 
-  COPY_EXISTING ~%bg1%2300.ARE~ ~override~
-    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=1 STR_VAR item_to_add=~%calamity%~ END
+  COPY_EXISTING ~%bg1%2303.ARE~ ~override~
+    LPF ADD_AREA_ITEM INT_VAR container_to_add_to=8 STR_VAR item_to_add=~%calamity%~ END
   BUT_ONLY
 
   COPY_EXISTING ~%bg1%2007.ARE~ ~override~
@@ -30,9 +30,10 @@ ACTION_IF (GAME_IS ~bgee eet~) BEGIN
   BUT_ONLY
 
 
-  //add creature with item
+  //add Moon Rune
   COPY_EXISTING ~chicke.cre~  ~override/d2wkmrc.CRE~
     WRITE_ASCII 0x280 ~d2wkmrc~ #32                     // set script name
+    WRITE_ASCII 0x2cc ~d2wkmrc~ #8                      // set dialogue
     ADD_CRE_ITEM ~%moon_rune%~ #0 #0 #0 ~none~ ~inv~    // add rune
     READ_STRREF 0x8 chicken
 
@@ -222,9 +223,10 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
   BUT_ONLY
 
 
-  //add creature with item
+  //add Moon Rune
   COPY_EXISTING ~chicke.cre~  ~override/d2wkmrc.CRE~
     WRITE_ASCII 0x280 ~d2wkmrc~ #32                     // set script name
+    WRITE_ASCII 0x2cc ~d2wkmrc~ #8                      // set dialogue
     ADD_CRE_ITEM ~%moon_rune%~ #0 #0 #0 ~none~ ~inv~    // add rune
     READ_STRREF 0x8 chicken
 
@@ -400,8 +402,9 @@ IF
 	!Global("d2moon_rune","GLOBAL",1)
 THEN
 	RESPONSE #100
-        SetGlobal("d2moon_rune","GLOBAL",1)
+		SetGlobal("d2moon_rune","GLOBAL",1)
 		GiveItemCreate("%moon_rune%","Chicken2",0,0,0)
+		ActionOverride("Chicken2",SetDialog("d2wkmrc"))
 		Continue()
 END
 >>>>>>>>
