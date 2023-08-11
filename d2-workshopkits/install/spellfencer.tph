@@ -1,9 +1,6 @@
 //Spell Fencer (d2wkh)
 
 
-INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
-
-
 //passive effects
 COPY ~%passives%/acbonus1.SPL~         ~override/%e1%.SPL~
 COPY ~%passives%/savebonus4death.SPL~  ~override/%e2%.SPL~
@@ -17,6 +14,7 @@ COPY ~%passives%/opcode206.SPL~        ~override/%e5%.SPL~
 //Add Flash Cast
 COPY ~%passives%/hiteffect1melee.SPL~  ~override/%e3%.SPL~     // melee effect
   LPF ALTER_EFFECT STR_VAR resource=~%e3%a~ END
+  LPF CLONE_EFFECT INT_VAR opcode=139 parameter1=RESOLVE_STR_REF (@318) END    // "Gained Passive Ability: Flash Cast"
 
 COPY ~%icons%/flashcast.BAM~           ~override/%e3%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@621) STR_VAR bam=~%e3%i~ RET icon END

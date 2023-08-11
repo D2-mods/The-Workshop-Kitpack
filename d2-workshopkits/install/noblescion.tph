@@ -71,6 +71,7 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
 
 //Clone base paladin clab
 COPY_EXISTING ~CLABPA01.2DA~ ~override/%kitid%.2DA~
+//  LPF 2da_find_row_delete STR_VAR row_name = ~PALADINS~ END    // remove FnP Archetypes
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=8 passive=1 multi=1 increment=8 limit=16 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=3 multi=1 increment=3 STR_VAR resource=~%s1%~ END

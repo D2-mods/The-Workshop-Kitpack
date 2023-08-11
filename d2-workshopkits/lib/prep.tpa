@@ -1,11 +1,6 @@
 //misc stuff
 //
 
-//game variables
-ACTION_IF (GAME_IS ~bgee~)       BEGIN OUTER_TEXT_SPRINT ee_game ~bgee~ END
-ACTION_IF (GAME_IS ~bg2ee eet~)  BEGIN OUTER_TEXT_SPRINT ee_game ~bg2ee~ END
-ACTION_IF (GAME_IS ~iwdee~)      BEGIN OUTER_TEXT_SPRINT ee_game ~iwdee~ END
-
 
 //fix #BONECIR.SPL (wrong signature)
 ACTION_IF (FILE_EXISTS_IN_GAME ~#BONECIR.SPL~) BEGIN

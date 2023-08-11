@@ -4,9 +4,6 @@
 ACTION_IF (nomoonlightknightcr = 0) BEGIN
 
 
-INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
-
-
 //Prevent from getting the vanilla Holy Symbols
 COPY ~%passives%/opcode206.SPL~  ~override/%e9%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~cdhlysym~ END

@@ -1,5 +1,6 @@
 //Moonlight Knight (d2wk4)
 
+
 //Add passive effects
 COPY ~%passives%/disablebutton.SPL~  ~override/%e1%.SPL~
 COPY ~%passives%/savebonus1all.SPL~  ~override/%e2%.SPL~
@@ -9,10 +10,11 @@ COPY ~%passives%/savebonus1all.SPL~  ~override/%e2%.SPL~
 //Add Torrent
 COPY ~%passives%/hiteffect1melee.SPL~  ~override/%e3%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%e3%a~ END
-COPY ~%abilities%/castspellself.EFF~   ~override/%e3%a.EFF~
-  WRITE_ASCII 0x30 ~%e3%b~ #8
+  LPF CLONE_EFFECT INT_VAR opcode=139 parameter1=RESOLVE_STR_REF (@316) END    // "Gained Passive Ability: Torrent"
 
-COPY_EXISTING ~SPWI305.SPL~    ~override/%e3%b.SPL~      // clone Haste
+COPY ~%abilities%/castspellself.EFF~  ~override/%e3%a.EFF~
+  WRITE_ASCII 0x30 ~%e3%b~ #8
+COPY_EXISTING ~SPWI305.SPL~           ~override/%e3%b.SPL~      // clone Haste
   WRITE_LONG 0x8 ~-1~       // spell name
   WRITE_ASCII 0x10 ~~ #8    // casting sound
   WRITE_SHORT 0x22 0        // casting animation

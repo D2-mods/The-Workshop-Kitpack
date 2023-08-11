@@ -4,9 +4,6 @@
 ACTION_IF (nocrowhunterft = 0) BEGIN
 
 
-INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
-
-
 //Cannot gain Set Snares
 COPY ~%passives%/opcode206.SPL~     ~override/%e6%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END

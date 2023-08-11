@@ -4,9 +4,6 @@
 ACTION_IF (nocrowhunterfmt = 0) BEGIN
 
 
-INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
-
-
 //Remove specialist bonus slots
 COPY ~%passives%/fewerspells1.SPL~  ~override/%e4%.SPL~
 COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~    // only relevant for 5e casting mod

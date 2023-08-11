@@ -428,7 +428,7 @@ STATISTICS:
 
 Special: Target must make a save vs. Polymorph or be charmed for 4 rounds; if the Saving Throw is made, the target goes berserk for 4 rounds
 
-Weight: 1
+Weight: 0
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

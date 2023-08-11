@@ -13,6 +13,11 @@ COPY ~%passives%/nocasting.SPL~        ~override/%e8%.SPL~
 COPY ~%passives%/fewerspells1.SPL~     ~override/%e9%.SPL~
   LPF ALTER_EFFECT INT_VAR opcode=62 parameter2=127 END
 
+//block 5-casting stuff (aesthetic fix)
+COPY ~%passives%/opcode206.SPL~  ~override/%m1%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~D5ZZ000~ END
+  LPF CLONE_EFFECT INT_VAR opcode=172 timing=1 STR_VAR resource=~d5zprp~ END
+
 
 //Add SPL for immunities to ground spells
 COPY ~%passives%/drifter.SPL~  ~override/%e6%.SPL~
@@ -21,10 +26,10 @@ COPY ~%passives%/drifter.SPL~  ~override/%e6%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_web_arrays END
 
   PATCH_IF (entangle_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=154 opcode=328 parameter2=entangle_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=154 opcode=328 parameter2=entangle_immunity special=1 END
   END
   PATCH_IF (web_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=157 opcode=328 parameter2=web_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=157 opcode=328 parameter2=web_immunity special=1 END
   END
 
   PATCH_IF (GAME_IS ~bgee~) BEGIN
@@ -96,6 +101,10 @@ END
 
 
 //check spells names in override (catch clones of spells)
+ACTION_IF (GAME_IS ~bgee~)       BEGIN OUTER_TEXT_SPRINT ee_game ~bgee~ END
+ACTION_IF (GAME_IS ~bg2ee eet~)  BEGIN OUTER_TEXT_SPRINT ee_game ~bg2ee~ END
+ACTION_IF (GAME_IS ~iwdee~)      BEGIN OUTER_TEXT_SPRINT ee_game ~iwdee~ END
+
 ACTION_BASH_FOR ~override~ ~.*\.SPL~ BEGIN
   ACTION_IF !(FILE_IS_IN_COMPRESSED_BIFF ~%BASH_FOR_FILE%~) BEGIN
     COPY - ~override/%BASH_FOR_FILE%~  ~~
@@ -129,6 +138,8 @@ END
 COPY_EXISTING ~CLABRN01.2DA~  ~override/%kitid%.2DA~
   LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
   LPF 2da_find_row_delete STR_VAR row_name = ~RAN_SPLS~ END
+  LPF 2da_find_row_delete STR_VAR row_name = ~SPHERES~ END
+  LPF 2da_find_row_delete STR_VAR row_name = ~SPELL_INIT~ END
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=3 passive=1 multi=1 increment=5 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
@@ -139,7 +150,13 @@ COPY_EXISTING ~CLABRN01.2DA~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=12 passive=1 STR_VAR resource=~%e7%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e8%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e9%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%m1%~ END
   LPF d2_kit_ability_adder END
+
+  //Give Evasion (IWDEE or IWDification)
+  REPLACE_TEXTUALLY ~AP_#EVASION~ ~****~
+  LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~#EVASION~ END    // IWDEE
+  LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~CDIEVAD~ END     // IWDification
 
 
 //Kit function

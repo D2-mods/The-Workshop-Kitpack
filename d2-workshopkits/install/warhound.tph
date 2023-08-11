@@ -1,5 +1,6 @@
 //Warhound (d2wk2)
 
+
 //Add passive effects
 COPY ~%passives%/acbonus1.SPL~          ~override/%e1%.SPL~
   LPF ALTER_EFFECT INT_VAR parameter2=2 END

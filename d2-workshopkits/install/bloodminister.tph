@@ -1,5 +1,6 @@
 //Blood Minister (d2wk9)
 
+
 //Add passive effects
 COPY ~%passives%/noitemtype.SPL~     ~override/%e1%.SPL~
   LPF ALTER_EFFECT INT_VAR opcode=181 special=RESOLVE_STR_REF (@300) END    // "Cannot use item."
@@ -140,6 +141,7 @@ COPY ~%abilities%/damageup1.SPL~      ~override/%s1%u.SPL~
 
 
 //removed by Restoration or Greater Restoration
+OUTER_SPRINT restoration @700
 COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
   READ_LONG   0x8 stringref
   READ_STRREF 0x8 spellname
@@ -152,7 +154,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
             (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish46~) OR
             (stringref = 26226) OR (stringref = 55844) OR (stringref = 35957) OR    // match stringref
             (stringref = 26310) OR (stringref = 35603) OR (stringref = 36401) OR
-            !(~%spellname%~ STRING_MATCHES_REGEXP ~.*Restoration.*~)                // match spellname (English only)
+            !(~%spellname%~ STRING_CONTAINS_REGEXP ~%restoration%~)                 // check spell name
            ) BEGIN
     LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%a~ END
     LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%b~ END

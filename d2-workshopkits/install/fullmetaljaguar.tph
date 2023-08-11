@@ -9,6 +9,7 @@ COPY ~%passives%/nobackstab.SPL~  ~override/%e2%.SPL~
 //Add Critical Boost
 COPY ~%passives%/hiteffect1ranged.SPL~     ~override/%e3%.SPL~     // ranged effect
   LPF ALTER_EFFECT STR_VAR resource=~%e3%a~ END
+  LPF CLONE_EFFECT INT_VAR opcode=139 parameter1=RESOLVE_STR_REF (@317) END    // "Gained Passive Ability: Critical Boost"
 
 COPY ~%icons%/criticalboost.BAM~           ~override/%e3%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@620) STR_VAR bam=~%e3%i~ RET icon END

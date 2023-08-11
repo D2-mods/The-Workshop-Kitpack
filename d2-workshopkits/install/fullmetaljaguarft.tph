@@ -4,9 +4,6 @@
 ACTION_IF (nofullmetaljaguarft = 0) BEGIN
 
 
-INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
-
-
 //Make 2da file (don't include base class abilities)
 COPY ~%files%/kit6.2DA~  ~override/%fullmetaljaguar%T.2DA~
 COPY ~%files%/kit0.2DA~  ~override/%fullmetaljaguar%F.2DA~

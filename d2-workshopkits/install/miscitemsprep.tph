@@ -119,6 +119,11 @@ ACTION_IF (FILE_EXISTS ~override/d2wkds1.SPL~) BEGIN
   OUTER_SET remedy15 = 1 + IDS_OF_SYMBOL (PROJECTL ~d2wkds9c~)
 END
 
+//Starjammer (d2wk8)
+ACTION_IF (FILE_EXISTS ~override/d2wk8w8d.CRE~) BEGIN
+  OUTER_TEXT_SPRINT riftgatebalor  ~d2wk8w8d~
+END
+
 
 
 //Add Lore to SPLPROT.2DA

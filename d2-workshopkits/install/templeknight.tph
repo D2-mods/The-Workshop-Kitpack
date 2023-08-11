@@ -1,5 +1,6 @@
 //Temple Knight (d2wk6)
 
+
 //Disable turn undead
 COPY ~%passives%/disablebutton.SPL~  ~override/%e1%.SPL~
   LPF ALTER_EFFECT INT_VAR parameter2=6 END
@@ -38,7 +39,8 @@ BUT_ONLY
 
 //Clone base paladin clab
 COPY_EXISTING ~CLABPA01.2DA~ ~override/%kitid%.2DA~
-  LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END    // Lay On Hands
+//  LPF 2da_find_row_delete STR_VAR row_name = ~PALADINS~ END    // remove FnP Archetypes
+  LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END      // Lay On Hands
   LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END

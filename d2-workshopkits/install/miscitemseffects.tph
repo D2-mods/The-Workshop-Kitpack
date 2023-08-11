@@ -4,6 +4,9 @@ External effects
 
 
 //Bleeding removed by Heal or Greater Restoration
+OUTER_SPRINT great_rest  @701
+OUTER_SPRINT heal_spell  @702
+
 COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
   READ_LONG   0x8 stringref
   READ_STRREF 0x8 spellname
@@ -21,8 +24,8 @@ COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
             (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwm168~) OR
             (stringref = 26310) OR (stringref = 35603) OR (stringref = 36401) OR    // match stringref
             (stringref = 25931) OR (stringref = 8786) OR
-            (~%spellname%~ STRING_EQUAL_CASE ~Greater Restoration~) OR              // match spellname (English only)
-            (~%spellname%~ STRING_EQUAL_CASE ~Heal~)
+            (~%spellname%~ STRING_EQUAL_CASE ~%great_rest%~) OR                     // check spell name
+            (~%spellname%~ STRING_EQUAL_CASE ~%heal_spell%~)
            ) BEGIN
     // remove Clawmark bleed
     LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%clawmarkbleed%~ END

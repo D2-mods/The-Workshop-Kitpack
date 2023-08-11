@@ -4,7 +4,7 @@ This file adds all abilities to make the badges work.
 */
 
 
-ACTION_IF (%nobeasthunter% = 0) BEGIN
+ACTION_IF (nobeasthunter = 0) BEGIN
 
 
 //EFF every 3 seconds on Fire Weapon (op272)

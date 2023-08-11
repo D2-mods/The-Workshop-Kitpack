@@ -3,7 +3,7 @@ Add Hunter Badges to stores
 */
 
 
-ACTION_IF (%nobeasthunter% = 0) BEGIN
+ACTION_IF (nobeasthunter = 0) BEGIN
 
 
 //BGEE stores
@@ -91,7 +91,7 @@ IF
 	GlobalGT("Chapter","GLOBAL",1)
 THEN
 	RESPONSE #100
-        SetGlobal("d2gerthsparkhunter","GLOBAL",1)
+		SetGlobal("d2gerthsparkhunter","GLOBAL",1)
 		AddStoreItem("KUGERTH","%badge_spark%",1,1)
 		Continue()
 END
@@ -112,7 +112,7 @@ IF
 	!Global("Flozem_Gone","GLOBAL",1)             // did not convince Flozem to leave
 THEN
 	RESPONSE #100
-        SetGlobal("d2orrickcosmicwatcher","GLOBAL",1)
+		SetGlobal("d2orrickcosmicwatcher","GLOBAL",1)
 		AddStoreItem("KUORK0","%badge_cosmic%",1,1)
 		Continue()
 END

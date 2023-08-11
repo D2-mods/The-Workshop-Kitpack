@@ -1,10 +1,32 @@
 //Grave Warden (d2wk3)
 
+
 //Add passive effects
 COPY ~%passives%/savebonus4death.SPL~  ~override/%e1%.SPL~
 COPY ~%passives%/lorebonus10.SPL~      ~override/%e2%.SPL~
 COPY ~%passives%/removespell.SPL~      ~override/%e3%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~SPCL311~ END
+
+
+//Immune to fear
+COPY ~%passives%/nopanic.SPL~      ~override/%e4%.SPL~
+  LPF cd_apply_batch STR_VAR array_name = cd_fear_removal_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_fear_arrays END
+  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
+    LPF d2_string_immunities END
+  END
+  PATCH_IF (panic_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=24 opcode=328 parameter2=panic_immunity END
+  END
+
+//Immune to blindness and gaze attacks
+COPY ~%passives%/gravewarden.SPL~  ~override/%e5%.SPL~
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_blindness_arrays END
+  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
+    LPF d2_string_immunities END
+  END
 
 
 //Clone mage spells
@@ -59,7 +81,15 @@ COPY_EXISTING ~SPPR409.SPL~  ~override/%s1%.SPL~                      // clone D
 
   WRITE_ASCII 0x3a SPWI803B #8  // icon BAMs
   WRITE_ASCII 0x76 SPWI803B #8
-  WRITE_SHORT 0x84 5            // casting speed
+  WRITE_SHORT 0x84 3            // casting speed
+
+  //block Death Gaze in BG1
+  PATCH_IF (GAME_IS ~bgee~) BEGIN TEXT_SPRINT death_gaze ~SPIN996~ END
+  PATCH_IF (GAME_IS ~eet~)  BEGIN TEXT_SPRINT death_gaze ~BGIN996~ END
+  PATCH_IF (GAME_IS ~bgee eet~) BEGIN
+    LPF DELETE_EFFECT STR_VAR match_resource=~%death_gaze%~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=101 opcode=206 parameter2=0 STR_VAR resource=~%death_gaze%~ END
+  END
 BUT_ONLY
 
 
@@ -93,6 +123,8 @@ COPY_EXISTING ~CLABRN01.2DA~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder STR_VAR resource=~%p2%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%p3%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e3%~ END
+  LPF d2_kit_ability_adder INT_VAR level=3 passive=1 STR_VAR resource=~%e4%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e5%~ END
   LPF d2_kit_ability_adder END
 
 

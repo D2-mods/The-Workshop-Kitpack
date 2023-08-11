@@ -2,9 +2,9 @@
 
 Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases  
 Forum posts: [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)  
-Languages: English, French (by 11jo)
+Languages: English, French (11jo)
 
----
+--
 
 This is a kitpack I've been working on for a while. It currently has 17 kits + 11 multiclass variants. Also adds 30+ items, including 6 Hunter Badges, 12 Caryll Runes, and 17 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 
@@ -91,7 +91,7 @@ Advantages:
 - +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.
 - 2nd level: May use the Hunter Tools ability once per day. Gains additional uses every 4 levels thereafter.
 
-HUNTER TOOLS: For 12 rounds, the character gains a +1 bonus to Luck and a +1 bonus to Saving Throws, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
+HUNTER TOOLS: For 12 rounds, the character gains a +1 bonus to luck and a +1 bonus to Saving Throws, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
 
 - 5th level: May use the Quicksilver ability once per day. Gains additional uses at levels 9 and 13.
 
@@ -130,13 +130,16 @@ Advantages:
 - +4 bonus to Saving Throws vs. Paralysis/Poison/Death.  
 - +10 bonus to Lore each level.  
 - May cast three arcane spells as priest spells:  
-	- 1st level: Chromatic Orb.  
-	- 2nd level: Horror.  
-	- 3rd level: Skull Trap.
-  
+	1st level: Chromatic Orb.  
+	2nd level: Horror.  
+	3rd level: Skull Trap.
+
+- 3rd level: Immune to fear and and morale failure.
 - 5th level: May use the Denial ability once per day. Gains additional uses every 5 levels thereafter.
 
 DENIAL: This spell has two effects. First, the recipient becomes immune to all instant death effects for 3 turns. Second, if the recipient falls below 50% of maximum Hit Points, the spell activates and restores the character to full health, consuming the spell in the process.
+
+- 8th level: Immune to blindness and gaze attacks.
 
 Disadvantages:  
 - May not wear armor heavier than chain mail.
@@ -172,10 +175,10 @@ CONFESSOR: The Confessor is a paladin who acts on behalf of a patron church, bei
 
 Advantages:  
 - May cast four arcane spells as priest spells:  
-	- 1st level: Blindness.  
-	- 2nd level: Blur.  
-	- 3rd level: Vampiric Touch.  
-	- 4th level: Secret Word.
+	1st level: Blindness.  
+	2nd level: Blur.  
+	3rd level: Vampiric Touch.  
+	4th level: Secret Word.
 
 - 2nd level: May use the Rooting Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
@@ -269,7 +272,7 @@ BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 tu
 
 MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
 
-LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhibit other abilities. The recipient has all physical damage resistances set to 50%, but incurs a -1 penalty to Luck. The effects last for 3 turns. This blood will also prevent level drain.
+LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhibit other abilities. The recipient has all physical damage resistances set to 50%, but incurs a -1 penalty to luck. The effects last for 3 turns. This blood will also prevent level drain.
 
 Disadvantages:  
 - May not wear gauntlets or bracers.
@@ -342,11 +345,15 @@ Advantages:
 - Will not fall due to reputation loss.
 - Moves 2 points faster than other characters.
 - 6th level: Immune to Grease, Web, Entangle, Spike Growth, and Spike Stones.
+- 7th level: Gains the Evasion ability (passive).**
 - 12th level: Immune to Cloudkill, Death Fog, Stinking Cloud, Writhing Fog, and Cloud of Pestilence.
 
 Disadvantages:
 - May not cast priest spells.
 - May only wear leather or hide armor.
+
+
+****NOTE: Evasion is gained in IWD:EE or with the IWDification mod.**
 
 ---
 
@@ -428,6 +435,7 @@ NURSE: A born specialist, the Nurse is an adept alchemist, as well as marksman, 
 
 Advantages:
 - +1 bonus to ranged attack rolls at 1st level, plus an additional +1 bonus every 5 levels.
+- May Specialize (two slots) in shortbows, crossbows, slings, and darts.
 - May prepare a set of 8 Medical Darts. Gains one use at level 1, one use at level 5, and an additional use every 5 levels thereafter. The darts are automatically equipped and remain in the hand until thrown or expired (1 hour).
 
 MEDICAL DARTS: These darts will heal allies or deal poison damage to enemies. The amount of healing or damage is equal to 1d3 + 1 Hit Point per 3 levels, up to a maximum of 1d3 + 5. Medical Darts are treated as magical weapons with a +5 enchantment, and attacks are made with a +5 bonus. A character's proficiency with darts does not affect attack rolls.
@@ -484,7 +492,7 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 - Compatible with Deities of Faerun spheres system. 
 	- Install this mod after DoF.
 - Compatible with subtledoctor's 5e casting mod. 
-	- Can install before or after 5e casting.
+	- Install this mod before 5e casting.
 	- You should also install the extra component related to 5e casting.
 
 #### HLA traps/songs:

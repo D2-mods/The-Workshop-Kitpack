@@ -454,5 +454,14 @@ EXTEND_BOTTOM ~AR2000.BCS~  ~%workspace%/moonrune.BAF~
 END
 
 
+
+//Add item to Riftgate Balor (Starjammer kit)
+ACTION_IF (FILE_EXISTS ~override/%riftgatebalor%.CRE~) BEGIN
+  COPY_EXISTING ~%riftgatebalor%.CRE~ ~override~
+    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~none~ ~inv~
+  BUT_ONLY
+END
+
+
 /*
 */

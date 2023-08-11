@@ -52,8 +52,8 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~WizardIDS.*=.*[^0-9]0[^0-9]*$~               nowizardids
 
 //cleric multiclass proficiencies
-  COUNT_REGEXP_INSTANCES  ~ClericAllProfs.*=.*[^0-9]0[^0-9]*$~          vanillaclericprofs
-  COUNT_REGEXP_INSTANCES  ~DruidAllProfs.*=.*[^0-9]0[^0-9]*$~           vanilladruidprofs
+  COUNT_REGEXP_INSTANCES  ~ClericMultiProfs.*=.*[^0-9]0[^0-9]*$~        vanillaclericprofs
+  COUNT_REGEXP_INSTANCES  ~DruidMultiProfs.*=.*[^0-9]0[^0-9]*$~         vanilladruidprofs
 
 //Holy Symbols
   COUNT_REGEXP_INSTANCES  ~HolySymbolsBG2.*=.*[^0-9]0[^0-9]*$~          noholysymbolsBG2

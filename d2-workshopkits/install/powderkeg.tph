@@ -1,5 +1,6 @@
 //Powder Keg (d2wkb)
 
+
 //Fire resist
 COPY ~%passives%/resistup20fire.SPL~  ~override/%e1%.SPL~
 

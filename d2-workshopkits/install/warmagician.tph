@@ -1,5 +1,6 @@
 //War Magician (d2wk7)
 
+
 //Add passive effects
 COPY ~%passives%/resistup5elements.SPL~  ~override/%e1%.SPL~    // 5% resists
 COPY ~%passives%/resistup5elements.SPL~  ~override/%e2%.SPL~    // 10% resists

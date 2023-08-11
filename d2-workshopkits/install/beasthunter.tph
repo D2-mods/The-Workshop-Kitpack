@@ -1,5 +1,6 @@
 //Beast Hunter (d2wk1)
 
+
 //Add passive effects
 COPY ~%passives%/useeff.SPL~          ~override/%e1%.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%a~ END

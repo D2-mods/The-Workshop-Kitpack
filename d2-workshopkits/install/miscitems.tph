@@ -294,10 +294,10 @@ COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
   END
 
   PATCH_IF (haste_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=16 opcode=328 parameter2=haste_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=16 opcode=328 parameter2=haste_immunity special=1 END
   END
   PATCH_IF (slow_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=328 parameter2=slow_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=328 parameter2=slow_immunity special=1 END
   END
 
 
@@ -571,7 +571,14 @@ COPY ~%files%/jadefeather.ITM~  ~override/%mf%.ITM~
   END
 
   PATCH_IF (death_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=13 opcode=328 parameter2=death_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=13 opcode=328 parameter2=death_immunity special=1 END
+  END
+
+  //block Death Gaze in BG1
+  PATCH_IF (GAME_IS ~bgee~) BEGIN TEXT_SPRINT death_gaze ~SPIN996~ END
+  PATCH_IF (GAME_IS ~eet~)  BEGIN TEXT_SPRINT death_gaze ~BGIN996~ END
+  PATCH_IF (GAME_IS ~bgee eet~) BEGIN
+    LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=101 opcode=206 parameter2=0 STR_VAR resource=~%death_gaze%~ END
   END
 
 //Black Remedy

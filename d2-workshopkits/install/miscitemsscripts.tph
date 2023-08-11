@@ -3,6 +3,37 @@ Scripts for conditional items
 */
 
 
+//BG1 scripts
+ACTION_IF (GAME_INCLUDES ~bg1~) BEGIN
+
+
+<<<<<<<< .../temp/aecdemonsoul
+IF
+	!Global("d2aecdemonsoul","GLOBAL",1)
+	Dead("cultd1")  // Cult Guard
+	Dead("cultd2")  // Cult Guard
+	Dead("cultd3")  // Cult Guard
+	Dead("cultd4")  // Cult Guard
+	Dead("cultd5")  // Cult Guard
+	Dead("cultd6")  // Cult Guard
+	!Dead("tanar")  // Aec'Letec
+THEN
+	RESPONSE #100
+		SetGlobal("d2aecdemonsoul","GLOBAL",1)
+		GiveItemCreate("%demonsoul%","TANAR",1,0,0)
+		Continue()
+END
+>>>>>>>>
+
+COPY - ~.../temp/aecdemonsoul~  ~%workspace%/aecdemonsoul.BAF~
+  EVALUATE_BUFFER
+EXTEND_TOP ~%bg1%1002.BCS~      ~%workspace%/aecdemonsoul.BAF~
+
+
+END
+
+
+
 //SoD scripts
 ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
 
@@ -42,7 +73,7 @@ END
 
 COPY - ~.../temp/calamity~  ~%workspace%/calamity.BAF~
   EVALUATE_BUFFER
-EXTEND_BOTTOM ~bd0108.BCS~     ~%workspace%/calamity.BAF~
+EXTEND_BOTTOM ~bd0108.BCS~  ~%workspace%/calamity.BAF~
 
 
 END
@@ -102,7 +133,7 @@ END
 
 COPY - ~.../temp/calamity~  ~%workspace%/calamity.BAF~
   EVALUATE_BUFFER
-EXTEND_BOTTOM ~AR4500.BCS~     ~%workspace%/calamity.BAF~
+EXTEND_BOTTOM ~AR4500.BCS~  ~%workspace%/calamity.BAF~
 
 
 END
@@ -120,7 +151,7 @@ IF
 	GlobalGT("MIREK_YETI","AR2100",0)
 THEN
 	RESPONSE #100
-        SetGlobal("d2gerthhunterrune","GLOBAL",1)
+		SetGlobal("d2gerthhunterrune","GLOBAL",1)
 		AddStoreItem("KUGERTH","%hunter_rune%",1,1)
 		Continue()
 END
@@ -130,7 +161,7 @@ IF
 	GlobalGT("Chapter","GLOBAL",2)
 THEN
 	RESPONSE #100
-        SetGlobal("d2gerthflynnring","GLOBAL",1)
+		SetGlobal("d2gerthflynnring","GLOBAL",1)
 		AddStoreItem("KUGERTH","%flynnring%",1,1)
 		Continue()
 END
@@ -140,7 +171,7 @@ IF
 	GlobalGT("Chapter","GLOBAL",3)
 THEN
 	RESPONSE #100
-        SetGlobal("d2gerthetherlimiter","GLOBAL",1)
+		SetGlobal("d2gerthetherlimiter","GLOBAL",1)
 		AddStoreItem("KUGERTH","%etherlimiter%",1,1)
 		Continue()
 END

@@ -1,10 +1,10 @@
 /*
-This file is only used if this mod is installed after FnP.
-FnP adds spheres to the base Paladin clab file (it doesn't for other classes)
-Because this mod clones the 2da file, these spheres are also in the kit 2das.
-This file will remove the default spheres, so kit-specific spheres can be added.
+Fixes some things if this mod is installed after FnP.
 */
 
+
+//FnP adds spheres to the base Paladin clab file.
+//This will remove the default spheres, so kit spheres can be used.
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~fnp_sphere_list.tpa~) BEGIN
   COPY_EXISTING ~%kitid%.2DA~  ~override~
@@ -24,12 +24,42 @@ END
 
 
 
-/*using above instead
-ACTION_IF (FILE_EXISTS_IN_GAME ~fnp_sphere_list.tpa~) BEGIN
-  COPY_EXISTING ~%kitid%.2DA~  ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~SPHERES~ END     // delete all rows starting with SPHERES
-    LPF d2_kit_ability_adder STR_VAR resource = ~D5SPUNI~ END    // add back FnP universal spells
-    LPF d2_kit_ability_adder STR_VAR resource = ~D5SPMEM~ END    // add back ability to memorize spells
-  BUT_ONLY IF ~AP_D5SP.*~    // only if relevant entries
+//Archetype fix (paladins)
+
+ACTION_IF (FILE_EXISTS ~override/d5padlg.BCS~) BEGIN
+
+  ACTION_IF !(VARIABLE_IS_SET ~fnp_archetypes~) BEGIN
+    COPY_EXISTING - ~d5padlg.BCS~  ~~
+      DECOMPILE_AND_PATCH BEGIN
+        COUNT_REGEXP_INSTANCES ~D5PADEF~ fnp_archetypes
+      END
+  END
+
+
+ACTION_IF (fnp_archetypes > 0) BEGIN
+
+<<<<<<<< .../temp/archetypes
+IF
+    NumberOfTimesTalkedTo(0)
+    Kit(LastSummonerOf(),D2%kitname%)
+THEN
+    RESPONSE #100
+        SetGlobal("D5PADEF","GLOBAL",1)
+        SetGlobal("D5PAINQ","GLOBAL",1)
+        SetGlobal("D5PAZEA","GLOBAL",1)
+        Continue()
 END
+>>>>>>>>
+
+COPY - ~.../temp/archetypes~  ~%workspace%/archetypes.BAF~
+  EVALUATE_BUFFER
+
+EXTEND_TOP ~d5padlg.BCS~  ~%workspace%/archetypes.BAF~
+
+
+END
+END
+
+
+/*
 */

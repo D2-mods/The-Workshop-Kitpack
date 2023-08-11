@@ -1,5 +1,6 @@
 //Confessor (d2wk5)
 
+
 //Clone mage spells
 ACTION_IF (GAME_IS ~iwdee~) BEGIN 
   OUTER_TEXT_SPRINT blind ~SPWI226~
@@ -48,7 +49,7 @@ COPY ~%abilities%/rootingshot.SPL~          ~override/%s1%.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=249 STR_VAR resource=~%s1%e~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY ~%abilities%/castspelltarget.EFF~      ~override/%s1%e.EFF~    // on-hit effect (checks magic resist)
+COPY ~%abilities%/castspelltarget.EFF~      ~override/%s1%e.EFF~    // on-hit effect (v4.4: ignores magic resist)
   WRITE_ASCII 0x30 ~%s1%e~ #8
 COPY ~%abilities%/rootingshoteffects.SPL~   ~override/%s1%e.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 match_timing=1 STR_VAR resource=~%s1%a~ END
@@ -70,100 +71,24 @@ COPY ~%abilities%/removespelleffects.SPL~   ~override/%s1%x.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%s1%~ END
 
 
-//add Rooting Shot to spells that block Entangle (base-game only has Free Action)
-ACTION_BASH_FOR ~override~ ~.*\.SPL~ BEGIN
-  COPY_EXISTING ~%BASH_FOR_FILESPEC%~  ~override~        // check override files (i.e. mods)
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%e~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%a~ insert=first END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%b~ insert=first END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%e~ insert=first END
-  BUT_ONLY
-END
+/*moved to morespellpatches.tph
+//add Rooting Shot to spells that block Entangle overlay
+COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%e~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%a~ insert=first END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%b~ insert=first END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%e~ insert=first END
+BUT_ONLY
 
-ACTION_IF !(FILE_EXISTS ~override/sppr403.SPL~) BEGIN    // if Free Action not patched
-  COPY_EXISTING ~sppr403.SPL~  ~override~
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%e~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%a~ insert=first END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%b~ insert=first END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%e~ insert=first END
-  BUT_ONLY
-END
-
-
-//add Rooting Shot to items that block Entangle
-ACTION_BASH_FOR ~override~ ~.*\.ITM~ BEGIN
-  COPY_EXISTING ~%BASH_FOR_FILESPEC%~  ~override~        // check override files (i.e. mods)
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%e~ END
-  BUT_ONLY
-END
-
-ACTION_FOR_EACH noentangle IN    // files from BGEE, BG2EE, IWDEE
-  ~ABAZRING~
-  ~ALDETH~
-  ~BAZPATRG~
-  ~bdmisc1b~
-  ~bdmisc1c~
-  ~bdring09~
-  ~bdringge~
-  ~bdringgh~
-  ~BEHOLDER~
-  ~BLUN30~
-  ~BOOTMOA~
-  ~CIGBARD~
-  ~CIIGEN~
-  ~dragring~
-  ~FREEACT~
-  ~FREERING~
-  ~FSSPIR~
-  ~GORCHR~
-  ~GVALOR1~
-  ~HOLDRING~
-  ~INVULNER~
-  ~JWSUPER~
-  ~LABELT~
-  ~MAGE05~
-  ~NPPLAT~
-  ~OBJRING~
-  ~OHBDRKRG~
-  ~ohrboot1~
-  ~PALRING~
-  ~PLYWYVRN~
-  ~RING09~
-  ~RING97~
-  ~ROSSRING~
-  ~SHALT01~
-  ~SPER12~
-  ~SPRNGB03~
-  ~SPRNGB04~
-  ~SPRNGL03~
-  ~SPRNGL04~
-  ~SPRNGS01~
-  ~SPRNGS02~
-  ~SPRNGS03~
-  ~SPRNGS04~
-  ~SPRNGZ05~
-  ~SUREHP1~
-  ~SW2H06~
-  ~SW2H13~
-BEGIN
-
-  ACTION_IF (FILE_EXISTS_IN_GAME ~%noentangle%.ITM~) BEGIN
-    ACTION_IF !(FILE_EXISTS ~override/%noentangle%.ITM~) BEGIN    // skip if already patched
-      COPY_EXISTING ~%noentangle%.ITM~  ~override~
-        LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
-        LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
-        LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%e~ END
-      BUT_ONLY
-    END
-  END
-
-END
+//add Rooting Shot to items that block Entangle overlay
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%e~ END
+BUT_ONLY
+*/
 
 
 //Add Bloodletter
@@ -199,6 +124,9 @@ COPY ~%abilities%/bleeddamage2.SPL~     ~override/%s2%c.SPL~
 
 
 //Bleeding removed by Heal or Greater Restoration
+OUTER_SPRINT great_rest  @701
+OUTER_SPRINT heal_spell  @702
+
 COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
   READ_LONG   0x8 stringref
   READ_STRREF 0x8 spellname
@@ -216,8 +144,8 @@ COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
             (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwm168~) OR
             (stringref = 26310) OR (stringref = 35603) OR (stringref = 36401) OR    // match stringref
             (stringref = 25931) OR (stringref = 8786) OR
-            (~%spellname%~ STRING_EQUAL_CASE ~Greater Restoration~) OR              // match spellname (English only)
-            (~%spellname%~ STRING_EQUAL_CASE ~Heal~)
+            (~%spellname%~ STRING_EQUAL_CASE ~%great_rest%~) OR                     // check spell name
+            (~%spellname%~ STRING_EQUAL_CASE ~%heal_spell%~)
            ) BEGIN
     LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s2%b~ END
   END
@@ -226,7 +154,8 @@ BUT_ONLY
 
 //Clone base paladin clab
 COPY_EXISTING ~CLABPA01.2DA~ ~override/%kitid%.2DA~
-  REPLACE_TEXTUALLY ~GA_SPCL211~ ~****~    // remove Lay On Hands
+//  LPF 2da_find_row_delete STR_VAR row_name = ~PALADINS~ END    // remove FnP Archetypes
+  REPLACE_TEXTUALLY ~GA_SPCL211~ ~****~                        // remove Lay On Hands
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%p1%~ END
@@ -252,6 +181,24 @@ LAF ADD_KIT_EX
     clascolr = ~25 83 66 28 23~    // Priest of Talos colors
   RET 
     kit_id
+END
+
+
+//function to block entangle in spells
+DEFINE_PATCH_FUNCTION confessor_entangle_spells BEGIN
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%confessorentangle%~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%entangle18%~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%entangle36%~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%confessorentangle%~ insert=first END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%entangle18%~ insert=first END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%entangle36%~ insert=first END
+END
+
+//function to block entangle in items
+DEFINE_PATCH_FUNCTION confessor_entangle_items BEGIN
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%confessorentangle%~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%entangle18%~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%entangle36%~ END
 END
 
 

@@ -5,7 +5,7 @@ Makes no changes to kits (in case they were intentionally disabled)
 */
 
 
-ACTION_IF (%nomedic% = 0) BEGIN
+ACTION_IF (nomedic = 0) BEGIN
 
   COPY_EXISTING ~clsrcreq.2DA~  ~override~
     COUNT_2DA_ROWS 3 clsrcreq_rows

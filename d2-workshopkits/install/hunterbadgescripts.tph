@@ -10,7 +10,7 @@ Noble Scion (10)    => Old Hunter Badge
 */
 
 
-ACTION_IF (%nobeasthunter% = 0) BEGIN
+ACTION_IF (nobeasthunter = 0) BEGIN
 
 
 //number of kits to check

@@ -56,25 +56,29 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
   OUTER_SET confuse    = 37604
 END
 ELSE BEGIN
-  ACTION_IF (GAME_IS ~bg2ee~) BEGIN
-    OUTER_SET feeblemind = 23744
-    OUTER_SET confuse    = 14782
-  END
-  ELSE BEGIN
+  ACTION_IF (GAME_IS ~bgee~) BEGIN
     OUTER_SET feeblemind = 23744
     OUTER_SET confuse    = 25807
   END
-END
-
-//disable string in exaltation spells
-ACTION_FOR_EACH exaltation IN ~sppr321~ ~ohtyr1~ BEGIN
-  ACTION_IF (FILE_EXISTS_IN_GAME ~%exaltation%.SPL~) BEGIN
-    COPY_EXISTING ~%exaltation%.SPL~  ~override~
-      LPF DELETE_EFFECT INT_VAR match_opcode=267 match_parameter1=~%feeblemind%~ END
-      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=~%feeblemind%~ END
-    BUT_ONLY
+  ELSE BEGIN
+    OUTER_SET feeblemind = 23744
+    OUTER_SET confuse    = 14782
   END
 END
+
+
+/*moved to morespellpatches.tph
+//block feeblemind string in spells/items that block feeblemind
+COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
+  LPF DELETE_EFFECT INT_VAR match_opcode=267 match_parameter1=~%feeblemind%~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=~%feeblemind%~ END
+BUT_ONLY
+
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  LPF DELETE_EFFECT INT_VAR match_opcode=267 match_parameter1=~%feeblemind%~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=~%feeblemind%~ END
+BUT_ONLY
+*/
 
 
 //Add Injection Shot
@@ -137,6 +141,7 @@ LAF ADD_KIT_EX
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
     clsrcreq = ~1 1 1 1 1 1 1~    // Usable by all races, if base class is usable
+    weapprof = ~1 1 2 0 1 0 0 2 0 1 1 0 0 1 1 1 0 1 0 0 0 0 1 2 0 2 2 2 1 1 1 1~
     thiefskl = ~40 15~            // start with 40, gain 15 per level
     clascolr = ~25 28 57 2 24~    // inquisitor colors
   RET 
@@ -191,6 +196,15 @@ ACTION_PHP_EACH item_kit_effects AS item => class BEGIN
       END
     END
   END
+END
+
+
+//function to block feeblemind string in spells/items
+DEFINE_PATCH_FUNCTION nurse_feeblemind_string BEGIN
+
+  LPF DELETE_EFFECT INT_VAR match_opcode=267 match_parameter1=~%feeblemind%~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=~%feeblemind%~ END
+
 END
 
 

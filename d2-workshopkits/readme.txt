@@ -1,7 +1,7 @@
 The Workshop Kitpack
 GitHub: https://github.com/D2-mods/The-Workshop-Kitpack
 Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases
-Languages: English, French (by 11jo)
+Languages: English, French (JohnBob)
 
 
 Info:
@@ -109,7 +109,7 @@ Spellcasting systems:
 - Compatible with Deities of Faerun spheres system. 
 	- Install this mod after DoF.
 - Compatible with subtledoctor's 5e casting mod. 
-	- Can install before or after 5e casting.
+	- Install this mod before 5e casting.
 	- You should also install the extra component related to 5e casting.
 
 HLA traps/songs:
@@ -143,6 +143,25 @@ This is how I'd do the install:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v4.4
+- Fixes:
+	- EET: Fixed an incorrect text string (Injection Shot ability).
+	- Confessor: Fixed entangle effect not being dispellable.
+	- Shaman Bone Blade: Fixed incorrect weight in description.
+	- EE Fixpack: Fixed immunity spell states on items/effects (opcode 328 needs to be set to IWD2 mode).
+- Kit changes:
+	- Drifter: Can gain IWDEE Evasion if ability is in the game (IWDEE and IWDification versions supported).
+	- Nurse: Can now Specialize in ranged weapons.
+	- Grave Warden: Becomes immune to fear at level 3 and immune to blindness/gaze attacks at level 8.
+	- Confessor: Entangle now ignores magic resist. It still has a saving throw after 3 rounds, and can still be dispelled.
+- Ability notes:
+	- Spells/items that block death magic will also block Aec'Letec's death gaze in BG1/EET.
+	- Reduced casting time: Denial, Moonlight Vortex, Medical Darts.
+	- Passive abilities will give a message in the dialogue box when initially gained at level up.
+- Compatibility notes:
+	- Faiths and Powers beta (v0.85sd20): Improved compatibility. Notably, the paladin kits will be able to select any of the 3 archetypes, whether this mod is installed before or after FnP. Previously, the archetype selection gave an undefined string if this mod was installed after FnP.
+	- 5e-casting: Updated compatibility info to say that this mod should be installed before 5e-casting. Spellcasting will work either way, but the Cruciform item needs to be installed before the item update component of 5e-casting.
 
 v4.3
 - Main component now has 3 subcomponents:
@@ -419,6 +438,13 @@ v1.2
 v1.1
 - Added Cosmic Watcher Badge to BG2 and IWD main campaigns (they were already in the expansions). Both are very late game.
 - Adjusted location of one of the other badges in BG2.
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+Contributers:
+
+JohnBob - French Translation
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

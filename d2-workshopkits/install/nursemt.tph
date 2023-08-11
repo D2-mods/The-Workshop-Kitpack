@@ -4,9 +4,6 @@
 ACTION_IF (nonursemt = 0) BEGIN
 
 
-INCLUDE ~%MOD_FOLDER%/lib/a7#add_kit_ex.tpa~    // weidu error if this file isn't included here
-
-
 //Remove specialist bonus slots
 COPY ~%passives%/fewerspells1.SPL~  ~override/%e4%.SPL~
 COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~    // only relevant for 5e casting mod
@@ -39,6 +36,7 @@ LAF ADD_KIT_EX
     clab_base_m = ~%nurse%M.2DA~    // -1 spell slots added to Mage table
     clab_base_t = ~%nurse%T.2DA~    // kit abilities added to Thief table
     clsrcreq = ~1 1 1 1 1 1 1~      // Usable by all races, if base class is usable
+    weapprof = ~1 1 2 0 1 0 0 2 0 1 1 0 0 1 1 1 0 1 0 0 0 0 1 2 0 2 2 2 1 1 1 1~
     thiefskl = ~40 15~              // start with 40, gain 15 per level
     clascolr = ~25 28 57 2 24~      // inquisitor colors
   RET 

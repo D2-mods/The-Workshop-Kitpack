@@ -1,0 +1,42 @@
+/*
+Additional patching of spells or items
+Use for mass patching that attempts a CLONE_EFFECT on every file.
+*/
+
+
+ACTION_IF ((nonurse = 0) OR
+           (noconfessor = 0)
+  ) BEGIN
+
+
+PRINT @6
+
+COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
+  PATCH_IF (nonurse = 0) BEGIN
+    LPF nurse_feeblemind_string END
+  END
+
+  PATCH_IF (noconfessor = 0) BEGIN
+    LPF confessor_entangle_spells END
+  END
+BUT_ONLY
+
+
+PRINT @7
+
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  PATCH_IF (nonurse = 0) BEGIN
+    LPF nurse_feeblemind_string END
+  END
+
+  PATCH_IF (noconfessor = 0) BEGIN
+    LPF confessor_entangle_items END
+  END
+BUT_ONLY
+
+
+END
+
+
+/*
+*/

@@ -1,5 +1,6 @@
 //Starjammer (d2wk8)
 
+
 //Add passive effects
 COPY ~%passives%/starjammer.SPL~   ~override/%e1%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_silence_arrays END
@@ -11,7 +12,7 @@ COPY ~%passives%/starjammer.SPL~   ~override/%e1%.SPL~
   END
 
   PATCH_IF (silence_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=38 opcode=328 parameter2=silence_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=38 opcode=328 parameter2=silence_immunity special=1 END
   END
 
 COPY ~%passives%/fewerspells1.SPL~  ~override/%e2%.SPL~    // remove specialist bonus spells
@@ -366,22 +367,22 @@ COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~       // balor weap
   END
 
   PATCH_IF (stun_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=45 opcode=328 parameter2=stun_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=45 opcode=328 parameter2=stun_immunity special=1 END
   END
   PATCH_IF (slow_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=328 parameter2=slow_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=328 parameter2=slow_immunity special=1 END
   END
   PATCH_IF (death_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=55 opcode=328 parameter2=death_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=55 opcode=328 parameter2=death_immunity special=1 END
   END
   PATCH_IF (hold_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=175 opcode=328 parameter2=hold_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=175 opcode=328 parameter2=hold_immunity special=1 END
   END
   PATCH_IF (web_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=157 opcode=328 parameter2=web_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=157 opcode=328 parameter2=web_immunity special=1 END
   END
   PATCH_IF (silence_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=38 opcode=328 parameter2=silence_immunity END
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=38 opcode=328 parameter2=silence_immunity special=1 END
   END
 
 COPY ~%icons%/riftgate.BAM~      ~override/%w8%.BAM~
@@ -478,8 +479,9 @@ END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT starjammer    ~%kitid%~
-OUTER_TEXT_SPRINT interference  ~%s1%~
+OUTER_TEXT_SPRINT starjammer     ~%kitid%~
+OUTER_TEXT_SPRINT interference   ~%s1%~
+OUTER_TEXT_SPRINT riftgatebalor  ~%w8%d~
 
 
 /*Additional info
