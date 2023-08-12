@@ -2,7 +2,7 @@
 
 Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases  
 Forum posts: [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)  
-Languages: English, French (11jo)
+Languages: English, French (JohnBob)
 
 --
 
@@ -352,6 +352,7 @@ Disadvantages:
 - May not cast priest spells.
 - May only wear leather or hide armor.
 
+--
 
 ****NOTE: Evasion is gained in IWD:EE or with the IWDification mod.**
 
@@ -1139,7 +1140,7 @@ STATISTICS:
 
 Special: Target must make a save vs. Polymorph or be charmed for 4 rounds; if the Saving Throw is made, the target goes berserk for 4 rounds
 
-Weight: 1
+Weight: 0
 
 ---
 

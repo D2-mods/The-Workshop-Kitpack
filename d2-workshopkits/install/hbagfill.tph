@@ -1,4 +1,4 @@
-//Use to add items to ~d2#hbag (empty by default)
+//Use to add items to d2#hbag (empty by default)
 
 
 COPY_EXISTING ~d2#hbag.STO~ ~override~

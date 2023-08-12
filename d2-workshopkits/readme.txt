@@ -144,6 +144,9 @@ This is how I'd do the install:
 
 Version info:
 
+v4.5
+- Faster install.
+
 v4.4
 - Fixes:
 	- EET: Fixed an incorrect text string (Injection Shot ability).
@@ -442,7 +445,7 @@ v1.1
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-Contributers:
+Contributors:
 
 JohnBob - French Translation
 
