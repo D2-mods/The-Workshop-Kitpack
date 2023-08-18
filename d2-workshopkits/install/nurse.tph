@@ -18,9 +18,15 @@ COPY ~%abilities%/medicaldart.ITM~  ~override/%s1%e.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=324 STR_VAR resource=~%s1%e~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=177 match_parameter1=255 STR_VAR resource=~%s1%b~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=177 match_parameter1=199 STR_VAR resource=~%s1%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 STR_VAR resource=~%s1%e~ END
+
+//double healing/poison on a critical hit
+COPY ~%abilities%/applyeffects.SPL~  ~override/%s1%e.SPL~
+  LPF ALTER_EFFECT INT_VAR opcode=177 timing=4 duration=1 parameter1=255 parameter2=2 STR_VAR resource=~%s1%b~ END
+  LPF CLONE_EFFECT INT_VAR opcode=177 timing=4 duration=1 parameter1=199 parameter2=2 STR_VAR resource=~%s1%a~ END
 
 
-//Add Medical Darts (effects)
+//Add Medical Darts (spell/effects)
 COPY ~%icons%/medicaldarts.BAM~     ~override/%s1%.BAM~
 COPY ~%abilities%/medicaldart.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @126

@@ -49,3 +49,25 @@ ACTION_IF (FILE_EXISTS ~override/%healingblood%.SPL~) BEGIN
     END
   END
 END
+
+
+//Medical Darts healing won't cause Clawmark bleed
+ACTION_IF (FILE_EXISTS ~override/%medicaldarts%.SPL~) BEGIN
+  COPY_EXISTING ~%medicaldart%.ITM~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 match_parameter1=199 STR_VAR resource=~%medicaldarts%x~ END
+  BUT_ONLY
+
+  COPY ~%abilities%/applyeffects.EFF~  ~override/%medicaldarts%x.EFF~
+    WRITE_ASCII 0x30 ~%medicaldarts%x~ #8
+  COPY ~%abilities%/opcode318.SPL~     ~override/%medicaldarts%x.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%clawmarkbleed%~ END    // block bleed
+    LPF CLONE_EFFECT INT_VAR opcode=321 timing=1 END           // remove bleed
+
+  COPY_EXISTING ~%clawmarkbleed%.SPL~  ~override~
+    LPF ALTER_EFFECT INT_VAR match_opcode=139 timing=4 duration=1 END    // slightly delay "Bleeding" message
+  BUT_ONLY
+END
+
+
+/*
+*/

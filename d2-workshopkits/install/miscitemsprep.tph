@@ -124,6 +124,12 @@ ACTION_IF (FILE_EXISTS ~override/d2wk8w8d.CRE~) BEGIN
   OUTER_TEXT_SPRINT riftgatebalor  ~d2wk8w8d~
 END
 
+//Nurse (d2wkg)
+ACTION_IF (FILE_EXISTS ~override/d2wkgs1.SPL~) BEGIN
+  OUTER_TEXT_SPRINT medicaldarts  ~d2wkgs1~
+  OUTER_TEXT_SPRINT medicaldart   ~d2wkgs1e~
+END
+
 
 
 //Add Lore to SPLPROT.2DA

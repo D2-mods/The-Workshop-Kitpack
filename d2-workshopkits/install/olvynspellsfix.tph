@@ -1,0 +1,23 @@
+/*
+Removes blank spell from kits if installed before OlvynSpells.
+This file does nothing if installed after OlvynSpells (no fix needed).
+*/
+
+
+ACTION_FOR_EACH kit_table IN
+  ~%bloodminister%~
+  ~%gravewarden%~
+  ~%moonlightknight%~
+  ~%drifter%~
+  ~%confessor%~
+  ~%templeknight%~
+  ~%noblescion%~
+BEGIN
+
+  ACTION_IF (FILE_EXISTS ~override/%kit_table%.2DA~) BEGIN
+    COPY_EXISTING ~%kit_table%.2DA~  ~override~
+      LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~MENO49~ END
+    BUT_ONLY UNLESS ~AP_MENO49~
+  END
+
+END

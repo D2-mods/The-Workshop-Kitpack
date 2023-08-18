@@ -145,7 +145,15 @@ This is how I'd do the install:
 Version info:
 
 v4.5
-- Faster install.
+- Medical Darts (Nurse kit):
+	- Will no longer inflict bleed on allies if Clawmark rune is used. Enemies can still be affected.
+	- Critical hits will deal double healing or poison damage. Target must be vulnerable to crits.
+- Other:
+	- Installer improvements.
+	- Changed BAM icons for holy symbols again.
+- Compatibility:
+	- Fixed some weirdness when installed before OlvynSpells mod.
+	- Note that unlike most kit mods, this mod can be installed before or after OlvynSpells.
 
 v4.4
 - Fixes:
@@ -445,9 +453,11 @@ v1.1
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-Contributors:
+Translation/Coding Assistance:
 
 JohnBob - French Translation
+
+subtledoctor - coding assistance for compatibility with his mods
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
