@@ -1,46 +1,48 @@
 // Insignes de Chasseur (amulettes)
 
- Insigne Étincelant
- Insigne de l'Épée radieuse
- Insigne du Veilleur
- Insigne du Chantre de la poudre
- Insigne de la Scie
- Insigne du Vétéran
+- Insigne Étincelant
+- Insigne de l'Épée radieuse
+- Insigne du Veilleur
+- Insigne du Chantre de la poudre
+- Insigne de la Scie
+- Insigne du Vétéran
 
 // Objets divers
 
- Manteau de plumes de corbeau (cape)
- Livre de chants, le souffle de l'Éther (objet rapide)
- Amulette de l'Éther (amulette)
- Chaîne du prisonnier (anneau)
- Croix (amulette)
- Anneau du golem (anneau)
- Anneau de calamité (anneau)
- Anneau de pierre (anneau)
- Anneau de Flynn (anneau)
- Atténuateur d'Éther (amulette)
+- Manteau de plumes de corbeau (cape)
+- Livre de chants, le souffle de l'Éther (objet rapide)
+- Amulette de l'Éther (amulette)
+- Chaîne du prisonnier (anneau)
+- Croix (amulette)
+- Anneau du golem (anneau)
+- Anneau de calamité (anneau)
+- Anneau de pierre (anneau)
+- Anneau de Flynn (anneau)
+- Atténuateur d'Éther (amulette)
 
 //v3.3+ items
-Scarabée en or (amulette)
-Insigne de l'épée suspendue (anneau)
-Pierre de larme sanglante (anneau)
-L'os du chasseur (objet rapide)
-La plume de Jade (amulette)
+- Scarabée en or (amulette)
+- Insigne de l'épée suspendue (anneau)
+- Pierre de larme sanglante (anneau)
+- L'os du chasseur (objet rapide)
+- La plume de Jade (amulette)
+- Âme du démon immaculé (Utilisation unique)
+- Lame d'os du Shaman (objet rapide)
 
 // Runes de Caryll (objets)
 
- Griffure
- Prélèvement
- Distorsion
- Corruption
- Anomalie inversée
- Anomalie
- Sérénité
- Ardeur
- La Bête
- Acuité
- Pleine Lune
- Sève
+- Griffure
+- Prélèvement
+- Distorsion
+- Corruption
+- Anomalie inversée
+- Anomalie
+- Sérénité
+- Ardeur
+- La Bête
+- Acuité
+- Pleine Lune
+- Sève
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -370,7 +372,7 @@ Un des plus grand honneur accordé aux plus dévoués des chevaliers, appelés �
 PARAMÈTRES :
 
 Capacités de combat :
-– À chaque attaque réussie, 33 % de chance de bénéficier d'un bonus de 1 aux dégâts pour 2 rounds (Attaque de mêlée uniquement)
+– À chaque attaque réussie, 33 % de chance de bénéficier d'un bonus cumulatif de 1 aux dégâts pour 2 rounds (Attaque de mêlée uniquement)
 
 Poids : 0
 
@@ -423,6 +425,33 @@ Spécial  (Chirurgien):
 
 Poids : 1
 
+
+==================================================
+Âme du démon immaculé (Utilisation unique)
+==================================================
+L'âme pervertie d'un démon primordial... Elle est imprégnée d'une grande puissance et confère à l'utilisateur une large quantité d'expérience, mais...
+
+PARAMÈTRES :
+
+Spécial : Bonus de 200 000 points d’expérience
+Sagesse : Malus de 1
+Charisme : Malus de 2
+Durée : Permanente
+
+Poids : 10
+
+
+==================================================
+Lame d'os du Shaman (objet rapide)
+==================================================
+Cette lame d'os de cérémonie est enduite d'un épouvantable liquide céphalo-rachidien. Elle se brise aisément mais entaille profondément et pousse sa victime à se retourner contre ses anciens alliés.
+
+PARAMÈTRES :
+
+Spécial : La cible doit effectuer un jet de sauvegarde contre la pétrification et la métamorphose ou être sous l'emprise d'un charme pendant 4 rounds ; si son jet de sauvegarde est réussi, celle-ci est alors soumise à la folie du berserker pendant 4 rounds.
+
+Poids : 0
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -442,7 +471,7 @@ Capacités de charge :
 – Griffure (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 2 point de dégâts par round pendant 4 rounds (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
+5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 1d3 point de dégâts par round pendant 4 rounds (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
 Poids : 0
 

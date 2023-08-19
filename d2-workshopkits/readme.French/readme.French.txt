@@ -1,6 +1,7 @@
 The Workshop Kitpack / Les Kits de l'Atelier
 GitHub : https://github.com/D2-mods/The-Workshop-Kitpack
 Téléchargement : https://github.com/D2-mods/The-Workshop-Kitpack/releases
+Languages: English, French (JohnBob)
 
 
 Informations :
@@ -34,26 +35,31 @@ Contenu du mod :
 - Prédateur (Voleur)
 - Chantre de la poudre (barde)
 
+//v3.0 kits
+- Vagabond (rôdeur)
+- Chirurgien (moine)
+- Seigneur Scion (paladin)
+
+//v4.0 kits
+- Full Metal Jaguar (Guerrier)
+- Urgentiste (Voleur)
+- Dégaineur de sortilège (Guerrier / Mage)
+
 // Kits Multi-classes
 
-- Chasseur (Guerrier / Mage)
-- Chasseur (Guerrier / Mage / Clerc)
+- Chasseur (Guerrier / Mage), (Guerrier / Mage / Clerc), (Guerrier / Clerc)
 - Limier (Guerrier / Mage)
 - Chevalier au clair de lune (Clerc / Rôdeur)
-- Prédateur (Guerrier / Voleur)
-- Prédateur (Guerrier / Mage / Voleur)
-
-//v3.0+ kits
-Vagabond (rôdeur)
-Chirurgien (moine)
-Seigneur Scion (paladin)
+- Prédateur (Guerrier / Voleur), (Guerrier / Mage / Voleur), (Mage / Voleur)
+- Full Metal Jaguar (Guerrier / Voleur), (Guerrier / Mage)
+- Urgentiste (Mage / Voleur)
 
 // Objets Divers
  
 - 6 Insignes de Chasseur - peuvent être fabriqués (voir ci-dessous), ou achetés
 - 8 Nouveaux sorts - pour le kit du Vagabond des étoiles 
 - 12 Runes de Caryll - des objets ayant des effets sur l'ensemble du groupe
-- 15 Autres objets - tous des objets utilitaires, pas d'armes ni d'armures
+- 17 Autres objets - tous des objets utilitaires, pas d'armes ni d'armures
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -61,11 +67,24 @@ Seigneur Scion (paladin)
 Composants :
 
 1. The Workshop Kitpack // Les Kits de l'Atelier
-2. Pack d'objets divers (Note : Les insignes de chasseur font partie du composant principal.)
-3. Correctif / Patch pour le mod 5E_spellcasting de subtledoctor
+	- Option 1: Kits de base + Kits Multi-classes
+	- Option 2: Uniquements les Kits de base
+	- Option 3: Pack d'objets divers (Pas de kits ou d'insignes de chasseur)
+2. Pack d'objets divers
+3. Composant pour le mod 5E_spellcasting de subtledoctor
 
 config.ini: Définir un kit = 0 pour éviter de l'installer
-Informations sur les kits  : Voir la page GitHub, les descriptions en jeu, les messages du forum, etc.
+
+--
+
+Informations supplémentaires :
+- Si l'option 1 ou 2 est installée, Alors le composant "Pack d'objets divers" sera proposé séparément.
+- Si l'option 3 est installée, les autres composants seront sautés.
+- Les insignes de chasseur sont installées en combinaison avec le kit de Chasseur.
+
+Configuration :
+- config.ini : Définir un kit = 0 pour éviter de l'installer
+- L'Option 2 ignorera toutes les variantes Multi-classes, quels que soient les paramètres de configuration dans le fichier config.ini.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -98,7 +117,8 @@ Les systèmes de lancement de sorts :
 	- Voir les informations ci-dessous.
 - Compatible avec le système de sphères de Deities of Faerun. Installez ce mod après DoF.
 - Compatible avec le mod 5E_spellcasting de subtledoctor. Peut être installé avant ou après.
-	- Mais vous devez installer le composant supplémentaire lié au mod 5E_spellcasting.
+	- Installer The Workshop Kitpack avant le mod 5E_spellcasting.
+	- Mais vous devez toujours installer le composant supplémentaire lié au mod 5E_spellcasting.
 
 Capacités de haut niveau (HLA) Pièges et Chants du barde :
 
@@ -125,6 +145,103 @@ FnP multiclass :
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v4.5
+- Medical Darts (Nurse kit):
+	- Will no longer inflict bleed on allies if Clawmark rune is used. Enemies can still be affected.
+	- Critical hits will deal double healing or poison damage. Target must be vulnerable to crits.
+- Other:
+	- Installer improvements.
+	- Changed BAM icons for holy symbols again.
+- Compatibility:
+	- Fixed some weirdness when installed before OlvynSpells mod.
+	- Note that unlike most kit mods, this mod can be installed before or after OlvynSpells.
+
+v4.4
+- Fixes:
+	- EET: Fixed an incorrect text string (Injection Shot ability).
+	- Confessor: Fixed entangle effect not being dispellable.
+	- Shaman Bone Blade: Fixed incorrect weight in description.
+	- EE Fixpack: Fixed immunity spell states on items/effects (opcode 328 needs to be set to IWD2 mode).
+- Kit changes:
+	- Drifter: Can gain IWDEE Evasion if ability is in the game (IWDEE and IWDification versions supported).
+	- Nurse: Can now Specialize in ranged weapons.
+	- Grave Warden: Becomes immune to fear at level 3 and immune to blindness/gaze attacks at level 8.
+	- Confessor: Entangle now ignores magic resist. It still has a saving throw after 3 rounds, and can still be dispelled.
+- Ability notes:
+	- Spells/items that block death magic will also block Aec'Letec's death gaze in BG1/EET.
+	- Reduced casting time: Denial, Moonlight Vortex, Medical Darts.
+	- Passive abilities will give a message in the dialogue box when initially gained at level up.
+- Compatibility notes:
+	- Faiths and Powers beta (v0.85sd20): Improved compatibility. Notably, the paladin kits will be able to select any of the 3 archetypes, whether this mod is installed before or after FnP. Previously, the archetype selection gave an undefined string if this mod was installed after FnP.
+	- 5e-casting: Updated compatibility info to say that this mod should be installed before 5e-casting. Spellcasting will work either way, but the Cruciform item needs to be installed before the item update component of 5e-casting.
+
+v4.3
+- Main component now has 3 subcomponents:
+	- Option 1: Base kits + multiclass variants
+	- Option 2: Base kits only
+	- Option 3: Misc items only (no kits or Hunter Badges)
+- Additional info:
+	- If you install kits here, the item pack is still a separate component afterwards.
+	- If you install the item pack here, kits cannot be installed later.
+- Other:
+	- Made it a bit easier to find one of the items (for all games). It's an intentionally hidden item, but you can get it through dialogue now, instead of killing or stealing.
+	- Other minor changes.
+
+v4.2
+- IWDEE notes:
+	- If the Misc items component is installed, an NPC in Kuldahar will now give a hint for where some of the items from this mod become available.
+	- Moved a couple items that were in the main game to HoW (including 1 Hunter Badge).
+	- Added a Colorless Demon Soul to the main game. So now 2 are obtainable (the other in TotLM).
+	- More Shaman Bone Blade locations.
+	- Can no longer purchase additional Hunter Badges in HoW (see note below).
+- Other:
+	- Shaman Bone Blade: Saving throw changed to a Save vs. Polymorph.
+	- Adjusted a few item icons.
+	- BG1/BG2: Changed location for 1-2 Hunter Badges in each game.
+- Note on Hunter Badge availability in Throne of Bhaal or Heart of Winter:
+	- This is now a config.ini option, instead of always installed.
+	- Enables adding additional Hunter Badges to merchants in ToB or HoW.
+	- By default, this is ON for ToB and OFF for HoW.
+
+v4.1
+- Added 2 consumable/limited use items:
+	- Colorless Demon Soul
+	- Shaman Bone Blade
+- Adjusted bleeding effects again:
+	- Bloodletter (Confessor): 2 damage per round for 6 rounds
+	- Splintering Shot (Crow Hunter): 1 damage per round for 1 turn
+	- Clawmark (rune): 1d3 damage per round for 4 rounds
+- Medic kit changes:
+	- Removed restriction: May not wear gauntlets or bracers.
+	- Added restriction: May not use bladed weapons, other than short swords or daggers.
+- Other:
+	- Hunter Bone: AC/saves bonuses no longer stack. Changed BAM images (previous BAM files now used for Shaman Bone Blade).
+	- Golem Ring: Added sound effect when Iron Flesh duration ends.
+
+v4.0
+- Split install into 2 subcomponents:
+	- Option 1: Base kits + multiclass variants
+	- Option 2: Base kits only
+- New kits:
+	- Full Metal Jaguar (fighter)
+	- Nurse (thief)
+	- Spell Fencer (fighter/mage)
+- New multiclass variants:
+	- Beast Hunter FC
+	- Crow Hunter MT
+	- Full Metal Jaguar (FM, FT)
+	- Nurse MT
+- Fixes:
+	- Fixed a possible install error, related to config settings.
+	- Spelling fixes.
+- Kit updates:
+	- Moonlight Knight: Moonlight Vortex will now always do some damage to undead and outerplanar creatures. Magic resist, for these creatures, will halve the damage instead of negating it.
+	- Confessor: The saving throw for Rooting Shot was previously checked immediately on-hit. It will now be checked after the initial 3 rounds of entangle. The effects are still the same.
+- Other changes:
+	- Moved a few item locations.
+	- Other minor changes (sounds, icons, kit colors, etc.)
+	- Added Config option for Holy Symbols in IWDEE (disabled by default)
 
 v3.3
 - New items:
@@ -334,6 +451,15 @@ v1.2
 v1.1
 - Added Cosmic Watcher Badge to BG2 and IWD main campaigns (they were already in the expansions). Both are very late game.
 - Adjusted location of one of the other badges in BG2.
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+Translation/Coding Assistance:
+
+JohnBob - French Translation
+
+subtledoctor - coding assistance for compatibility with his mods
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

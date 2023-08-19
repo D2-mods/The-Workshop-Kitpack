@@ -44,11 +44,11 @@ Blood Minister:
 	- Minor: Exploration, Knowledge, Thought, Affliction, Animal, Fire, Shadow
 NOTE: "Life" will be listed as Minor in the kit description
 
-Beast Hunter (F/M/C)
+Beast Hunter (FMC, FC)
 	- Major: Life, Vermin, Protection, War, Knowledge, Fire, Light
 	- Minor: Thought, Dread, Vigor, Earth
 
-Moonlight Knight (C/R)
+Moonlight Knight CR
 	- Major: Destruction, Protection, War, Exploration, Vigor, Earth, Animal, Light
 	- Minor: Life, Vermin, Knowledge, Deception, Plant, Magic, Astral
 =====================================================================
@@ -74,16 +74,16 @@ Noble Scion:
 	- Major: All, Law, Protection, War, Perception, Vigor, Radiance
 	- Minor: Chaos, Time, Thought, Plant, Water
 
-Blood Minister: 
+Blood Minister: 
 	- Major: All, Death, Vigor, Plant, Earth, Air, Spirit/Astral
 	- Minor: Perception, Animal, Fire, Shadow
 NOTE: "All" will be listed as Minor in the kit description
 
-Beast Hunter (F/M/C)
+Beast Hunter (FMC, FC)
 	- Major: All, Law, Protection, Perception, Fire, Radiance
 	- Minor: War, Thought, Insects, Vigor, Earth
 
-Moonlight Knight (C/R)
+Moonlight Knight CR
 	- Major: Chaos, Protection, Time, Vigor, Animal, Earth, Radiance
 	- Minor: All, Law, Perception, Deceit, Plant, Spirit/Astral
 =====================================================================
@@ -109,16 +109,16 @@ Noble Scion:
 	- Major: Healing, Law, Protection, Combat, Travelers, Divination, Sun
 	- Minor: Chaos, Thought, Plant, Water, Air, Numbers
 
-Blood Minister: 
+Blood Minister: 
 	- Major: Healing, Necromantic, Summoning, Animal, Plant, Earth, Water, Air, Numbers
 	- Minor: Travelers, Divination, Thought, Fire, Weather
 NOTE: "Healing" will be listed as Minor in the kit description
 
-Beast Hunter (F/M/C)
+Beast Hunter (FMC, FC)
 	- Major: Healing, Law, Protection, Divination, Fire, Sun
 	- Minor: Combat, Thought, Charm, Creation, Earth
 
-Moonlight Knight (C/R)
+Moonlight Knight CR
 	- Major: Chaos, Protection, Travelers, Creation, Animal, Earth, Sun
 	- Minor: Healing, Law, Divination, Wards, Plant, Numbers, Astral
 =====================================================================
@@ -146,15 +146,15 @@ Temple Knight:
 Noble Scion: 
 	- All, Protection, Sun, Combat, Weave
 
-Blood Minister: 
+Blood Minister: 
 	- Major: All, Healing, Plant, Darkness, Air, Divination
 	- Minor: Necromantic, Vermin, Moon, Water
 
-Beast Hunter (F/M/C)
+Beast Hunter (FMC, FC)
 	- Major: All, Healing, Vermin, Protection, Sun, Vocal
 	- Minor: Combat, Creation, Fire, Divination
 
-Moonlight Knight (R/C)
+Moonlight Knight CR
 	- Major: All, Animal, Moon, Combat, Earth, Travelers
 	- Minor: Plant, Summoning, Weave, Trickery
 =====================================================================

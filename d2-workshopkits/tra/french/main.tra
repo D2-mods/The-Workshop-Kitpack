@@ -2,12 +2,24 @@
 Text in this file appears in the game.
 */
 
-//Ability messages
+
+/*
+//Warrior kits (v1.0)
+//non-Warrior kits (v1.0)
+//v3.0 kits
+//v4.0 kits
+//Ability text
+//Spell Text
+//Item text
+//v3.3+ items
+*/
+
+//Ability messages (dialogue box)
 @300 = ~Objet inutilisable~
 @301 = ~Enchevêtré(e)~
 @302 = ~Hémorragie~ 
 @303 = ~Vous ne pouvez pas lancer ce sort tant que le sort précédent n’a pas expiré.~
-@304 = ~^$Anneau du Golem activé^-~
+@304 = ~^$AAnneau du Golem activé^-~
 @305 = ~^$Une Rune de Caryll a été gravée dans l'esprit de tous les membres du groupe.^-~    // symbols are for colored text
 @306 = ~Régénération~
 @307 = ~Guéri~
@@ -15,7 +27,13 @@ Text in this file appears in the game.
 @309 = ~Confus~
 @310 = ~Panique~
 @311 = ~Berserk~
-@312 = ~^$Used Hunter Bone^-~
+@312 = ~^AOs du chasseur épuisé^-~
+@313 = ~^AÂme du démon consumé^-~
+@314 = ~Débilité mentale~
+@315 = ~Sommeil~
+@316 = ~Nouvelle capacité passive « Cascade »~
+@317 = ~Nouvelle capacité passive « Décochage critique »~
+@318 = ~Nouvelle capacité passive « Plus vite que son ombre »~
 
 
 
@@ -32,7 +50,6 @@ Text in this file appears in the game.
 @409 = ~Qu'est-ce que... !?~
 @410 = ~Hum, ce n'était peut-être pas une si bonne idée finalement...~
 @411 = ~Soyez prudent !~
-
 
 
 //Names that don't fit in other sections
@@ -55,22 +72,56 @@ Text in this file appears in the game.
 @616 = ~Peau de fer~                  // Golem Ring
 @617 = ~Création d'un Insigne de la Scie~
 @618 = ~Création d'un Insigne du Vétéran~
+@619 = ~Seringues~                // for Nurse kit
+@620 = ~Décochage critique~              // for Full Metal Jaguar
+@621 = ~Plus vite que son ombre~                  // for Spell Fencer
+
+
+//checks made during install
+@700 = ~Restauration~                 // checked by Blood Minister
+@701 = ~Restauration majeure~         // checked by bleeding effects
+@702 = ~Guérison~                        // checked by bleeding effects
 
 
 
-//Dialogues
+//Dialogues (BG2 or all games)
 
-//Presio duel (IWDEE)
+//Chicken talk
+@60101 = ~Il y a quelque chose de bizarre avec cette poule...~
+@60102 = ~Vous remarquez une pierre étrange enfouie dans les plumes de l'oiseau.~
+
+	@60111 = ~Approchez-vous pour vous emparer de la pierre.~
+	@60112 = ~Laissez-la tranquille.~
+
+@60121 = ~Elle se carapate !~
+@60131 = ~Elle a pondu quelque chose~
+ 
+
+
+//Dialogues (IWDEE)
+
+//Presio duel
 @50101 = ~Tes mots ne représentent rien pour moi, sorcière. Tu seras anéantie.~
 @50102 = ~Alors nous n'avons plus rien à nous dire, nécromancien.~
 @50103 = ~Approche toi, sorcière, et affronte-moi en combat singulier. Ou préfères-tu rester cachée derrière tes laquais ?~
 
-//Old Jed (IWDEE)
+//Old Jed
 @50201 = ~*Ronfle*... Heiiin, encore là, vieille branche ? Je présume que j'peux te donner c'tte pierre... *zzzz* *mmrmh* shhhpas d'ici... sève... *Ronfle*~
 
+//Mirek (PC speaks)
+@50301 = ~Mirek, vous devez bien connaître les habitants du coin. Pensez-vous que l'un d'entre eux possède des accessoires magiques et serait disposé à s'en départir ?~
+
+	//Mirek (response)
+	@50311 = ~Hmm. Eh bien, Il se pourrait qu'Orrick ait le genre d'objet que vous recherchez. Il vit dans la tour à l'ouest du Grand Chêne.~
+	@50312 = ~Par ailleurs, vous devriez aller voir Gerth et jeter un œil à son magasin, au pied du Grand Chêne, juste après le pont. Il paraît qu'il récupère des objets magiques à l'occasion.~
+
+//Mirek (journal)
+@50391 = ~Voilà qui est digne d'intérêt ! Mirek a mentionné que Gerth se procurait parfois des objets magiques. Nous devrions probablement passer dans sa boutique de temps en temps.~
 
 
-//Kits
+
+
+//Warrior kits (v1.0)
 
 //Beast Hunter
 @100101 = ~Chasseur~
@@ -124,14 +175,17 @@ Avantages :
 – Bonus de 4 aux jets de sauvegarde contre la paralysie, la mort et les poisons.
 – Bonus de 10 au score de connaissances tout les 4 niveaux.
 – Peut lancer trois sort profane à la manière d'un prêtre :
-  1er niveau : « Orbe chromatique ».
-  2ème niveau : « Horreur ».
-  3ème niveau : « Piège à crânes ».
-  
+ 1er niveau : « Orbe chromatique ».
+ 2ème niveau : « Horreur ».
+ 3ème niveau : « Piège à crânes ».
+
+– 3ème niveau : Immunité à la peur et à la perte de moral.
 – 5ème niveau : Peut utiliser la capacité « Dénégation » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
 
 DÉNÉGATION : Ce sort a deux effets. Tout d'abord, la cible devient immunisé, pendant 3 tours, à tous les effets provoquant une mort instantanée. 
 Ensuite, si celle-ci voit ses points de vie tomber en dessous des 50 %, le deuxième effet du sort s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.
+
+– 8ème niveau : Immunité à l'aveuglement et aux attaques de regard.
 
 Inconvénients : 
 – Ne peut pas porter d'armure plus lourde que la cotte de mailles.
@@ -171,10 +225,10 @@ Inconvénients :
 
 Avantages :
 – Peut lancer quatre sort profane à la manière d'un prêtre :
-  1er niveau : « Cécité ».
-  2ème niveau : « Flou ».
-  3ème niveau : « Toucher vampirique ».
-  4ème niveau : « Mot secret ».
+ 1er niveau : « Cécité ».
+ 2ème niveau : « Flou ».
+ 3ème niveau : « Toucher vampirique ».
+ 4ème niveau : « Mot secret ».
 
 – 2ème niveau : Peut utiliser la capacité « Empalement » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
@@ -182,7 +236,7 @@ EMPALEMENT : La prochaine attaque à distance réussie enchevêtre la cible pend
 
 – 5ème niveau : Peut utiliser la capacité « Évangile sanguinolente » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
 
-ÉVANGILE SANGUINOLENTE : Pendant 5 rounds, le personnage récupère 1d4 points de vie à chaque attaque de mêlée réussie et provoque une hémorragie à sa cible, lui infligeant 2 point de dégâts par round pendant 8 rounds (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.
+ÉVANGILE SANGUINOLENTE : Pendant 5 rounds, le personnage récupère 1d4 points de vie à chaque attaque de mêlée réussie et provoque une hémorragie à sa cible, lui infligeant 2 point de dégâts par round pendant 6 rounds (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.
 
 Inconvénients : 
 – Ne peut pas porter d'armure plus lourde que la besantine.
@@ -289,7 +343,7 @@ Avantages :
 – Bonus de 3 bonus aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille.
 – 4ème niveau : Peut utiliser la capacité « Tir éclatant » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
-TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 2 point de dégâts supplémentaires par round pendant 6 rounds (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
+TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 1 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
 – 11ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 15 et 19.
 
@@ -348,12 +402,16 @@ Avantages :
 – Ne sera pas déchu en raison de la réputation.
 – Vitesse de déplacement augmentée de 2.
 – 6ème niveau : Immunité à « Glisse », « Toile d'araignée », « Enchevêtrement », « Croissance d'épines », et « Pierres acérées ».
+– 7ème niveau : Gagne la capacité passive « Évasion ». **
 – 12ème niveau : Immunité à « Nuage mortel », « Brume mortelle », « Nuage puant », « Brouillard putride », et « Nuage de pestilence ».
 
 Inconvénients :
 – N'a pas accès aux sorts de prêtre.
-– Ne peut pas porter d'armure plus lourde que l'armure de cuir ou l'armure de peau.~
-@101204 = ~Déchu : Errant~
+– Ne peut pas porter d'armure plus lourde que l'armure de cuir ou l'armure de peau.
+
+
+** REMARQUE : Évasion peut être obtenue dans IWD:EE ou si le mod IWDification est installé.~
+@101204 = ~Déchu : Vagabond~
 @101205 = ~~
 
 
@@ -376,9 +434,9 @@ REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes 
 DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
 
 Inconvénients :
+– Ne peut pas utiliser d'autre lame que les épées courtes ou les dagues.
 – Ne peut utiliser « Imposition des mains ».
-– Ne peut utiliser « Coup étourdissant ».
-– Ne peut porter de gantelets ou de bracelets.~
+– Ne peut utiliser « Coup étourdissant ».~
 @101304 = ~~
 @101305 = ~~
 
@@ -391,7 +449,7 @@ Inconvénients :
 Avantages :
 – Bonus de 1 aux jets d'attaque avec les armes à distance au niveau 1, puis tous les 5 niveaux.
 – Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes
-– 3ème niveau : Peut utiliser la capacité « Tir saignant » une fois par jour, puis tous les 3 niveaux.
+– 3ème niveau : Peut utiliser la capacité « Tir saignant » une fois par jour, puis une fois supplémentaire tous les 3 niveaux.
 
 TIR SAIGNANT : Le personnage sacrifie 2d4 points de vie. Ainsi pendant les 2 rounds suivants, toutes ses attaques à distance infligent 1d3 points de dégâts perforants supplémentaires par tranche de 3 niveaux du personnage.
 
@@ -402,8 +460,103 @@ Inconvénients :
 – Ne peut pas porter d'armure plus lourde que l'armure feuilletée.
 – Ne peut se spécialiser avec les armes de mêlée.
 – Ne peut se spécialiser dans aucun style de combat.~
-@101404 = ~Lost Class: Noble Scion~
+@101404 = ~Déchu : Seigneur Scion~
 @101405 = ~~
+
+
+
+//v4.0 kits
+
+//Full Metal Jaguar (fighter)
+@101501 = ~Full Metal Jaguar~
+@101502 = ~full metal jaguar~
+@101503 = ~FULL METAL JAGUAR : Un grand guerrier aux talents multiples, le Full Metal Jaguar commence par décocher une salve de projectiles sur ses ennemis avant de se jeter dans la bataille et de les terrasser au corps-à-corps.
+
+Avantages :
+– Bonus de 1 aux jets d'attaque et de dégâts.
+– Immunité à l'attaque sournoise.
+– 5ème niveau : Peut utiliser la capacité « Fantomatique » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
+
+FANTOMATIQUE : Cette capacité est effective pendant 5 rounds. À chaque round, 1 image miroir du personnage apparaît, celle-ci absorbera une attaque pendant ce même round. Le nombre d'images passe à 2 par round au niveau 10, à 3 au niveau 15 et enfin à 4 au niveau 20.
+
+– 8ème niveau : Gagne la capacité passive « Décochage critique ».
+
+DÉCOCHAGE CRITIQUE : Les attaques à distance augmentent les chances d'effectuer un coup critique avec les armes de mêlée. Chaque attaque réussie avec une arme à distance confère un bonus cumulatif de 5 % pendant 3 rounds. Un échec critique annule les bonus.
+
+Inconvénients :
+– Ne peut porter d'armure plus lourde que l'armure feuilletée.~
+@101504 = ~~
+@101505 = ~~
+
+
+//Nurse (thief)
+@101601 = ~Urgentiste~
+@101602 = ~urgentiste~
+@101603 = ~URGENTISTE : Naturellement douée, l'urgentiste est à la fois un alchimiste et un archer, investigation et apprentissage sont ses maîtres mots.
+
+Avantages :
+– Bonus de 1 aux jets d'attaque avec les armes à distances au premier niveau, puis une fois supplémentaire tous les 5 niveaux.
+– Peut atteindre la spécialisation (2 points de compétence) avec les arcs cours, les arbalètes les frondes et le fléchettes.
+– Peut préparer un lot de 8 « Seringues ». une fois par jour au niveau 1 et 5, puis une fois supplémentaire tous les 5 niveaux. Les fléchettes sont immédiatement équipées et restent dans la main jusqu'à ce qu'elles soient toutes utilisées ou qu'elles expirent, au bout d'une heure.
+
+SERINGUES : Ces fléchettes guériront les alliés et empoisonneront les ennemis. Leur effet curatif ou bien leur toxicité est équivalente à 1d3 + 1 point de vie par tranche de 3 niveaux, jusqu'à un maximum de 1d3 + 5. Les Seringues sont considérées comme des armes magiques +5, et bénéficient d'un bonus de 5 au jets d'attaque. Les points de compétence investis dans les fléchettes par le personnage n'affectent pas les jets d'attaque.
+
+– 11ème niveau : Peut utiliser la capacité « Intraveineuse » une fois par jour, puis une fois supplémentaire au niveau 15 et 19.
+
+INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de la Confusion pendant 5 rounds.
+
+Inconvénients :
+– Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.
+– Ne peut porter d'armure plus lourde que l'armure de cuir.~
+@101604 = ~~
+@101605 = ~~
+
+
+//Spell Fencer (fighter/mage)
+@101701 = ~Dégaineur de sortilège~
+@101702 = ~dégaineur de sortilège~
+@101703 = ~DÉGAINEUR DE SORTILÈGE : Un expert des duels, le Dégaineur de sortilège allie son expertise des armes à ses talents en magie afin de surpasser son adversaire.
+
+Avantages :
+– Bénéficie d'un sort supplémentaire par niveau.
+– Bonus de 1 à la classe d'armure, puis une fois supplémentaire tous les 5 niveaux dans la classe de guerrier.
+– Bonus de 1 aux jets de sauvegarde contre les sorts tous les 4 niveaux dans la classe de mage, jusqu'à un bonus maximum de 5 au niveau 20.
+–  Gagne la capacité passive « Plus vite que son ombre ». Cette capacité nécessite d'avoir atteint le niveau 5 pour ses deux classes, Mage et Guerrier.
+
+PLUS VITE QUE SON OMBRE : À chaque attaque de mêlée réussie, le Dégaineur de sortilège bénéficie d'un bonus cumulatif de 2 à la vitesse d'incantation pendant 10 secondes. Un échec critique annule les bonus.
+
+Inconvénients :
+– Ne peut se spécialiser avec les armes à distance.
+– Ne peut porter d'armure plus lourde que la cotte de mailles.~
+@101704 = ~~
+@101705 = ~~
+
+
+
+//v5.0 kits
+
+/*
+//Crystal Sage
+@101801 = ~Crystal Sage~
+@101802 = ~crystal sage~
+@101803 = ~~
+@101804 = ~~
+@101805 = ~~
+
+//Glintblade
+@101901 = ~Glintblade~
+@101902 = ~glintblade~
+@101903 = ~~
+@101904 = ~~
+@101905 = ~~
+
+//Zephyr
+@102001 = ~Zephyr~
+@102002 = ~zephyr~
+@102003 = ~~
+@102004 = ~~
+@102005 = ~~
+*/
 
 
 
@@ -458,7 +611,7 @@ L'attaque doit être effectué dans les 2 rounds suivant l'activation de la capa
 @107 = ~Évangile sanguinolente~
 @207 = ~Évangile sanguinolente
 
-Pendant 5 rounds, le personnage récupère 1d4 points de vie à chaque attaque de mêlée réussie et provoque une hémorragie à sa cible, lui infligeant 2 point de dégâts par round pendant 8 rounds (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.~
+Pendant 5 rounds, le personnage récupère 1d4 points de vie à chaque attaque de mêlée réussie et provoque une hémorragie à sa cible, lui infligeant 2 point de dégâts par round pendant 6 rounds (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.~
 
 @108 = ~Force~
 @208 = ~Force
@@ -505,7 +658,7 @@ SANG DU LUNATIQUE : Cette injection donne un léger aperçu du cosmos et de ses 
 @113 = ~Tir éclatant~
 @213 = ~Tir éclatant
 
-Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 2 point de dégâts supplémentaires par round pendant 6 rounds (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.~
+Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 1 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.~
 
 @114 = ~Instinct ~
 @214 = ~Instinct 
@@ -575,6 +728,27 @@ Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pe
 
 Le personnage sacrifie 2d4 points de vie. Ainsi pendant les 2 rounds suivants, toutes ses attaques à distance infligent 1d3 points de dégâts perforants supplémentaires par tranche de 3 niveaux du personnage.~
 
+@126 = ~Seringues~
+@226 = ~Seringues
+
+Cette capacité permet de préparer un lot de 8 « Seringues ». une fois par jour au niveau 1 et 5, puis une fois supplémentaire tous les 5 niveaux. Les fléchettes sont immédiatement équipées et restent dans la main jusqu'à ce qu'elles soient toutes utilisées ou qu'elles expirent, au bout d'une heure.
+
+Ces fléchettes guériront les alliés et empoisonneront les ennemis. Leur effet curatif ou bien leur toxicité est équivalente à 1d3 + 1 point de vie par tranche de 3 niveaux, jusqu'à un maximum de 1d3 + 5. Les Seringues sont considérées comme des armes magiques +5, et bénéficient d'un bonus de 5 au jets d'attaque. Les points de compétence investis dans les fléchettes par le personnage n'affectent pas les jets d'attaque.
+
+REMARQUE : Utiliser ces fléchettes sur un Pnj neutre est toujours considérée comme un acte hostile.~
+
+@127 = ~Intraveineuse~
+@227 = ~Intraveineuse
+
+La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de la Confusion pendant 5 rounds.
+
+L'intraveineuse doit être effectuée dans les 2 rounds après avoir activé la capacité, sinon l'effet se dissipera.
+L'intraveineuse ne peut être utilisé en combinaison avec les Seringues.~
+
+@128 = ~Fantomatique~
+@228 = ~Fantomatique
+
+Cette capacité est effective pendant 5 rounds. À chaque round, 1 image miroir du personnage apparaît, celle-ci absorbera une attaque pendant ce même round. Le nombre d'images passe à 2 par round au niveau 10, à 3 au niveau 15 et enfin à 4 au niveau 20.~
 
 
 
@@ -1124,7 +1298,7 @@ Capacités de charge :
 – Griffure (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 1 point de dégâts par round pendant 4 rounds (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
+5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 1d3 point de dégâts par round pendant 4 rounds (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
 Poids : 0~
 
@@ -1379,7 +1553,7 @@ Poids : 1~
 PARAMÈTRES :
 
 Capacités de combat :
-– À chaque attaque réussie, 33 % de chance de bénéficier d'un bonus de 1 aux dégâts pour 2 rounds (Attaque de mêlée uniquement)
+– À chaque attaque réussie, 33 % de chance de bénéficier d'un bonus cumulatif de 1 aux dégâts pour 2 rounds (Attaque de mêlée uniquement)
 
 Poids : 0~
 
@@ -1400,7 +1574,7 @@ PARAMÈTRES :
 
 Capacités de charge :
 – Hâte-Flou trois fois par jour
-  Durée : 20 seconds
+  Durée : 20 secondes
   Zone d'effet :l'utilisateur
   
 Poids : 1~
@@ -1419,6 +1593,27 @@ Spécial  (Chirurgien):
 – « Sombre Remède » et « Remède Vital » bénéficieront d'un rayon de 4,5 m de portée
 
 Poids : 1~
+
+@70136 = ~Âme du démon immaculé~
+@70236 = ~L'âme pervertie d'un démon primordial... Elle est imprégnée d'une grande puissance et confère à l'utilisateur une large quantité d'expérience, mais...
+
+PARAMÈTRES :
+
+Spécial : Bonus de 200 000 points d’expérience
+Sagesse : Malus de 1
+Charisme : Malus de 2
+Durée : Permanente
+
+Poids : 10~
+
+@70137 = ~Lame d'os du Shaman~
+@70237 = ~Cette lame d'os de cérémonie est enduite d'un épouvantable liquide céphalo-rachidien. Elle se brise aisément mais entaille profondément et pousse sa victime à se retourner contre ses anciens alliés.
+
+PARAMÈTRES :
+
+Spécial : La cible doit effectuer un jet de sauvegarde contre la pétrification et la métamorphose ou être sous l'emprise d'un charme pendant 4 rounds ; si son jet de sauvegarde est réussi, celle-ci est alors soumise à la folie du berserker pendant 4 rounds.
+
+Poids : 0~
 
 
 /*
