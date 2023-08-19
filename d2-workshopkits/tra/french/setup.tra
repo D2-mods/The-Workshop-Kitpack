@@ -3,15 +3,19 @@ Text in this file appears in the weidu installer.
 */
 
 //Setup
-@9999  = ~The Workshop Kitpack / Les Kits de l'Atelier~
+@1  = ~The Workshop Kitpack / Les Kits de l'Atelier~
 @10 = ~Pack d'objets divers~
 @50 = ~Installer si vous utilisez le mod 5E_spellcasting de subtledoctor~
 
-@1 = ~Base kits + multiclass variants~
-@2 = ~Base kits only~
-@3 = ~Misc item pack (no kits)~
+@1 = ~Kits de base + Kits Multi-classes~
+@2 = ~Uniquements les Kits de base~
+@3 = ~Pack d'objets divers (Pas de kits ou d'insignes de chasseur)~
 @4 = ~~
 @5 = ~Fichier non trouvé. Aucune modification n'a été effectuée.~
+
+@6 = ~Patches supplémentaires pour les sorts. Cela peut prendre un certain temps.~
+@7 = ~Patches supplémentaires pour les objets.~
+@8 = ~Patches supplémentaires pour les créatures.~
 
 
 

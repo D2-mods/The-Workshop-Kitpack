@@ -2,8 +2,11 @@
 
 Téléchargement : https://github.com/D2-mods/The-Workshop-Kitpack/releases  
 Forum : [Beamdog](https://forums.beamdog.com/discussion/86749/mod-the-workshop-kitpack), [Gibberlings3](https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack/)
+Langages: English, French (JohnBob)
 
-C'est un pack de Kits sur lequel je travaille depuis un moment. Il comporte actuellement 14 kits + 6 déclinaisons pour multi-classes. Il contient également plus de 30 objets, dont 6 insignes de Chasseur, 12 Runes de Caryll et 15 autres objets divers. Fortement inspiré par les jeux Soulsborne de FromSoft et probablement d'autres sources. Ce mod est compatible avec BG:EE, BG2:EE, IWD:EE et EET.
+--
+
+C'est un pack de Kits sur lequel je travaille depuis un moment. Il comporte actuellement 17 kits + 11 déclinaisons pour multi-classes. Il contient également plus de 30 objets, dont 6 insignes de Chasseur, 12 Runes de Caryll et 17 autres objets divers. Fortement inspiré par les jeux Soulsborne de FromSoft et probablement d'autres sources. Ce mod est compatible avec BG:EE, BG2:EE, IWD:EE et EET.
 
 NOTE : Les tables de capacités pour ces kits sont créées au moment de l'installation. Chaque kit clone la table de la classe de base (si elle existe). Cela signifie que toute modification de classe installée au préalable sera incluse dans les kits du mod.
 
@@ -33,32 +36,50 @@ Contenu du mod :
 - Chirurgien (moine)
 - Seigneur Scion (paladin)
 
+#### [v4.0 kits](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#descriptions-des-kits-)
+- Full Metal Jaguar (Guerrier)
+- Urgentiste (Voleur)
+- Dégaineur de sortilège (Guerrier / Mage)
+
 #### Kits Multi-classes
 
-- Chasseur (Guerrier / Mage)
-- Chasseur (Guerrier / Mage / Clerc)
+- Chasseur (Guerrier / Mage), (Guerrier / Mage / Clerc), (Guerrier / Clerc)
 - Limier (Guerrier / Mage)
 - Chevalier au clair de lune (Clerc / Rôdeur)
-- Prédateur (Guerrier / Voleur)
-- Prédateur (Guerrier / Mage / Voleur)
+- Prédateur (Guerrier / Voleur), (Guerrier / Mage / Voleur), (Mage / Voleur)
+- Full Metal Jaguar (Guerrier / Voleur), (Guerrier / Mage)
+- Urgentiste (Mage / Voleur)
 
 #### Objets Divers
   
 - 6 [Insignes de Chasseur](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#insignes-de-chasseur) &emsp;-&emsp;&emsp; peuvent être fabriqués (voir ci-dessous), ou achetés
 - 8 [Nouveaux sorts](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#sorts-du-vagabond-des-%C3%A9toiles-) &emsp;&emsp;&emsp;-&emsp;&emsp; pour le kit du Vagabond des étoiles 
 - 12 [Runes de Caryll](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#les-runes-de-caryll) &emsp;&emsp;-&emsp;&emsp; des objets ayant des effets sur l'ensemble du groupe
-- 15 [Autres objets](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#objets-divers-) &emsp; &emsp;-&emsp;&emsp; tous des objets utilitaires, pas d'armes ni d'armures
+- 17 [Autres objets](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#objets-divers-) &emsp; &emsp;-&emsp;&emsp; tous des objets utilitaires, pas d'armes ni d'armures
 - [v3.3+ items](https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/README.French.md#v33-items-)
 
 
 Composants :
--
 
 1. The Workshop Kitpack // Les Kits de l'Atelier
-2. Pack d'objets divers (Note : Les insignes de chasseur font partie du composant principal.)
-3. Correctif pour le mod 5E_spellcasting de subtledoctor
+	- Option 1: Kits de base + Kits Multi-classes
+	- Option 2: Uniquements les Kits de base
+	- Option 3: Pack d'objets divers (Pas de kits ou d'insignes de chasseur)
+2. Pack d'objets divers
+3. Composant pour le mod 5E_spellcasting de subtledoctor
 
 config.ini: Définir un kit = 0 pour éviter de l'installer
+
+--
+
+**Informations supplémentaires :**
+- Si l'option 1 ou 2 est installée, Alors le composant "Pack d'objets divers" sera proposé séparément.
+- Si l'option 3 est installée, les autres composants seront sautés.
+- Les insignes de chasseur sont installées en combinaison avec le kit de Chasseur.
+
+**Configuration :**
+- config.ini : Définir un kit = 0 pour éviter de l'installer
+- L'Option 2 ignorera toutes les variantes Multi-classes, quels que soient les paramètres de configuration dans le fichier config.ini.
 
 
 Descriptions des Kits :
@@ -116,14 +137,17 @@ Avantages :
 - Bonus de 4 aux jets de sauvegarde contre la paralysie, la mort et les poisons.
 - Bonus de 10 au score de connaissances tout les 4 niveaux.
 - Peut lancer trois sort profane à la manière d'un prêtre :  
-  1er niveau : « Orbe chromatique ».  
-  2ème niveau : « Horreur ».  
-  3ème niveau : « Piège à crânes ».
-  
+	- 1er niveau : « Orbe chromatique ».  
+	- 2ème niveau : « Horreur ».  
+	- 3ème niveau : « Piège à crânes ».
+ 
+- 3ème niveau : Immunité à la peur et à la perte de moral. 
 - 5ème niveau : Peut utiliser la capacité « Dénégation » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
 
 DÉNÉGATION : Ce sort a deux effets. Tout d'abord, la cible devient immunisé, pendant 3 tours, à tous les effets provoquant une mort instantanée. 
 Ensuite, si celle-ci voit ses points de vie tomber en dessous des 50 %, le deuxième effet du sort s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.
+
+- 8ème niveau : Immunité à l'aveuglement et aux attaques de regard.
 
 Inconvénients : 
 - Ne peut pas porter d'armure plus lourde que la cotte de mailles.
@@ -159,10 +183,10 @@ EXÉCUTEUR : L'Exécuteur est un paladin qui œuvre pour son église. Il est dou
 
 Avantages :
 - Peut lancer quatre sort profane à la manière d'un prêtre :  
-  1er niveau : « Cécité ».  
-  2ème niveau : « Flou ».  
-  3ème niveau : « Toucher vampirique ».  
-  4ème niveau : « Mot secret ».
+	- 1er niveau : « Cécité ».  
+	- 2ème niveau : « Flou ».  
+	- 3ème niveau : « Toucher vampirique ».  
+	- 4ème niveau : « Mot secret ».
 
 - 2ème niveau : Peut utiliser la capacité « Empalement » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
@@ -170,7 +194,7 @@ EMPALEMENT : La prochaine attaque à distance réussie enchevêtre la cible pend
 
 - 5ème niveau : Peut utiliser la capacité « Évangile sanguinolente » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
 
-ÉVANGILE SANGUINOLENTE : Pendant 5 rounds, le personnage récupère 1d4 points de vie à chaque attaque de mêlée réussie et provoque une hémorragie à sa cible, lui infligeant 2 point de dégâts par round pendant 8 rounds (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.
+ÉVANGILE SANGUINOLENTE : Pendant 5 rounds, le personnage récupère 1d4 points de vie à chaque attaque de mêlée réussie et provoque une hémorragie à sa cible, lui infligeant 2 point de dégâts par round pendant 6 rounds (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.
 
 Inconvénients : 
 - Ne peut pas porter d'armure plus lourde que la besantine.
@@ -271,7 +295,7 @@ Avantages :
 - Bonus de 3 bonus aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille.
 - 4ème niveau : Peut utiliser la capacité « Tir éclatant » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
-TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 2 point de dégâts supplémentaires par round pendant 6 rounds (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
+TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 1 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
 - 11ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 15 et 19.
 
@@ -322,58 +346,128 @@ Inconvénients :
 VAGABOND : Le Vagabond erre sans attache ni dessein dans les contrées les plus inhospitalières. Ses remarquables aptitudes au combat ont été affûté par d'innombrables batailles.
 
 Avantages :
-– Bonus de 4 aux jets de sauvegarde contre les souffles.
-– Bonus de 1 à la classe d'armure, bénéficie d'un bonus supplémentaire de 1 tous les 5 niveaux.
-– Bonus de 1 aux jets d'attaque et de dégâts au niveau 3, puis une fois supplémentaire tous les 5 niveaux.
-– Ne sera pas déchu en raison de la réputation.
-– Vitesse de déplacement augmentée de 2.
-– 6ème niveau : Immunité à « Glisse », « Toile d'araignée », « Enchevêtrement », « Croissance d'épines », et « Pierres acérées ».
-– 12ème niveau : Immunité à « Nuage mortel », « Brume mortelle », « Nuage puant », « Brouillard putride », et « Nuage de pestilence ».
+- Bonus de 4 aux jets de sauvegarde contre les souffles.
+- Bonus de 1 à la classe d'armure, bénéficie d'un bonus supplémentaire de 1 tous les 5 niveaux.
+- Bonus de 1 aux jets d'attaque et de dégâts au niveau 3, puis une fois supplémentaire tous les 5 niveaux.
+- Ne sera pas déchu en raison de la réputation.
+- Vitesse de déplacement augmentée de 2.
+- 6ème niveau : Immunité à « Glisse », « Toile d'araignée », « Enchevêtrement », « Croissance d'épines », et « Pierres acérées ».
+- 7ème niveau : Gagne la capacité passive « Évasion ». **
+- 12ème niveau : Immunité à « Nuage mortel », « Brume mortelle », « Nuage puant », « Brouillard putride », et « Nuage de pestilence ».
 
 Inconvénients :
-– N'a pas accès aux sorts de prêtre.
-– Ne peut pas porter d'armure plus lourde que l'armure de cuir ou l'armure de peau.
+- N'a pas accès aux sorts de prêtre.
+- Ne peut pas porter d'armure plus lourde que l'armure de cuir ou l'armure de peau.
+
+
+** REMARQUE : Évasion peut être obtenue dans IWD:EE ou si le mod IWDification est installé.
 
 **Chirurgien (Moine)**
 
 CHIRURGIEN : Le Chirurgien est un guerrier disposant d'une connaissance approfondie en médecine. Il a bénéficié d'un entraînement spécifique lui conférant la capacité de concocter de puissants remèdes à base de plantes pour renforcer ses alliés au cours des combats.
 
 Avantages :
-– Peut utiliser les capacités « Sombre Remède » et « Remède Vital » une fois par jour au niveau 1, puis une fois supplémentaire tous les 5 niveaux.
+- Peut utiliser les capacités « Sombre Remède » et « Remède Vital » une fois par jour au niveau 1, puis une fois supplémentaire tous les 5 niveaux.
 
 SOMBRE REMÈDE : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède curatif qui restaure 2d6 points de vie à tous les alliés dans un rayon de 2,1 mètres.
 
 REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède apaisant. Tous les ennemis présents dans un rayon de 2,1 m sont ralentis durant 1 round, et doivent effectuer un jet de sauvegarde contre la mort ou s'endormir pendant 5 rounds, à moins d'être attaqués dans leur sommeil.
 
-– 5ème niveau : Peut utiliser « Ralentissement du poison » trois fois par jour.
-– 7ème niveau : Peut utiliser « Guérison des maladies » une fois par jour.
-– 9ème niveau : Peut utiliser la capacité « Déluge Salvateur » une fois par jour, puis une fois supplémentaire au niveau 12 et 15.
+- 5ème niveau : Peut utiliser « Ralentissement du poison » trois fois par jour.
+- 7ème niveau : Peut utiliser « Guérison des maladies » une fois par jour.
+- 9ème niveau : Peut utiliser la capacité « Déluge Salvateur » une fois par jour, puis une fois supplémentaire au niveau 12 et 15.
 
 DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
 
 Inconvénients :
-– Ne peut utiliser « Imposition des mains ».
-– Ne peut utiliser « Coup étourdissant ».
-– Ne peut porter de gantelets ou de bracelets.
+- Ne peut pas utiliser d'autre lame que les épées courtes ou les dagues.
+- Ne peut utiliser « Imposition des mains ».
+- Ne peut utiliser « Coup étourdissant ».
 
 **Seigneur Scion (Paladin)**
 
 SEIGNEUR SCION : Descendant d'une lignée honorable, le Seigneur Scion a foi dans son héritage. Ce justicier excelle dans le combat à distance et imprègne ses munitions de sang pour réaliser des tirs dévastateurs.
 
 Avantages :
-– Bonus de 1 aux jets d'attaque avec les armes à distance au niveau 1, puis tous les 5 niveaux.
-– Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes
-– 3ème niveau : Peut utiliser la capacité « Tir saignant » une fois par jour, puis tous les 3 niveaux.
+- Bonus de 1 aux jets d'attaque avec les armes à distance au niveau 1, puis tous les 5 niveaux.
+- Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes
+- 3ème niveau : Peut utiliser la capacité « Tir saignant » une fois par jour, puis une fois supplémentaire  tous les 3 niveaux.
 
 TIR SAIGNANT : Le personnage sacrifie 2d4 points de vie. Ainsi pendant les 2 rounds suivants, toutes ses attaques à distance infligent 1d3 points de dégâts perforants supplémentaires par tranche de 3 niveaux du personnage.
 
-– 8ème niveau :  +5 % de chance d’effectuer un coup critique avec les armes à distance.
-– 16ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
+- 8ème niveau :  +5 % de chance d’effectuer un coup critique avec les armes à distance.
+- 16ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
 
 Inconvénients :
-– Ne peut pas porter d'armure plus lourde que l'armure feuilletée.
-– Ne peut se spécialiser avec les armes de mêlée.
-– Ne peut se spécialiser dans aucun style de combat.
+- Ne peut pas porter d'armure plus lourde que l'armure feuilletée.
+- Ne peut se spécialiser avec les armes de mêlée.
+- Ne peut se spécialiser dans aucun style de combat.
+
+---
+
+</details>
+
+<details>
+  <summary>v4.0 kits:</summary>
+
+---
+
+**Full Metal Jaguar (Guerrier)**
+
+FULL METAL JAGUAR : Un grand guerrier aux talents multiples, le Full Metal Jaguar commence par décocher une salve de projectiles sur ses ennemis avant de se jeter dans la bataille et de les terrasser au corps-à-corps.
+
+Avantages :
+- Bonus de 1 aux jets d'attaque et de dégâts.
+- Immunité à l'attaque sournoise.
+- 5ème niveau : Peut utiliser la capacité « Fantomatique » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
+
+FANTOMATIQUE : Cette capacité est effective pendant 5 rounds. À chaque round, 1 image miroir du personnage apparaît, celle-ci absorbera une attaque pendant ce même round. Le nombre d'images passe à 2 par round au niveau 10, à 3 au niveau 15 et enfin à 4 au niveau 20.
+
+- 8ème niveau : Gagne la capacité passive « Décochage critique ».
+
+DÉCOCHAGE CRITIQUE : Les attaques à distance augmentent les chances d'effectuer un coup critique avec les armes de mêlée. Chaque attaque réussie avec une arme à distance confère un bonus cumulatif de 5 % pendant 3 rounds. Un échec critique annule les bonus.
+
+Inconvénients :
+- Ne peut porter d'armure plus lourde que l'armure feuilletée.
+
+---
+
+**Urgentiste (Voleur)** (Nurse)
+
+URGENTISTE : Naturellement douée, l'urgentiste est à la fois un alchimiste et un archer, investigation et apprentissage sont ses maîtres mots.
+
+Avantages :
+- Bonus de 1 aux jets d'attaque avec les armes à distances au premier niveau, puis une fois supplémentaire tous les 5 niveaux.
+- Peut atteindre la spécialisation (2 points de compétence) avec les arcs cours, les arbalètes les frondes et le fléchettes.
+- Peut préparer un lot de 8 « Seringues ». une fois par jour au niveau 1 et 5, puis une fois supplémentaire tous les 5 niveaux. Les fléchettes sont immédiatement équipées et restent dans la main jusqu'à ce qu'elles soient toutes utilisées ou qu'elles expirent, au bout d'une heure.
+
+SERINGUES : Ces fléchettes guériront les alliés et empoisonneront les ennemis. Leur effet curatif ou bien leur toxicité est équivalente à 1d3 + 1 point de vie par tranche de 3 niveaux, jusqu'à un maximum de 1d3 + 5. Les Seringues sont considérées comme des armes magiques +5, et bénéficient d'un bonus de 5 au jets d'attaque. Les points de compétence investis dans les fléchettes par le personnage n'affectent pas les jets d'attaque.
+
+- 11ème niveau : Peut utiliser la capacité « Intraveineuse » une fois par jour, puis une fois supplémentaire au niveau 15 et 19.
+
+INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de la Confusion pendant 5 rounds.
+
+Inconvénients :
+- Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.
+- Ne peut porter d'armure plus lourde que l'armure de cuir.
+
+---
+
+**Dégaineur de sortilège (Guerrier / Mage)** (Spell Fencer)
+
+DÉGAINEUR DE SORTILÈGE : Un expert des duels, le Dégaineur de sortilège allie son expertise des armes à ses talents en magie afin de surpasser son adversaire.
+
+Avantages :
+- Bénéficie d'un sort supplémentaire par niveau.
+- Bonus de 1 à la classe d'armure, puis une fois supplémentaire tous les 5 niveaux dans la classe de guerrier.
+- Bonus de 1 aux jets de sauvegarde contre les sorts tous les 4 niveaux dans la classe de mage, jusqu'à un bonus maximum de 5 au niveau 20.
+-  Gagne la capacité passive « Plus vite que son ombre ». Cette capacité nécessite d'avoir atteint le niveau 5 pour ses deux classes, Mage et Guerrier.
+
+PLUS VITE QUE SON OMBRE : À chaque attaque de mêlée réussie, le Dégaineur de sortilège bénéficie d'un bonus cumulatif de 2 à la vitesse d'incantation pendant 10 secondes. Un échec critique annule les bonus.
+
+Inconvénients :
+- Ne peut se spécialiser avec les armes à distance.
+- Ne peut porter d'armure plus lourde que la cotte de mailles.
 
 ---
 
@@ -402,7 +496,8 @@ Informations supplémentaires : En raison de la façon dont le jeu détecte les 
 	- Voir les informations ci-dessous.
 - Compatible avec le système de sphères de Deities of Faerun. Installez ce mod après DoF.
 - Compatible avec le mod 5E_spellcasting de subtledoctor. Peut être installé avant ou après.
-	- Mais vous devez installer le composant supplémentaire lié au mod 5E_spellcasting.
+	- Installer The Workshop Kitpack avant le mod 5E_spellcasting.
+	- Mais vous devez toujours installer le composant supplémentaire lié au mod 5E_spellcasting.
 
 #### Capacités de haut niveau (HLA) Pièges et Chants du barde :
 
@@ -428,35 +523,32 @@ NOTE : Les kits de Clerc multiclassés ne sont actuellement pas compatible avec 
 Informations additionnelles (Les capacités des kits) :
 -
 
-- Affecté par les zones sans magie ou d'entropie :  
+- **Affecté par les zones sans magie ou d'entropie :** 
 	- "Dénégation" (Protecteur de sépultures)  
 	- "Albédo" (Chevalier au clair de lune)  
 	- "Force" (Champion du temple)  
 	- "Rayon divin" (Champion du temple)
 
-- Peut être dissipé :  
+- **Peut être dissipé :**  
 	- "Dénégation"  
 	- "Albédo" (résistance à la magie)  
 	- "Empalement" (Protection contre les effets d’enchevêtrement) (Exécuteur)
 	- "Flamme frénétique" (Protection contre les effets) (Chantre de la poudre)
 
-- Peut être dissipé par le sort Zone d'air pur :  
+- **Peut être dissipé par le sort Zone d'air pur :**
 	- "Incinération" (Limier)  
 	- "Déflagration de poussière" (Chantre de la poudre)
 
-- Autres :  
+- **Autres :  **
 	- "Injection" sera retiré par un sort de "Restauration" ou de "Restauration majeure". (Ecclésiaste sanglant)
 	- Les hémorragies peuvent être soignés par "Soins", "Restauration majeure", ou par "Guérison par le sang" de l'Ecclésiaste sanglant.
 	- Les kits de clerc multi-classes obtiendront leur symbole sacré lorsqu'il atteindrons 4 million XP (BG2EE / EET)
 
-D'autres capacités sont aussi des sorts, mais j'ai décidé qu'elles ne seraient pas affectées par les zones sans magie ou d'entropie. C'est la norme, de ne pas être affectées, pour les capacités de kit dans le jeux. Les capacités ci-dessus sont utilisées comme des sorts, donc j'ai pensé que cela aurait l'air idiot qu'elles ne soient pas affectées par les zones sans magie ou d'entropie.
-
-
-#### Certains kits bénéficieront des effets bonus de certains objets des Enhanced Éditions. :
-	- Yeux d'archer : Limier, Limier (Guerrier / Mage), Seigneur Scion
+- **Enhanced Éditions, Beamdog items (effets additionnels):**
+	- Yeux d'archer : Limier, Limier, Seigneur Scion, Urgentiste
 	- Ceinture de la fine lame : Vagabond 
 	- Cornemuse hurlante : Chantre de la poudre
-	- Gantelets du traqueur : Prédateur , Prédateur (Guerrier / Voleur), Prédateur (Guerrier / Mage / Voleur)
+	- Gantelets du traqueur : Prédateur
 
 
 Insignes de Chasseur
@@ -565,12 +657,12 @@ Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont n
 PARAMÈTRES :
 
 Capacités de charge :
-– TAC0 : Bonus de 1
-– Classe d'armure : Bonus de 1
-– Jets de sauvegarde : Bonus de 1
+- TAC0 : Bonus de 1
+- Classe d'armure : Bonus de 1
+- Jets de sauvegarde : Bonus de 1
 
 Spécial (Chasseur): 
-– Techniques de chasseur : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
+- Techniques de chasseur : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
 
 Poids : 1
 
@@ -583,12 +675,12 @@ Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont n
 PARAMÈTRES :
 
 Capacités de charge :
-– Classe d'armure : Bonus de 1
-– Jets de sauvegarde : Bonus de 1
-– Charisme : Bonus de 2
+- Classe d'armure : Bonus de 1
+- Jets de sauvegarde : Bonus de 1
+- Charisme : Bonus de 2
 
 Spécial (Chasseur): 
-– Techniques de chasseur : +5 % de chance d’effectuer un coup critique avec les armes de mêlée
+- Techniques de chasseur : +5 % de chance d’effectuer un coup critique avec les armes de mêlée
 
 Poids : 1
 
@@ -600,7 +692,8 @@ Poids : 1
 
 - BGEE : 2 insignes peuvent être récupérés, mais pas avant d'avoir atteint la ville de la Porte de Baldur.
 - SoD : Les 2 insignes de BG1, plus 1 insigne additionnelle peuvent être récupérés.
-- Tous les insignes peuvent être récupérés dans BG2EE et IWDEE, y compris des insignes supplémentaires dans les extensions.
+- Tous les insignes peuvent être récupérés dans BG2EE, les Ombres de L'Amn, Et certain peuvent aussi être récupérés dans l’extension, Trône de Bhaal .
+- IWDEE / HoW : Disséminés dans le jeu + Option de configuration pour obtenir des badges supplémentaire dans l’extension, Heart of Winter.
 
 
 Sorts du Vagabond des étoiles :
@@ -923,13 +1016,13 @@ La pierre de cette amulette, provenant d'une météorite, est connue pour prése
 PARAMÈTRES :
 
 Capacités de charge :
-– Résistance aux dégâts contondants : +15 %
-– Résistance aux dégâts magiques : +50 %
-– Jets de sauvegarde contre les sorts : Bonus de 2
-– Empêche le lancement des sorts
+- Résistance aux dégâts contondants : +15 %
+- Résistance aux dégâts magiques : +50 %
+- Jets de sauvegarde contre les sorts : Bonus de 2
+- Empêche le lancement des sorts
 
 Spécial (Limier):
-– Onde de choc et Incinération n'infligent des dégâts qu'aux ennemis
+- Onde de choc et Incinération n'infligent des dégâts qu'aux ennemis
 
 Poids : 1
 
@@ -938,13 +1031,15 @@ Poids : 1
 </details>
 
 
-v3.3+ items :
+**v3.3+ items :**
 - 
 - Scarabée en or (amulette)
-- Insigne de l'épée suspendue (anneau) (ring)
-- Pierre de larme sanglante (anneau)ing)
-- L'os du chasseur (objet rapide)em)
+- Insigne de l'épée suspendue (anneau)
+- Pierre de larme sanglante (anneau)
+- L'os du chasseur (objet rapide)
 - La plume de Jade (amulette)
+- Âme du démon immaculé (Utilisation unique)
+- Lame d'os du Shaman (objet rapide)
 
 <details>
   <summary>Descriptions</summary>
@@ -958,7 +1053,7 @@ Ce modèle d'amulette principalement fabriqué dans les environs de Mulhorand re
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Bonus de 300 points d’expérience pour chaque ennemi vaincu par le porteur
+- Bonus de 300 points d’expérience pour chaque ennemi vaincu par le porteur
 
 Poids : 1
 
@@ -971,7 +1066,7 @@ Un des plus grand honneur accordé aux plus dévoués des chevaliers, appelés �
 PARAMÈTRES :
 
 Capacités de combat :
-– À chaque attaque réussie, 33 % de chance de bénéficier d'un bonus de 1 aux dégâts pour 2 rounds (Attaque de mêlée uniquement)
+- À chaque attaque réussie, 33 % de chance de bénéficier d'un bonus cumulatif de 1 aux dégâts pour 2 rounds (Attaque de mêlée uniquement)
 
 Poids : 0
 
@@ -984,7 +1079,7 @@ La pierre de larme sanglante amplifie les attaques de son porteur lorsqu'il se t
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Si le porteur voit ses points de vie passer en dessous des 25 %, tous les dégâts qu'il inflige seront majorés de 40 %
+- Si le porteur voit ses points de vie passer en dessous des 25 %, tous les dégâts qu'il inflige seront majorés de 40 %
 
 Poids : 0
 
@@ -997,7 +1092,7 @@ Un des os d'un vieux chasseur oublié depuis longtemps. Celui où celle qui bran
 PARAMÈTRES :
 
 Capacités de charge :
-– Hâte-Flou trois fois par jour
+- Hâte-Flou trois fois par jour
   Durée : 20 seconds
   Zone d'effet :l'utilisateur
   
@@ -1012,14 +1107,41 @@ Un talisman en forme de plume qui expulse tous les types de mort magique.
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Jets de sauvegarde contre les sorts : +3
-– Immunité à la pétrification
-– Protection contre la mort
+- Jets de sauvegarde contre les sorts : +3
+- Immunité à la pétrification
+- Protection contre la mort
 
 Spécial  (Chirurgien):
-– « Sombre Remède » et « Remède Vital » bénéficieront d'un rayon de 4,5 m de portée
+- « Sombre Remède » et « Remède Vital » bénéficieront d'un rayon de 4,5 m de portée
 
 Poids : 1
+
+---
+
+**Âme du démon immaculé (Utilisation unique)**
+
+L'âme pervertie d'un démon primordial... Elle est imprégnée d'une grande puissance et confère à l'utilisateur une large quantité d'expérience, mais...
+
+PARAMÈTRES :
+
+Spécial : Bonus de 200 000 points d’expérience
+Sagesse : Malus de 1
+Charisme : Malus de 2
+Durée : Permanente
+
+Poids : 10
+
+---
+
+**Lame d'os du Shaman (objet rapide)**
+
+Cette lame d'os de cérémonie est enduite d'un épouvantable liquide céphalo-rachidien. Elle se brise aisément mais entaille profondément et pousse sa victime à se retourner contre ses anciens alliés.
+
+PARAMÈTRES :
+
+Spécial : La cible doit effectuer un jet de sauvegarde contre la pétrification et la métamorphose ou être sous l'emprise d'un charme pendant 4 rounds ; si son jet de sauvegarde est réussi, celle-ci est alors soumise à la folie du berserker pendant 4 rounds.
+
+Poids : 0
 
 ---
 
@@ -1027,7 +1149,7 @@ Poids : 1
 
 #### Infos sans spoiler :
 
-- BGEE / SoD : 5 objets peuvent être obtenus (les autres objets sont quand même installés).
+- BGEE / SoD : 7 objets peuvent être obtenus, 3 sont dans SoD (les autres objets sont quand même installés).
 - BG2EE : Tous les objets pouvant être obtenus dans SoA. Si vous commencez une nouvelle partie dans ToB, le sac de départ contiendra 1 ou 2 objets.
 - IWDEE / HOW : Les objets sont dispersés dans de nombreux endroits.
 
@@ -1078,7 +1200,7 @@ Capacités de charge :
 - Zone d'effet : Le groupe
 - Durée : 24 heures
 
-5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 2 point de dégâts par round pendant 4 rounds (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
+5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 1d3 point de dégâts par round pendant 4 rounds (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
 Poids : 0
 
@@ -1247,7 +1369,7 @@ Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, el
 PARAMÈTRES :
 
 Capacités de charge :
-– Acuité (peut être utilisé à volonté)
+- Acuité (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
 Bonus de 1 aux jets d'attaque ainsi qu'un bonus de 5 à toutes les compétences de voleur.
@@ -1265,7 +1387,7 @@ Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, el
 PARAMÈTRES :
 
 Capacités de charge :
-– Pleine Lune (peut être utilisé à volonté)
+- Pleine Lune (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
 65 points d'expérience supplémentaires pour chaque ennemi vaincu par le groupe.

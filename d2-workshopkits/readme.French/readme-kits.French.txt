@@ -16,9 +16,14 @@
 - Chantre de la poudre (barde)
 
 //v3.0 kits
-Vagabond (rôdeur)
-Chirurgien (moine)
-Seigneur Scion (paladin)
+- Vagabond (rôdeur)
+- Chirurgien (moine)
+- Seigneur Scion (paladin)
+
+//v4.0 kits
+- Full Metal Jaguar (Guerrier)
+- Urgentiste (Voleur)
+- Dégaineur de sortilège (Guerrier / Mage)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -70,21 +75,24 @@ Grave Warden (Rôdeur)
 PROTECTEUR DE SÉPULTURES : Loin à l'est, les Protecteur de sépultures veillent sur les tombes et le sommeil des morts, s'assurant qu'ils reposent en paix. Ils sont des gardiens, des guides et des conteurs, et possèdent la faculté de renier la mort.
 
 Avantages :
-– Bonus de 4 aux jets de sauvegarde contre la paralysie, la mort et les poisons.
-– Bonus de 10 au score de connaissances tout les 4 niveaux.
-– Peut lancer trois sort profane à la manière d'un prêtre :
-  1er niveau : « Orbe chromatique ».
-  2ème niveau : « Horreur ».
-  3ème niveau : « Piège à crânes ».
-  
-– 5ème niveau : Peut utiliser la capacité « Dénégation » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
+- Bonus de 4 aux jets de sauvegarde contre la paralysie, la mort et les poisons.
+- Bonus de 10 au score de connaissances tout les 4 niveaux.
+- Peut lancer trois sort profane à la manière d'un prêtre :  
+	- 1er niveau : « Orbe chromatique ».  
+	- 2ème niveau : « Horreur ».  
+	- 3ème niveau : « Piège à crânes ».
+ 
+- 3ème niveau : Immunité à la peur et à la perte de moral. 
+- 5ème niveau : Peut utiliser la capacité « Dénégation » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
 
 DÉNÉGATION : Ce sort a deux effets. Tout d'abord, la cible devient immunisé, pendant 3 tours, à tous les effets provoquant une mort instantanée. 
 Ensuite, si celle-ci voit ses points de vie tomber en dessous des 50 %, le deuxième effet du sort s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.
 
+- 8ème niveau : Immunité à l'aveuglement et aux attaques de regard.
+
 Inconvénients : 
-– Ne peut pas porter d'armure plus lourde que la cotte de mailles.
-– Ne peut utiliser la capacité « Charme-animal ».
+- Ne peut pas porter d'armure plus lourde que la cotte de mailles.
+- Ne peut utiliser la capacité « Charme-animal ».
 
 
 ==================================================
@@ -116,23 +124,23 @@ Confessor (Paladin)
 EXÉCUTEUR : L'Exécuteur est un paladin qui œuvre pour son église. Il est doué d'une grande variété de compétences, rechercher des informations, dévoiler les mensonges et traquer les ennemis de l'église ne sont que quelques unes des tâches qui lui sont confiées.
 
 Avantages :
-– Peut lancer quatre sort profane à la manière d'un prêtre :
-  1er niveau : « Cécité ».
-  2ème niveau : « Flou ».
-  3ème niveau : « Toucher vampirique ».
-  4ème niveau : « Mot secret ».
+- Peut lancer quatre sort profane à la manière d'un prêtre :  
+	- 1er niveau : « Cécité ».  
+	- 2ème niveau : « Flou ».  
+	- 3ème niveau : « Toucher vampirique ».  
+	- 4ème niveau : « Mot secret ».
 
-– 2ème niveau : Peut utiliser la capacité « Empalement » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
+- 2ème niveau : Peut utiliser la capacité « Empalement » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
 EMPALEMENT : La prochaine attaque à distance réussie enchevêtre la cible pendant 3 rounds, plus 3 rounds supplémentaires en cas d'échec du jet de sauvegarde contre les sorts. Une créature enchevêtrée a toujours la possibilité d'attaquer, mais elle subit une pénalité de 2 à sa classe d'armure et a 20 % de chances d'échouer l'incantation de ses sorts.
 
-– 5ème niveau : Peut utiliser la capacité « Évangile sanguinolente » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
+- 5ème niveau : Peut utiliser la capacité « Évangile sanguinolente » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
 
-ÉVANGILE SANGUINOLENTE : Pendant 5 rounds, le personnage récupère 1d4 points de vie à chaque attaque de mêlée réussie et provoque une hémorragie à sa cible, lui infligeant 2 point de dégâts par round pendant 8 rounds (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.
+ÉVANGILE SANGUINOLENTE : Pendant 5 rounds, le personnage récupère 1d4 points de vie à chaque attaque de mêlée réussie et provoque une hémorragie à sa cible, lui infligeant 2 point de dégâts par round pendant 6 rounds (sans jet de sauvegarde possible). Une même créature peut être blessée une fois par round et les effets sont cumulatifs.
 
 Inconvénients : 
-– Ne peut pas porter d'armure plus lourde que la besantine.
-– Ne peut utiliser « Imposition des mains »
+- Ne peut pas porter d'armure plus lourde que la besantine.
+- Ne peut utiliser « Imposition des mains »
 
 
 ==================================================
@@ -226,7 +234,7 @@ Avantages :
 – Bonus de 3 bonus aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille.
 – 4ème niveau : Peut utiliser la capacité « Tir éclatant » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
-TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 2 point de dégâts supplémentaires par round pendant 6 rounds (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
+TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 1 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
 – 11ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 15 et 19.
 
@@ -275,19 +283,20 @@ Drifter (Ranger)
 VAGABOND : Le Vagabond erre sans attache ni dessein dans les contrées les plus inhospitalières. Ses remarquables aptitudes au combat ont été affûté par d'innombrables batailles.
 
 Avantages :
-– Bonus de 4 aux jets de sauvegarde contre les souffles.
-– Bonus de 1 à la classe d'armure, bénéficie d'un bonus supplémentaire de 1 tous les 5 niveaux.
-– Bonus de 1 aux jets d'attaque et de dégâts au niveau 3, puis une fois supplémentaire tous les 5 niveaux.
-– Ne sera pas déchu en raison de la réputation.
-– Vitesse de déplacement augmentée de 2.
-– 6ème niveau : Immunité à « Glisse », « Toile d'araignée », « Enchevêtrement », « Croissance d'épines », et « Pierres acérées ».
-– 12ème niveau : Immunité à « Nuage mortel », « Brume mortelle », « Nuage puant », « Brouillard putride », et « Nuage de pestilence ».
-																									  
+- Bonus de 4 aux jets de sauvegarde contre les souffles.
+- Bonus de 1 à la classe d'armure, bénéficie d'un bonus supplémentaire de 1 tous les 5 niveaux.
+- Bonus de 1 aux jets d'attaque et de dégâts au niveau 3, puis une fois supplémentaire tous les 5 niveaux.
+- Ne sera pas déchu en raison de la réputation.
+- Vitesse de déplacement augmentée de 2.
+- 6ème niveau : Immunité à « Glisse », « Toile d'araignée », « Enchevêtrement », « Croissance d'épines », et « Pierres acérées ».
+- 7ème niveau : Gagne la capacité passive « Évasion ». **
+- 12ème niveau : Immunité à « Nuage mortel », « Brume mortelle », « Nuage puant », « Brouillard putride », et « Nuage de pestilence ».
 
 Inconvénients :
-– N'a pas accès aux sorts de prêtre.
-– Ne peut pas porter d'armure plus lourde que l'armure de cuir ou l'armure de peau.~
-@101204 = ~Déchu : Errant
+- N'a pas accès aux sorts de prêtre.
+- Ne peut pas porter d'armure plus lourde que l'armure de cuir ou l'armure de peau.
+
+** REMARQUE : Évasion peut être obtenue dans IWD:EE ou si le mod IWDification est installé.
 
 
 ==================================================
@@ -309,9 +318,9 @@ REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes 
 DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
 
 Inconvénients :
-– Ne peut utiliser « Imposition des mains ».
-– Ne peut utiliser « Coup étourdissant ».
-– Ne peut porter de gantelets ou de bracelets.
+- Ne peut pas utiliser d'autre lame que les épées courtes ou les dagues.
+- Ne peut utiliser « Imposition des mains ».
+- Ne peut utiliser « Coup étourdissant ».
 
 
 ==================================================
@@ -333,6 +342,69 @@ Inconvénients :
 – Ne peut pas porter d'armure plus lourde que l'armure feuilletée.
 – Ne peut se spécialiser avec les armes de mêlée.
 – Ne peut se spécialiser dans aucun style de combat.
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+//v4.0 kits
+
+==================================================
+Full Metal Jaguar (Fighter)
+==================================================
+FULL METAL JAGUAR : Un grand guerrier aux talents multiples, le Full Metal Jaguar commence par décocher une salve de projectiles sur ses ennemis avant de se jeter dans la bataille et de les terrasser au corps-à-corps.
+
+Avantages :
+– Bonus de 1 aux jets d'attaque et de dégâts.
+– Immunité à l'attaque sournoise.
+– 5ème niveau : Peut utiliser la capacité « Fantomatique » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
+
+FANTOMATIQUE : Cette capacité est effective pendant 5 rounds. À chaque round, 1 image miroir du personnage apparaît, celle-ci absorbera une attaque pendant ce même round. Le nombre d'images passe à 2 par round au niveau 10, à 3 au niveau 15 et enfin à 4 au niveau 20.
+
+– 8ème niveau : Gagne la capacité passive « Décochage critique ».
+
+DÉCOCHAGE CRITIQUE : Les attaques à distance augmentent les chances d'effectuer un coup critique avec les armes de mêlée. Chaque attaque réussie avec une arme à distance confère un bonus cumulatif de 5 % pendant 3 rounds. Un échec critique annule les bonus.
+
+Inconvénients :
+– Ne peut porter d'armure plus lourde que l'armure feuilletée.
+
+
+==================================================
+Nurse (Thief)
+==================================================
+URGENTISTE : Naturellement douée, l'urgentiste est à la fois un alchimiste et un archer, investigation et apprentissage sont ses maîtres mots.
+
+Avantages :
+– Bonus de 1 aux jets d'attaque avec les armes à distances au premier niveau, puis une fois supplémentaire tous les 5 niveaux.
+– Peut atteindre la spécialisation (2 points de compétence) avec les arcs cours, les arbalètes les frondes et le fléchettes.
+– Peut préparer un lot de 8 « Seringues ». une fois par jour au niveau 1 et 5, puis une fois supplémentaire tous les 5 niveaux. Les fléchettes sont immédiatement équipées et restent dans la main jusqu'à ce qu'elles soient toutes utilisées ou qu'elles expirent, au bout d'une heure.
+
+SERINGUES : Ces fléchettes guériront les alliés et empoisonneront les ennemis. Leur effet curatif ou bien leur toxicité est équivalente à 1d3 + 1 point de vie par tranche de 3 niveaux, jusqu'à un maximum de 1d3 + 5. Les Seringues sont considérées comme des armes magiques +5, et bénéficient d'un bonus de 5 au jets d'attaque. Les points de compétence investis dans les fléchettes par le personnage n'affectent pas les jets d'attaque.
+
+– 11ème niveau : Peut utiliser la capacité « Intraveineuse » une fois par jour, puis une fois supplémentaire au niveau 15 et 19.
+
+INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de la Confusion pendant 5 rounds.
+
+Inconvénients :
+– Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.
+– Ne peut porter d'armure plus lourde que l'armure de cuir.
+
+
+==================================================
+Spell Fencer (Fighter/Mage)
+==================================================
+DÉGAINEUR DE SORTILÈGE : Un expert des duels, le Dégaineur de sortilège allie son expertise des armes à ses talents en magie afin de surpasser son adversaire.
+
+Avantages :
+– Bénéficie d'un sort supplémentaire par niveau.
+– Bonus de 1 à la classe d'armure, puis une fois supplémentaire tous les 5 niveaux dans la classe de guerrier.
+– Bonus de 1 aux jets de sauvegarde contre les sorts tous les 4 niveaux dans la classe de mage, jusqu'à un bonus maximum de 5 au niveau 20.
+–  Gagne la capacité passive « Plus vite que son ombre ». Cette capacité nécessite d'avoir atteint le niveau 5 pour ses deux classes, Mage et Guerrier.
+
+PLUS VITE QUE SON OMBRE : À chaque attaque de mêlée réussie, le Dégaineur de sortilège bénéficie d'un bonus cumulatif de 2 à la vitesse d'incantation pendant 10 secondes. Un échec critique annule les bonus.
+
+Inconvénients :
+– Ne peut se spécialiser avec les armes à distance.
+– Ne peut porter d'armure plus lourde que la cotte de mailles.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
