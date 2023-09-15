@@ -43,17 +43,64 @@ COPY ~%passives%/d5fpclsp.spl~  ~override/%e6%.SPL~
   LPF ALTER_EFFECT INT_VAR parameter1=0 parameter2=2 END
 
 
+//Multiclass import fix
+LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s1%~ new_spell=~%#1%~ END
+LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s1%~ new_spell=~%#2%~ END
+LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s1%~ new_spell=~%#3%~ END
+LAF d2_mc_import_fix INT_VAR amount=4  STR_VAR spell=~%s1%~ new_spell=~%#4%~ END
+LAF d2_mc_import_fix INT_VAR amount=5  STR_VAR spell=~%s1%~ new_spell=~%#5%~ END
+LAF d2_mc_import_fix INT_VAR amount=6  STR_VAR spell=~%s1%~ new_spell=~%#6%~ END
+LAF d2_mc_import_fix INT_VAR amount=7  STR_VAR spell=~%s1%~ new_spell=~%#7%~ END
+LAF d2_mc_import_fix INT_VAR amount=8  STR_VAR spell=~%s1%~ new_spell=~%#8%~ END
+LAF d2_mc_import_fix INT_VAR amount=9  STR_VAR spell=~%s1%~ new_spell=~%#9%~ END
+LAF d2_mc_import_fix INT_VAR amount=10 STR_VAR spell=~%s1%~ new_spell=~%#a%~ END
+LAF d2_mc_import_fix INT_VAR amount=11 STR_VAR spell=~%s1%~ new_spell=~%#b%~ END
+LAF d2_mc_import_fix INT_VAR amount=12 STR_VAR spell=~%s1%~ new_spell=~%#c%~ END
+LAF d2_mc_import_fix INT_VAR amount=13 STR_VAR spell=~%s1%~ new_spell=~%#d%~ END
+
+LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s2%~ new_spell=~%!1%~ END
+LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s2%~ new_spell=~%!2%~ END
+LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s2%~ new_spell=~%!3%~ END
+
+
+//Array for import fix
+ACTION_CLEAR_ARRAY ~import_fix_array~
+ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
+  ~%#1%~  => 2     // hunter tools
+  ~%#2%~  => 6
+  ~%#3%~  => 10
+  ~%#4%~  => 14
+  ~%#5%~  => 18
+  ~%#6%~  => 22
+  ~%#7%~  => 26
+  ~%#8%~  => 30
+  ~%#9%~  => 34
+  ~%#a%~  => 38
+  ~%#b%~  => 42
+  ~%#c%~  => 46
+  ~%#d%~  => 50
+  ~%!1%~  => 5     // quicksilver
+  ~%!2%~  => 9
+  ~%!3%~  => 13
+END
+
+
 //Ability tables (don't include base class abilities)
 COPY ~%files%/kit0.2DA~  ~override/%beasthunter%F.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
 
+  //import fix (BG2, ToB, SoD)
+  PHP_EACH import_fix_array AS file => level BEGIN
+    LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
+  END
+
 COPY ~%files%/kit6.2DA~  ~override/%beasthunter%C.2DA~
   PATCH_IF (holysymbols > 0) BEGIN
-    LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
     LPF d2_kit_ability_adder INT_VAR level=17 passive=1 STR_VAR resource=~%m9%~ END    // holy symbol (level 17)
   END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 
 

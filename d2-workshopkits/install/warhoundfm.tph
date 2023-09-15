@@ -11,6 +11,36 @@ COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~    // only relevant for 
   LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END
 
 
+//Multiclass import fix
+LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s1%~ new_spell=~%#1%~ END
+LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s1%~ new_spell=~%#2%~ END
+LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s1%~ new_spell=~%#3%~ END
+LAF d2_mc_import_fix INT_VAR amount=4  STR_VAR spell=~%s1%~ new_spell=~%#4%~ END
+LAF d2_mc_import_fix INT_VAR amount=5  STR_VAR spell=~%s1%~ new_spell=~%#5%~ END
+
+LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s2%~ new_spell=~%!1%~ END
+LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s2%~ new_spell=~%!2%~ END
+LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s2%~ new_spell=~%!3%~ END
+LAF d2_mc_import_fix INT_VAR amount=4  STR_VAR spell=~%s2%~ new_spell=~%!4%~ END
+LAF d2_mc_import_fix INT_VAR amount=5  STR_VAR spell=~%s2%~ new_spell=~%!5%~ END
+
+
+//Array for import fix
+ACTION_CLEAR_ARRAY ~import_fix_array~
+ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
+  ~%#1%~  => 4     // shockwave
+  ~%#2%~  => 8
+  ~%#3%~  => 12
+  ~%#4%~  => 16
+  ~%#5%~  => 20
+  ~%!1%~  => 4     // incinerate
+  ~%!2%~  => 8
+  ~%!3%~  => 12
+  ~%!4%~  => 16
+  ~%!5%~  => 20
+END
+
+
 //Ability tables (don't include base class abilities)
 COPY ~%files%/kit0.2DA~  ~override/%warhound%F.2DA~
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
@@ -18,6 +48,11 @@ COPY ~%files%/kit0.2DA~  ~override/%warhound%F.2DA~
   LPF d2_kit_ability_adder INT_VAR level=3 passive=1 multi=1 increment=5 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 limit=20 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 limit=20 STR_VAR resource=~%s2%~ END
+
+  //import fix (BG2, ToB, SoD)
+  PHP_EACH import_fix_array AS file => level BEGIN
+    LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
+  END
 
 COPY ~%files%/kit6.2DA~  ~override/%warhound%M.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END

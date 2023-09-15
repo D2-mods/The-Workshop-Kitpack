@@ -11,6 +11,44 @@ COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~    // only relevant for 
   LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END
 
 
+//Multiclass import fix
+LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s1%~ new_spell=~%#1%~ END
+LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s1%~ new_spell=~%#2%~ END
+LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s1%~ new_spell=~%#3%~ END
+LAF d2_mc_import_fix INT_VAR amount=4  STR_VAR spell=~%s1%~ new_spell=~%#4%~ END
+LAF d2_mc_import_fix INT_VAR amount=5  STR_VAR spell=~%s1%~ new_spell=~%#5%~ END
+LAF d2_mc_import_fix INT_VAR amount=6  STR_VAR spell=~%s1%~ new_spell=~%#6%~ END
+LAF d2_mc_import_fix INT_VAR amount=7  STR_VAR spell=~%s1%~ new_spell=~%#7%~ END
+LAF d2_mc_import_fix INT_VAR amount=8  STR_VAR spell=~%s1%~ new_spell=~%#8%~ END
+LAF d2_mc_import_fix INT_VAR amount=9  STR_VAR spell=~%s1%~ new_spell=~%#9%~ END
+LAF d2_mc_import_fix INT_VAR amount=10 STR_VAR spell=~%s1%~ new_spell=~%#a%~ END
+LAF d2_mc_import_fix INT_VAR amount=11 STR_VAR spell=~%s1%~ new_spell=~%#b%~ END
+
+LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s2%~ new_spell=~%!1%~ END
+LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s2%~ new_spell=~%!2%~ END
+LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s2%~ new_spell=~%!3%~ END
+
+
+//Array for import fix
+ACTION_CLEAR_ARRAY ~import_fix_array~
+ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
+  ~%#1%~  => 1     // medical darts
+  ~%#2%~  => 5
+  ~%#3%~  => 10
+  ~%#4%~  => 15
+  ~%#5%~  => 20
+  ~%#6%~  => 25
+  ~%#7%~  => 30
+  ~%#8%~  => 35
+  ~%#9%~  => 40
+  ~%#a%~  => 45
+  ~%#b%~  => 50
+  ~%!1%~  => 11    // injection shot
+  ~%!2%~  => 15
+  ~%!3%~  => 19
+END
+
+
 //Ability tables (don't include base class abilities)
 COPY ~%files%/kit6.2DA~  ~override/%nurse%M.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
@@ -22,6 +60,11 @@ COPY ~%files%/kit0.2DA~  ~override/%nurse%T.2DA~
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=11 multi=1 increment=4 limit=19 STR_VAR resource=~%s2%~ END
+
+  //import fix (BG2, ToB, SoD)
+  PHP_EACH import_fix_array AS file => level BEGIN
+    LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
+  END
 
 
 //Kit function

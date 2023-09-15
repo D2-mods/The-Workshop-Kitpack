@@ -47,12 +47,27 @@ COPY ~%passives%/d5fprnsp.spl~  ~override/%e7%.SPL~
   LPF ALTER_EFFECT INT_VAR parameter1=0 parameter2=2 END
 
 
+//Multiclass import fix
+LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s1%~ new_spell=~%#1%~ END
+LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s1%~ new_spell=~%#2%~ END
+LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s1%~ new_spell=~%#3%~ END
+
+
+//Array for import fix
+ACTION_CLEAR_ARRAY ~import_fix_array~
+ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
+  ~%#1%~  => 6     // moonlight vortex
+  ~%#2%~  => 10
+  ~%#3%~  => 14
+END
+
+
 //Ability tables (don't include base class abilities)
 COPY ~%files%/kit6.2DA~  ~override/%moonlightknight%C.2DA~
   PATCH_IF (holysymbols > 0) BEGIN
-    LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
     LPF d2_kit_ability_adder INT_VAR level=17 passive=1 STR_VAR resource=~%m9%~ END    // holy symbol (level 17)
   END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 
 COPY ~%files%/kit0.2DA~  ~override/%moonlightknight%R.2DA~
@@ -61,6 +76,11 @@ COPY ~%files%/kit0.2DA~  ~override/%moonlightknight%R.2DA~
   LPF d2_kit_ability_adder INT_VAR level=2 passive=1 STR_VAR resource=~%e3%~ END
   LPF d2_kit_ability_adder INT_VAR level=6 multi=1 increment=4 limit=14 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e7%~ END
+
+  //import fix (BG2, ToB, SoD)
+  PHP_EACH import_fix_array AS file => level BEGIN
+    LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
+  END
 
 
 //Set variable for proficiencies

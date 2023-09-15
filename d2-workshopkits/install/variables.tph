@@ -69,6 +69,55 @@ OUTER_TEXT_SPRINT m9 ~%kitid%m9~
 OUTER_TEXT_SPRINT m0 ~%kitid%m0~
 
 
+//multiclass abilities (for use with d2_mc_import_fix)
+OUTER_TEXT_SPRINT ~#1~ ~%kitid%#1~
+OUTER_TEXT_SPRINT ~#2~ ~%kitid%#2~
+OUTER_TEXT_SPRINT ~#3~ ~%kitid%#3~
+OUTER_TEXT_SPRINT ~#4~ ~%kitid%#4~
+OUTER_TEXT_SPRINT ~#5~ ~%kitid%#5~
+OUTER_TEXT_SPRINT ~#6~ ~%kitid%#6~
+OUTER_TEXT_SPRINT ~#7~ ~%kitid%#7~
+OUTER_TEXT_SPRINT ~#8~ ~%kitid%#8~
+OUTER_TEXT_SPRINT ~#9~ ~%kitid%#9~
+OUTER_TEXT_SPRINT ~#0~ ~%kitid%#0~
+OUTER_TEXT_SPRINT ~#a~ ~%kitid%#a~
+OUTER_TEXT_SPRINT ~#b~ ~%kitid%#b~
+OUTER_TEXT_SPRINT ~#c~ ~%kitid%#c~
+OUTER_TEXT_SPRINT ~#d~ ~%kitid%#d~
+OUTER_TEXT_SPRINT ~#e~ ~%kitid%#e~
+
+OUTER_TEXT_SPRINT ~!1~ ~%kitid%!1~
+OUTER_TEXT_SPRINT ~!2~ ~%kitid%!2~
+OUTER_TEXT_SPRINT ~!3~ ~%kitid%!3~
+OUTER_TEXT_SPRINT ~!4~ ~%kitid%!4~
+OUTER_TEXT_SPRINT ~!5~ ~%kitid%!5~
+OUTER_TEXT_SPRINT ~!6~ ~%kitid%!6~
+OUTER_TEXT_SPRINT ~!7~ ~%kitid%!7~
+OUTER_TEXT_SPRINT ~!8~ ~%kitid%!8~
+OUTER_TEXT_SPRINT ~!9~ ~%kitid%!9~
+OUTER_TEXT_SPRINT ~!0~ ~%kitid%!0~
+OUTER_TEXT_SPRINT ~!a~ ~%kitid%!a~
+OUTER_TEXT_SPRINT ~!b~ ~%kitid%!b~
+OUTER_TEXT_SPRINT ~!c~ ~%kitid%!c~
+OUTER_TEXT_SPRINT ~!d~ ~%kitid%!d~
+OUTER_TEXT_SPRINT ~!e~ ~%kitid%!e~
+
+OUTER_TEXT_SPRINT ~@1~ ~%kitid%@1~
+OUTER_TEXT_SPRINT ~@2~ ~%kitid%@2~
+OUTER_TEXT_SPRINT ~@3~ ~%kitid%@3~
+OUTER_TEXT_SPRINT ~@4~ ~%kitid%@4~
+OUTER_TEXT_SPRINT ~@5~ ~%kitid%@5~
+OUTER_TEXT_SPRINT ~@6~ ~%kitid%@6~
+OUTER_TEXT_SPRINT ~@7~ ~%kitid%@7~
+OUTER_TEXT_SPRINT ~@8~ ~%kitid%@8~
+OUTER_TEXT_SPRINT ~@9~ ~%kitid%@9~
+OUTER_TEXT_SPRINT ~@0~ ~%kitid%@0~
+OUTER_TEXT_SPRINT ~@a~ ~%kitid%@a~
+OUTER_TEXT_SPRINT ~@b~ ~%kitid%@b~
+OUTER_TEXT_SPRINT ~@c~ ~%kitid%@c~
+OUTER_TEXT_SPRINT ~@d~ ~%kitid%@d~
+OUTER_TEXT_SPRINT ~@e~ ~%kitid%@e~
+
 
 /*
 */

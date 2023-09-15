@@ -144,6 +144,16 @@ This is how I'd do the install:
 
 Version info:
 
+v4.6
+- Alignment changes:
+	- Drifter: Can be any non-lawful alignment.
+	- Grave Warden: Any non-evil, non-chaotic alignment.
+- Kit changes:
+	- 
+- Multiclass fixes:
+	- Imported characters will no longer be missing abilities when starting a new game (BG2/ToB/SoD). This issue affected Charname only, though the fix is applied for all characters.
+	- Crow Hunter: Imported characters will no longer gain Set Snares, not even if you export/import a CHR repeatedly.
+
 v4.5
 - Medical Darts (Nurse kit):
 	- Will no longer inflict bleed on allies if Clawmark rune is used. Enemies can still be affected.

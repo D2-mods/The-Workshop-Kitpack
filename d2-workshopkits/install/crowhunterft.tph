@@ -4,10 +4,44 @@
 ACTION_IF (nocrowhunterft = 0) BEGIN
 
 
-//Cannot gain Set Snares
-COPY ~%passives%/opcode206.SPL~     ~override/%e6%.SPL~
-  LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END
-  LPF CLONE_EFFECT STR_VAR resource=~D5CL412~ END
+//Multiclass import fix
+LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s1%~ new_spell=~%#1%~ END
+LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s1%~ new_spell=~%#2%~ END
+LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s1%~ new_spell=~%#3%~ END
+LAF d2_mc_import_fix INT_VAR amount=4  STR_VAR spell=~%s1%~ new_spell=~%#4%~ END
+LAF d2_mc_import_fix INT_VAR amount=5  STR_VAR spell=~%s1%~ new_spell=~%#5%~ END
+LAF d2_mc_import_fix INT_VAR amount=6  STR_VAR spell=~%s1%~ new_spell=~%#6%~ END
+LAF d2_mc_import_fix INT_VAR amount=7  STR_VAR spell=~%s1%~ new_spell=~%#7%~ END
+LAF d2_mc_import_fix INT_VAR amount=8  STR_VAR spell=~%s1%~ new_spell=~%#8%~ END
+LAF d2_mc_import_fix INT_VAR amount=9  STR_VAR spell=~%s1%~ new_spell=~%#9%~ END
+LAF d2_mc_import_fix INT_VAR amount=10 STR_VAR spell=~%s1%~ new_spell=~%#a%~ END
+LAF d2_mc_import_fix INT_VAR amount=11 STR_VAR spell=~%s1%~ new_spell=~%#b%~ END
+LAF d2_mc_import_fix INT_VAR amount=12 STR_VAR spell=~%s1%~ new_spell=~%#c%~ END
+
+LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s2%~ new_spell=~%!1%~ END
+LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s2%~ new_spell=~%!2%~ END
+LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s2%~ new_spell=~%!3%~ END
+
+
+//Array for import fix
+ACTION_CLEAR_ARRAY ~import_fix_array~
+ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
+  ~%#1%~  => 4     // splintering shot
+  ~%#2%~  => 8
+  ~%#3%~  => 12
+  ~%#4%~  => 16
+  ~%#5%~  => 20
+  ~%#6%~  => 24
+  ~%#7%~  => 28
+  ~%#8%~  => 32
+  ~%#9%~  => 36
+  ~%#a%~  => 40
+  ~%#b%~  => 44
+  ~%#c%~  => 48
+  ~%!1%~  => 11    // visceral attack
+  ~%!2%~  => 15
+  ~%!3%~  => 19
+END
 
 
 //Make 2da file (don't include base class abilities)
@@ -16,8 +50,15 @@ COPY ~%files%/kit0.2DA~  ~override/%crowhunter%T.2DA~    // kit abilities
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=11 multi=1 increment=4 limit=19 STR_VAR resource=~%s2%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e2%~ END
+
+  //prevent gaining/using traps (multiclass kits)
+  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%@2%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
+
+  //import fix (BG2, ToB, SoD)
+  PHP_EACH import_fix_array AS file => level BEGIN
+    LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
+  END
 
 
 //Kit function

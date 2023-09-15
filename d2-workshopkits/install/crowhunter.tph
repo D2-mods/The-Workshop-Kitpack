@@ -13,8 +13,34 @@ COPY ~%passives%/damagevstype3.EFF~  ~override/%e1%b.EFF~
   WRITE_LONG 0x20 3
   WRITE_LONG 0x1c IDS_OF_SYMBOL (general ~humanoid~)
 
-COPY ~%passives%/removespell.SPL~    ~override/%e2%.SPL~
+COPY ~%passives%/opcode206.SPL~     ~override/%e6%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END
+  LPF CLONE_EFFECT STR_VAR resource=~D5CL412~ END
+
+
+//remove set snares (if given by multiclass kit)
+COPY ~%abilities%/applyeffects.SPL~  ~override/%e2%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%e2%a~ END
+
+COPY ~%passives%/removespell.SPL~    ~override/%e2%a.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END
+
+LAF d2_recast_at_interval STR_VAR spell=~%e2%~ new_spell=~%@2%~ END
+
+
+/*replaced with above
+//remove set snares (if given by multiclass kit)
+COPY ~%abilities%/applyeffects.SPL~  ~override/%e2%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%e2%a~ END
+  LPF CLONE_EFFECT STR_VAR resource=~%e2%e~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%e2%e~ END
+
+COPY ~%passives%/removespell.SPL~    ~override/%e2%a.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END
+
+COPY ~%abilities%/applyeffects.SPL~  ~override/%e2%e.SPL~
+  LPF ALTER_EFFECT INT_VAR opcode=366 timing=9 STR_VAR resource=~%e2%a~ END
+*/
 
 
 //Add Splintering Shot
@@ -123,8 +149,10 @@ COPY_EXISTING ~CLABTH01.2DA~ ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=11 multi=1 increment=4 limit=19 STR_VAR resource=~%s2%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e2%~ END
-  LPF d2_kit_ability_adder END
+
+  //prevent gaining/using traps (multiclass kits)
+  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%@2%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 
 
 //Kit function

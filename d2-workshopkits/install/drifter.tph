@@ -13,7 +13,7 @@ COPY ~%passives%/nocasting.SPL~        ~override/%e8%.SPL~
 COPY ~%passives%/fewerspells1.SPL~     ~override/%e9%.SPL~
   LPF ALTER_EFFECT INT_VAR opcode=62 parameter2=127 END
 
-//block 5-casting stuff (aesthetic fix)
+//block 5e-casting stuff (aesthetic fix)
 COPY ~%passives%/opcode206.SPL~  ~override/%m1%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~D5ZZ000~ END
   LPF CLONE_EFFECT INT_VAR opcode=172 timing=1 STR_VAR resource=~d5zprp~ END
@@ -169,10 +169,11 @@ LAF ADD_KIT_EX
     fallen_notice = RESOLVE_STR_REF (@101204)
   STR_VAR
     kit_name = ~D2%kitname%~
-    unusable = ~0x00008000~        // Archer usability (studded leather)
+    unusable = ~0x00008000~           // Archer usability (studded leather)
     clab_path = ~%kitid%~
-    clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
-    clascolr = ~24 99 144 2 93~    // bounty hunter colors
+    clsrcreq = ~1 1 1 1 1 1 1~        // Usable by all races, if base class is usable
+    alignmnt = ~0 0 0 1 1 1 1 1 1~    // non-lawful
+    clascolr = ~24 99 144 2 93~       // bounty hunter colors
   RET 
     kit_id
 END

@@ -90,6 +90,7 @@ DENIAL: This spell has two effects. First, the recipient becomes immune to all i
 Disadvantages:
 – May not wear armor heavier than chain mail.
 – May not use the Charm Animal ability.
+– Alignment restricted to non-evil and non-chaotic.
 
 
 ==================================================
@@ -262,7 +263,7 @@ DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 1
 
 FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though Magic Resistance can prevent the status effects.
 
-NOTE: If the High-Level Ability "Enhanced Bard Song" is learned, the character will gain an ability to switch to this song.
+Note: If the High-Level Ability "Enhanced Bard Song" is learned, the character will gain an ability to switch to this song.
 
 Disadvantages:
 – Bard Song is unusable for one turn after each use.
@@ -291,9 +292,10 @@ Advantages:
 Disadvantages:
 – May not cast priest spells.
 – May only wear leather or hide armor.
+– Alignment restricted to any non-lawful.
 
 
-**NOTE: Evasion is gained in IWD:EE or with the IWDification mod.
+**Note: Evasion is gained in IWD:EE or with the IWDification mod.
 
 
 ==================================================
@@ -357,7 +359,7 @@ Advantages:
 
 GHOSTWALKER: This ability lasts 5 rounds. Once each round, 1 mirror image is created on the character, which can absorb one attack during that round. The number of images created increases to 2 per round at level 10, 3 per round at level 15, and 4 per round at level 20.
 
-– 8th level: Gains the Critical Boost ability (passive)
+– 8th level: Gains the Critical Boost ability (passive).
 
 CRITICAL BOOST: Ranged attacks boost melee critical chance. Each hit with a ranged weapon gives a cumulative +5% bonus for 3 rounds. A critical miss resets the bonus.
 

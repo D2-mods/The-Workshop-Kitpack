@@ -1,8 +1,6 @@
 /*
 This file should only be installed if using subtledoctor's 5e casting mod.
 This can be installed before or after 5e casting is installed.
-
-Not used for sorcerers (see Starjammer file for a different fix).
 */
 
 

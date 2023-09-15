@@ -188,7 +188,8 @@ DENIAL: This spell has two effects. First, the recipient becomes immune to all i
 
 Disadvantages:
 – May not wear armor heavier than chain mail.
-– May not use the Charm Animal ability.~
+– May not use the Charm Animal ability.
+– Alignment restricted to non-evil and non-chaotic.~
 @100304 = ~Lost Class: Grave Warden~
 @100305 = ~~
 
@@ -376,7 +377,7 @@ DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 1
 
 FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though Magic Resistance can prevent the status effects.
 
-NOTE: If the High-Level Ability "Enhanced Bard Song" is learned, the character will gain an ability to switch to this song.
+Note: If the High-Level Ability "Enhanced Bard Song" is learned, the character will gain an ability to switch to this song.
 
 Disadvantages:
 – Bard Song is unusable for one turn after each use.
@@ -406,9 +407,10 @@ Advantages:
 Disadvantages:
 – May not cast priest spells.
 – May only wear leather or hide armor.
+– Alignment restricted to any non-lawful.
 
 
-**NOTE: Evasion is gained in IWD:EE or with the IWDification mod.~
+**Note: Evasion is gained in IWD:EE or with the IWDification mod.~
 @101204 = ~Lost Class: Drifter~
 @101205 = ~~
 
@@ -477,7 +479,7 @@ Advantages:
 
 GHOSTWALKER: This ability lasts 5 rounds. Once each round, 1 mirror image is created on the character, which can absorb one attack during that round. The number of images created increases to 2 per round at level 10, 3 per round at level 15, and 4 per round at level 20.
 
-– 8th level: Gains the Critical Boost ability (passive)
+– 8th level: Gains the Critical Boost ability (passive).
 
 CRITICAL BOOST: Ranged attacks boost melee critical chance. Each hit with a ranged weapon gives a cumulative +5% bonus for 3 rounds. A critical miss resets the bonus.
 
@@ -570,7 +572,7 @@ For 12 rounds, the character gains a +1 bonus to luck and a +1 bonus to Saving T
 
 Enhances ranged attacks for 6 rounds, adding 2 points of piercing damage and a +5% chance to score a critical hit. All ammo types (arrows, bolts, and bullets) are also enchanted and become able to hit enemies that normally require magical or silver weapons to hit.
 
-NOTE: The enchantment bonus is at +4. It works against natural immunities and general weapon defenses, such as a Mantle or Protection From Normal Weapons spell. It does not work against spells that guard specifically against ranged weapons, such as Protection From Normal Missiles.~
+The enchantment bonus is at +4. It works against natural immunities and general weapon defenses, such as a Mantle or Protection From Normal Weapons spell. It does not work against spells that guard specifically against ranged weapons, such as Protection From Normal Missiles.~
 
 @102 = ~Shockwave~
 @202 = ~Shockwave
@@ -733,7 +735,7 @@ Use this ability to prepare a set of 8 Medical Darts. The darts are automaticall
 
 These darts will heal allies or deal poison damage to enemies. The amount of healing or damage is equal to 1d3 + 1 Hit Point per 3 levels, up to a maximum of 1d3 + 5. Medical Darts are treated as magical weapons with a +5 enchantment, and attacks are made with a +5 bonus. A character's proficiency with darts does not affect attack rolls.
 
-NOTE: An attack with these darts is still considered a hostile act by neutral NPCs.~
+Note: An attack with these darts is still considered a hostile act by neutral NPCs.~
 
 @127 = ~Injection Shot~
 @227 = ~Injection Shot
