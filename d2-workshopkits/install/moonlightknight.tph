@@ -83,10 +83,8 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
 END
 
 
-//Clone base Ranger 2da file
-COPY_EXISTING ~CLABRN01.2DA~  ~override/%kitid%.2DA~
-  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
-  LPF 2da_find_row_delete STR_VAR row_name = ~RAN_SPLS~ END
+//Make clab table
+COPY ~inlined/d2clab_ranger~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 passive=1 STR_VAR resource=~%e3%~ END

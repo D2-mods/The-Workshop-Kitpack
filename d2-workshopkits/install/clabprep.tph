@@ -1,0 +1,97 @@
+/*
+prep class clabs
+*/
+
+
+//blank clab file
+<<<<<<<< .../temp/d2clab
+2DA         V1.0
+****
+            1           2           3           4           5           6           7           8           9           10          11          12          13          14          15          16          17          18          19          20          21          22          23          24          25          26          27          28          29          30          31          32          33          34          35          36          37          38          39          40          41          42          43          44          45          46          47          48          49          50
+>>>>>>>>
+COPY - ~.../temp/d2clab~  ~inlined/d2clab.2DA~
+
+
+
+//fighter
+COPY_EXISTING - ~CLABFI01.2DA~  ~inlined/d2clab_fighter~
+  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
+
+//ranger
+COPY_EXISTING - ~CLABRN01.2DA~  ~inlined/d2clab_ranger~
+  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
+  LPF 2da_find_row_delete STR_VAR row_name = ~RAN_SPLS~ END
+
+//paladin
+COPY_EXISTING - ~CLABPA01.2DA~  ~inlined/d2clab_paladin~
+//  LPF 2da_find_row_delete STR_VAR row_name = ~PALADINS~ END    // remove FnP Archetypes
+
+
+
+//mage, sorcerer
+ACTION_IF (FILE_EXISTS_IN_GAME ~CLABMA01.2DA~) BEGIN
+  COPY_EXISTING - ~CLABMA01.2DA~  ~inlined/d2clab_mage~    // clone Mage 2da
+END 
+ELSE BEGIN
+  COPY - ~inlined/d2clab.2DA~     ~inlined/d2clab_mage~    // or use blank table
+END
+
+COPY - ~inlined/d2clab_mage~  ~inlined/d2clab_mage~
+  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
+  REPLACE_TEXTUALLY ~AP_A7_CS05~  ~****~
+  REPLACE_TEXTUALLY ~AP_A7_CS06~  ~****~
+
+
+
+//thief
+COPY_EXISTING - ~CLABTH01.2DA~  ~inlined/d2clab_thief~
+  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
+
+//bard
+COPY_EXISTING - ~CLABBA01.2DA~  ~inlined/d2clab_bard~
+COPY_EXISTING - ~CLABBA01.2DA~  ~inlined/d2clab_bard_nosongs~
+  REPLACE_TEXTUALLY ~AP_FJBARD~   ~****~    // remove BG song
+  REPLACE_TEXTUALLY ~AP_#BARD-1~  ~****~    // remove IWD songs
+  REPLACE_TEXTUALLY ~GA_#BARD1~   ~****~
+  REPLACE_TEXTUALLY ~GA_#BARD2~   ~****~
+  REPLACE_TEXTUALLY ~GA_#BARD3~   ~****~
+  REPLACE_TEXTUALLY ~GA_#BARD4~   ~****~
+  REPLACE_TEXTUALLY ~GA_#BARD5~   ~****~
+  REPLACE_TEXTUALLY ~GA_#BARD6~   ~****~
+  REPLACE_TEXTUALLY ~AP_RR#BDF01~ ~****~    // rr standard bard song
+
+//monk
+COPY_EXISTING - ~CLABMO01.2DA~  ~inlined/d2clab_monk~
+COPY_EXISTING - ~CLABMO01.2DA~  ~inlined/d2clab_monk_noheal~
+  REPLACE_TEXTUALLY ~GA_SPCL815~ ~****~    // lay on hands
+  REPLACE_TEXTUALLY ~GA_QDMNKA2~ ~****~    // wholeness of body (monastic orders pre-0.42)
+COPY_EXISTING - ~CLABMO01.2DA~  ~inlined/d2clab_monk_nostun~
+  REPLACE_TEXTUALLY ~GA_SPCL811~ ~****~    // stunning blow
+  REPLACE_TEXTUALLY ~GA_QDMNKA1~ ~****~    // stunning blows (monastic orders pre-0.42)
+COPY_EXISTING - ~CLABMO01.2DA~  ~inlined/d2clab_monk_noquiv~
+  REPLACE_TEXTUALLY ~GA_SPCL820~ ~****~    // quivering palm 
+  REPLACE_TEXTUALLY ~GA_QDMNKA4~ ~****~    // quivering palm  (monastic orders pre-0.42)
+COPY_EXISTING - ~CLABMO01.2DA~  ~inlined/d2clab_monk_nohealstun~
+  REPLACE_TEXTUALLY ~GA_SPCL815~ ~****~    // lay on hands
+  REPLACE_TEXTUALLY ~GA_QDMNKA2~ ~****~    // wholeness of body (monastic orders pre-0.42)
+  REPLACE_TEXTUALLY ~GA_SPCL811~ ~****~    // stunning blow
+  REPLACE_TEXTUALLY ~GA_QDMNKA1~ ~****~    // stunning blows (monastic orders pre-0.42)
+COPY_EXISTING - ~CLABMO01.2DA~  ~inlined/d2clab_monk_noquivstun~
+  REPLACE_TEXTUALLY ~GA_SPCL811~ ~****~    // stunning blow
+  REPLACE_TEXTUALLY ~GA_QDMNKA1~ ~****~    // stunning blows (monastic orders pre-0.42)
+  REPLACE_TEXTUALLY ~GA_SPCL820~ ~****~    // quivering palm 
+  REPLACE_TEXTUALLY ~GA_QDMNKA4~ ~****~    // quivering palm  (monastic orders pre-0.42)
+
+
+
+//cleric
+COPY_EXISTING - ~CLABPR01.2DA~  ~inlined/d2clab_cleric~
+  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
+  LPF 2da_find_row_delete STR_VAR row_name = ~CLER_SPLS~ END
+
+//druid
+//shaman
+
+
+/*
+*/

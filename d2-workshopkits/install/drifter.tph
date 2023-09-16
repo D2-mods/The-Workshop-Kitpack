@@ -134,10 +134,8 @@ ACTION_BASH_FOR ~override~ ~.*\.SPL~ BEGIN
 END
 
 
-//Clone base Ranger 2da file
-COPY_EXISTING ~CLABRN01.2DA~  ~override/%kitid%.2DA~
-  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
-  LPF 2da_find_row_delete STR_VAR row_name = ~RAN_SPLS~ END
+//Make clab table
+COPY ~inlined/d2clab_ranger~  ~override/%kitid%.2DA~
   LPF 2da_find_row_delete STR_VAR row_name = ~SPHERES~ END
   LPF 2da_find_row_delete STR_VAR row_name = ~SPELL_INIT~ END
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END

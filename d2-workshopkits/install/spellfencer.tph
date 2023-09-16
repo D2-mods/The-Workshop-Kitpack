@@ -42,14 +42,14 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%e7%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%e6%~ END
 
 
-//Ability tables (don't include base class abilities)
-COPY ~%files%/kit0.2DA~  ~override/%kitid%F.2DA~
+//Ability tables
+COPY ~inlined/d2clab.2DA~  ~override/%kitid%F.2DA~
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 STR_VAR resource=~%e7%~ END
 
-COPY ~%files%/kit0.2DA~  ~override/%kitid%M.2DA~
+COPY ~inlined/d2clab.2DA~  ~override/%kitid%M.2DA~
   LPF d2_kit_ability_adder INT_VAR level=4 passive=1 multi=1 increment=4 limit=20 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 STR_VAR resource=~%e3%~ END

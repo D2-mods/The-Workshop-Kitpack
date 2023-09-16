@@ -290,7 +290,7 @@ Advantages:
 
 SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
 
-- 11th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 15 and 19.
+- 9th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 13 and 18.
 
 VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 12 Hit Points and haste the character for 10 seconds.
 
@@ -320,7 +320,7 @@ DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 1
 
 FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though Magic Resistance can prevent the status effects.
 
-Note: If the High-Level Ability "Enhanced Bard Song" is learned, the character will gain an ability to switch to this song.
+- If the "Enhanced Bard Song" HLA is learned, the character will gain an ability to switch to this song.
 
 Disadvantages:  
 - Bard Song is unusable for one turn after each use.  
@@ -439,13 +439,13 @@ NURSE: A born specialist, the Nurse is an adept alchemist, as well as marksman, 
 Advantages:
 - +1 bonus to ranged attack rolls at 1st level, plus an additional +1 bonus every 5 levels.
 - May Specialize (two slots) in shortbows, crossbows, slings, and darts.
-- May prepare a set of 8 Medical Darts. Gains one use at level 1, one use at level 5, and an additional use every 5 levels thereafter. The darts are automatically equipped and remain in the hand until thrown or expired (1 hour).
+- May prepare a set of 10 Medical Darts. Gains one use at level 1, one use at level 5, and an additional use every 5 levels thereafter. The darts are automatically equipped and remain in the hand until thrown or expired (1 hour).
 
-MEDICAL DARTS: These darts will heal allies or deal poison damage to enemies. The amount of healing or damage is equal to 1d3 + 1 Hit Point per 3 levels, up to a maximum of 1d3 + 5. Medical Darts are treated as magical weapons with a +5 enchantment, and attacks are made with a +5 bonus. A character's proficiency with darts does not affect attack rolls.
+MEDICAL DARTS: These darts will heal allies or deal poison damage to enemies. The amount of healing or damage is equal to 1d4+3, with an extra +1 every 5 levels. Medical Darts are treated as magical weapons with a +5 enchantment, and attacks are made with a +5 bonus. A character's proficiency with darts does not affect attack rolls.
 
 - 11th level: May use the Injection Shot ability once per day. Gains additional uses at levels 15 and 19.
 
-INJECTION SHOT: The next successful ranged attack forces the target to make a save vs. Death at -2 or become feebleminded. If the Saving Throw is made, the target is confused for 5 rounds.
+INJECTION SHOT: The next successful ranged attack forces the target to make a save vs. Death at -2 or become feebleminded for 8 hours. If the Saving Throw is made, the target is confused for 5 rounds.
 
 Disadvantages:
 - May only distribute 15 skill points per level among thieving skills.

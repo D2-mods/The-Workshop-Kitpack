@@ -10,7 +10,7 @@ ALWAYS
   ACTION_BASH_FOR ~%MOD_FOLDER%/lib~ ~.*\.tpa~ BEGIN    // function list
     INCLUDE ~%BASH_FOR_FILESPEC%~
   END
-  
+
   ACTION_IF !(DIRECTORY_EXISTS ~weidu_external/Workspace~) BEGIN    // external workspace
     MKDIR ~weidu_external/Workspace~
   END

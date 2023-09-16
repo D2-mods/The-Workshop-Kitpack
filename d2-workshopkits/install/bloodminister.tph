@@ -186,13 +186,8 @@ COPY_EXISTING ~%m9%.ITM~  ~override~
 BUT_ONLY
 
 
-//Clone base cleric 2da file
-COPY_EXISTING ~CLABPR01.2DA~ ~override/%kitid%.2DA~
-  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
-  LPF 2da_find_row_delete STR_VAR row_name = ~CLER_SPLS~ END
-  REPLACE_TEXTUALLY ~AP_d2wk1e9c~  ~****~
-  REPLACE_TEXTUALLY ~AP_d2wk4e9c~  ~****~
-  REPLACE_TEXTUALLY ~AP_CDHLYSYM~  ~****~    // remove Holy Symbol
+//Make clab table
+COPY ~inlined/d2clab_cleric~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=2 limit=20 STR_VAR resource=~%s1%~ END
@@ -201,6 +196,7 @@ COPY_EXISTING ~CLABPR01.2DA~ ~override/%kitid%.2DA~
     LPF d2_kit_ability_adder INT_VAR level=25 passive=1 STR_VAR resource=~%m9%~ END
   END
 
+  REPLACE_TEXTUALLY ~AP_CDHLYSYM~  ~****~    // remove default Holy Symbol
   LPF d2_kit_ability_adder END
 
 

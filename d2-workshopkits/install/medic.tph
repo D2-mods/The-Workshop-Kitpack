@@ -114,13 +114,9 @@ COPY ~%abilities%/healingrain.SPL~  ~override/%s3%.SPL~
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s3%a~ END    // set projectile
 
 
-//Clone base Monk 2da file
-COPY_EXISTING ~CLABMO01.2DA~  ~override/%kitid%.2DA~
-  REPLACE_TEXTUALLY ~GA_SPCL815~ ~****~    // lay on hands
-  REPLACE_TEXTUALLY ~GA_SPCL811~ ~****~    // stunning blow
-  REPLACE_TEXTUALLY ~GA_QDMNKA1~ ~****~    // stunning blows (monastic orders pre-0.42)
-  REPLACE_TEXTUALLY ~GA_QDMNKA2~ ~****~    // wholeness of body (monastic orders pre-0.42)
-//  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END    // no gauntlets (removed)
+//Make clab table
+COPY ~inlined/d2clab_monk_nohealstun~  ~override/%kitid%.2DA~
+//LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END    // no gauntlets (removed)
   LPF d2_kit_ability_adder INT_VAR multi=1 increment=5 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR multi=1 increment=5 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR level=9 multi=1 increment=3 limit=15 STR_VAR resource=~%s3%~ END

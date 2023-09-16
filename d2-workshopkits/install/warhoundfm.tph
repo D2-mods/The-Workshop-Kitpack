@@ -41,8 +41,8 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
 END
 
 
-//Ability tables (don't include base class abilities)
-COPY ~%files%/kit0.2DA~  ~override/%warhound%F.2DA~
+//Ability tables
+COPY ~inlined/d2clab.2DA~  ~override/%warhound%F.2DA~
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=3 passive=1 multi=1 increment=5 STR_VAR resource=~%e2%~ END
@@ -54,7 +54,7 @@ COPY ~%files%/kit0.2DA~  ~override/%warhound%F.2DA~
     LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
   END
 
-COPY ~%files%/kit6.2DA~  ~override/%warhound%M.2DA~
+COPY ~inlined/d2clab.2DA~  ~override/%warhound%M.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
 

@@ -286,10 +286,12 @@ END
     ACTION_IF !(FILE_EXISTS ~override/%spell%!.SPL~) BEGIN
       COPY_EXISTING ~SPCL142.SPL~  ~override/%spell%!.SPL~
         LPF ALTER_EFFECT INT_VAR opcode=321 parameter1=0 parameter2=0 STR_VAR resource=~%new_spell%~ END
+        LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%new_spell%a~ END
     END
     ELSE BEGIN
       COPY_EXISTING ~%spell%!.SPL~  ~override~
         LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%new_spell%~ END
+        LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%new_spell%a~ END
       BUT_ONLY
     END
 

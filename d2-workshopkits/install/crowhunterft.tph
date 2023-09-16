@@ -44,12 +44,14 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
 END
 
 
-//Make 2da file (don't include base class abilities)
-COPY ~%files%/kit6.2DA~  ~override/%crowhunter%F.2DA~    // blank 2da
-COPY ~%files%/kit0.2DA~  ~override/%crowhunter%T.2DA~    // kit abilities
+//Ability tables
+COPY ~inlined/d2clab.2DA~  ~override/%crowhunter%F.2DA~    // blank 2da
+COPY ~inlined/d2clab.2DA~  ~override/%crowhunter%T.2DA~    // kit abilities
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 STR_VAR resource=~%s1%~ END
-  LPF d2_kit_ability_adder INT_VAR level=11 multi=1 increment=4 limit=19 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=9 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=13 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=18 STR_VAR resource=~%s2%~ END
 
   //prevent gaining/using traps (multiclass kits)
   LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%@2%~ END

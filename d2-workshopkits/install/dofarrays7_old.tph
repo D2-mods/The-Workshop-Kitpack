@@ -1,5 +1,5 @@
 	ACTION_DEFINE_ASSOCIATIVE_ARRAY	$priestspherelist(~D2GRAVEWARDEN~) BEGIN
-		~Healing~ => 3
+		~Healing~ => 0
 		~Necromantic~ => 7
 		~Suffering~ => 0
 		~Animal~ => 0
@@ -47,7 +47,7 @@
 		~Divination~ => 0
 		~Travelers~ => 0
 		~Weave~ => 0
-		~Trickery~ => 3
+		~Trickery~ => 0
 		~Time~ => 0
 		~Vocal~ => 0
 	END
@@ -64,7 +64,7 @@
 		~Moon~ => 0
 		~Darkness~ => 0
 		~Thought~ => 7
-		~Combat~ => 3
+		~Combat~ => 0
 		~Creation~ => 0
 		~Summoning~ => 0
 		~Air~ => 0
@@ -98,7 +98,7 @@
 		~Water~ => 0
 		~Earth~ => 0
 		~Fire~ => 0
-		~Divination~ => 3
+		~Divination~ => 0
 		~Travelers~ => 0
 		~Weave~ => 0
 		~Trickery~ => 0
@@ -242,5 +242,5 @@
 		~Weave~ => 7
 		~Trickery~ => 0
 		~Time~ => 0
-		~Vocal~ => 3
+		~Vocal~ => 0
 	END

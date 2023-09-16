@@ -145,14 +145,28 @@ This is how I'd do the install:
 Version info:
 
 v4.6
+- Fixed abilities for imported multiclass kits (BG2/ToB/SoD):
+	- Imported characters will no longer be missing abilities when starting a new game.
+	- This issue affected Charname only, though the fix is applied for all characters.
 - Alignment changes:
 	- Drifter: Can be any non-lawful alignment.
 	- Grave Warden: Any non-evil, non-chaotic alignment.
-- Kit changes:
+- Nurse kit update:
+	- Medical Darts: Now does base 1d4+3 healing/damage, with another +1 every 5 levels.
+	- Medical Darts: Increased number of darts given per use from 8 to 10.
+	- Medical Darts: Added a hidden +15 THAC0 bonus when targeting allies.
+	- Injection Shot: Increased time to make the shot from 2 rounds to 5 rounds.
+	- Injection Shot: Feeblemind duration reduced from permanent to 8 hours.
+- Crow Hunter update:
+	- Visceral Attack: Now gained at levels 9, 13, and 18 (was previously at 11, 15, and 19).
+	- Multiclass fix: Imported characters will no longer gain Set Snares, not even if you export/import a CHR repeatedly.
+- Other kit changes:
 	- 
-- Multiclass fixes:
-	- Imported characters will no longer be missing abilities when starting a new game (BG2/ToB/SoD). This issue affected Charname only, though the fix is applied for all characters.
-	- Crow Hunter: Imported characters will no longer gain Set Snares, not even if you export/import a CHR repeatedly.
+- Compatibility notes:
+	- DoF mod: Added an additional minor sphere for each Paladin/Ranger kit. This is mainly for QoL. Every kit will, at minimum, have either "Healing" or "Combat" sphere as a minor sphere (up to spell level 3).
+- Other:
+	- Installer improvements.
+	- Updated ADD_KIT_EX to v0.6.0.
 
 v4.5
 - Medical Darts (Nurse kit):

@@ -33,9 +33,9 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
 END
 
 
-//Make 2da file (don't include base class abilities)
-COPY ~%files%/kit6.2DA~  ~override/%fullmetaljaguar%T.2DA~
-COPY ~%files%/kit0.2DA~  ~override/%fullmetaljaguar%F.2DA~
+//Ability tables
+COPY ~inlined/d2clab.2DA~  ~override/%fullmetaljaguar%T.2DA~
+COPY ~inlined/d2clab.2DA~  ~override/%fullmetaljaguar%F.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e3%~ END

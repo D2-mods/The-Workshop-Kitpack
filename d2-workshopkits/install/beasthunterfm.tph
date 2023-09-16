@@ -54,7 +54,7 @@ END
 
 
 //Ability tables (don't include base class abilities)
-COPY ~%files%/kit0.2DA~  ~override/%beasthunter%F.2DA~
+COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%F.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
@@ -64,7 +64,7 @@ COPY ~%files%/kit0.2DA~  ~override/%beasthunter%F.2DA~
     LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
   END
 
-COPY ~%files%/kit6.2DA~  ~override/%beasthunter%M.2DA~
+COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%M.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
 

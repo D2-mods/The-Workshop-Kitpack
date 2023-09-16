@@ -62,15 +62,15 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
 END
 
 
-//Ability tables (don't include base class abilities)
-COPY ~%files%/kit6.2DA~  ~override/%moonlightknight%C.2DA~
+//Ability tables
+COPY ~inlined/d2clab.2DA~  ~override/%moonlightknight%C.2DA~
   PATCH_IF (holysymbols > 0) BEGIN
     LPF d2_kit_ability_adder INT_VAR level=17 passive=1 STR_VAR resource=~%m9%~ END    // holy symbol (level 17)
   END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 
-COPY ~%files%/kit0.2DA~  ~override/%moonlightknight%R.2DA~
+COPY ~inlined/d2clab.2DA~  ~override/%moonlightknight%R.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 passive=1 STR_VAR resource=~%e3%~ END

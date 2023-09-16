@@ -62,27 +62,18 @@ COPY_EXISTING ~SPWI311.SPL~  ~override/%s2%b.SPL~
   LPF ALTER_EFFECT  INT_VAR resist_dispel=2 END
 
 
-//Make 2da file
-ACTION_IF (FILE_EXISTS_IN_GAME ~CLABMA01.2DA~) BEGIN
-  COPY_EXISTING ~CLABMA01.2DA~  ~override/%kitid%.2DA~    // clone Mage 2da
-END 
-ELSE BEGIN
-  COPY ~%files%/kit0.2DA~       ~override/%kitid%.2DA~    // or add new
-END
-
-COPY_EXISTING ~%kitid%.2DA~   ~override~
-  LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
-  REPLACE_TEXTUALLY ~AP_A7_CS05~  ~****~
-  REPLACE_TEXTUALLY ~AP_A7_CS06~  ~****~
+//Make clab table
+COPY ~inlined/d2clab_mage~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 limit=20 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e3%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
-  REPLACE_TEXTUALLY ~AP_D5ZMSLT~  ~****~
   LPF d2_kit_ability_adder END
-BUT_ONLY
+
+  // if installed after 5e casting
+  REPLACE_TEXTUALLY ~AP_D5ZMSLT~  ~****~
 
 
 //Kit function

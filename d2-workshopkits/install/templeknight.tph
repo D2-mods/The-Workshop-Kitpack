@@ -37,9 +37,8 @@ COPY_EXISTING ~SPPR612.SPL~  ~override/%s2%.SPL~
 BUT_ONLY
 
 
-//Clone base paladin clab
-COPY_EXISTING ~CLABPA01.2DA~ ~override/%kitid%.2DA~
-//  LPF 2da_find_row_delete STR_VAR row_name = ~PALADINS~ END    // remove FnP Archetypes
+//Make clab table
+COPY ~inlined/d2clab_paladin~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END      // Lay On Hands
   LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END

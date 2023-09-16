@@ -71,26 +71,6 @@ COPY ~%abilities%/removespelleffects.SPL~   ~override/%s1%x.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%s1%~ END
 
 
-/*moved to morespellpatches.tph
-//add Rooting Shot to spells that block Entangle overlay
-COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%e~ END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%a~ insert=first END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%b~ insert=first END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%s1%e~ insert=first END
-BUT_ONLY
-
-//add Rooting Shot to items that block Entangle overlay
-COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%a~ END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%b~ END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%s1%e~ END
-BUT_ONLY
-*/
-
-
 //Add Bloodletter
 COPY ~%icons%/bloodletter.BAM~      ~override/%s2%.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@107) STR_VAR bam=~%s2%~ RET icon END
@@ -152,10 +132,9 @@ COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
 BUT_ONLY
 
 
-//Clone base paladin clab
-COPY_EXISTING ~CLABPA01.2DA~ ~override/%kitid%.2DA~
-//  LPF 2da_find_row_delete STR_VAR row_name = ~PALADINS~ END    // remove FnP Archetypes
-  REPLACE_TEXTUALLY ~GA_SPCL211~ ~****~                        // remove Lay On Hands
+//Make clab table
+COPY ~inlined/d2clab_paladin~  ~override/%kitid%.2DA~
+  REPLACE_TEXTUALLY ~GA_SPCL211~ ~****~    // remove Lay On Hands
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%p1%~ END
