@@ -173,9 +173,9 @@ Advantages:
 – +10% bonus to fire, cold, electricity, acid, and magic damage resistances. Gains an additional +5% bonus every 5 levels, up to a maximum of 30% at level 20.
 – May use the Unleash Magic and Twisted Barricade abilities. Gains one use each at level 2 and an additional use each every 4 levels thereafter.
 
-UNLEASH MAGIC: The caster reverses elemental energies. For 4 rounds, each resistance bonus becomes a -10% penalty and the character gains a +10% bonus to all fire, cold, electrical, acid, and magic damage dealt. The bonuses and penalties increase as the caster's innate resistance bonuses increase.
+UNLEASH MAGIC: The caster reverses elemental energies. For 4 rounds, each resistance bonus becomes a -10% penalty and the character gains a +10% bonus to all elemental and magic damage dealt, as well as a +2 bonus to caster level. The bonuses and penalties increase as the caster's innate resistance bonuses increase.
 
-TWISTED BARRICADE: A whirlwind of magical energy envelopes the caster. For 4 rounds, each resistance bonus is tripled and all normal missiles are deflected away harmlessly. While in effect, the character's movement is slowed by half.
+TWISTED BARRICADE: For 4 rounds, each resistance bonus is tripled and all normal missiles are deflected away harmlessly. While in effect, the character's movement is slowed by half. Starting at 10th level, any spells cast against the character will also be deflected, excluding area attacks.
 
 Disadvantages:
 – Incurs a -2 penalty to Strength and Constitution.

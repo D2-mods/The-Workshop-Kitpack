@@ -17,11 +17,11 @@ LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@109) STR_VAR bam=~%s1%~ RET 
 COPY ~%abilities%/unleashmagic.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @109
   SAY UNIDENTIFIED_DESC @209
-  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=332 duration=26 END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=191 parameter1=2 parameter2=0 END    // v4.6: +2 caster level
+  LPF ALTER_EFFECT INT_VAR resist_dispel=3 END    // dispellable
 
 
 //Add Twisted Barricade
@@ -30,36 +30,65 @@ LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@110) STR_VAR bam=~%s2%~ RET 
 COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @110
   SAY UNIDENTIFIED_DESC @210
-  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s2%a~ END     // visual
-  LPF DELETE_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%s2%a~ END    // visual (old)
-  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s2%b~ END     // protection from normal missiles
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 opcode=326 STR_VAR resource=~%s0%x~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s2%a~ END              // visual
+  LPF DELETE_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%s2%a~ END             // visual (old)
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%b~ insert=below END    // block normal missiles
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR resist_dispel=3 END    // dispellable
 
-COPY ~%abilities%/twistedbarricade.VVC~  ~override/%s2%a.VVC~    // v3.0: updated visual
+  // spell deflection (level 10+)
+  LPF CLONE_EFFECT INT_VAR header=2 multi_match=1 STR_VAR resource=~%s2%c~ insert=below END
+  LPF CLONE_EFFECT INT_VAR header=3 multi_match=1 STR_VAR resource=~%s2%c~ insert=below END
+  LPF CLONE_EFFECT INT_VAR header=4 multi_match=1 STR_VAR resource=~%s2%c~ insert=below END
+
+
+// v3.0: updated visual
+COPY ~%abilities%/twistedbarricade.VVC~  ~override/%s2%a.VVC~
   WRITE_ASCII 0x80 ~EFF_P105~ #8
 
 
 //subspell - protection from normal missiles
 COPY_EXISTING ~SPWI311.SPL~  ~override/%s2%b.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END    // for IWDEE
-  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END
-  LPF ALTER_SPELL_HEADER INT_VAR new_header_type=1 END
-
+  LPF d2_remove_level_headers END    // for IWDEE
   LPF d2_convert_spell_type END
-  WRITE_LONG  0x8  ~-1~    // edit name and other stuff
-  WRITE_SHORT 0x22  0
-  WRITE_SHORT 0x84  0
-  WRITE_SHORT 0x98  1
+  LPF d2_subspell_remove_effects END
+  LPF d2_subspell_remove_visuals INT_VAR icon=0 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=156 END             // remove missile overlay
+  LPF ALTER_EFFECT INT_VAR match_timing=0 duration=24 END    // 4 rounds
+  LPF ALTER_EFFECT INT_VAR resist_dispel=3 END               // dispellable
 
-  LPF ALTER_EFFECT  INT_VAR match_timing=0 duration=24 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=174 END    // delete all visual/audio effects
-  LPF DELETE_EFFECT INT_VAR match_opcode=156 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=8 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
-  LPF ALTER_EFFECT  INT_VAR resist_dispel=2 END
+
+//subspell - spell deflection
+COPY_EXISTING ~SPPR701.SPL~  ~override/%s2%c.SPL~
+  LPF d2_remove_level_headers END
+  LPF d2_convert_spell_type END
+  LPF d2_subspell_remove_effects END
+  LPF d2_subspell_remove_visuals INT_VAR icon=0 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=233 END             // remove prof change
+  LPF ALTER_EFFECT INT_VAR match_timing=0 duration=24 END    // 4 rounds
+  LPF ALTER_EFFECT INT_VAR resist_dispel=3 END               // dispellable
+
+  LPF ALTER_EFFECT INT_VAR match_opcode=201 parameter1=1000 STR_VAR resource=None END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=291 duration=24 parameter2=1 END
+
+/*Alt version that protects from area attacks
+  // change spell deflection from op201 to op102
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=201 opcode=102 parameter1=1 parameter2=0 END
+  FOR (n = 2; n < 10; ++n) BEGIN
+    LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=102 parameter1=n END
+  END
+  LPF DELETE_EFFECT INT_VAR match_opcode=201 END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_duration=24 opcode=142 parameter2=67 END    // icon
+*/
+
+
+//Remove effects
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%c~ END
 
 
 //Make clab table

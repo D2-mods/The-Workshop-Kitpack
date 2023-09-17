@@ -160,10 +160,16 @@ v4.6
 - Crow Hunter update:
 	- Visceral Attack: Now gained at levels 9, 13, and 18 (was previously at 11, 15, and 19).
 	- Multiclass fix: Imported characters will no longer gain Set Snares, not even if you export/import a CHR repeatedly.
-- Other kit changes:
+- War Magician update:
+	- Unleash Magic: Now also gives a +2 caster level bonus (no longer useless at low levels).
+	- Twisted Barricade: At level 10, this will also deflect single target spells while active.
+	- Both abilities are now dispellable.
+	- Both abilities are now affected by wild/dead magic zones.
+- Other kits:
 	- 
-- Compatibility notes:
-	- DoF mod: Added an additional minor sphere for each Paladin/Ranger kit. This is mainly for QoL. Every kit will, at minimum, have either "Healing" or "Combat" sphere as a minor sphere (up to spell level 3).
+- Compatibility update for DoF mod:
+	- Added an additional minor sphere for each Paladin/Ranger kit. This is mainly for QoL. 
+	- Every kit will, at minimum, have either "Healing" or "Combat" sphere as a minor sphere (up to spell level 3).
 - Other:
 	- Installer improvements.
 	- Updated ADD_KIT_EX to v0.6.0.

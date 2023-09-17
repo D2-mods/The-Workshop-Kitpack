@@ -522,11 +522,7 @@ COPY ~%files%/hunterbone.ITM~      ~override/%me%.ITM~
 
 //clone Blur
 COPY_EXISTING ~SPWI201.SPL~  ~override/%me%a.SPL~
-  LPF ALTER_SPELL_HEADER  INT_VAR header=1 new_header_type=0 END
-  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END
-  LPF DELETE_SPELL_HEADER INT_VAR header_type=2 END
-  LPF ALTER_SPELL_HEADER  INT_VAR new_header_type=1 END
-
+  LPF d2_remove_level_headers END
   LPF d2_subspell_remove_effects END
   LPF DELETE_EFFECT INT_VAR match_opcode=139 END
   LPF DELETE_EFFECT INT_VAR match_opcode=321 END
@@ -535,11 +531,7 @@ COPY_EXISTING ~SPWI201.SPL~  ~override/%me%a.SPL~
 
 //clone Haste
 COPY_EXISTING ~SPWI305.SPL~  ~override/%me%b.SPL~
-  LPF ALTER_SPELL_HEADER  INT_VAR header=1 new_header_type=0 END
-  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END
-  LPF DELETE_SPELL_HEADER INT_VAR header_type=2 END
-  LPF ALTER_SPELL_HEADER  INT_VAR new_header_type=1 END
-
+  LPF d2_remove_level_headers END
   LPF d2_subspell_remove_effects END
   LPF DELETE_EFFECT INT_VAR match_opcode=139 END
   LPF DELETE_EFFECT INT_VAR match_opcode=141 END

@@ -71,10 +71,7 @@ COPY_EXISTING ~SPPR409.SPL~  ~override/%s1%.SPL~                      // clone D
   SAY NAME1 @104
   SAY UNIDENTIFIED_DESC @204
 
-  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END       // change header type to 3 to prevent deletion
-  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END                   // delete headers of type 1
-  LPF ALTER_SPELL_HEADER INT_VAR new_header_type=1 END                // change header type back to 1
-
+  LPF d2_remove_level_headers END
   LPF d2_convert_spell_type INT_VAR type=0 level=7 END                // convert to special ability
   LPF ALTER_EFFECT INT_VAR duration=180 END                           // edit durations
   LPF ALTER_EFFECT INT_VAR match_opcode=215 duration=1 END
@@ -103,10 +100,7 @@ BUT_ONLY
 
 //Add Cure subspell (for Denial)
 COPY_EXISTING ~SPPR103.SPL~  ~override/%s1%a.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END       // change header type to 3 to prevent deletion
-  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END                   // delete headers of type 1
-  LPF ALTER_SPELL_HEADER INT_VAR new_header_type=1 END                // change header type back to 1
-
+  LPF d2_remove_level_headers END
   WRITE_LONG 0x8 ~-1~
   LPF d2_convert_spell_type INT_VAR type=0 level=0 END
   LPF ALTER_SPELL_HEADER INT_VAR speed=0 END

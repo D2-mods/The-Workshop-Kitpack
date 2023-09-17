@@ -2,11 +2,13 @@
 //
 
 /*functions:
-d2_portrait_icon             ACTION
-d2_evasion_check             PATCH or ACTION
-d2_subspell_remove_effects   PATCH
-d2_mc_import_fix             ACTION
-d2_recast_at_interval        ACTION
+d2_portrait_icon              ACTION
+d2_evasion_check              PATCH or ACTION
+d2_subspell_remove_effects    PATCH
+d2_remove_level_headers       PATCH
+d2_subspell_remove_visuals    PATCH
+d2_mc_import_fix              ACTION
+d2_recast_at_interval         ACTION
 */
 
 ////////////////////////////////////////////////////////////
@@ -148,6 +150,59 @@ END
 
 ////////////////////////////////////////////////////////////
 
+//Removes headers except the top one
+//header is set to 1 (melee)
+
+DEFINE_PATCH_FUNCTION d2_remove_level_headers
+
+BEGIN
+
+  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=0 END
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END
+  LPF DELETE_SPELL_HEADER INT_VAR header_type=2 END
+  LPF ALTER_SPELL_HEADER INT_VAR new_header_type=1 END
+
+END
+
+////////////////////////////////////////////////////////////
+
+//Removes visual and audio effects
+//Removes portrait icon
+
+DEFINE_PATCH_FUNCTION d2_subspell_remove_visuals
+
+  INT_VAR visual   = 1
+          sound    = 1
+          icon     = 1
+          string   = 1
+
+BEGIN
+
+  PATCH_IF (visual > 0) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=8 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=9 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=50 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=61 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=141 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=215 END
+  END
+
+  PATCH_IF (sound > 0) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  END
+
+  PATCH_IF (icon > 0) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=142 END
+  END
+
+  PATCH_IF (string > 0) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+  END
+
+END
+
+////////////////////////////////////////////////////////////
+
 //Fix for multiclass kits losing abilities when imported (affects Charname in BG2/ToB/SoD)
 //Adds an effect that removes, then re-adds ability in correct amount (based on %amount% variable)
 //Recast every x seconds (default is once per day)
@@ -204,7 +259,7 @@ END
       END
       // remove ability
       LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=172 STR_VAR match_resource=~%spell%~ END
-      // immune for 24 hours
+      // immune for x seconds
       LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 timing=0 duration=interval STR_VAR resource=~%new_spell%a~ insert=last END
 
 
@@ -278,7 +333,7 @@ END
     COPY_EXISTING ~SPCL142.SPL~  ~override/%new_spell%a.SPL~
       // add ability
       LPF ALTER_EFFECT INT_VAR opcode=326 parameter1=0 parameter2=0 STR_VAR resource=~%spell%~ END
-      // immune for 24 hours
+      // immune for x seconds
       LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 timing=0 duration=interval STR_VAR resource=~%new_spell%a~ insert=last END
 
 

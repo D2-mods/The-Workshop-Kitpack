@@ -19,10 +19,7 @@ COPY_EXISTING ~SPWI305.SPL~           ~override/%e3%b.SPL~      // clone Haste
   WRITE_ASCII 0x10 ~~ #8    // casting sound
   WRITE_SHORT 0x22 0        // casting animation
 
-  LPF ALTER_SPELL_HEADER INT_VAR header=1 new_header_type=3 END  // change header type to 3 to prevent deletion
-  LPF DELETE_SPELL_HEADER INT_VAR header_type=1 END              // delete headers of type 1 (bg games)
-  LPF DELETE_SPELL_HEADER INT_VAR header_type=2 END              // delete headers of type 2 (iwdee)
-  LPF ALTER_SPELL_HEADER INT_VAR new_header_type=1 END           // change header back to type 1
+  LPF d2_remove_level_headers END
   LPF ALTER_SPELL_HEADER INT_VAR target=1 range=100 speed=0 projectile=0 END
 
   LPF d2_convert_spell_type INT_VAR type=0 level=1 END           // convert to special ability

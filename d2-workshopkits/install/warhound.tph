@@ -59,10 +59,10 @@ COPY ~%abilities%/incineratecloud.SPL~     ~override/%s2%b.SPL~
 COPY ~%abilities%/castspellself.EFF~       ~override/%s0%x.EFF~
   WRITE_ASCII 0x30 ~%s0%x~ #8
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
-  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%a~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%a~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%a~ END
 
 
 //Add Incinerate to CLEARAIR.2DA
