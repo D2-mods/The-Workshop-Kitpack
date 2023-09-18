@@ -63,7 +63,7 @@ END
 
 ////////////////////////////////////////////////////////////
 
-//Adds Evasion check to spells for IWDEE
+//Adds Evasion check to spells (mainly for IWDEE)
 //Can be added for BGEE games, but this stat isn't used without mods
 //Note: doesn't add saving throws to effect (add that manually if needed)
 
@@ -131,7 +131,7 @@ END
 ////////////////////////////////////////////////////////////
 
 //Removes casting effects
-//Removes header effects (including projectile)
+//Removes projectile
 
 DEFINE_PATCH_FUNCTION d2_subspell_remove_effects
 
@@ -150,8 +150,8 @@ END
 
 ////////////////////////////////////////////////////////////
 
-//Removes headers except the top one
-//header is set to 1 (melee)
+//Removes spell headers except the top one
+//header is set to 1 (called "melee", but also used for spells)
 
 DEFINE_PATCH_FUNCTION d2_remove_level_headers
 
@@ -167,11 +167,11 @@ END
 ////////////////////////////////////////////////////////////
 
 //Removes visual and audio effects
-//Removes portrait icon
+//Removes portrait icon and dialogue strings
 
 DEFINE_PATCH_FUNCTION d2_subspell_remove_visuals
 
-  INT_VAR visual   = 1
+  INT_VAR visual   = 1    // 1 = remove, 0 = not remove
           sound    = 1
           icon     = 1
           string   = 1

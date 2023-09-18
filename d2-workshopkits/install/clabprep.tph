@@ -24,7 +24,18 @@ COPY_EXISTING - ~CLABRN01.2DA~  ~inlined/d2clab_ranger~
 
 //paladin
 COPY_EXISTING - ~CLABPA01.2DA~  ~inlined/d2clab_paladin~
-//  LPF 2da_find_row_delete STR_VAR row_name = ~PALADINS~ END    // remove FnP Archetypes
+COPY_EXISTING - ~CLABPA01.2DA~  ~inlined/d2clab_paladin_noheal~
+  REPLACE_TEXTUALLY ~GA_SPCL211~  ~****~    // lay on hands
+  REPLACE_TEXTUALLY ~GA_SPCL111~  ~****~    // cure disease (IWD)
+COPY_EXISTING - ~CLABPA01.2DA~  ~inlined/d2clab_paladin_noabilities~
+  REPLACE_TEXTUALLY ~GA_SPCL211~  ~****~    // lay on hands
+  REPLACE_TEXTUALLY ~GA_SPCL111~  ~****~    // cure disease (IWD)
+  REPLACE_TEXTUALLY ~GA_SPCL212~  ~****~    // detect evil (BG2), protection from evil (IWD)
+  REPLACE_TEXTUALLY ~GA_SPCL213~  ~****~    // protection from evil (BG2)
+  REPLACE_TEXTUALLY ~GA_SPCL109~  ~****~    // detect evil (IWD)
+  REPLACE_TEXTUALLY ~GA_SPCL122~  ~****~    // smite evil (IWD)
+
+//LPF 2da_find_row_delete STR_VAR row_name = ~PALADINS~ END    // remove FnP Archetypes
 
 
 

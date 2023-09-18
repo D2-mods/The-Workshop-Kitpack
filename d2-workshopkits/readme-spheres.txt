@@ -144,7 +144,7 @@ Temple Knight:
 	- All, Healing, Protection, Combat, Vocal (minor: Divination)
 
 Noble Scion: 
-	- All, Protection, Sun, Combat, Weave (minor: Vocal)
+	- All, Protection, Sun, Combat, Weave (minor: Healing)
 
 Blood Minister: 
 	- Major: All, Healing, Plant, Darkness, Air, Divination

@@ -69,7 +69,7 @@ OUTER_TEXT_SPRINT m9 ~%kitid%m9~
 OUTER_TEXT_SPRINT m0 ~%kitid%m0~
 
 
-//multiclass abilities (for use with d2_mc_import_fix)
+//more variables (use for shell spells, etc.)
 OUTER_TEXT_SPRINT ~#1~ ~%kitid%#1~
 OUTER_TEXT_SPRINT ~#2~ ~%kitid%#2~
 OUTER_TEXT_SPRINT ~#3~ ~%kitid%#3~

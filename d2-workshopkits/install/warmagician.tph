@@ -64,13 +64,13 @@ COPY_EXISTING ~SPPR701.SPL~  ~override/%s2%c.SPL~
   LPF d2_remove_level_headers END
   LPF d2_convert_spell_type END
   LPF d2_subspell_remove_effects END
-  LPF d2_subspell_remove_visuals INT_VAR icon=0 END
+  LPF d2_subspell_remove_visuals END
   LPF DELETE_EFFECT INT_VAR match_opcode=233 END             // remove prof change
   LPF ALTER_EFFECT INT_VAR match_timing=0 duration=24 END    // 4 rounds
   LPF ALTER_EFFECT INT_VAR resist_dispel=3 END               // dispellable
 
-  LPF ALTER_EFFECT INT_VAR match_opcode=201 parameter1=1000 STR_VAR resource=None END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=291 duration=24 parameter2=1 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=201 parameter1=1000 STR_VAR resource=None END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=291 duration=25 parameter2=1 END
 
 /*Alt version that protects from area attacks
   // change spell deflection from op201 to op102

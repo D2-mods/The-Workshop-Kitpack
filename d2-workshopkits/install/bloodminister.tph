@@ -113,27 +113,19 @@ COPY ~%abilities%/bloodtyped.SPL~  ~override/%s1%d.SPL~    // Lead Elixir
 
 //Add blood type subspells
 COPY_EXISTING ~SPPR212.SPL~  ~override/%s1%x.SPL~    // clone Slow Poison
-  WRITE_LONG 0x8 ~-1~
-  LPF DELETE_EFFECT INT_VAR match_opcode=141 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=215 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=61 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF d2_subspell_remove_effects END
+  LPF d2_subspell_remove_visuals INT_VAR string=0 END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=329 opcode=11 END    // IWDEE: change slow poison to cure poison
 
 COPY_EXISTING ~SPPR317.SPL~  ~override/%s1%y.SPL~    // clone Cure Disease
-  WRITE_LONG 0x8 ~-1~
-  LPF DELETE_EFFECT INT_VAR match_opcode=141 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=215 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=61 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=17 END
+  LPF d2_subspell_remove_effects END
+  LPF d2_subspell_remove_visuals INT_VAR string=0 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=17 END      // remove HP heal (IWD)
 
 COPY_EXISTING ~SPPR417.SPL~  ~override/%s1%z.SPL~    // clone Lesser Restoration
-  WRITE_LONG 0x8 ~-1~
-  LPF DELETE_EFFECT INT_VAR match_opcode=215 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=61 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=93 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF d2_subspell_remove_effects END
+  LPF d2_subspell_remove_visuals INT_VAR string=0 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=93 END      // remove fatigue
 
 COPY ~%abilities%/castspellself.EFF~  ~override/%s1%u.EFF~    // +1 damage bonus (Beast Blood)
   WRITE_ASCII 0x30 ~%s1%u~ #8

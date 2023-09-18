@@ -164,10 +164,6 @@ ACTION_IF (FILE_EXISTS ~override/%unleashmagic%.SPL~) BEGIN
     LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m3%e~ END
     LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%unleashmagic%e~ END
 
-/*
-NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amulets)
-*/
-
   COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m3%s.EFF~
     WRITE_ASCII 0x30 ~%m3%~ #8
     WRITE_ASCII 0x70 ~%m3%x~ #8
@@ -229,10 +225,6 @@ ACTION_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
     END
     LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m5%f~ END
     LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%bloodletter%f~ END
-
-/*
-NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amulets)
-*/
 
   COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m5%s.EFF~
     WRITE_ASCII 0x30 ~%m5%~ #8
@@ -524,23 +516,19 @@ COPY ~%files%/hunterbone.ITM~      ~override/%me%.ITM~
 COPY_EXISTING ~SPWI201.SPL~  ~override/%me%a.SPL~
   LPF d2_remove_level_headers END
   LPF d2_subspell_remove_effects END
-  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+  LPF d2_subspell_remove_visuals INT_VAR visual=0 icon=0 END
   LPF DELETE_EFFECT INT_VAR match_opcode=321 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
   LPF ALTER_EFFECT INT_VAR match_timing=0 duration=20 END
 
 //clone Haste
 COPY_EXISTING ~SPWI305.SPL~  ~override/%me%b.SPL~
   LPF d2_remove_level_headers END
   LPF d2_subspell_remove_effects END
-  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=141 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=215 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=61 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=93 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=206 END
-  LPF DELETE_EFFECT INT_VAR match_timing=4 END
+  LPF d2_subspell_remove_visuals INT_VAR icon=0 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=93 END     // remove fatigue
+  LPF DELETE_EFFECT INT_VAR match_opcode=206 END    // for BGEE (remove immunity to Offensive Spin)
+  LPF DELETE_EFFECT INT_VAR match_opcode=324 END    // for IWDEE (remove immunity message)
+  LPF DELETE_EFFECT INT_VAR match_timing=4 END      // remove delayed effects
   LPF ALTER_EFFECT INT_VAR match_timing=0 duration=20 END
 
 
