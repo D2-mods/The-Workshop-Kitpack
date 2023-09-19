@@ -132,19 +132,19 @@ NOTE: My Ranger and Paladin kits will gain spells up to 7th level (similar to Fn
 
 =====================================================================
 Grave Warden: 
-	- All, Necromantic, Vermin, Protection
+	- All, Necromantic, Vermin, Protection (minor: Healing)
 
 Moonlight Knight:
-	- All, Animal, Moon, Combat
+	- All, Animal, Moon, Combat (minor: Trickery)
 
 Confessor: 
-	- All, Sun, Thought, Divination, Time
+	- All, Sun, Thought, Divination, Time (minor: Combat)
 
 Temple Knight: 
-	- All, Healing, Protection, Combat, Vocal
+	- All, Healing, Protection, Combat, Vocal (minor: Divination)
 
 Noble Scion: 
-	- All, Protection, Sun, Combat, Weave
+	- All, Protection, Sun, Combat, Weave (minor: Healing)
 
 Blood Minister: 
 	- Major: All, Healing, Plant, Darkness, Air, Divination

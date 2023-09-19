@@ -93,6 +93,7 @@ Ensuite, si celle-ci voit ses points de vie tomber en dessous des 50 %, le deuxi
 Inconvénients : 
 - Ne peut pas porter d'armure plus lourde que la cotte de mailles.
 - Ne peut utiliser la capacité « Charme-animal ».
+– Ne peut pas être d'alignement mauvais ou chaotique.
 
 
 ==================================================
@@ -176,9 +177,9 @@ Avantages :
 – Bénéficie de 10 % de résistance contre les dégâts de feu, de froid, d’électricité, d'acide et magique. Gagne 5 % supplémentaires tous les 5 niveaux, jusqu'à un maximum de 30 % au niveau 20.
 – Peut utiliser les capacités « Unleash Magic » et « Twisted Barricade », Gagne une utilisation supplémentaire au niveau 2, puis tous les 4 niveaux.
 
-DÉCHAÎNEMENT DE MAGIE : Le lanceur de sorts renverse les énergies élémentaires. Pendant 4 rounds, chaque bonus devient une pénalité de 10 % et le lanceur gagne 10 % à tous les dégâts de feu, de froid, d'électricité, d'acide et de magie qu'il inflige. Ces bonus et pénalités augmentent au même rythme que la résistance naturelle du Mage de bataille.
+DÉCHAÎNEMENT DE MAGIE : Le lanceur de sorts renverse les énergies élémentaires. Pendant 4 rounds, chaque bonus devient une pénalité de 10 % et le lanceur gagne 10 % à tous les dégâts  de feu, de froid, d'électricité, d'acide et de magie qu'il inflige ainsi qu'un bonus de 2 au niveau de lanceur de sort. Ces bonus et pénalités augmentent au même rythme que la résistance naturelle du Mage de bataille.
 
-BARRICADE : Un tourbillon d'énergie magique enveloppe le lanceur de sorts. Pendant 4 rounds, tous ses bonus de résistance sont triplés et tous les projectiles normaux sont déviés. Pendant la durée du sort, les mouvement du personnage sont ralentis de moitié.
+BARRICADE : Pendant 4 rounds, tous ses bonus de résistance sont triplés et tous les projectiles normaux sont déviés. Pendant la durée du sort, les mouvement du personnage sont ralentis de moitié. À partir du niveau 10 tous les sortilèges à destination du personnage seront déviés, sauf pour les sorts effectifs sur une zone.
 
 Inconvénients :
 – Pénalité de 2 en Force et en Constitution.
@@ -236,7 +237,7 @@ Avantages :
 
 TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 1 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
-– 11ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 15 et 19.
+– 9ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 13 et 18.
 
 INSTINCT : La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 12 points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.
 
@@ -266,7 +267,7 @@ DÉFLAGRATION DE POUSSIÈRE : La première déflagration inflige 5d6 points de d
 
 FLAMME FRÉNÉTIQUE : Cette attaque répand une flamme vivante qui enveloppe un rayon de 6 m et persiste pendant 2 rounds. Tout ennemi pénétrant dans les flammes subit immédiatement les effets du sommeil, de la confusion, de la peur ou de la folie du berserker pendant 5 rounds (25 % de chances d'être affecté par chacun). Les ennemis subissent également 2d4 points de dégâts magiques par round tant qu'ils se trouvent dans la zone. Il n'y a pas de jet de sauvegarde, mais la résistance à la magie peut contrecarrer les effets.
 
-REMARQUE : Si la capacité de haut niveau « Chant du barde amélioré » est acquise, le personnage disposera d'une capacité lui permettant de basculer sur cette chanson.
+- Si la capacité de haut niveau « Chant du barde amélioré » est acquise, le personnage disposera d'une capacité lui permettant de basculer sur cette chanson.
 
 Inconvénients : 
 – Le chant du barde est inutilisable pendant un tour après chaque usage..
@@ -295,8 +296,9 @@ Avantages :
 Inconvénients :
 - N'a pas accès aux sorts de prêtre.
 - Ne peut pas porter d'armure plus lourde que l'armure de cuir ou l'armure de peau.
+– Ne peut pas être d'alignement loyal.
 
-** REMARQUE : Évasion peut être obtenue dans IWD:EE ou si le mod IWDification est installé.
+** Remarque : Évasion peut être obtenue dans IWD:EE ou si le mod IWDification est installé.
 
 
 ==================================================
@@ -376,13 +378,13 @@ URGENTISTE : Naturellement douée, l'urgentiste est à la fois un alchimiste et 
 Avantages :
 – Bonus de 1 aux jets d'attaque avec les armes à distances au premier niveau, puis une fois supplémentaire tous les 5 niveaux.
 – Peut atteindre la spécialisation (2 points de compétence) avec les arcs cours, les arbalètes les frondes et le fléchettes.
-– Peut préparer un lot de 8 « Seringues ». une fois par jour au niveau 1 et 5, puis une fois supplémentaire tous les 5 niveaux. Les fléchettes sont immédiatement équipées et restent dans la main jusqu'à ce qu'elles soient toutes utilisées ou qu'elles expirent, au bout d'une heure.
+– Peut préparer un lot de 10 « Seringues ». une fois par jour au niveau 1 et 5, puis une fois supplémentaire tous les 5 niveaux. Les fléchettes sont immédiatement équipées et restent dans la main jusqu'à ce qu'elles soient toutes utilisées ou qu'elles expirent, au bout d'une heure.
 
-SERINGUES : Ces fléchettes guériront les alliés et empoisonneront les ennemis. Leur effet curatif ou bien leur toxicité est équivalente à 1d3 + 1 point de vie par tranche de 3 niveaux, jusqu'à un maximum de 1d3 + 5. Les Seringues sont considérées comme des armes magiques +5, et bénéficient d'un bonus de 5 au jets d'attaque. Les points de compétence investis dans les fléchettes par le personnage n'affectent pas les jets d'attaque.
+SERINGUES : Ces fléchettes guériront les alliés et empoisonneront les ennemis. Leur effet curatif ou bien leur toxicité est équivalente à 1d4+3 + 1 point de vie par tranche de 5 niveaux. Les Seringues sont considérées comme des armes magiques +5, et bénéficient d'un bonus de 5 au jets d'attaque. Les points de compétence investis dans les fléchettes par le personnage n'affectent pas les jets d'attaque.
 
 – 11ème niveau : Peut utiliser la capacité « Intraveineuse » une fois par jour, puis une fois supplémentaire au niveau 15 et 19.
 
-INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de la Confusion pendant 5 rounds.
+INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental pendant 8 heures. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de la Confusion pendant 5 rounds.
 
 Inconvénients :
 – Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.
