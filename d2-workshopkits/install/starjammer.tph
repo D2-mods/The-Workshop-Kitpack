@@ -240,24 +240,38 @@ ELSE BEGIN
   OUTER_SET kitdesc = RESOLVE_STR_REF (@40214)    // for BGEE games
 END
 
+OUTER_TEXT_SPRINT revitalizer_heal ~SPPR502~
+ACTION_IF (FILE_EXISTS ~override/SPPR502B.spl~) BEGIN
+  COPY_EXISTING ~SPPR502B.spl~  ~override~
+    GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
+    PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
+      GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
+      PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
+        READ_SHORT effect_off opcode                                   // opcode
+        PATCH_IF (opcode = 17) BEGIN
+          TEXT_SPRINT revitalizer_heal ~SPPR502B~    // change resource if heal effect found
+        END
+      END
+    END
+END
+
 COPY - ~%abilities%/revitalizer.PRO~  ~%workspace%/%w7%.PRO~
 ADD_PROJECTILE ~%workspace%/%w7%.PRO~
-COPY_EXISTING ~SPPR502.SPL~  ~override/%w7%.SPL~    // clone a Cure Wounds spell
+COPY_EXISTING ~%revitalizer_heal%.SPL~  ~override/%w7%.SPL~    // clone a Cure Wounds spell
   SAY NAME1 @40114
   WRITE_LONG 0x50 kitdesc
 
+  LPF d2_remove_level_headers END
   LPF d2_convert_spell_type INT_VAR type=1 level=7 END    // convert to level 7 Wizard spell
+
+  WRITE_SHORT 0x22 15             // casting animation
+  WRITE_ASCII 0x3a SPPR317C #8    // icon
+  WRITE_LONG 0x18 THIS | BIT24    // can target invisible/sanctuary
+
+  LPF ALTER_SPELL_HEADER INT_VAR speed=1 range=30 projectile=~%w7%~ STR_VAR icon=SPPR317B END
   LPF DELETE_EFFECT INT_VAR match_opcode=164 END
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=20 dicenumber=14 dicesize=4 END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 STR_VAR resource=~%w7%~ END
-
-  WRITE_SHORT 0x22 15    // casting animation
-  WRITE_SHORT 0x84 1     // casting speed
-  WRITE_SHORT 0x80 30    // spell range
-  WRITE_SHORT 0x98 ~%w7%~         // projectile
-  WRITE_ASCII 0x3a SPPR317C #8    // icons
-  WRITE_ASCII 0x76 SPPR317B #8
-  WRITE_LONG 0x18 THIS | BIT24    // can target invisible/sanctuary
 
   LPF CD_EXTEND-O-MATIC
     INT_VAR

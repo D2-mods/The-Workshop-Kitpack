@@ -144,6 +144,11 @@ This is how I'd do the install:
 
 Version info:
 
+v4.7
+- Compatibility updates:
+	- Fixed Denial/Revitalizer abilities if installed after SCS/ToF revisions to 'cure wounds' spells.
+	- IWDEE: item files no longer have description images (fixes visual glitch with Infinity UI++).
+
 v4.6
 - Fixed abilities for imported multiclass kits (BG2/ToB/SoD):
 	- Imported characters will no longer be missing abilities when starting a new game.

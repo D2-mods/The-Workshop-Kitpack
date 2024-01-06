@@ -19,4 +19,5 @@ INCLUDE ~%install%/%kitname%stores.tph~
 
 INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/castingspeedpatch.tph~
+INCLUDE ~%install%/iwditempatch.tph~
 //INCLUDE ~%install%/backupfiles.tph~

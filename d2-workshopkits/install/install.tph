@@ -223,6 +223,7 @@ INCLUDE ~%install%/hunterbadgescripts.tph~
 INCLUDE ~%install%/hunterbadgestores.tph~
 INCLUDE ~%install%/5ecastingspells.tph~
 INCLUDE ~%install%/olvynspellsfix.tph~
+INCLUDE ~%install%/iwditempatch.tph~
 //INCLUDE ~%install%/backupfiles.tph~
 
 

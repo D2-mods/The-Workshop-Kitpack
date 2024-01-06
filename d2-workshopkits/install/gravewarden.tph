@@ -99,7 +99,22 @@ BUT_ONLY
 
 
 //Add Cure subspell (for Denial)
-COPY_EXISTING ~SPPR103.SPL~  ~override/%s1%a.SPL~
+OUTER_TEXT_SPRINT denial_heal ~SPPR103~
+ACTION_IF (FILE_EXISTS ~override/SPPR103B.spl~) BEGIN
+  COPY_EXISTING ~SPPR103B.spl~  ~override~
+    GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
+    PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
+      GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
+      PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
+        READ_SHORT effect_off opcode                                   // opcode
+        PATCH_IF (opcode = 17) BEGIN
+          TEXT_SPRINT denial_heal ~SPPR103B~    // change resource if heal effect found
+        END
+      END
+    END
+END
+
+COPY_EXISTING ~%denial_heal%.SPL~  ~override/%s1%a.SPL~
   LPF d2_remove_level_headers END
   WRITE_LONG 0x8 ~-1~
   LPF d2_convert_spell_type INT_VAR type=0 level=0 END
