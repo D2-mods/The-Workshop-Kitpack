@@ -145,9 +145,13 @@ This is how I'd do the install:
 Version info:
 
 v4.7
-- Compatibility updates:
-	- Fixed Denial/Revitalizer abilities if installed after SCS/ToF revisions to 'cure wounds' spells.
-	- IWDEE: item files no longer have description images (fixes visual glitch with Infinity UI++).
+- Fixed Denial/Revitalizer abilities if installed after SCS/ToF revisions to 'cure wounds' spells.
+	- This mod can be installed before or after the spell components of these mods.
+- IWDEE: item files no longer have description images (fixes visual glitch with Infinity UI++).
+- Standardized and reworked internally how armor restrictions are handled for kits.
+- Improved installer speed.
+- Updated ADD_KIT_EX to v0.6.2.
+- 
 
 v4.6
 - Fixed abilities for imported multiclass kits (BG2/ToB/SoD):

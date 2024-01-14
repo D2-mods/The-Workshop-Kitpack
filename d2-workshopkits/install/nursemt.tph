@@ -87,26 +87,10 @@ LAF ADD_KIT_EX
 END
 
 
-//Usability - no studded leather or hide armor
-COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
-  READ_LONG  0x8 stringref    // check unidentified name
-  PATCH_IF ((stringref = 6664) OR     // if Studded Leather
-            (stringref = 6665) OR 
-            (stringref = 6666) OR
-            (stringref = 22714) OR    // if hide armor
-            (stringref = 22715) OR
-            (stringref = 40488)
-    ) BEGIN
-    LPF ADD_ITEM_EQEFFECT
-      INT_VAR
-        opcode = 319
-        target = 1
-        parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%MT~)
-        parameter2 = 9
-        timing = 2
-    END
-  END
-BUT_ONLY
+//Usability - restrict to leather
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
+  ~D2%kitname%MT~ => ~leather~
+END
 
 
 //Gains archer effects from items

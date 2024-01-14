@@ -88,24 +88,10 @@ LAF ADD_KIT_EX
 END
 
 
-//Usability - restrict to studded leather or lighter
-COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
-  PATCH_IF (!(~%SOURCE_RES%~ STRING_EQUAL_CASE ~secret05~) AND    // skip Big Metal Unit
-            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec05~)) BEGIN
-    READ_ASCII 0x22 itemtype (2) NULL                             // equipped appearance
-    PATCH_IF ((~%itemtype%~ STRING_EQUAL_CASE ~3A~) OR            // chain or splint
-              (~%itemtype%~ STRING_EQUAL_CASE ~4A~)) BEGIN        // plate mail
-      LPF ADD_ITEM_EQEFFECT
-        INT_VAR
-          opcode = 319
-          target = 1
-          parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
-          parameter2 = 9
-          timing = 2
-      END
-    END
-  END
-BUT_ONLY
+//Usability - restrict to studded leather
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
+  ~D2%kitname%FM~ => ~studded~
+END
 
 
 //Set Variable

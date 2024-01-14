@@ -94,12 +94,18 @@ LAF ADD_KIT_EX
     help = RESOLVE_STR_REF (@100103)
   STR_VAR
     kit_name = ~D2%kitname%~
-    unusable = ~0x00010000~        // Stalker usability
+//  unusable = ~0x00010000~        // Stalker usability (using different method)
     clab_path = ~%kitid%~
     clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
     clascolr = ~28 93 91 91 93~    // Archer colors
   RET 
     kit_id
+END
+
+
+//Usability - restrict to studded leather
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
+  ~D2%kitname%~ => ~studded~
 END
 
 

@@ -16,3 +16,5 @@ Text in this file appears in the weidu installer.
 @6 = ~Additional patching of spells. This might take a while.~
 @7 = ~Additional patching of items.~
 @8 = ~Additional patching of creatures.~
+
+@9 = ~Patching in armor restrictions.~

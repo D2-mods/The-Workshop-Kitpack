@@ -153,7 +153,7 @@ COPY ~inlined/d2clab_ranger~  ~override/%kitid%.2DA~
 
   //Give Evasion (IWDEE or IWDification)
   REPLACE_TEXTUALLY ~AP_#EVASION~ ~****~
-  LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~#EVASION~ END    // IWDEE
+  LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~#EVASION~ END    // IWDEE, ToF
   LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~CDIEVAD~ END     // IWDification
 
 
@@ -167,7 +167,7 @@ LAF ADD_KIT_EX
     fallen_notice = RESOLVE_STR_REF (@101204)
   STR_VAR
     kit_name = ~D2%kitname%~
-    unusable = ~0x00008000~           // Archer usability (studded leather)
+//  unusable = ~0x00008000~           // Archer usability (using different method)
     clab_path = ~%kitid%~
     clsrcreq = ~1 1 1 1 1 1 1~        // Usable by all races, if base class is usable
     alignmnt = ~0 0 0 1 1 1 1 1 1~    // non-lawful
@@ -177,23 +177,10 @@ LAF ADD_KIT_EX
 END
 
 
-//Usability - restrict studded leather
-COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
-  READ_LONG  0x8 stringref    // check unidentified name
-  PATCH_IF ((stringref = 6664) OR    // if Studded Leather (same strings in all games)
-            (stringref = 6665) OR 
-            (stringref = 6666)
-    ) BEGIN
-    LPF ADD_ITEM_EQEFFECT
-      INT_VAR
-        opcode = 319
-        target = 1
-        parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
-        parameter2 = 9
-        timing = 2
-    END
-  END
-BUT_ONLY
+//Usability - restrict to hide or leather
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
+  ~D2%kitname%~ => ~hide~
+END
 
 
 //Gains swashbuckler/blade effects from items

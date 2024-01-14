@@ -14,9 +14,6 @@
 
 //Kit function
 
-
-
-
 /*
 LAF ADD_KIT_EX
   INT_VAR
@@ -34,6 +31,7 @@ LAF ADD_KIT_EX
   RET 
     kit_id
 END
+
 
 
 - example variables for ADD_KIT_EX
@@ -77,4 +75,15 @@ NOTE: usability above assumes no tweaks
 19 SORCERER
 20 MONK
 21 SHAMAN
+*/
+
+
+
+//end stuff (i.e. anything that needs internal kit name after install)
+
+
+//variables for external use
+
+
+/*
 */

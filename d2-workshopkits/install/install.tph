@@ -217,6 +217,7 @@ END
 //End stuff
 INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/castingspeed.tph~
+INCLUDE ~%install%/restrictarmor.tph~
 INCLUDE ~%install%/crosskiteffects.tph~
 INCLUDE ~%install%/morespellpatches.tph~
 INCLUDE ~%install%/hunterbadgescripts.tph~

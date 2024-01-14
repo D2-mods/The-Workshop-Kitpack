@@ -154,12 +154,18 @@ LAF ADD_KIT_EX
     fallen_notice = RESOLVE_STR_REF (@100504)
   STR_VAR
     kit_name = ~D2%kitname%~
-    unusable = ~0x00010000~        // Stalker usability (does not restrict paladin items)
+//  unusable = ~0x00010000~        // Stalker usability (using different method)
     clab_path = ~%kitid%~
     clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
     clascolr = ~25 83 66 28 23~    // Priest of Talos colors
   RET 
     kit_id
+END
+
+
+//Usability - restrict to studded leather
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
+  ~D2%kitname%~ => ~studded~
 END
 
 
