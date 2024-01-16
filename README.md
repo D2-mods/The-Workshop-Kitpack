@@ -356,7 +356,10 @@ Disadvantages:
 
 --
 
-**\*\*Note: Evasion is gained in IWD:EE or with the IWDification mod.**
+**\*\*Supported Evasion versions:**  
+&emsp;Icewind Dale: Enhanced Edition  
+&emsp;IWDification  
+&emsp;Talents of Faerûn
 
 ---
 
@@ -375,7 +378,7 @@ WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All e
 - 7th level: May cast Cure Disease once per day.
 - 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
 
-HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
+HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8+2 Hit Points each round.
 
 Disadvantages:
 - May not use bladed weapons, other than short swords or daggers.
@@ -477,9 +480,9 @@ Disadvantages:
 Compatibility:
 -
 
-**IMPORTANT: If you're running into an issue with the arcane kits (i.e. Starjammer) where they don't have the full selection of spells when leveling up or at character creation, a current workaround is to install the [Tome & Blood](https://github.com/subtledoctor/TomeAndBlood/releases) mod's "No Opposition Schools" component. This tweak is safe to install at end of order.**
+**IMPORTANT: If you are running into an issue with the arcane kits (i.e. Starjammer) where they don't have the full selection of spells when leveling up or at character creation, a current workaround is to install subtledoctor's "No Opposition Schools" tweak. You can get it from the [Subtled Spell Tweaks](https://github.com/subtledoctor/SubtleD_Spell_Tweaks/releases) mod. This tweak is safe to install at end of order.**
 
-More info: Due to how the game detects mage specialists, once you get a high enough number of kits, any arcane kits added afterwards may share restricted schools with one or more specialists. This only affects the spell selection screen. Mages and Bards can still memorize scrolls. This is a problem for Sorcerer kits, however. For now, best thing to do if the issue comes up is to install the TnB component mentioned above.
+More info: Due to how the game detects mage specialists, once you get a high enough number of kits, any arcane kits added afterwards will share restricted schools with 1-2 specialists. This only affects the spell selection screen. Mages and bards can still memorize scrolls. This is a problem for Sorcerer kits, however. For now, best thing to do if the issue comes up is to install the tweak mentioned above.
 
 
 #### General guidelines:

@@ -322,6 +322,7 @@ COPY ~%abilities%/riftgategolem.CRE~  ~override/%w8%g.CRE~         // add golem
   REPLACE_CRE_ITEM ~goliro~ #0 #0 #0 ~none~ ~weapon1~ EQUIP
   WRITE_ASCII 0x260 ~%w8%g~ #8     // general script
   WRITE_ASCII 0x280 ~%w8%g~ #20    // script name
+  WRITE_BYTE  0x275 4              // v4.7: make immune to effects that instakill summons
 COPY ~%abilities%/summonrift.EFF~     ~override/%w8%g.EFF~
   WRITE_ASCII 0x30 ~%w8%g~ #8
 

@@ -50,6 +50,7 @@ Text in this file appears in the game.
 @409 = ~What the...!?~
 @410 = ~Uhh, maybe this wasn't such a great idea...~
 @411 = ~Be careful!~
+@450 = ~^$The balor retreats, seeking other worlds to destroy.^-~
 
 
 //Names that don't fit in other sections
@@ -409,8 +410,12 @@ Disadvantages:
 – May only wear leather or hide armor.
 – Alignment restricted to any non-lawful.
 
+--
 
-**Note: Evasion is gained in IWD:EE or with the IWDification mod.~
+**Supported Evasion versions:
+  Icewind Dale: Enhanced Edition
+  IWDification
+  Talents of Faerûn~
 @101204 = ~Lost Class: Drifter~
 @101205 = ~~
 
@@ -431,7 +436,7 @@ WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All e
 – 7th level: May cast Cure Disease once per day.
 – 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
 
-HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
+HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8+2 Hit Points each round.
 
 Disadvantages:
 – May not use bladed weapons, other than short swords or daggers.
@@ -721,7 +726,7 @@ All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-
 @124 = ~Healing Rain~
 @224 = ~Healing Rain
 
-Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.~
+Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8+2 Hit Points each round.~
 
 @125 = ~Blood Bullet~
 @225 = ~Blood Bullet

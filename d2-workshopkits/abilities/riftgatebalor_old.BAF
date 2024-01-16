@@ -1,11 +1,12 @@
 IF
 	OnCreation()
 	Global("d2phase1","LOCALS",1)
-	!InMyArea(LastSummonerOf(Myself))
 THEN
 	RESPONSE #100
-		DisplayStringNoName(Myself,@450)
-		DestroySelf()
+		SetGlobal("d2phase1","LOCALS",0)
+		SetGlobal("d2phase2","LOCALS",0)
+		SetGlobal("d2phase3","LOCALS",0)
+		SetGlobal("d2final","LOCALS",0)
 END
 
 IF

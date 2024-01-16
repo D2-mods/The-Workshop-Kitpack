@@ -294,8 +294,12 @@ Disadvantages:
 – May only wear leather or hide armor.
 – Alignment restricted to any non-lawful.
 
+--
 
-**Note: Evasion is gained in IWD:EE or with the IWDification mod.
+**Supported Evasion versions:
+  Icewind Dale: Enhanced Edition
+  IWDification
+  Talents of Faerûn
 
 
 ==================================================
@@ -314,7 +318,7 @@ WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All e
 – 7th level: May cast Cure Disease once per day.
 – 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
 
-HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8 Hit Points each round.
+HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8+2 Hit Points each round.
 
 Disadvantages:
 – May not use bladed weapons, other than short swords or daggers.

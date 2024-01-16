@@ -145,13 +145,18 @@ This is how I'd do the install:
 Version info:
 
 v4.7
-- Fixed Denial/Revitalizer abilities if installed after SCS/ToF revisions to 'cure wounds' spells.
-	- This mod can be installed before or after the spell components of these mods.
-- IWDEE: item files no longer have description images (fixes visual glitch with Infinity UI++).
-- Standardized and reworked internally how armor restrictions are handled for kits.
-- Improved installer speed.
-- Updated ADD_KIT_EX to v0.6.2.
-- 
+- Maintenance:
+	- Fixed Denial/Revitalizer abilities if installed after SCS/ToF revisions to 'cure wounds' spells.
+	- IWDEE: item files no longer have description images (fixes visual glitch with Infinity UI++).
+	- Standardized and reworked internally how armor restrictions are handled for kits.
+	- Improved installer speed.
+	- Updated ADD_KIT_EX to v0.6.2.
+	- Updated description for Drifter kit to note support for ToF Evasion.
+	- Spell selection fix (compatibility section) now links to 'Subtled Spell Tweaks'.
+- Adjustments:
+	- Starjammer: Riftgate golem is now immune to spells that instakill summons.
+	- Starjammer: Riftgate balor will now leave after reloading the area, instead of staying forever.
+	- Medic: Healing Rain now heals 3d8+2 per round (increased from 13.5 to 15.5 average).
 
 v4.6
 - Fixed abilities for imported multiclass kits (BG2/ToB/SoD):

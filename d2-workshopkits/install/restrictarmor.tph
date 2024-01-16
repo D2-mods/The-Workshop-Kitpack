@@ -23,6 +23,8 @@ leather
 */
 
 
+ACTION_IF (noarmorrestrictions = 0) BEGIN
+
 PRINT @9
 
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
@@ -40,6 +42,8 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
 
   END
 BUT_ONLY
+
+END
 
 
 /*

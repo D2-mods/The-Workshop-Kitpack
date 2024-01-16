@@ -4,6 +4,8 @@ Some spell-like abilities are skipped (ex. Summon Spirit Animal or Cleric abilit
 */
 
 
+ACTION_IF (nocastingspeedpatch = 0) BEGIN
+
 ACTION_FOR_EACH ability IN 
     ~SPCL521~    // blade
     ~SPCL522~
@@ -102,3 +104,8 @@ BEGIN
 
 END
 
+END
+
+
+/*
+*/
