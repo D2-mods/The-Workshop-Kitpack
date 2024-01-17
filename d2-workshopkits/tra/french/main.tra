@@ -50,6 +50,7 @@ Text in this file appears in the game.
 @409 = ~Qu'est-ce que... !?~
 @410 = ~Hum, ce n'était peut-être pas une si bonne idée finalement...~
 @411 = ~Soyez prudent !~
+@450 = ~^$Le balor bat en retraite et part à la recherche d'autres mondes à dévaster.^-~
 
 
 //Names that don't fit in other sections
@@ -411,8 +412,11 @@ Inconvénients :
 – Ne peut pas porter d'armure plus lourde que l'armure de cuir ou l'armure de peau.
 – Ne peut pas être d'alignement loyal.
 
+--
 
-** Remarque : Évasion peut être obtenue dans IWD:EE ou si le mod IWDification est installé.~
+
+
+** Remarque : Évasion peut être obtenue dans IWD:EE, si le mod IWDification est installé ou le mod Talents of Faerûn.~
 @101204 = ~Déchu : Vagabond~
 @101205 = ~~
 
@@ -433,7 +437,7 @@ REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes 
 – 7ème niveau : Peut utiliser « Guérison des maladies » une fois par jour.
 – 9ème niveau : Peut utiliser la capacité « Déluge Salvateur » une fois par jour, puis une fois supplémentaire au niveau 12 et 15.
 
-DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
+DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8+2 points de vie chaque round.
 
 Inconvénients :
 – Ne peut pas utiliser d'autre lame que les épées courtes ou les dagues.
@@ -723,7 +727,7 @@ Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un rem
 @124 = ~Déluge salvateur~
 @224 = ~Déluge salvateur 
 
-Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.~
+Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8+2 points de vie chaque round.~
 
 @125 = ~Tir saignant~
 @225 = ~Tir saignant

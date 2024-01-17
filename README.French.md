@@ -362,7 +362,7 @@ Inconvénients :
 – Ne peut pas être d'alignement loyal.
 
 
-** Remarque : Évasion peut être obtenue dans IWD:EE ou si le mod IWDification est installé.
+** Remarque : Évasion peut être obtenue dans IWD:EE, si le mod IWDification est installé ou le mod Talents of Faerûn.
 
 **Chirurgien (Moine)**
 
@@ -379,7 +379,7 @@ REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes 
 - 7ème niveau : Peut utiliser « Guérison des maladies » une fois par jour.
 - 9ème niveau : Peut utiliser la capacité « Déluge Salvateur » une fois par jour, puis une fois supplémentaire au niveau 12 et 15.
 
-DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8 points de vie chaque round.
+DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8+2 points de vie chaque round.
 
 Inconvénients :
 - Ne peut pas utiliser d'autre lame que les épées courtes ou les dagues.
@@ -479,9 +479,9 @@ Inconvénients :
 Compatibilité :
 -
 
-**IMPORTANT : Si vous rencontrez un problème avec les kits de magie des arcanes (par exemple le Vagabond des étoiles), qui ne disposeraient pas de la sélection complète de sorts prévu lors de la montée de niveau ou à la création du personnage, une solution de contournement consiste à installer le composant "No Opposition Schools" (Pas d’écoles d'opposition) du mod [Tome & Blood](https://github.com/subtledoctor/TomeAndBlood/releases). Cette modification peut être installée en toute sécurité à la fin de votre installation.**
+**IMPORTANT : Si vous rencontrez un problème avec les kits de magie des arcanes (par exemple le Vagabond des étoiles), qui ne disposeraient pas de la sélection complète de sorts prévu lors de la montée de niveau ou à la création du personnage, une solution de contournement consiste à installer le composant "No Opposition Schools" (Pas d’écoles d'opposition) du mod [Subtled Spell Tweaks](https://github.com/subtledoctor/SubtleD_Spell_Tweaks/releases). Cette modification peut être installée en toute sécurité à la fin de votre installation.**
 
-Informations supplémentaires : En raison de la façon dont le jeu détecte les mages spécialistes, une fois que vous atteignez un nombre suffisamment élevé de kits, tous les kits de mage ajoutés par la suite sont susceptibles de partager des restrictions avec un ou plusieurs mages spécialisés. Cela n'affecte que l'écran de sélection des sorts. Les Mages et les Bardes pourront toujours mémoriser des parchemins. C'est principalement un problème pour les kits d'ensorceleurs. Pour l'instant, la meilleure chose à faire si le problème se pose est d'installer le composant TnB mentionné ci-dessus.
+Informations supplémentaires : En raison de la façon dont le jeu détecte les mages spécialistes, une fois que vous atteignez un nombre suffisamment élevé de kits, tous les kits de mage ajoutés par la suite sont susceptibles de partager des restrictions avec un ou plusieurs mages spécialisés. Cela n'affecte que l'écran de sélection des sorts. Les Mages et les Bardes pourront toujours mémoriser des parchemins. C'est principalement un problème pour les kits d'ensorceleurs. Pour l'instant, la meilleure chose à faire si le problème se pose est d'installer le composant de Subtled Spell Tweaks mentionné ci-dessus.
 
 
 #### Instructions générales :
