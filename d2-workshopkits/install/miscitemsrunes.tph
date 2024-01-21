@@ -32,12 +32,12 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%z0%a.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z7%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z8%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z9%~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z9%a~ END
+//  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z9%a~ END  // not needed
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%z9%b~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%za%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%zb%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%zc%~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%zc%a~ END
+//  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%zc%a~ END  // not needed
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%zc%b~ END
 
 
@@ -245,6 +245,7 @@ COPY ~%passives%/removespell.SPL~    ~override/%z9%b.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=172 timing=4 duration=7 STR_VAR resource=~SPIN124~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~SPCL110~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~SPINHUM~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=172 duration=2 END
 
 COPY ~%files%/rune_effects.SPL~      ~override/%z9%c.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%z9%c~ END
@@ -312,8 +313,8 @@ COPY ~%files%/rune_werewolf.ITM~  ~override/%zc%.ITM~
 
 COPY ~%files%/rune_effects.SPL~      ~override/%zc%a.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~SPIN152~ END                                    // polymorph
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=10 timing=0 duration=7200 parameter1=5 parameter2=1 END    // CON modifier
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=49 timing=0 duration=7200 parameter1=5 parameter2=1 END    // WIS modifier
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=10 timing=0 duration=2400 parameter1=5 parameter2=1 END    // CON modifier
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=49 timing=0 duration=2400 parameter1=5 parameter2=1 END    // WIS modifier
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%zc%b~ insert=~below~ END                    // remove ability
 
 COPY ~%passives%/removespell.SPL~    ~override/%zc%b.SPL~
@@ -321,12 +322,14 @@ COPY ~%passives%/removespell.SPL~    ~override/%zc%b.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=172 timing=4 duration=7 STR_VAR resource=~spin151~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~spin152~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~SPINHUM~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=172 duration=2 END
 
 COPY ~%files%/rune_effects.SPL~      ~override/%zc%c.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%c~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 timing=4 duration=15 STR_VAR resource=~%zc%x~ END
 
 COPY ~%files%/rune_effects.SPL~      ~override/%zc%x.SPL~
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%d~ END  // created by ToF/SCS if installed after this mod
   LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%b~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%humanform%~ END
