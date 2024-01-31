@@ -126,7 +126,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
             (stringref = 25931) OR (stringref = 8786) OR
             (~%spellname%~ STRING_EQUAL_CASE ~%great_rest%~) OR                     // check spell name
             (~%spellname%~ STRING_EQUAL_CASE ~%heal_spell%~)
-           ) BEGIN
+  ) BEGIN
     LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s2%b~ END
   END
 BUT_ONLY

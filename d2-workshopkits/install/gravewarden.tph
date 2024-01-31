@@ -44,15 +44,17 @@ LAF d2_convert_spell_type INT_VAR type=2 STR_VAR spell=~SPWI313~ newspell=~%p3%~
 
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   COPY_EXISTING ~%p1%.SPL~  ~override~
-    SAY UNIDENTIFIED_DESC @40300
+    SAY UNIDENTIFIED_DESC @40300    // text for IWDEE
   BUT_ONLY
 END
 
 ACTION_IF (MOD_IS_INSTALLED ~setup-spell_rev.tp2~ (ID_OF_LABEL ~setup-spell_rev.tp2~ ~dv-spell_rev-main~)) BEGIN
   COPY_EXISTING ~%p1%.SPL~  ~override~
-    SAY UNIDENTIFIED_DESC @40400
+    SAY UNIDENTIFIED_DESC @40400    // text for spell revisions
   BUT_ONLY
 END
+
+LAF d2_evasion_check INT_VAR overwrite=1 STR_VAR spell=~%p3%~ END    // update IWD Evasion (if found)
 
 
 //Add spells to spell.ids
@@ -61,6 +63,7 @@ ACTION_IF (%nopriestids% = 0) BEGIN
     LAF ADD_SPELL_EX INT_VAR type=1 level=%n% min=51 max=99 hide=1 STR_VAR file=~override/%p%n%%.SPL~ name=~D2%kitname%_P%n%~ RET spell_res END
     OUTER_TEXT_SPRINT ~p%n%~  ~%spell_res%~
   END
+  LAF d2_evasion_check INT_VAR overwrite=1 STR_VAR spell=~%p3%~ END    // update new file
 END
 
 

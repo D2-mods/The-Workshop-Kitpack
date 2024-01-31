@@ -74,13 +74,6 @@ COPY_EXISTING ~CLEARAIR.2DA~ ~override~
 BUT_ONLY
 
 
-//Add Evasion checks for IWDEE
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  LAF d2_evasion_check STR_VAR spell=~%s1%b~ END
-  LAF d2_evasion_check STR_VAR spell=~%s2%b~ END
-END
-
-
 //Make clab table
 COPY ~inlined/d2clab_fighter~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
@@ -138,9 +131,11 @@ END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT warhound   ~%kitid%~
-OUTER_TEXT_SPRINT shockwave  ~%s1%~
-OUTER_TEXT_SPRINT incinerate ~%s2%~
+OUTER_TEXT_SPRINT warhound         ~%kitid%~
+OUTER_TEXT_SPRINT shockwave        ~%s1%~
+OUTER_TEXT_SPRINT incinerate       ~%s2%~
+OUTER_TEXT_SPRINT shockwaveblast   ~%s1%b~    // for Evasion
+OUTER_TEXT_SPRINT incinerateblast  ~%s2%b~
 
 
 /*

@@ -1,0 +1,287 @@
+//
+//
+
+
+/*functions:
+d2_evasion_check              PATCH or ACTION
+*/
+
+////////////////////////////////////////////////////////////
+
+//Adds IWD Evasion check to spells/items (for EEs and classic IWD1)
+//Gives chance to dodge effects below this one in the same header
+//Note: for BGEE games, this stat isn't used without mods
+
+/*Classic IWD1 notes:
+- If a projectile has hardcoded damage, this will not give Evasion against it.
+- Some projectiles (ex. Scorcher) have inherent Evasion checks on the projectile itself.
+- op206 works for this on items. Function will set 'resource' field to the ITM resource. It will show as a SPL when looking in Near Infinity, but the game will still identify the ITM file as a resource to block effects.
+- You do not need to have an actual SPL file for Evasion to work on the ITM file.
+*/
+
+
+DEFINE_PATCH_FUNCTION d2_evasion_check
+
+  INT_VAR insert = 0         // insert point (0 = top), ignored if 'clone' is enabled
+          opcode = 324       // EEs: 324 or 318, IWD1: this is ignored (always uses 206)
+          type   = 99        // 1 = melee, 2 = ranged, 3 = spell, 99 = all (default)
+                             // 'type' is only used for items (silently ignored for spells)
+          patch_spell = 1    // set to 0 to ignore spl
+          patch_item  = 1    // set to 0 to ignore itm
+          overwrite   = 0    // patch a previous Evasion effect (instead of creating or cloning effect)
+
+          clone         = 0     // set to 1 to clone existing effect (ignores 'insert' and 'type' variables)
+          clone_opcode  = 12    // opcode to clone (12 = damage opcode)
+          clone_match   = 1     // number of effects to clone (1 = one in each header)
+          silent        = 1     // 1 = no warning if no match for clone (0 = show warnings)
+
+  STR_VAR clone_resname = ~~    // match resource when cloning (this is ignored if not set)
+          clone_insert  = ~~    // options: 'above', 'below', 'first', 'last' (default is 'above' matched effect)
+
+BEGIN
+
+      // prep
+      SET no_patch = 0
+      SET match_res = 0
+      PATCH_IF (clone_match < 1) BEGIN  SET clone_match = 1 END
+      PATCH_IF ((silent < 0) OR (silent > 1))  BEGIN  SET silent = 1 END
+      PATCH_IF !(~%clone_resname%~ STR_EQ ~~) BEGIN  SET match_res = 1 END
+
+      // check resource
+      PATCH_IF (~%DEST_EXT%~ STR_EQ ~spl~) BEGIN  
+        TEXT_SPRINT filetype ~SPELL~ 
+        READ_LONG 0x34 power
+        PATCH_IF (patch_spell = 0) BEGIN  SET no_patch = 1 END
+      END
+
+      PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN  
+        TEXT_SPRINT filetype ~ITEM~ 
+        SET power = 0
+        PATCH_IF (patch_item = 0) BEGIN  SET no_patch = 1 END
+      END
+
+      // check for invalid opcode
+      PATCH_IF !(GAME_IS ~bgee bg2ee iwdee eet pstee~) BEGIN    // IWD1 uses op206
+        SET opcode = 206
+      END ELSE BEGIN  
+        PATCH_IF ((opcode != 324) AND (opcode != 318)) BEGIN    // EEs default to 318
+          SET opcode = 318
+        END
+      END
+
+      // add new effect
+      PATCH_IF ((no_patch = 0) AND (overwrite = 0) AND (clone = 0)) BEGIN
+        LPF ~ADD_%filetype%_EFFECT~
+          INT_VAR
+            opcode         = %opcode%
+            target         = 2
+            power          = %power%
+            parameter2     = 63    // Evasion check
+            resist_dispel  = 2
+            type           = %type%
+            insert_point   = %insert%
+          STR_VAR
+            resource       = EVAL ~%DEST_RES%~    // evade effects on same item/spell
+        END
+      END
+
+      // or clone existing effect
+      PATCH_IF ((no_patch = 0) AND (overwrite = 0) AND (clone > 0) AND (match_res = 0)) BEGIN
+        LPF CLONE_EFFECT
+          INT_VAR
+            match_opcode   = %clone_opcode%
+            multi_match    = %clone_match%
+            silent         = %silent%
+            opcode         = %opcode%
+            parameter2     = 63    // Evasion check
+            resist_dispel  = 2
+            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+          STR_VAR
+            insert         = EVAL ~%clone_insert%~
+            resource       = EVAL ~%DEST_RES%~    // evade effects on same item/spell
+        END
+      END
+
+      // or clone with resource matching
+      PATCH_IF ((no_patch = 0) AND (overwrite = 0) AND (clone > 0) AND (match_res > 0)) BEGIN
+        LPF CLONE_EFFECT
+          INT_VAR
+            match_opcode   = %clone_opcode%
+            multi_match    = %clone_match%
+            silent         = %silent%
+            opcode         = %opcode%
+            parameter2     = 63    // Evasion check
+            resist_dispel  = 2
+            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+          STR_VAR
+            insert          = EVAL ~%clone_insert%~
+            match_resource  = EVAL ~%clone_resname%~
+            resource        = EVAL ~%DEST_RES%~    // evade effects on same item/spell
+        END
+      END
+
+      // or patch existing effect
+      PATCH_IF ((no_patch = 0) AND (overwrite > 0)) BEGIN
+        LPF ALTER_EFFECT 
+          INT_VAR silent=%silent% match_opcode=324 match_parameter2=63 timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+          STR_VAR resource=EVAL ~%DEST_RES%~
+        END
+
+        LPF ALTER_EFFECT 
+          INT_VAR silent=%silent% match_opcode=318 match_parameter2=63 opcode=324 timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+          STR_VAR resource=EVAL ~%DEST_RES%~
+        END
+      END
+
+END
+
+////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION d2_evasion_check
+
+  INT_VAR insert = 0         // insert point (0 = top), ignored if 'clone' is enabled
+          opcode = 324       // EEs: 324 or 318, IWD1: this is ignored (always uses 206)
+          type   = 99        // 1 = melee, 2 = ranged, 3 = spell, 99 = all (default)
+                             // 'type' is only used for items (silently ignored for spells)
+          patch_spell = 1    // set to 0 to ignore spl
+          patch_item  = 1    // set to 0 to ignore itm
+          overwrite   = 0    // patch a previous Evasion effect (instead of creating or cloning effect)
+
+          clone         = 0     // set to 1 to clone existing effect (ignores 'insert' and 'type' variables)
+          clone_opcode  = 12    // opcode to clone (12 = damage opcode)
+          clone_match   = 1     // number of effects to clone (1 = one in each header)
+          silent        = 1     // 1 = no warning if no match for clone/patch (0 = show warnings)
+
+  STR_VAR resource  = ~~    // resource of spl or itm (unless 'spell' or 'item' variables are set)
+          spell     = ~~    // same as 'resource' for spells (added for compatibility with old function)
+          item      = ~~    // same as 'resource' for items
+          new_spell = ~~    // new spell (if changing resource)
+          new_item  = ~~    // new item (if changing resource)
+          clone_resname = ~~    // match resource when cloning (this is ignored if not set)
+          clone_insert  = ~~    // options: 'above', 'below', 'first', 'last' (default is 'above' matched effect)
+
+
+BEGIN
+
+ACTION_FOR_EACH ext IN ~spl~ ~itm~ BEGIN
+
+  // resource variables
+  ACTION_IF (~%ext%~ STR_EQ ~spl~) BEGIN
+    ACTION_IF (~%spell%~ STR_EQ ~~) BEGIN  OUTER_TEXT_SPRINT old_resource ~%resource%~
+    END ELSE BEGIN  OUTER_TEXT_SPRINT old_resource ~%spell%~ END
+
+    ACTION_IF (~%new_spell%~ STR_EQ ~~) BEGIN  OUTER_TEXT_SPRINT new_resource ~%old_resource%~
+    END ELSE BEGIN  OUTER_TEXT_SPRINT new_resource ~%new_spell%~ END
+  END
+
+  ACTION_IF (~%ext%~ STR_EQ ~itm~) BEGIN
+    ACTION_IF (~%item%~ STR_EQ ~~) BEGIN  OUTER_TEXT_SPRINT old_resource ~%resource%~
+    END ELSE BEGIN  OUTER_TEXT_SPRINT old_resource ~%item%~ END
+
+    ACTION_IF (~%new_item%~ STR_EQ ~~)  BEGIN  OUTER_TEXT_SPRINT new_resource ~%old_resource%~
+    END ELSE BEGIN  OUTER_TEXT_SPRINT new_resource ~%new_item%~ END
+  END
+
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%old_resource%.%ext%~) BEGIN
+    COPY_EXISTING ~%old_resource%.%ext%~  ~override/%new_resource%.%ext%~
+
+      // prep
+      SET no_patch = 0
+      SET match_res = 0
+      PATCH_IF (clone_match < 1) BEGIN  SET clone_match = 1 END
+      PATCH_IF ((silent < 0) OR (silent > 1))  BEGIN  SET silent = 1 END
+      PATCH_IF !(~%clone_resname%~ STR_EQ ~~) BEGIN  SET match_res = 1 END
+
+      // check resource
+      PATCH_IF (~%DEST_EXT%~ STR_EQ ~spl~) BEGIN  
+        TEXT_SPRINT filetype ~SPELL~ 
+        READ_LONG 0x34 power
+        PATCH_IF (patch_spell = 0) BEGIN  SET no_patch = 1 END
+      END
+
+      PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN  
+        TEXT_SPRINT filetype ~ITEM~ 
+        SET power = 0
+        PATCH_IF (patch_item = 0) BEGIN  SET no_patch = 1 END
+      END
+
+      // check for invalid opcode
+      PATCH_IF !(GAME_IS ~bgee bg2ee iwdee eet pstee~) BEGIN    // IWD1 uses op206
+        SET opcode = 206
+      END ELSE BEGIN  
+        PATCH_IF ((opcode != 324) AND (opcode != 318)) BEGIN    // EEs default to 318
+          SET opcode = 318
+        END
+      END
+
+      // add new effect
+      PATCH_IF ((no_patch = 0) AND (overwrite = 0) AND (clone = 0)) BEGIN
+        LPF ~ADD_%filetype%_EFFECT~
+          INT_VAR
+            opcode         = %opcode%
+            target         = 2
+            power          = %power%
+            parameter2     = 63    // Evasion check
+            resist_dispel  = 2
+            type           = %type%
+            insert_point   = %insert%
+          STR_VAR
+            resource       = EVAL ~%DEST_RES%~    // evade effects on same item/spell
+        END
+      END
+
+      // or clone existing effect
+      PATCH_IF ((no_patch = 0) AND (overwrite = 0) AND (clone > 0) AND (match_res = 0)) BEGIN
+        LPF CLONE_EFFECT
+          INT_VAR
+            match_opcode   = %clone_opcode%
+            multi_match    = %clone_match%
+            silent         = %silent%
+            opcode         = %opcode%
+            parameter2     = 63    // Evasion check
+            resist_dispel  = 2
+            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+          STR_VAR
+            insert         = EVAL ~%clone_insert%~
+            resource       = EVAL ~%DEST_RES%~    // evade effects on same item/spell
+        END
+      END
+
+      // or clone with resource matching
+      PATCH_IF ((no_patch = 0) AND (overwrite = 0) AND (clone > 0) AND (match_res > 0)) BEGIN
+        LPF CLONE_EFFECT
+          INT_VAR
+            match_opcode   = %clone_opcode%
+            multi_match    = %clone_match%
+            silent         = %silent%
+            opcode         = %opcode%
+            parameter2     = 63    // Evasion check
+            resist_dispel  = 2
+            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+          STR_VAR
+            insert          = EVAL ~%clone_insert%~
+            match_resource  = EVAL ~%clone_resname%~
+            resource        = EVAL ~%DEST_RES%~    // evade effects on same item/spell
+        END
+      END
+
+      // or patch existing effect
+      PATCH_IF ((no_patch = 0) AND (overwrite > 0)) BEGIN
+        LPF ALTER_EFFECT 
+          INT_VAR silent=%silent% match_opcode=324 match_parameter2=63 timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+          STR_VAR resource=EVAL ~%DEST_RES%~
+        END
+
+        LPF ALTER_EFFECT 
+          INT_VAR silent=%silent% match_opcode=318 match_parameter2=63 opcode=324 timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+          STR_VAR resource=EVAL ~%DEST_RES%~
+        END
+      END
+
+    BUT_ONLY
+  END
+END
+
+END
+
+////////////////////////////////////////////////////////////

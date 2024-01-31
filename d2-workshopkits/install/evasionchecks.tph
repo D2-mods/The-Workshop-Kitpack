@@ -1,0 +1,33 @@
+/*
+Add IWD Evasion checks for kit/item abilities.
+*/
+
+
+ACTION_IF (noevasionchecks = 0) BEGIN
+
+ACTION_IF ((GAME_IS ~iwdee~) OR (RESOURCE_CONTAINS ~CLABTH01.2da~ ~#EVASION~) OR 
+           (RESOURCE_CONTAINS ~CLABTH01.2da~ ~CDIEVAD~)
+) BEGIN
+
+  ACTION_IF (evasionchecks = 1) BEGIN
+    LAF steadycurrentevasion END                                                      // Steady Current (secondary targets only)
+    LAF d2_evasion_check STR_VAR spell=~%electrocannon%~ END                          // Electrocannon
+    LAF d2_evasion_check STR_VAR spell=~%incinerateblast%~ END                        // Incinerate
+    LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%blastingsongblast%~ END     // Blasting Song
+    LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%dustexplosionblast%~ END    // Dust Explosion (fireball only)
+  END
+
+  ACTION_IF (evasionchecks = 2) BEGIN
+    LAF miscitemsevasion END
+  END
+
+END
+
+END
+
+
+/*
+//LAF d2_evasion_check STR_VAR spell=~%shockwaveblast%~ END                         // Shockwave (v4.8: no evasion)
+//LAF d2_evasion_check STR_VAR spell=~%moonlightvortex%~ END                        // Moonlight Vortex (v4.8: no evasion)
+//LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%boomingsongblast%~ END      // Booming Song (v4.8: no evasion)
+*/

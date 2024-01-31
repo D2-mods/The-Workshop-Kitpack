@@ -15,13 +15,8 @@ COPY ~%passives%/hiteffect1melee.SPL~  ~override/%e3%.SPL~
 COPY ~%abilities%/castspellself.EFF~  ~override/%e3%a.EFF~
   WRITE_ASCII 0x30 ~%e3%b~ #8
 COPY_EXISTING ~SPWI305.SPL~           ~override/%e3%b.SPL~      // clone Haste
-  WRITE_LONG 0x8 ~-1~       // spell name
-  WRITE_ASCII 0x10 ~~ #8    // casting sound
-  WRITE_SHORT 0x22 0        // casting animation
-
   LPF d2_remove_level_headers END
-  LPF ALTER_SPELL_HEADER INT_VAR target=1 range=100 speed=0 projectile=0 END
-
+  LPF d2_subspell_remove_effects END
   LPF d2_convert_spell_type INT_VAR type=0 level=1 END           // convert to special ability
   LPF DELETE_EFFECT INT_VAR match_opcode=176 END                 // revert some sr changes
   LPF DELETE_EFFECT INT_VAR match_opcode=1 END
@@ -61,23 +56,23 @@ COPY ~%abilities%/moonlightspell.BAM~   ~override/%s9%a.BAM~
 COPY ~%abilities%/moonlightvortex.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @105
   SAY UNIDENTIFIED_DESC @205
-  WRITE_SHORT 0x98 ~%s9%a~
-  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s1%a~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%c~ END
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s9%a~ END    // set projectile
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 resist_dispel=1 STR_VAR resource=~%s1%a~ END    // apply damage (can resist)
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 resist_dispel=2 STR_VAR resource=~%s1%b~ END    // op177 effects (no resist)
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%~ END     // ignore allies (prevents 'resisted' message)
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%e~ END    // magic resist (self)
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 parameter2=52 STR_VAR resource=~%s1%d~ insert=~first~ END
 
-COPY ~%abilities%/moonlightspell.EFF~   ~override/%s1%a.EFF~         // damage
-COPY ~%abilities%/moonlighttarget.SPL~  ~override/%s1%b.SPL~         // target 
-  LPF ALTER_EFFECT STR_VAR resource=~%s1%a~ END
+COPY ~%abilities%/moonlightspell.SPL~   ~override/%s1%a.SPL~    // damage
+COPY ~%abilities%/moonlighttarget.SPL~  ~override/%s1%b.SPL~    // op177 effects (no resist)
+  LPF ALTER_EFFECT STR_VAR resource=~%s1%b~ END
+COPY ~%abilities%/applyeffects.EFF~     ~override/%s1%b.EFF~
+  WRITE_ASCII 0x30 ~%s1%a~ #8
 
-COPY ~%abilities%/moonlightmagicresist.SPL~  ~override/%s1%c.SPL~    // 20% resist
-  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%c~ END
-
-
-//Add Evasion check for IWDEE
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  LAF d2_evasion_check STR_VAR spell=~%s1%~ END
-END
+COPY ~%abilities%/moonlighttickle.SPL~  ~override/%s1%d.SPL~    // lighting effect
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@319) END    // "Tickled..."
+COPY ~%abilities%/moonlightresist.SPL~  ~override/%s1%e.SPL~    // magic resist (self)
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%e~ END
 
 
 //Make clab table

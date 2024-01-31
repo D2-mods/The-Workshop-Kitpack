@@ -682,12 +682,12 @@ COPY ~%files%/shamanboneb.SPL~  ~override/%mh%b.SPL~
 
 
 
-//Add Evasion checks for IWDEE
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%m2%f~ END    // Etherbomb Songbook
-  LAF d2_evasion_check INT_VAR insert=0 STR_VAR spell=~%m2%t~ END
-  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%ma%b~ END    // Ether Limiter
-  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%ma%f~ END
+//function for Evasion (used later)
+DEFINE_ACTION_FUNCTION miscitemsevasion BEGIN
+  LAF d2_evasion_check INT_VAR clone=1 STR_VAR spell=~%m2%f~ END    // Etherbomb Song
+  LAF d2_evasion_check INT_VAR clone=1 STR_VAR spell=~%m2%t~ END
+//LAF d2_evasion_check INT_VAR clone=1 STR_VAR spell=~%ma%b~ END    // Shockwave (v4.8: no evasion)
+  LAF d2_evasion_check INT_VAR clone=1 STR_VAR spell=~%ma%f~ END    // Incinerate
 END
 
 

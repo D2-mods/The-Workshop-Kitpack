@@ -3,7 +3,6 @@
 
 /*functions:
 d2_portrait_icon              ACTION
-d2_evasion_check              PATCH or ACTION
 d2_subspell_remove_effects    PATCH
 d2_remove_level_headers       PATCH
 d2_subspell_remove_visuals    PATCH
@@ -58,73 +57,6 @@ BEGIN
       PRETTY_PRINT_2DA
     END
   BUT_ONLY
-
-END
-
-////////////////////////////////////////////////////////////
-
-//Adds Evasion check to spells (mainly for IWDEE)
-//Can be added for BGEE games, but this stat isn't used without mods
-//Note: doesn't add saving throws to effect (add that manually if needed)
-
-DEFINE_PATCH_FUNCTION d2_evasion_check
-
-  INT_VAR insert = 0      // insert point (0 = top)
-          opcode = 324    // use 324 or 318 (other numbers default to 318)
-
-BEGIN
-
-    PATCH_IF ((opcode != 324) AND (opcode != 318)) BEGIN
-      SET opcode = 318
-    END
-
-    READ_LONG 0x34 spllevel    // use for "power" field in spell effect
-
-    LPF ADD_SPELL_EFFECT
-      INT_VAR
-        opcode        = %opcode%
-        target        = 2
-        power         = %spllevel%
-        parameter2    = 63    // Evasion check
-        resist_dispel = 2
-        insert_point  = %insert%
-      STR_VAR
-        resource      = ~%SOURCE_RES%~    // evasion is against current spell
-    END
-
-END
-
-////////////////////////////////////////////////////////////
-
-DEFINE_ACTION_FUNCTION d2_evasion_check
-
-  INT_VAR insert = 0      // insert point (0 = top)
-          opcode = 324    // use 324 or 318 (other numbers default to 318)
-  STR_VAR spell  = ~~     // resource of spl file
-
-BEGIN
-
-ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) BEGIN
-  COPY_EXISTING ~%spell%.SPL~ ~override~
-    PATCH_IF ((opcode != 324) AND (opcode != 318)) BEGIN
-      SET opcode = 318
-    END
-
-    READ_LONG 0x34 spllevel    // use for "power" field in spell effect
-
-    LPF ADD_SPELL_EFFECT
-      INT_VAR
-        opcode        = %opcode%
-        target        = 2
-        power         = %spllevel%
-        parameter2    = 63    // Evasion check
-        resist_dispel = 2
-        insert_point  = %insert%
-      STR_VAR
-        resource      = ~%SOURCE_RES%~    // evasion is against current spell
-    END
-  BUT_ONLY
-END
 
 END
 

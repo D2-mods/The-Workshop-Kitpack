@@ -144,6 +144,16 @@ This is how I'd do the install:
 
 Version info:
 
+v4.7.2
+- Maintenance:
+	- Temple Knight: Slightly reduced knockback strength of Force + added color fade to affected creatures. Stun duration increased internally (it's still roughly 4 seconds, but after the knockback ends).
+	- Moonlight Knight: Fixed an inconsistency in the effects of Moonlight Vortex + added lighting effect on allies (only enemies take damage still).
+	- Fixed possible minor dialogue weirdness with a chicken.
+	- IWDEE: Grave Warden's Skull Trap was giving Evasion check against the wrong spell resource.
+- IWD Evasion notes:
+	- Took another look at kit abilities that included Evasion checks for IWDEE. These abilities previously allowed Evasion, and no longer do: Shockwave, Moonlight Vortex, Booming Song. These abilities can (still) be evaded: Incinerate, Electrocannon, Steady Current (secondary targets only), Blasting Song, Dust Explosion (initial blast only), Etherbomb Song.
+	- BGEE/BG2EE: If Evasion from IWDification or Talents of Faerun is installed before this mod, then the above abilities will also give a check for Evasion in the BGEE games. (components from ToF that just modify class/kit ability tables are fine to install before this mod)
+
 v4.7.1
 - Milkweed (rune): Fixed an issue that would occur if spell components from SCS/ToF were installed after this mod. The CON/WIS drain wasn't being removed right away after battle (it wears off itself eventually).
 - Note that recommended install order is still this mod after the spell components, but in case the opposite order is used, Milkweed rune should now be compatible either way.

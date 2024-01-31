@@ -61,11 +61,14 @@ COPY ~%abilities%/steadycurrent.SPL~    ~override/%w2%.SPL~
   WRITE_ASCII 0x3a ~%w2%c~ #8    // icons
   WRITE_ASCII 0x76 ~%w2%b~ #8
 
-ACTION_IF (GAME_IS ~iwdee~) BEGIN    // add Evasion check for IWDEE
-  COPY_EXISTING ~%w2%.SPL~  ~override~
-    LPF d2_evasion_check END
-    WRITE_LONG 0xbe THIS | BIT10     // main target cannot evade
-  BUT_ONLY
+//function for Evasion (used later)
+DEFINE_ACTION_FUNCTION steadycurrentevasion BEGIN
+  ACTION_IF (FILE_EXISTS ~override/%steadycurrent%.SPL~) BEGIN
+    COPY_EXISTING ~%steadycurrent%.SPL~  ~override~
+      LPF d2_evasion_check END
+      WRITE_LONG 0xbe THIS | BIT10     // secondary targets only
+    BUT_ONLY
+  END
 END
 
 
@@ -224,12 +227,6 @@ COPY ~%abilities%/electrocannon.SPL~     ~override/%w6%.SPL~
       LPF ALTER_EFFECT INT_VAR header=header parameter1=damage dicenumber=dice END
     END
   END
-
-ACTION_IF (GAME_IS ~iwdee~) BEGIN    // add Evasion check for IWDEE
-  COPY_EXISTING ~%w6%.SPL~  ~override~
-    LPF d2_evasion_check END
-  BUT_ONLY
-END
 
 
 //Add Revitalizer
@@ -468,7 +465,7 @@ LAF ADD_KIT_EX
   STR_VAR
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
-    source_kit = DRAGON_DISCIPLE    // use Dragon Disciple as base (unkitted Sorcerer is missing from some tables)
+    source_kit = DRAGON_DISCIPLE    // use Dragon Disciple as base (could also use unkitted Sorcerer)
     clsrcreq = ~1 1 1 1 1 1 1~      // Usable by all races, if base class is usable
     abclasrq = ~0 0 0 12 0 12~      // min stats
     abclsmod = ~0 -2 0 0 -2 0~      // -2 to Dex and Wis
@@ -485,10 +482,9 @@ END
 OUTER_TEXT_SPRINT starjammer     ~%kitid%~
 OUTER_TEXT_SPRINT interference   ~%s1%~
 OUTER_TEXT_SPRINT riftgatebalor  ~%w8%d~
+OUTER_TEXT_SPRINT steadycurrent  ~%w2%~    // for Evasion
+OUTER_TEXT_SPRINT electrocannon  ~%w6%~
 
 
-/*Additional info
-Despite using Dragon Disciple as base kit, sorcerer kits with this function use the base Sorcerer spells table.
-All mage/sorcerer kits also automatically gain +1 spells per spell level.
-To get the same spells as a regular sorcerer, this kit applies a -1 penalty to spells per spell level.
+/*
 */

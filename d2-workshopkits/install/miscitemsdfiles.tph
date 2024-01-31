@@ -97,13 +97,15 @@ END
 <<<<<<<< .../temp/moonrunechicken
 BEGIN ~d2wkmrc~
 
-IF ~ NumTimesTalkedTo(0) 
+IF ~ NumTimesTalkedTo(0)
+     HasItem("%moon_rune%",Myself)
    ~ BEGIN chicken1
   SAY @60101
   IF ~~ EXIT
 END
 
 IF ~ NumTimesTalkedToGT(0)
+     HasItem("%moon_rune%",Myself)
      Global("d2moonrunechicken","GLOBAL",0)
    ~ BEGIN chicken2
   SAY @60102

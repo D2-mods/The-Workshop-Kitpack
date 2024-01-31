@@ -147,7 +147,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
             (stringref = 26226) OR (stringref = 55844) OR (stringref = 35957) OR    // match stringref
             (stringref = 26310) OR (stringref = 35603) OR (stringref = 36401) OR
             !(~%spellname%~ STRING_CONTAINS_REGEXP ~%restoration%~)                 // check spell name
-           ) BEGIN
+  ) BEGIN
     LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%a~ END
     LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%b~ END
     LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%c~ END

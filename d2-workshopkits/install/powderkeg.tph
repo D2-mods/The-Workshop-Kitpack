@@ -215,14 +215,6 @@ COPY_EXISTING ~CLEARAIR.2DA~ ~override~
 BUT_ONLY
 
 
-//Add Evasion check for IWDEE
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%s1%e~ END    // Blasting Song
-  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%s2%e~ END    // Booming Song
-  LAF d2_evasion_check INT_VAR insert=1 STR_VAR spell=~%s3%d~ END    // Dust Explosion (fireball only)
-END
-
-
 //Make clab table
 COPY ~inlined/d2clab_bard_nosongs~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
@@ -303,12 +295,15 @@ END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT powderkeg         ~%kitid%~
-OUTER_TEXT_SPRINT blastingsong      ~%s1%~
-OUTER_TEXT_SPRINT boomingsong       ~%s2%~
-OUTER_TEXT_SPRINT dustexplosion     ~%s3%~
-OUTER_TEXT_SPRINT frenzyingflame    ~%s4%~
-OUTER_TEXT_SPRINT enhancedbardsong  ~%s5%~
+OUTER_TEXT_SPRINT powderkeg           ~%kitid%~
+OUTER_TEXT_SPRINT blastingsong        ~%s1%~
+OUTER_TEXT_SPRINT boomingsong         ~%s2%~
+OUTER_TEXT_SPRINT dustexplosion       ~%s3%~
+OUTER_TEXT_SPRINT frenzyingflame      ~%s4%~
+OUTER_TEXT_SPRINT enhancedbardsong    ~%s5%~
+OUTER_TEXT_SPRINT blastingsongblast   ~%s1%e~    // for Evasion
+OUTER_TEXT_SPRINT boomingsongblast    ~%s2%e~
+OUTER_TEXT_SPRINT dustexplosionblast  ~%s3%d~
 
 
 /*

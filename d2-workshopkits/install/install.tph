@@ -215,6 +215,8 @@ END
 
 
 //End stuff
+OUTER_SET evasionchecks = 1
+INCLUDE ~%install%/evasionchecks.tph~
 INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/castingspeed.tph~
 INCLUDE ~%install%/restrictarmor.tph~
