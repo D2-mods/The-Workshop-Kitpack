@@ -29,17 +29,23 @@ PRINT @9
 
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
   PATCH_IF (!(~%SOURCE_RES%~ STRING_EQUAL_CASE ~secret05~) AND    // skip these armors
-            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec05~)
-    ) BEGIN
-    READ_LONG  0x8 stringref             // unidentified name (as string ref)
-    READ_ASCII 0x22 itemtype (2) NULL    // equipped appearance
+            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec05~) AND
+            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~FISH~)            // skip a fish in IWD
+  ) BEGIN
 
-    PHP_EACH d2_restrict_armor_array AS kit => type BEGIN
-      PATCH_IF (RESOURCE_CONTAINS ~kit.ids~  ~%kit%~) BEGIN
-        LPF ~d2_restrict_armor_%type%~  STR_VAR kit_to_patch = ~%kit%~ END
+    LPF d2_restrict_armor_flags RET droppable displayable END
+    PATCH_IF ((%droppable%) AND (%displayable%)) BEGIN
+
+      READ_LONG  0x8 stringref             // unidentified name (as string ref)
+      READ_ASCII 0x22 itemtype (2) NULL    // equipped appearance
+
+      PHP_EACH d2_restrict_armor_array AS kit => type BEGIN
+        PATCH_IF (RESOURCE_CONTAINS ~kit.ids~  ~%kit%~) BEGIN
+          LPF ~d2_restrict_armor_%type%~  STR_VAR kit_to_patch = ~%kit%~ END
+        END
       END
-    END
 
+    END
   END
 BUT_ONLY
 

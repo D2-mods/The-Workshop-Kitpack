@@ -144,7 +144,7 @@ LAF ADD_KIT_EX
 END
 
 
-ACTION_DEFINE_ASSOCIATIVE_ARRAY weapontype BEGIN    // weapon => usable
+ACTION_DEFINE_ASSOCIATIVE_ARRAY medicweapontype BEGIN    // weapon => usable
   16 => 1    // daggers
   17 => 1    // maces, clubs
   18 => 1    // slings

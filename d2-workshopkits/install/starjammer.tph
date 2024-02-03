@@ -268,7 +268,7 @@ COPY_EXISTING ~%revitalizer_heal%.SPL~  ~override/%w7%.SPL~    // clone a Cure W
   LPF ALTER_SPELL_HEADER INT_VAR speed=1 range=30 projectile=~%w7%~ STR_VAR icon=SPPR317B END
   LPF DELETE_EFFECT INT_VAR match_opcode=164 END
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=20 dicenumber=14 dicesize=4 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 STR_VAR resource=~%w7%~ END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 STR_VAR resource=~%w7%~ END    // update restrictions (if found)
 
   LPF CD_EXTEND-O-MATIC
     INT_VAR
@@ -308,7 +308,7 @@ COPY_EXISTING ~%revitalizer_heal%.SPL~  ~override/%w7%.SPL~    // clone a Cure W
   END
 
 
-//Add Riftgate
+//Add Riftgate golem
 COPY - ~%abilities%/riftgategolem.BAF~  ~%workspace%/%w8%g.BAF~    // golem script
 COMPILE ~%workspace%/%w8%g.BAF~
 COPY ~%abilities%/riftgategolem.CRE~  ~override/%w8%g.CRE~         // add golem
@@ -316,13 +316,42 @@ COPY ~%abilities%/riftgategolem.CRE~  ~override/%w8%g.CRE~         // add golem
   SAY NAME2 @601
   REPLACE_CRE_ITEM ~helmnoan~ #0 #0 #0 ~none~ ~helmet~
   REPLACE_CRE_ITEM ~immune3~ #0 #0 #0 ~none~ ~lring~
-  REPLACE_CRE_ITEM ~goliro~ #0 #0 #0 ~none~ ~weapon1~ EQUIP
+  REPLACE_CRE_ITEM ~%w8%g~ #0 #0 #0 ~none~ ~weapon1~ EQUIP
   WRITE_ASCII 0x260 ~%w8%g~ #8     // general script
   WRITE_ASCII 0x280 ~%w8%g~ #20    // script name
   WRITE_BYTE  0x275 4              // v4.7: make immune to effects that instakill summons
 COPY ~%abilities%/summonrift.EFF~     ~override/%w8%g.EFF~
   WRITE_ASCII 0x30 ~%w8%g~ #8
 
+COPY_EXISTING ~goliro.ITM~  ~override/%w8%g.ITM~       // golem weapon (clone from iron golem)
+  WRITE_LONG 0x60 4
+  LPF ALTER_ITEM_HEADER INT_VAR range=2 dicesize=10 dicenumber=4 thac0_bonus=2 damage_bonus=2 END
+//LPF ALTER_ITEM_HEADER INT_VAR range=2 dicesize=8 dicenumber=8 thac0_bonus=2 damage_bonus=2 END  // golem manual damage
+  LPF ADD_ITEM_EFFECT INT_VAR opcode=326 target=2 timing=1 type=1 STR_VAR resource=~%w8%g~ END    // add stun effect
+
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=176 parameter1=2 parameter2=0 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=206 parameter1=0 STR_VAR resource=~SPPR319~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=206 parameter1=0 STR_VAR resource=~SPPR517~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=206 parameter1=0 STR_VAR resource=~SPPR717~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=209 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=213 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=216 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=151 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=135 END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END
+
+  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
+    LPF d2_string_immunities END
+  END
+
+COPY_EXISTING - ~STUNSTRG.EFF~ ~~    // get string ref for "Stunned" (this file is in every game)
+  READ_LONG 0x1c stunstring
+COPY ~%abilities%/riftgategolem.SPL~  ~override/%w8%g.SPL~    // stun effect (same as golem manual)
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=stunstring END
+
+
+//Add Riftgate balor
 COPY - ~%abilities%/riftgatebalor.BAF~  ~%workspace%/%w8%d.BAF~    // balor script
   EVALUATE_BUFFER
   PATCH_IF (GAME_IS ~bgee~) BEGIN
@@ -394,6 +423,8 @@ COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~       // balor weap
     LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=38 opcode=328 parameter2=silence_immunity special=1 END
   END
 
+
+//Add Riftgate spell
 COPY ~%icons%/riftgate.BAM~      ~override/%w8%.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@40115) STR_VAR bam=~%w8%~ RET icon END
 COPY ~%abilities%/riftgate.SPL~  ~override/%w8%.SPL~               // add spell
@@ -413,6 +444,10 @@ ACTION_IF (%nowizardids% = 0) BEGIN
     LAF ADD_SPELL_EX INT_VAR type=2 level=%n% min=51 max=99 hide=1 STR_VAR file=~override/%w%n%%.SPL~ name=~D2%kitname%_W%n%~ RET spell_res END
     OUTER_TEXT_SPRINT ~w%n%~  ~%spell_res%~
   END
+
+  COPY ~override/%w7%.SPL~  ~override~
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 STR_VAR resource=~%w7%~ END    // update restrictions (if found)
+  BUT_ONLY
 END
 
 
@@ -459,20 +494,21 @@ COPY ~inlined/d2clab_mage~  ~override/%kitid%.2DA~
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
+    kit_class = 19
     mixed = RESOLVE_STR_REF (@100801)
     lower = RESOLVE_STR_REF (@100802)
     help = RESOLVE_STR_REF (@100803)
   STR_VAR
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
-    source_kit = DRAGON_DISCIPLE    // use Dragon Disciple as base (could also use unkitted Sorcerer)
+//  source_kit = DRAGON_DISCIPLE    // use Dragon Disciple as base (v4.8: using Sorcerer instead)
     clsrcreq = ~1 1 1 1 1 1 1~      // Usable by all races, if base class is usable
     abclasrq = ~0 0 0 12 0 12~      // min stats
     abclsmod = ~0 -2 0 0 -2 0~      // -2 to Dex and Wis
     abdcscrq = ~0 0 0 15 0 15~      // not used (dual class), this is just for aesthetics
     abdcdsrq = ~0 0 0 17 0 17~      // not used (dual class)
     clascolr = ~72 67 169 93 72~    // Kensai colors
-    hpclass = ~HPWIZ~               // same HP as Wizard
+//  hpclass = ~HPWIZ~               // same HP as Wizard (needed if using DD as source kit)
   RET 
     kit_id
 END
@@ -482,8 +518,14 @@ END
 OUTER_TEXT_SPRINT starjammer     ~%kitid%~
 OUTER_TEXT_SPRINT interference   ~%s1%~
 OUTER_TEXT_SPRINT riftgatebalor  ~%w8%d~
-OUTER_TEXT_SPRINT steadycurrent  ~%w2%~    // for Evasion
+OUTER_TEXT_SPRINT riftstep       ~%w1%~
+OUTER_TEXT_SPRINT steadycurrent  ~%w2%~
+OUTER_TEXT_SPRINT swapper        ~%w3%~
+OUTER_TEXT_SPRINT pacifier       ~%w4%~
+OUTER_TEXT_SPRINT jolt           ~%w5%~
 OUTER_TEXT_SPRINT electrocannon  ~%w6%~
+OUTER_TEXT_SPRINT revitalizer    ~%w7%~
+OUTER_TEXT_SPRINT riftgate       ~%w8%~
 
 
 /*

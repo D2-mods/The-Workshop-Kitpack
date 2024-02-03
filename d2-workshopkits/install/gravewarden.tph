@@ -119,10 +119,10 @@ END
 
 COPY_EXISTING ~%denial_heal%.SPL~  ~override/%s1%a.SPL~
   LPF d2_remove_level_headers END
-  WRITE_LONG 0x8 ~-1~
+  LPF d2_subspell_remove_effects END
   LPF d2_convert_spell_type INT_VAR type=0 level=0 END
-  LPF ALTER_SPELL_HEADER INT_VAR speed=0 END
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=100 parameter2=2 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 opcode=318 STR_VAR resource=~%s1%a~ END
 
   LPF ADD_SPELL_EFFECT 
     INT_VAR opcode=321 target=2 power=0 timing=1 resist_dispel=2 

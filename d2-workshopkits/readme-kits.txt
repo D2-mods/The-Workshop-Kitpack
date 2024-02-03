@@ -83,7 +83,7 @@ Advantages:
 – 3rd level: Immune to fear and and morale failure.
 – 5th level: May use the Denial ability once per day. Gains additional uses every 5 levels thereafter.
 
-DENIAL: This spell has two effects. First, the recipient becomes immune to all instant death effects for 3 turns. Second, if the recipient falls below 50% of maximum Hit Points, the spell activates and restores the character to full health, consuming the spell in the process.
+DENIAL: This spell has two effects. First, the recipient becomes immune to all forms of death magic for 3 turns. Second, if the recipient falls below 50% of maximum Hit Points, the spell activates and restores the character to full health, consuming the spell in the process.
 
 – 8th level: Immune to blindness and gaze attacks.
 

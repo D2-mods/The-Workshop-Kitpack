@@ -33,26 +33,44 @@ END
 */
 
 
+//check item flags
+DEFINE_PATCH_FUNCTION dof_item_flags  RET droppable displayable BEGIN
+  READ_LONG 0x18 item_flags
+  SET droppable = %item_flags% & BIT2
+  SET displayable = %item_flags% & BIT3
+END
+
+
 //Weapon restrictions (DoF)
 ACTION_IF (!(FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) AND
            !(MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
-          ) BEGIN
+) BEGIN
 
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
-  READ_SHORT 0x1c itemtype
+  PATCH_IF (!(~%SOURCE_RES%~ STRING_EQUAL_CASE ~secret01~) AND    // skip these items
+            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec01~) AND
+            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec01b~)
+  ) BEGIN
 
-  PHP_EACH weapontype AS type => usable BEGIN    // set weapon to %type% and usable to %usable%
-    PATCH_IF (type = itemtype) BEGIN
-      PATCH_IF (usable < 1) BEGIN
-        LPF ADD_ITEM_EQEFFECT
-          INT_VAR
-            opcode = 319
-            target = 1
-            parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
-            parameter2 = 9
-            timing = 2
+    LPF dof_item_flags RET droppable displayable END
+    PATCH_IF ((%droppable%) AND (%displayable%)) BEGIN
+
+      READ_SHORT 0x1c itemtype
+      PHP_EACH weapontype AS type => usable BEGIN    // set weapon to %type% and usable to %usable%
+        PATCH_IF (type = itemtype) BEGIN
+          PATCH_IF (usable < 1) BEGIN
+            LPF ADD_ITEM_EQEFFECT
+              INT_VAR
+                opcode = 319
+                target = 1
+                parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+                parameter2 = 9
+                timing = 2
+            END
+          END
         END
       END
+
     END
   END
 BUT_ONLY
@@ -86,27 +104,37 @@ END
 
 ACTION_IF ((FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
            (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
-          ) BEGIN
+) BEGIN
 
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
-  READ_SHORT 0x1c itemtype
+  PATCH_IF (!(~%SOURCE_RES%~ STRING_EQUAL_CASE ~secret01~) AND    // skip these items
+            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec01~) AND
+            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec01b~)
+  ) BEGIN
 
-  PHP_EACH fnpweapontype AS fnptype => weapon BEGIN    // set fnptype to %fnptype% and weapon to %weapon%
-    PATCH_IF (fnptype = itemtype) BEGIN
-      PHP_EACH weapontype AS type => usable BEGIN      // set weapon to %type% and usable to %usable%
-        PATCH_IF (weapon = type) BEGIN
-          PATCH_IF (usable < 1) BEGIN
-            LPF ADD_ITEM_EQEFFECT
-              INT_VAR
-                opcode = 319
-                target = 1
-                parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
-                parameter2 = 9
-                timing = 2
+    LPF dof_item_flags RET droppable displayable END
+    PATCH_IF ((%droppable%) AND (%displayable%)) BEGIN
+
+      READ_SHORT 0x1c itemtype
+      PHP_EACH fnpweapontype AS fnptype => weapon BEGIN    // set fnptype to %fnptype% and weapon to %weapon%
+        PATCH_IF (fnptype = itemtype) BEGIN
+          PHP_EACH weapontype AS type => usable BEGIN      // set weapon to %type% and usable to %usable%
+            PATCH_IF (weapon = type) BEGIN
+              PATCH_IF (usable < 1) BEGIN
+                LPF ADD_ITEM_EQEFFECT
+                  INT_VAR
+                    opcode = 319
+                    target = 1
+                    parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+                    parameter2 = 9
+                    timing = 2
+                END
+              END
             END
           END
         END
       END
+
     END
   END
 BUT_ONLY

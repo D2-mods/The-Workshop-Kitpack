@@ -669,13 +669,13 @@ COPY ~%files%/shamanbone.ITM~      ~override/%mh%.ITM~
   WRITE_ASCII 0x3a ~%mh%~ #8     // icon
   WRITE_ASCII 0x76 ~%mh%~ #8     // icon (ability)
   WRITE_ASCII 0x58 ~%mh%d~ #8    // description image
-  LPF ALTER_EFFECT INT_VAR match_opcode=324 STR_VAR resource=~%mh%~ END    // undead/golems immune
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%mh%b~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%mh%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 parameter2=56 STR_VAR resource=~%mh%b~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 parameter2=0  STR_VAR resource=~%mh%a~ END
 
 COPY ~%files%/shamanbonea.SPL~  ~override/%mh%a.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 match_duration=2 STR_VAR resource=~%mh%b~ END    // block berserk
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 match_duration=0 STR_VAR resource=~%mh%a~ END    // elf resistance
+  SAY NAME1 @70137
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%mh%b~ END    // block berserk if save failed
+  LPF ALTER_EFFECT INT_VAR match_opcode=324 STR_VAR resource=~%mh%a~ END    // racial checks
 
 COPY ~%files%/shamanboneb.SPL~  ~override/%mh%b.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@311) END    // "Berserk"

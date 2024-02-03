@@ -19,6 +19,7 @@ THEN
 END
 
 IF
+	!Global("d2riftend","GLOBAL",1)
 	!Global("d2riftga","GLOBAL",0)
 	!Global("d2killgolem","GLOBAL",1)
 	!GlobalTimerNotExpired("d2riftbalor","GLOBAL")
@@ -30,12 +31,14 @@ THEN
 END
 
 IF
+	!Global("d2riftend","GLOBAL",1)
 	!Global("d2riftga","GLOBAL",0)
 	!Global("d2killgolem","GLOBAL",1)
 	GlobalTimerNotExpired("d2riftbalor","GLOBAL")
 THEN
 	RESPONSE #100
-		SetGlobal("d2riftga","GLOBAL",0)
+		SetGlobal("d2riftend","GLOBAL",1)
+		SetGlobalTimer("d2riftshake","GLOBAL",2)
 		DisplayStringHead(Player1,@406)
 		DisplayStringHead(Player2,@407)
 		DisplayStringHead(Player3,@408)
@@ -43,20 +46,27 @@ THEN
 		DisplayStringHead(Player5,@410)
 		DisplayStringHead(Player6,@411)
 END
+
+IF
+	Global("d2riftend","GLOBAL",1)
+	GlobalTimerExpired("d2riftshake","GLOBAL")
+THEN
+	RESPONSE #100
+		SetGlobal("d2riftga","GLOBAL",0)
+		SetGlobal("d2riftend","GLOBAL",0)
+        ScreenShake([50.50],60)
+END
 >>>>>>>>
 
 
-COPY - ~.../d2temp/rifts~     ~%workspace%/rifts.BAF~
+COPY - ~.../d2temp/rifts~  ~%workspace%/rifts.BAF~
   EVALUATE_BUFFER
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~baldur.bcs~) BEGIN
-  EXTEND_BOTTOM ~baldur.bcs~  ~%workspace%/rifts.BAF~
+ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ ~bdbaldur~ BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
+    EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/rifts.BAF~
+  END
 END
-
-ACTION_IF (FILE_EXISTS_IN_GAME ~baldur25.bcs~) BEGIN
-  EXTEND_BOTTOM ~baldur25.bcs~  ~%workspace%/rifts.BAF~
-END
-
 
 
 /*

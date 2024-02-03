@@ -35,7 +35,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY array_for_import_fix BEGIN
 END
 
 
-//some Beamdog items have kit-specific effects
+//for Beamdog items with specific kit bonuses
 ACTION_DEFINE_ASSOCIATIVE_ARRAY item_kit_effects BEGIN
   bdamul02 => archer
   bdbelt02 => blade
@@ -97,83 +97,6 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY kit_ids_array BEGIN
   sun_soul       => 16421
   tyr            => 16424
   tempus         => 16425
-END
-
-
-
-/*
-stuff for armor restrictions
-*/
-
-DEFINE_PATCH_FUNCTION d2_restrict_armor_effect  
-  STR_VAR  kit_to_patch  = ~~
-BEGIN 
-  LPF ADD_ITEM_EQEFFECT
-    INT_VAR
-      opcode = 319
-      target = 1
-      parameter1 = IDS_OF_SYMBOL (kit ~%kit_to_patch%~)
-      parameter2 = 9
-      timing = 2
-  END
-END
-
-//no plate mail (full metal jaguar, noble scion)
-DEFINE_PATCH_FUNCTION d2_restrict_armor_splint
-  STR_VAR  kit_to_patch  = ~~
-BEGIN
-    PATCH_IF ((~%itemtype%~ STRING_EQUAL_CASE ~4A~)
-      ) BEGIN
-      LPF d2_restrict_armor_effect STR_VAR kit_to_patch = ~%kit_to_patch%~ END
-    END
-END
-
-//no splint or plate (grave warden, spell fencer)
-DEFINE_PATCH_FUNCTION d2_restrict_armor_chain
-  STR_VAR  kit_to_patch  = ~~
-BEGIN
-    PATCH_IF ((stringref = 6677) OR                    // no splint mail
-              (stringref = 6678) OR
-              (~%itemtype%~ STRING_EQUAL_CASE ~4A~)    // no plate mail
-      ) BEGIN
-      LPF d2_restrict_armor_effect STR_VAR kit_to_patch = ~%kit_to_patch%~ END
-    END
-END
-
-//no chain, splint, or plate (beast hunter multi)
-DEFINE_PATCH_FUNCTION d2_restrict_armor_studded
-  STR_VAR  kit_to_patch  = ~~
-BEGIN
-    PATCH_IF ((~%itemtype%~ STRING_EQUAL_CASE ~3A~) OR    // no chain or splint
-              (~%itemtype%~ STRING_EQUAL_CASE ~4A~)       // no plate mail
-      ) BEGIN
-      LPF d2_restrict_armor_effect STR_VAR kit_to_patch = ~%kit_to_patch%~ END
-    END
-END
-
-//only leather or hide (drifter)
-DEFINE_PATCH_FUNCTION d2_restrict_armor_hide
-  STR_VAR  kit_to_patch  = ~~
-BEGIN
-    PATCH_IF ((stringref = 6664) OR (stringref = 6665) OR (stringref = 6666) OR    // no studded leather
-              (~%itemtype%~ STRING_EQUAL_CASE ~3A~) OR                             // no chain or splint
-              (~%itemtype%~ STRING_EQUAL_CASE ~4A~)                                // no plate mail
-      ) BEGIN
-      LPF d2_restrict_armor_effect STR_VAR kit_to_patch = ~%kit_to_patch%~ END
-    END
-END
-
-//only leather (nurse)
-DEFINE_PATCH_FUNCTION d2_restrict_armor_leather
-  STR_VAR  kit_to_patch  = ~~
-BEGIN
-    PATCH_IF ((stringref = 6664) OR (stringref = 6665) OR (stringref = 6666) OR       // no studded leather
-              (stringref = 22714) OR (stringref = 22715) OR (stringref = 40488) OR    // no hide armor
-              (~%itemtype%~ STRING_EQUAL_CASE ~3A~) OR                                // no chain or splint
-              (~%itemtype%~ STRING_EQUAL_CASE ~4A~)                                   // no plate mail
-      ) BEGIN
-      LPF d2_restrict_armor_effect STR_VAR kit_to_patch = ~%kit_to_patch%~ END
-    END
 END
 
 

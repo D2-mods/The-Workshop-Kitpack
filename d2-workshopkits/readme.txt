@@ -144,6 +144,15 @@ This is how I'd do the install:
 
 Version info:
 
+v4.7.3
+- Golem Ring: Delayed sound effect on item ability was incorrectly set as undispellable.
+- Medic: Adjusted visuals for all abilities + fixed color fade effect on White Remedy (was allowing a save).
+- Medic: Remedy abilities will no longer affect undead or golems. Healing Rain will still heal any creature, including in IWD (similar to Mist of Eldath). This is the same restriction that's already on Medical Darts and Shaman Bone Blade. Note that this is intentionally less restrictive than IWD rules.
+- IWDEE: Grave Warden's Denial ability will now follow IWD cleric rules for the healing effect. The death ward effect can still be cast on any creature. For creatures immune to healing spells in IWD, Denial will last the full 3 turns, unless dispelled or the summon is killed/unsummoned.
+- Shaman Bone Blade: Improved effects structure. Will now always play an audio/visual effect, even for immune creatures. Will now display a string that ability was used. Increased cast range from 1 to 3. Elves and half-elves that fail the save against charm, but make the racial check for charm resistance, will now avoid all effects, instead of being berserked.
+- Starjammer: Riftgate balor now has a screen shake effect if summoned. Golem attack range increased from 1 to 2.
+- Other minor adjustments or installer improvements.
+
 v4.7.2
 - Maintenance:
 	- Temple Knight: Slightly reduced knockback strength of Force + added color fade to affected creatures. Stun duration increased internally (it's still roughly 4 seconds, but after the knockback ends).
@@ -152,7 +161,7 @@ v4.7.2
 	- IWDEE: Grave Warden's Skull Trap was giving Evasion check against the wrong spell resource.
 - IWD Evasion notes:
 	- Took another look at kit abilities that included Evasion checks for IWDEE. These abilities previously allowed Evasion, and no longer do: Shockwave, Moonlight Vortex, Booming Song. These abilities can (still) be evaded: Incinerate, Electrocannon, Steady Current (secondary targets only), Blasting Song, Dust Explosion (initial blast only), Etherbomb Song.
-	- BGEE/BG2EE: If Evasion from IWDification or Talents of Faerun is installed before this mod, then the above abilities will also give a check for Evasion in the BGEE games. (components from ToF that just modify class/kit ability tables are fine to install before this mod)
+	- BGEE/BG2EE: If Evasion from IWDification or Talents of Faerun is installed before this mod, then the above abilities will also give a check for Evasion in the BGEE games. (components from ToF that just modify class/kit ability tables are fine to install before this mod)
 
 v4.7.1
 - Milkweed (rune): Fixed an issue that would occur if spell components from SCS/ToF were installed after this mod. The CON/WIS drain wasn't being removed right away after battle (it wears off itself eventually).

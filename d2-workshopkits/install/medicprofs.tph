@@ -1,12 +1,12 @@
 /*
 customized for Medic (from dofweapons.tph)
-Make custom "weapontype" array, then INCLUDE this file
+Make custom "medicweapontype" array, then INCLUDE this file
 Sets both proficiencies and weapon restrictions.
 */
 
 
 /*
-ACTION_DEFINE_ASSOCIATIVE_ARRAY weapontype BEGIN    // weapon => usable
+ACTION_DEFINE_ASSOCIATIVE_ARRAY medicweapontype BEGIN    // weapon => usable
   16 => 1    // daggers
   17 => 1    // maces, clubs
   18 => 1    // slings
@@ -18,37 +18,50 @@ END
 */
 
 
+//check item flags
+DEFINE_PATCH_FUNCTION medic_item_flags  RET droppable displayable BEGIN
+  READ_LONG 0x18 item_flags
+  SET droppable = %item_flags% & BIT2
+  SET displayable = %item_flags% & BIT3
+END
+
+
 //Weapon restrictions
 ACTION_IF (!(FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) AND
            !(MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
-          ) BEGIN
+) BEGIN
 
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
-  READ_SHORT 0x1c itemtype
-  READ_ASCII 0x22 itemvisual (2)
-  READ_STRREF 0x8 basetype    // checks unidentified name
+  LPF medic_item_flags RET droppable displayable END
+  PATCH_IF ((%droppable%) AND (%displayable%)) BEGIN
 
-  //don't patch if greatsword, bastard sword, or small sword visuals
-  PATCH_IF (!(~%itemvisual%~ STR_EQ ~S0~) AND 
-            !(~%itemvisual%~ STR_EQ ~S2~) AND
-            !(~%itemvisual%~ STR_EQ ~SS~) AND
-            !(~%basetype%~ STR_EQ ~Wakizashi~)    // some tweaks combine wakizashi with short sword
+    READ_SHORT 0x1c itemtype
+    READ_ASCII 0x22 itemvisual (2)
+    READ_STRREF 0x8 basetype    // checks unidentified name
+
+    //don't patch if greatsword, bastard sword, or small sword visuals
+    PATCH_IF (!(~%itemvisual%~ STR_EQ ~S0~) AND 
+              !(~%itemvisual%~ STR_EQ ~S2~) AND
+              !(~%itemvisual%~ STR_EQ ~SS~) AND
+              !(~%basetype%~ STR_EQ ~Wakizashi~)    // some tweaks combine wakizashi with short sword
     ) BEGIN
 
-    PHP_EACH weapontype AS type => usable BEGIN    // set weapon to %type% and usable to %usable%
-      PATCH_IF (type = itemtype) BEGIN
-        PATCH_IF (usable < 1) BEGIN
-          LPF ADD_ITEM_EQEFFECT
-            INT_VAR
-              opcode = 319
-              target = 1
-              parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
-              parameter2 = 9
-              timing = 2
+      PHP_EACH medicweapontype AS type => usable BEGIN    // set weapon to %type% and usable to %usable%
+        PATCH_IF (type = itemtype) BEGIN
+          PATCH_IF (usable < 1) BEGIN
+            LPF ADD_ITEM_EQEFFECT
+              INT_VAR
+                opcode = 319
+                target = 1
+                parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+                parameter2 = 9
+                timing = 2
+            END
           END
         END
       END
     END
+
   END
 BUT_ONLY
 
@@ -57,7 +70,7 @@ END
 
 
 //Weapon restrictions (if installed after FnP)
-ACTION_DEFINE_ASSOCIATIVE_ARRAY fnpweapontype BEGIN    // fnptype => weapon
+ACTION_DEFINE_ASSOCIATIVE_ARRAY fnpmedicweapontype BEGIN    // fnptype => weapon
   16 => 16    // daggers
   18 => 18    // slings
   19 => 19    // short sword
@@ -70,38 +83,43 @@ END
 
 ACTION_IF ((FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
            (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
-          ) BEGIN
+) BEGIN
 
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
-  READ_SHORT 0x1c itemtype
-  READ_ASCII 0x22 itemvisual (2)
-  READ_STRREF 0x8 basetype    // checks unidentified name
+  LPF medic_item_flags RET droppable displayable END
+  PATCH_IF ((%droppable%) AND (%displayable%)) BEGIN
 
-  //don't patch if greatsword, bastard sword, or small sword visuals
-  PATCH_IF (!(~%itemvisual%~ STR_EQ ~S0~) AND 
-            !(~%itemvisual%~ STR_EQ ~S2~) AND
-            !(~%itemvisual%~ STR_EQ ~SS~) AND
-            !(~%basetype%~ STR_EQ ~Wakizashi~)    // some tweaks combine wakizashi with short sword
+    READ_SHORT 0x1c itemtype
+    READ_ASCII 0x22 itemvisual (2)
+    READ_STRREF 0x8 basetype    // checks unidentified name
+
+    //don't patch if greatsword, bastard sword, or small sword visuals
+    PATCH_IF (!(~%itemvisual%~ STR_EQ ~S0~) AND 
+              !(~%itemvisual%~ STR_EQ ~S2~) AND
+              !(~%itemvisual%~ STR_EQ ~SS~) AND
+              !(~%basetype%~ STR_EQ ~Wakizashi~)    // some tweaks combine wakizashi with short sword
     ) BEGIN
 
-    PHP_EACH fnpweapontype AS fnptype => weapon BEGIN    // set fnptype to %fnptype% and weapon to %weapon%
-      PATCH_IF (fnptype = itemtype) BEGIN
-        PHP_EACH weapontype AS type => usable BEGIN      // set weapon to %type% and usable to %usable%
-          PATCH_IF (weapon = type) BEGIN
-            PATCH_IF (usable < 1) BEGIN
-              LPF ADD_ITEM_EQEFFECT
-                INT_VAR
-                  opcode = 319
-                  target = 1
-                  parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
-                  parameter2 = 9
-                  timing = 2
+      PHP_EACH fnpmedicweapontype AS fnptype => weapon BEGIN    // set fnptype to %fnptype% and weapon to %weapon%
+        PATCH_IF (fnptype = itemtype) BEGIN
+          PHP_EACH medicweapontype AS type => usable BEGIN      // set weapon to %type% and usable to %usable%
+            PATCH_IF (weapon = type) BEGIN
+              PATCH_IF (usable < 1) BEGIN
+                LPF ADD_ITEM_EQEFFECT
+                  INT_VAR
+                    opcode = 319
+                    target = 1
+                    parameter1 = IDS_OF_SYMBOL (kit ~D2%kitname%~)
+                    parameter2 = 9
+                    timing = 2
+                END
               END
             END
           END
         END
       END
     END
+
   END
 BUT_ONLY
 

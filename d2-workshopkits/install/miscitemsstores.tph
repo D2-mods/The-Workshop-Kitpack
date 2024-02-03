@@ -148,11 +148,11 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
   BUT_ONLY
 
   COPY_EXISTING ~OBSDEM01.CRE~ ~override~
-    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~none~ ~inv~    // planar sphere
+    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~unstealable~ ~inv~    // planar sphere
   BUT_ONLY
 
   COPY_EXISTING ~TELBAL1.CRE~ ~override~
-    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~none~ ~inv~    // watcher's keep
+    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~unstealable~ ~inv~    // watcher's keep
   BUT_ONLY
 
   COPY_EXISTING ~AR1904.ARE~ ~override~
@@ -178,7 +178,7 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
 
   //runes
   COPY_EXISTING ~SHADRA01.CRE~ ~override~
-    ADD_CRE_ITEM ~%clawmark%~ #0 #0 #0 ~none~ ~qitem inv quiver~
+    ADD_CRE_ITEM ~%clawmark%~ #0 #0 #0 ~unstealable~ ~qitem inv quiver~
   BUT_ONLY
 
   COPY_EXISTING ~AR1303.ARE~ ~override~
@@ -206,7 +206,7 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
   BUT_ONLY
 
   COPY_EXISTING ~PWARDEN.CRE~ ~override~
-    ADD_CRE_ITEM ~%oedonwrithe%~ #0 #0 #0 ~none~ ~qitem inv quiver~
+    ADD_CRE_ITEM ~%oedonwrithe%~ #0 #0 #0 ~unstealable~ ~qitem inv quiver~
   BUT_ONLY
 
   COPY_EXISTING ~AR1513.ARE~ ~override~
@@ -338,7 +338,7 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
 
   //v3.3+ items
   COPY_EXISTING ~THERIK.CRE~ ~override~
-    ADD_CRE_ITEM ~%redtearstone%~ #0 #0 #0 ~none~ ~ring~ NOMOVE
+    ADD_CRE_ITEM ~%redtearstone%~ #0 #0 #0 ~unstealable~ ~ring~ NOMOVE
   BUT_ONLY
 
   COPY_EXISTING ~KUTEMPLE.STO~  ~override~
@@ -354,7 +354,7 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
   BUT_ONLY
 
   COPY_EXISTING ~TANARRI.CRE~ ~override~
-    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~none~ ~inv~
+    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~unstealable~ ~inv~
   BUT_ONLY
 
   COPY_EXISTING ~AR2002.ARE~ ~override~
@@ -428,7 +428,7 @@ EXTEND_BOTTOM ~AR2000.BCS~  ~%workspace%/moonrune.BAF~
   BUT_ONLY
 
   COPY_EXISTING ~PBSPIR.CRE~ ~override~
-    ADD_CRE_ITEM ~%bloodrapture%~ #0 #0 #0 ~none~ ~qitem inv~
+    ADD_CRE_ITEM ~%bloodrapture%~ #0 #0 #0 ~unstealable~ ~qitem inv~
   BUT_ONLY
 
   COPY_EXISTING ~AR9714.ARE~ ~override~
@@ -458,7 +458,7 @@ END
 //Add item to Riftgate Balor (Starjammer kit)
 ACTION_IF (FILE_EXISTS ~override/%riftgatebalor%.CRE~) BEGIN
   COPY_EXISTING ~%riftgatebalor%.CRE~ ~override~
-    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~none~ ~inv~
+    ADD_CRE_ITEM ~%demonsoul%~ #1 #0 #0 ~unstealable~ ~inv~
   BUT_ONLY
 END
 
