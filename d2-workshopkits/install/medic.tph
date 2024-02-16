@@ -11,11 +11,13 @@ COPY ~%passives%/noitemtype.SPL~  ~override/%e1%.SPL~
 COPY_EXISTING ~SPPR212.SPL~       ~override/%s4%.SPL~
   LPF d2_convert_spell_type INT_VAR level=1 END
   LPF ALTER_SPELL_HEADER INT_VAR speed=0 END    // casting speed
+  LPF ALTER_EFFECT INT_VAR power=0 END
 
 //add Cure Disease
 COPY_EXISTING ~SPPR317.SPL~       ~override/%s5%.SPL~
   LPF d2_convert_spell_type INT_VAR level=1 END
   LPF ALTER_SPELL_HEADER INT_VAR speed=0 END    // casting speed
+  LPF ALTER_EFFECT INT_VAR power=0 END
 
 
 //Add Remedy projectiles

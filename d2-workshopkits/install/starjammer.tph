@@ -88,7 +88,7 @@ COPY_EXISTING ~SPPR109.SPL~  ~override/%w4%.SPL~    // clone Sanctuary
   
   LPF d2_remove_level_headers END
   LPF d2_convert_spell_type INT_VAR type=1 level=4 END    // convert to level 4 Wizard spell
-  LPF ALTER_EFFECT INT_VAR target=2 END
+  LPF ALTER_EFFECT INT_VAR target=2 power=0 END           // power=0 to bypass immunity to spell level
   LPF ALTER_EFFECT INT_VAR match_timing=0 duration=60 END
   WRITE_SHORT 0x98 ~%w4%~         // projectile
   WRITE_ASCII 0x3a SPPR350C #8    // icons
@@ -119,6 +119,7 @@ COPY_EXISTING ~SPPR504.SPL~   ~override/%w5%.SPL~         // clone Raise Dead
   END
 
   LPF d2_convert_spell_type INT_VAR type=1 level=5 END    // convert to level 5 Wizard spell
+  LPF ALTER_EFFECT INT_VAR power=0 END                    // power=0 to bypass immunity to spell level
   WRITE_BYTE  0x25 8     // Alteration school
   WRITE_SHORT 0x22 15    // casting animation
   WRITE_SHORT 0x84 5     // casting speed
@@ -144,6 +145,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~SPPR504A.SPL~) BEGIN
     END
 
     LPF d2_convert_spell_type INT_VAR type=1 level=5 END    // convert to level 5 Wizard spell
+    LPF ALTER_EFFECT INT_VAR power=0 END                    // power=0 to bypass immunity to spell level
     LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~BDFAVSPI~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 STR_VAR resource=~EFF_E06~ END
     WRITE_BYTE  0x25 8    // Alteration school
@@ -152,6 +154,7 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sppr308.SPL~) BEGIN         // clone Remove Paralysis
   COPY_EXISTING  ~sppr308.SPL~  ~override/%w5%b.SPL~
     LPF d2_convert_spell_type INT_VAR type=1 level=5 END    // convert to level 5 Wizard spell
+    LPF ALTER_EFFECT INT_VAR power=0 END                    // power=0 to bypass immunity to spell level
     WRITE_LONG 0x8 ~-1~
     WRITE_BYTE  0x25 8          // Alteration school
     WRITE_SHORT 0x22 0          // casting animation
@@ -237,29 +240,15 @@ ELSE BEGIN
   OUTER_SET kitdesc = RESOLVE_STR_REF (@40214)    // for BGEE games
 END
 
-OUTER_TEXT_SPRINT revitalizer_heal ~SPPR502~
-ACTION_IF (FILE_EXISTS ~override/SPPR502B.spl~) BEGIN
-  COPY_EXISTING ~SPPR502B.spl~  ~override~
-    GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
-    PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
-      GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
-      PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
-        READ_SHORT effect_off opcode                                   // opcode
-        PATCH_IF (opcode = 17) BEGIN
-          TEXT_SPRINT revitalizer_heal ~SPPR502B~    // change resource if heal effect found
-        END
-      END
-    END
-END
-
 COPY - ~%abilities%/revitalizer.PRO~  ~%workspace%/%w7%.PRO~
 ADD_PROJECTILE ~%workspace%/%w7%.PRO~
-COPY_EXISTING ~%revitalizer_heal%.SPL~  ~override/%w7%.SPL~    // clone a Cure Wounds spell
+COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%w7%.SPL~    // clone a Cure Wounds spell
   SAY NAME1 @40114
   WRITE_LONG 0x50 kitdesc
 
   LPF d2_remove_level_headers END
   LPF d2_convert_spell_type INT_VAR type=1 level=7 END    // convert to level 7 Wizard spell
+  LPF ALTER_EFFECT INT_VAR power=0 END                    // power=0 to bypass immunity to spell level
 
   WRITE_SHORT 0x22 15             // casting animation
   WRITE_ASCII 0x3a SPPR317C #8    // icon

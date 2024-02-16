@@ -11,6 +11,9 @@ Text in this file appears in the game.
 //Ability text
 //Spell Text
 //Item text
+//Hunter Badges
+//Misc items
+//Caryll Runes
 //v3.3+ items
 */
 
@@ -86,6 +89,7 @@ Text in this file appears in the game.
 
 
 
+//
 //Dialogues (BG2 or all games)
 
 //Chicken talk
@@ -100,6 +104,7 @@ Text in this file appears in the game.
  
 
 
+//
 //Dialogues (IWDEE)
 
 //Presio duel
@@ -123,6 +128,7 @@ Text in this file appears in the game.
 
 
 
+//
 //Warrior kits (v1.0)
 
 //Beast Hunter
@@ -270,6 +276,7 @@ Disadvantages:
 
 
 
+//
 //non-Warrior kits (v1.0)
 
 //War Magician
@@ -389,6 +396,7 @@ Disadvantages:
 
 
 
+//
 //v3.0 kits
 
 //Drifter
@@ -471,6 +479,7 @@ Disadvantages:
 
 
 
+//
 //v4.0 kits
 
 //Full Metal Jaguar
@@ -567,6 +576,7 @@ Disadvantages:
 
 
 
+//
 //Ability text
 @100 = ~Hunter Tools~
 @200 = ~Hunter Tools
@@ -761,10 +771,15 @@ This ability lasts 5 rounds. Once each round, 1 mirror image is created on the c
 
 
 
+//
 //Spell text
-//prefix: 401 = name, 402 = bgee (or all games), 403 = iwdee, 404 = spell revisions
-//Only new or edited descriptions are included here
 
+/*
+prefix: 401 = name, 402 = bgee (or all games), 403 = iwdee, 404 = spell revisions
+Only new or edited descriptions are included here
+*/
+
+//Grave Warden spells
 @40100 = ~Chromatic Orb~
 @40200 = ~~
 @40300 = ~Chromatic Orb
@@ -816,6 +831,9 @@ This spell causes a 2-foot-diameter sphere to appear in the caster's hand. When 
 @40302 = ~~
 @40402 = ~~
 
+
+//
+//Confessor spells
 @40103 = ~Blindness~
 @40203 = ~Blindness
 (Illusion/Phantasm)
@@ -894,6 +912,9 @@ A Blur spell causes the caster's form and spirit to become blurred, shifting and
 @40306 = ~~
 @40406 = ~~
 
+
+//
+//Temple Knight spells
 @40107 = ~Bolt of Glory~
 @40207 = ~Bolt of Glory
 (Invocation/Evocation)
@@ -950,6 +971,9 @@ Creature Type  --  Damage
 
 Magic Resistance does not effect this spell.~
 
+
+//
+//Starjammer spells
 @40108 = ~Riftstep~
 @40208 = ~Riftstep
 (Alteration)
@@ -1099,9 +1123,11 @@ A rift should be handled with caution. When this spell is cast, there is a 2% ch
 
 
 
+//
 //Item text
+
 @70100 = ~Healing Church Holy Symbol~
-@70200 = ~Only the most worthy and devoted servants of the Healing Church are granted these powerful holy symbols. It is unclear which deity grants miracles to the Healing Church, but the members of the church were fully devoted to the slaughter of beasts. Its clerics and hunters would eventually become the most hideous beasts themselves.
+@70200 = ~Only the most worthy and devoted servants of the Healing Church are granted these powerful holy symbols.
 
 STATISTICS:
 
@@ -1112,6 +1138,28 @@ Equipped abilities:
 
 Weight: 0~
 
+@70123 = ~Unknown Holy Symbol~
+@70223 = ~A nondescript holy symbol, granted to certain worthy and devoted Moonlight Knights.
+
+STATISTICS:
+
+Equipped abilities:
+– Strength: +1
+– Magic Resistance: +5%
+– Can memorize one extra 6th- and 7th-level Cleric spell
+
+Weight: 0~
+
+@70124 = ~Hunter's Item Sack~
+@70224 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. The label on the bag reads, "FOR TESTING PURPOSES ONLY". Items within can be removed, but strangely, a magical force prevents the party from placing items into the bag.
+
+STATISTICS:
+
+Weight: 5~
+
+
+//
+//Hunter Badges
 @70101 = ~Spark Hunter Badge~
 @70201 = ~Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge captures the essence of the darkbeast, whose body is wreathed in destructive energy.
 
@@ -1172,6 +1220,39 @@ Special (Beast Hunter):
 
 Weight: 1~
 
+@70129 = ~Saw Hunter Badge~
+@70229 = ~Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. The saw, with its set of blood-letting teeth, has become a symbol of the hunt.
+
+STATISTICS:
+
+Equipped abilities:
+– THAC0: +1
+– Armor Class: +1
+– Saving Throws: +1
+
+Special (Beast Hunter): 
+– Hunter Tools: Target suffers a cumulative -1 penalty to Armor Class for 3 rounds
+
+Weight: 1~
+
+@70130 = ~Old Hunter Badge~
+@70230 = ~Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge was a special privilege for the hunters of the past, and should not be dishonored.
+
+STATISTICS:
+
+Equipped abilities:
+– Armor Class: +1
+– Saving Throws: +1
+– Charisma: +2
+
+Special (Beast Hunter): 
+– Hunter Tools: +5% chance to score a critical hit with melee attacks
+
+Weight: 1~
+
+
+//
+//Misc items
 @70105 = ~Crowfeather Cloak~
 @70205 = ~An attire worn by veteran Hunters of Hunters, who dressed as crows to suggest sky burial. The first Hunters came from a foreign land, and gave the dead a virtuous funeral ritual, with the hope that the fallen might find rest in the afterlife.
 
@@ -1296,6 +1377,25 @@ Equipped abilities:
 
 Weight: 0~
 
+@70128 = ~Ether Limiter~
+@70228 = ~The stone of this amulet, a meteoric iron, is known to exhibit strong magic and energy-suppressing properties.
+
+STATISTICS:
+
+Equipped abilities:
+– Crushing Resistance: +15%
+– Magic Damage Resistance: +50%
+– Save vs. Spell: +2
+– Spellcasting disabled
+
+Special (Warhound):
+– Shockwave and Incinerate damage only enemies
+
+Weight: 1~
+
+
+//
+//Caryll Runes
 @70114 = ~Clawmark~
 @70214 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
@@ -1432,25 +1532,6 @@ Charge abilities:
 
 Weight: 0~
 
-@70123 = ~Unknown Holy Symbol~
-@70223 = ~A nondescript holy symbol, granted to certain worthy and devoted Moonlight Knights.
-
-STATISTICS:
-
-Equipped abilities:
-– Strength: +1
-– Magic Resistance: +5%
-– Can memorize one extra 6th- and 7th-level Cleric spell
-
-Weight: 0~
-
-@70124 = ~Hunter's Item Sack~
-@70224 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. The label on the bag reads, "FOR TESTING PURPOSES ONLY". Items within can be removed, but strangely, a magical force prevents the party from placing items into the bag.
-
-STATISTICS:
-
-Weight: 5~
-
 @70125 = ~Hunter~
 @70225 = ~One of a number of transciptions attributed to the runesmith Caryll, who heard the whispers of the Great Ones and etched them into strange markings. This item applies its effects to all party members.
 
@@ -1496,56 +1577,9 @@ Charge abilities:
 
 Weight: 0~
 
-@70128 = ~Ether Limiter~
-@70228 = ~The stone of this amulet, a meteoric iron, is known to exhibit strong magic and energy-suppressing properties.
 
-STATISTICS:
-
-Equipped abilities:
-– Crushing Resistance: +15%
-– Magic Damage Resistance: +50%
-– Save vs. Spell: +2
-– Spellcasting disabled
-
-Special (Warhound):
-– Shockwave and Incinerate damage only enemies
-
-Weight: 1~
-
-@70129 = ~Saw Hunter Badge~
-@70229 = ~Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. The saw, with its set of blood-letting teeth, has become a symbol of the hunt.
-
-STATISTICS:
-
-Equipped abilities:
-– THAC0: +1
-– Armor Class: +1
-– Saving Throws: +1
-
-Special (Beast Hunter): 
-– Hunter Tools: Target suffers a cumulative -1 penalty to Armor Class for 3 rounds
-
-Weight: 1~
-
-@70130 = ~Old Hunter Badge~
-@70230 = ~Hunter badges, of little worth to regular folk, are nonetheless sought after by beast hunters. This badge was a special privilege for the hunters of the past, and should not be dishonored.
-
-STATISTICS:
-
-Equipped abilities:
-– Armor Class: +1
-– Saving Throws: +1
-– Charisma: +2
-
-Special (Beast Hunter): 
-– Hunter Tools: +5% chance to score a critical hit with melee attacks
-
-Weight: 1~
-
-
-
+//
 //v3.3+ items
-
 @70131 = ~Gold Scarab~
 @70231 = ~This type of amulet takes the form of a sculpted beetle and is typically only found in areas around Mulhorand. The golden scarab increases the amount of experience points obtained from defeating enemies.
 

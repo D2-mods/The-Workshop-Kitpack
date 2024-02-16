@@ -75,15 +75,15 @@ COPY_EXISTING ~SPPR409.SPL~  ~override/%s1%.SPL~                      // clone D
   SAY UNIDENTIFIED_DESC @204
 
   LPF d2_remove_level_headers END
-  LPF d2_convert_spell_type INT_VAR type=0 level=7 END                // convert to special ability
-  LPF ALTER_EFFECT INT_VAR duration=180 END                           // edit durations
-  LPF ALTER_EFFECT INT_VAR match_opcode=215 duration=1 END
+  LPF d2_convert_spell_type INT_VAR type=0 level=1 END                // convert to special ability
+  LPF ALTER_EFFECT INT_VAR power=0 duration=180 END                   // edit stuff
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 duration=1 END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 duration=0 END    // EEs (silent to not have warning with sr)
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END    // spell revisions (doesn't have op61)
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
   LPF ADD_SPELL_EFFECT 
-    INT_VAR opcode=232 target=2 power=7 parameter1=0 parameter2=2 timing=0 resist_dispel=3 duration=180
+    INT_VAR opcode=232 target=2 parameter2=2 resist_dispel=3 duration=180
     STR_VAR resource=~%s1%a~
   END
 
@@ -102,25 +102,9 @@ BUT_ONLY
 
 
 //Add Cure subspell (for Denial)
-OUTER_TEXT_SPRINT denial_heal ~SPPR103~
-ACTION_IF (FILE_EXISTS ~override/SPPR103B.spl~) BEGIN
-  COPY_EXISTING ~SPPR103B.spl~  ~override~
-    GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
-    PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
-      GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
-      PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
-        READ_SHORT effect_off opcode                                   // opcode
-        PATCH_IF (opcode = 17) BEGIN
-          TEXT_SPRINT denial_heal ~SPPR103B~    // change resource if heal effect found
-        END
-      END
-    END
-END
-
-COPY_EXISTING ~%denial_heal%.SPL~  ~override/%s1%a.SPL~
+COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%s1%a.SPL~
   LPF d2_remove_level_headers END
   LPF d2_subspell_remove_effects END
-  LPF d2_convert_spell_type INT_VAR type=0 level=0 END
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=100 parameter2=2 END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 opcode=318 STR_VAR resource=~%s1%a~ END
 

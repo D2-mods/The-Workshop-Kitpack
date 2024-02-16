@@ -11,9 +11,6 @@ Text in this file appears in the game.
 //Ability text
 //Spell Text
 //Item text
-//Hunter Badges
-//Misc items
-//Caryll Runes
 //v3.3+ items
 */
 
@@ -1098,9 +1095,8 @@ Une faille doit être manipulée avec précaution. Lorsque ce sort est lancé, i
 
 
 
-//
-//Item text
 
+//Item text
 @70100 = ~Symbole sacré de l'église de la Guérison~
 @70200 = ~Seuls les serviteurs les plus méritants et les plus dévoués de l'Église de la Guérison reçoivent ces puissants symboles sacrés. On ignore quelle divinité octroie des miracles à l'Église de la Guérison, mais ses membres consacrent leur temps au massacre de bêtes en tout genre. Les prêtres et les chasseurs finissent d'ailleurs par prendre la forme des bêtes les plus hideuses qui soient.
 
@@ -1113,28 +1109,6 @@ Capacités d'équipement :
 
 Poids : 0~
 
-@70123 = ~Symbole sacré mystérieux~
-@70223 = ~Un symbole sacré mystérieux, accordé à certains Chevaliers au clair de lune méritants et dévoués.
-
-PARAMÈTRES :
-
-Capacités d'équipement :
-– Force : +1
-– Résistance à la magie : +5 %
-– Permet de mémoriser un sort divin supplémentaire de 6ème et 7ème niveau
-
-Poids : 0~
-
-@70124 = ~Besace du chasseur~
-@70224 = ~Cette sacoche magique a été préparée pour <CHARNAME et ses camarades. On peut lire une étiquette : « POUR EFFECTUER DES TESTS UNIQUEMENT ». Vous pouvez retirer ce qui ce trouve à l'intérieur, mais étrangement, une force surnaturelle empêche le groupe d'y placer de nouveaux objets.
-
-PARAMÈTRES :
-
-Poids : 5~
-
-
-//
-//Hunter Badges
 @70101 = ~Insigne Étincelant~
 @70201 = ~Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont néanmoins très convoités par les Chasseurs. Cet insigne a capturé l'essence d'une des Sombrebêtes, dont le corps est enveloppé d'énergie électrique destructrice.
 
@@ -1195,39 +1169,6 @@ Spécial (Chasseur):
 
 Poids : 1~
 
-@70129 = ~Insigne de la Scie~
-@70229 = ~Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont néanmoins très convoités par les Chasseurs. La scie et ses dents effilées capables de faire couler le sang est devenue un symbole de la chasse.
-
-PARAMÈTRES :
-
-Capacités de charge :
-– TAC0 : Bonus de 1
-– Classe d'armure : Bonus de 1
-– Jets de sauvegarde : Bonus de 1
-
-Spécial (Chasseur): 
-– Techniques de chasseur : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
-
-Poids : 1~
-
-@70130 = ~Insigne du Vétéran~
-@70230 = ~Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont néanmoins très convoités par les Chasseurs. This badge was a special privilege for the hunters of the past, and should not be dishonored.
-
-PARAMÈTRES :
-
-Capacités de charge :
-– Classe d'armure : Bonus de 1
-– Jets de sauvegarde : Bonus de 1
-– Charisme : Bonus de 2
-
-Spécial (Chasseur): 
-– Techniques de chasseur : +5 % de chance d’effectuer un coup critique avec les armes de mêlée
-
-Poids : 1~
-
-
-//
-//Misc items
 @70105 = ~Manteau de plumes de corbeau~
 @70205 = ~Une tenue portée par les plus anciens des Prédateurs, ces vétérans se déguisaient en corbeaux pour symboliser l'envole d'une âme vers le ciel. Les premiers Prédateurs venaient d'une terre inconnue et pratiquaient avec vertu un rituel funéraire pour les les défunts, dans l'espoir qu'ils puissent trouver le repos dans l'au-delà.
 
@@ -1352,25 +1293,6 @@ Capacités d'équipement :
 
 Poids : 0~
 
-@70128 = ~Atténuateur d'Éther~
-@70228 = ~La pierre de cette amulette, provenant d'une météorite, est connue pour présenter de puissantes propriétés magiques, elle est aussi capable d'atténuer les effets de l'énergie.
-
-PARAMÈTRES :
-
-Capacités de charge :
-– Résistance aux dégâts contondants : +15 %
-– Résistance aux dégâts magiques : +50 %
-– Jets de sauvegarde contre les sorts : Bonus de 2
-– Empêche le lancement des sorts
-
-Spécial (Limier):
-– Onde de choc et Incinération n'infligent des dégâts qu'aux ennemis
-
-Poids : 1~
-
-
-//
-//Caryll Runes
 @70114 = ~Griffure~
 @70214 = ~Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
 
@@ -1507,6 +1429,25 @@ Transformation en loup-garou pendant les combats ; la métamorphose est instanta
 
 Poids : 0~
 
+@70123 = ~Symbole sacré mystérieux~
+@70223 = ~Un symbole sacré mystérieux, accordé à certains Chevaliers au clair de lune méritants et dévoués.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+– Force : +1
+– Résistance à la magie : +5 %
+– Permet de mémoriser un sort divin supplémentaire de 6ème et 7ème niveau
+
+Poids : 0~
+
+@70124 = ~Besace du chasseur~
+@70224 = ~Cette sacoche magique a été préparée pour <CHARNAME et ses camarades. On peut lire une étiquette : « POUR EFFECTUER DES TESTS UNIQUEMENT ». Vous pouvez retirer ce qui ce trouve à l'intérieur, mais étrangement, une force surnaturelle empêche le groupe d'y placer de nouveaux objets.
+
+PARAMÈTRES :
+
+Poids : 5~
+
 @70125 = ~Acuité~
 @70225 = ~Une des nombreuses runes attribuées à Caryll, un orfèvre qui aurait entendu et gravé les murmures des Grands Anciens avec d'étranges symboles. Cet objet applique ses effets à tous les membres du groupe.
 
@@ -1552,9 +1493,56 @@ Transformation en flagelleur mental en cours de combats ; en contrepartie la sag
 
 Poids : 0~
 
+@70128 = ~Atténuateur d'Éther~
+@70228 = ~La pierre de cette amulette, provenant d'une météorite, est connue pour présenter de puissantes propriétés magiques, elle est aussi capable d'atténuer les effets de l'énergie.
 
-//
+PARAMÈTRES :
+
+Capacités de charge :
+– Résistance aux dégâts contondants : +15 %
+– Résistance aux dégâts magiques : +50 %
+– Jets de sauvegarde contre les sorts : Bonus de 2
+– Empêche le lancement des sorts
+
+Spécial (Limier):
+– Onde de choc et Incinération n'infligent des dégâts qu'aux ennemis
+
+Poids : 1~
+
+@70129 = ~Insigne de la Scie~
+@70229 = ~Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont néanmoins très convoités par les Chasseurs. La scie et ses dents effilées capables de faire couler le sang est devenue un symbole de la chasse.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– TAC0 : Bonus de 1
+– Classe d'armure : Bonus de 1
+– Jets de sauvegarde : Bonus de 1
+
+Spécial (Chasseur): 
+– Techniques de chasseur : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
+
+Poids : 1~
+
+@70130 = ~Insigne du Vétéran~
+@70230 = ~Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont néanmoins très convoités par les Chasseurs. This badge was a special privilege for the hunters of the past, and should not be dishonored.
+
+PARAMÈTRES :
+
+Capacités de charge :
+– Classe d'armure : Bonus de 1
+– Jets de sauvegarde : Bonus de 1
+– Charisme : Bonus de 2
+
+Spécial (Chasseur): 
+– Techniques de chasseur : +5 % de chance d’effectuer un coup critique avec les armes de mêlée
+
+Poids : 1~
+
+
+
 //v3.3+ items
+
 @70131 = ~Scarabée en or~
 @70231 = ~Ce modèle d'amulette principalement fabriqué dans les environs de Mulhorand représente un scarabée d'or. Celui-ci accroît l'expérience acquise en terrassant ses ennemis.
 

@@ -144,13 +144,24 @@ This is how I'd do the install:
 
 Version info:
 
+v4.7.4
+- Fixed an issue with haste effects if this mod was installed after SCS/ToF spell tweaks. This affected the Moonlight Knight kit and the Hunter Bone item.
+- Fixed a mod conflict (with IWDEE Polymorph fixes mod) that would cause characters to learn Psionic Blast permanently, when using the Milkweed rune.
+- Switched some item locations around in BG2EE/IWDEE (main change is making Hunter Bone obtainable earlier).
+- Added more shaman bone blades in each game (higher quantities and/or obtainable in more locations).
+- Starjammer: Pacifying Field, Jolt, and Revitalizer will now ignore immunities to specific spell levels.
+- Grave Warden: Denial will now ignore immunities to specific spell levels. (Note that it will still be blocked by immunity to Necromancy school)
+- Aethetic fix with Bubb's Spell Menu: The Denial and Moonlight Vortex abilities will now appear as level 1 spells in the special abilities menu (same as all other abilities from this mod).
+- Rearranged item text in tra files for better organization.
+- Blood Minister: Right-clicking the Blood abilities in the submenu will now show the description for Blood Transfusion. Previously, only the main Blood Transfusion spell would show the description.
+
 v4.7.3
 - Golem Ring: Delayed sound effect on item ability was incorrectly set as undispellable.
 - Medic: Adjusted visuals for all abilities + fixed color fade effect on White Remedy (was allowing a save).
 - Medic: Remedy abilities will no longer affect undead or golems. Healing Rain will still heal any creature, including in IWD (similar to Mist of Eldath). This is the same restriction that's already on Medical Darts and Shaman Bone Blade. Note that this is intentionally less restrictive than IWD rules.
 - IWDEE: Grave Warden's Denial ability will now follow IWD cleric rules for the healing effect. The death ward effect can still be cast on any creature. For creatures immune to healing spells in IWD, Denial will last the full 3 turns, unless dispelled or the summon is killed/unsummoned.
 - Shaman Bone Blade: Improved effects structure. Will now always play an audio/visual effect, even for immune creatures. Will now display a string that ability was used. Increased cast range from 1 to 3. Elves and half-elves that fail the save against charm, but make the racial check for charm resistance, will now avoid all effects, instead of being berserked.
-- Starjammer: Riftgate balor now has a screen shake effect if summoned. Golem attack range increased from 1 to 2.
+- Starjammer: Riftgate balor now has a screen shake effect if summoned. Golem attack range increased from 1 to 2, and attacks can now stun on failed save.
 - Other minor adjustments or installer improvements.
 
 v4.7.2

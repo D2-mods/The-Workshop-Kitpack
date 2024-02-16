@@ -34,7 +34,8 @@ OUTER_TEXT_SPRINT mk ~%kitid%mk~
 
 
 
-//Game-dependent variables
+//
+//Area variables (BGEE/EET)
 
 //BG1 ARE files
 ACTION_IF (GAME_IS ~eet~) BEGIN
@@ -44,7 +45,10 @@ ELSE BEGIN
   OUTER_TEXT_SPRINT bg1 ~AR~    // BGEE
 END
 
-//Shapeshift: Natural Form
+
+
+//
+//prep for shapeshifts
 ACTION_IF (GAME_IS ~iwdee~) BEGIN 
   OUTER_TEXT_SPRINT humanform ~SPCL110~    // IWDEE
 END
@@ -52,8 +56,12 @@ ELSE BEGIN
   OUTER_TEXT_SPRINT humanform ~SPIN124~    // BG games
 END
 
+OUTER_TEXT_SPRINT psionicblast ~SPIN974~
+OUTER_TEXT_SPRINT psionicscs ~dw-sspb~
 
 
+
+//
 //Kit variables
 
 //War Magician (d2wk7)
@@ -132,6 +140,7 @@ END
 
 
 
+//
 //Add Lore to SPLPROT.2DA
 OUTER_TEXT_SPRINT lore80  ~_STAT(LORE)>=80 25 80 4~    // lore >= 80
 OUTER_TEXT_SPRINT lore79  ~_STAT(LORE)<80 25 80 2~     // lore < 80

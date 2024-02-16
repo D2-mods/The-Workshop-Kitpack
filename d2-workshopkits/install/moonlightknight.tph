@@ -14,18 +14,14 @@ COPY ~%passives%/hiteffect1melee.SPL~  ~override/%e3%.SPL~
 
 COPY ~%abilities%/castspellself.EFF~  ~override/%e3%a.EFF~
   WRITE_ASCII 0x30 ~%e3%b~ #8
-COPY_EXISTING ~SPWI305.SPL~           ~override/%e3%b.SPL~      // clone Haste
-  LPF d2_remove_level_headers END
-  LPF d2_subspell_remove_effects END
-  LPF d2_convert_spell_type INT_VAR type=0 level=1 END           // convert to special ability
-  LPF DELETE_EFFECT INT_VAR match_opcode=176 END                 // revert some sr changes
-  LPF DELETE_EFFECT INT_VAR match_opcode=1 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=206 END
-  LPF DELETE_EFFECT INT_VAR match_timing=4 END                   // remove fatigue
-  LPF ALTER_EFFECT INT_VAR match_timing=0 duration=10 END
-  LPF ALTER_EFFECT INT_VAR target=1 probability1=6 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=16 END                  // delete and re-add opcode 16
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_timing=0 opcode=16 parameter2=0 END
+COPY_EXISTING ~SPWI305.SPL~           ~override/%e3%b.SPL~    // clone Haste
+  LPF d2prep_haste END
+  LPF d2_convert_spell_type INT_VAR type=0 level=1 END        // convert to special ability
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=10 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=10 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=146 STR_VAR resource=~%e3%c~ END    // for SCS/ToF
+  LPF ALTER_EFFECT INT_VAR target=1 power=0 probability1=6 END
 
   LPF CD_EXTEND-O-MATIC                                  // clone spell header to level 20
     INT_VAR 
@@ -45,6 +41,18 @@ COPY_EXISTING ~SPWI305.SPL~           ~override/%e3%b.SPL~      // clone Haste
   LPF ALTER_EFFECT INT_VAR header=8 probability1=14 END
   LPF ALTER_EFFECT INT_VAR header=9 probability1=15 END  // level 20
 BUT_ONLY
+
+
+//make haste subspell, if file added by SCS/ToF
+ACTION_IF (FILE_EXISTS ~override/SPWI305A.SPL~) BEGIN
+  COPY_EXISTING ~SPWI305A.SPL~  ~override/%e3%c.SPL~        // clone Haste
+    LPF d2prep_haste END
+    LPF d2_convert_spell_type INT_VAR type=0 level=1 END    // convert to special ability
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=10 END
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=10 END
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
+    LPF ALTER_EFFECT INT_VAR power=0 END
+END
 
 
 //Add Moonlight Vortex

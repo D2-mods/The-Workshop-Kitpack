@@ -329,10 +329,12 @@ COPY ~%files%/rune_effects.SPL~      ~override/%zc%c.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 timing=4 duration=15 STR_VAR resource=~%zc%x~ END
 
 COPY ~%files%/rune_effects.SPL~      ~override/%zc%x.SPL~
-  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%d~ END  // created by ToF/SCS if installed after this mod
   LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%b~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%a~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%a~ END    // remove stat drain
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%zc%d~ END    // SCS stat drain
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%humanform%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=172 STR_VAR resource=~%psionicblast%~ END    // remove psionic blast
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=172 STR_VAR resource=~%psionicscs%~ END      // SCS psionic blast
 
 
 

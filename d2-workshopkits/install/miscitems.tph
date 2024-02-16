@@ -522,14 +522,23 @@ COPY_EXISTING ~SPWI201.SPL~  ~override/%me%a.SPL~
 
 //clone Haste
 COPY_EXISTING ~SPWI305.SPL~  ~override/%me%b.SPL~
-  LPF d2_remove_level_headers END
-  LPF d2_subspell_remove_effects END
+  LPF d2prep_haste END
   LPF d2_subspell_remove_visuals INT_VAR icon=0 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=93 END     // remove fatigue
-  LPF DELETE_EFFECT INT_VAR match_opcode=206 END    // for BGEE (remove immunity to Offensive Spin)
-  LPF DELETE_EFFECT INT_VAR match_opcode=324 END    // for IWDEE (remove immunity message)
-  LPF DELETE_EFFECT INT_VAR match_timing=4 END      // remove delayed effects
-  LPF ALTER_EFFECT INT_VAR match_timing=0 duration=20 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=20 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=20 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=146 STR_VAR resource=~%me%c~ END    // for SCS/ToF
+
+//make haste subspell, if file added by SCS/ToF
+ACTION_IF (FILE_EXISTS ~override/SPWI305A.SPL~) BEGIN
+  COPY_EXISTING ~SPWI305A.SPL~  ~override/%me%c.SPL~
+    LPF d2prep_haste END
+    LPF d2_subspell_remove_visuals INT_VAR icon=0 END
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=20 END
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=20 END
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
+END
+
 
 
 
