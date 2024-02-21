@@ -95,7 +95,7 @@ BEGIN
             opcode         = %opcode%
             parameter2     = 63    // Evasion check
             resist_dispel  = 2
-            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
           STR_VAR
             insert         = EVAL ~%clone_insert%~
             resource       = EVAL ~%DEST_RES%~    // evade effects on same item/spell
@@ -112,7 +112,7 @@ BEGIN
             opcode         = %opcode%
             parameter2     = 63    // Evasion check
             resist_dispel  = 2
-            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
           STR_VAR
             insert          = EVAL ~%clone_insert%~
             match_resource  = EVAL ~%clone_resname%~
@@ -250,7 +250,7 @@ ACTION_FOR_EACH ext IN ~spl~ ~itm~ BEGIN
             opcode         = %opcode%
             parameter2     = 63    // Evasion check
             resist_dispel  = 2
-            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
           STR_VAR
             insert         = EVAL ~%clone_insert%~
             resource       = EVAL ~%DEST_RES%~    // evade effects on same item/spell
@@ -267,7 +267,7 @@ ACTION_FOR_EACH ext IN ~spl~ ~itm~ BEGIN
             opcode         = %opcode%
             parameter2     = 63    // Evasion check
             resist_dispel  = 2
-            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
+            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
           STR_VAR
             insert          = EVAL ~%clone_insert%~
             match_resource  = EVAL ~%clone_resname%~

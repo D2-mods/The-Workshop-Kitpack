@@ -28,6 +28,7 @@ ADD_PROJECTILE ~%workspace%/%s1%a.PRO~
 COPY ~%abilities%/castspelltarget.EFF~     ~override/%s1%b.EFF~
   WRITE_ASCII 0x30 ~%s1%b~ #8
 COPY ~%abilities%/shockwaveblast.SPL~      ~override/%s1%b.SPL~
+  SAY NAME1 @102
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%a~ END    // set projectile
 COPY ~%abilities%/shockwavepush.EFF~       ~override/%s1%c.EFF~
 
@@ -52,6 +53,7 @@ ADD_PROJECTILE ~%workspace%/%s2%a.PRO~
 COPY ~%abilities%/castspelltarget.EFF~     ~override/%s2%b.EFF~
   WRITE_ASCII 0x30 ~%s2%b~ #8
 COPY ~%abilities%/incineratecloud.SPL~     ~override/%s2%b.SPL~
+  SAY NAME1 @103
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s2%a~ END    // set projectile
 
 

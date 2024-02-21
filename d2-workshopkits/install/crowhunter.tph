@@ -61,8 +61,8 @@ COPY ~%abilities%/castspelltarget.EFF~        ~override/%s1%a.EFF~
   WRITE_ASCII 0x30 ~%s1%a~ #8
 COPY ~%abilities%/splinteringshottarget.SPL~  ~override/%s1%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%s~ END
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s1%s~ END
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s1%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s1%b~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s1%s~ END
 
 COPY - ~%abilities%/invisible15enemy.PRO~ ~%workspace%/%s1%s.PRO~
 ADD_PROJECTILE ~%workspace%/%s1%s.PRO~
@@ -111,7 +111,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
             (stringref = 25931) OR (stringref = 8786) OR
             (~%spellname%~ STRING_EQUAL_CASE ~%great_rest%~) OR                     // check spell name
             (~%spellname%~ STRING_EQUAL_CASE ~%heal_spell%~)
-           ) BEGIN
+  ) BEGIN
     LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%b~ END
   END
 BUT_ONLY
@@ -126,8 +126,8 @@ COPY ~%abilities%/visceralattack.SPL~  ~override/%s2%.SPL~
   WRITE_ASCII 0x3a ~SPWI601B~ #8
   WRITE_ASCII 0x76 ~SPWI601B~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%a~ END
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~archhit~ resource=~%s2%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%b~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%abilities%/castspellself.EFF~          ~override/%s2%a.EFF~    // cure/haste

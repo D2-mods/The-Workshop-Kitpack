@@ -30,11 +30,15 @@ END
 
 
 //add Blood Bullet
+COPY ~%icons%/bloodbulleticon.BAM~   ~override/%s1%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@125) STR_VAR bam=~%s1%i~ RET icon END
+
 COPY ~%icons%/bloodbullet.BAM~       ~override/%s1%.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@125) STR_VAR bam=~%s1%~ RET icon END
 COPY ~%abilities%/bloodbullets.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @125
   SAY UNIDENTIFIED_DESC @225
+  WRITE_ASCII 0x3a ~%s1%~ #8
+  WRITE_ASCII 0x76 ~%s1%~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%a~ END    // melee hit effect
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END    // other effects
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END

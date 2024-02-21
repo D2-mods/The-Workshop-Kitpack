@@ -31,10 +31,10 @@ ELSE BEGIN
 END
 
 COPY_EXISTING ~SPPR612.SPL~  ~override/%s2%.SPL~
-  LPF d2_convert_spell_type END     // convert to special ability
-  WRITE_SHORT 0x84 3                // casting speed
-  WRITE_LONG  0x50 %boltofglory%    // description text
-BUT_ONLY
+  WRITE_LONG  0x50 %boltofglory%    // spell description
+  LPF d2_convert_spell_type INT_VAR level=1 END
+  LPF ALTER_SPELL_HEADER INT_VAR speed=3 END    // casting speed
+  LPF ALTER_EFFECT INT_VAR power=0 END
 
 
 //Make clab table

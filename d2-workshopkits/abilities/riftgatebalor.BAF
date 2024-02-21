@@ -29,7 +29,6 @@ THEN
 	RESPONSE #100
 		SetGlobal("d2phase2","LOCALS",1)
 		ForceSpell(Myself,CLERIC_AURA_OF_FLAMING_DEATH)
-		ReallyForceSpell(Myself,CLERIC_REGENERATE)
 		ReallyForceSpell(Myself,WIZARD_ABI_DALZIMS_HORRID_WILTING)
 		ReallyForceSpell(LastSeenBy(),WIZARD_NPC_SYMBOL_FEAR)
 		DestroyItem("%w8%v")
@@ -290,18 +289,6 @@ IF
 THEN
 	RESPONSE #100
 		RandomWalk()
-END
-
-IF
-	HPLT(Myself,150)
-	!GlobalTimerNotExpired("d2regen","LOCALS")
-	!GlobalTimerNotExpired("d2randomwalk","LOCALS")
-	!See([GOODCUTOFF])
-THEN
-	RESPONSE #100
-		ReallyForceSpell(Myself,CLERIC_REGENERATE)
-		SetGlobalTimer("d2regen","LOCALS",60)
-		Continue()
 END
 
 IF

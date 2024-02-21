@@ -130,8 +130,9 @@ COPY_EXISTING ~SPPR317.SPL~  ~override/%s1%y.SPL~    // clone Cure Disease
 COPY_EXISTING ~SPPR417.SPL~  ~override/%s1%z.SPL~    // clone Lesser Restoration
   LPF d2_subspell_remove_effects END
   LPF d2_subspell_remove_visuals INT_VAR string=0 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=93 END             // remove fatigue
-  LPF DELETE_EFFECT STR_VAR match_resource=~SPPR417~ END    // remove immunities
+  LPF DELETE_EFFECT INT_VAR match_opcode=93 END              // remove fatigue
+  LPF DELETE_EFFECT STR_VAR match_resource=~dvwinded~ END    // remove SR fatigue
+  LPF DELETE_EFFECT STR_VAR match_resource=~SPPR417~ END     // remove immunities
 
 COPY ~%abilities%/castspellself.EFF~  ~override/%s1%u.EFF~    // +1 damage bonus (Beast Blood)
   WRITE_ASCII 0x30 ~%s1%u~ #8

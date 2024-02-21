@@ -3,7 +3,7 @@ Caryll Runes
 */
 
 
-//Item Icons
+//icons
 COPY ~%icons%/rune_clawmark.BAM~       ~override/%z1%i.BAM~
 COPY ~%icons%/rune_bloodrapture.BAM~   ~override/%z2%i.BAM~
 COPY ~%icons%/rune_oedonwrithe.BAM~    ~override/%z3%i.BAM~

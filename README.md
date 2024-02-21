@@ -53,6 +53,7 @@ Mod contents:
 - 12 Caryll Runes&emsp;&emsp;- items with party-wide effects
 - 17 other items&emsp;&emsp;- all general use items, no weapons or armor
 
+--
 
 Components:
 -
@@ -74,6 +75,7 @@ Components:
 - config.ini: Set a kit to = 0 to prevent install
 - Option 2 will skip all multiclass variants, regardless of config settings.
 
+--
 
 Kit descriptions:
 -
@@ -312,18 +314,18 @@ Advantages:
 	- 10th level: Dust Explosion.  
 	- 15th level: Frenzying Flame.
 
-BLASTING SONG: A ring of flame bursts outwards in a 15-ft. radius, inflicting 1d4 fire damage per character level to any creatures in the area of effect, up to a maximum of 20d4 at level 20 (Save vs. Breath for half). Only the person playing the song avoids being hit by the flames.
+BLASTING SONG: A ring of flame bursts outwards in a 15-ft. radius, dealing 1d4 fire damage per level to all except the bard, up to a maximum of 20d4 at level 20 (Save vs. Breath for half). Initial pyrotechnics inflict an extra 2 points of fire damage to enemies in a 12-ft. radius.
 
-BOOMING SONG: A crushing wave expands outwards in a 15-ft. radius, inflicting 2d4 crushing damage to enemies and causing deafness for 2 rounds, plus an additional 2 rounds on a failed save vs. Spell. Deafness causes a 50% chance to miscast spells.
+BOOMING SONG: A crushing wave expands outwards in a 15-ft. radius, dealing 3d8 crushing damage to enemies and causing deafness for 2 rounds, plus an additional 2 rounds on a failed save vs. Spell. Deafness causes a 50% chance to miscast spells.
 
-DUST EXPLOSION: The initial explosion inflicts 5d6 fire damage to enemies in a 15 ft. radius (Save vs. Breath for half). In addition, the blast forms a cloud of dust and smog that lingers for 3 rounds and shrouds a 20 ft. radius. All creatures in the cloud are blinded but also cannot be directly targeted, unless an attacker can see through invisibility.
+DUST EXPLOSION: The initial blast inflicts 8d6 fire damage to enemies in a 15-ft. radius (Save vs. Breath for half). In addition, a cloud of dust and smog lingers for 3 rounds and shrouds a 20-ft. radius. All creatures in the cloud are blinded and become invisible, and enemies also have movement slowed by half.
 
-FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d4 points of magic damage per round while in the area. There is no Saving Throw, though Magic Resistance can prevent the status effects.
+FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius and lingers for 2 rounds. Any enemy entering the flames immediately suffers the effects of sleep, confusion, fear, or berserk for 5 rounds (25% chance of each). Enemies also take 2d12 magic damage per round while in the area. There is no Saving Throw, though Magic Resistance can prevent the status effects.
 
 - If the "Enhanced Bard Song" HLA is learned, the character will gain an ability to switch to this song.
 
 Disadvantages:  
-- Bard Song is unusable for one turn after each use.  
+- Bard Song is disabled for 8 rounds after each use of a Powder Keg song.
 - Only has one quarter the normal Pick Pockets score.
 
 ---
@@ -374,11 +376,15 @@ BLACK REMEDY: All attacks in the next 10 seconds spread a healing remedy. Restor
 
 WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
 
-- 5th level: May cast Slow Poison three times per day.
-- 7th level: May cast Cure Disease once per day.
+- 5th level: May use Slow Poison three times per day.
+- 7th level: May use Cure Disease once per day.
 - 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
 
 HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8+2 Hit Points each round.
+
+- 10th level: May use Neutralize Poison three times per day (replaces Slow Poison).
+- 14th level: May use Heal once per day (replaces Cure Disease).
+- 18th level: May use Lesser Restoration three times per day.
 
 Disadvantages:
 - May not use bladed weapons, other than short swords or daggers.
@@ -476,6 +482,7 @@ Disadvantages:
 
 </details>
 
+--
 
 Compatibility:
 -
@@ -532,37 +539,40 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 Additional Info (Kit Abilities):
 -
 
-- **Affected by Wild/Dead Magic zones:**
-	- Denial (Grave Warden)  
-	- Moonlight Vortex (Moonlight Knight)  
-	- Force (Temple Knight)  
-	- Bolt of Glory (Temple Knight)
-	- Unleash Magic (War Magican)
-	- Twisted Barricade (War Magican)
+**Affected by Wild/Dead Magic zones:**
+- Denial (Grave Warden)  
+- Moonlight Vortex (Moonlight Knight)  
+- Force (Temple Knight)  
+- Bolt of Glory (Temple Knight)
+- Unleash Magic (War Magican)
+- Twisted Barricade (War Magican)
 
-- **Can be dispelled:**
-	- Denial  
-	- Moonlight Vortex (magic resist)  
-	- Rooting Shot (entangled status)  
-	- Frenzying Flame (status effects)
-	- Unleash Magic
-	- Twisted Barricade
+**Can be dispelled:**
+- Denial  
+- Moonlight Vortex (magic resist)  
+- Rooting Shot (entangled status)  
+- Frenzying Flame (status effects)
+- Unleash Magic
+- Twisted Barricade
 
-- **Can be removed by Zone of Sweet Air:**
-	- Incinerate (Warhound)  
-	- Dust Explosion (Powder Keg)
+**Can be removed by Zone of Sweet Air:**
+- Incinerate (Warhound)  
+- Dust Explosion (Powder Keg)
 
-- **Other info:**
-	- Blood transfusions will be removed by a Restoration or Greater Restoration.
-	- Bleeding effects can be cured by Heal or Greater Restoration, or by the Blood Minister's "Healing Blood".
-	- The multiclass Cleric kits will gain Holy Symbols at around 4 million XP (BG2/EET).
+**Other info:**
+- Blood transfusions will be removed by a Restoration or Greater Restoration.
+- Bleeding effects can be cured by Heal or Greater Restoration, or by the Blood Minister's "Healing Blood".
+- The multiclass Cleric kits will gain Holy Symbols at around 4 million XP (BG2/EET).
 
-- **Beamdog items (bonus effects):**
-	- Archer's Eyes: Warhound, Noble Scion, Nurse
-	- Belt of the Skillful Blade: Drifter
-	- Screaming Bagpipes: Powder Keg
-	- Stalker Gauntlets: Crow Hunter
+--
 
+**Gain bonus effects from these Beamdog items:**
+- Archer's Eyes: Warhound, Noble Scion, Nurse
+- Belt of the Skillful Blade: Drifter
+- Screaming Bagpipes: Powder Keg
+- Stalker Gauntlets: Crow Hunter
+
+--
 
 Hunter Badges
 -
@@ -704,6 +714,7 @@ Weight: 1
 - BG2: All obtainable in SoA. Can purchase additional badges in ToB.
 - IWDEE/HoW: Spread throughout + Config option for additional badges in HoW.
 
+--
 
 Starjammer spells:
 -
@@ -847,6 +858,7 @@ A rift should be handled with caution. When this spell is cast, there is a 2% ch
 
 </details>
 
+--
 
 Misc items:
 - 
@@ -1039,6 +1051,7 @@ Weight: 1
 
 </details>
 
+--
 
 **v3.3+ items**
 - Gold Scarab (amulet)
@@ -1160,6 +1173,7 @@ Weight: 0
 - BG2: All items obtainable in SoA. If starting a new game in ToB, the starting bag will have 1-2 items.
 - IWDEE/HoW: Spread throughout, in various dungeons and locations.
 
+--
 
 Caryll Runes
 -

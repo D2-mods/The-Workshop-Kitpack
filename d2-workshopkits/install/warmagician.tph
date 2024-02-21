@@ -31,6 +31,7 @@ COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @110
   SAY UNIDENTIFIED_DESC @210
   LPF ALTER_EFFECT INT_VAR match_opcode=321 opcode=326 STR_VAR resource=~%s0%x~ END
+//  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter2=5 END
   LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s2%a~ END              // visual
   LPF DELETE_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%s2%a~ END             // visual (old)
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%b~ insert=below END    // block normal missiles

@@ -75,7 +75,7 @@ BEGIN
   WRITE_SHORT 0x22 0
   WRITE_BYTE  0x25 0
   WRITE_BYTE  0x27 0
-  WRITE_LONG  0x34 1
+  WRITE_LONG  0x34 0
   LPF ALTER_SPELL_HEADER INT_VAR target=1 speed=0 projectile=1 END
   LPF ALTER_EFFECT INT_VAR power=0 END
 
@@ -172,15 +172,14 @@ END
 
 
     // subspell
-    COPY_EXISTING ~archhit.EFF~  ~override/%new_spell%a.EFF~
+    CREATE EFF ~%new_spell%a~
       WRITE_LONG   0x10 146
       WRITE_LONG   0x14 1
-      WRITE_LONG   0x1c 0
       WRITE_LONG   0x20 1
       WRITE_LONG   0x24 1
-      WRITE_LONG   0x28 0
-      WRITE_LONG   0x60 0
+      WRITE_SHORT  0x2c 100
       WRITE_ASCII  0x30 ~%new_spell%a~ #8
+      WRITE_LONG   0xa4 ~-1~
 
     COPY_EXISTING ~SPCL142.SPL~  ~override/%new_spell%a.SPL~
       // add ability
@@ -253,15 +252,14 @@ END
 
 
     // subspell
-    COPY_EXISTING ~archhit.EFF~  ~override/%new_spell%a.EFF~
+    CREATE EFF ~%new_spell%a~
       WRITE_LONG   0x10 146
       WRITE_LONG   0x14 1
-      WRITE_LONG   0x1c 0
       WRITE_LONG   0x20 1
       WRITE_LONG   0x24 1
-      WRITE_LONG   0x28 0
-      WRITE_LONG   0x60 0
+      WRITE_SHORT  0x2c 100
       WRITE_ASCII  0x30 ~%new_spell%a~ #8
+      WRITE_LONG   0xa4 ~-1~
 
     COPY_EXISTING ~SPCL142.SPL~  ~override/%new_spell%a.SPL~
       // add ability

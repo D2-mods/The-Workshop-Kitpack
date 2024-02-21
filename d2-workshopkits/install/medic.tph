@@ -7,19 +7,42 @@ COPY ~%passives%/noitemtype.SPL~  ~override/%e1%.SPL~
   LPF ALTER_EFFECT INT_VAR opcode=181 special=RESOLVE_STR_REF (@300) END    // "Cannot use item."
 */
 
-//add Slow Poison
-COPY_EXISTING ~SPPR212.SPL~       ~override/%s4%.SPL~
-  LPF d2_convert_spell_type INT_VAR level=1 END
-  LPF ALTER_SPELL_HEADER INT_VAR speed=0 END    // casting speed
-  LPF ALTER_EFFECT INT_VAR power=0 END
 
-//add Cure Disease
-COPY_EXISTING ~SPPR317.SPL~       ~override/%s5%.SPL~
-  LPF d2_convert_spell_type INT_VAR level=1 END
-  LPF ALTER_SPELL_HEADER INT_VAR speed=0 END    // casting speed
-  LPF ALTER_EFFECT INT_VAR power=0 END
+//medic spells
+ACTION_DEFINE_ASSOCIATIVE_ARRAY medicspells BEGIN
+  SPPR212 => ~%s4%~    // slow poison
+  SPPR317 => ~%s5%~    // cure disease
+  sppr404 => ~%s6%~    // neutralize poison
+  sppr607 => ~%s7%~    // heal
+  sppr417 => ~%s8%~    // lesser restoration
+END
+
+ACTION_PHP_EACH medicspells AS spell => res BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) BEGIN
+    COPY_EXISTING ~%spell%.SPL~  ~override/%res%.SPL~
+      LPF d2_convert_spell_type INT_VAR type=4 level=1 END
+      WRITE_LONG 0x18 THIS | BIT14
+      WRITE_LONG 0x18 THIS | BIT25                  // no vocal component
+      WRITE_SHORT 0x22 0                            // no cast visuals
+      LPF ALTER_SPELL_HEADER INT_VAR speed=0 END    // casting speed
+      LPF ALTER_EFFECT INT_VAR power=0 END
+      LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=~%SOURCE_RES%~ resource=~%DEST_RES%~ END
+      LPF DELETE_EFFECT INT_VAR match_opcode=93 END              // remove fatigue
+      LPF DELETE_EFFECT STR_VAR match_resource=~dvwinded~ END    // remove SR fatigue
+  END
+END
 
 
+//replace slow poison
+COPY ~%passives%/removespell.SPL~    ~override/%e4%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%s4%~ END
+
+//replace cure disease
+COPY ~%passives%/removespell.SPL~    ~override/%e5%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%s5%~ END
+
+
+//
 //Add Remedy projectiles
 COPY - ~%abilities%/remedy7.PRO~ ~%workspace%/%s9%a.PRO~     // 7-ft. radius
 ADD_PROJECTILE ~%workspace%/%s9%a.PRO~
@@ -33,6 +56,7 @@ OUTER_TEXT_SPRINT remedy4      ~%s9%b~
 OUTER_TEXT_SPRINT remedy15     ~%s9%c~
 
 
+//
 //Add Black Remedy
 COPY ~%icons%/blackremedyicon.BAM~  ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@122) STR_VAR bam=~%s1%i~ RET icon END
@@ -58,7 +82,7 @@ COPY ~%abilities%/remedyblack.SPL~      ~override/%s1%b.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%b~ END
 
 
-
+//
 //Add White Remedy
 ACTION_IF (GAME_IS ~bgee~)      BEGIN OUTER_SET sleep_string = 26371 END
 ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN OUTER_SET sleep_string = 14001 END
@@ -87,6 +111,7 @@ COPY ~%abilities%/remedywhite.SPL~      ~override/%s2%b.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=~%sleep_string%~ END    // "Sleep"
 
 
+//
 //Remedy lighting (write into projectile)
 COPY ~%abilities%/remedyvisual.VVC~  ~override/%s9%e.VVC~
 ACTION_FOR_EACH projectile IN ~%remedy7%~ ~%remedy4%~ ~%remedy15%~ BEGIN
@@ -95,6 +120,7 @@ ACTION_FOR_EACH projectile IN ~%remedy7%~ ~%remedy4%~ ~%remedy15%~ BEGIN
   BUT_ONLY
 END
 
+//
 //Remove effects
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%~ END
@@ -103,6 +129,7 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%a~ END
 
 
+//
 //Add Healing Rain
 COPY - ~%abilities%/healingrain.PRO~ ~%workspace%/%s3%a.PRO~
 ADD_PROJECTILE ~%workspace%/%s3%a.PRO~
@@ -116,9 +143,9 @@ COPY ~%abilities%/healingrain.SPL~  ~override/%s3%.SPL~
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s3%a~ END    // set projectile
 
 
+//
 //Make clab table
 COPY ~inlined/d2clab_monk_nohealstun~  ~override/%kitid%.2DA~
-//LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END    // no gauntlets (removed)
   LPF d2_kit_ability_adder INT_VAR multi=1 increment=5 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR multi=1 increment=5 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR level=9 multi=1 increment=3 limit=15 STR_VAR resource=~%s3%~ END
@@ -126,9 +153,19 @@ COPY ~inlined/d2clab_monk_nohealstun~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=5 STR_VAR resource=~%s4%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 STR_VAR resource=~%s4%~ END
   LPF d2_kit_ability_adder INT_VAR level=7 STR_VAR resource=~%s5%~ END
+  LPF d2_kit_ability_adder INT_VAR level=10 STR_VAR resource=~%s6%~ END
+  LPF d2_kit_ability_adder INT_VAR level=10 STR_VAR resource=~%s6%~ END
+  LPF d2_kit_ability_adder INT_VAR level=10 STR_VAR resource=~%s6%~ END
+  LPF d2_kit_ability_adder INT_VAR level=14 STR_VAR resource=~%s7%~ END
+  LPF d2_kit_ability_adder INT_VAR level=18 STR_VAR resource=~%s8%~ END
+  LPF d2_kit_ability_adder INT_VAR level=18 STR_VAR resource=~%s8%~ END
+  LPF d2_kit_ability_adder INT_VAR level=18 STR_VAR resource=~%s8%~ END
+  LPF d2_kit_ability_adder INT_VAR level=10 passive=1 STR_VAR resource=~%e4%~ END    // remove slow poison
+  LPF d2_kit_ability_adder INT_VAR level=14 passive=1 STR_VAR resource=~%e5%~ END    // remove cure disease
   LPF d2_kit_ability_adder END
 
 
+//
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
@@ -146,6 +183,8 @@ LAF ADD_KIT_EX
 END
 
 
+//
+//array for weapon restrictions
 ACTION_DEFINE_ASSOCIATIVE_ARRAY medicweapontype BEGIN    // weapon => usable
   16 => 1    // daggers
   17 => 1    // maces, clubs
@@ -157,6 +196,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY medicweapontype BEGIN    // weapon => usable
 END
 
 
+//
 //variables
 OUTER_TEXT_SPRINT medic        ~%kitid%~
 OUTER_TEXT_SPRINT blackremedy  ~%s1%~
@@ -164,6 +204,9 @@ OUTER_TEXT_SPRINT whiteremedy  ~%s2%~
 OUTER_TEXT_SPRINT healingrain  ~%s3%~
 OUTER_TEXT_SPRINT mediccure1   ~%s4%~
 OUTER_TEXT_SPRINT mediccure2   ~%s5%~
+OUTER_TEXT_SPRINT mediccure3   ~%s6%~
+OUTER_TEXT_SPRINT mediccure4   ~%s7%~
+OUTER_TEXT_SPRINT mediccure5   ~%s8%~
 
 
 /*

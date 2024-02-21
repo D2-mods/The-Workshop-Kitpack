@@ -52,6 +52,11 @@ COPY - ~inlined/d2clab_mage~  ~inlined/d2clab_mage~
   REPLACE_TEXTUALLY ~AP_A7_CS05~  ~****~
   REPLACE_TEXTUALLY ~AP_A7_CS06~  ~****~
 
+COPY - ~inlined/d2clab_mage~  ~inlined/d2clab_sorcerer~
+  REPLACE_TEXTUALLY ~AP_D5ZZ000~  ~****~
+  REPLACE_TEXTUALLY ~AP_D5Z0SPL~  ~****~
+  REPLACE_TEXTUALLY ~AP_D5ZMSLT~  ~****~
+
 
 
 //thief

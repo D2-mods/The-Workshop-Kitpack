@@ -38,9 +38,9 @@ COPY ~%passives%/gravewarden.SPL~  ~override/%e5%.SPL~
 
 
 //Clone mage spells
-LAF d2_convert_spell_type INT_VAR type=2 STR_VAR spell=~SPWI118~ newspell=~%p1%~ END
-LAF d2_convert_spell_type INT_VAR type=2 STR_VAR spell=~SPWI205~ newspell=~%p2%~ END
-LAF d2_convert_spell_type INT_VAR type=2 STR_VAR spell=~SPWI313~ newspell=~%p3%~ END
+LAF d2_convert_spell_type INT_VAR type=2 level=1 STR_VAR spell=~SPWI118~ newspell=~%p1%~ END
+LAF d2_convert_spell_type INT_VAR type=2 level=2 STR_VAR spell=~SPWI205~ newspell=~%p2%~ END
+LAF d2_convert_spell_type INT_VAR type=2 level=3 STR_VAR spell=~SPWI313~ newspell=~%p3%~ END
 
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   COPY_EXISTING ~%p1%.SPL~  ~override~
@@ -68,28 +68,30 @@ END
 
 
 //Add Denial
+COPY ~%icons%/denialicon.BAM~    ~override/%s1%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@104) STR_VAR bam=~%s1%i~ RET icon END
+
 COPY ~%icons%/denial.BAM~    ~override/%s1%.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@104) STR_VAR bam=~%s1%~ RET icon END
 COPY_EXISTING ~SPPR409.SPL~  ~override/%s1%.SPL~                      // clone Death Ward
   SAY NAME1 @104
   SAY UNIDENTIFIED_DESC @204
-
   LPF d2_remove_level_headers END
   LPF d2_convert_spell_type INT_VAR type=0 level=1 END                // convert to special ability
-  LPF ALTER_EFFECT INT_VAR power=0 duration=180 END                   // edit stuff
+
+  //edit stuff
+  LPF ALTER_EFFECT INT_VAR power=0 duration=180 END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 duration=1 END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 duration=0 END    // EEs (silent to not have warning with sr)
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END    // spell revisions (doesn't have op61)
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END     // not silent to get warning if no icon added
+  WRITE_ASCII 0x3a ~%s1%~ #8    // icon BAMs
+  WRITE_ASCII 0x76 ~%s1%~ #8
+  WRITE_SHORT 0x84 3            // casting speed
 
   LPF ADD_SPELL_EFFECT 
     INT_VAR opcode=232 target=2 parameter2=2 resist_dispel=3 duration=180
     STR_VAR resource=~%s1%a~
   END
-
-  WRITE_ASCII 0x3a SPWI803B #8  // icon BAMs
-  WRITE_ASCII 0x76 SPWI803B #8
-  WRITE_SHORT 0x84 3            // casting speed
 
   //block Death Gaze in BG1
   PATCH_IF (GAME_IS ~bgee~) BEGIN TEXT_SPRINT death_gaze ~SPIN996~ END
@@ -98,7 +100,6 @@ COPY_EXISTING ~SPPR409.SPL~  ~override/%s1%.SPL~                      // clone D
     LPF DELETE_EFFECT STR_VAR match_resource=~%death_gaze%~ END
     LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=101 opcode=206 parameter2=0 STR_VAR resource=~%death_gaze%~ END
   END
-BUT_ONLY
 
 
 //Add Cure subspell (for Denial)
@@ -112,7 +113,6 @@ COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%s1%a.SPL~
     INT_VAR opcode=321 target=2 power=0 timing=1 resist_dispel=2 
     STR_VAR resource=~%s1%~ 
   END
-BUT_ONLY
 
 
 //Make clab table

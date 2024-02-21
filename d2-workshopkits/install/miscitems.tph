@@ -26,10 +26,8 @@ ACTION_IF (FILE_EXISTS ~override/%visceralattack%.SPL~) BEGIN
   COPY ~%abilities%/castspellself.EFF~  ~override/%m1%a.EFF~
     WRITE_ASCII 0x30 ~%m1%a~ #8
   COPY_EXISTING ~%visceralattack%.SPL~  ~override/%m1%a.SPL~
-    LPF DELETE_EFFECT INT_VAR match_opcode=142 END    // remove portrait icon
-    LPF DELETE_EFFECT INT_VAR match_opcode=50 END     // remove color pulse
-    LPF DELETE_EFFECT INT_VAR match_opcode=174 END    // remove sounds
-    WRITE_LONG 0x8 ~-1~                               // remove spell name
+    LPF d2_subspell_remove_visuals END    // remove visuals
+    WRITE_LONG 0x8 ~-1~                   // remove spell name
 
   COPY_EXISTING ~%m1%.ITM~  ~override~    // add repeating effect
     LPF CLONE_EFFECT 
@@ -82,29 +80,30 @@ COPY ~%files%/etherbomb.ITM~  ~override/%m2%.ITM~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 parameter2=~%lore79%~ STR_VAR resource=~%m2%s~ END
 
 COPY ~%abilities%/powderkegcast.SPL~  ~override/%m2%e.SPL~
-  SAY NAME1 @615
+//  SAY NAME1 @615
   LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%f~ END    // hits enemies
   LPF DELETE_EFFECT INT_VAR match_opcode=363 END
 
 COPY ~%abilities%/powderkegcast.SPL~  ~override/%m2%s.SPL~
-  SAY NAME1 @615
+//  SAY NAME1 @615
   LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%t~ END    // hits all
   LPF DELETE_EFFECT INT_VAR match_opcode=363 END
 
-COPY - ~%files%/etherbomb.PRO~        ~%workspace%/%m2%p.PRO~               // projectile
+COPY - ~%files%/etherbomb.PRO~        ~%workspace%/%m2%p.PRO~
 ADD_PROJECTILE ~%workspace%/%m2%p.PRO~
 
-COPY ~%files%/etherbomb.SPL~          ~override/%m2%f.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%m2%f~ END    // hits enemies
+COPY ~%files%/etherbomb.SPL~  ~override/%m2%f.SPL~    // hits enemies
+  SAY NAME1 @615
   WRITE_SHORT 0x98 ~%m2%p~    // projectile
+  LPF d2_safe_spell END
 
-COPY ~%files%/etherbomb.SPL~          ~override/%m2%t.SPL~
-  LPF DELETE_EFFECT INT_VAR match_opcode=318 END                            // hits all
+COPY ~%files%/etherbomb.SPL~  ~override/%m2%t.SPL~    // hits all
+  SAY NAME1 @615
   WRITE_SHORT 0x98 ~%m2%p~    // projectile
 
 ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
 
-  COPY_EXISTING ~%cleareffects%.SPL~  ~override~
+  COPY_EXISTING ~%nosongchange%.SPL~  ~override~
     LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m2%y~ END
   BUT_ONLY
 
@@ -115,22 +114,22 @@ ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
     END
   BUT_ONLY
 
-COPY ~%abilities%/castspellself.EFF~   ~override/%m2%u.EFF~
-  WRITE_ASCII 0x30 ~%m2%u~ #8
-COPY ~%abilities%/changebardsong.SPL~  ~override/%m2%u.SPL~    // change Bard Song
-  LPF DELETE_EFFECT INT_VAR check_headers=0 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%m2%v~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%cleareffects%~ END
+  COPY ~%abilities%/castspellself.EFF~   ~override/%m2%u.EFF~
+    WRITE_ASCII 0x30 ~%m2%u~ #8
+  COPY ~%abilities%/changebardsong.SPL~  ~override/%m2%u.SPL~    // change Bard Song
+    LPF DELETE_EFFECT INT_VAR check_headers=0 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+    LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%m2%v~ END
+    LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%nosongchange%~ END
 
-COPY ~%abilities%/powderkegdisable.SPL~    ~override/%m2%x.SPL~
-COPY ~%abilities%/powderkegnosong.SPL~     ~override/%m2%y.SPL~
-  LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%m2%v~ END
-COPY ~%abilities%/powderkegcast.SPL~       ~override/%m2%v.SPL~
-  SAY NAME1 @615
-  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%f~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%m2%x~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%m2%y~ END
+  COPY ~%abilities%/powderkegdisable.SPL~    ~override/%m2%x.SPL~
+  COPY ~%abilities%/powderkegnosong.SPL~     ~override/%m2%y.SPL~
+    LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%m2%v~ END
+  COPY ~%abilities%/powderkegcast.SPL~       ~override/%m2%v.SPL~
+  //  SAY NAME1 @615
+    LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%f~ END
+    LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%m2%x~ END
+    LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%m2%y~ END
 
 END
 
@@ -389,6 +388,7 @@ ACTION_IF (FILE_EXISTS ~override/%shockwave%.SPL~) BEGIN
   COPY ~%abilities%/castspelltarget.EFF~  ~override/%ma%b.EFF~
     WRITE_ASCII 0x30 ~%ma%b~ #8
   COPY_EXISTING ~%shockwaveblast%.SPL~    ~override/%ma%b.SPL~
+    SAY NAME1 @102
     LPF DELETE_EFFECT INT_VAR match_parameter2=63 END
     LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 timing=0 duration=0 parameter2=52 STR_VAR resource=~%ma%b~ END
 
@@ -436,6 +436,7 @@ ACTION_IF (FILE_EXISTS ~override/%incinerate%.SPL~) BEGIN
   COPY ~%abilities%/castspelltarget.EFF~  ~override/%ma%f.EFF~
     WRITE_ASCII 0x30 ~%ma%f~ #8
   COPY_EXISTING ~%incinerateblast%.SPL~    ~override/%ma%f.SPL~
+    SAY NAME1 @103
     LPF DELETE_EFFECT INT_VAR match_parameter2=63 END
     LPF CLONE_EFFECT INT_VAR opcode=318 timing=0 dicenumber=0 dicesize=0 savingthrow=0 parameter2=52 special=0 STR_VAR resource=~%ma%f~ END
 
@@ -538,7 +539,6 @@ ACTION_IF (FILE_EXISTS ~override/SPWI305A.SPL~) BEGIN
     LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=20 END
     LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
 END
-
 
 
 

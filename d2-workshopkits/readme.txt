@@ -144,6 +144,26 @@ This is how I'd do the install:
 
 Version info:
 
+v4.7.5
+- Powder Keg changes:
+	- Reduced delay between each use of a song from 10 rounds to 8 rounds.
+	- Blasting Song: Main blast now delayed 1 second (damage unchanged). A new lead-in projectile does an extra 2 fire damage to enemies in a 12-ft. radius. It's visually more interesting now, and the initial projectile lets you know when the main blast is coming.
+	- Booming Song: Damage increased from 2d4 to 3d8. Tweaked explosion visual/sound.
+	- Dust Explosion: Damage of initial blast increased from 5d6 to 8d6. Creatures immune to blind no longer suffer reduced visual range. Enemies now move at half speed in the cloud.
+	- Frenzying Flame: Damage per round increased from 2d4 to 2d12.
+- Medic changes:
+	- at level 10, Slow Poison is now upgraded to Neutralize Poison.
+	- at level 14, Cure Disease is now upgraded to Heal (essentially, the medic's version of "Lay on Hands").
+	- at level 18, can now use Lesser Restoration 3 times per day (no fatigue).
+	- All medic cures are touch range, applied instantly, have no vocal component, and are not considered spells for wild/dead magic.
+	- The spells are otherwise identical to the existing priest spell at the time of install (i.e. in IWDEE, you can't cast Heal on an undead or elemental).
+- Other:
+	- IWD Evasion: All "Evades effects from..." messages should now say the name of the spell/ability being evaded.
+	- New icon for Hunter Tools, recolored icons for Starjammer spells, changed icons for a few other abilities.
+	- Blood Minister: if using Spell Revisions, Madman's Blood no longer causes SR fatigue effects.
+	- SCS/ToF: Fixed a few wrong ability icons when this mod was installed after SCS/ToF spell tweaks.
+	- Other minor changes.
+
 v4.7.4
 - Fixed an issue with haste effects if this mod was installed after SCS/ToF spell tweaks. This affected the Moonlight Knight kit and the Hunter Bone item.
 - Fixed a mod conflict (with IWDEE Polymorph fixes mod) that would cause characters to learn Psionic Blast permanently, when using the Milkweed rune.

@@ -23,12 +23,16 @@ BEGIN
   PATCH_IF ((level < 0) OR (level > 9))       BEGIN SET level = ~-1~ END
   PATCH_IF ((location < 1) OR (location > 4)) BEGIN SET location = 0 END
 
-  WRITE_SHORT 0x1c %type%    // set spell type
+  WRITE_SHORT 0x1c type    // set spell type
 
-  PATCH_IF (level >= 0) BEGIN    // set spell level
-    WRITE_LONG 0x34 %level%
-    LPF ALTER_EFFECT INT_VAR power = %level% END
+  PATCH_IF (level >= 0) BEGIN
+    WRITE_LONG 0x34 level    // set spell level
   END
+  ELSE BEGIN
+    READ_LONG 0x34 level     // or read level field
+  END
+
+  LPF ALTER_EFFECT INT_VAR power=level END    // set effects level
 
   PATCH_IF (location = 0) BEGIN
     PATCH_IF ((type = 1) OR (type = 2)) BEGIN 
@@ -39,7 +43,7 @@ BEGIN
     END
   END
 
-  LPF ALTER_SPELL_HEADER INT_VAR location = %location% END    // set spell location
+  LPF ALTER_SPELL_HEADER INT_VAR location=location END    // set spell location
 
 END
 
