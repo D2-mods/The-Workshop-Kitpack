@@ -82,7 +82,7 @@ COPY ~%abilities%/powderkegblast.SPL~      ~override/%s1%f.SPL~    // initial fl
   WRITE_SHORT 0x98 ~%s1%f~    // projectile
   LPF DELETE_EFFECT INT_VAR match_opcode=318 END
   LPF d2_safe_spell END
-  LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=2 dicenumber=0 dicesize=0 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=2 dicenumber=0 dicesize=0 savingthrow=16777216 special=0 END
 
 COPY - ~%abilities%/powderkegblast.PRO~ ~%workspace%/%s1%e.PRO~
 ADD_PROJECTILE ~%workspace%/%s1%e.PRO~
@@ -135,8 +135,8 @@ COPY ~%abilities%/powderkegcast.SPL~     ~override/%s3%s.SPL~
 //  SAY NAME1 @609
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%e~ END    // cloud
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%f~ END    // fake projectile
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%g~ END    // fake projectile
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%h~ END    // fake projectile
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%f~ END    // fake projectile
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%f~ END    // fake projectile
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%d~ END    // fireball
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s3%x~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s3%y~ END
@@ -151,15 +151,13 @@ COPY ~%abilities%/powderkegdust.SPL~     ~override/%s3%e.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s3%c~ END    // move penalty
   WRITE_SHORT 0x98 ~%s3%e~    // projectile
 
-COPY ~%abilities%/powderkegdust.SPL~     ~override/%s3%f.SPL~    // fake projectiles (for visuals)
+COPY ~%abilities%/powderkegdust.SPL~     ~override/%s3%f.SPL~    // fake projectile (for visuals)
   WRITE_SHORT 0x98 ~%s3%e~    // projectile
-COPY_EXISTING ~%s3%f.SPL~  ~override/%s3%g.SPL~
-COPY_EXISTING ~%s3%f.SPL~  ~override/%s3%h.SPL~
 
 COPY ~%abilities%/powderkegdusta.SPL~    ~override/%s3%a.SPL~    // blindness
 COPY ~%abilities%/powderkegdustb.SPL~    ~override/%s3%b.SPL~    // blur/invisible
 COPY ~%abilities%/powderkegdustc.SPL~    ~override/%s3%c.SPL~    // move penalty
-  LPF d2_safe_spell INT_VAR block_opcode=176 END
+  LPF d2_safe_spell INT_VAR block_opcode=176 duration=1 END
 
 COPY - ~%abilities%/powderkegdustd.PRO~ ~%workspace%/%s3%d.PRO~    // fireball
 ADD_PROJECTILE ~%workspace%/%s3%d.PRO~
@@ -185,7 +183,7 @@ OUTER_SET frenzycloud = (~%s4%e~ - 1)    // for clearair.2da
 
 COPY ~%abilities%/powderkegfrenzy.SPL~   ~override/%s4%e.SPL~
   SAY NAME1 @610
-  LPF d2_safe_spell END
+  LPF d2_safe_spell INT_VAR duration=1 END
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=326 probability1=24 probability2=0  STR_VAR resource=~%s4%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 probability1=49 probability2=25 STR_VAR resource=~%s4%b~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 probability1=74 probability2=50 STR_VAR resource=~%s4%c~ END

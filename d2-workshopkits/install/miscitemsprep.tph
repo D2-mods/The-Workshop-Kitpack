@@ -89,7 +89,7 @@ END
 
 //Blood Minister (d2wk9)
 ACTION_IF (FILE_EXISTS ~override/d2wk9s1a.SPL~) BEGIN
-  OUTER_TEXT_SPRINT healingblood  ~d2wk9s1a~
+  OUTER_TEXT_SPRINT healingbloodregen  ~d2wk9s2a~
 END
 
 //Powder Keg (d2wkb)

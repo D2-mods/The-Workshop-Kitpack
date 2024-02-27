@@ -27,7 +27,7 @@ END
 //set variable for cure subspell
 OUTER_TEXT_SPRINT cure_subspell ~SPPR502~
 ACTION_IF (FILE_EXISTS ~override/SPPR502B.spl~) BEGIN
-  COPY_EXISTING ~SPPR502B.spl~  ~override~
+  COPY_EXISTING - ~SPPR502B.spl~  ~~
     GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
     PHP_EACH spl_headers AS num => header_off BEGIN      // array of headers
       GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
@@ -38,6 +38,7 @@ ACTION_IF (FILE_EXISTS ~override/SPPR502B.spl~) BEGIN
         END
       END
     END
+  // end inlined COPY
 END
 
 

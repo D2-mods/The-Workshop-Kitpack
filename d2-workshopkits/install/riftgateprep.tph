@@ -1,0 +1,104 @@
+/*
+for Riftgate summons
+*/
+
+
+//
+//base game spells (set list to always patch)
+
+//insect spells
+ACTION_FOR_EACH spell IN ~SPPR319~ ~SPPR517~ ~SPPR717~ BEGIN
+  OUTER_TEXT_SPRINT $d2riftgate(~%spell%~) ~insect~    // ~%SOURCE_RES%~ => insect
+END
+
+//earthquake spells
+ACTION_FOR_EACH spell IN ~SPPR720~ ~ohbquake~ ~SPOGRE01~ BEGIN
+  OUTER_TEXT_SPRINT $d2riftgate(~%spell%~) ~quake~     // ~%SOURCE_RES%~ => quake
+END
+
+
+//
+//get spell info
+COPY_EXISTING - ~SPPR319.spl~  ~~
+  READ_LONG  0x8  insectspell_name
+  READ_SHORT 0x98 insectspell_proj
+
+COPY_EXISTING - ~SPPR517.spl~  ~~
+  READ_LONG  0x8  insectswarm_name
+  READ_SHORT 0x98 insectswarm_proj
+
+COPY_EXISTING - ~SPPR720.spl~  ~~
+  READ_LONG  0x8  earthquake_name
+  READ_SHORT 0x98 earthquake_proj    // not unique
+
+OUTER_SET golem_array = 0
+
+
+//
+//check for mod spells
+COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~override~
+  PATCH_IF (!(~%SOURCE_RES%~ STR_EQ ~SPPR319~) AND !(~%SOURCE_RES%~ STR_EQ ~SPPR720~) AND
+            !(~%SOURCE_RES%~ STR_EQ ~SPPR517~) AND !(~%SOURCE_RES%~ STR_EQ ~ohbquake~) AND
+            !(~%SOURCE_RES%~ STR_EQ ~SPPR717~) AND !(~%SOURCE_RES%~ STR_EQ ~SPOGRE01~) AND
+            !(~%SOURCE_RES%~ STR_EQ ~SPPR728~) AND    // skip implosion
+            !(~%SOURCE_RES%~ STR_EQ ~SAREVEFF~)       // skip Sarevok specials
+  ) BEGIN
+
+    READ_SHORT 0x68 num_headers
+    PATCH_IF (num_headers > 0) BEGIN
+      READ_LONG  0x8  splname
+      READ_SHORT 0x98 splproj
+
+      GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
+      PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
+        GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
+        PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
+          PATCH_IF (golem_array = 0) BEGIN
+            READ_SHORT effect_off opcode                                 // opcode
+            PATCH_IF (opcode = 269) BEGIN
+              SET golem_array = 1
+            END
+          END
+        END
+      END
+
+      //add to d2riftgate array
+      PATCH_IF ((splname = insectspell_name) OR (splname = insectswarm_name) OR
+                (splproj = insectspell_proj) OR (splname = insectswarm_proj)
+      ) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~insect~    // ~%SOURCE_RES%~ => insect
+      END
+
+      PATCH_IF ((splname = earthquake_name) OR (golem_array = 1)
+      ) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~quake~    // ~%SOURCE_RES%~ => quake
+        SET golem_array = 0
+      END
+
+    END
+
+  END
+// end inlined COPY
+
+
+//
+//functions
+DEFINE_PATCH_FUNCTION insect_immunity BEGIN
+  PHP_EACH d2riftgate AS spell => type BEGIN
+    PATCH_IF (~%type%~ STR_EQ ~insect~) BEGIN
+      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell%~ END
+    END
+  END
+END
+
+DEFINE_PATCH_FUNCTION earthquake_immunity BEGIN
+  PHP_EACH d2riftgate AS spell => type BEGIN
+    PATCH_IF (~%type%~ STR_EQ ~quake~) BEGIN
+      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell%~ END
+    END
+  END
+END
+
+
+/*
+*/

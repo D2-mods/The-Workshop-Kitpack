@@ -1,0 +1,93 @@
+/*
+base price for items
+if needed, use to make game-specific changes
+*/
+
+
+//game variables
+ACTION_IF (GAME_IS ~iwdee~)  BEGIN 
+  OUTER_TEXT_SPRINT game ~iwd~    // IWDEE
+END 
+ELSE BEGIN
+  OUTER_TEXT_SPRINT game ~bg2~    // BG games
+END
+
+
+//
+//BG2 prices
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponbg2prices BEGIN
+  ~%badge_spark%~    => 3500
+  ~%badge_radiant%~  => 3500
+  ~%badge_cosmic%~   => 3500
+  ~%badge_pkeg%~     => 3500
+  ~%badge_saw%~      => 3500
+  ~%badge_old%~      => 3500
+//
+  ~%calamity%~       => 1
+  ~%demonsoul%~      => 1
+  ~%shamanbone%~     => 300
+  ~%crowfeather%~    => 800
+  ~%hunterbone%~     => 800
+//
+  ~%prisonchain%~    => 3000
+  ~%stonering%~      => 3000
+  ~%goldscarab%~     => 3000
+  ~%etherbomb%~      => 5000
+  ~%cruciform%~      => 5000
+  ~%redtearstone%~   => 5000
+//
+  ~%golemring%~      => 8000
+  ~%flynnring%~      => 8000
+  ~%wingedsword%~    => 8000
+  ~%etherbooster%~   => 10000
+  ~%etherlimiter%~   => 10000
+  ~%jadefeather%~    => 10000
+END
+
+
+//
+//IWD prices
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponiwdprices BEGIN
+  ~%badge_spark%~    => 3500
+  ~%badge_radiant%~  => 3500
+  ~%badge_cosmic%~   => 3500
+  ~%badge_pkeg%~     => 3500
+  ~%badge_saw%~      => 3500
+  ~%badge_old%~      => 3500
+//
+  ~%calamity%~       => 1
+  ~%demonsoul%~      => 1
+  ~%shamanbone%~     => 300
+  ~%crowfeather%~    => 800
+  ~%hunterbone%~     => 800
+//
+  ~%prisonchain%~    => 3000
+  ~%stonering%~      => 3000
+  ~%goldscarab%~     => 3000
+  ~%etherbomb%~      => 5000
+  ~%cruciform%~      => 5000
+  ~%redtearstone%~   => 5000
+//
+  ~%golemring%~      => 8000
+  ~%flynnring%~      => 8000
+  ~%wingedsword%~    => 8000
+  ~%etherbooster%~   => 10000
+  ~%etherlimiter%~   => 10000
+  ~%jadefeather%~    => 10000
+END
+
+
+//patch items
+ACTION_PHP_EACH ~d2weapon%game%prices~ AS item => price BEGIN
+  ACTION_IF (FILE_EXISTS ~override/%item%.itm~) BEGIN
+
+    COPY_EXISTING ~%item%.itm~ ~override~
+      WRITE_LONG 0x34 price
+    BUT_ONLY
+
+  END
+END
+
+
+/*
+*/

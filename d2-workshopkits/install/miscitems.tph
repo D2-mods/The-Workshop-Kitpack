@@ -83,11 +83,13 @@ COPY ~%abilities%/powderkegcast.SPL~  ~override/%m2%e.SPL~
 //  SAY NAME1 @615
   LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%f~ END    // hits enemies
   LPF DELETE_EFFECT INT_VAR match_opcode=363 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=174 STR_VAR resource=~EFF_M51~ END
 
 COPY ~%abilities%/powderkegcast.SPL~  ~override/%m2%s.SPL~
 //  SAY NAME1 @615
   LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%t~ END    // hits all
   LPF DELETE_EFFECT INT_VAR match_opcode=363 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=174 STR_VAR resource=~EFF_M51~ END
 
 COPY - ~%files%/etherbomb.PRO~        ~%workspace%/%m2%p.PRO~
 ADD_PROJECTILE ~%workspace%/%m2%p.PRO~
@@ -130,6 +132,7 @@ ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
     LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%f~ END
     LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%m2%x~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%m2%y~ END
+    LPF CLONE_EFFECT INT_VAR match_opcode=174 STR_VAR resource=~EFF_M51~ END
 
 END
 

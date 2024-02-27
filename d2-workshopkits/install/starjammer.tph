@@ -43,6 +43,7 @@ COPY ~%icons%/riftgateicon2.BAM~       ~override/%w8%b.BAM~
 COPY - ~%abilities%/riftstepgibber.BAF~  ~%workspace%/%w1%g.BAF~    // add gibberlings
 COMPILE ~%workspace%/%w1%g.BAF~
 COPY ~%abilities%/riftstepgibber.ITM~    ~override/%w1%g.ITM~
+  LPF insect_immunity END
 COPY ~%abilities%/riftstepgibber.CRE~    ~override/%w1%g.CRE~
   SAY NAME1 @600
   SAY NAME2 @600
@@ -140,9 +141,9 @@ COPY_EXISTING ~SPPR504.SPL~   ~override/%w5%.SPL~         // clone Raise Dead
 
   LPF d2_convert_spell_type INT_VAR type=1 level=5 END    // convert to level 5 Wizard spell
   LPF ALTER_EFFECT INT_VAR power=0 END                    // power=0 to bypass immunity to spell level
-  WRITE_BYTE  0x25 8     // Alteration school
-  WRITE_SHORT 0x22 15    // casting animation
-  WRITE_SHORT 0x84 5     // casting speed
+  WRITE_SHORT 0x22 15             // invoker casting
+  WRITE_BYTE  0x25 8              // transmuter school
+  WRITE_SHORT 0x84 5              // casting speed
   WRITE_ASCII 0x10 CAS_M04 #8     // casting sound
 
   //EE edits  
@@ -168,7 +169,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~SPPR504A.SPL~) BEGIN
     LPF ALTER_EFFECT INT_VAR power=0 END                    // power=0 to bypass immunity to spell level
     LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~BDFAVSPI~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 STR_VAR resource=~EFF_E06~ END
-    WRITE_BYTE  0x25 8    // Alteration school
+    WRITE_BYTE  0x25 8    // transmuter school
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~sppr308.SPL~) BEGIN         // clone Remove Paralysis
@@ -176,8 +177,8 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sppr308.SPL~) BEGIN         // clone Remove Para
     LPF d2_convert_spell_type INT_VAR type=1 level=5 END    // convert to level 5 Wizard spell
     LPF ALTER_EFFECT INT_VAR power=0 END                    // power=0 to bypass immunity to spell level
     WRITE_LONG 0x8 ~-1~
-    WRITE_BYTE  0x25 8          // Alteration school
-    WRITE_SHORT 0x22 0          // casting animation
+    WRITE_BYTE  0x25 8          // transmuter school
+    WRITE_SHORT 0x22 0          // casting visual
     WRITE_ASCII 0x10 None #8    // casting sound
 
 //visual
@@ -202,10 +203,13 @@ END
 //Add Electrocannon
 COPY - ~%abilities%/electrocannon5.PRO~  ~%workspace%/%w6%.PRO~
   WRITE_ASCII 0x104 ~%w6%~ #8
+  WRITE_ASCII 0x21c ~%w6%e~ #8
+  WRITE_ASCII 0x228 ~%w6%e~ #8
 ADD_PROJECTILE ~%workspace%/%w6%.PRO~
-COPY ~%abilities%/electrocannon.BAM~     ~override/%w6%.BAM~
+COPY ~%abilities%/electrocannon.BAM~       ~override/%w6%.BAM~
+COPY ~%abilities%/electrocannonblast.BAM~  ~override/%w6%e.BAM~
 
-COPY ~%abilities%/electrocannon.SPL~     ~override/%w6%.SPL~
+COPY ~%abilities%/electrocannon.SPL~  ~override/%w6%.SPL~
   SAY NAME1 @40113
   SAY UNIDENTIFIED_DESC @40213
   WRITE_SHORT 0x98 ~%w6%~    // projectile
@@ -272,13 +276,18 @@ COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%w7%.SPL~    // clone a Cure Woun
   LPF d2_convert_spell_type INT_VAR type=1 level=7 END    // convert to level 7 Wizard spell
   LPF ALTER_EFFECT INT_VAR power=0 END                    // power=0 to bypass immunity to spell level
 
-  WRITE_SHORT 0x22 15             // casting animation
-  WRITE_LONG 0x18 THIS | BIT24    // can target invisible/sanctuary
+  WRITE_SHORT 0x22 15    // invoker casting
+  WRITE_BYTE  0x25 7     // necromancy school
+  WRITE_ASCII 0x10 ~CAS_P07~ #8
+  WRITE_LONG  0x18 THIS | BIT24    // can target invisible/sanctuary
 
   LPF ALTER_SPELL_HEADER INT_VAR speed=1 range=30 projectile=~%w7%~ END
   LPF DELETE_EFFECT INT_VAR match_opcode=164 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=20 dicenumber=14 dicesize=4 END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 STR_VAR resource=~%w7%~ END    // update restrictions (if found)
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 timing=0 duration=2 parameter2=1 STR_VAR resource=~RPARALH~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=215 timing=1 opcode=174 STR_VAR resource=~#EFF_P46~ END
 
   LPF CD_EXTEND-O-MATIC
     INT_VAR
@@ -337,26 +346,35 @@ COPY ~%abilities%/summonrift.EFF~     ~override/%w8%g.EFF~
 COPY_EXISTING ~goliro.ITM~  ~override/%w8%g.ITM~       // golem weapon (clone from iron golem)
   WRITE_LONG 0x60 4
   LPF ALTER_ITEM_HEADER INT_VAR range=2 dicesize=10 dicenumber=4 thac0_bonus=2 damage_bonus=2 END
-  LPF ADD_ITEM_EFFECT INT_VAR opcode=326 target=2 timing=1 type=1 STR_VAR resource=~%w8%g~ END         // add stun effect
-  LPF CLONE_EFFECT INT_VAR check_globals=0 opcode=12 parameter2=4194304 dicenumber=2 dicesize=4 END    // magic damage
+  LPF ADD_ITEM_EFFECT INT_VAR opcode=326 target=2 timing=1 type=1 STR_VAR resource=~%w8%g~ END    // add stun effect
+  LPF CLONE_EFFECT INT_VAR check_globals=0 opcode=12 parameter1=3 parameter2=4194304 END    // magic damage
   LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=176 parameter1=2 parameter2=0 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=98 parameter1=2 parameter2=2 END    // v4.7.5: regen
+  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=98 parameter1=2 parameter2=2 END         // v4.7.5: regen
 
   // immunities
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~SPPR720~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~ohbquake~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~SPOGRE01~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=209 END
+  LPF insect_immunity END
+  LPF earthquake_immunity END
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=235 END
   LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=213 END
   LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=216 END
   LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=151 END
   LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=135 END
   LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=166 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=74 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=40 END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_blindness_arrays END
 
   PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
     LPF DELETE_EFFECT INT_VAR match_opcode=267 END
     LPF d2_string_immunities END
+  END ELSE BEGIN
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=267 parameter1=335 END
+  END
+
+  PATCH_IF (slow_immunity > 0) BEGIN 
+    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=328 parameter2=slow_immunity special=1 END
   END
 
   // immune to vorpal (not immune to opcode to allow anti-golem weapons)
@@ -412,9 +430,8 @@ COPY ~%abilities%/riftgatebalorhp.ITM~  ~override/%w8%y.ITM~
 
 COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~       // balor weapon
   LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=98 parameter1=4 parameter2=2 END    // v4.7.5: regen
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~SPPR720~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~ohbquake~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~SPOGRE01~ END
+  LPF insect_immunity END
+  LPF earthquake_immunity END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_stun_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slay_arrays END
@@ -429,8 +446,7 @@ COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~       // balor weap
   PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
     LPF DELETE_EFFECT INT_VAR match_opcode=267 END
     LPF d2_string_immunities END
-  END
-  ELSE BEGIN
+  END ELSE BEGIN
     LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=267 parameter1=335 END
   END
 
@@ -475,6 +491,7 @@ ACTION_FOR_EACH icon IN ~%w1%~ ~%w2%~ ~%w3%~ ~%w4%~ ~%w5%~ ~%w6%~ ~%w7%~ ~%w8%~ 
   COPY_EXISTING ~%icon%.SPL~  ~override~
     WRITE_ASCII 0x3a ~%icon%a~ #8
     LPF ALTER_SPELL_HEADER STR_VAR icon=~%icon%b~ END
+    WRITE_LONG 0x1e 0    // remove exclusion flags (for uniformity)
   BUT_ONLY
 END
 
@@ -496,7 +513,14 @@ END
 //
 //Add Interference
 COPY - ~%abilities%/interference.PRO~ ~%workspace%/%s1%.PRO~
+  WRITE_ASCII 0x21c ~%s1%s~ #8
+  WRITE_ASCII 0x228 ~%s1%t~ #8
 ADD_PROJECTILE ~%workspace%/%s1%.PRO~
+COPY ~%abilities%/interferencepulse.BAM~  ~override/%s1%t.BAM~
+
+COPY ~%abilities%/swirl.BAM~  ~override/%s1%s.BAM~
+COPY ~%abilities%/force.VVC~  ~override/%s1%s.VVC~
+  WRITE_ASCII 0x8 ~%s1%s~ #8
 
 COPY ~%icons%/interference.BAM~      ~override/%s1%.BAM~
 COPY ~%abilities%/interference.SPL~  ~override/%s1%.SPL~
@@ -504,6 +528,7 @@ COPY ~%abilities%/interference.SPL~  ~override/%s1%.SPL~
   SAY UNIDENTIFIED_DESC @211
   WRITE_ASCII 0x3a ~%s1%~ #8
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%~ STR_VAR icon=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=174 opcode=215 target=1 STR_VAR resource=~#GENDIVI~ insert=first END
 
   LPF ALTER_EFFECT INT_VAR header=1 match_opcode=60 parameter1=30 END    // level 10 (casting failure)
   LPF ALTER_EFFECT INT_VAR header=2 match_opcode=60 parameter1=35 END
@@ -562,6 +587,7 @@ END
 OUTER_TEXT_SPRINT starjammer     ~%kitid%~
 OUTER_TEXT_SPRINT interference   ~%s1%~
 OUTER_TEXT_SPRINT riftgatebalor  ~%w8%d~
+OUTER_TEXT_SPRINT riftgategolem  ~%w8%g~
 OUTER_TEXT_SPRINT riftstep       ~%w1%~
 OUTER_TEXT_SPRINT steadycurrent  ~%w2%~
 OUTER_TEXT_SPRINT swapper        ~%w3%~

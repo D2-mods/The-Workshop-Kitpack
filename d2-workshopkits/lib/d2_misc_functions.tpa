@@ -8,6 +8,7 @@ d2_remove_level_headers       PATCH
 d2_subspell_remove_visuals    PATCH
 d2_mc_import_fix              ACTION
 d2_recast_at_interval         ACTION
+d2_remove_effects_on_cast     PATCH
 */
 
 ////////////////////////////////////////////////////////////
@@ -287,6 +288,50 @@ END
 
 
   END
+  END
+
+END
+
+////////////////////////////////////////////////////////////
+
+/*defaults
+resource - file being patched
+spl files - skips globals
+itm files - skips headers
+check all header types by default
+*/
+
+DEFINE_PATCH_FUNCTION d2_remove_effects_on_cast
+  INT_VAR globals=~-1~ headers=~-1~ header_type=~-1~
+  STR_VAR resource=~~ insert=first
+BEGIN
+
+  //prep
+  PATCH_IF (~%resource%~ STR_EQ ~~) BEGIN  TEXT_SPRINT  resource ~%DEST_RES%~ END
+  PATCH_IF (~%resource%~ STR_EQ ~%SOURCE_RES%~) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=EVAL ~%SOURCE_RES%~ END
+  END
+
+  PATCH_IF (globals < 0) BEGIN  PATCH_IF (~%DEST_EXT%~ STR_EQ ~spl~) BEGIN
+      SET globals = 0
+    END ELSE BEGIN
+      SET globals = 1
+    END 
+  END
+
+  PATCH_IF (headers < 0) BEGIN  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+      SET headers = 0
+    END ELSE BEGIN
+      SET headers = 1
+    END
+  END
+
+  //add effect
+  LPF CLONE_EFFECT 
+    INT_VAR silent=1 check_globals=globals check_headers=headers header_type=header_type
+            multi_match=1 opcode=321 parameter1=0 parameter2=0 timing=1 duration=0
+            probability1=100 probability2=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
+    STR_VAR resource=EVAL ~%resource%~  insert=EVAL ~%insert%~
   END
 
 END

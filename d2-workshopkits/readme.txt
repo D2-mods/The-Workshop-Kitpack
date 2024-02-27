@@ -144,6 +144,13 @@ This is how I'd do the install:
 
 Version info:
 
+v4.7.6
+- New projectiles for these spells: Force (Temple Knight), Electrocannon/Interference (Starjammer), Etherbomb Songbook.
+- Powder Keg: for the cloud songs, if effects are decoupled by pausing/unpausing, allies/neutrals should no longer be affected by enemy-only effects (i.e. you can pause/unpause safely inside a Frenzying Flame).
+- Starjammer: Riftgate summon now immune to wing buffet (knockback effects), but not to any damage caused by these spells/attacks. Other adjustments to riftstep/riftgate creatures (movement speed, add/remove immunities, etc.).
+- Blood Minister: Improved effects structure of Blood Transfusion abilities. Will no longer work on undead, golems, or elementals. If cast on a non-ally, it will now display a string that the "recipient refused the Blood Transfusion", unless the target is naturally immune (will get the normal immunity message).
+- Tweaked visuals/sounds for a few other abilities.
+
 v4.7.5
 - Powder Keg changes:
 	- Reduced delay between each use of a song from 10 rounds to 8 rounds.

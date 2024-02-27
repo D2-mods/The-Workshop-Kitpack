@@ -21,6 +21,7 @@ INCLUDE ~%install%/%kitname%stores.tph~
 OUTER_SET evasionchecks = 2
 INCLUDE ~%install%/evasionchecks.tph~
 INCLUDE ~%install%/hbag.tph~
+INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/castingspeedpatch.tph~
 INCLUDE ~%install%/iwditempatch.tph~
 //INCLUDE ~%install%/backupfiles.tph~
