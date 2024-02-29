@@ -83,7 +83,7 @@ Text in this file appears in the game.
 @621 = ~Flash Cast~                  // for Spell Fencer
 
 
-//checks made during install
+//checks made during install (not used anymore)
 @700 = ~Restoration~                 // checked by Blood Minister
 @701 = ~Greater Restoration~         // checked by bleeding effects
 @702 = ~Heal~                        // checked by bleeding effects

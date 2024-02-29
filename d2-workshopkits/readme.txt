@@ -144,6 +144,12 @@ This is how I'd do the install:
 
 Version info:
 
+v4.7.7
+- Fixed a patching error, related to riftstep/riftgate creatures (some equipped effects on their weapons were also added as on-hit effects).
+- Fixed a minor variable issue (prevented patching something with bleeding effects).
+- Improved patching-related stuff (speed and method), while fixing above issues.
+- Minor tweaking of a couple things from last update.
+
 v4.7.6
 - New projectiles for these spells: Force (Temple Knight), Electrocannon/Interference (Starjammer), Etherbomb Songbook.
 - Powder Keg: for the cloud songs, if effects are decoupled by pausing/unpausing, allies/neutrals should no longer be affected by enemy-only effects (i.e. you can pause/unpause safely inside a Frenzying Flame).

@@ -4,9 +4,7 @@ Use for mass patching that attempts a CLONE_EFFECT on every file.
 */
 
 
-ACTION_IF ((nonurse = 0) OR
-           (noconfessor = 0)
-  ) BEGIN
+ACTION_IF ((nonurse = 0) OR (noconfessor = 0)) BEGIN
 
 
 OUTER_SET patch_spell = 0
@@ -32,14 +30,8 @@ COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
   END
 
   PATCH_IF (patch_spell = 1) BEGIN
-    PATCH_IF (nonurse = 0) BEGIN
-      LPF nurse_feeblemind_string END
-    END
-
-    PATCH_IF (noconfessor = 0) BEGIN
-      LPF confessor_entangle_spells END
-    END
-
+    PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
+    PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_spells END END
     SET patch_spell = 0
   END
 
@@ -77,14 +69,8 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
   END
 
   PATCH_IF (patch_item = 1) BEGIN
-    PATCH_IF (nonurse = 0) BEGIN
-      LPF nurse_feeblemind_string END
-    END
-
-    PATCH_IF (noconfessor = 0) BEGIN
-      LPF confessor_entangle_items END
-    END
-
+    PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
+    PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_items  END END
     SET patch_item = 0
   END
 
@@ -116,14 +102,8 @@ COPY_EXISTING_REGEXP GLOB ~.*\.CRE~  ~override~
   END
 
   PATCH_IF (patch_cre = 1) BEGIN
-    PATCH_IF (nonurse = 0) BEGIN
-      LPF nurse_feeblemind_string END
-    END
-
-    PATCH_IF (noconfessor = 0) BEGIN
-      LPF confessor_entangle_items END
-    END
-
+    PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
+    PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_items  END END
     SET patch_cre = 0
   END
 

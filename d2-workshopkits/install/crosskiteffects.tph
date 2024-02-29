@@ -9,7 +9,7 @@ ACTION_IF (nobloodminister = 0) BEGIN
   ACTION_FOR_EACH ~bleeding~ IN ~%confessorbleed%~ ~%crowhunterbleed%~ BEGIN
     ACTION_IF (FILE_EXISTS ~override/%bleeding%.SPL~) BEGIN
       COPY_EXISTING ~%healingbloodregen%.SPL~  ~override~
-        LPF CLONE_EFFECT INT_VAR multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%bleeding%~ END
+        LPF d2_remove_effects_on_cast STR_VAR resource=~%bleeding%~ END
       BUT_ONLY
     END
   END

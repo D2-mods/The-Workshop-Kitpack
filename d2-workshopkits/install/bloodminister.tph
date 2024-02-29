@@ -52,13 +52,14 @@ COPY_EXISTING ~%s1%c.2DA~    ~override/%s1%d.2DA~
 //prep for blood types
 COPY - ~%abilities%/applyeffects.SPL~  ~inlined/d2bloodtype.SPL~
   WRITE_ASCII 0x10 CAS_P07 #8
-  WRITE_SHORT 0x1c 4
+  WRITE_SHORT 0x1c 4    // innate (no "casts" in string message)
+  WRITE_LONG  0x34 0    // level 0 (submenu looks better with Bubb's UI)
   LPF ALTER_SPELL_HEADER INT_VAR speed=1 END
   LPF ALTER_EFFECT INT_VAR parameter2=49 END    // affects allies
   LPF CLONE_EFFECT INT_VAR parameter2=50 END    // affects non-allies
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=324 parameter2=55 END    // undead and golems immune
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=324 parameter2=9 END     // elementals immune
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=324 parameter1=119 parameter2=104 END    // slimes immune
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=324 timing=0 parameter2=55 END    // undead and golems immune
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=324 timing=0 parameter2=9 END     // elementals immune
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=324 timing=0 parameter1=119 parameter2=104 END    // slimes immune
 
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%a.SPL~
   LPF ALTER_EFFECT INT_VAR target=2 STR_VAR resource=~%s2%a~ END
@@ -198,27 +199,18 @@ COPY ~%abilities%/bloodtyped.SPL~  ~override/%s5%a.SPL~
 
 //
 //removed by Restoration or Greater Restoration
-OUTER_SPRINT restoration @700
-COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
-  READ_LONG   0x8 stringref
-  READ_STRREF 0x8 spellname
-  PATCH_IF ((~%SOURCE_RES%~ STRING_EQUAL_CASE ~cdpr417~) OR     // if Lesser Restoration
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr417~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spin581~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ohbresto~) OR    // if Greater Restoration
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr713~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish07~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish46~) OR
-            (stringref = 26226) OR (stringref = 55844) OR (stringref = 35957) OR    // match stringref
-            (stringref = 26310) OR (stringref = 35603) OR (stringref = 36401) OR
-            !(~%spellname%~ STRING_CONTAINS_REGEXP ~%restoration%~)                 // check spell name
-  ) BEGIN
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s2%a~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s3%a~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s4%a~ END
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s5%a~ END
+ACTION_PHP_EACH d2restoration AS spell => type BEGIN
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~restore~) BEGIN    // if 'type' DOES contain 'restore'
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.spl~) BEGIN
+      COPY_EXISTING ~%spell%.spl~  ~override~
+        LPF d2_remove_effects_on_cast STR_VAR resource=~%s2%a~ insert=last END
+        LPF d2_remove_effects_on_cast STR_VAR resource=~%s3%a~ insert=last END
+        LPF d2_remove_effects_on_cast STR_VAR resource=~%s4%a~ insert=last END
+        LPF d2_remove_effects_on_cast STR_VAR resource=~%s5%a~ insert=last END
+      BUT_ONLY
+    END
   END
-BUT_ONLY
+END
 
 
 //

@@ -9,6 +9,7 @@ OUTER_TEXT_SPRINT kitname ~miscitems~
 INCLUDE ~%install%/variables.tph~
 INCLUDE ~%install%/resources.tph~
 INCLUDE ~%install%/spellprep.tph~
+INCLUDE ~%install%/spellprep2.tph~
 
 INCLUDE ~%install%/%kitname%prep.tph~
 INCLUDE ~%install%/%kitname%.tph~

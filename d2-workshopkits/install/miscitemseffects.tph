@@ -1,42 +1,27 @@
 /*
-External effects
+Misc patching (spell interactions, etc.)
 */
 
 
 //Bleeding removed by Heal or Greater Restoration
-OUTER_SPRINT great_rest  @701
-OUTER_SPRINT heal_spell  @702
+ACTION_PHP_EACH d2restoration AS spell => type BEGIN
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~heal~) BEGIN    // if 'type' DOES contain 'heal'
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.spl~) BEGIN
+      COPY_EXISTING ~%spell%.spl~  ~override~
 
-COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
-  READ_LONG   0x8 stringref
-  READ_STRREF 0x8 spellname
-  PATCH_IF ((~%SOURCE_RES%~ STRING_EQUAL_CASE ~ohbresto~) OR    // if Greater Restoration
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr713~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish07~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish46~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~devaheal~) OR    // if Heal
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~senspihe~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spin679~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spin711~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr607~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish28~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish39~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwm168~) OR
-            (stringref = 26310) OR (stringref = 35603) OR (stringref = 36401) OR    // match stringref
-            (stringref = 25931) OR (stringref = 8786) OR
-            (~%spellname%~ STRING_EQUAL_CASE ~%great_rest%~) OR                     // check spell name
-            (~%spellname%~ STRING_EQUAL_CASE ~%heal_spell%~)
-  ) BEGIN
-    // remove Clawmark bleed
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%clawmarkbleed%~ END
+        // remove Clawmark bleed
+        LPF d2_remove_effects_on_cast STR_VAR resource=~%clawmarkbleed%~ insert=last END
 
-    //remove Cruciform bleed
-    PATCH_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
-      LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%bleeding1%~ END
-      LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%bleeding2%~ END
+        //remove Cruciform bleed
+        PATCH_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
+          LPF d2_remove_effects_on_cast STR_VAR resource=~%bleeding1%~ insert=last END
+          LPF d2_remove_effects_on_cast STR_VAR resource=~%bleeding2%~ insert=last END
+        END
+
+      BUT_ONLY
     END
   END
-BUT_ONLY
+END
 
 
 //Healing Blood can remove bleeding effects
@@ -44,7 +29,7 @@ ACTION_IF (FILE_EXISTS ~override/%healingbloodregen%.SPL~) BEGIN
   ACTION_FOR_EACH ~bleeding~ IN ~%bleeding1%~ ~%bleeding2%~ ~%clawmarkbleed%~ BEGIN
     ACTION_IF (FILE_EXISTS ~override/%bleeding%.SPL~) BEGIN
       COPY_EXISTING ~%healingbloodregen%.SPL~  ~override~
-        LPF CLONE_EFFECT INT_VAR multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%bleeding%~ END
+        LPF d2_remove_effects_on_cast STR_VAR resource=~%bleeding%~ END
       BUT_ONLY
     END
   END

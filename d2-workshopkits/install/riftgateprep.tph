@@ -4,16 +4,16 @@ for Riftgate summons
 
 
 //
-//base game spells (set list to always patch)
+//base game spells (set list to always include)
 
 //insect spells
 ACTION_FOR_EACH spell IN ~SPPR319~ ~SPPR517~ ~SPPR717~ BEGIN
-  OUTER_TEXT_SPRINT $d2riftgate(~%spell%~) ~insect~    // ~%SOURCE_RES%~ => insect
+  OUTER_TEXT_SPRINT $d2riftgate(~%spell%~) ~insect~    // ~%spell%~ => insect
 END
 
 //earthquake spells
 ACTION_FOR_EACH spell IN ~SPPR720~ ~ohbquake~ ~SPOGRE01~ BEGIN
-  OUTER_TEXT_SPRINT $d2riftgate(~%spell%~) ~quake~     // ~%SOURCE_RES%~ => quake
+  OUTER_TEXT_SPRINT $d2riftgate(~%spell%~) ~quake~     // ~%spell%~ => quake
 END
 
 
@@ -35,13 +35,22 @@ OUTER_SET golem_array = 0
 
 
 //
+//add spells to d2wkspellprep (excludes from mass spell check)
+ACTION_IF !(FILE_EXISTS ~override/d2wkspellprep~) BEGIN
+<<<<<<<< .../temp/d2wkspellprep
+>>>>>>>>
+COPY ~.../temp/d2wkspellprep~  ~override~
+END
+
+ACTION_PHP_EACH d2riftgate AS spell => type BEGIN  APPEND ~d2wkspellprep~  ~_%spell%_~ END
+
+
+//
 //check for mod spells
-COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~override~
-  PATCH_IF (!(~%SOURCE_RES%~ STR_EQ ~SPPR319~) AND !(~%SOURCE_RES%~ STR_EQ ~SPPR720~) AND
-            !(~%SOURCE_RES%~ STR_EQ ~SPPR517~) AND !(~%SOURCE_RES%~ STR_EQ ~ohbquake~) AND
-            !(~%SOURCE_RES%~ STR_EQ ~SPPR717~) AND !(~%SOURCE_RES%~ STR_EQ ~SPOGRE01~) AND
+COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
+  PATCH_IF (!(RESOURCE_CONTAINS ~d2wkspellprep~  ~_%SOURCE_RES%_~) AND
             !(~%SOURCE_RES%~ STR_EQ ~SPPR728~) AND    // skip implosion
-            !(~%SOURCE_RES%~ STR_EQ ~SAREVEFF~)       // skip Sarevok specials
+            !(~%SOURCE_RES%~ STR_EQ ~SAREVEFF~)       // skip Sarevok special
   ) BEGIN
 
     READ_SHORT 0x68 num_headers
@@ -86,7 +95,7 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~override~
 DEFINE_PATCH_FUNCTION insect_immunity BEGIN
   PHP_EACH d2riftgate AS spell => type BEGIN
     PATCH_IF (~%type%~ STR_EQ ~insect~) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell%~ END
+      LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%spell%~ END
     END
   END
 END
@@ -94,7 +103,7 @@ END
 DEFINE_PATCH_FUNCTION earthquake_immunity BEGIN
   PHP_EACH d2riftgate AS spell => type BEGIN
     PATCH_IF (~%type%~ STR_EQ ~quake~) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell%~ END
+      LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%spell%~ END
     END
   END
 END

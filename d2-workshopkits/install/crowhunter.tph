@@ -28,21 +28,6 @@ COPY ~%passives%/removespell.SPL~    ~override/%e2%a.SPL~
 LAF d2_recast_at_interval STR_VAR spell=~%e2%~ new_spell=~%@2%~ END
 
 
-/*replaced with above
-//remove set snares (if given by multiclass kit)
-COPY ~%abilities%/applyeffects.SPL~  ~override/%e2%.SPL~
-  LPF ALTER_EFFECT STR_VAR resource=~%e2%a~ END
-  LPF CLONE_EFFECT STR_VAR resource=~%e2%e~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%e2%e~ END
-
-COPY ~%passives%/removespell.SPL~    ~override/%e2%a.SPL~
-  LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END
-
-COPY ~%abilities%/applyeffects.SPL~  ~override/%e2%e.SPL~
-  LPF ALTER_EFFECT INT_VAR opcode=366 timing=9 STR_VAR resource=~%e2%a~ END
-*/
-
-
 //Add Splintering Shot
 COPY ~%icons%/calledshot.BAM~           ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@113) STR_VAR bam=~%s1%i~ RET icon END
@@ -89,32 +74,15 @@ COPY ~%abilities%/bleeddamage1.SPL~     ~override/%s1%c.SPL~
 
 
 //Bleeding removed by Heal or Greater Restoration
-OUTER_SPRINT great_rest  @701
-OUTER_SPRINT heal_spell  @702
-
-COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
-  READ_LONG   0x8 stringref
-  READ_STRREF 0x8 spellname
-  PATCH_IF ((~%SOURCE_RES%~ STRING_EQUAL_CASE ~ohbresto~) OR    // if Greater Restoration
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr713~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish07~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish46~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~devaheal~) OR    // if Heal
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~senspihe~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spin679~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spin711~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~sppr607~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish28~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwish39~) OR
-            (~%SOURCE_RES%~ STRING_EQUAL_CASE ~spwm168~) OR
-            (stringref = 26310) OR (stringref = 35603) OR (stringref = 36401) OR    // match stringref
-            (stringref = 25931) OR (stringref = 8786) OR
-            (~%spellname%~ STRING_EQUAL_CASE ~%great_rest%~) OR                     // check spell name
-            (~%spellname%~ STRING_EQUAL_CASE ~%heal_spell%~)
-  ) BEGIN
-    LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_timing=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%b~ END
+ACTION_PHP_EACH d2restoration AS spell => type BEGIN
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~heal~) BEGIN    // if 'type' DOES contain 'heal'
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.spl~) BEGIN
+      COPY_EXISTING ~%spell%.spl~  ~override~
+        LPF d2_remove_effects_on_cast STR_VAR resource=~%s1%b~ insert=last END
+      BUT_ONLY
+    END
   END
-BUT_ONLY
+END
 
 
 //Add Visceral Attack

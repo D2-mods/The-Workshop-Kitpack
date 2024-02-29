@@ -56,28 +56,6 @@ COPY ~%abilities%/medicaldartb.SPL~     ~override/%s1%b.SPL~
   END
 
 
-/*replaced with above
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%a.EFF~    // heal
-  WRITE_ASCII 0x30 ~%s1%a~ #8
-COPY ~%abilities%/medicaldarta.SPL~     ~override/%s1%a.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@307) END    // "Healed"
-  LPF CD_EXTEND-O-MATIC INT_VAR step_size=3 level_cap=15 min_lev_alt=3 END
-  LPF ALTER_EFFECT INT_VAR header=1 match_opcode=17 parameter1=2 END
-  LPF ALTER_EFFECT INT_VAR header=2 match_opcode=17 parameter1=3 END
-  LPF ALTER_EFFECT INT_VAR header=3 match_opcode=17 parameter1=4 END
-  LPF ALTER_EFFECT INT_VAR header=4 match_opcode=17 parameter1=5 END
-
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%b.EFF~    // poison
-  WRITE_ASCII 0x30 ~%s1%b~ #8
-COPY ~%abilities%/medicaldartb.SPL~     ~override/%s1%b.SPL~
-  LPF CD_EXTEND-O-MATIC INT_VAR step_size=3 level_cap=15 min_lev_alt=3 END
-  LPF ALTER_EFFECT INT_VAR header=1 match_opcode=12 parameter1=2 END
-  LPF ALTER_EFFECT INT_VAR header=2 match_opcode=12 parameter1=3 END
-  LPF ALTER_EFFECT INT_VAR header=3 match_opcode=12 parameter1=4 END
-  LPF ALTER_EFFECT INT_VAR header=4 match_opcode=12 parameter1=5 END
-*/
-
-
 //variables
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   OUTER_SET feeblemind = 14407

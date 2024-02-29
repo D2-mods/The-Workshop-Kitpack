@@ -1,0 +1,111 @@
+/*
+prep for later patching
+*/
+
+
+//
+//base game spells (set list to always include)
+
+//lesser restoration
+ACTION_FOR_EACH spell IN ~sppr417~ ~spin581~ ~cdpr417~ BEGIN
+  OUTER_TEXT_SPRINT $d2restoration(~%spell%~) ~restore~    // ~%spell%~ => restore
+END
+
+//greater restoration
+ACTION_FOR_EACH spell IN ~sppr713~ ~spwish07~ ~spwish46~ ~ohbresto~ BEGIN
+  OUTER_TEXT_SPRINT $d2restoration(~%spell%~) ~restoreheal~    // ~%spell%~ => restoreheal
+END
+
+//heal
+ACTION_FOR_EACH spell IN
+  ~sppr607~ ~devaheal~ ~senspihe~ ~spin679~ 
+  ~spin711~ ~spwish28~ ~spwish39~ ~spwm168~ 
+BEGIN
+  OUTER_TEXT_SPRINT $d2restoration(~%spell%~) ~fullheal~    // ~%spell%~ => fullheal
+END
+
+
+//
+//get spell info
+COPY_EXISTING - ~sppr417.spl~  ~~  READ_LONG  0x8  restore_name        // lesser restoration
+COPY_EXISTING - ~sppr713.spl~  ~~  READ_LONG  0x8  restoreheal_name    // greater restoration
+COPY_EXISTING - ~sppr607.spl~  ~~  READ_LONG  0x8  fullheal_name       // heal
+
+
+//
+//add spells to d2wkspellprep (excludes from mass spell check)
+ACTION_IF !(FILE_EXISTS ~override/d2wkspellprep~) BEGIN
+<<<<<<<< .../temp/d2wkspellprep
+>>>>>>>>
+COPY ~.../temp/d2wkspellprep~  ~override~
+END
+
+ACTION_IF !(RESOURCE_CONTAINS ~d2wkspellprep~  ~_sppr713_~) BEGIN
+  ACTION_PHP_EACH d2restoration AS spell => type BEGIN  APPEND ~d2wkspellprep~  ~_%spell%_~ END
+END
+
+
+//
+//check for mod spells
+COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
+  PATCH_IF !(RESOURCE_CONTAINS ~d2wkspellprep~  ~_%SOURCE_RES%_~) BEGIN
+    READ_SHORT 0x68 num_headers
+    PATCH_IF (num_headers > 0) BEGIN
+      READ_LONG 0x8 splname
+      SET check_opcodes = 1
+      SET restore_opcode = 0
+      SET heal_opcode = 0
+
+      //match name (catch clones of spells)
+      PATCH_IF (splname = restore_name) BEGIN
+        TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~restore~    // ~%SOURCE_RES%~ => restore
+        SET check_opcodes = 0
+      END
+
+      PATCH_IF (splname = restoreheal_name) BEGIN
+        TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~restoreheal~    // ~%SOURCE_RES%~ => restoreheal
+        SET check_opcodes = 0
+      END
+
+      PATCH_IF (splname = fullheal_name) BEGIN
+        TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~fullheal~    // ~%SOURCE_RES%~ => fullheal
+        SET check_opcodes = 0
+      END
+
+      PATCH_IF (check_opcodes = 1) BEGIN
+        GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
+        PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
+          GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
+          PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
+            PATCH_IF ((restore_opcode=0) OR (heal_opcode=0)) BEGIN
+              READ_SHORT effect_off opcode                                 // opcode
+              PATCH_IF (opcode = 224) BEGIN
+                SET restore_opcode = 1
+              END
+              PATCH_IF (opcode = 17) BEGIN
+                SET heal_opcode = 1
+              END
+            END
+          END
+        END
+      END
+
+      //
+      PATCH_IF (restore_opcode=1 AND heal_opcode=0) BEGIN
+        TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~restore~    // ~%SOURCE_RES%~ => restore
+      END
+
+      PATCH_IF (restore_opcode=1 AND heal_opcode=1) BEGIN
+        TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~restoreheal~    // ~%SOURCE_RES%~ => restoreheal
+      END
+
+      // does not check all spells with healing opcode (speeds install)
+      // there are only a few spells missed with 100% healing
+
+    END
+  END
+// end inlined COPY
+
+
+/*
+*/

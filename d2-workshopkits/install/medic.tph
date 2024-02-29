@@ -21,10 +21,10 @@ ACTION_PHP_EACH medicspells AS spell => res BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) BEGIN
     COPY_EXISTING ~%spell%.SPL~  ~override/%res%.SPL~
       LPF d2_convert_spell_type INT_VAR type=4 level=1 END
-      WRITE_LONG 0x18 THIS | BIT14
-      WRITE_LONG 0x18 THIS | BIT25                  // no vocal component
-      WRITE_SHORT 0x22 0                            // no cast visuals
-      LPF ALTER_SPELL_HEADER INT_VAR speed=0 END    // casting speed
+      WRITE_LONG 0x18 THIS | BIT14    // ignore wild magic
+      WRITE_LONG 0x18 THIS | BIT25    // ignore silence
+      WRITE_SHORT 0x22 0              // no casting effect
+      LPF ALTER_SPELL_HEADER INT_VAR range=1 speed=0 END
       LPF ALTER_EFFECT INT_VAR power=0 END
       LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=~%SOURCE_RES%~ resource=~%DEST_RES%~ END
       LPF DELETE_EFFECT INT_VAR match_opcode=93 END              // remove fatigue

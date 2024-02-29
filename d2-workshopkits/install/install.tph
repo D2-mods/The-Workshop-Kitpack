@@ -8,6 +8,7 @@ INCLUDE ~%install%/clabprep.tph~
 INCLUDE ~%install%/backstabprep.tph~
 INCLUDE ~%install%/monkprep.tph~
 INCLUDE ~%install%/spellprep.tph~
+INCLUDE ~%install%/spellprep2.tph~
 INCLUDE ~%install%/riftgateprep.tph~
 //INCLUDE ~%install%/usabilitykatanas.tph~
 
