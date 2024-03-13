@@ -394,7 +394,7 @@ A talisman facsimile of a feather. The jade feather rejects death magic of all f
 STATISTICS:
 
 Equipped abilities:
-– Save vs. Spell: +3
+– Hit Points: +8
 – Immunity to petrification
 – Death Ward
 

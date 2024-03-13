@@ -1,145 +1,122 @@
 /*
-Check for missing backstab-related files
-v2.6 should have all 2das in all games, but older versions may not
+Backstab-related stuff, fixes, improvements, etc.
+Set correct Sneak Attack and Crippling Strike values for base-game kits
 */
 
-ACTION_IF !(FILE_EXISTS_IN_GAME ~CRIPPSTR.2DA~) BEGIN
-<<<<<<<< .../temp/CRIPPSTR.2DA
-2DA           V1.0
-0
-              0             1             2             3             4             5             6             7             8             9             10            11            12            13            14            15            16            17            18            19            20            21            22            23            24            25            26            27            28            29            30            31            32            33            34            35            36            37            38            39            40
-THIEF         0             0             0             0             0             1             1             1             1             2             2             2             2             3             3             3             3             4             4             4             4             5             5             5             5             6             6             6             6             7             7             7             7             8             8             8             8             9             9             9             9
-SHADOWDANCER  0             0             0             0             0             0             1             1             1             1             1             1             2             2             2             2             2             2             3             3             3             3             3             3             4             4             4             4             4             4             5             5             5             5             5             5             6             6             6             6             6
-ASSASIN       0             0             0             1             1             1             2             2             2             3             3             3             4             4             4             5             5             5             6             6             6             7             7             7             8             8             8             9             9             9             10            10            10            11            11            11            12            12            12            13            13
-BOUNTY_HUNTER 0             0             0             0             0             1             1             1             1             2             2             2             2             3             3             3             3             4             4             4             4             5             5             5             5             6             6             6             6             7             7             7             7             8             8             8             8             9             9             9             9
-STALKER       0             0             0             0             0             0             0             0             0             0             1             1             1             1             1             1             1             1             2             2             2             2             2             2             2             2             3             3             3             3             3             3             3             3             4             4             4             4             4             4             4
 
->>>>>>>>
-COPY ~.../temp/CRIPPSTR.2DA~  ~override~
+//prep
+INCLUDE ~%install%/backstabcheck.tph~
+
+COPY_EXISTING - ~backstab.2da~  ~~
+  COUNT_2DA_COLS cols
+
+
+//
+//array of backstab values
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2backstab50 BEGIN
+  THIEF          => ~THIEF 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5~
+  SHADOWDANCER   => ~SHADOWDANCER 1 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4~
+  ASSASINBG2     => ~ASSASIN 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5~
+  ASSASINIWD     => ~ASSASIN 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7~
+  BOUNTY_HUNTER  => ~BOUNTY_HUNTER 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5~
+  STALKER        => ~STALKER 1 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4~
 END
 
-ACTION_IF !(FILE_EXISTS_IN_GAME ~SNEAKATT.2DA~) BEGIN
-<<<<<<<< .../temp/SNEAKATT.2DA
-2DA           V1.0
-0
-              0             1             2             3             4             5             6             7             8             9             10            11            12            13            14            15            16            17            18            19            20            21            22            23            24            25            26            27            28            29            30            31            32            33            34            35            36            37            38            39            40
-THIEF         1             1             1             1             2             2             2             2             3             3             3             3             4             4             4             4             5             5             5             5             6             6             6             6             7             7             7             7             8             8             8             8             9             9             9             9             10            10            10            10            11
-SHADOWDANCER  1             1             1             1             1             1             2             2             2             2             2             2             3             3             3             3             3             3             4             4             4             4             4             4             5             5             5             5             5             5             6             6             6             6             6             6             7             7             7             7             7
-ASSASIN       1             1             1             2             2             2             3             3             3             4             4             4             5             5             5             6             6             6             7             7             7             8             8             8             9             9             9             10            10            10            11            11            11            12            12            12            13            13            13            14            14
-BOUNTY_HUNTER 1             1             1             1             2             2             2             2             3             3             3             3             4             4             4             4             5             5             5             5             6             6             6             6             7             7             7             7             8             8             8             8             9             9             9             9             10            10            10            10            11
-STALKER       1             1             1             1             1             1             1             1             2             2             2             2             2             2             2             2             3             3             3             3             3             3             3             3             4             4             4             4             4             4             4             4             5             5             5             5             5             5             5             5             6
-
->>>>>>>>
-COPY ~.../temp/SNEAKATT.2DA~  ~override~
+ACTION_PHP_EACH d2backstab50 AS thief => 50levels BEGIN
+  OUTER_TEXT_SPRINT ~%thief%~  ~%50levels%~
 END
 
-ACTION_IF !(FILE_EXISTS_IN_GAME ~backstab.SPL~) BEGIN
-  COPY ~%files%/backstab.SPL~ ~override~
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  OUTER_TEXT_SPRINT ASSASIN ~%ASSASINIWD%~
+END ELSE BEGIN
+  OUTER_TEXT_SPRINT ASSASIN ~%ASSASINBG2%~
 END
 
 
+//
+//extend base classes to 50, if another mod kit added a line with 50 levels
+ACTION_IF (cols = 52) BEGIN
 
-/*
-fix lines for some Expanded Classes kits (incorrect values or column numbers)
-Fixes an issue when installing a thief kit after these kits, using ADD_KIT_EX.
-*/
+  COPY_EXISTING ~backstab.2DA~ ~override~
+    LPF 2da_find_row_delete STR_VAR row_name = ~THIEF~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~%THIEF%~
+    LPF 2da_find_row_delete STR_VAR row_name = ~SHADOWDANCER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~%SHADOWDANCER%~
+    LPF 2da_find_row_delete STR_VAR row_name = ~ASSASIN~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~%ASSASIN%~
+    LPF 2da_find_row_delete STR_VAR row_name = ~BOUNTY_HUNTER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~%BOUNTY_HUNTER%~
+    LPF 2da_find_row_delete STR_VAR row_name = ~STALKER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~%STALKER%~
+    PRETTY_PRINT_2DA
+  BUT_ONLY
 
-ACTION_IF !(MOD_IS_INSTALLED ~d2-modfixes.tp2~ 2) BEGIN    // skip if d2-modfixes component is installed
-
-//Archer (Thief)
-ACTION_IF (RESOURCE_CONTAINS ~backstab.2da~ ~USAT00~) BEGIN
-  LAF no_backstab  STR_VAR kit = USAT00 END
 END
 
-//Sniper (Thief)
-ACTION_IF (RESOURCE_CONTAINS ~backstab.2da~ ~USSN00~) BEGIN
-  LAF no_backstab  STR_VAR kit = USSN00 END
-END
 
-//Kensai (Thief)
-ACTION_IF (RESOURCE_CONTAINS ~backstab.2da~ ~USKT00~) BEGIN
-  COPY_EXISTING ~BACKSTAB.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USKT00~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USKT00 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4~
+//
+//Set crippstr.2da and sneakatt.2da lines for base-game kits, scaled to level 40 or 50
+ACTION_IF (cols < 52) BEGIN
+
+  COPY_EXISTING ~crippstr.2DA~ ~override~
+    LPF 2da_find_row_delete STR_VAR row_name = ~THIEF~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~THIEF 0 0 0 0 0 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9~
+    LPF 2da_find_row_delete STR_VAR row_name = ~SHADOWDANCER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~SHADOWDANCER 0 0 0 0 0 0 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6~
+    LPF 2da_find_row_delete STR_VAR row_name = ~ASSASIN~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~ASSASIN 0 0 0 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 10 10 10 11 11 11 12 12 12 13 13~
+    LPF 2da_find_row_delete STR_VAR row_name = ~BOUNTY_HUNTER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~BOUNTY_HUNTER 0 0 0 0 0 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9~
+    LPF 2da_find_row_delete STR_VAR row_name = ~STALKER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~STALKER 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4~
     PRETTY_PRINT_2DA
   BUT_ONLY
   
-  COPY_EXISTING ~CRIPPSTR.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USKT00~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USKT00 0 0 0 0 0 0 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6~
+  COPY_EXISTING ~sneakatt.2DA~ ~override~
+    LPF 2da_find_row_delete STR_VAR row_name = ~THIEF~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~THIEF 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9 10 10 10 10 11~
+    LPF 2da_find_row_delete STR_VAR row_name = ~SHADOWDANCER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~SHADOWDANCER 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 7~
+    LPF 2da_find_row_delete STR_VAR row_name = ~ASSASIN~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~ASSASIN 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 10 10 10 11 11 11 12 12 12 13 13 13 14 14~
+    LPF 2da_find_row_delete STR_VAR row_name = ~BOUNTY_HUNTER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~BOUNTY_HUNTER 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9 10 10 10 10 11~
+    LPF 2da_find_row_delete STR_VAR row_name = ~STALKER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~STALKER 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 5 5 5 5 5 5 5 5 6~
     PRETTY_PRINT_2DA
   BUT_ONLY
   
-  COPY_EXISTING ~SNEAKATT.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USKT00~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USKT00 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 7~
-    PRETTY_PRINT_2DA
-  BUT_ONLY
 END
+ELSE BEGIN
 
-//Vampyre
-ACTION_IF (RESOURCE_CONTAINS ~backstab.2da~ ~USVA00~) BEGIN
-  COPY_EXISTING ~BACKSTAB.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USVA00~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USVA00 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2~
+  COPY_EXISTING ~crippstr.2DA~ ~override~
+    LPF 2da_find_row_delete STR_VAR row_name = ~THIEF~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~THIEF 0 0 0 0 0 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9 10 10 10 10 11 11 11 11 12 12~
+    LPF 2da_find_row_delete STR_VAR row_name = ~SHADOWDANCER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~SHADOWDANCER 0 0 0 0 0 0 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 7 7 8 8 8~
+    LPF 2da_find_row_delete STR_VAR row_name = ~ASSASIN~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~ASSASIN 0 0 0 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 10 10 10 11 11 11 12 12 12 13 13 13 14 14 14 15 15 15 16 16 16~
+    LPF 2da_find_row_delete STR_VAR row_name = ~BOUNTY_HUNTER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~BOUNTY_HUNTER 0 0 0 0 0 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9 10 10 10 10 11 11 11 11 12 12~
+    LPF 2da_find_row_delete STR_VAR row_name = ~STALKER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~STALKER 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 5 5 5 5 5 5 5 5 6~
     PRETTY_PRINT_2DA
   BUT_ONLY
   
-  COPY_EXISTING ~CRIPPSTR.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USVA00~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USVA00 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3~
+  COPY_EXISTING ~sneakatt.2DA~ ~override~
+    LPF 2da_find_row_delete STR_VAR row_name = ~THIEF~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~THIEF 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9 10 10 10 10 11 11 11 11 12 12 12 12 13 13 13~
+    LPF 2da_find_row_delete STR_VAR row_name = ~SHADOWDANCER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~SHADOWDANCER 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 7 7 8 8 8 8 8 8 9 9 9~
+    LPF 2da_find_row_delete STR_VAR row_name = ~ASSASIN~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~ASSASIN 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 10 10 10 11 11 11 12 12 12 13 13 13 14 14 14 15 15 15 16 16 16 17 17 17~
+    LPF 2da_find_row_delete STR_VAR row_name = ~BOUNTY_HUNTER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~BOUNTY_HUNTER 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9 10 10 10 10 11 11 11 11 12 12 12 12 13 13 13~
+    LPF 2da_find_row_delete STR_VAR row_name = ~STALKER~ RET row_number columns END
+    INSERT_2DA_ROW row_number columns ~STALKER 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 5 5 5 5 5 5 5 5 6 6 6 6 6 6 6 6 7 7 7~
     PRETTY_PRINT_2DA
   BUT_ONLY
   
-  COPY_EXISTING ~SNEAKATT.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USVA00~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USVA00 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4~
-    PRETTY_PRINT_2DA
-  BUT_ONLY
-END
-
-//Seducer
-ACTION_IF (RESOURCE_CONTAINS ~backstab.2da~ ~USSD77~) BEGIN
-  COPY_EXISTING ~BACKSTAB.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USSD77~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USSD77 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2~
-    PRETTY_PRINT_2DA
-  BUT_ONLY
-  
-  COPY_EXISTING ~CRIPPSTR.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USSD77~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USSD77 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3~
-    PRETTY_PRINT_2DA
-  BUT_ONLY
-  
-  COPY_EXISTING ~SNEAKATT.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USSD77~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USSD77 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4~
-    PRETTY_PRINT_2DA
-  BUT_ONLY
-END
-
-//Shapechanger
-ACTION_IF (RESOURCE_CONTAINS ~backstab.2da~ ~USSC00~) BEGIN
-  COPY_EXISTING ~BACKSTAB.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USSC00~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USSC00 1 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4~
-    PRETTY_PRINT_2DA
-  BUT_ONLY
-  
-  COPY_EXISTING ~CRIPPSTR.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USSC00~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USSC00 0 0 0 0 0 0 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6~
-    PRETTY_PRINT_2DA
-  BUT_ONLY
-  
-  COPY_EXISTING ~SNEAKATT.2DA~ ~override~
-    LPF 2da_find_row_delete STR_VAR row_name = ~USSC00~ RET row_number columns END
-    INSERT_2DA_ROW row_number columns ~USSC00 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 7~
-    PRETTY_PRINT_2DA
-  BUT_ONLY
-END
-
 END
 
 

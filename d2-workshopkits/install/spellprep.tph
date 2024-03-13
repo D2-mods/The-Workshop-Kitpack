@@ -52,5 +52,15 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~cdmindfl.itm~) BEGIN
 END
 
 
+//
+//IWD hla tables (not used, but looks better and files exist)
+ACTION_IF (FILE_EXISTS_IN_GAME ~luabbr.2da~) BEGIN
+  COPY_EXISTING ~luabbr.2da~  ~override~
+    LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_CLERIC entry=FMC END
+    LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_THIEF  entry=FMT END
+  BUT_ONLY
+END
+
+
 /*
 */

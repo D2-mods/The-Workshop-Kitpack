@@ -112,11 +112,17 @@ Spellcasting systems:
 	- Install this mod before 5e casting.
 	- You should also install the extra component related to 5e casting.
 
+--
+
+Talents of Faerun note: Spell components can be installed before or after this mod (I'd personally install them before). Other components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so best to just install everything after.
+
+--
+
 HLA traps/songs:
-- The Crow Hunter and Powder Keg kits need specific handling of HLA traps and songs. 
-- Currently, this mod accounts for Rogue Rebalancing hlas.
-- If you know of any others, let me know and I can add it.
-- Only abilities gained by the base class need to be patched.
+- v4.7.8 update: Crow Hunter can now use any HLA traps (intall order doesn't matter).
+- Powder Keg is compatible with the Rogue Rebalancing HLA song (including Lingering song). Requires patching the rr songs, so this mod needs to be installed after rr.
+- Powder Keg can select the HLA song from Talents of Faerun, but the special ability (to switch songs) will change to the unmodded 'Enhanced Bard Song'. Also, ToF's "Lingering Song" feat will work with the HLA song, but it does not affect Powder Keg songs.
+- Powder Keg is untested with other mod-added HLA songs (if any exist).
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -143,6 +149,21 @@ This is how I'd do the install:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v4.7.8
+- Compatibility fix for EEex (v0.10.0-alpha and later):
+	- Some kits had broken effects due to a change in recent EEex versions.
+	- All kit abilities are fixed now. The affected kits were the ones with special amulet effects (i.e. Beast Hunter and hunter badges).
+	- as a side effect: these item effects will now work even with custom multiclass kits.
+- Crow Hunter updates:
+	- Damage bonus vs. humans/humanoids now starts at +1, increases to +2 at level 5, and +3 at level 10. For multiclasses, it upgrades with thief level only (not average level of classes).
+	- Multiclass variants will now gain Visceral attack at the correct levels (9, 13, and 18).
+	- Visceral Attack is now more likely to roll in the upper range of the damage roll. This makes it a little better for mage/thief or single class.
+	- Can now use any mod-added traps (i.e. Talents of Faerun HLAs), even if installed after this mod. Must be Thief level 14 or higher.
+	- Bonus effect from the Crowfeather Cloak item will now work with custom multiclass kits.
+- Other:
+	- Beast Hunter: Added an extra effect for the Old Hunter Badge amulet. When using Hunter Tools, the character will never roll a critical miss (with melee attacks).
+	- Jade Feather: This now gives a +8 bonus to max HP (basically an extra roll of HP for monks). This replaces the +3 bonus to Save vs. Spell.
 
 v4.7.7
 - Fixed a patching error, related to riftstep/riftgate creatures (some equipped effects on their weapons were also added as on-hit effects).

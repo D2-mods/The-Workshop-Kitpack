@@ -228,7 +228,7 @@ Crow Hunter (Thief)
 CROW HUNTER: A Crow Hunter acts swiftly and mercilessly against the chosen mark. This is a Hunter of Hunters, an experienced killer, and feared, though not necessarily cruel or evil, despite the unsavoriness of the work.
 
 Advantages:
-– +3 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races.
+– +1 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races. The bonus increases to +2 at level 5 and +3 at level 10.
 – 4th level: May use the Splintering Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
 SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.

@@ -74,6 +74,9 @@ ACTION_IF (FILE_EXISTS ~override/d2wkas2.SPL~) BEGIN
   OUTER_TEXT_SPRINT visceralattack  ~d2wkas2~
   OUTER_TEXT_SPRINT visceralhaste   ~d2wkas2a~
   OUTER_TEXT_SPRINT visceralremove  ~d2wkas2b~
+  OUTER_TEXT_SPRINT crowdamage1     ~d2wkae1~
+  OUTER_TEXT_SPRINT crowdamage2     ~d2wkae7~
+  OUTER_TEXT_SPRINT crowdamage3     ~d2wkae8~
 
   COPY_EXISTING - ~kit.ids~ ~~
     COUNT_REGEXP_INSTANCES ~D2CROWHUNTERFT~   crowhunterft

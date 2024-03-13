@@ -7,7 +7,7 @@ This file adds all abilities to make the badges work.
 ACTION_IF (nobeasthunter = 0) BEGIN
 
 
-//EFF every 3 seconds on Fire Weapon (op272)
+//add effects to Hunter Tools (op177 and op272)
   COPY_EXISTING ~%s1%.SPL~  ~override~
     LPF CLONE_EFFECT 
       INT_VAR check_globals=0 multi_match=1 match_timing=0 opcode=272 parameter1=3 parameter2=3 duration=67
@@ -22,301 +22,109 @@ ACTION_IF (nobeasthunter = 0) BEGIN
   BUT_ONLY
 
 
-//Spark Hunter effects
-  COPY ~%abilities%/castspellself.EFF~  ~override/%s1%a.EFF~
-    WRITE_ASCII 0x30 ~%s1%a~ #8
-  COPY ~%abilities%/useeffonkit.SPL~    ~override/%s1%a.SPL~
-    LPF ALTER_EFFECT 
-      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
-      STR_VAR resource=~%m1%s~ 
-    END
-    PATCH_IF (beasthunterfm > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
-      END
-    END
-    PATCH_IF (beasthunterfmc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
-      END
-    END
-    PATCH_IF (beasthunterfc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
-      END
-    END
-    LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m1%e~ END
-    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%a~ END
+//
+//subspells (apply amulet effect)
+ACTION_DEFINE_ASSOCIATIVE_ARRAY hunter_badge_array BEGIN
+  ~%s1%a~   => ~%m1%~
+  ~%s1%b~   => ~%m2%~
+  ~%s1%c~   => ~%m3%~
+  ~%s1%d~   => ~%m4%~
+  ~%s1%e~   => ~%m5%~
+  ~%s1%f~   => ~%m6%~
+END
 
-//Radiant Sword effects
-  COPY ~%abilities%/castspellself.EFF~  ~override/%s1%b.EFF~
-    WRITE_ASCII 0x30 ~%s1%b~ #8
-  COPY ~%abilities%/useeffonkit.SPL~    ~override/%s1%b.SPL~
-    LPF ALTER_EFFECT 
-      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
-      STR_VAR resource=~%m2%s~ 
-    END
-    PATCH_IF (beasthunterfm > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
-      END
-    END
-    PATCH_IF (beasthunterfmc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
-      END
-    END
-    PATCH_IF (beasthunterfc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
-      END
-    END
-    LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m2%e~ END
-    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%b~ END
+ACTION_PHP_EACH hunter_badge_array AS subspell => amulet BEGIN
 
-//Cosmic Watcher effects
-  COPY ~%abilities%/castspellself.EFF~  ~override/%s1%c.EFF~
-    WRITE_ASCII 0x30 ~%s1%c~ #8
-  COPY ~%abilities%/useeffonkit.SPL~    ~override/%s1%c.SPL~
-    LPF ALTER_EFFECT 
-      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
-      STR_VAR resource=~%m3%s~ 
-    END
-    PATCH_IF (beasthunterfm > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
-      END
-    END
-    PATCH_IF (beasthunterfmc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
-      END
-    END
-    PATCH_IF (beasthunterfc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
-      END
-    END
-    LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m3%e~ END
-    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%c~ END
+  COPY ~%abilities%/castspellself.EFF~  ~override/%subspell%.EFF~
+    WRITE_ASCII 0x30 ~%subspell%~ #8
+  COPY ~%abilities%/applyeffects.SPL~   ~override/%subspell%.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%amulet%e~ END
+    LPF CLONE_EFFECT STR_VAR resource=~%amulet%x~ END
+    LPF d2_remove_effects_on_cast STR_VAR resource=~%amulet%e~ END    // remove amulet effects
 
-//Powder Keg effects
-  COPY ~%abilities%/castspellself.EFF~  ~override/%s1%d.EFF~
-    WRITE_ASCII 0x30 ~%s1%d~ #8
-  COPY ~%abilities%/useeffonkit.SPL~    ~override/%s1%d.SPL~
-    LPF ALTER_EFFECT 
-      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
-      STR_VAR resource=~%m4%s~ 
-    END
-    PATCH_IF (beasthunterfm > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
-      END
-    END
-    PATCH_IF (beasthunterfmc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
-      END
-    END
-    PATCH_IF (beasthunterfc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
-      END
-    END
-    LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m4%e~ END
-    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%d~ END
+  COPY ~%abilities%/hiteffectmelee.SPL~  ~override/%amulet%e.SPL~     // subspell casts amulet effect
+    LPF ALTER_EFFECT INT_VAR duration=7 STR_VAR resource=~%amulet%a~ END
 
-//Saw Hunter effects
-  COPY ~%abilities%/castspellself.EFF~  ~override/%s1%e.EFF~
-    WRITE_ASCII 0x30 ~%s1%e~ #8
-  COPY ~%abilities%/useeffonkit.SPL~    ~override/%s1%e.SPL~
-    LPF ALTER_EFFECT 
-      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
-      STR_VAR resource=~%m5%s~ 
-    END
-    PATCH_IF (beasthunterfm > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
-      END
-    END
-    PATCH_IF (beasthunterfmc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
-      END
-    END
-    PATCH_IF (beasthunterfc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
-      END
-    END
-    LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m5%e~ END
-    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%e~ END
+  COPY ~%abilities%/opcode318.SPL~       ~override/%amulet%x.SPL~     // subspell blocks amulet effect
+    LPF ALTER_EFFECT STR_VAR resource=~%amulet%e~ END
 
-//Old Hunter effects
-  COPY ~%abilities%/castspellself.EFF~  ~override/%s1%f.EFF~
-    WRITE_ASCII 0x30 ~%s1%f~ #8
-  COPY ~%abilities%/useeffonkit.SPL~    ~override/%s1%f.SPL~
-    LPF ALTER_EFFECT 
-      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%~)
-      STR_VAR resource=~%m6%s~ 
-    END
-    PATCH_IF (beasthunterfm > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FM~)
-      END
-    END
-    PATCH_IF (beasthunterfmc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FMC~)
-      END
-    END
-    PATCH_IF (beasthunterfc > 0) BEGIN
-      LPF CLONE_EFFECT 
-        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2%kitname%FC~)
-      END
-    END
-    LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%m6%e~ END
-    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%s1%f~ END
+END
 
 
-//Remove effects unless badge is equipped
+//
+//install item files
 
-/*
-NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amulets)
-*/
-
-  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m1%s.EFF~
-    WRITE_ASCII 0x30 ~%m1%~ #8
-    WRITE_ASCII 0x70 ~%m1%x~ #8
-  COPY ~%abilities%/castspellself.EFF~       ~override/%m1%x.EFF~
-    WRITE_ASCII 0x30 ~%m1%x~ #8
-  COPY ~%abilities%/removespelleffects.SPL~  ~override/%m1%x.SPL~
-    LPF ALTER_EFFECT STR_VAR resource=~%s1%a~ END
-
-  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m2%s.EFF~
-    WRITE_ASCII 0x30 ~%m2%~ #8
-    WRITE_ASCII 0x70 ~%m2%x~ #8
-  COPY ~%abilities%/castspellself.EFF~       ~override/%m2%x.EFF~
-    WRITE_ASCII 0x30 ~%m2%x~ #8
-  COPY ~%abilities%/removespelleffects.SPL~  ~override/%m2%x.SPL~
-    LPF ALTER_EFFECT STR_VAR resource=~%s1%b~ END
-
-  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m3%s.EFF~
-    WRITE_ASCII 0x30 ~%m3%~ #8
-    WRITE_ASCII 0x70 ~%m3%x~ #8
-  COPY ~%abilities%/castspellself.EFF~       ~override/%m3%x.EFF~
-    WRITE_ASCII 0x30 ~%m3%x~ #8
-  COPY ~%abilities%/removespelleffects.SPL~  ~override/%m3%x.SPL~
-    LPF ALTER_EFFECT STR_VAR resource=~%s1%c~ END
-
-  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m4%s.EFF~
-    WRITE_ASCII 0x30 ~%m4%~ #8
-    WRITE_ASCII 0x70 ~%m4%x~ #8
-  COPY ~%abilities%/castspellself.EFF~       ~override/%m4%x.EFF~
-    WRITE_ASCII 0x30 ~%m4%x~ #8
-  COPY ~%abilities%/removespelleffects.SPL~  ~override/%m4%x.SPL~
-    LPF ALTER_EFFECT STR_VAR resource=~%s1%d~ END
-
-  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m5%s.EFF~
-    WRITE_ASCII 0x30 ~%m5%~ #8
-    WRITE_ASCII 0x70 ~%m5%x~ #8
-  COPY ~%abilities%/castspellself.EFF~       ~override/%m5%x.EFF~
-    WRITE_ASCII 0x30 ~%m5%x~ #8
-  COPY ~%abilities%/removespelleffects.SPL~  ~override/%m5%x.SPL~
-    LPF ALTER_EFFECT STR_VAR resource=~%s1%e~ END
-
-  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m6%s.EFF~
-    WRITE_ASCII 0x30 ~%m6%~ #8
-    WRITE_ASCII 0x70 ~%m6%x~ #8
-  COPY ~%abilities%/castspellself.EFF~       ~override/%m6%x.EFF~
-    WRITE_ASCII 0x30 ~%m6%x~ #8
-  COPY ~%abilities%/removespelleffects.SPL~  ~override/%m6%x.SPL~
-    LPF ALTER_EFFECT STR_VAR resource=~%s1%f~ END
-
-
-//Melee hit effect (op248), or self-buff
-  COPY ~%abilities%/hiteffectmelee.EFF~  ~override/%m1%e.EFF~    // Spark Hunter
-    WRITE_LONG 0x28 7
-    WRITE_ASCII 0x30 ~%m1%a~ #8
-  COPY ~%abilities%/hiteffectmelee.EFF~  ~override/%m2%e.EFF~    // Radiant Sword
-    WRITE_LONG 0x28 7
-    WRITE_ASCII 0x30 ~%m2%a~ #8
-  COPY ~%abilities%/hiteffectmelee.EFF~  ~override/%m3%e.EFF~    // Cosmic Watcher
-    WRITE_LONG 0x28 7
-    WRITE_ASCII 0x30 ~%m3%a~ #8
-  COPY ~%abilities%/hiteffectmelee.EFF~  ~override/%m4%e.EFF~    // Powder Keg
-    WRITE_LONG 0x28 7
-    WRITE_ASCII 0x30 ~%m4%a~ #8
-  COPY ~%abilities%/hiteffectmelee.EFF~  ~override/%m5%e.EFF~    // Saw Hunter
-    WRITE_LONG 0x28 7
-    WRITE_ASCII 0x30 ~%m5%a~ #8
-  COPY ~%abilities%/castspellself.EFF~   ~override/%m6%e.EFF~    // Old Hunter (self-buff)
-    WRITE_ASCII 0x30 ~%m6%a~ #8
-
-
-//Install item files
-
-//Spark Hunter Badge
-  COPY ~%files%/badge_spark.EFF~       ~override/%m1%a.EFF~
-  COPY ~%files%/badge_spark.ITM~       ~override/%m1%.ITM~
+  // spark hunter badge
+  COPY ~%files%/badge_spark.EFF~  ~override/%m1%a.EFF~
+  COPY ~%files%/badge_spark.ITM~  ~override/%m1%.ITM~
     SAY NAME1 @70101 SAY UNIDENTIFIED_DESC @70201
     SAY NAME2 @70101 SAY DESC @70201
     WRITE_ASCII 0x3a ~IAMUL22~ #8    // icon
     WRITE_ASCII 0x58 ~CAMUL22~ #8    // description image
+    LPF d2_protect_on_castequip STR_VAR resource=~%m1%x~ END
 
-//Radiant Sword Badge
-  COPY ~%files%/badge_radianta.EFF~    ~override/%m2%a.EFF~
+  // radiant sword badge
+  COPY ~%files%/badge_radianta.EFF~  ~override/%m2%a.EFF~
     WRITE_ASCII 0x30 ~%m2%b~ #8
-  COPY ~%files%/badge_radiantb.EFF~    ~override/%m2%b.EFF~
-  COPY ~%files%/badge_radiant.ITM~     ~override/%m2%.ITM~
+  COPY ~%files%/badge_radiantb.EFF~  ~override/%m2%b.EFF~
+  COPY ~%files%/badge_radiant.ITM~   ~override/%m2%.ITM~
     SAY NAME1 @70102 SAY UNIDENTIFIED_DESC @70202
     SAY NAME2 @70102 SAY DESC @70202
     WRITE_ASCII 0x3a ~IAMUL15~ #8    // icon
     WRITE_ASCII 0x58 ~CMISCAD~ #8    // description image
+    LPF d2_protect_on_castequip STR_VAR resource=~%m2%x~ END
+
+    //IWD: charm immunity 
     PATCH_IF (GAME_IS ~iwdee~) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 match_timing=2 opcode=101 parameter2=5 END    // charm immunity
+      LPF CLONE_EFFECT INT_VAR multi_match=1 match_timing=2 opcode=101 parameter2=5 END
       LPF cd_apply_batch STR_VAR array_name = cd_immunity_charm_arrays END
       LPF DELETE_EFFECT INT_VAR match_opcode=267 END
       LPF d2_string_immunities END
     END
 
-//Cosmic Watcher Badge
-  COPY ~%icons%/badge_cosmic.BAM~      ~override/%m3%c.BAM~
-  COPY ~%files%/badge_cosmic.EFF~      ~override/%m3%a.EFF~
-  COPY ~%files%/badge_cosmic.ITM~      ~override/%m3%.ITM~
+  // cosmic watcher badge
+  COPY ~%icons%/badge_cosmic.BAM~  ~override/%m3%c.BAM~
+  COPY ~%files%/badge_cosmic.EFF~  ~override/%m3%a.EFF~
+  COPY ~%files%/badge_cosmic.ITM~  ~override/%m3%.ITM~
     SAY NAME1 @70103 SAY UNIDENTIFIED_DESC @70203
     SAY NAME2 @70103 SAY DESC @70203
     WRITE_ASCII 0x3a ~IAMUL23~ #8    // icon
-    WRITE_ASCII 0x58 ~%m3%c~ #8    // description image
+    WRITE_ASCII 0x58 ~%m3%c~ #8      // description image
+    LPF d2_protect_on_castequip STR_VAR resource=~%m3%x~ END
 
-//Powder Keg Badge
-  COPY ~%files%/badge_pkeg.EFF~        ~override/%m4%a.EFF~
-  COPY ~%files%/badge_pkeg.ITM~        ~override/%m4%.ITM~
+  // powder keg badge
+  COPY ~%files%/badge_pkeg.EFF~  ~override/%m4%a.EFF~
+  COPY ~%files%/badge_pkeg.ITM~  ~override/%m4%.ITM~
     SAY NAME1 @70104 SAY UNIDENTIFIED_DESC @70204
     SAY NAME2 @70104 SAY DESC @70204
     WRITE_ASCII 0x3a ~IAMUL25~ #8    // icon
     WRITE_ASCII 0x58 ~CAMUL25~ #8    // description image
+    LPF d2_protect_on_castequip STR_VAR resource=~%m4%x~ END
 
-//Saw Hunter Badge
-  COPY ~%icons%/badge_sawhunter.BAM~   ~override/%m5%i.BAM~
-  COPY ~%files%/badge_sawhunter.EFF~   ~override/%m5%a.EFF~
-  COPY ~%files%/badge_sawhunter.ITM~   ~override/%m5%.ITM~
+  // saw hunter badge
+  COPY ~%icons%/badge_sawhunter.BAM~  ~override/%m5%i.BAM~
+  COPY ~%files%/badge_sawhunter.EFF~  ~override/%m5%a.EFF~
+  COPY ~%files%/badge_sawhunter.ITM~  ~override/%m5%.ITM~
     SAY NAME1 @70129 SAY UNIDENTIFIED_DESC @70229
     SAY NAME2 @70129 SAY DESC @70229
     WRITE_ASCII 0x3a ~%m5%i~ #8      // icon
     WRITE_ASCII 0x58 ~CMISC7R~ #8    // description image
+    LPF d2_protect_on_castequip STR_VAR resource=~%m5%x~ END
 
-//Old Hunter Badge
-  COPY ~%files%/badge_oldhunter.SPL~   ~override/%m6%a.SPL~
-    LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m6%a~ END
-  COPY ~%files%/badge_oldhunter.ITM~   ~override/%m6%.ITM~
+  // old hunter badge
+  COPY ~%files%/badge_oldhunter.ITM~  ~override/%m6%.ITM~
     SAY NAME1 @70130 SAY UNIDENTIFIED_DESC @70230
     SAY NAME2 @70130 SAY DESC @70230
     WRITE_ASCII 0x3a ~IAMUL20~ #8    // icon
     WRITE_ASCII 0x58 ~PAMUL27~ #8    // description image
+    LPF d2_protect_on_castequip STR_VAR resource=~%m6%x~ END
+
+  COPY ~%files%/badge_oldhunter.SPL~   ~override/%m6%e.SPL~
+    LPF DELETE_EFFECT INT_VAR match_opcode=321 END    // not needed (removed from main subspell)
 
 
-//Abilities for creating hunter badges (given by scripting)
+//
+//Craft hunter badges
   COPY ~%abilities%/giveitem1use.SPL~  ~override/%m1%g.SPL~
     SAY NAME1 @611
     SAY UNIDENTIFIED_DESC @221
@@ -354,6 +162,7 @@ NOTE: op182 applies resource 2 UNLESS resource1 is equipped (only works with amu
     LPF ALTER_EFFECT INT_VAR match_opcode=172 STR_VAR resource=~%m6%g~ END
 
 
+//
 //Set variables for external use
   OUTER_TEXT_SPRINT badge_spark         ~%m1%~
   OUTER_TEXT_SPRINT badge_radiant       ~%m2%~

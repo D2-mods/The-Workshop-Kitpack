@@ -45,9 +45,9 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
   ~%#a%~  => 40
   ~%#b%~  => 44
   ~%#c%~  => 48
-  ~%!1%~  => 11    // visceral attack
-  ~%!2%~  => 15
-  ~%!3%~  => 19
+  ~%!1%~  => 9    // visceral attack
+  ~%!2%~  => 13
+  ~%!3%~  => 18
 END
 
 
@@ -63,6 +63,9 @@ COPY ~inlined/d2clab.2DA~  ~override/%crowhunter%T.2DA~
   LPF d2_kit_ability_adder INT_VAR level=9 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR level=13 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR level=18 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 STR_VAR resource=~%e7%~ END
+  LPF d2_kit_ability_adder INT_VAR level=10 passive=1 STR_VAR resource=~%e8%~ END
+  LPF d2_kit_ability_adder INT_VAR level=14 passive=1 STR_VAR resource=~%e3%~ END    // for hla traps
 
   //prevent gaining/using traps (multiclass kits)
   LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%@2%~ END
@@ -92,34 +95,6 @@ LAF ADD_KIT_EX
     clascolr = ~93 182 136 184 93~              // use Stalker colors
   RET 
     kit_id
-END
-
-
-//Give 100 Set Traps when using HLA traps
-
-/*
-Works when used from EFF file.
-Does not work from SPL file (if set to 0 in thiefscl.2DA)
-*/
-
-ACTION_FOR_EACH ~trap~ IN ~SPCL910~ ~SPCL911~ ~SPCL912~ ~RR#THL04~ BEGIN
-
-  ACTION_IF (FILE_EXISTS_IN_GAME ~%trap%.SPL~) BEGIN
-    COPY_EXISTING ~%trap%.SPL~  ~override~
-      LPF CLONE_EFFECT
-        INT_VAR
-          multi_match   = 1
-          opcode        = 177
-          target        = 1
-          timing        = 1
-          parameter1    = IDS_OF_SYMBOL (kit ~D2%kitname%FMT~)
-          parameter2    = 9
-        STR_VAR
-          resource      = ~%e3%~
-      END
-    BUT_ONLY
-  END
-
 END
 
 

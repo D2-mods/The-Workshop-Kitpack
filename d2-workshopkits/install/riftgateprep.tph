@@ -73,7 +73,7 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
 
       //add to d2riftgate array
       PATCH_IF ((splname = insectspell_name) OR (splname = insectswarm_name) OR
-                (splproj = insectspell_proj) OR (splname = insectswarm_proj)
+                (splproj = insectspell_proj) OR (splproj = insectswarm_proj)
       ) BEGIN
         TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~insect~    // ~%SOURCE_RES%~ => insect
       END

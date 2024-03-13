@@ -2,7 +2,14 @@
 
 
 //Add passive effects
-COPY ~%passives%/useeff.SPL~          ~override/%e1%.SPL~
+COPY ~%passives%/damagevstype.SPL~  ~override/%e1%.SPL~
+  LPF ALTER_EFFECT INT_VAR parameter2=4 special=3 END
+  LPF ALTER_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (race ~demonic~) END        // +3 vs. demonic
+  LPF CLONE_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (race ~lycanthrope~) END    // +3 vs. lycanthropes
+
+
+/*replaced
+COPY ~%passives%/useeff.SPL~  ~override/%e1%.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%b~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%c~ END
@@ -16,6 +23,7 @@ COPY ~%passives%/attackvstype3.EFF~   ~override/%e1%c.EFF~
   WRITE_LONG 0x1c IDS_OF_SYMBOL (race ~lycanthrope~)
 COPY ~%passives%/damagevstype3.EFF~   ~override/%e1%d.EFF~
   WRITE_LONG 0x1c IDS_OF_SYMBOL (race ~lycanthrope~)
+*/
 
 
 //Add Hunter Tools (previously Fire Weapon)

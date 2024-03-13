@@ -62,6 +62,9 @@ COPY - ~inlined/d2clab_mage~  ~inlined/d2clab_sorcerer~
 //thief
 COPY_EXISTING - ~CLABTH01.2DA~  ~inlined/d2clab_thief~
   LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
+COPY - ~inlined/d2clab_thief~   ~inlined/d2clab_thief_notraps~
+  REPLACE_TEXTUALLY ~GA_SPCL412~  ~****~    // remove traps
+  REPLACE_TEXTUALLY ~AP_D5CL412~  ~****~    // remove traps (subtledoctor)
 
 //bard
 COPY_EXISTING - ~CLABBA01.2DA~  ~inlined/d2clab_bard~

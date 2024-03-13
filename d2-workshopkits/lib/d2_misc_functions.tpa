@@ -297,6 +297,7 @@ END
 
 //simplifies adding op321 to spells/items
 //if no variables are set, will remove effects of current resource on cast/equip
+//can optionally set 'cre_type' variable to affect specific creature type
 
 /*defaults
 resource - file being patched
@@ -309,6 +310,7 @@ adds as first effect in stack
 
 DEFINE_PATCH_FUNCTION d2_remove_effects_on_cast
   INT_VAR globals=~-1~ headers=~-1~ header_type=~-1~ match_opcode=~-1~
+          cre_type=0
   STR_VAR resource=~~ insert=first
 BEGIN
 
@@ -337,7 +339,7 @@ BEGIN
   //add effect
   LPF CLONE_EFFECT 
     INT_VAR check_globals=globals check_headers=headers header_type=header_type match_opcode=match_opcode
-            silent=1 multi_match=1 opcode=321 parameter1=0 parameter2=0 timing=1 duration=0
+            silent=1 multi_match=1 opcode=321 parameter1=0 parameter2=cre_type timing=1 duration=0
             probability1=100 probability2=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
     STR_VAR resource=EVAL ~%resource%~  insert=EVAL ~%insert%~
   END
@@ -347,7 +349,8 @@ END
 ////////////////////////////////////////////////////////////
 
 //variation of above function (protect instead of remove effect)
-//more general version of d2_safe_spell
+//more general version of d2_safe_spell (can protect from itself or other spells)
+//can optionally set 'cre_type' variable to affect specific creature type
 
 /*opcode and timing
 opcode must be 318 or 324 (defaults to 318 if not)
@@ -357,7 +360,7 @@ CRE effects are automatically set to timing=9 (permanent)
 */
 
 /*defaults
-no resource
+resource - file being patched
 spl files - skips globals
 itm files - skips headers
 check all header types (always for SPL, can set to specific for ITM)
@@ -367,11 +370,12 @@ adds as LAST effect in stack
 
 DEFINE_PATCH_FUNCTION d2_protect_on_castequip
   INT_VAR globals=~-1~ headers=~-1~ header_type=~-1~ match_opcode=~-1~
-          opcode=318 timing=0 duration=6
+          opcode=318 timing=0 duration=6 cre_type=0
   STR_VAR resource=~~ insert=last
 BEGIN
 
   //prep
+  PATCH_IF (~%resource%~ STR_EQ ~~) BEGIN  TEXT_SPRINT  resource ~%DEST_RES%~ END
   PATCH_IF (~%resource%~ STR_EQ ~%SOURCE_RES%~) BEGIN
     LPF DELETE_EFFECT INT_VAR match_opcode=318 STR_VAR match_resource=EVAL ~%SOURCE_RES%~ END
     LPF DELETE_EFFECT INT_VAR match_opcode=324 STR_VAR match_resource=EVAL ~%SOURCE_RES%~ END
@@ -404,7 +408,7 @@ BEGIN
   PATCH_IF (globals = 1) BEGIN
     LPF CLONE_EFFECT 
       INT_VAR check_globals=1 check_headers=0 header_type=header_type match_opcode=match_opcode
-              silent=1 multi_match=1 opcode=opcode parameter1=0 parameter2=0 timing=gtiming duration=gduration
+              silent=1 multi_match=1 opcode=opcode parameter1=0 parameter2=cre_type timing=gtiming duration=gduration
               probability1=100 probability2=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
       STR_VAR resource=EVAL ~%resource%~  insert=EVAL ~%insert%~
     END
@@ -413,7 +417,7 @@ BEGIN
   PATCH_IF (headers = 1) BEGIN
     LPF CLONE_EFFECT 
       INT_VAR check_globals=0 check_headers=1 header_type=header_type match_opcode=match_opcode
-              silent=1 multi_match=1 opcode=opcode parameter1=0 parameter2=0 timing=htiming duration=hduration
+              silent=1 multi_match=1 opcode=opcode parameter1=0 parameter2=cre_type timing=htiming duration=hduration
               probability1=100 probability2=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
       STR_VAR resource=EVAL ~%resource%~  insert=EVAL ~%insert%~
     END

@@ -15,12 +15,6 @@ COPY ~%files%/crowfeather.ITM~  ~override/%m1%.ITM~
 
 ACTION_IF (FILE_EXISTS ~override/%visceralattack%.SPL~) BEGIN
 
-  // add repeating effect to item
-  COPY_EXISTING ~%m1%.ITM~  ~override~
-    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=272 parameter1=3 parameter2=3 STR_VAR resource=~%m1%e~ END
-  BUT_ONLY
-
-  // add cloak effect to op321 lists (remove effects)
   COPY_EXISTING ~%visceralattack%.SPL~  ~override~
     LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m1%a~ END
   BUT_ONLY
@@ -29,32 +23,45 @@ ACTION_IF (FILE_EXISTS ~override/%visceralattack%.SPL~) BEGIN
     LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m1%a~ END
   BUT_ONLY
 
-  // add cloak subspells
-  COPY ~%abilities%/castspellself.EFF~  ~override/%m1%e.EFF~
-    WRITE_ASCII 0x30 ~%m1%e~ #8
-  COPY ~%abilities%/applyeffects.SPL~   ~override/%m1%e.SPL~
-    LPF ALTER_EFFECT INT_VAR probability1=5   STR_VAR resource=~%m1%a~ END    // 5% chance
-    LPF CLONE_EFFECT INT_VAR probability1=100 STR_VAR resource=~%m1%x~ END
-    LPF d2_remove_effects_on_cast STR_VAR resource=~%m1%a~ END                // remove amulet effects
-
-  COPY_EXISTING ~%visceralattack%.SPL~  ~override/%m1%a.SPL~     // subspell casts amulet effect
+  COPY ~%abilities%/castspellself.EFF~  ~override/%m1%a.EFF~
+    WRITE_ASCII 0x30 ~%m1%a~ #8
+  COPY_EXISTING ~%visceralattack%.SPL~  ~override/%m1%a.SPL~
     LPF d2_subspell_remove_visuals END    // remove visuals
     WRITE_LONG 0x8 ~-1~                   // remove spell name
-    LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=248 STR_VAR resource=~%m1%b~ END
 
-  COPY ~%abilities%/opcode318.SPL~      ~override/%m1%x.SPL~     // subspell blocks amulet effect
-    LPF ALTER_EFFECT STR_VAR resource=~%m1%a~ END
+  COPY_EXISTING ~%m1%.ITM~  ~override~    // add repeating effect
+    LPF CLONE_EFFECT 
+      INT_VAR multi_match=1 opcode=272 parameter1=3 parameter2=3
+      STR_VAR resource=~%m1%e~
+    END
+  BUT_ONLY
 
-  COPY ~%abilities%/applyeffects.EFF~  ~override/%m1%b.EFF~      // "Visceral Attack"
-    WRITE_LONG 0x10 139
-    WRITE_LONG 0x1c RESOLVE_STR_REF (@114)
-
-  // Crow Hunter can use cloak ability
-  ACTION_FOR_EACH crowbonus IN ~%crowdamage1%~ ~%crowdamage2%~ ~%crowdamage3%~ BEGIN
-    COPY_EXISTING ~%crowbonus%.SPL~  ~override~
-      LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%m1%x~ END
-    BUT_ONLY
-  END
+  COPY ~%abilities%/castspellself.EFF~  ~override/%m1%e.EFF~
+    WRITE_ASCII 0x30 ~%m1%e~ #8
+  COPY ~%abilities%/useeffonkit.SPL~    ~override/%m1%e.SPL~
+    LPF CLONE_EFFECT 
+      INT_VAR multi_match=1 opcode=206 timing=0 duration=2 probability1=100 
+      STR_VAR resource=~%m1%e~ insert=~last~ 
+    END
+    LPF ALTER_EFFECT 
+      INT_VAR match_opcode=177 probability1=5 parameter1=IDS_OF_SYMBOL (kit ~D2CROWHUNTER~)
+      STR_VAR resource=~%m1%a~
+    END
+    PATCH_IF (crowhunterft > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2CROWHUNTERFT~)
+      END
+    END
+    PATCH_IF (crowhunterfmt > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2CROWHUNTERFMT~)
+      END
+    END
+    PATCH_IF (crowhuntermt > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR multi_match=1 match_opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2CROWHUNTERMT~)
+      END
+    END
 
 END
 
@@ -132,12 +139,12 @@ END
 
 
 //Ether Booster (amulet)
+COPY ~%files%/etherbooster.EFF~     ~override/%m3%e.EFF~
 COPY ~%files%/etherbooster.ITM~     ~override/%m3%.ITM~
   SAY NAME1 @70107 SAY UNIDENTIFIED_DESC @70207
   SAY NAME2 @70107 SAY DESC @70207
-  WRITE_ASCII 0x3a ~IAMUL24~ #8    // icon
+  WRITE_ASCII 0x3a ~IAMUL24~ #8       // icon
   WRITE_ASCII 0x58 ~PAMUL26~ #8    // description image
-  LPF d2_protect_on_castequip STR_VAR resource=~%m3%x~ END
 
 ACTION_IF (FILE_EXISTS ~override/%unleashmagic%.SPL~) BEGIN
 
@@ -151,17 +158,21 @@ ACTION_IF (FILE_EXISTS ~override/%unleashmagic%.SPL~) BEGIN
 
   COPY ~%abilities%/castspellself.EFF~  ~override/%unleashmagic%e.EFF~
     WRITE_ASCII 0x30 ~%unleashmagic%e~ #8
-  COPY ~%abilities%/applyeffects.SPL~   ~override/%unleashmagic%e.SPL~
-    LPF ALTER_EFFECT STR_VAR resource=~%m3%e~ END
-    LPF CLONE_EFFECT STR_VAR resource=~%m3%x~ END
-    LPF d2_remove_effects_on_cast STR_VAR resource=~%m3%e~ END    // remove amulet effects
+  COPY ~%abilities%/useeffonkit.SPL~    ~override/%unleashmagic%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2WARMAGICIAN~)
+      STR_VAR resource=~%m3%s~ 
+    END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m3%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%unleashmagic%e~ END
 
-  COPY ~%abilities%/castingspeed1.SPL~   ~override/%m3%e.SPL~     // subspell casts amulet effect
-    LPF ALTER_EFFECT INT_VAR parameter1=6 duration=7 END
-    LPF ALTER_SPELL_HEADER INT_VAR projectile=1 END
-
-  COPY ~%abilities%/opcode318.SPL~       ~override/%m3%x.SPL~     // subspell blocks amulet effect
-    LPF ALTER_EFFECT STR_VAR resource=~%m3%e~ END
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m3%s.EFF~
+    WRITE_ASCII 0x30 ~%m3%~ #8
+    WRITE_ASCII 0x70 ~%m3%x~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%m3%x.EFF~
+    WRITE_ASCII 0x30 ~%m3%x~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%m3%x.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%unleashmagic%e~ END
 
 END
 
@@ -185,8 +196,6 @@ COPY ~%files%/cruciform.ITM~   ~override/%m5%.ITM~
   SAY NAME2 @70109 SAY DESC @70209
   WRITE_ASCII 0x3a ~%m5%b~ #8    // icon
   WRITE_ASCII 0x58 ~%m5%c~ #8    // description image
-  LPF d2_protect_on_castequip STR_VAR resource=~%m5%x~ END
-  LPF d2_protect_on_castequip STR_VAR resource=~%m5%y~ END
 
 ACTION_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
 
@@ -199,33 +208,42 @@ ACTION_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
     LPF CLONE_EFFECT INT_VAR match_opcode=272 opcode=177 timing=1 parameter1=0 parameter2=2 END
   BUT_ONLY
 
-  // main subspells
-  COPY ~%abilities%/castspellself.EFF~  ~override/%bloodletter%e.EFF~
+  COPY ~%abilities%/castspellself.EFF~  ~override/%bloodletter%e.EFF~    // +1 bleed damage
     WRITE_ASCII 0x30 ~%bloodletter%e~ #8
-  COPY ~%abilities%/applyeffects.SPL~   ~override/%bloodletter%e.SPL~
-    LPF ALTER_EFFECT STR_VAR resource=~%m5%e~ END
-    LPF CLONE_EFFECT STR_VAR resource=~%m5%x~ END
-    LPF d2_remove_effects_on_cast STR_VAR resource=~%m5%e~ END    // remove amulet effects
+  COPY ~%abilities%/useeffonkit.SPL~    ~override/%bloodletter%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2CONFESSOR~)
+      STR_VAR resource=~%m5%s~ 
+    END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m5%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%bloodletter%e~ END
 
-  COPY ~%abilities%/castspellself.EFF~  ~override/%bloodletter%f.EFF~
+  COPY ~%abilities%/castspellself.EFF~  ~override/%bloodletter%f.EFF~    // +1 bleed damage
     WRITE_ASCII 0x30 ~%bloodletter%f~ #8
-  COPY ~%abilities%/applyeffects.SPL~   ~override/%bloodletter%f.SPL~
-    LPF ALTER_EFFECT STR_VAR resource=~%m5%f~ END
-    LPF CLONE_EFFECT STR_VAR resource=~%m5%y~ END
-    LPF d2_remove_effects_on_cast STR_VAR resource=~%m5%f~ END    // remove amulet effects
+  COPY ~%abilities%/useeffonkit.SPL~    ~override/%bloodletter%f.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2CONFESSOR~)
+      STR_VAR resource=~%m5%s~ 
+    END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m5%f~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%bloodletter%f~ END
 
-  // hit effects
-  COPY ~%abilities%/hiteffectmelee.SPL~  ~override/%m5%e.SPL~    // subspell casts amulet effect
-    LPF ALTER_EFFECT INT_VAR duration=7 STR_VAR resource=~%m5%a~ END
-  COPY ~%abilities%/opcode318.SPL~       ~override/%m5%x.SPL~    // subspell blocks amulet effect
-    LPF ALTER_EFFECT STR_VAR resource=~%m5%e~ END
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%m5%s.EFF~
+    WRITE_ASCII 0x30 ~%m5%~ #8
+    WRITE_ASCII 0x70 ~%m5%x~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%m5%x.EFF~
+    WRITE_ASCII 0x30 ~%m5%x~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%m5%x.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%bloodletter%e~ END
+    LPF CLONE_EFFECT STR_VAR resource=~%bloodletter%f~ END
 
-  COPY ~%abilities%/hiteffectmelee.SPL~  ~override/%m5%f.SPL~    // subspell casts amulet effect
-    LPF ALTER_EFFECT INT_VAR duration=7 STR_VAR resource=~%m5%b~ END
-  COPY ~%abilities%/opcode318.SPL~       ~override/%m5%y.SPL~    // subspell blocks amulet effect
-    LPF ALTER_EFFECT STR_VAR resource=~%m5%f~ END
+  COPY ~%abilities%/hiteffectmelee.EFF~   ~override/%m5%e.EFF~
+    WRITE_LONG 0x28 7
+    WRITE_ASCII 0x30 ~%m5%a~ #8
+  COPY ~%abilities%/hiteffectmelee.EFF~   ~override/%m5%f.EFF~
+    WRITE_LONG 0x28 7
+    WRITE_ASCII 0x30 ~%m5%b~ #8
 
-  // bleed effects
   COPY_EXISTING ~%confessorbleed%.EFF~  ~override/%m5%a.EFF~
     WRITE_ASCII 0x30 ~%m5%a~ #8
   COPY_EXISTING ~%confessorbleed%.SPL~  ~override/%m5%a.SPL~
@@ -290,24 +308,15 @@ COPY ~%files%/calamity.ITM~  ~override/%m7%.ITM~
 
 //Stone Ring (ring)
 COPY ~%icons%/stonering.BAM~      ~override/%m8%.BAM~
+COPY ~%files%/stoneringstun.EFF~  ~override/%m8%a.EFF~    // stun
+COPY ~%files%/stoneringpush.EFF~  ~override/%m8%b.EFF~    // wing buffet
 COPY ~%files%/stonering.ITM~      ~override/%m8%.ITM~
   SAY NAME1 @70112 SAY UNIDENTIFIED_DESC @70212
   SAY NAME2 @70112 SAY DESC @70212
   WRITE_ASCII 0x3a ~%m8%~ #8       // icon
   WRITE_ASCII 0x58 ~CRING30~ #8    // description image
-  LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%m8%a~ END    // stun
-  LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%m8%b~ END    // wing buffet
-
-COPY_EXISTING - ~STUNSTRG.EFF~ ~~    // get string ref for "Stunned" (this file is in every game)
-  READ_LONG 0x1c stunstring
-
-COPY ~%abilities%/applyeffects.EFF~  ~override/%m8%a.EFF~    // stun
-  WRITE_SHORT 0x2c 15
-  WRITE_ASCII 0x30 ~%m8%a~ #8
-COPY ~%files%/stoneringstun.SPL~  ~override/%m8%a.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=stunstring END
-
-COPY ~%files%/stoneringpush.EFF~     ~override/%m8%b.EFF~    // wing buffet
+  LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%m8%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%m8%b~ END
 
 
 
@@ -343,17 +352,39 @@ COPY ~%files%/etherlimiter.ITM~  ~override/%ma%.ITM~
   SAY NAME2 @70128 SAY DESC @70228
   WRITE_ASCII 0x3a ~IAMUL19~ #8    // icon
   WRITE_ASCII 0x58 ~CAMUL20~ #8    // description image
-  LPF d2_protect_on_castequip STR_VAR resource=~%shockwaveeffects%~ END    // block base subspells
-  LPF d2_protect_on_castequip STR_VAR resource=~%incinerateeffects%~ END
 
 //Shockwave
 ACTION_IF (FILE_EXISTS ~override/%shockwave%.SPL~) BEGIN
 
   COPY_EXISTING ~%shockwave%.SPL~  ~override~
-    LPF CLONE_EFFECT STR_VAR match_resource=~%shockwaveeffects%~ resource=~%ma%a~ insert=below END
+    LPF ALTER_EFFECT STR_VAR match_resource=~%shockwaveeffects%~ resource=~%shockwave%e~ END
   BUT_ONLY
 
-  // amulet subspells
+  COPY ~%abilities%/useeffonkit.SPL~  ~override/%shockwave%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2WARHOUND~)
+      STR_VAR resource=~%ma%s~ 
+    END
+    PATCH_IF (warhoundfm > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2WARHOUNDFM~)
+      END
+    END
+    LPF CLONE_EFFECT STR_VAR resource=~%ma%a~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%shockwave%e~ END
+
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%ma%s.EFF~
+    WRITE_ASCII 0x30 ~%ma%~ #8
+    WRITE_ASCII 0x70 ~%ma%t~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%ma%t.EFF~
+    WRITE_ASCII 0x30 ~%ma%t~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%ma%t.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%shockwave%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%ma%a~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%shockwaveeffects%~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~  ~override/%ma%a.EFF~
+    WRITE_ASCII 0x30 ~%ma%a~ #8
   COPY_EXISTING ~%shockwaveeffects%.SPL~  ~override/%ma%a.SPL~
     LPF ALTER_EFFECT STR_VAR match_resource=~%shockwaveblast%~ resource=~%ma%b~ END
 
@@ -362,14 +393,8 @@ ACTION_IF (FILE_EXISTS ~override/%shockwave%.SPL~) BEGIN
   COPY_EXISTING ~%shockwaveblast%.SPL~    ~override/%ma%b.SPL~
     SAY NAME1 @102
     LPF DELETE_EFFECT INT_VAR match_parameter2=63 END
-    LPF d2_safe_spell END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 timing=0 duration=0 parameter2=52 STR_VAR resource=~%ma%b~ END
 
-  // base subspell blocks amulet effects
-  COPY_EXISTING ~%shockwaveeffects%.SPL~  ~override~
-    LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%ma%a~ END
-  BUT_ONLY
-
-  // remove effects
   COPY_EXISTING ~%warhoundremove%.SPL~  ~override~
     LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%ma%a~ END
   BUT_ONLY
@@ -380,26 +405,44 @@ END
 ACTION_IF (FILE_EXISTS ~override/%incinerate%.SPL~) BEGIN
 
   COPY_EXISTING ~%incinerate%.SPL~  ~override~
-    LPF CLONE_EFFECT STR_VAR match_resource=~%incinerateeffects%~ resource=~%ma%e~ insert=below END
+    LPF ALTER_EFFECT STR_VAR match_resource=~%incinerateeffects%~ resource=~%incinerate%e~ END
   BUT_ONLY
 
-  // amulet subspells
+  COPY ~%abilities%/useeffonkit.SPL~  ~override/%incinerate%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2WARHOUND~)
+      STR_VAR resource=~%ma%u~ 
+    END
+    PATCH_IF (warhoundfm > 0) BEGIN
+      LPF CLONE_EFFECT 
+        INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2WARHOUNDFM~)
+      END
+    END
+    LPF CLONE_EFFECT STR_VAR resource=~%ma%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%incinerate%e~ END
+
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%ma%u.EFF~
+    WRITE_ASCII 0x30 ~%ma%~ #8
+    WRITE_ASCII 0x70 ~%ma%v~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%ma%v.EFF~
+    WRITE_ASCII 0x30 ~%ma%v~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%ma%v.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%incinerate%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%ma%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%incinerateeffects%~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~   ~override/%ma%e.EFF~
+    WRITE_ASCII 0x30 ~%ma%e~ #8
   COPY_EXISTING ~%incinerateeffects%.SPL~  ~override/%ma%e.SPL~
     LPF ALTER_EFFECT STR_VAR match_resource=~%incinerateblast%~ resource=~%ma%f~ END
 
-  COPY ~%abilities%/castspelltarget.EFF~   ~override/%ma%f.EFF~
+  COPY ~%abilities%/castspelltarget.EFF~  ~override/%ma%f.EFF~
     WRITE_ASCII 0x30 ~%ma%f~ #8
   COPY_EXISTING ~%incinerateblast%.SPL~    ~override/%ma%f.SPL~
     SAY NAME1 @103
     LPF DELETE_EFFECT INT_VAR match_parameter2=63 END
-    LPF d2_safe_spell END
+    LPF CLONE_EFFECT INT_VAR opcode=318 timing=0 dicenumber=0 dicesize=0 savingthrow=0 parameter2=52 special=0 STR_VAR resource=~%ma%f~ END
 
-  // base subspell blocks amulet effects
-  COPY_EXISTING ~%incinerateeffects%.SPL~  ~override~
-    LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%ma%e~ END
-  BUT_ONLY
-
-  // remove effects
   COPY_EXISTING ~%warhoundremove%.SPL~  ~override~
     LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%ma%e~ END
   BUT_ONLY
@@ -416,6 +459,9 @@ COPY ~%files%/goldscarab.ITM~  ~override/%mb%.ITM~
   WRITE_ASCII 0x3a ~%mb%~ #8       // icon
   WRITE_ASCII 0x58 ~CAMUL16~ #8    // description image
   LPF ALTER_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%mb%e~ END
+//  PATCH_IF (GAME_IS ~iwdee~) BEGIN
+//    WRITE_LONG 0x34 10000    // higher price for IWDEE
+//  END
 
 COPY ~%files%/goldscarab.SPL~  ~override/%mb%e.SPL~
 
@@ -506,8 +552,6 @@ COPY ~%files%/jadefeather.ITM~  ~override/%mf%.ITM~
   SAY NAME2 @70135 SAY DESC @70235
   WRITE_ASCII 0x3a ~%mf%~ #8        // icon
   WRITE_ASCII 0x58 ~BDCFEATH~ #8    // description image
-  LPF d2_protect_on_castequip STR_VAR resource=~%blackremedyeffects%~ END    // block base subspells
-  LPF d2_protect_on_castequip STR_VAR resource=~%whiteremedyeffects%~ END
 
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_kill_target_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slay_arrays END
@@ -533,25 +577,38 @@ COPY ~%files%/jadefeather.ITM~  ~override/%mf%.ITM~
 ACTION_IF (FILE_EXISTS ~override/%blackremedy%.SPL~) BEGIN
 
   COPY_EXISTING ~%blackremedy%.SPL~  ~override~
-    LPF CLONE_EFFECT STR_VAR match_resource=~%blackremedyeffects%~ resource=~%mf%a~ insert=below END
+    LPF ALTER_EFFECT STR_VAR match_resource=~%blackremedyeffects%~ resource=~%blackremedy%e~ END
   BUT_ONLY
 
-  // amulet subspells
+  COPY ~%abilities%/useeffonkit.SPL~  ~override/%blackremedy%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2MEDIC~)
+      STR_VAR resource=~%mf%s~ 
+    END
+    LPF CLONE_EFFECT STR_VAR resource=~%mf%a~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%blackremedy%e~ END
+
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%mf%s.EFF~
+    WRITE_ASCII 0x30 ~%mf%~ #8
+    WRITE_ASCII 0x70 ~%mf%t~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%mf%t.EFF~
+    WRITE_ASCII 0x30 ~%mf%t~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%mf%t.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%blackremedy%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%mf%a~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%blackremedyeffects%~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~    ~override/%mf%a.EFF~
+    WRITE_ASCII 0x30 ~%mf%a~ #8
   COPY_EXISTING ~%blackremedyeffects%.SPL~  ~override/%mf%a.SPL~
     LPF ALTER_EFFECT STR_VAR match_resource=~%blackremedyblast%~ resource=~%mf%b~ END
 
-  COPY ~%abilities%/castspelltarget.EFF~  ~override/%mf%b.EFF~
+  COPY ~%abilities%/castspelltarget.EFF~    ~override/%mf%b.EFF~
     WRITE_ASCII 0x30 ~%mf%b~ #8
-  COPY_EXISTING ~%blackremedyblast%.SPL~  ~override/%mf%b.SPL~
-    LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy15%~ END    // 15-ft. radius
+  COPY_EXISTING ~%blackremedyblast%.SPL~    ~override/%mf%b.SPL~
+    LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy15%~ END
     LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%mf%b~ END
 
-  // base subspell blocks amulet effects
-  COPY_EXISTING ~%blackremedyeffects%.SPL~  ~override~
-    LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%mf%a~ END
-  BUT_ONLY
-
-  // remove effects
   COPY_EXISTING ~%medicremove%.SPL~  ~override~
     LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%mf%a~ END
   BUT_ONLY
@@ -562,25 +619,38 @@ END
 ACTION_IF (FILE_EXISTS ~override/%whiteremedy%.SPL~) BEGIN
 
   COPY_EXISTING ~%whiteremedy%.SPL~  ~override~
-    LPF CLONE_EFFECT STR_VAR match_resource=~%whiteremedyeffects%~ resource=~%mf%e~ insert=below END
+    LPF ALTER_EFFECT STR_VAR match_resource=~%whiteremedyeffects%~ resource=~%whiteremedy%e~ END
   BUT_ONLY
 
-  // amulet subspells
+  COPY ~%abilities%/useeffonkit.SPL~  ~override/%whiteremedy%e.SPL~
+    LPF ALTER_EFFECT 
+      INT_VAR parameter1=IDS_OF_SYMBOL (kit ~D2MEDIC~)
+      STR_VAR resource=~%mf%u~ 
+    END
+    LPF CLONE_EFFECT STR_VAR resource=~%mf%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 parameter2=0 STR_VAR resource=~%whiteremedy%e~ END
+
+  COPY ~%abilities%/fireweaponbadge.EFF~     ~override/%mf%u.EFF~
+    WRITE_ASCII 0x30 ~%mf%~ #8
+    WRITE_ASCII 0x70 ~%mf%v~ #8
+  COPY ~%abilities%/castspellself.EFF~       ~override/%mf%v.EFF~
+    WRITE_ASCII 0x30 ~%mf%v~ #8
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/%mf%v.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%whiteremedy%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%mf%e~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%whiteremedyeffects%~ END
+
+  COPY ~%abilities%/castspelltarget.EFF~    ~override/%mf%e.EFF~
+    WRITE_ASCII 0x30 ~%mf%e~ #8
   COPY_EXISTING ~%whiteremedyeffects%.SPL~  ~override/%mf%e.SPL~
     LPF ALTER_EFFECT STR_VAR match_resource=~%whiteremedyblast%~ resource=~%mf%f~ END
 
-  COPY ~%abilities%/castspelltarget.EFF~  ~override/%mf%f.EFF~
+  COPY ~%abilities%/castspelltarget.EFF~    ~override/%mf%f.EFF~
     WRITE_ASCII 0x30 ~%mf%f~ #8
-  COPY_EXISTING ~%whiteremedyblast%.SPL~  ~override/%mf%f.SPL~
-    LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy15%~ END    // 15-ft. radius
+  COPY_EXISTING ~%whiteremedyblast%.SPL~    ~override/%mf%f.SPL~
+    LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy15%~ END
     LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%mf%f~ END
 
-  // base subspell blocks amulet effects
-  COPY_EXISTING ~%whiteremedyeffects%.SPL~  ~override~
-    LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%mf%e~ END
-  BUT_ONLY
-
-  // remove effects
   COPY_EXISTING ~%medicremove%.SPL~  ~override~
     LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%mf%e~ END
   BUT_ONLY

@@ -287,7 +287,7 @@ Disadvantages:
 CROW HUNTER: A Crow Hunter acts swiftly and mercilessly against the chosen mark. This is a Hunter of Hunters, an experienced killer, and feared, though not necessarily cruel or evil, despite the unsavoriness of the work.
 
 Advantages:  
-- +3 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races.  
+- +1 bonus to attack and damage rolls vs. humans, demihumans, and smaller humanoid races. The bonus increases to +2 at level 5 and +3 at level 10.
 - 4th level: May use the Splintering Shot ability once per day. Gains additional uses every 4 levels thereafter.
 
 SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
@@ -508,11 +508,17 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 	- Install this mod before 5e casting.
 	- You should also install the extra component related to 5e casting.
 
+--
+
+**Talents of Faerun note:** Spell components can be installed before or after this mod (I'd personally install them before). Other components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so best to just install everything after.
+
+--
+
 #### HLA traps/songs:
-- The Crow Hunter and Powder Keg kits need specific handling of HLA traps and songs. 
-- Currently, this mod accounts for Rogue Rebalancing hlas.
-- If you know of any others, let me know and I can add it.
-- Only abilities gained by the base class are relevant for this.
+- v4.7.8 update: Crow Hunter can now use any HLA traps (intall order doesn't matter).
+- Powder Keg is compatible with the Rogue Rebalancing HLA song (including Lingering song). Requires patching the rr songs, so this mod needs to be installed after rr.
+- Powder Keg can select the HLA song from Talents of Faerun, but the special ability (to switch songs) will change to the unmodded 'Enhanced Bard Song'. Also, ToF's "Lingering Song" feat will work with the HLA song, but it does not affect Powder Keg songs.
+- Powder Keg is untested with other mod-added HLA songs (if any exist).
 
 #
 ### FnP additional info:
@@ -1128,7 +1134,7 @@ A talisman facsimile of a feather. The jade feather rejects death magic of all f
 STATISTICS:
 
 Equipped abilities:
-- Save vs. Spell: +3
+- Hit Points: +8
 - Immunity to petrification
 - Death Ward
 
