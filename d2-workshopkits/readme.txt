@@ -119,9 +119,9 @@ Talents of Faerun note: Spell components can be installed before or after this m
 --
 
 HLA traps/songs:
-- v4.7.8 update: Crow Hunter can now use any HLA traps (intall order doesn't matter).
+- v4.7.8 update: Crow Hunter can now use any HLA traps (install order doesn't matter).
 - Powder Keg is compatible with the Rogue Rebalancing HLA song (including Lingering song). Requires patching the rr songs, so this mod needs to be installed after rr.
-- Powder Keg can select the HLA song from Talents of Faerun, but the special ability (to switch songs) will change to the unmodded 'Enhanced Bard Song'. Also, ToF's "Lingering Song" feat will work with the HLA song, but it does not affect Powder Keg songs.
+- Powder Keg can select the HLA song from Talents of Faerun, but the special ability (to switch songs) will change to the unmodded HLA song. Also, ToF's "Lingering Song" feat will work with the HLA song, but it does not affect Powder Keg songs.
 - Powder Keg is untested with other mod-added HLA songs (if any exist).
 
 ----------------------------------------------------------------------------------------------------
