@@ -37,6 +37,8 @@ Text in this file appears in the game.
 @316 = ~Nouvelle capacité passive « Cascade »~
 @317 = ~Nouvelle capacité passive « Décochage critique »~
 @318 = ~Nouvelle capacité passive « Plus vite que son ombre »~
+@319 = ~Ça chatouille...~
+@320 = ~^ASanguination inopérante ! Le sujet a rejeté la transfusion.^-~
 
 
 
@@ -81,13 +83,14 @@ Text in this file appears in the game.
 @621 = ~Plus vite que son ombre~                  // for Spell Fencer
 
 
-//checks made during install
+//checks made during install (not used anymore)
 @700 = ~Restauration~                 // checked by Blood Minister
 @701 = ~Restauration majeure~         // checked by bleeding effects
 @702 = ~Guérison~                        // checked by bleeding effects
 
 
 
+//
 //Dialogues (BG2 or all games)
 
 //Chicken talk
@@ -101,7 +104,7 @@ Text in this file appears in the game.
 @60131 = ~Elle a pondu quelque chose~
  
 
-
+//
 //Dialogues (IWDEE)
 
 //Presio duel
@@ -124,7 +127,7 @@ Text in this file appears in the game.
 
 
 
-
+//
 //Warrior kits (v1.0)
 
 //Beast Hunter
@@ -186,8 +189,8 @@ Avantages :
 – 3ème niveau : Immunité à la peur et à la perte de moral.
 – 5ème niveau : Peut utiliser la capacité « Dénégation » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
 
-DÉNÉGATION : Ce sort a deux effets. Tout d'abord, la cible devient immunisé, pendant 3 tours, à tous les effets provoquant une mort instantanée. 
-Ensuite, si celle-ci voit ses points de vie tomber en dessous des 50 %, le deuxième effet du sort s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.
+DÉNÉGATION : Ce sort a deux effets. Tout d'abord, la cible devient immunisé, pendant 3 tours, à toutes les formes de mort magique. 
+Si celle-ci voit ses points de vie tomber en dessous des 50 %, un deuxième effet s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.
 
 – 8ème niveau : Immunité à l'aveuglement et aux attaques de regard.
 
@@ -273,6 +276,7 @@ Inconvénients :
 
 
 
+//
 //non-Warrior kits (v1.0)
 
 //War Magician
@@ -345,7 +349,7 @@ Inconvénients :
 @101003 = ~PRÉDATEUR : Agissant avec célérité et sans aucune pitié pour sa cible. Ce Prédateur de prédateurs est un tueur expérimenté et redouté, mais il n'est pas nécessairement cruel ou maléfique, malgré le caractère déplaisant de son travail.
 
 Avantages :
-– Bonus de 3 bonus aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille.
+– Bonus de 1 aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille. Ce bonus passe à 2 au niveau 5 et à 3 au niveau 10.
 – 4ème niveau : Peut utiliser la capacité « Tir éclatant » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
 TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 1 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
@@ -374,18 +378,18 @@ Avantages :
   10ème niveau : « Déflagration de poussière ».
   15ème niveau : « Flamme frénétique ».
 
-CHANT ENFLAMMÉ : Un cercle de flammes se propage sur un rayon de 4,5 m, infligeant 1d4 points de dégâts de feu par niveau du personnage, jusqu'à un maximum de 20d4 au niveau 20, toute créature se trouvant dans la zone d'effet doit réussir un jet de sauvegarde contre les souffles pour réduire les dégâts de moitié. Seule la personne qui joue la chanson est à l'abri des flammes.
+CHANT ENFLAMMÉ : Un cercle de flammes se propage sur un rayon de 4,5 m, infligeant 1d4 points de dégâts de feu par niveau du personnage, jusqu'à un maximum de 20d4 au niveau 20, toute créature se trouvant dans la zone d'effet doit réussir un jet de sauvegarde contre les souffles pour réduire les dégâts de moitié. Seule la personne qui joue la chanson est à l'abri des flammes. La pyrotechnie utilisée pour amorcer le « Chant enflammé » inflige 2 points de dégâts de feu supplémentaires aux ennemis dans un rayon de 3,5 m.
 
-SON DÉTONANT : Une vague massive se propage sur un rayon de 4,5 m, infligeant 2d4 points de dégâts contondants aux ennemis qui se retrouve sous l'effet de la surdité pendant 4 rounds, un jet de sauvegarde contre les sorts réduit ce temps de moitié. La surdité entraîne une probabilité d’échec de l'incantation des sorts de 50 %.
+SON DÉTONANT : Une vague massive se propage sur un rayon de 4,5 m, infligeant 3d8 points de dégâts contondants aux ennemis qui se retrouve sous l'effet de la surdité pendant 4 rounds, un jet de sauvegarde contre les sorts réduit ce temps de moitié. La surdité entraîne une probabilité d’échec de l'incantation des sorts de 50 %.
 
-DÉFLAGRATION DE POUSSIÈRE : La première déflagration inflige 5d6 points de dégâts de feu à tous les ennemis dans un rayon de 4,5 m (un jet de sauvegarde contre les souffles réduit les dégâts de moitié). Le nuage de poussière et la fumée que dégage l'explosion persiste pendant 3 rounds et s'étant sur une surface de 6 mètres de rayon. Toutes les créatures présentes dans le nuage sont aveuglées sans jet de sauvegarde possible, mais elles sont aussi dissimulées par la fumée et ne peuvent être directement visées, à moins d'avoir les moyens de percevoir ce qui est invisible.
+DÉFLAGRATION DE POUSSIÈRE : La première déflagration inflige 8d6 points de dégâts de feu à tous les ennemis dans un rayon de 4,5 m (un jet de sauvegarde contre les souffles réduit les dégâts de moitié). Le nuage de poussière et la fumée que dégage l'explosion persiste pendant 3 rounds et s'étant sur une surface de 6 mètres de rayon. Toutes les créatures présentes dans le nuage sont aveuglées sans jet de sauvegarde possible, mais elles sont aussi dissimulées par la fumée et ne peuvent être directement visées, à moins d'avoir les moyens de percevoir ce qui est invisible. Les ennemis voient leur mouvements réduits de moitié.
 
-FLAMME FRÉNÉTIQUE : Cette attaque répand une flamme vivante qui enveloppe un rayon de 6 m et persiste pendant 2 rounds. Tout ennemi pénétrant dans les flammes subit immédiatement les effets du sommeil, de la confusion, de la peur ou de la folie du berserker pendant 5 rounds (25 % de chances d'être affecté par chacun). Les ennemis subissent également 2d4 points de dégâts magiques par round tant qu'ils se trouvent dans la zone. Il n'y a pas de jet de sauvegarde, mais la résistance à la magie peut contrecarrer les effets.
+FLAMME FRÉNÉTIQUE : Cette attaque répand une flamme vivante qui enveloppe un rayon de 6 m et persiste pendant 2 rounds. Tout ennemi pénétrant dans les flammes subit immédiatement les effets du sommeil, de la confusion, de la peur ou de la folie du berserker pendant 5 rounds (25 % de chances d'être affecté par chacun). Les ennemis subissent également 2d12 points de dégâts magiques par round tant qu'ils se trouvent dans la zone. Il n'y a pas de jet de sauvegarde, mais la résistance à la magie peut contrecarrer les effets.
 
 - Si la capacité de haut niveau « Chant du barde amélioré » est acquise, le personnage disposera d'une capacité lui permettant de basculer sur cette chanson.
 
 Inconvénients : 
-– Le chant du barde est inutilisable pendant un tour après chaque usage.
+– Le chant du barde est désactivé pendant 8 rounds après usage d'une chanson incendiaire.
 – N'obtient qu'un quart du score de Vol à la tire.~
 @101104 = ~~
 @101105 = ~~
@@ -442,6 +446,10 @@ REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes 
 
 DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8+2 points de vie chaque round.
 
+– 10ème niveau : Peut utiliser « Neutralisation du poison » trois fois par jour.
+– 14ème niveau : Peut utiliser « Guérison » une fois par jour.
+– 18ème niveau : Peut utiliser « Restauration mineur » trois fois par jour.
+
 Inconvénients :
 – Ne peut pas utiliser d'autre lame que les épées courtes ou les dagues.
 – Ne peut utiliser « Imposition des mains ».
@@ -474,6 +482,7 @@ Inconvénients :
 
 
 
+//
 //v4.0 kits
 
 //Full Metal Jaguar (fighter)
@@ -602,8 +611,8 @@ Ne peut pas être utilisé en combinaison avec la capacité Onde de choc.~
 @104 = ~Dénégation~
 @204 = ~Dénégation 
 
-Ce sort a deux effets. Tout d'abord, la cible devient immunisé, pendant 3 tours, à tous les effets provoquant une mort instantanée. 
-Ensuite, si celle-ci voit ses points de vie tomber en dessous des 50 %, le deuxième effet du sort s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.~
+Ce sort a deux effets. Tout d'abord, la cible devient immunisé, pendant 3 tours, à toutes les formes de mort magique. 
+Si celle-ci voit ses points de vie tomber en dessous des 50 %, un deuxième effet s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.~
 
 @105 = ~Albédo~
 @205 = ~Albédo
@@ -677,30 +686,30 @@ La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances d
 @115 = ~Chant du barde : Chant enflammé~
 @215 = ~Chant enflammé 
 
-Un cercle de flammes se propage sur un rayon de 4,5 m, infligeant 1d4 points de dégâts de feu par niveau du personnage, jusqu'à un maximum de 20d4 au niveau 20, toute créature se trouvant dans la zone d'effet doit réussir un jet de sauvegarde contre les souffles pour réduire les dégâts de moitié. Seule la personne qui joue la chanson est à l'abri des flammes.
+n cercle de flammes se propage sur un rayon de 4,5 m, infligeant 1d4 points de dégâts de feu par niveau du personnage, jusqu'à un maximum de 20d4 au niveau 20, toute créature se trouvant dans la zone d'effet doit réussir un jet de sauvegarde contre les souffles pour réduire les dégâts de moitié. Seule la personne qui joue la chanson est à l'abri des flammes. La pyrotechnie utilisée pour amorcer le « Chant enflammé » inflige 2 points de dégâts de feu supplémentaires aux ennemis dans un rayon de 3,5 m.
 
-Après chaque utilisation le Chant du Barde est désactivé pour 1 tour.~
+Après chaque utilisation le Chant du Barde est désactivé pour 8 rounds.~
 
 @116 = ~Chant du barde : Son détonant~
 @216 = ~Son détonant
 
-Une vague massive se propage sur un rayon de 4,5 m, infligeant 2d4 points de dégâts contondants aux ennemis qui se retrouve sous l'effet de la surdité pendant 4 rounds, un jet de sauvegarde contre les sorts réduit ce temps de moitié. La surdité entraîne une probabilité d’échec de l'incantation des sorts de 50 %.
+Une vague massive se propage sur un rayon de 4,5 m, infligeant 3d8 points de dégâts contondants aux ennemis qui se retrouve sous l'effet de la surdité pendant 4 rounds, un jet de sauvegarde contre les sorts réduit ce temps de moitié. La surdité entraîne une probabilité d’échec de l'incantation des sorts de 50 %.
 
-Après chaque utilisation le Chant du Barde est désactivé pour 1 tour.~
+Après chaque utilisation le Chant du Barde est désactivé pour 8 rounds.~
 
 @117 = ~Chant du barde : Déflagration de poussière~
 @217 = ~Déflagration de poussière
 
-La première déflagration inflige 5d6 points de dégâts de feu à tous les ennemis dans un rayon de 4,5 m (un jet de sauvegarde contre les souffles réduit les dégâts de moitié). Le nuage de poussière et la fumée que dégage l'explosion persiste pendant 3 rounds et s'étant sur une surface de 6 mètres de rayon. Toutes les créatures présentes dans le nuage sont aveuglées sans jet de sauvegarde possible, mais elles sont aussi dissimulées par la fumée et ne peuvent être directement visées, à moins d'avoir les moyens de percevoir ce qui est invisible.
+La première déflagration inflige 8d6 points de dégâts de feu à tous les ennemis dans un rayon de 4,5 m (un jet de sauvegarde contre les souffles réduit les dégâts de moitié). Le nuage de poussière et la fumée que dégage l'explosion persiste pendant 3 rounds et s'étant sur une surface de 6 mètres de rayon. Toutes les créatures présentes dans le nuage sont aveuglées sans jet de sauvegarde possible, mais elles sont aussi dissimulées par la fumée et ne peuvent être directement visées, à moins d'avoir les moyens de percevoir ce qui est invisible. Les ennemis voient leur mouvements réduits de moitié.
 
-Après chaque utilisation le Chant du Barde est désactivé pour 1 tour.~
+Après chaque utilisation le Chant du Barde est désactivé pour 8 rounds.~
 
 @118 = ~Chant du barde : Flamme frénétique~
 @218 = ~Flamme frénétique 
 
-Cette attaque répand une flamme vivante qui enveloppe un rayon de 6 m et persiste pendant 2 rounds. Tout ennemi pénétrant dans les flammes subit immédiatement les effets du sommeil, de la confusion, de la peur ou de la folie du berserker pendant 5 rounds (25 % de chances d'être affecté par chacun). Les ennemis subissent également 2d4 points de dégâts magiques par round tant qu'ils se trouvent dans la zone. Il n'y a pas de jet de sauvegarde, mais la résistance à la magie peut contrecarrer les effets.
+Cette attaque répand une flamme vivante qui enveloppe un rayon de 6 m et persiste pendant 2 rounds. Tout ennemi pénétrant dans les flammes subit immédiatement les effets du sommeil, de la confusion, de la peur ou de la folie du berserker pendant 5 rounds (25 % de chances d'être affecté par chacun). Les ennemis subissent également 2d12 points de dégâts magiques par round tant qu'ils se trouvent dans la zone. Il n'y a pas de jet de sauvegarde, mais la résistance à la magie peut contrecarrer les effets.
 
-Après chaque utilisation le Chant du Barde est désactivé pour 1 tour.~
+Après chaque utilisation le Chant du Barde est désactivé pour 8 rounds.~
 
 @119 = ~Chant du barde : Chant de guerre du Barde~    // unmodded
 @219 = ~Chant de guerre du Barde
@@ -762,10 +771,15 @@ Cette capacité est effective pendant 5 rounds. À chaque round, 1 image miroir 
 
 
 
+//
 //Spell text
-//prefix: 401 = name, 402 = bgee (or all games), 403 = iwdee, 404 = spell revisions
-//Only new or edited descriptions are included here
 
+/*
+prefix: 401 = name, 402 = bgee (or all games), 403 = iwdee, 404 = spell revisions
+Only new or edited descriptions are included here
+*/
+
+//Grave Warden spells
 @40100 = ~Orbe chromatique~
 @40200 = ~~
 @40300 = ~Orbe chromatique
@@ -817,6 +831,9 @@ Ce sort crée une sphère de 60 centimètres de diamètre dans la main du jeteur
 @40302 = ~~
 @40402 = ~~
 
+
+//
+//Confessor spells
 @40103 = ~Cécité~
 @40203 = ~Cécité
 (Illusion/Fantasme)
@@ -899,6 +916,9 @@ Lorsqu'un sort de Flou est jeté, la silhouette du magicien devient voilée, se 
 @40306 = ~~
 @40406 = ~~
 
+
+//
+//Temple Knight spells
 @40107 = ~Rayon divin~
 @40207 = ~Rayon divin 
 (Invocation/Évocation)
@@ -957,6 +977,9 @@ Type de créature  --  Dégâts
 
 La résistance à la magie n'affecte pas ce sort.~
 
+
+//
+//Starjammer spells
 @40108 = ~Faille~
 @40208 = ~Faille
 (Altération)
@@ -1096,13 +1119,21 @@ Une faille doit être manipulée avec précaution. Lorsque ce sort est lancé, i
 @40415 = ~~
 
 
+/*
+@40116 = ~~
+@40216 = ~~
+@40316 = ~~
+@40416 = ~~
+*/
+
+
 
 
 //
 //Item text
 
 @70100 = ~Symbole sacré de l'église de la Guérison~
-@70200 = ~Seuls les serviteurs les plus méritants et les plus dévoués de l'Église de la Guérison reçoivent ces puissants symboles sacrés. On ignore quelle divinité octroie des miracles à l'Église de la Guérison, mais ses membres consacrent leur temps au massacre de bêtes en tout genre. Les prêtres et les chasseurs finissent d'ailleurs par prendre la forme des bêtes les plus hideuses qui soient.
+@70200 = ~Seuls les serviteurs les plus méritants et les plus dévoués de l'Église de la Guérison reçoivent ces puissants symboles sacrés.
 
 PARAMÈTRES :
 
@@ -1200,7 +1231,7 @@ Poids : 1~
 
 PARAMÈTRES :
 
-Capacités de charge :
+Capacités d'équipement :
 – TAC0 : Bonus de 1
 – Classe d'armure : Bonus de 1
 – Jets de sauvegarde : Bonus de 1
@@ -1215,7 +1246,7 @@ Poids : 1~
 
 PARAMÈTRES :
 
-Capacités de charge :
+Capacités d'équipement :
 – Classe d'armure : Bonus de 1
 – Jets de sauvegarde : Bonus de 1
 – Charisme : Bonus de 2
@@ -1357,7 +1388,7 @@ Poids : 0~
 
 PARAMÈTRES :
 
-Capacités de charge :
+Capacités d'équipement :
 – Résistance aux dégâts contondants : +15 %
 – Résistance aux dégâts magiques : +50 %
 – Jets de sauvegarde contre les sorts : Bonus de 2
@@ -1603,7 +1634,7 @@ Poids : 1~
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Jets de sauvegarde contre les sorts : +3
+– Points de vie : +8
 – Immunité à la pétrification
 – Protection contre la mort
 
