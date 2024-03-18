@@ -120,12 +120,18 @@ Les systèmes de lancement de sorts :
 	- Installer The Workshop Kitpack avant le mod 5E_spellcasting.
 	- Mais vous devez toujours installer le composant supplémentaire lié au mod 5E_spellcasting.
 
+--
+
+Note sur le mod Talents of Faerun : Les composants de sorts peuvent être installés avant ou après The Workshop Kitpack (personnellement, je les installerais avant). Les autres composants doivent être installés après The Workshop Kitpack. Certains pourraient être installés avant, mais le plus simple est de tout installer après.
+
+--
+
 Capacités de haut niveau (HLA) Pièges et Chants du barde :
 
-- Les kits Prédateur et Chantre de la poudre nécessitent une manipulation spécifique des pièges et des chansons de haut niveau. 
-- Actuellement, ce mod prend en compte les HLAs de Rogue Rebalancing.
-- Si vous en connaissez d'autres, faites-le moi savoir et je pourrai les ajouter.
-- Seules les capacités acquises par la classe de base sont concernées.
+- v4.7.8 update: Le Prédateur peut désormais utiliser n'importe quel piège HLA (l'ordre d'installation n'a pas d'importance).
+- Le Chantre de la poudre est compatible avec les chants de haut niveau du barde (HLA) du mod Rogue Rebalancing (y compris le Chant Persistant). Cela nécessite de patcher les chansons de rr, donc The Workshop Kitpack doit être installé après rr.
+- Le Chantre de la poudre peut sélectionner les chants de haut niveau du barde (HLA) du mod Talents of Faerun, mais la capacité spéciale (permettant de changer de chanson) sera remplacée par le chant HLA du jeu original sans mod. De plus, la capacité "Chant Persistant" de ToF fonctionnera avec les autres chants de haut niveau du barde (HLA), mais n'affectera pas les chansons du Chantre de la poudre.
+- Le Chantre de la poudre n'est pas testé avec d'autres les chants de haut niveau du barde (HLA) ajoutées par des mods (s'il en existe).
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -145,6 +151,89 @@ FnP multiclass :
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v4.7.8
+- Compatibility fix for EEex (v0.10.0-alpha and later):
+	- Some kits had broken effects due to a change in recent EEex versions.
+	- All kit abilities are fixed now. The affected kits were the ones with special amulet effects (i.e. Beast Hunter and hunter badges).
+	- as a side effect: these item effects will now work even with custom multiclass kits.
+- Crow Hunter updates:
+	- Damage bonus vs. humans/humanoids now starts at +1, increases to +2 at level 5, and +3 at level 10. For multiclasses, it upgrades with thief level only (not average level of classes).
+	- Multiclass variants will now gain Visceral attack at the correct levels (9, 13, and 18).
+	- Visceral Attack is now more likely to roll in the upper range of the damage roll. This makes it a little better for mage/thief or single class.
+	- Can now use any mod-added traps (i.e. Talents of Faerun HLAs), even if installed after this mod. Must be Thief level 14 or higher.
+	- Bonus effect from the Crowfeather Cloak item will now work with custom multiclass kits.
+- Other:
+	- Beast Hunter: Added an extra effect for the Old Hunter Badge amulet. When using Hunter Tools, the character will never roll a critical miss (with melee attacks).
+	- Jade Feather: This now gives a +8 bonus to max HP (basically an extra roll of HP for monks). This replaces the +3 bonus to Save vs. Spell.
+
+v4.7.7
+- Fixed a patching error, related to riftstep/riftgate creatures (some equipped effects on their weapons were also added as on-hit effects).
+- Fixed a minor variable issue (prevented patching something with bleeding effects).
+- Improved patching-related stuff (speed and method), while fixing above issues.
+- Minor tweaking of a couple things from last update.
+
+v4.7.6
+- New projectiles for these spells: Force (Temple Knight), Electrocannon/Interference (Starjammer), Etherbomb Songbook.
+- Powder Keg: for the cloud songs, if effects are decoupled by pausing/unpausing, allies/neutrals should no longer be affected by enemy-only effects (i.e. you can pause/unpause safely inside a Frenzying Flame).
+- Starjammer: Riftgate summon now immune to wing buffet (knockback effects), but not to any damage caused by these spells/attacks. Other adjustments to riftstep/riftgate creatures (movement speed, add/remove immunities, etc.).
+- Blood Minister: Improved effects structure of Blood Transfusion abilities. Will no longer work on undead, golems, or elementals. If cast on a non-ally, it will now display a string that the "recipient refused the Blood Transfusion", unless the target is naturally immune (will get the normal immunity message).
+- Tweaked visuals/sounds for a few other abilities.
+
+v4.7.5
+- Powder Keg changes:
+	- Reduced delay between each use of a song from 10 rounds to 8 rounds.
+	- Blasting Song: Main blast now delayed 1 second (damage unchanged). A new lead-in projectile does an extra 2 fire damage to enemies in a 12-ft. radius. It's visually more interesting now, and the initial projectile lets you know when the main blast is coming.
+	- Booming Song: Damage increased from 2d4 to 3d8. Tweaked explosion visual/sound.
+	- Dust Explosion: Damage of initial blast increased from 5d6 to 8d6. Creatures immune to blind no longer suffer reduced visual range. Enemies now move at half speed in the cloud.
+	- Frenzying Flame: Damage per round increased from 2d4 to 2d12.
+- Medic changes:
+	- at level 10, Slow Poison is now upgraded to Neutralize Poison.
+	- at level 14, Cure Disease is now upgraded to Heal (essentially, the medic's version of "Lay on Hands").
+	- at level 18, can now use Lesser Restoration 3 times per day (no fatigue).
+	- All medic cures are touch range, applied instantly, have no vocal component, and are not considered spells for wild/dead magic.
+	- The spells are otherwise identical to the existing priest spell at the time of install (i.e. in IWDEE, you can't cast Heal on an undead or elemental).
+- Other:
+	- IWD Evasion: All "Evades effects from..." messages should now say the name of the spell/ability being evaded.
+	- New icon for Hunter Tools, recolored icons for Starjammer spells, changed icons for a few other abilities.
+	- Blood Minister: if using Spell Revisions, Madman's Blood no longer causes SR fatigue effects.
+	- SCS/ToF: Fixed a few wrong ability icons when this mod was installed after SCS/ToF spell tweaks.
+	- Other minor changes.
+
+v4.7.4
+- Fixed an issue with haste effects if this mod was installed after SCS/ToF spell tweaks. This affected the Moonlight Knight kit and the Hunter Bone item.
+- Fixed a mod conflict (with IWDEE Polymorph fixes mod) that would cause characters to learn Psionic Blast permanently, when using the Milkweed rune.
+- Switched some item locations around in BG2EE/IWDEE (main change is making Hunter Bone obtainable earlier).
+- Added more shaman bone blades in each game (higher quantities and/or obtainable in more locations).
+- Starjammer: Pacifying Field, Jolt, and Revitalizer will now ignore immunities to specific spell levels.
+- Grave Warden: Denial will now ignore immunities to specific spell levels. (Note that it will still be blocked by immunity to Necromancy school)
+- Aethetic fix with Bubb's Spell Menu: The Denial and Moonlight Vortex abilities will now appear as level 1 spells in the special abilities menu (same as all other abilities from this mod).
+- Rearranged item text in tra files for better organization.
+- Blood Minister: Right-clicking the Blood abilities in the submenu will now show the description for Blood Transfusion. Previously, only the main Blood Transfusion spell would show the description.
+
+v4.7.3
+- Golem Ring: Delayed sound effect on item ability was incorrectly set as undispellable.
+- Medic: Adjusted visuals for all abilities + fixed color fade effect on White Remedy (was allowing a save).
+- Medic: Remedy abilities will no longer affect undead or golems. Healing Rain will still heal any creature, including in IWD (similar to Mist of Eldath). This is the same restriction that's already on Medical Darts and Shaman Bone Blade. Note that this is intentionally less restrictive than IWD rules.
+- IWDEE: Grave Warden's Denial ability will now follow IWD cleric rules for the healing effect. The death ward effect can still be cast on any creature. For creatures immune to healing spells in IWD, Denial will last the full 3 turns, unless dispelled or the summon is killed/unsummoned.
+- Shaman Bone Blade: Improved effects structure. Will now always play an audio/visual effect, even for immune creatures. Will now display a string that ability was used. Increased cast range from 1 to 3. Elves and half-elves that fail the save against charm, but make the racial check for charm resistance, will now avoid all effects, instead of being berserked.
+- Starjammer: Riftgate balor now has a screen shake effect if summoned. Golem attack range increased from 1 to 2, and attacks can now stun on failed save.
+- Other minor adjustments or installer improvements.
+
+v4.7.2
+- Maintenance:
+	- Temple Knight: Slightly reduced knockback strength of Force + added color fade to affected creatures. Stun duration increased internally (it's still roughly 4 seconds, but after the knockback ends).
+	- Moonlight Knight: Fixed an inconsistency in the effects of Moonlight Vortex + added lighting effect on allies (only enemies take damage still).
+	- Fixed possible minor dialogue weirdness with a chicken.
+	- IWDEE: Grave Warden's Skull Trap was giving Evasion check against the wrong spell resource.
+- IWD Evasion notes:
+	- Took another look at kit abilities that included Evasion checks for IWDEE. These abilities previously allowed Evasion, and no longer do: Shockwave, Moonlight Vortex, Booming Song. These abilities can (still) be evaded: Incinerate, Electrocannon, Steady Current (secondary targets only), Blasting Song, Dust Explosion (initial blast only), Etherbomb Song.
+	- BGEE/BG2EE: If Evasion from IWDification or Talents of Faerun is installed before this mod, then the above abilities will also give a check for Evasion in the BGEE games. (components from ToF that just modify class/kit ability tables are fine to install before this mod)
+
+v4.7.1
+- Milkweed (rune): Fixed an issue that would occur if spell components from SCS/ToF were installed after this mod. The CON/WIS drain wasn't being removed right away after battle (it wears off itself eventually).
+- Note that recommended install order is still this mod after the spell components, but in case the opposite order is used, Milkweed rune should now be compatible either way.
+- Since I was editing this anyways, using a Caryll Rune will no longer instantly remove the stat drain from Milkweed. It gets removed automatically at the same time that the polymorph is reversed.
 
 v4.7
 - Maintenance:

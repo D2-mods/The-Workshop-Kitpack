@@ -416,7 +416,7 @@ Un talisman en forme de plume qui expulse tous les types de mort magique.
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Jets de sauvegarde contre les sorts : +3
+– Points de vie : +8
 – Immunité à la pétrification
 – Protection contre la mort
 

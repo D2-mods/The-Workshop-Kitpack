@@ -85,8 +85,8 @@ Avantages :
 - 3ème niveau : Immunité à la peur et à la perte de moral. 
 - 5ème niveau : Peut utiliser la capacité « Dénégation » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
 
-DÉNÉGATION : Ce sort a deux effets. Tout d'abord, la cible devient immunisé, pendant 3 tours, à tous les effets provoquant une mort instantanée. 
-Ensuite, si celle-ci voit ses points de vie tomber en dessous des 50 %, le deuxième effet du sort s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.
+DÉNÉGATION : Ce sort a deux effets. Tout d'abord, la cible devient immunisé, pendant 3 tours, à toutes les formes de mort magique. 
+Si celle-ci voit ses points de vie tomber en dessous des 50 %, un deuxième effet s'activera et lui redonnera toute sa santé, consumant le sort au cours du processus.
 
 - 8ème niveau : Immunité à l'aveuglement et aux attaques de regard.
 
@@ -232,7 +232,7 @@ Crow Hunter (Voleur)
 PRÉDATEUR : Agissant avec célérité et sans aucune pitié pour sa cible. Ce Prédateur de prédateurs est un tueur expérimenté et redouté, mais il n'est pas nécessairement cruel ou maléfique, malgré le caractère déplaisant de son travail.
 
 Avantages :
-– Bonus de 3 bonus aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille.
+– Bonus de 1 aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille. Ce bonus passe à 2 au niveau 5 et à 3 au niveau 10.
 – 4ème niveau : Peut utiliser la capacité « Tir éclatant » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
 TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 1 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
@@ -259,18 +259,18 @@ Avantages :
   10ème niveau : « Déflagration de poussière ».
   15ème niveau : « Flamme frénétique ».
 
-CHANT ENFLAMMÉ : Un cercle de flammes se propage sur un rayon de 4,5 m, infligeant 1d4 points de dégâts de feu par niveau du personnage, jusqu'à un maximum de 20d4 au niveau 20, toute créature se trouvant dans la zone d'effet doit réussir un jet de sauvegarde contre les souffles pour réduire les dégâts de moitié. Seule la personne qui joue la chanson est à l'abri des flammes.
+CHANT ENFLAMMÉ : Un cercle de flammes se propage sur un rayon de 4,5 m, infligeant 1d4 points de dégâts de feu par niveau du personnage, jusqu'à un maximum de 20d4 au niveau 20, toute créature se trouvant dans la zone d'effet doit réussir un jet de sauvegarde contre les souffles pour réduire les dégâts de moitié. Seule la personne qui joue la chanson est à l'abri des flammes. La pyrotechnie utilisée pour amorcer le « Chant enflammé » inflige 2 points de dégâts de feu supplémentaires aux ennemis dans un rayon de 3,5 m.
 
-SON DÉTONANT : Une vague massive se propage sur un rayon de 4,5 m, infligeant 2d4 points de dégâts contondants aux ennemis qui se retrouve sous l'effet de la surdité pendant 4 rounds, un jet de sauvegarde contre les sorts réduit ce temps de moitié. La surdité entraîne une probabilité d’échec de l'incantation des sorts de 50 %.
+SON DÉTONANT : Une vague massive se propage sur un rayon de 4,5 m, infligeant 3d8 points de dégâts contondants aux ennemis qui se retrouve sous l'effet de la surdité pendant 4 rounds, un jet de sauvegarde contre les sorts réduit ce temps de moitié. La surdité entraîne une probabilité d’échec de l'incantation des sorts de 50 %.
 
-DÉFLAGRATION DE POUSSIÈRE : La première déflagration inflige 5d6 points de dégâts de feu à tous les ennemis dans un rayon de 4,5 m (un jet de sauvegarde contre les souffles réduit les dégâts de moitié.). Le nuage de poussière et la fumée que dégage l'explosion persiste pendant 3 rounds et s'étant sur une surface de 6 mètres de rayon. Toutes les créatures présentes dans le nuage sont aveuglées sans jet de sauvegarde possible, mais elles sont aussi dissimulées par la fumée et ne peuvent être directement visées, à moins d'avoir les moyens de percevoir ce qui est invisible.
+DÉFLAGRATION DE POUSSIÈRE : La première déflagration inflige 8d6 points de dégâts de feu à tous les ennemis dans un rayon de 4,5 m (un jet de sauvegarde contre les souffles réduit les dégâts de moitié). Le nuage de poussière et la fumée que dégage l'explosion persiste pendant 3 rounds et s'étant sur une surface de 6 mètres de rayon. Toutes les créatures présentes dans le nuage sont aveuglées sans jet de sauvegarde possible, mais elles sont aussi dissimulées par la fumée et ne peuvent être directement visées, à moins d'avoir les moyens de percevoir ce qui est invisible. Les ennemis voient leur mouvements réduits de moitié.
 
-FLAMME FRÉNÉTIQUE : Cette attaque répand une flamme vivante qui enveloppe un rayon de 6 m et persiste pendant 2 rounds. Tout ennemi pénétrant dans les flammes subit immédiatement les effets du sommeil, de la confusion, de la peur ou de la folie du berserker pendant 5 rounds (25 % de chances d'être affecté par chacun). Les ennemis subissent également 2d4 points de dégâts magiques par round tant qu'ils se trouvent dans la zone. Il n'y a pas de jet de sauvegarde, mais la résistance à la magie peut contrecarrer les effets.
+FLAMME FRÉNÉTIQUE : Cette attaque répand une flamme vivante qui enveloppe un rayon de 6 m et persiste pendant 2 rounds. Tout ennemi pénétrant dans les flammes subit immédiatement les effets du sommeil, de la confusion, de la peur ou de la folie du berserker pendant 5 rounds (25 % de chances d'être affecté par chacun). Les ennemis subissent également 2d12 points de dégâts magiques par round tant qu'ils se trouvent dans la zone. Il n'y a pas de jet de sauvegarde, mais la résistance à la magie peut contrecarrer les effets.
 
 - Si la capacité de haut niveau « Chant du barde amélioré » est acquise, le personnage disposera d'une capacité lui permettant de basculer sur cette chanson.
 
 Inconvénients : 
-– Le chant du barde est inutilisable pendant un tour après chaque usage..
+– Le chant du barde est désactivé pendant 8 rounds après usage d'une chanson incendiaire.
 – N'obtient qu'un quart du score de Vol à la tire.
 
 ----------------------------------------------------------------------------------------------------
@@ -322,6 +322,10 @@ REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes 
 – 9ème niveau : Peut utiliser la capacité « Déluge Salvateur » une fois par jour, puis une fois supplémentaire au niveau 12 et 15.
 
 DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8+2 points de vie chaque round.
+
+– 10ème niveau : Peut utiliser « Neutralisation du poison » trois fois par jour.
+– 14ème niveau : Peut utiliser « Guérison » une fois par jour.
+– 18ème niveau : Peut utiliser « Restauration mineur » trois fois par jour.
 
 Inconvénients :
 - Ne peut pas utiliser d'autre lame que les épées courtes ou les dagues.
