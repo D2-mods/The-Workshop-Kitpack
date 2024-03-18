@@ -16,6 +16,7 @@ DEFINE_PATCH_FUNCTION d2_convert_spell_type
     INT_VAR type = 0        // 0=special, 1=wizard, 2=priest, 3=psionic, 4=innate, 5=bardsong
             level = ~-1~    // set spell level, must be 0-9 or no change occurs
             location = 0    // 1=weapon, 2=spell, 3=item, 4=ability (0 = spell or ability, based on type)
+            update_res = 1  // resource fields set to original resource are changed to the new resource
 		
 BEGIN
 
@@ -45,6 +46,10 @@ BEGIN
 
   LPF ALTER_SPELL_HEADER INT_VAR location=location END    // set spell location
 
+  PATCH_IF (update_res > 0) BEGIN
+    LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=~%SOURCE_RES%~ resource=~%DEST_RES%~ END
+  END
+
 END
 
 ////////////////////////////////////////////////////////////
@@ -57,6 +62,7 @@ DEFINE_ACTION_FUNCTION d2_convert_spell_type
     INT_VAR type = 0        // 0=special, 1=wizard, 2=priest, 3=psionic, 4=innate, 5=bardsong
             level = ~-1~    // set spell level, must be 0-9 or no change occurs
             location = 0    // 1=weapon, 2=spell, 3=item, 4=ability (0 = spell or ability, based on type)
+            update_res = 1  // resource fields set to original resource are changed to the new resource
 	
     STR_VAR spell = ~~      // SPL file to clone
             newspell = ~~   // SPL file to create
@@ -64,6 +70,7 @@ DEFINE_ACTION_FUNCTION d2_convert_spell_type
 BEGIN
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) BEGIN
+
   COPY_EXISTING ~%spell%.SPL~ ~override/%newspell%.SPL~
     PATCH_IF ((type < 1) OR (type > 5))         BEGIN SET type = 0 END
     PATCH_IF ((level < 0) OR (level > 9))       BEGIN SET level = ~-1~ END
@@ -86,6 +93,11 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) BEGIN
     END
 
     LPF ALTER_SPELL_HEADER INT_VAR location = %location% END    // set spell location
+
+    PATCH_IF (update_res > 0) BEGIN
+      LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=~%SOURCE_RES%~ resource=~%DEST_RES%~ END
+    END
+
     BUT_ONLY
   END
 

@@ -26,7 +26,6 @@ ACTION_PHP_EACH medicspells AS spell => res BEGIN
       WRITE_SHORT 0x22 0              // no casting effect
       LPF ALTER_SPELL_HEADER INT_VAR range=1 speed=0 END
       LPF ALTER_EFFECT INT_VAR power=0 END
-      LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=~%SOURCE_RES%~ resource=~%DEST_RES%~ END
       LPF DELETE_EFFECT INT_VAR match_opcode=93 END              // remove fatigue
       LPF DELETE_EFFECT STR_VAR match_resource=~dvwinded~ END    // remove SR fatigue
   END

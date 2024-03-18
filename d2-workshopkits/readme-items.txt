@@ -149,7 +149,7 @@ Equipped abilities:
 – Charisma: +2
 
 Special (Beast Hunter): 
-– Hunter Tools: +5% chance to score a critical hit with melee attacks
+– Hunter Tools: +5% chance to score a critical hit, and never roll a critical miss (melee only)
 
 Weight: 1
 

@@ -4,6 +4,9 @@ Set correct Sneak Attack and Crippling Strike values for base-game kits
 */
 
 
+ACTION_IF (nobackstabprep = 0) BEGIN
+
+
 //prep
 INCLUDE ~%install%/backstabcheck.tph~
 
@@ -117,6 +120,9 @@ ELSE BEGIN
     PRETTY_PRINT_2DA
   BUT_ONLY
   
+END
+
+
 END
 
 

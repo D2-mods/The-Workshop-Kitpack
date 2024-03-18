@@ -67,6 +67,7 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~armorrestrictions.*=.*[^0-9]0[^0-9]*$~       noarmorrestrictions
   COUNT_REGEXP_INSTANCES  ~castingspeedpatch.*=.*[^0-9]0[^0-9]*$~       nocastingspeedpatch
   COUNT_REGEXP_INSTANCES  ~evasionchecks.*=.*[^0-9]0[^0-9]*$~           noevasionchecks
+  COUNT_REGEXP_INSTANCES  ~backstabprep.*=.*[^0-9]0[^0-9]*$~            nobackstabprep
 
 
 

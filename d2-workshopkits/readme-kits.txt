@@ -318,7 +318,7 @@ WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All e
 – 7th level: May use Cure Disease once per day.
 – 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
 
-HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius, lasting for 2 rounds. All creatures in the area are healed 3d8+2 Hit Points each round.
+HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius for 2 rounds, washing away fatigue and healing all creatures in the area 3d8+2 Hit Points each round.
 
 – 10th level: May use Neutralize Poison three times per day (replaces Slow Poison).
 – 14th level: May use Heal once per day (replaces Cure Disease).

@@ -150,6 +150,12 @@ This is how I'd do the install:
 
 Version info:
 
+v4.7.9
+- French translation updated, thanks to JohnBob.
+- Medic: Healing Rain now also removes fatigue.
+- Temple Knight: Bolt of Glory no longer applies damage more than once to some creature types.
+- Confessor: Blur no longer stacks with itself. Vampiric Touch no longer works on undead or golems.
+
 v4.7.8
 - Compatibility fix for EEex (v0.10.0-alpha and later):
 	- Some kits had broken effects due to a change in recent EEex versions.

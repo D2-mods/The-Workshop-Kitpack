@@ -23,6 +23,7 @@ ACTION_IF (FILE_EXISTS ~override/%visceralattack%.SPL~) BEGIN
   // add cloak effect to op321 lists (remove effects)
   COPY_EXISTING ~%visceralattack%.SPL~  ~override~
     LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m1%a~ END
+    LPF d2_protect_on_castequip INT_VAR duration=10 STR_VAR resource=~%m1%e~ END
   BUT_ONLY
 
   COPY_EXISTING ~%visceralremove%.SPL~  ~override~
