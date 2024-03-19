@@ -321,7 +321,7 @@ REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes 
 – 7ème niveau : Peut utiliser « Guérison des maladies » une fois par jour.
 – 9ème niveau : Peut utiliser la capacité « Déluge Salvateur » une fois par jour, puis une fois supplémentaire au niveau 12 et 15.
 
-DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Toutes les créatures présentes dans la zone récupèrent 3d8+2 points de vie chaque round.
+DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Balayant la fatigue et soignant 3d8+2 points de vie à chaque round de toutes les créatures présentes dans la zone.
 
 – 10ème niveau : Peut utiliser « Neutralisation du poison » trois fois par jour.
 – 14ème niveau : Peut utiliser « Guérison » une fois par jour.
