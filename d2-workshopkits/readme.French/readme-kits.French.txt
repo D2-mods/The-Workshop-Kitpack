@@ -99,24 +99,29 @@ Inconvénients :
 ==================================================
 Moonlight Knight (Rôdeur)
 ==================================================
-CHEVALIER AU CLAIR DE LUNE : Les érudits parlent d'un vieux dragon sur le déclin qui se trouve au sommet d'une montagne, à l'écart du reste de Toril. Les chevaliers au clair de lune, qui ont bravé l'interdit et contemplé cette "autre" lune, se rendent en ce lieu, en quête d'une illumination sur les mystères de l'invisible.
+CHEVALIER AU CLAIR DE LUNE : Ces chevaliers errants, marqués d'une cicatrice pour avoir bravé l'interdit et rêvé d'une lune éternelle, se rendent en pèlerinage à la recherche d'autels éclairés par la lune, en quête d'une illumination sur les mystères de l'invisible.
 
 Avantages :
-– Bonus de 2 aux jets de sauvegarde.
-– Peut être de n'importe quel alignement.
-– Ne peut être déchu en raison de sa réputation.
+- Balafré par la lune : Bonus de 1 aux jets de sauvegarde, passe à 2 au niveau 8 et à 3 au niveau 16 et à 3 au niveau 10.
+
 – 2ème niveau : Gagne la capacité passive « Cascade ».
 
-CASCADE : Une attaque de mêlée réussie octroie au personnage 6 % de chances de bénéficier des effets de la hâte pendant 10 secondes, gagnant une attaque supplémentaire par round et doublant sa vitesse de déplacement. La probabilité augmente de 1 % par tranche de 2 niveaux, jusqu'à un maximum de 15 % au niveau 20..
+CASCADE : Une attaque réussie octroie au personnage 10 % de chances de bénéficier des effets de la hâte pendant 10 secondes, gagnant une attaque supplémentaire par round et doublant sa vitesse de déplacement.
+Au niveau 8, les attaques infligent 2 points de dégâts magiques supplémentaires.
+au niveau 16, le nombre d'attaques par round est doublé.
+Les effets de « Balafré par la lune » sont inversés quand cette capacité est activée.
 
-– 6ème niveau : Peut utiliser la capacité « Albédo » une fois par jour, puis une fois supplémentaire au niveaux 10 et 14.
+– 7ème niveau : Peut utiliser la capacité « Albédo » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
-ALBÉDO : Libère un rayonnement lunaire dévastateur qui s'étend jusqu'à la zone ciblée, infligeant sur son passage 4d10 points de dégâts magiques aux ennemis. Les morts-vivants et les créatures extra-planaires subissent le double des dégâts. De plus, la lumière rémanente issue de l'incantation confère au personnage un bonus de 20 % de résistance magique, pendant 4 rounds.
+ALBÉDO : Libère un rayonnement lunaire dévastateur qui s'étend jusqu'à la zone ciblée, infligeant sur son passage 8d10 points de dégâts magiques aux ennemis. Les morts-vivants et les créatures extra-planaires subissent le double des dégâts. De plus, la lumière rémanente issue de l'incantation confère au personnage un bonus de 20 % de résistance magique, pendant 4 rounds.
 
-Inconvénients : 
+– Peut être de n'importe quel alignement.
+– Ne peut être déchu en raison de sa réputation.
+
+Inconvénients :
+- Balafré par la lune : Pénalité de 1 à la classe d'armure contre les attaques tranchantes, perforantes et les projectiles. Cette pénalité passe à 2 au niveau 8 et 3 au niveau 16.
 – Ne peut se spécialiser avec les armes à distance.
-– Ne peut pas utiliser la Furtivité.~
-@100404 = ~Déchu : Chevalier au clair de lune
+– Ne peut pas utiliser la Furtivité.
 
 
 ==================================================
@@ -154,14 +159,13 @@ Avantages :
 – Peut utiliser la capacité « Imposition des mains » trois fois par jour.
 – 2ème niveau : Peut utiliser la capacité « Force » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
-FORCE : Produit une onde de choc qui n'inflige aucun dégât, mais étourdit les ennemis à proximité. Tous les adversaires présents dans un rayon de 4,5 mètres sont propulsés en arrière et étourdis pendant 4 secondes (sans jet de sauvegarde possible).
+FORCE : Produit une onde de choc qui n'inflige aucun dégât, mais étourdit les ennemis à proximité. Tous les adversaires présents dans un rayon de 4,5 mètres sont propulsés en arrière et étourdis pendant 4 secondes (sans jet de sauvegarde possible). Les créatures gigantesques ne seront pas projetées mais étourdies un court instant.
 
-– 12ème niveau : Peut utiliser la capacité « Rayon divin » une fois par jour.
-– 16ème niveau : Peut utiliser la capacité « Rayon divin » deux fois par jour.
+– 9ème niveau : Peut utiliser la capacité « Rayon divin » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
 
 Inconvénients : 
-– Ne peut pas utiliser les armes à projectiles.
-– Ne peut pas repousser les morts-vivants.
+– Ne peut pas se spécialiser avec les armes à projectiles.
+– Sa capacité à repousser les morts-vivants est deux point inférieur à celle des autres paladins et ne devient effective qu'au niveau 5.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -237,7 +241,7 @@ Avantages :
 
 TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 1 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
-– 9ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 13 et 18.
+– 9ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
 
 INSTINCT : La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 12 points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.
 
@@ -270,7 +274,7 @@ FLAMME FRÉNÉTIQUE : Cette attaque répand une flamme vivante qui enveloppe un 
 - Si la capacité de haut niveau « Chant du barde amélioré » est acquise, le personnage disposera d'une capacité lui permettant de basculer sur cette chanson.
 
 Inconvénients : 
-– Le chant du barde est désactivé pendant 8 rounds après usage d'une chanson incendiaire.
+– Le chant du barde est désactivé pendant 8 rounds après utilisation.
 – N'obtient qu'un quart du score de Vol à la tire.
 
 ----------------------------------------------------------------------------------------------------
@@ -341,11 +345,11 @@ SEIGNEUR SCION : Descendant d'une lignée honorable, le Seigneur Scion a foi dan
 Avantages :
 – Bonus de 1 aux jets d'attaque avec les armes à distance au niveau 1, puis tous les 5 niveaux.
 – Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes
-– 3ème niveau : Peut utiliser la capacité « Tir saignant » une fois par jour, puis tous les 3 niveaux.
+– 3ème niveau : Peut utiliser la capacité « Tir saignant » une fois par jour, puis une fois supplémentaire tous les 3 niveaux.
 
-TIR SAIGNANT : Le personnage sacrifie 2d4 points de vie. Ainsi pendant les 2 rounds suivants, toutes ses attaques à distance infligent 1d3 points de dégâts perforants supplémentaires par tranche de 3 niveaux du personnage.
+TIR SAIGNANT : Le personnage sacrifie 5 points de vie. Ainsi pendant les 2 rounds suivants, son TAC0 est doublé avec les armes à distance et toutes ses attaques à distance infligent 1d3 points de dégâts perforants supplémentaires par tranche de 3 niveaux du personnage.
 
-– 8ème niveau :  +5 % de chance d’effectuer un coup critique avec les armes à distance.
+– 8ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
 – 16ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
 
 Inconvénients :
@@ -384,15 +388,29 @@ Nurse (Thief)
 URGENTISTE : Naturellement douée, l'urgentiste est à la fois un alchimiste et un archer, investigation et apprentissage sont ses maîtres mots.
 
 Avantages :
-– Bonus de 1 aux jets d'attaque avec les armes à distances au premier niveau, puis une fois supplémentaire tous les 5 niveaux.
+– Bonus de 1 aux jets d'attaque avec les armes à distances tous les 3 niveaux.
 – Peut atteindre la spécialisation (2 points de compétence) avec les arcs cours, les arbalètes les frondes et le fléchettes.
-– Peut préparer un lot de 10 « Seringues ». une fois par jour au niveau 1 et 5, puis une fois supplémentaire tous les 5 niveaux. Les fléchettes sont immédiatement équipées et restent dans la main jusqu'à ce qu'elles soient toutes utilisées ou qu'elles expirent, au bout d'une heure.
 
-SERINGUES : Ces fléchettes guériront les alliés et empoisonneront les ennemis. Leur effet curatif ou bien leur toxicité est équivalente à 1d4+3 + 1 point de vie par tranche de 5 niveaux. Les Seringues sont considérées comme des armes magiques +5, et bénéficient d'un bonus de 5 au jets d'attaque. Les points de compétence investis dans les fléchettes par le personnage n'affectent pas les jets d'attaque.
+– Peut utiliser la capacité « Concoction » une fois par jour au niveau 1 et 6, puis une fois supplémentaire tous les 6 niveaux.
 
-– 11ème niveau : Peut utiliser la capacité « Intraveineuse » une fois par jour, puis une fois supplémentaire au niveau 15 et 19.
+CONCOCTION : Prépare un ensemble de concoctions utilisable comme des capacités spéciales pendant une heure. 
+Chacune d'entre elles nécessite un point d'alchimie et l'Urgentiste dispose de 3 points.
+De nouvelles capacités sont disponible à plus haut niveau.
+  1er niveau : Seringues
+  5ème niveau : Adrénaline
+  9ème niveau : Overdose
+  13ème niveau : Intraveineuse
+  17ème niveau : Cocktail
 
-INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental pendant 8 heures. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de la Confusion pendant 5 rounds.
+SERINGUES : Ces fléchettes guériront les alliés et empoisonneront les ennemis. Leur effet curatif ou bien leur toxicité est équivalente à 1d4+3 + 1 point de vie par tranche de 5 niveaux. Les Seringues sont considérées comme des armes magiques +2, et bénéficient d'un bonus de 5 au jets d'attaque. Les points de compétence investis dans les fléchettes par le personnage n'affectent pas les jets d'attaque.
+
+ADRÉNALINE : Prodigue les premiers soins à n'importe quelle créature vivante. Restaure 2 points de vie par niveau, jusqu'à un maximum de 40 points de vie.
+
+OVERDOSE : Pendant 5 rounds, le personnage bénéficie d'une attaque supplémentaire par round, de 3 points de talent par niveau dans les compétences de voleur, de 10 % de chances de coup critique avec les armes à distance et d'une immunité aux sorts : Lenteur, Labyrinthe, Sommeil, Étourdissement et Drain de niveau. Cette capacité ne peut pas être utilisée en combinaison avec les sorts de hâte et hâte améliorée.
+
+INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental pendant 7 rounds. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de Confusion et Lenteur  pendant 2 rounds.
+
+COCKTAIL : Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité dure 3 tours et ne protège qu'une fois.
 
 Inconvénients :
 – Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.

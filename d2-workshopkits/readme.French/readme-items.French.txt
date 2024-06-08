@@ -434,6 +434,7 @@ L'âme pervertie d'un démon primordial... Elle est imprégnée d'une grande pui
 PARAMÈTRES :
 
 Spécial : Bonus de 200 000 points d’expérience
+Force : Bonus de 1
 Sagesse : Malus de 1
 Charisme : Malus de 2
 Durée : Permanente
@@ -681,7 +682,7 @@ Capacités de charge :
 - Sève (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
-Transformation en flagelleur mental en cours de combats ; en contrepartie la sagesse et la constitution sont réduites à 5 pendant la métamorphose, le personnage reprendra sa forme naturelle si aucun ennemi ne se trouve à portée de vue.
+Transformation en flagelleur mental en cours de combats ; en contrepartie la Sagesse et la Constitution souffrent d'un malus de 2 pendant la métamorphose, le personnage reprendra sa forme naturelle si aucun ennemi ne se trouve à portée de vue.
 
 Poids : 0
 
