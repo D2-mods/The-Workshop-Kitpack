@@ -44,7 +44,7 @@ Text in this file appears in the game.
 //text with variables
 @350 = ~Non affecté par %ability_name%~
 @351 = ~Acquiert la capacité passive : %ability_name%~
-@352 = ~%ability_name% activée. Les effets sont maintenant dissipés.~
+@352 = ~Capacité latente « %ability_name% » activée. Ses effets sont maintenant dissipés.~
 @353 = ~Note : Toutes les capacités sont obtenues selon la progression de niveau du %baseclass%. (%multiclass%)~
 
 
