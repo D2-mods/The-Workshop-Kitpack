@@ -450,12 +450,12 @@ Advantages:
 - May Specialize (two slots) in shortbows, crossbows, slings, and darts.
 - May use the N-Alchemy ability. Gains one use at level 1, one use at level 6, and an additional use every 6 levels thereafter.
 
-N-ALCHEMY: Adds a set of medical tools as special abilities for up to 1 hour. Each requires 1 alchemy point, and the character is given 3 points to use. New abilities become available at higher levels:
-	- 1st level: Medical Darts
-	- 5th level: First Aid
-	- 9th level: Overdose
-	- 13th level: Injection Shot
-	- 17th level: Autoimmune
+N-ALCHEMY: Adds a set of medical tools as special abilities for up to 1 hour. Each requires 1 alchemy point, and the character is given 3 points to use. New abilities become available at higher levels:  
+&emsp;&emsp;1st level: Medical Darts  
+&emsp;&emsp;5th level: First Aid  
+&emsp;&emsp;9th level: Overdose  
+&emsp;&emsp;13th level: Injection Shot  
+&emsp;&emsp;17th level: Autoimmune
 
 MEDICAL DARTS: Equips the character with 5 medical darts, which expire after 5 rounds. These darts will heal allies or deal poison damage to enemies. The amount of healing or damage is equal to 1d4+3, with an extra +1 every 5 levels. Medical Darts strike as +2 weapons with a +5 bonus to THAC0. Proficiency with darts does not affect attack rolls.
 
