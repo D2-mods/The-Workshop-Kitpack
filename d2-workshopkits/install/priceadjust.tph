@@ -24,7 +24,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponbg2prices BEGIN
   ~%badge_old%~      => 3500
 //
   ~%calamity%~       => 1
-  ~%demonsoul%~      => 1
+  ~%demonsoul%~      => 12000
   ~%shamanbone%~     => 300
   ~%crowfeather%~    => 800
   ~%hunterbone%~     => 800
@@ -56,7 +56,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponiwdprices BEGIN
   ~%badge_old%~      => 3500
 //
   ~%calamity%~       => 1
-  ~%demonsoul%~      => 1
+  ~%demonsoul%~      => 12000
   ~%shamanbone%~     => 300
   ~%crowfeather%~    => 800
   ~%hunterbone%~     => 800

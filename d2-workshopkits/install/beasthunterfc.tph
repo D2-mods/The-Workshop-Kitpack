@@ -109,13 +109,18 @@ ACTION_IF ((vanillaclericprofs = 0) OR
            (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
            (FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
            (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
-          ) BEGIN
-
+) BEGIN
   OUTER_TEXT_SPRINT multikitprofs  ~2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3~
-END
-ELSE BEGIN
+END ELSE BEGIN
   OUTER_TEXT_SPRINT multikitprofs  ~0 0 0 0 2 2 0 2 0 0 0 0 0 0 0 0 2 2 0 0 2 2 2 0 0 0 0 2 2 2 2 3~
 END
+
+
+//
+LAF d2_get_mc_text STR_VAR class=fighter multi=fc RET baseclass multiclass END
+OUTER_SET kit_note = RESOLVE_STR_REF(@353)
+OUTER_SET base_kit = RESOLVE_STR_REF(@100103)
+LAF d2_build_mc_desc INT_VAR desc1=base_kit desc2=kit_note mode=2 STR_VAR multi=fc RET kit_desc END
 
 
 //Kit function
@@ -124,7 +129,7 @@ LAF ADD_KIT_EX
     kit_class = 8
     mixed = RESOLVE_STR_REF (@100101)
     lower = RESOLVE_STR_REF (@100102)
-    help = RESOLVE_STR_REF (@100103)
+    help = kit_desc
   STR_VAR
     kit_name = ~D2%kitname%FC~
 //  unusable = ~0x00010000~               // Stalker usability (no effect for multiclasses)
@@ -144,12 +149,15 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
 END
 
 
-//DoF compatibility
-OUTER_TEXT_SPRINT kitid    ~%kitid%C~
-OUTER_TEXT_SPRINT kitname  ~%kitname%FC~
+//DoF spheres
+OUTER_TEXT_SPRINT dofclab     ~%kitid%C~
+OUTER_TEXT_SPRINT dofkitname  ~D2%kitname%FC~
 INCLUDE ~%install%/dofspheres.tph~
-OUTER_TEXT_SPRINT kitid    ~d2wk1~
-OUTER_TEXT_SPRINT kitname  ~BEASTHUNTER~
+
+//ToF spheres
+OUTER_TEXT_SPRINT tofkitname  ~D2%kitname%FC~
+OUTER_TEXT_SPRINT tofspheres  ~all,animal,charm,combat,divination_cleric,divine,fire,good,healing,protection,summoning,sun,wards~
+INCLUDE ~%install%/tofspheres.tph~
 
 
 //Set Variable

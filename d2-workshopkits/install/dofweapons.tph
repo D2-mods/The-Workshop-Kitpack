@@ -8,7 +8,7 @@ Sets both proficiencies and weapon restrictions (DoF and FnP).
 ACTION_IF ((FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
            (FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
            (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
-          ) BEGIN
+) BEGIN
 
 
 /*

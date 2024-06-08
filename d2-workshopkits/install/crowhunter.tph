@@ -18,23 +18,30 @@ COPY ~%passives%/settraps1second.EFF~  ~override/%e3%.EFF~
   WRITE_LONG 0x24 9
   WRITE_LONG 0x28 0
 
-COPY ~%passives%/opcode206.SPL~   ~override/%e6%.SPL~    // set snares unusable
-  LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END
-  LPF CLONE_EFFECT STR_VAR resource=~D5CL412~ END
+COPY ~%passives%/opcode206.SPL~   ~override/%e6%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~D5CL412~ END
+  LPF CLONE_EFFECT STR_VAR resource=~SPCL412~ END    // set snares unusable
 
 
-//remove set snares (for multiclass kits)
+//remove set snares (for multiclass variants or custom multiclasses)
 COPY ~%abilities%/applyeffects.SPL~  ~override/%e2%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%e2%a~ END
-
 COPY ~%passives%/removespell.SPL~    ~override/%e2%a.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END
-
 LAF d2_recast_at_interval STR_VAR spell=~%e2%~ new_spell=~%@2%~ END
 
 
+//
+//for Splintering Shot (add piercing resist check to splprot.2da)
+OUTER_TEXT_SPRINT d2splintercheck  ~d2splintercheck 23 100 4~    // piercing resist >= 100
+
+LAF d2_splprot_adder STR_VAR mode=d2splintercheck string=~%d2splintercheck%~ RET stat END
+OUTER_SET d2splintercheck = stat
+
+
+//
 //Add Splintering Shot
-COPY ~%icons%/calledshot.BAM~           ~override/%s1%i.BAM~
+COPY ~%icons%/calledshot.BAM~  ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@113) STR_VAR bam=~%s1%i~ RET icon END
 
 COPY ~%icons%/splinteringshot.BAM~      ~override/%s1%.BAM~
@@ -47,49 +54,29 @@ COPY ~%abilities%/splinteringshot.SPL~  ~override/%s1%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%s1%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY ~%abilities%/castspelltarget.EFF~        ~override/%s1%a.EFF~
+COPY ~%abilities%/castspelltarget.EFF~    ~override/%s1%a.EFF~
   WRITE_ASCII 0x30 ~%s1%a~ #8
-COPY ~%abilities%/splinteringshottarget.SPL~  ~override/%s1%a.SPL~
+COPY ~%abilities%/splinteringtarget.SPL~  ~override/%s1%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%s~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s1%b~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s1%s~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%b~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%s~ END
+  LPF d2_safe_spell STR_VAR insert=above END
 
-COPY - ~%abilities%/invisible15enemy.PRO~ ~%workspace%/%s1%s.PRO~
+COPY - ~%abilities%/invisible15enemy.PRO~  ~%workspace%/%s1%s.PRO~
 ADD_PROJECTILE ~%workspace%/%s1%s.PRO~
-COPY ~%abilities%/castspelltarget.EFF~        ~override/%s1%s.EFF~
-  WRITE_ASCII 0x30 ~%s1%s~ #8
-COPY ~%abilities%/splinteringshotburst.SPL~   ~override/%s1%s.SPL~
+COPY ~%abilities%/splinteringburst.SPL~    ~override/%s1%s.SPL~
   WRITE_SHORT 0x98 ~%s1%s~    // projectile
 
-COPY ~%icons%/bleed.BAM~                ~override/%s1%b.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@302) STR_VAR bam=~%s1%b~ RET icon END
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%b.EFF~
-  WRITE_ASCII 0x30 ~%s1%b~ #8
-COPY ~%abilities%/bleed10rounds.SPL~    ~override/%s1%b.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@302) END    // "Bleeding"
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s1%c~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%s1%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+COPY ~inlined/bleed_core.SPL~        ~override/%s1%b.SPL~
   WRITE_SHORT 0x98 ~%s1%s~    // projectile
+  LPF d2_bleed_delay INT_VAR limit=10 STR_VAR resource=d2bleed1 END
+  LPF d2_protect_on_castequip INT_VAR duration=0 cre_type=d2splintercheck STR_VAR insert=first END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=d2bleedt END
 
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%c.EFF~    // bleed damage
-  WRITE_ASCII 0x30 ~%s1%c~ #8
-COPY ~%abilities%/bleeddamage1.SPL~     ~override/%s1%c.SPL~
-
-
-//Bleeding removed by Heal or Greater Restoration
-ACTION_PHP_EACH d2restoration AS spell => type BEGIN
-  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~heal~) BEGIN    // if 'type' DOES contain 'heal'
-    ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.spl~) BEGIN
-      COPY_EXISTING ~%spell%.spl~  ~override~
-        LPF d2_remove_effects_on_cast STR_VAR resource=~%s1%b~ insert=last END
-      BUT_ONLY
-    END
-  END
-END
+LAF d2_bleed_removal STR_VAR resource=~%s1%b~ END    // add to d2!bleed.spl
 
 
+//
 //Add Visceral Attack
 COPY ~%icons%/visceralattack.BAM~      ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@114) STR_VAR bam=~%s2%i~ RET icon END
@@ -103,12 +90,16 @@ COPY ~%abilities%/visceralattack.SPL~  ~override/%s2%.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY ~%abilities%/castspellself.EFF~          ~override/%s2%a.EFF~    // cure/haste
+//subspell
+COPY ~%abilities%/castspellself.EFF~          ~override/%s2%a.EFF~
   WRITE_ASCII 0x30 ~%s2%a~ #8
 COPY ~%abilities%/visceralattackeffects.SPL~  ~override/%s2%a.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=14023 END      // "Hasted" in all games
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=14023 END    // "Hasted"
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
+  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
 
-COPY ~%abilities%/castspellself.EFF~          ~override/%s2%b.EFF~       // remove effects
+//remove effects
+COPY ~%abilities%/castspellself.EFF~          ~override/%s2%b.EFF~
   WRITE_ASCII 0x30 ~%s2%b~ #8
 COPY ~%abilities%/removespelleffects.SPL~     ~override/%s2%b.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%s2%~ END
@@ -120,7 +111,7 @@ COPY ~inlined/d2clab_thief_notraps~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=9 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR level=13 STR_VAR resource=~%s2%~ END
-  LPF d2_kit_ability_adder INT_VAR level=18 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=17 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 STR_VAR resource=~%e7%~ END
   LPF d2_kit_ability_adder INT_VAR level=10 passive=1 STR_VAR resource=~%e8%~ END
   LPF d2_kit_ability_adder INT_VAR level=14 passive=1 STR_VAR resource=~%e3%~ END    // for hla traps
@@ -144,6 +135,7 @@ LAF ADD_KIT_EX
     clsrcreq = ~1 1 1 1 1 1 1~                  // Usable by all races, if base class is usable
     thiefscl = ~100 100 100 100 100 100 0 0~    // no points in set traps
     thiefskl = ~40 20~                          // start with 40, gain 20 per level
+    alignmnt = ~1 1 1 1 1 1 1 1 1~              // all alignments
     clascolr = ~93 182 136 184 93~              // use Stalker colors
   RET 
     kit_id

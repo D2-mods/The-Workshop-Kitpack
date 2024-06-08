@@ -149,6 +149,7 @@ DEFINE_ACTION_FUNCTION ~DEFINE_FNP_KIT_INFO~
 	s_Astral = ~x~
 BEGIN
   PRINT ~Defining Faiths and Powers info for kit %clab_name% ...~ 
+  ACTION_IF ((IS_AN_INT silentmode) AND (silentmode > 1)) BEGIN SILENT END
   
   // validate required files exist
   ACTION_IF !(FILE_EXISTS ~%2da_folder%/d5_class.2da~
@@ -311,14 +312,14 @@ ALL
 		  OUTER_SPRINT s_Earth ~%kit_access%~
 		END
 	  END
-	  ACTION_IF (~%new_variable%~ STRING_EQUAL_CASE ~Water~) BEGIN
-	    ACTION_IF (~%s_Water%~ STRING_EQUAL_CASE ~x~) BEGIN
-		  OUTER_SPRINT s_Water ~%kit_access%~
-		END
-	  END
 	  ACTION_IF (~%new_variable%~ STRING_EQUAL_CASE ~Air~) BEGIN
 	    ACTION_IF (~%s_Air%~ STRING_EQUAL_CASE ~x~) BEGIN
 		  OUTER_SPRINT s_Air ~%kit_access%~
+		END
+	  END
+	  ACTION_IF (~%new_variable%~ STRING_EQUAL_CASE ~Water~) BEGIN
+	    ACTION_IF (~%s_Water%~ STRING_EQUAL_CASE ~x~) BEGIN
+		  OUTER_SPRINT s_Water ~%kit_access%~
 		END
 	  END
 	  ACTION_IF (~%new_variable%~ STRING_EQUAL_CASE ~Fire~) BEGIN

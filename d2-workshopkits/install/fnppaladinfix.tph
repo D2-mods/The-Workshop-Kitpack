@@ -44,9 +44,9 @@ IF
     Kit(LastSummonerOf(),D2%kitname%)
 THEN
     RESPONSE #100
-        SetGlobal("D5PADEF","GLOBAL",1)
-        SetGlobal("D5PAINQ","GLOBAL",1)
-        SetGlobal("D5PAZEA","GLOBAL",1)
+        %fnparchetype1%
+        %fnparchetype2%
+        %fnparchetype3%
         Continue()
 END
 >>>>>>>>

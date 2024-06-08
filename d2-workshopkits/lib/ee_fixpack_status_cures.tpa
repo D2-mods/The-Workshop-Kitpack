@@ -1,0 +1,110 @@
+//adds the EE fixpack status cures (PATCH function)
+//function does nothing if EE fixpack is not installed (skipped silently)
+
+
+/*
+"status" variable can be a list (i.e. status = ~sleep poison berserk~)
+INT variables are all optional (usually no reason to change)
+by default, adds as SPL header effects (no global effect)
+by default, adds as ITM equipped effect (no header effects)
+*/
+
+
+/*status cures
+berserk
+blindness
+confusion
+deafness
+disease
+intoxication
+feeblemind
+fear/panic
+hold/paralysis
+level drain
+poison
+silence
+sleep/unconscious
+stun
+invisibility    - removes invisibility (no effect if nondetection)
+nondetection    - removes nondetection
+pause           - removes pause effect (i.e. mental battle with elementals)
+
+NOTE: only needs to match a few letters (ex. status=paral or status=drain)
+Alternate names will usually work (ex. status=fear or status=panic).
+*/
+
+////////////////////////////////////////////////////////////
+
+DEFINE_PATCH_FUNCTION ee_fixpack_status_cures
+  INT_VAR globals=~-1~ headers=~-1~ header_type=~-1~ match_opcode=~-1~
+  STR_VAR status = ~~
+BEGIN
+
+  //prep
+  PATCH_IF (globals < 0) BEGIN  PATCH_IF (~%DEST_EXT%~ STR_EQ ~spl~) BEGIN
+      SET globals = 0
+    END ELSE BEGIN
+      SET globals = 1
+    END 
+  END
+  PATCH_IF (headers < 0) BEGIN  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+      SET headers = 0
+    END ELSE BEGIN
+      SET headers = 1
+    END
+  END
+  PATCH_IF (~%DEST_EXT%~ STR_EQ ~spl~) BEGIN  SET header_type = ~-1~ END
+
+  //add effects
+  PHP_EACH ee_fixpack_status_cures AS type => cure BEGIN
+    PATCH_IF !(~%status%~ STRING_CONTAINS_REGEXP ~%type%~) BEGIN    // if "status" DOES contain "type"
+      PATCH_IF (FILE_EXISTS_IN_GAME ~%cure%.SPL~) BEGIN
+        LPF CLONE_EFFECT 
+          INT_VAR check_globals=globals check_headers=headers header_type=header_type match_opcode=match_opcode
+                  silent=1 multi_match=1 opcode=326 parameter1=0 parameter2=0 timing=1 duration=0
+                  probability1=100 probability2=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
+          STR_VAR resource=EVAL ~%cure%~
+        END
+      END
+    END
+  END
+END
+
+
+/*
+"status" variable just needs to include the "type" string to get a match (spacing doesn't matter)
+function will add op326's, which cast the associated "cure" files
+*/
+
+//type => cure
+ACTION_DEFINE_ASSOCIATIVE_ARRAY ee_fixpack_status_cures BEGIN
+  ~bers~       => ~#cureber~
+  ~rage~       => ~#cureber~
+  ~blind~      => ~#curebld~
+  ~conf~       => ~#curecon~
+  ~chaos~      => ~#curecon~
+  ~deaf~       => ~#curedef~
+  ~dise~       => ~#curedis~
+  ~intox~      => ~#curedrk~
+  ~drunk~      => ~#curedrk~
+  ~feebl~      => ~#curefbm~
+  ~fear~       => ~#curefer~
+  ~panic~      => ~#curefer~
+  ~hold~       => ~#curehol~
+  ~paral~      => ~#curehol~
+  ~invis~      => ~#cureinv~    // cure invisibility (not illusions), blocked by opcode 69
+  ~stealth~    => ~#cureinv~
+  ~hide~       => ~#cureinv~
+  ~drain~      => ~#cureldr~
+  ~detect~     => ~#curendt~    // remove opcode 69 (nondetection)
+  ~pause~      => ~#curepse~    // remove opcode 165 ("pause target")
+  ~pois~       => ~#curepsn~
+  ~silen~      => ~#curesil~
+  ~sleep~      => ~#cureslp~
+  ~uncon~      => ~#cureslp~
+  ~stun~       => ~#curestn~
+END
+
+
+//
+//

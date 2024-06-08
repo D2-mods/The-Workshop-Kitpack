@@ -1,3 +1,98 @@
+//
+//
+
+/*
+- these add immunity to icons, strings, etc. if missing
+- you need to have the basic opcode 101 immunity for the immunity ones to work
+- NOTE: string immunities are only correct for BG2/EET/BGT
+- run d2_string_immunities to get correct strings in BG1EE and IWDEE (will auto-delete wrong strings)
+
+Usage: LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END    // slow immunity
+*/
+
+/*
+- the Jade feather item starts with op101 effects, then runs this for immunity to death/petrify
+
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_kill_target_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_slay_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_petrification_arrays END
+  LPF d2_string_immunities END
+  LPF ee_fixpack_immunities STR_VAR status=~death~ END
+  LPF block_death_gaze END
+*/
+
+
+/*batch list
+cd_immunity_free_action_arrays     // do not use in regexp
+cd_immunity_hold_special_arrays    // run before cd_immunity_hold_arrays
+cd_immunity_hold_arrays
+cd_immunity_stun_arrays
+
+cd_immunity_web_arrays
+cd_immunity_entangle_arrays
+cd_immunity_grease_arrays
+
+cd_immunity_slow_arrays
+cd_immunity_haste_arrays
+cd_immunity_sleep_arrays
+cd_elven_sleep_charm_resistance    // add elf resists to sleep
+
+cd_immunity_confusion_arrays
+cd_immunity_fear_arrays
+cd_immunity_charm_arrays
+cd_immunity_feeblemind_arrays
+
+cd_immunity_poison_arrays
+cd_immunity_disease_arrays
+cd_immunity_poison_resistance_arrays    // immunity to both poison/disease damage
+
+cd_immunity_level_drain_arrays
+cd_immunity_blindness_arrays
+cd_immunity_deafness_arrays
+cd_immunity_silence_arrays
+
+cd_immunity_kill_target_arrays
+cd_immunity_slay_arrays
+cd_immunity_petrification_arrays
+
+cd_immunity_invisible_detection_arrays
+cd_immunity_polymorph_arrays
+cd_immunity_psionics_arrays
+
+cd_immunity_spell_level_1_arrays
+cd_immunity_spell_level_2_arrays
+cd_immunity_spell_level_3_arrays
+cd_immunity_spell_level_4_arrays
+cd_immunity_spell_level_5_arrays
+cd_immunity_spell_level_6_arrays
+cd_immunity_spell_level_7_arrays
+cd_immunity_spell_level_8_arrays
+cd_immunity_spell_level_9_arrays
+
+cd_immunity_abjuration
+cd_immunity_conjuration
+cd_immunity_evocation
+cd_immunity_necromancy
+cd_immunity_alteration
+cd_immunity_illusion
+cd_immunity_enchantment
+cd_immunity_divination
+
+cd_full_dispel_arrays
+cd_full_dispel_novis_arrays
+cd_fear_removal_arrays 
+cd_spell_transformation_arrays
+cd_spell_transformation_human_arrays
+
+cd_full_blindness_opcode_arrays         - cause full blindness (run both together)
+cd_full_blindness_eff_arrays
+cd_full_stun_arrays
+cd_immunity_invisibility_arrays         - prevent invisibility
+
+*/
+
+
+
 /////                                                  \\\\\
 ///// elven sleep/charm resistance                     \\\\\
 /////                                                  \\\\\

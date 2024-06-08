@@ -150,6 +150,33 @@ This is how I'd do the install:
 
 Version info:
 
+v5.0
+- Kit/item changes:
+	- Nurse: Major kit revision (see kit description). It's now based around a main ability called N-Alchemy. When N-Alchemy is used, it gives the character 3 "alchemy points" and a set of abilities to use. The old abilities are still there, but rebalanced for the N-Alchemy system.
+	- Moonlight Knight: Revised/tweaked all kit abilities/passives (see kit description).
+	- Noble Scion: adjusted Blood Bullet ability. The damage is now capped by the "spellcap" setting (config.ini). However, it now doubles the base kit bonus to ranged THAC0 (this is uncapped).
+	- Crow Hunter: slightly adjusted Visceral Attack levels (now 9, 13, 17).
+	- Temple Knight: Tweaked disadvantages. Bolt of Glory now gained at levels 9, 13, 17. Force now has reduced effects against larger sized creatures (stun 1 second).
+	- Slightly expanded alignment options for thief/paladin kits.
+	- Tweaked items: Milkweed (rune), Colorless Demon Soul
+- Technical updates:
+	- Medical Darts (Nurse): The character will now stop attacking when all darts are used (if AI is on, will retarget to an enemy). Also, any effects that target "allies" or "enemies" are now relative to caster. Also fixed a bug that could cause the darts to be removed before the duration ended.
+	- Haste effects will now fully remove Slow spells (and vice versa). Spells with multiple statuses (ex. Holy Word, Dolorous Decay) will not have the non-Slow statuses removed.
+	- The Grave Warden's Denial ability can now be recast on a target that already has the effect. Previously, it would give a message that the "contingency" could not be recast.
+	- The Crow Hunter's Splintering Shot no longer bleeds enemies with 100+ piercing resist (this doesn't apply to the bleed from Confessor kit or Clawmark rune).
+	- Drifter: A few more spells added to the "ground" and "cloud" immunity packages. Anything added fits the general theme for each immunity type (ex. insect spells for cloud).
+- Other:
+	- a few extra abilities are capped by the "spellcap" setting in config.ini (default 20 for BG games, 30 for IWDEE).
+	- Added extra feedback messages (ex. Denial will say when it has activated and effects ended).
+	- Changed a couple portrait icons. Adjusted colors of some icons/animations. Changed some sound effects.
+	- Some pretty significant internal changes and improvements, on the installer side.
+- Compatibility notes:
+	- EE fixpack: Madman's Blood (Blood Minister) should no longer cancel itself out immediately. Any abilities that cure statuses will now also apply any relevant EEFP subspells. Updated list of EEFP immunity spellstates (some were missing).
+	- SR-Revised: fixed installer warnings when installed after SRR.
+	- Faiths and Powers: improved compatibility with paladin archetypes. For best compatibility, install this mod after the paladin components (and preferably after applying the sphere system).
+	- Deities of Faerun: Moonlight Knight CR now gains minor access to Healing sphere (replacing Weave).
+	- Talents of Faerun (beta 12): Added custom sphere support for all divine casting kits. For multiclass variants, any edits to kit descriptions will no longer be added to the single class (and vice versa). See release post for additional info.
+
 v4.7.9
 - French translation updated, thanks to JohnBob.
 - Medic: Healing Rain now also removes fatigue.
@@ -602,7 +629,7 @@ subtledoctor - coding assistance for compatibility with his mods
 Custom functions (not including my own):
 - ADD_KIT_EX by Argent77 (https://github.com/Argent77/A7-add_kit_ex)
 
-- CD_EXTEND-O-MATIC by Camdawg (https://www.gibberlings3.net/forums/topic/28835-toss-your-semi-useful-weidu-macros-here/#comment-254220)
+- CD_EXTEND-O-MATIC by Camdawg (https://www.gibberlings3.net/forums/topic/28835-toss-your-semi-useful-weidu-macros-here/page/13/#comment-332943)
 
 - add_spell_ex by K4thos (https://github.com/K4thos/IE-code-repository)
 

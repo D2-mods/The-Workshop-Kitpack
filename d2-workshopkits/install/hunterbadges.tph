@@ -78,8 +78,8 @@ END
     PATCH_IF (GAME_IS ~iwdee~) BEGIN
       LPF CLONE_EFFECT INT_VAR multi_match=1 match_timing=2 opcode=101 parameter2=5 END
       LPF cd_apply_batch STR_VAR array_name = cd_immunity_charm_arrays END
-      LPF DELETE_EFFECT INT_VAR match_opcode=267 END
       LPF d2_string_immunities END
+      LPF ee_fixpack_immunities STR_VAR status=~charm~ END
     END
 
   // cosmic watcher badge

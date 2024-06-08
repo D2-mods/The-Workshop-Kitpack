@@ -10,13 +10,9 @@ COPY ~%passives%/bloodminister.SPL~  ~override/%e2%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_poison_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_disease_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_poison_resistance_arrays END
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END
+  LPF d2_string_immunities END
 
 
-//
 //add icon BAMs
 COPY ~%icons%/bloodtransfusion.BAM~   ~override/%s1%.BAM~
 COPY ~%icons%/bloodtypea.BAM~         ~override/%s2%.BAM~
@@ -48,7 +44,6 @@ COPY_EXISTING ~%s1%c.2DA~    ~override/%s1%d.2DA~
 	APPEND ~%s1%d.2DA~  ~lead_elixir     %s5% 3~
 
 
-//
 //prep for blood types
 COPY - ~%abilities%/applyeffects.SPL~  ~inlined/d2bloodtype.SPL~
   WRITE_ASCII 0x10 CAS_P07 #8
@@ -61,11 +56,12 @@ COPY - ~%abilities%/applyeffects.SPL~  ~inlined/d2bloodtype.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=324 timing=0 parameter2=9 END     // elementals immune
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=324 timing=0 parameter1=119 parameter2=104 END    // slimes immune
 
-COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%a.SPL~
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%a.SPL~    // cast by blood types (remove effects)
   LPF ALTER_EFFECT INT_VAR target=2 STR_VAR resource=~%s2%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s3%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s4%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s5%a~ END
+COPY ~override/%s0%a.SPL~  ~override/%s0%x.SPL~                    // cast by Restoration (can be blocked separately)
 
 COPY ~%abilities%/spellfailed.SPL~  ~override/%s0%b.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@320) END    // "Ministration fail!"
@@ -91,20 +87,11 @@ COPY ~%abilities%/bloodtypea.SPL~  ~override/%s2%a.SPL~
 //  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=324 STR_VAR resource=~%s2%a~ END
   LPF DELETE_EFFECT INT_VAR match_opcode=324 END
   LPF DELETE_EFFECT INT_VAR match_opcode=321 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s2%b~ END    // remove poison
-  LPF CLONE_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s2%c~ END    // remove disease
+  LPF DELETE_EFFECT INT_VAR match_opcode=146 END
   LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
-
-COPY_EXISTING ~SPPR212.SPL~  ~override/%s2%b.SPL~    // clone Slow Poison
-  LPF d2_subspell_remove_effects END
-  LPF d2_subspell_remove_visuals INT_VAR string=0 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=329 opcode=11 END    // IWD: change slow poison to cure poison
-
-COPY_EXISTING ~SPPR317.SPL~  ~override/%s2%c.SPL~    // clone Cure Disease
-  LPF d2_subspell_remove_effects END
-  LPF d2_subspell_remove_visuals INT_VAR string=0 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=17 END             // IWD: remove HP heal
-  LPF DELETE_EFFECT STR_VAR match_resource=~SPPR317~ END    // remove immunities
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!body~ END     // cures poison and disease
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ END    // cures bleeding
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!phase~ END    // cures acid dot, phasing, etc.
 
 
 //
@@ -131,10 +118,7 @@ COPY ~%abilities%/bloodtypeb.SPL~  ~override/%s3%a.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_poison_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_disease_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_poison_resistance_arrays END
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END
+  LPF d2_string_immunities END
 
 COPY ~%abilities%/castspellself.EFF~  ~override/%s3%b.EFF~    // +1 damage bonus
   WRITE_ASCII 0x30 ~%s3%b~ #8
@@ -159,15 +143,19 @@ COPY ~%abilities%/bloodtypec.SPL~  ~override/%s4%a.SPL~
 //  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=324 STR_VAR resource=~%s4%a~ END
   LPF DELETE_EFFECT INT_VAR match_opcode=324 END
   LPF DELETE_EFFECT INT_VAR match_opcode=321 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s4%b~ END    // remove level drain
+  LPF DELETE_EFFECT INT_VAR match_opcode=146 END
   LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!vamp~ END    // cures level drain
+  LPF d2_protect_on_castequip INT_VAR duration=2 STR_VAR resource=~%s0%x~ insert=first END
 
+/*moved to spellprep3
 COPY_EXISTING ~SPPR417.SPL~  ~override/%s4%b.SPL~    // clone Lesser Restoration
   LPF d2_subspell_remove_effects END
   LPF d2_subspell_remove_visuals INT_VAR string=0 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=93 END              // remove fatigue
-  LPF DELETE_EFFECT STR_VAR match_resource=~dvwinded~ END    // remove SR fatigue
-  LPF DELETE_EFFECT STR_VAR match_resource=~SPPR417~ END     // remove immunities
+  LPF d2_no_fatigue END
+  LPF DELETE_EFFECT INT_VAR match_opcode=324 END    // remove IWD restrictions
+  LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
+*/
 
 
 //
@@ -191,24 +179,16 @@ COPY ~%abilities%/bloodtyped.SPL~  ~override/%s5%a.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END
+  LPF d2_string_immunities END
 
 
 //
 //removed by Restoration or Greater Restoration
 ACTION_PHP_EACH d2restoration AS spell => type BEGIN
-  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~restore~) BEGIN    // if 'type' DOES contain 'restore'
-    ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.spl~) BEGIN
-      COPY_EXISTING ~%spell%.spl~  ~override~
-        LPF d2_remove_effects_on_cast STR_VAR resource=~%s2%a~ insert=last END
-        LPF d2_remove_effects_on_cast STR_VAR resource=~%s3%a~ insert=last END
-        LPF d2_remove_effects_on_cast STR_VAR resource=~%s4%a~ insert=last END
-        LPF d2_remove_effects_on_cast STR_VAR resource=~%s5%a~ insert=last END
-      BUT_ONLY
-    END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~restore~) BEGIN    // if "type" DOES contain "restore"
+    COPY_EXISTING ~%spell%.spl~  ~override~
+      LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%s0%x~ insert=last END
+    IF_EXISTS BUT_ONLY
   END
 END
 
@@ -236,7 +216,6 @@ COPY_EXISTING ~%m9%.ITM~  ~override~
 BUT_ONLY
 
 
-//
 //Make clab table
 COPY ~inlined/d2clab_cleric~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
@@ -251,7 +230,6 @@ COPY ~inlined/d2clab_cleric~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder END
 
 
-//
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
@@ -324,15 +302,26 @@ BUT_ONLY
 
 //
 //Set variables for external use
-OUTER_TEXT_SPRINT bloodminister     ~%kitid%~
-OUTER_TEXT_SPRINT bloodtransfusion  ~%s1%~
-OUTER_TEXT_SPRINT healingblood      ~%s2%~
-OUTER_TEXT_SPRINT healingbloodregen ~%s2%a~
-OUTER_TEXT_SPRINT beastblood        ~%s3%~
-OUTER_TEXT_SPRINT madmanblood       ~%s4%~
-OUTER_TEXT_SPRINT leadelixir        ~%s5%~
-OUTER_TEXT_SPRINT fnpclass          ~cleric~
-OUTER_TEXT_SPRINT fnpdeity          ~druid_lost_spheres~
+OUTER_TEXT_SPRINT bloodminister      ~%kitid%~
+OUTER_TEXT_SPRINT bloodtransfusion   ~%s1%~
+OUTER_TEXT_SPRINT healingblood       ~%s2%~
+OUTER_TEXT_SPRINT healingbloodregen  ~%s2%a~
+OUTER_TEXT_SPRINT beastblood         ~%s3%~
+OUTER_TEXT_SPRINT madmanblood        ~%s4%~
+OUTER_TEXT_SPRINT leadelixir         ~%s5%~
+
+//fnp
+OUTER_TEXT_SPRINT fnpclass    ~cleric~
+OUTER_TEXT_SPRINT fnpdeity    ~druid_lost_spheres~
+
+//tof
+OUTER_TEXT_SPRINT tofkitname  ~D2%kitname%~
+//OUTER_TEXT_SPRINT tofspheres  ~+plant,+air,+moon,-combat,-good~
+OUTER_TEXT_SPRINT tofspheres  ~all,air,charm,divination_cleric,divine,evil,healing,moon,necromantic,plant,protection,summoning,wards~
+
+//dof
+OUTER_TEXT_SPRINT dofclab     ~%kitid%~
+OUTER_TEXT_SPRINT dofkitname  ~D2%kitname%~
 
 
 /*

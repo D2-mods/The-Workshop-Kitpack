@@ -18,12 +18,15 @@ END
 */
 
 
+//additional checks?
+
+
 
 //
 //specific armor restrictions
 
 /*
-variable 'kit_to_patch' is the kit.IDS label (ex. BERSERKER)
+variable "kit_to_patch" is the kit.IDS label (ex. BERSERKER)
 */
 
 //no plate mail (full metal jaguar, noble scion)

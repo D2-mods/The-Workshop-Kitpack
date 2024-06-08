@@ -60,24 +60,15 @@ COPY ~%files%/rune_clawmark.ITM~  ~override/%z1%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // dialogue message
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
-  LPF ALTER_EFFECT INT_VAR match_opcode=341 STR_VAR resource=~%z1%a~ END             // critical effect
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 STR_VAR resource=~%z1%b~ END             // critical effect
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY ~%icons%/bleed.BAM~                ~override/%z1%a.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@302) STR_VAR bam=~%z1%a~ RET icon END
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%z1%a.EFF~
-  WRITE_ASCII 0x30 ~%z1%a~ #8
-COPY ~%abilities%/bleed4rounds.SPL~    ~override/%z1%a.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@302) END    // "Bleeding"
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%z1%a~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%z1%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%z1%a~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
-
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%z1%b.EFF~
+COPY ~%abilities%/applyeffects.EFF~  ~override/%z1%b.EFF~
   WRITE_ASCII 0x30 ~%z1%b~ #8
-COPY ~%abilities%/bleeddamage2.SPL~     ~override/%z1%b.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=0 dicenumber=1 dicesize=3 END
+COPY ~inlined/bleed_core.SPL~        ~override/%z1%b.SPL~
+  LPF d2_bleed_delay INT_VAR limit=4 STR_VAR resource=d2bleed3 END
+
+LAF d2_bleed_removal STR_VAR resource=~%z1%b~ END    // add to d2!bleed.spl
 
 
 //Blood Rapture
@@ -230,8 +221,8 @@ COPY ~%files%/rune_werewolf.ITM~  ~override/%z9%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // dialogue message
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
-  LPF ALTER_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%z9%a~ END             // werewolf spell
-  LPF CLONE_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%z9%c~ END             // remove werewolf spell
+  LPF ALTER_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%z9%a~ END             // polymorph
+  LPF CLONE_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%z9%c~ END             // remove polymorph
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%files%/rune_effects.SPL~      ~override/%z9%a.SPL~
@@ -312,10 +303,10 @@ COPY ~%files%/rune_werewolf.ITM~  ~override/%zc%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%files%/rune_effects.SPL~      ~override/%zc%a.SPL~
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~SPIN152~ END                                    // polymorph
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=10 timing=0 duration=2400 parameter1=5 parameter2=1 END    // CON modifier
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=49 timing=0 duration=2400 parameter1=5 parameter2=1 END    // WIS modifier
-  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%zc%b~ insert=~below~ END                    // remove ability
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~SPIN152~ END                   // polymorph
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=10 target=2 duration=7200 parameter1=(0 - 2) END    // CON modifier
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=49 target=2 duration=7200 parameter1=(0 - 2) END    // WIS modifier
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%zc%b~ insert=~last~ END    // remove ability
 
 COPY ~%passives%/removespell.SPL~    ~override/%zc%b.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=206 STR_VAR resource=~%zc%a~ END
@@ -352,7 +343,7 @@ OUTER_TEXT_SPRINT hunter_rune     ~%za%~
 OUTER_TEXT_SPRINT moon_rune       ~%zb%~
 OUTER_TEXT_SPRINT milkweed        ~%zc%~
 
-OUTER_TEXT_SPRINT clawmarkbleed   ~%z1%a~
+OUTER_TEXT_SPRINT clawmarkbleed   ~%z1%b~
 
 
 /*

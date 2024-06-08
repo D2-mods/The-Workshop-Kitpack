@@ -40,10 +40,10 @@ COPY ~%abilities%/fireweapon.SPL~  ~override/%s1%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s1%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
-  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=22 parameter1=1 parameter2=0 END     // +1 Luck
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=22 parameter1=1 parameter2=0 END     // +1 luck rolls
   LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=325 parameter1=1 parameter2=0 END    // +1 Saving Throws
-//LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=126 parameter1=2 parameter2=0 END    // +2 movement
-//LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=190 parameter1=2 parameter2=0 END    // -2 Speed Factor
+//LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=126 parameter1=3 parameter2=0 END    // +3 movement
+//LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=190 parameter1=3 parameter2=0 END    // +3 Speed Factor
 
 COPY ~%abilities%/fireweapon.EFF~  ~override/%s1%.EFF~
   WRITE_SHORT 0x22 1    // v3.0: change to acid damage

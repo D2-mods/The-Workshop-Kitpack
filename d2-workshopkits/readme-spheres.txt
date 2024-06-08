@@ -1,9 +1,13 @@
 Sphere systems
 
-- for Faiths & Powers and Deities of Faerun mods
-- tested with FnP v0.84.5 (update: tested with v0.85sd19)
+Supports custom spheres from these mods:
+- Faiths and Powers
+- Deities of Faerun
+- Talents of Faerun
+
+- tested with FnP v0.86sd9 (also works with v0.84.5)
 - tested with DoF v1.9.8
-- The lists here are accurate for v3.0+ of this mod.
+- tested with ToF beta 12
 
 
 FnP install info:
@@ -14,7 +18,7 @@ FnP install info:
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-Faiths & Powers
+Faiths and Powers
 
 NOTE: Some FnP spells are given by more than one sphere. However, the description will still only say one sphere. That's why you may see some spells with spheres that aren't listed here for a kit.
 
@@ -156,7 +160,43 @@ Beast Hunter (FMC, FC)
 
 Moonlight Knight CR
 	- Major: All, Animal, Moon, Combat, Earth, Travelers
-	- Minor: Plant, Summoning, Weave, Trickery
+	- Minor: Healing, Plant, Summoning, Trickery
+=====================================================================
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+Talents of Faerun
+
+Notes:
+- Sphere lists will appear in the kit description. Nature sphere only appears if it has spells in it.
+- IWDEE: Goodberry is Nature sphere, not Plant (as seen in beta 12). Grave Warden is the only kit here that learns it in IWDEE. This is the case even if you don't edit the sphere config files.
+- Moonlight Knight intentionally has Divine sphere, instead of Nature. I didn't want to give Moonlight Knight CR both Nature and Divine, so went with Divine. The single class also has Divine to match up with the cleric/ranger version (rangers normally have Nature sphere).
+
+=====================================================================
+Grave Warden: 
+	- All, Healing, Nature, Plant, Protection, Wards
+
+Moonlight Knight:
+	- All, Animal, Combat, Divine, Moon, Plant
+
+Confessor: 
+	- All, Charm, Combat, Divination, Divine, Healing, Protection
+
+Temple Knight: 
+	- All, Combat, Divine,Earth, Good, Healing, Protection
+
+Noble Scion: 
+	- All, Combat, Divine,good, Healing, Protection, Sun
+
+Blood Minister: 
+	- All, Air, Charm, Divination, Divine, Evil, Healing, Moon, Necromantic, Plant, Protection, Summoning, Wards
+
+Beast Hunter (FMC, FC)
+	- All, Animal, Charm, Combat, Divination, Divine, Fire, Good, Healing, Protection, Summoning, Sun, Wards
+
+Moonlight Knight CR
+	- All, Animal, Combat, Divine, Earth, Evil, Fey, Good, Healing, Moon, Necromantic, Plant, Protection
 =====================================================================
 
 ----------------------------------------------------------------------------------------------------

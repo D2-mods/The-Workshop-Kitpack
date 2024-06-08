@@ -1,50 +1,16 @@
 /*
 Misc patching (spell interactions, etc.)
+anything that's not directly for making the item work
 */
-
-
-//Bleeding removed by Heal or Greater Restoration
-ACTION_PHP_EACH d2restoration AS spell => type BEGIN
-  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~heal~) BEGIN    // if 'type' DOES contain 'heal'
-    ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.spl~) BEGIN
-      COPY_EXISTING ~%spell%.spl~  ~override~
-
-        // remove Clawmark bleed
-        LPF d2_remove_effects_on_cast STR_VAR resource=~%clawmarkbleed%~ insert=last END
-
-        //remove Cruciform bleed
-        PATCH_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
-          LPF d2_remove_effects_on_cast STR_VAR resource=~%bleeding1%~ insert=last END
-          LPF d2_remove_effects_on_cast STR_VAR resource=~%bleeding2%~ insert=last END
-        END
-
-      BUT_ONLY
-    END
-  END
-END
-
-
-//Healing Blood can remove bleeding effects
-ACTION_IF (FILE_EXISTS ~override/%healingbloodregen%.SPL~) BEGIN
-  ACTION_FOR_EACH ~bleeding~ IN ~%bleeding1%~ ~%bleeding2%~ ~%clawmarkbleed%~ BEGIN
-    ACTION_IF (FILE_EXISTS ~override/%bleeding%.SPL~) BEGIN
-      COPY_EXISTING ~%healingbloodregen%.SPL~  ~override~
-        LPF d2_remove_effects_on_cast STR_VAR resource=~%bleeding%~ END
-      BUT_ONLY
-    END
-  END
-END
 
 
 //Medical Darts: healing won't cause Clawmark bleed
 ACTION_IF (FILE_EXISTS ~override/%medicaldarts%.SPL~) BEGIN
   COPY_EXISTING ~%medicaldart%.ITM~  ~override~
-    LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 match_parameter1=199 STR_VAR resource=~%medicaldarts%x~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 opcode=326 parameter2=52 STR_VAR resource=~%clawmark%x~ END
   BUT_ONLY
 
-  COPY ~%abilities%/applyeffects.EFF~  ~override/%medicaldarts%x.EFF~
-    WRITE_ASCII 0x30 ~%medicaldarts%x~ #8
-  COPY ~%abilities%/opcode318.SPL~     ~override/%medicaldarts%x.SPL~
+  COPY ~%abilities%/opcode318.SPL~     ~override/%clawmark%x.SPL~
     LPF ALTER_EFFECT STR_VAR resource=~%clawmarkbleed%~ END    // block bleed
     LPF CLONE_EFFECT INT_VAR opcode=321 timing=1 END           // remove bleed
 
@@ -54,5 +20,5 @@ ACTION_IF (FILE_EXISTS ~override/%medicaldarts%.SPL~) BEGIN
 END
 
 
-/*
-*/
+//
+//

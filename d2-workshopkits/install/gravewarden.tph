@@ -9,10 +9,8 @@ COPY ~%passives%/lorebonus10.SPL~      ~override/%e2%.SPL~
 //remove Charm Animal (if given by custom multiclass)
 COPY ~%abilities%/applyeffects.SPL~  ~override/%e3%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%e3%a~ END
-
 COPY ~%passives%/removespell.SPL~    ~override/%e3%a.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~SPCL311~ END
-
 LAF d2_recast_at_interval STR_VAR spell=~%e3%~ new_spell=~%@3%~ END
 
 
@@ -20,21 +18,14 @@ LAF d2_recast_at_interval STR_VAR spell=~%e3%~ new_spell=~%@3%~ END
 COPY ~%passives%/nopanic.SPL~      ~override/%e4%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_fear_removal_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_fear_arrays END
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END
-  PATCH_IF (panic_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=24 opcode=328 parameter2=panic_immunity END
-  END
+  LPF d2_string_immunities END
+  LPF ee_fixpack_immunities STR_VAR status=~fear~ END
 
 //Immune to blindness and gaze attacks
 COPY ~%passives%/gravewarden.SPL~  ~override/%e5%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_blindness_arrays END
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END
+  LPF d2_string_immunities END
+  LPF block_death_gaze END
 
 
 //Clone mage spells
@@ -42,27 +33,38 @@ LAF d2_convert_spell_type INT_VAR type=2 level=1 STR_VAR spell=~SPWI118~ newspel
 LAF d2_convert_spell_type INT_VAR type=2 level=2 STR_VAR spell=~SPWI205~ newspell=~%p2%~ END
 LAF d2_convert_spell_type INT_VAR type=2 level=3 STR_VAR spell=~SPWI313~ newspell=~%p3%~ END
 
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  COPY_EXISTING ~%p1%.SPL~  ~override~
-    SAY UNIDENTIFIED_DESC @40300    // text for IWDEE
-  BUT_ONLY
+ACTION_IF !(FILE_EXISTS ~override/SPWI118.SPL~) BEGIN
+  ACTION_IF (GAME_IS ~iwdee~) BEGIN
+    COPY_EXISTING ~%p1%.SPL~  ~override~
+      SAY UNIDENTIFIED_DESC @40300    // text for IWDEE
+    BUT_ONLY
+  END
 END
 
-ACTION_IF (MOD_IS_INSTALLED ~setup-spell_rev.tp2~ (ID_OF_LABEL ~setup-spell_rev.tp2~ ~dv-spell_rev-main~)) BEGIN
-  COPY_EXISTING ~%p1%.SPL~  ~override~
-    SAY UNIDENTIFIED_DESC @40400    // text for spell revisions
-  BUT_ONLY
+ACTION_IF (MOD_IS_INSTALLED ~setup-spell_rev.tp2~ 0) BEGIN
+  ACTION_IF (FILE_CONTAINS ~spell_rev/setup-spell_rev.tp2~ ~dv-spell_rev-main~) BEGIN
+    COPY_EXISTING ~%p1%.SPL~  ~override~
+      SAY UNIDENTIFIED_DESC @40400    // text for spell revisions
+    BUT_ONLY
+  END
 END
 
 LAF d2_evasion_check INT_VAR overwrite=1 STR_VAR spell=~%p3%~ END    // update IWD Evasion (if found)
 
 
-//Add spells to spell.ids
+//add to spell.ids (config option)
 ACTION_IF (%nopriestids% = 0) BEGIN
   OUTER_FOR (n = 1; n <= 3; ++n) BEGIN
     LAF ADD_SPELL_EX INT_VAR type=1 level=%n% min=51 max=99 hide=1 STR_VAR file=~override/%p%n%%.SPL~ name=~D2%kitname%_P%n%~ RET spell_res END
     OUTER_TEXT_SPRINT ~p%n%~  ~%spell_res%~
   END
+
+  ACTION_FOR_EACH spell IN ~%p1%~ ~%p2%~ ~%p3%~ BEGIN
+    COPY ~override/%spell%.SPL~  ~override~
+      LPF update_op324_restrictions END
+    BUT_ONLY
+  END
+
   LAF d2_evasion_check INT_VAR overwrite=1 STR_VAR spell=~%p3%~ END    // update new file
 END
 
@@ -76,7 +78,7 @@ COPY ~%abilities%/denialglow.VVC~  ~override/%s1%g.VVC~
   WRITE_ASCII 0x8 ~%s1%g~ #8
 
 COPY ~%icons%/denial.BAM~      ~override/%s1%.BAM~
-COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~          // clone Death Ward
+COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~        // clone Death Ward
   SAY NAME1 @104
   SAY UNIDENTIFIED_DESC @204
   LPF d2_remove_level_headers END
@@ -86,37 +88,44 @@ COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~          // clone Death Ward
   LPF ALTER_SPELL_HEADER INT_VAR range=25 speed=3 END
 
   //edit stuff
-  LPF ALTER_EFFECT INT_VAR power=0 duration=180 END
+  LPF ALTER_EFFECT INT_VAR power=0 duration=181 END                   // 3 turns + 1 second delay
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 match_timing=1 END       // sound moved to VVC
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 duration=0 END    // EEs (silent to not have warning with sr)
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END    // spell revisions (doesn't have op61)
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END    // spell revisions
   LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END     // not silent to get warning if no icon added
+
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 timing=1 parameter2=0 STR_VAR resource=~%s1%g~ END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=174 match_timing=4 STR_VAR resource=~EFF_E03~ END
-  LPF DELETE_EFFECT INT_VAR match_opcode=174 match_timing=1 END       // sound is on VVC
+  LPF block_death_gaze END
   LPF d2_remove_effects_on_cast END
+  LPF d2_remove_effects_on_cast STR_VAR resource=~%s1%e~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 timing=4 duration=1 STR_VAR insert=last END    // repeating effect (1 second delay)
 
-  LPF ADD_SPELL_EFFECT 
-    INT_VAR opcode=232 target=2 parameter2=2 resist_dispel=3 duration=180
-    STR_VAR resource=~%s1%a~
-  END
+//repeating effect (checks HP percent)
+COPY ~%abilities%/hpcheck50.SPL~  ~override/%s1%e.SPL~
+  LPF ALTER_EFFECT INT_VAR resist_dispel=3 timing=0 duration=180 STR_VAR resource=~%s1%a~ END
 
-  //block Death Gaze in BG1
-  PATCH_IF (GAME_IS ~bgee~) BEGIN TEXT_SPRINT death_gaze ~SPIN996~ END
-  PATCH_IF (GAME_IS ~eet~)  BEGIN TEXT_SPRINT death_gaze ~BGIN996~ END
-  PATCH_IF (GAME_IS ~bgee eet~) BEGIN
-    LPF DELETE_EFFECT STR_VAR match_resource=~%death_gaze%~ END
-    LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=101 opcode=206 parameter2=0 STR_VAR resource=~%death_gaze%~ END
-  END
+/*
+The 1 second delay is needed to recast the spell on a target.
+Otherwise, it gives a message that the "contingency" could not be recast.
+*/
 
 
 //Add Cure subspell (for Denial)
 COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%s1%a.SPL~
   LPF d2_remove_level_headers END
   LPF d2_subspell_remove_effects END
+
+  // edits
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=100 parameter2=2 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 opcode=318 END
-  LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=~%SOURCE_RES%~ resource=~%s1%a~ END
-  LPF d2_remove_effects_on_cast STR_VAR resource=~%s1%~ insert=last END
+  LPF update_op324_restrictions INT_VAR opcode=318 END                                               // update IWD restrictions
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ insert=last END    // cures bleeding
+  LPF d2_remove_effects_on_cast STR_VAR resource=~%s1%~ insert=last END                              // removes main spell
+  LPF d2_remove_effects_on_cast STR_VAR resource=~%s1%e~ insert=last END                             // removes repeating effect
+
+  // text
+  SPRINT ability_name @104
+  LPF CLONE_EFFECT INT_VAR match_opcode=17 opcode=139 parameter1=RESOLVE_STR_REF (@352) END
 
 
 //Make clab table
@@ -159,14 +168,26 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
 END
 
 
+//
 //Set variables for external use
-OUTER_TEXT_SPRINT gravewarden  ~%kitid%~
-OUTER_TEXT_SPRINT denial       ~%s1%~
-OUTER_TEXT_SPRINT fnpclass     ~ranger~
-OUTER_TEXT_SPRINT fnpdeity     ~ranger_jungle_spheres~
+OUTER_TEXT_SPRINT gravewarden   ~%kitid%~
+OUTER_TEXT_SPRINT denial        ~%s1%~
 OUTER_TEXT_SPRINT gravewarden1  ~%p1%~
 OUTER_TEXT_SPRINT gravewarden2  ~%p2%~
 OUTER_TEXT_SPRINT gravewarden3  ~%p3%~
+
+//fnp
+OUTER_TEXT_SPRINT fnpclass    ~ranger~
+OUTER_TEXT_SPRINT fnpdeity    ~ranger_jungle_spheres~
+
+//tof
+OUTER_TEXT_SPRINT tofkitname  ~D2%kitname%~
+//OUTER_TEXT_SPRINT tofspheres  ~+protection,+wards,-animal~
+OUTER_TEXT_SPRINT tofspheres  ~all,healing,nature,plant,protection,wards~
+
+//dof
+OUTER_TEXT_SPRINT dofclab     ~%kitid%~
+OUTER_TEXT_SPRINT dofkitname  ~D2%kitname%~
 
 
 /*

@@ -1,7 +1,6 @@
 /*
-This file is used to check for missing game resources.
-When a kit is installed, it checks the specific kit folder.
-Files are only copied to override if not already in the game.
+Check for missing game resources
+run this after variables.tph
 */
 
 
@@ -10,3 +9,15 @@ ACTION_BASH_FOR ~%kitfolder%~  ~.*~ BEGIN
     COPY ~%BASH_FOR_FILESPEC%~  ~override~
   END
 END
+
+
+//
+ACTION_IF ((IS_AN_INT buildeffects) AND (buildeffects > 1)) BEGIN
+  OUTER_TEXT_SPRINT spellitemkit ~%kitid_name%~
+  PRINT @13
+  ACTION_IF ((IS_AN_INT silentmode) AND (silentmode > 0)) BEGIN SILENT END
+END
+
+
+//
+//

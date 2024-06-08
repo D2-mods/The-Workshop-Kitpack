@@ -18,3 +18,7 @@ Text in this file appears in the weidu installer.
 @8 = ~Additional patching of creatures.~
 
 @9 = ~Patching in armor restrictions.~
+@11 = ~rebuilding spell arrays...~
+@12 = ~Building %spellitemkit% array.~
+@13 = ~Building %spellitemkit% effects.~
+@99 = ~working on %kitid_name%...~

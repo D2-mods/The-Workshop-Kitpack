@@ -1,0 +1,47 @@
+/*
+ToF spheres
+*/
+
+
+//
+OUTER_TEXT_SPRINT tofexternal  ~weidu_external/data/dw_shared/dw_talents_3p~
+OUTER_TEXT_SPRINT tofconfig    ~weidu_external/data/dw_shared/dw_talents_3p/d2wk.ini~
+
+ACTION_IF !(DIRECTORY_EXISTS ~%tofexternal%~) BEGIN
+  MKDIR ~%tofexternal%~
+END
+
+
+//
+ACTION_IF !(FILE_EXISTS ~%tofconfig%~) BEGIN
+<<<<<<<< .../inlined/tofconfig
+>>>>>>>>
+COPY ~.../inlined/tofconfig~  ~%tofconfig%~
+END
+
+
+//
+ACTION_IF (VARIABLE_IS_SET tofspheres) BEGIN
+ACTION_IF !(~%tofspheres%~ STR_EQ ~~) BEGIN
+
+<<<<<<<< .../inlined/tofspheres
+
+[kit:%tofkitname%]
+spheres=%tofspheres%
+>>>>>>>>
+
+COPY ~%tofconfig%~ ~%tofconfig%~
+  APPEND_FILE_EVALUATE ~.../inlined/tofspheres~
+BUT_ONLY UNLESS ~%tofkitname%~
+
+END
+END
+
+
+//reset variables
+OUTER_TEXT_SPRINT tofkitname ~~
+OUTER_TEXT_SPRINT tofspheres ~~
+
+
+//
+//

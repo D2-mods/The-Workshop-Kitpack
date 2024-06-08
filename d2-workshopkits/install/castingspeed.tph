@@ -46,6 +46,10 @@ ACTION_FOR_EACH ability IN
     ~%medicaldarts%~
     ~%injectionshot%~
     ~%ghostwalker%~
+    ~%firstaid%~
+    ~%overdose%~
+    ~%autoimmune%~
+    ~%n_alchemy%~
 BEGIN
 
   ACTION_IF (FILE_EXISTS_IN_GAME ~%ability%.SPL~) BEGIN
@@ -58,3 +62,6 @@ BEGIN
 
 END
 
+
+/*
+*/

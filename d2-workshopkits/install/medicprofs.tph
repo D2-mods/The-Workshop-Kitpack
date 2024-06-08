@@ -43,7 +43,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
     PATCH_IF (!(~%itemvisual%~ STR_EQ ~S0~) AND 
               !(~%itemvisual%~ STR_EQ ~S2~) AND
               !(~%itemvisual%~ STR_EQ ~SS~) AND
-              !(~%basetype%~ STR_EQ ~Wakizashi~)    // some tweaks combine wakizashi with short sword
+              !(~%basetype%~ STR_EQ ~Wakizashi~)    // skip wakizashi
     ) BEGIN
 
       PHP_EACH medicweapontype AS type => usable BEGIN    // set weapon to %type% and usable to %usable%

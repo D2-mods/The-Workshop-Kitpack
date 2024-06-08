@@ -42,11 +42,10 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~d5__fnp_spont_option.d5~) AND (FILE_EXISTS ~fait
   END
 END
 
-COPY_EXISTING ~%kitid%.2DA~  ~override~
-  PRETTY_PRINT_2DA
-BUT_ONLY
+COPY_EXISTING ~%kitid%.2DA~  ~override~  PRETTY_PRINT_2DA BUT_ONLY
 //__________________________________________________________________________________
 
+ACTION_IF ((IS_AN_INT silentmode) AND (silentmode > 0)) BEGIN SILENT END
 
 
 // The "class" variable tells the mod what class or archetype your kit is

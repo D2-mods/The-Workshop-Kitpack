@@ -69,9 +69,8 @@ COPY ~%files%/etherbomb.ITM~  ~override/%m2%.ITM~
   WRITE_ASCII 0x3a ~%m2%~ #8       // icon
   WRITE_ASCII 0x76 ~%m2%~ #8       // icon (ability)
   WRITE_ASCII 0x58 ~CBOOK89~ #8    // description image
-
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 parameter2=~%lore80%~ STR_VAR resource=~%m2%e~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=326 parameter2=~%lore79%~ STR_VAR resource=~%m2%s~ END
+  LPF ALTER_EFFECT INT_VAR parameter1=80 parameter2=~%d2lorecheck%~ STR_VAR resource=~%m2%e~ END    // lore >= 80
+  LPF CLONE_EFFECT INT_VAR parameter1=80 parameter2=~%d2loreunder%~ STR_VAR resource=~%m2%s~ END    // lore < 80
 
 COPY ~%abilities%/powderkegcast.SPL~  ~override/%m2%e.SPL~
 //  SAY NAME1 @615
@@ -121,6 +120,8 @@ ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
   COPY ~%abilities%/powderkegdisable.SPL~    ~override/%m2%x.SPL~
   COPY ~%abilities%/powderkegnosong.SPL~     ~override/%m2%y.SPL~
     LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%m2%v~ END
+    LPF ALTER_EFFECT INT_VAR match_timing=9 STR_VAR resource=d2spell END
+
   COPY ~%abilities%/powderkegcast.SPL~       ~override/%m2%v.SPL~
   //  SAY NAME1 @615
     LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%f~ END
@@ -226,28 +227,27 @@ ACTION_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
   COPY ~%abilities%/opcode318.SPL~       ~override/%m5%y.SPL~    // subspell blocks amulet effect
     LPF ALTER_EFFECT STR_VAR resource=~%m5%f~ END
 
-  // bleed effects
+  // bleeding effects
   COPY_EXISTING ~%confessorbleed%.EFF~  ~override/%m5%a.EFF~
     WRITE_ASCII 0x30 ~%m5%a~ #8
   COPY_EXISTING ~%confessorbleed%.SPL~  ~override/%m5%a.SPL~
-    LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%m5%a~ END
-    LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%m5%a~ END
+    LPF ALTER_EFFECT STR_VAR match_resource=~%confessorbleed%~ resource=~%m5%a~ END
     LPF DELETE_EFFECT INT_VAR match_opcode=139 END
 
   COPY_EXISTING ~%confessorbleed%.EFF~  ~override/%m5%b.EFF~
     WRITE_ASCII 0x30 ~%m5%b~ #8
   COPY_EXISTING ~%confessorbleed%.SPL~  ~override/%m5%b.SPL~
-    LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%m5%b~ END
-    LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%m5%b~ END
+    LPF ALTER_EFFECT STR_VAR match_resource=~%confessorbleed%~ resource=~%m5%b~ END
     LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+
+  LAF d2_bleed_removal STR_VAR resource=~%m5%a~ END    // add to d2!bleed.spl
+  LAF d2_bleed_removal STR_VAR resource=~%m5%b~ END    // add to d2!bleed.spl
 
 END
 
 
 
 //Golem Ring (ring)
-COPY ~%icons%/ironflesh.BAM~  ~override/%m6%i.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@616) STR_VAR bam=~%m6%i~ RET icon END
 COPY ~%icons%/golemring.BAM~  ~override/%m6%.BAM~
 COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
   SAY NAME1 @70110 SAY UNIDENTIFIED_DESC @70210
@@ -255,27 +255,25 @@ COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
   WRITE_ASCII 0x3a ~%m6%~ #8       // icon
   WRITE_ASCII 0x76 ~%m6%~ #8       // icon (ability)
   WRITE_ASCII 0x58 ~CRING26~ #8    // description image
-
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@304) END    // "Activated Golem Ring"
-
+//  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@304) END    // "Activated Golem Ring"
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 opcode=326 STR_VAR resource=~%m6%~ END
+  LPF d2_remove_effects_on_cast INT_VAR globals=0 headers=1 326override=1 STR_VAR resource=~d2!slow~ END
+  LPF d2_remove_effects_on_cast INT_VAR globals=0 headers=1 326override=1 STR_VAR resource=~d2!haste~ END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_haste_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
+  LPF d2_string_immunities END
+  LPF ee_fixpack_immunities STR_VAR status=~haste slow~ END
 
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END
-  ELSE BEGIN
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=267 parameter1=335 END
-  END
-
-  PATCH_IF (haste_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=16 opcode=328 parameter2=haste_immunity special=1 END
-  END
-  PATCH_IF (slow_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=328 parameter2=slow_immunity special=1 END
-  END
+COPY ~%icons%/ironflesh.BAM~  ~override/%m6%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@616) STR_VAR bam=~%m6%i~ RET icon END
+COPY ~%files%/golemring.SPL~  ~override/%m6%.SPL~
+  SAY NAME1 @70110
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_haste_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
+  LPF d2_string_immunities END
+  LPF ee_fixpack_immunities STR_VAR status=~haste slow~ END
+  LPF d2_remove_effects_on_cast END
 
 
 
@@ -467,7 +465,8 @@ COPY ~%files%/hunterbone.ITM~      ~override/%me%.ITM~
   WRITE_ASCII 0x58 ~%me%d~ #8    // description image
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%me%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%me%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@312) END    // "Activated Hunter Bone"
+//  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@312) END    // "Used Hunter Bone"
+  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%me%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%me%b~ END
 
@@ -476,8 +475,11 @@ COPY_EXISTING ~SPWI201.SPL~  ~override/%me%a.SPL~
   LPF d2_remove_level_headers END
   LPF d2_subspell_remove_effects END
   LPF d2_subspell_remove_visuals INT_VAR visual=0 icon=0 END
+
+  SAY NAME1 @70134
   LPF DELETE_EFFECT INT_VAR match_opcode=321 END
   LPF ALTER_EFFECT INT_VAR match_timing=0 duration=20 END
+  LPF d2_remove_effects_on_cast END
 
 //clone Haste
 COPY_EXISTING ~SPWI305.SPL~  ~override/%me%b.SPL~
@@ -487,8 +489,10 @@ COPY_EXISTING ~SPWI305.SPL~  ~override/%me%b.SPL~
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=20 END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=146 STR_VAR resource=~%me%c~ END    // for SCS/ToF
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
+  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
 
-//make haste subspell, if file added by SCS/ToF
+//make haste subspell (for SCS/ToF)
 ACTION_IF (FILE_EXISTS ~override/SPWI305A.SPL~) BEGIN
   COPY_EXISTING ~SPWI305A.SPL~  ~override/%me%c.SPL~
     LPF d2prep_haste END
@@ -496,6 +500,7 @@ ACTION_IF (FILE_EXISTS ~override/SPWI305A.SPL~) BEGIN
     LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=20 END
     LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=20 END
     LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
+    TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
 END
 
 
@@ -513,22 +518,9 @@ COPY ~%files%/jadefeather.ITM~  ~override/%mf%.ITM~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_kill_target_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slay_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_petrification_arrays END
-
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END
-
-  PATCH_IF (death_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=13 opcode=328 parameter2=death_immunity special=1 END
-  END
-
-  //block Death Gaze in BG1
-  PATCH_IF (GAME_IS ~bgee~) BEGIN TEXT_SPRINT death_gaze ~SPIN996~ END
-  PATCH_IF (GAME_IS ~eet~)  BEGIN TEXT_SPRINT death_gaze ~BGIN996~ END
-  PATCH_IF (GAME_IS ~bgee eet~) BEGIN
-    LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=101 opcode=206 parameter2=0 STR_VAR resource=~%death_gaze%~ END
-  END
+  LPF d2_string_immunities END
+  LPF ee_fixpack_immunities STR_VAR status=~death~ END
+  LPF block_death_gaze END
 
 //Black Remedy
 ACTION_IF (FILE_EXISTS ~override/%blackremedy%.SPL~) BEGIN
@@ -545,7 +537,7 @@ ACTION_IF (FILE_EXISTS ~override/%blackremedy%.SPL~) BEGIN
     WRITE_ASCII 0x30 ~%mf%b~ #8
   COPY_EXISTING ~%blackremedyblast%.SPL~  ~override/%mf%b.SPL~
     LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy15%~ END    // 15-ft. radius
-    LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%mf%b~ END
+    LPF ALTER_EFFECT STR_VAR match_resource=~%blackremedyblast%~ resource=~%mf%b~ END
 
   // base subspell blocks amulet effects
   COPY_EXISTING ~%blackremedyeffects%.SPL~  ~override~
@@ -574,7 +566,7 @@ ACTION_IF (FILE_EXISTS ~override/%whiteremedy%.SPL~) BEGIN
     WRITE_ASCII 0x30 ~%mf%f~ #8
   COPY_EXISTING ~%whiteremedyblast%.SPL~  ~override/%mf%f.SPL~
     LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy15%~ END    // 15-ft. radius
-    LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%mf%f~ END
+    LPF ALTER_EFFECT STR_VAR match_resource=~%whiteremedyblast%~ resource=~%mf%f~ END
 
   // base subspell blocks amulet effects
   COPY_EXISTING ~%whiteremedyeffects%.SPL~  ~override~
@@ -599,6 +591,7 @@ COPY ~%files%/demonsoul.ITM~      ~override/%mg%.ITM~
   WRITE_ASCII 0x3a ~%mg%~ #8     // icon
   WRITE_ASCII 0x76 ~%mg%~ #8     // icon (ability)
   WRITE_ASCII 0x58 ~%mg%d~ #8    // description image
+  LPF CLONE_EFFECT INT_VAR match_opcode=49 opcode=44 parameter1=1 END
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@313) END    // "Consumed Demon Soul"
 
 
@@ -622,6 +615,7 @@ COPY ~%files%/shamanbonea.SPL~  ~override/%mh%a.SPL~
 
 COPY ~%files%/shamanboneb.SPL~  ~override/%mh%b.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@311) END    // "Berserk"
+  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~berserk~
 
 
 

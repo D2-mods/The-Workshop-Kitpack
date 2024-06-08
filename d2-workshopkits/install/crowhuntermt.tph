@@ -47,7 +47,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
   ~%#c%~  => 48
   ~%!1%~  => 9    // visceral attack
   ~%!2%~  => 13
-  ~%!3%~  => 18
+  ~%!3%~  => 17
 END
 
 
@@ -61,7 +61,7 @@ COPY ~inlined/d2clab.2DA~  ~override/%crowhunter%T.2DA~
   LPF d2_kit_ability_adder INT_VAR level=4 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=9 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR level=13 STR_VAR resource=~%s2%~ END
-  LPF d2_kit_ability_adder INT_VAR level=18 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=17 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 STR_VAR resource=~%e7%~ END
   LPF d2_kit_ability_adder INT_VAR level=10 passive=1 STR_VAR resource=~%e8%~ END
   LPF d2_kit_ability_adder INT_VAR level=14 passive=1 STR_VAR resource=~%e3%~ END    // for hla traps
@@ -76,13 +76,20 @@ COPY ~inlined/d2clab.2DA~  ~override/%crowhunter%T.2DA~
   END
 
 
+//
+LAF d2_get_mc_text STR_VAR class=thief multi=mt RET baseclass multiclass END
+OUTER_SET kit_note = RESOLVE_STR_REF(@353)
+OUTER_SET base_kit = RESOLVE_STR_REF(@101003)
+LAF d2_build_mc_desc INT_VAR desc1=base_kit desc2=kit_note mode=2 STR_VAR multi=mt RET kit_desc END
+
+
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
     kit_class = 13
     mixed = RESOLVE_STR_REF (@101001)
     lower = RESOLVE_STR_REF (@101002)
-    help = RESOLVE_STR_REF (@101003)
+    help = kit_desc
   STR_VAR
     kit_name = ~D2%kitname%MT~
     clab_base_m = ~%crowhunter%M.2DA~           // -1 spell slots added to Mage table
@@ -90,6 +97,7 @@ LAF ADD_KIT_EX
     clsrcreq = ~1 1 1 1 1 1 1~                  // Usable by all races, if base class is usable
     thiefscl = ~100 100 100 100 100 100 0 0~    // no points in set traps
     thiefskl = ~40 20~                          // start with 40, gain 20 per level
+    alignmnt = ~1 1 1 1 1 1 1 1 1~              // all alignments
     clascolr = ~93 182 136 184 93~              // use Stalker colors
   RET 
     kit_id

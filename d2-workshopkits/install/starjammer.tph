@@ -5,20 +5,12 @@
 COPY ~%passives%/starjammer.SPL~   ~override/%e1%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_silence_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_deafness_arrays END
-
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END
-
-  PATCH_IF (silence_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=38 opcode=328 parameter2=silence_immunity special=1 END
-  END
+  LPF d2_string_immunities END
+  LPF ee_fixpack_immunities STR_VAR status=~silence~ END
 
 COPY ~%passives%/fewerspells1.SPL~  ~override/%e2%.SPL~    // remove specialist bonus spells
 
 
-//
 //spell icons
 COPY ~%icons%/riftstepicon1.BAM~       ~override/%w1%a.BAM~
 COPY ~%icons%/riftstepicon2.BAM~       ~override/%w1%b.BAM~
@@ -111,16 +103,9 @@ COPY_EXISTING ~SPPR109.SPL~  ~override/%w4%.SPL~    // clone Sanctuary
   LPF d2_remove_level_headers END
   LPF d2_convert_spell_type INT_VAR type=1 level=4 END    // convert to level 4 Wizard spell
   LPF ALTER_EFFECT INT_VAR target=2 power=0 END           // power=0 to bypass immunity to spell level
-  LPF ALTER_EFFECT INT_VAR match_timing=0 duration=60 END
-  WRITE_SHORT 0x98 ~%w4%~         // projectile
-
-  PATCH_IF (GAME_IS ~iwdee~) BEGIN
-    LPF ALTER_EFFECT INT_VAR match_timing=4 duration=60 END
-  END
-
-  PATCH_IF (MOD_IS_INSTALLED ~setup-spell_rev.tp2~ (ID_OF_LABEL ~setup-spell_rev.tp2~ ~dv-spell_rev-main~)) BEGIN
-    LPF ALTER_EFFECT INT_VAR match_timing=4 duration=60 END
-  END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_timing=0 duration=60 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_timing=4 duration=60 END
+  WRITE_SHORT 0x98 ~%w4%~    // projectile
 
 
 //
@@ -181,7 +166,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sppr308.SPL~) BEGIN         // clone Remove Para
     WRITE_SHORT 0x22 0          // casting visual
     WRITE_ASCII 0x10 None #8    // casting sound
 
-//visual
+    //visual
     LPF ALTER_SPELL_HEADER INT_VAR target=1 range=1000 speed=0 projectile=241 END
     LPF DELETE_EFFECT INT_VAR match_opcode=61 END
     LPF DELETE_EFFECT INT_VAR match_opcode=50 END
@@ -189,13 +174,18 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sppr308.SPL~) BEGIN         // clone Remove Para
     LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~BDFAVSPI~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 STR_VAR resource=~EFF_E06~ END
 
-//spell effects
+    //spell effects
     LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 opcode=26 END     // break curse
     LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 opcode=2 END      // cure sleep
     LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 opcode=77 END     // cure feeblemind
     LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 opcode=164 END    // cure intoxication
-    LPF CLONE_EFFECT INT_VAR match_opcode=2  opcode=240 parameter2=14 END
+    LPF CLONE_EFFECT INT_VAR match_opcode=26 opcode=240 parameter2=35 END
+    LPF CLONE_EFFECT INT_VAR match_opcode=2 opcode=240 parameter2=14 END
+    LPF CLONE_EFFECT INT_VAR match_opcode=2 opcode=240 parameter2=130 END
     LPF CLONE_EFFECT INT_VAR match_opcode=77 opcode=240 parameter2=48 END
+    LPF CLONE_EFFECT INT_VAR match_opcode=164 opcode=240 parameter2=5 END
+    LPF ee_fixpack_status_cures STR_VAR status = ~sleep feeblemind intox~ END
+  //
 END
 
 
@@ -274,20 +264,23 @@ COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%w7%.SPL~    // clone a Cure Woun
 
   LPF d2_remove_level_headers END
   LPF d2_convert_spell_type INT_VAR type=1 level=7 END    // convert to level 7 Wizard spell
-  LPF ALTER_EFFECT INT_VAR power=0 END                    // power=0 to bypass immunity to spell level
+  LPF ALTER_EFFECT INT_VAR power=0 END                    // bypass immunity to spell level
 
-  WRITE_SHORT 0x22 15    // invoker casting
-  WRITE_BYTE  0x25 7     // necromancy school
+  // edit casting
+  WRITE_SHORT 0x22 15              // invoker casting
+  WRITE_BYTE  0x25 7               // necromancy school
   WRITE_ASCII 0x10 ~CAS_P07~ #8
-  WRITE_LONG  0x18 THIS | BIT24    // can target invisible/sanctuary
-
+  WRITE_LONG  0x18 THIS | BIT24    // can target invisible
   LPF ALTER_SPELL_HEADER INT_VAR speed=1 range=30 projectile=~%w7%~ END
+
+  // edit effects
   LPF DELETE_EFFECT INT_VAR match_opcode=164 END
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=20 dicenumber=14 dicesize=4 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 STR_VAR resource=~%w7%~ END    // update restrictions (if found)
   LPF ALTER_EFFECT INT_VAR match_opcode=215 timing=0 duration=2 parameter2=1 STR_VAR resource=~RPARALH~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=215 timing=1 opcode=174 STR_VAR resource=~#EFF_P46~ END
+  LPF update_op324_restrictions END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ insert=last END    // cures bleeding
 
   LPF CD_EXTEND-O-MATIC
     INT_VAR
@@ -340,54 +333,44 @@ COPY ~%abilities%/riftgategolem.CRE~  ~override/%w8%g.CRE~         // add golem
   WRITE_ASCII 0x260 ~%w8%g~ #8     // general script
   WRITE_ASCII 0x280 ~%w8%g~ #20    // script name
   WRITE_BYTE  0x275 4              // v4.7: make immune to effects that instakill summons
-COPY ~%abilities%/summonrift.EFF~     ~override/%w8%g.EFF~
+COPY ~%abilities%/summonrift.EFF~  ~override/%w8%g.EFF~
   WRITE_ASCII 0x30 ~%w8%g~ #8
 
 COPY_EXISTING ~goliro.ITM~  ~override/%w8%g.ITM~       // golem weapon (clone from iron golem)
   WRITE_LONG 0x60 4
   LPF ALTER_ITEM_HEADER INT_VAR range=2 dicesize=10 dicenumber=4 thac0_bonus=2 damage_bonus=2 END
   LPF ADD_ITEM_EFFECT INT_VAR opcode=326 target=2 timing=1 type=1 STR_VAR resource=~%w8%g~ END    // add stun effect
-  LPF CLONE_EFFECT INT_VAR check_globals=0 opcode=12 parameter1=3 parameter2=4194304 END    // magic damage
-  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=176 parameter1=2 parameter2=0 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=98 parameter1=2 parameter2=2 END         // v4.7.5: regen
+  LPF CLONE_EFFECT INT_VAR check_globals=0 opcode=12 parameter1=3 parameter2=4194304 END          // magic damage
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=176 parameter1=2 parameter2=0 END              // movement speed
+  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=98 parameter1=2 parameter2=2 END               // v4.7.5: regen
 
   // immunities
-  LPF insect_immunity END
-  LPF earthquake_immunity END
-  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=235 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=213 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=216 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=151 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=135 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=166 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=74 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=40 END
+  LPF d2_protect_on_castequip STR_VAR resource=BLUN24 END                    // BG2: Gnasher slivers
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=235 END    // wing buffet
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=213 END    // maze
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=216 END    // level drain
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=151 END    // replace self
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=135 END    // polymorph
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=74 END     // blindness
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=45 END     // stun
+  LPF CLONE_EFFECT INT_VAR match_opcode=292 opcode=101 parameter2=40 END     // slow
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_blindness_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_stun_arrays END
+  LPF d2_string_immunities END
+  LPF ee_fixpack_immunities STR_VAR status=~stun slow~ END
 
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END ELSE BEGIN
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=267 parameter1=335 END
-  END
+  // specific spell immunities
+  LPF insect_immunity END
+  LPF earthquake_immunity END
+  LPF dispel_immunity END
+  LPF breach_immunity END
+  LPF vorpal_immunity_noequip END
 
-  PATCH_IF (slow_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=328 parameter2=slow_immunity special=1 END
-  END
+//end COPY of golem weapon
 
-  // immune to vorpal (not immune to opcode to allow anti-golem weapons)
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~planetar~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~devaevil~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~gith~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~ax1h15~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~balor~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~halb11~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~SW2H15~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~FINSOL01~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=318 STR_VAR resource=~FINSOL02~ END
-
+//stun effect for golem weapon
 COPY_EXISTING - ~STUNSTRG.EFF~ ~~    // get string ref for "Stunned" (this file is in every game)
   READ_LONG 0x1c stunstring
 COPY ~%abilities%/riftgategolem.SPL~  ~override/%w8%g.SPL~    // stun effect (same as golem manual)
@@ -430,8 +413,6 @@ COPY ~%abilities%/riftgatebalorhp.ITM~  ~override/%w8%y.ITM~
 
 COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~       // balor weapon
   LPF CLONE_EFFECT INT_VAR match_opcode=176 opcode=98 parameter1=4 parameter2=2 END    // v4.7.5: regen
-  LPF insect_immunity END
-  LPF earthquake_immunity END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_stun_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slay_arrays END
@@ -442,32 +423,16 @@ COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~       // balor weap
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_web_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_silence_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END
+  LPF d2_string_immunities END
+  LPF ee_fixpack_immunities STR_VAR status=~stun slow death hold web silence~ END
 
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END ELSE BEGIN
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=267 parameter1=335 END
-  END
+  // specific spell immunities
+  LPF insect_immunity END
+  LPF earthquake_immunity END
+  LPF dispel_immunity END
+  LPF breach_immunity END
 
-  PATCH_IF (stun_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=45 opcode=328 parameter2=stun_immunity special=1 END
-  END
-  PATCH_IF (slow_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=40 opcode=328 parameter2=slow_immunity special=1 END
-  END
-  PATCH_IF (death_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=55 opcode=328 parameter2=death_immunity special=1 END
-  END
-  PATCH_IF (hold_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=175 opcode=328 parameter2=hold_immunity special=1 END
-  END
-  PATCH_IF (web_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=157 opcode=328 parameter2=web_immunity special=1 END
-  END
-  PATCH_IF (silence_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=38 opcode=328 parameter2=silence_immunity special=1 END
-  END
+//end COPY of balor weapon
 
 
 //
@@ -496,8 +461,7 @@ ACTION_FOR_EACH icon IN ~%w1%~ ~%w2%~ ~%w3%~ ~%w4%~ ~%w5%~ ~%w6%~ ~%w7%~ ~%w8%~ 
 END
 
 
-//
-//Add spells to spell.ids
+//add to spell.ids (config option)
 ACTION_IF (%nowizardids% = 0) BEGIN
   OUTER_FOR (n = 1; n <= 8; ++n) BEGIN
     LAF ADD_SPELL_EX INT_VAR type=2 level=%n% min=51 max=99 hide=1 STR_VAR file=~override/%w%n%%.SPL~ name=~D2%kitname%_W%n%~ RET spell_res END
@@ -505,7 +469,7 @@ ACTION_IF (%nowizardids% = 0) BEGIN
   END
 
   COPY ~override/%w7%.SPL~  ~override~
-    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 STR_VAR resource=~%w7%~ END    // update restrictions (if found)
+    LPF update_op324_restrictions END
   BUT_ONLY
 END
 
@@ -530,18 +494,19 @@ COPY ~%abilities%/interference.SPL~  ~override/%s1%.SPL~
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%~ STR_VAR icon=~%s1%~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=174 opcode=215 target=1 STR_VAR resource=~#GENDIVI~ insert=first END
 
-  LPF ALTER_EFFECT INT_VAR header=1 match_opcode=60 parameter1=30 END    // level 10 (casting failure)
-  LPF ALTER_EFFECT INT_VAR header=2 match_opcode=60 parameter1=35 END
-  LPF ALTER_EFFECT INT_VAR header=3 match_opcode=60 parameter1=40 END
-  LPF ALTER_EFFECT INT_VAR header=4 match_opcode=60 parameter1=45 END
-  LPF ALTER_EFFECT INT_VAR header=5 match_opcode=60 parameter1=50 END    // level 30
-  LPF ALTER_EFFECT INT_VAR header=6 match_opcode=60 parameter1=55 END
-  LPF ALTER_EFFECT INT_VAR header=7 match_opcode=60 parameter1=60 END
-  LPF ALTER_EFFECT INT_VAR header=8 match_opcode=60 parameter1=65 END
-  LPF ALTER_EFFECT INT_VAR header=9 match_opcode=60 parameter1=70 END    // level 50
+  FOR (n = 1; n <= 9; ++n) BEGIN    // spell failure (extend to 50)
+    SET bonus = n * 5
+    SET amount = 25 + bonus
+    LPF ALTER_EFFECT INT_VAR header=n match_opcode=60 parameter1=amount END
+  END
+
+  PATCH_FOR_EACH min_level IN ~25~ ~30~ ~35~ ~40~ ~45~ ~50~ BEGIN
+    PATCH_IF (min_level > spellcap) BEGIN
+      LPF DELETE_SPELL_HEADER INT_VAR header_type=1 min_level=min_level END
+    END
+  END
 
 
-//
 //Make clab table
 COPY ~inlined/d2clab_sorcerer~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
@@ -558,7 +523,6 @@ COPY ~inlined/d2clab_sorcerer~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder END
 
 
-//
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
@@ -582,7 +546,6 @@ LAF ADD_KIT_EX
 END
 
 
-//
 //Set variables for external use
 OUTER_TEXT_SPRINT starjammer     ~%kitid%~
 OUTER_TEXT_SPRINT interference   ~%s1%~

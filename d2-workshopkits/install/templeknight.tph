@@ -1,9 +1,15 @@
 //Temple Knight (d2wk6)
 
 
-//Disable turn undead
+//Add passive effects
 COPY ~%passives%/disablebutton.SPL~  ~override/%e1%.SPL~
   LPF ALTER_EFFECT INT_VAR parameter2=6 END
+
+COPY ~%passives%/blank.SPL~  ~override/%e2%.SPL~
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=323 target=2 timing=9 parameter1=(0 - 2) END    // -2 to Turn Undead level
+
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%e3%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%e1%~ END
 
 
 //Add Force
@@ -17,35 +23,50 @@ COPY ~%abilities%/force.SPL~  ~override/%s1%.SPL~
   WRITE_SHORT 0x98 ~%s1%~       // projectile
   WRITE_ASCII 0x10 ~%s1%~ #8    // casting sound
   LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=45 opcode=165 STR_VAR insert=below END    // add "pause" effect (bypass free action)
+
+  // large creatures (stunned 1 second)
+  LPF d2_protect_on_castequip INT_VAR cre_type=13 duration=0 STR_VAR insert=first END
+  LPF CLONE_EFFECT INT_VAR match_opcode=165 duration=1 STR_VAR insert=first END
+  LPF CLONE_EFFECT INT_VAR match_opcode=45 duration=1 STR_VAR insert=first END
 
 
 //Clone Bolt of Glory
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  OUTER_SET boltofglory = RESOLVE_STR_REF (@40307)      // IWDEE
-END
-ELSE BEGIN
-  ACTION_IF (MOD_IS_INSTALLED ~setup-spell_rev.tp2~ (ID_OF_LABEL ~setup-spell_rev.tp2~ ~dv-spell_rev-main~)) BEGIN
-    OUTER_SET boltofglory = RESOLVE_STR_REF (@40407)    // spell revisions
+COPY_EXISTING - ~SPPR612.SPL~  ~~
+  READ_LONG 0x50 boltofglory
+
+ACTION_IF !(FILE_EXISTS ~override/SPPR612.SPL~) BEGIN
+  ACTION_IF (GAME_IS ~iwdee~) BEGIN
+    OUTER_SET boltofglory = RESOLVE_STR_REF (@40307)    // IWDEE
+  END ELSE BEGIN
+    OUTER_SET boltofglory = RESOLVE_STR_REF (@40207)    // BGEE
   END
-  ELSE BEGIN
-    OUTER_SET boltofglory = RESOLVE_STR_REF (@40207)    // BGEE games
+END
+
+ACTION_IF (MOD_IS_INSTALLED ~setup-spell_rev.tp2~ 0) BEGIN
+  ACTION_IF (FILE_CONTAINS ~spell_rev/setup-spell_rev.tp2~ ~dv-spell_rev-main~) BEGIN
+    OUTER_SET boltofglory = RESOLVE_STR_REF (@40407)
   END
 END
 
 COPY_EXISTING ~SPPR612.SPL~  ~override/%s2%.SPL~
-  WRITE_LONG  0x50 %boltofglory%    // spell description
+  WRITE_LONG 0x50 boltofglory
   LPF d2_convert_spell_type INT_VAR level=1 END
-  LPF ALTER_SPELL_HEADER INT_VAR speed=3 END    // casting speed
-  LPF ALTER_EFFECT INT_VAR power=0 END
+  LPF ALTER_SPELL_HEADER INT_VAR speed=3 END
+  LPF ALTER_EFFECT INT_VAR power=6 END
 
 
 //Make clab table
 COPY ~inlined/d2clab_paladin~  ~override/%kitid%.2DA~
-  LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END      // Lay On Hands
+  LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END    // extra Lay On Hands
   LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 STR_VAR resource=~%e3%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
-  LPF d2_kit_ability_adder INT_VAR level=12 multi=1 increment=4 limit=16 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=9 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=13 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=17 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder END
 
 
@@ -59,22 +80,38 @@ LAF ADD_KIT_EX
     fallen_notice = RESOLVE_STR_REF (@100604)
   STR_VAR
     kit_name = ~D2%kitname%~
-    unusable = ~0x00000008~        // Cavalier usability
+//    unusable = ~0x00000008~         // Cavalier usability (v4.8: not using)
     clab_path = ~%kitid%~
-    clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
-    weapprof = ~2 2 0 4 4 4 2 0 2 2 2 2 2 2 2 2 4 4 4 4 4 4 4 0 0 0 0 0 2 2 2 3~
-    clascolr = ~24 99 169 2 25~    // Skald colors
+    clsrcreq = ~1 1 1 1 1 1 1~        // Usable by all races, if base class is usable
+    weapprof = ~2 2 1 4 4 4 2 1 2 2 2 2 2 2 2 2 4 4 4 4 4 4 4 1 1 1 1 1 2 2 2 3~
+//    weapprof = ~2 2 0 4 4 4 2 0 2 2 2 2 2 2 2 2 4 4 4 4 4 4 4 0 0 0 0 0 2 2 2 3~
+    alignmnt = ~1 1 0 0 0 0 0 0 0~    // LG, LN
+    clascolr = ~24 99 169 2 25~       // Skald colors
   RET 
     kit_id
 END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT templeknight  ~%kitid%~
-OUTER_TEXT_SPRINT force         ~%s1%~
-OUTER_TEXT_SPRINT boltofglory   ~%s2%~
-OUTER_TEXT_SPRINT fnpclass      ~champion~
-OUTER_TEXT_SPRINT fnpdeity      ~clangeddin_spheres~
+OUTER_TEXT_SPRINT templeknight   ~%kitid%~
+OUTER_TEXT_SPRINT force          ~%s1%~
+OUTER_TEXT_SPRINT boltofglory    ~%s2%~
+
+//fnp
+OUTER_TEXT_SPRINT fnpclass       ~champion~
+OUTER_TEXT_SPRINT fnpdeity       ~clangeddin_spheres~
+OUTER_TEXT_SPRINT fnparchetype1  ~SetGlobal("D5PADEF","GLOBAL",1)~
+OUTER_TEXT_SPRINT fnparchetype2  ~SetGlobal("D5PAINQ","GLOBAL",1)~
+OUTER_TEXT_SPRINT fnparchetype3  ~SetGlobal("D5PAZEA","GLOBAL",0)~
+
+//tof
+OUTER_TEXT_SPRINT tofkitname  ~D2%kitname%~
+//OUTER_TEXT_SPRINT tofspheres  ~+earth~
+OUTER_TEXT_SPRINT tofspheres  ~all,combat,divine,earth,good,healing,protection~
+
+//dof
+OUTER_TEXT_SPRINT dofclab     ~%kitid%~
+OUTER_TEXT_SPRINT dofkitname  ~D2%kitname%~
 
 
 /*

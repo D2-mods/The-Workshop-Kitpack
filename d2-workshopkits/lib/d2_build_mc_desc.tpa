@@ -1,0 +1,148 @@
+//adds mc text to top of kit text (as new string)
+//this is an EE function
+
+
+/*functions:
+d2_build_mc_desc    ACTION
+d2_get_mc_text      ACTION
+*/
+
+
+/*
+%class% variable should be an abbreviation or symbolic name (FM or FIGHTER_MAGE)
+desc variables (desc1,desc2,desc3) refer to a string ref (ignored if unchanged from defaults)
+desc variables are added in order under the multiclass text, with 1 line of space above each
+
+ex. LAF d2_build_mc_desc INT_VAR desc1 = RESOLVE_STR_REF (~kit text~) STR_VAR class=fmc RET kit_desc END
+*/
+
+
+//RET kit_desc for string ref number
+//RET kit_text for updated text (as string)
+//set mode = 2 to hide multiclass blurb at top (i.e. use function to combine desc1 + desc2 + desc3)
+
+DEFINE_ACTION_FUNCTION d2_build_mc_desc
+  INT_VAR desc1=~-1~ desc2=~-1~ desc3=~-1~ mode=1
+  STR_VAR multi=~~
+  RET kit_desc kit_text
+BEGIN
+
+  OUTER_TEXT_SPRINT kit_desc ~%multi% is not a valid class~
+  OUTER_TEXT_SPRINT kit_text ~%multi% is not a valid class~
+
+  ACTION_PHP_EACH d2_multiclass_base AS class2 => abbrev BEGIN
+    ACTION_IF ((~%multi%~ STR_EQ ~%class2%~) OR (~%multi%~ STR_EQ ~%abbrev%~)
+    ) BEGIN
+      ACTION_IF (VARIABLE_IS_SET EVAL ~%abbrev%_desc~) BEGIN
+
+        ACTION_GET_STRREF EVAL ~%abbrev%_desc~  mc_text
+        OUTER_TEXT_SPRINT kit_text ~%mc_text%~
+        ACTION_IF (mode > 1) BEGIN  OUTER_TEXT_SPRINT kit_text ~~ END
+
+        ACTION_FOR_EACH string IN ~desc1~ ~desc2~ ~desc3~ BEGIN
+          OUTER_SET string2 = EVAL ~%%string%%~
+          ACTION_IF (string2 > 0) BEGIN
+            ACTION_GET_STRREF EVAL ~%string2%~  ~%string%_text~
+            OUTER_TEXT_SPRINT desc_text EVAL ~%%string%_text%~
+
+            ACTION_IF (~%kit_text%~ STR_EQ ~~) BEGIN
+              OUTER_TEXT_SPRINT kit_text ~%desc_text%~
+            END ELSE BEGIN
+              OUTER_TEXT_SPRINT kit_text ~%kit_text%%WNL%%WNL%%desc_text%~
+            END
+          END
+        END
+
+        // desc as string ref
+        OUTER_SET kit_desc = RESOLVE_STR_REF (~%kit_text%~)
+      END
+    END
+  END
+
+END
+
+
+//
+//get multiclass name/desc as text (not string ref)
+
+DEFINE_ACTION_FUNCTION d2_get_mc_text
+  INT_VAR lower=0
+  STR_VAR class=~~ multi=~~
+  RET baseclass multiclass classdesc multidesc
+BEGIN
+
+  OUTER_TEXT_SPRINT baseclass ~%class% is not a valid class~
+  OUTER_TEXT_SPRINT multiclass ~%multi% is not a valid class~
+  OUTER_TEXT_SPRINT classdesc ~%class% is not a valid class~
+  OUTER_TEXT_SPRINT multidesc ~%multi% is not a valid class~
+
+  OUTER_TEXT_SPRINT abc ~_name~
+  ACTION_IF (lower > 0) BEGIN OUTER_TEXT_SPRINT abc ~_lower~ END
+
+  ACTION_PHP_EACH d2_multiclass_base AS class2 => abbrev BEGIN
+    ACTION_IF ((~%class%~ STR_EQ ~%class2%~) OR (~%class%~ STR_EQ ~%abbrev%~)) BEGIN
+      ACTION_IF (VARIABLE_IS_SET EVAL ~%abbrev%_desc~) BEGIN
+        ACTION_GET_STRREF EVAL ~%abbrev%%abc%~  base_name
+        ACTION_GET_STRREF EVAL ~%abbrev%_desc~  base_desc
+        OUTER_TEXT_SPRINT baseclass ~%base_name%~
+        OUTER_TEXT_SPRINT classdesc ~%base_desc%~
+      END
+    END
+
+    ACTION_IF ((~%multi%~ STR_EQ ~%class2%~) OR (~%multi%~ STR_EQ ~%abbrev%~)) BEGIN
+      ACTION_IF (VARIABLE_IS_SET EVAL ~%abbrev%_desc~) BEGIN
+        ACTION_GET_STRREF EVAL ~%abbrev%_name~  base_name
+        ACTION_GET_STRREF EVAL ~%abbrev%_desc~  base_desc
+        OUTER_TEXT_SPRINT multiclass ~%base_name%~
+        OUTER_TEXT_SPRINT multidesc  ~%base_desc%~
+      END
+    END
+  END
+
+END
+
+
+//
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_multiclass_base BEGIN
+  FIGHTER_MAGE         => FM
+  FIGHTER_CLERIC       => FC
+  FIGHTER_THIEF        => FT
+  FIGHTER_MAGE_THIEF   => FMT    // %class% can match either side of arrow
+  MAGE_THIEF           => MT
+  CLERIC_MAGE          => CM
+  CLERIC_THIEF         => CT
+  FIGHTER_DRUID        => FD
+  FIGHTER_MAGE_CLERIC  => FMC
+  CLERIC_RANGER        => CR
+  FIGHTER              => F
+  MAGE                 => M
+  THIEF                => T
+  CLERIC               => C
+  RANGER               => R
+  DRUID                => D
+END
+
+
+//
+COPY_EXISTING - ~clastext.2da~  ~~
+  COUNT_2DA_ROWS 3 clastext_rows
+  READ_2DA_ENTRIES_NOW ~clastext_table~ 3
+  FOR (r = 1; r < clastext_rows; ++r) BEGIN
+    SET patch_class = 0
+    READ_2DA_ENTRY_FORMER ~clastext_table~ r 0 label
+    PHP_EACH d2_multiclass_base AS class => abbrev BEGIN
+      PATCH_IF (patch_class = 0) BEGIN
+        PATCH_IF (~%label%~ STR_EQ ~%class%~) BEGIN    // if %label% DOES contain %class%
+          READ_2DA_ENTRY r 8 3 ~%abbrev%_desc~
+          READ_2DA_ENTRY r 3 3 ~%abbrev%_lower~
+          READ_2DA_ENTRY r 5 3 ~%abbrev%_name~
+          SET patch_class = 1
+        END
+      END
+    END
+  END
+//end inlined COPY
+
+
+//
+//

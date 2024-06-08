@@ -3,13 +3,19 @@ Misc item pack
 */
 
 
+OUTER_SET silentmode = 1
+OUTER_SET evasionchecks = 2
+OUTER_SET buildeffects = 0
+
+
 //Install
 OUTER_TEXT_SPRINT kitid ~d2wkz~
-OUTER_TEXT_SPRINT kitname ~miscitems~
-INCLUDE ~%install%/variables.tph~
-INCLUDE ~%install%/resources.tph~
+OUTER_TEXT_SPRINT kitname ~MISCITEMS~
 INCLUDE ~%install%/spellprep.tph~
 INCLUDE ~%install%/spellprep2.tph~
+INCLUDE ~%install%/bleedprep.tph~
+INCLUDE ~%install%/variables.tph~
+INCLUDE ~%install%/resources.tph~
 
 INCLUDE ~%install%/%kitname%prep.tph~
 INCLUDE ~%install%/%kitname%.tph~
@@ -19,10 +25,14 @@ INCLUDE ~%install%/%kitname%scripts.tph~
 INCLUDE ~%install%/%kitname%dfiles.tph~
 INCLUDE ~%install%/%kitname%stores.tph~
 
-OUTER_SET evasionchecks = 2
 INCLUDE ~%install%/evasionchecks.tph~
 INCLUDE ~%install%/hbag.tph~
+INCLUDE ~%install%/spellprep3.tph~
 INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/castingspeedpatch.tph~
 INCLUDE ~%install%/iwditempatch.tph~
 //INCLUDE ~%install%/backupfiles.tph~
+
+
+//
+//

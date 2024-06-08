@@ -2,21 +2,35 @@
 
 
 //Clone mage spells
-ACTION_IF (GAME_IS ~iwdee~) BEGIN 
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
   OUTER_TEXT_SPRINT blind ~SPWI226~
-  OUTER_SET blindness = RESOLVE_STR_REF (@40303)      // IWDEE
-  OUTER_SET blur = RESOLVE_STR_REF (@40304)
+END ELSE BEGIN
+  OUTER_TEXT_SPRINT blind ~SPWI106~
 END
-ELSE BEGIN
-  ACTION_IF (MOD_IS_INSTALLED ~setup-spell_rev.tp2~ (ID_OF_LABEL ~setup-spell_rev.tp2~ ~dv-spell_rev-main~)) BEGIN
-    OUTER_TEXT_SPRINT blind ~SPWI106~ 
-    OUTER_SET blindness = RESOLVE_STR_REF (@40403)    // spell revisions
-    OUTER_SET blur = RESOLVE_STR_REF (@40404)
+
+COPY_EXISTING - ~%blind%.SPL~  ~~  READ_LONG 0x50 blindness
+COPY_EXISTING - ~SPWI201.SPL~  ~~  READ_LONG 0x50 blur
+
+ACTION_IF !(FILE_EXISTS ~override/%blind%.SPL~) BEGIN
+  ACTION_IF (GAME_IS ~iwdee~) BEGIN
+    OUTER_SET blindness = RESOLVE_STR_REF (@40303)    // IWDEE
+  END ELSE BEGIN
+    OUTER_SET blindness = RESOLVE_STR_REF (@40203)    // BGEE
   END
-  ELSE BEGIN
-    OUTER_TEXT_SPRINT blind ~SPWI106~ 
-    OUTER_SET blindness = RESOLVE_STR_REF (@40203)    // BGEE games
-    OUTER_SET blur = RESOLVE_STR_REF (@40204)
+END
+
+ACTION_IF !(FILE_EXISTS ~override/SPWI201.SPL~) BEGIN
+  ACTION_IF (GAME_IS ~iwdee~) BEGIN
+    OUTER_SET blur = RESOLVE_STR_REF (@40304)    // IWDEE
+  END ELSE BEGIN
+    OUTER_SET blur = RESOLVE_STR_REF (@40204)    // BGEE
+  END
+END
+
+ACTION_IF (MOD_IS_INSTALLED ~setup-spell_rev.tp2~ 0) BEGIN
+  ACTION_IF (FILE_CONTAINS ~spell_rev/setup-spell_rev.tp2~ ~dv-spell_rev-main~) BEGIN
+    OUTER_SET blindness = RESOLVE_STR_REF (@40403)
+    OUTER_SET blur      = RESOLVE_STR_REF (@40404)
   END
 END
 
@@ -25,25 +39,37 @@ LAF d2_convert_spell_type INT_VAR type=2 level=2 STR_VAR spell=~SPWI201~ newspel
 LAF d2_convert_spell_type INT_VAR type=2 level=3 STR_VAR spell=~SPWI314~ newspell=~%p3%~ END
 LAF d2_convert_spell_type INT_VAR type=2 level=4 STR_VAR spell=~SPWI419~ newspell=~%p4%~ END
 
-COPY_EXISTING ~%p1%.SPL~ ~override~ WRITE_LONG 0x50 %blindness% BUT_ONLY
-COPY_EXISTING ~%p2%.SPL~ ~override~ WRITE_LONG 0x50 %blur% BUT_ONLY
+COPY_EXISTING ~%p1%.SPL~  ~override~  WRITE_LONG 0x50 blindness  BUT_ONLY
+COPY_EXISTING ~%p2%.SPL~  ~override~  WRITE_LONG 0x50 blur       BUT_ONLY
 
 
-//Add spells to spell.ids
+//add to spell.ids (config option)
 ACTION_IF (%nopriestids% = 0) BEGIN
   OUTER_FOR (n = 1; n <= 4; ++n) BEGIN
     LAF ADD_SPELL_EX INT_VAR type=1 level=%n% min=51 max=99 hide=1 STR_VAR file=~override/%p%n%%.SPL~ name=~D2%kitname%_P%n%~ RET spell_res END
     OUTER_TEXT_SPRINT ~p%n%~  ~%spell_res%~
   END
+
+  ACTION_FOR_EACH spell IN ~%p1%~ ~%p3%~ ~%p4%~ BEGIN
+    COPY ~override/%spell%.SPL~  ~override~
+      LPF update_op324_restrictions END
+    BUT_ONLY
+  END
+
+  COPY ~override/%p2%.SPL~  ~override~
+    LPF update_op324_restrictions END
+    LPF d2_remove_effects_on_cast END
+  BUT_ONLY
 END
 
 
+//
 //Add Rooting Shot
-COPY ~%icons%/rootingshoticon.BAM~    ~override/%s1%i.BAM~
+COPY ~%icons%/rootingshoticon.BAM~  ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@106) STR_VAR bam=~%s1%i~ RET icon END
 
-COPY ~%icons%/rootingshot.BAM~        ~override/%s1%.BAM~
-COPY ~%abilities%/rootingshot.SPL~    ~override/%s1%.SPL~
+COPY ~%icons%/rootingshot.BAM~      ~override/%s1%.BAM~
+COPY ~%abilities%/rootingshot.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @106
   SAY UNIDENTIFIED_DESC @206
   WRITE_ASCII 0x3a ~%s1%~ #8
@@ -53,70 +79,55 @@ COPY ~%abilities%/rootingshot.SPL~    ~override/%s1%.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=249 STR_VAR resource=~%s1%e~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY ~%abilities%/castspelltarget.EFF~      ~override/%s1%e.EFF~    // on-hit effect (v4.4: ignores magic resist)
+//main subspell
+COPY ~%abilities%/applyeffects.EFF~  ~override/%s1%e.EFF~
   WRITE_ASCII 0x30 ~%s1%e~ #8
-COPY ~%abilities%/rootingshoteffects.SPL~   ~override/%s1%e.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 match_timing=1 STR_VAR resource=~%s1%a~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 match_timing=4 STR_VAR resource=~%s1%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@301) END    // "Entangled"
+COPY ~%abilities%/rootingapply.SPL~  ~override/%s1%e.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s1%b~ END
+  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+  LPF d2_remove_effects_on_cast END
 
-COPY ~%abilities%/rootingshotentangle.SPL~  ~override/%s1%a.SPL~    // 3 rounds entangle (no save)
+COPY ~%abilities%/rootingentangle.SPL~  ~override/%s1%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%a~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=139 parameter1=RESOLVE_STR_REF (@301) END    // "Entangled"
 
-COPY ~%abilities%/rootingshotentangle.SPL~  ~override/%s1%b.SPL~    // 3 rounds entangle (save)
-  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%a~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%b~ END
-  LPF ALTER_EFFECT INT_VAR savingthrow=1 END
+COPY ~%abilities%/applyeffects.EFF~  ~override/%s1%b.EFF~
+  WRITE_ASCII 0x30 ~%s1%a~ #8
+  WRITE_LONG 0x40 1    // save vs. spell
 
-COPY ~%abilities%/castspellself.EFF~        ~override/%s1%x.EFF~    // remove effect
+//remove after 1 shot
+COPY ~%abilities%/castspellself.EFF~       ~override/%s1%x.EFF~
   WRITE_ASCII 0x30 ~%s1%x~ #8
-COPY ~%abilities%/removespelleffects.SPL~   ~override/%s1%x.SPL~
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s1%x.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%s1%~ END
 
 
+//
 //Add Bloodletter
-COPY ~%icons%/bloodletter.BAM~      ~override/%s2%.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@107) STR_VAR bam=~%s2%~ RET icon END
+COPY ~%icons%/bloodletter.BAM~      ~override/%s2%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@107) STR_VAR bam=~%s2%i~ RET icon END
 COPY ~%abilities%/bloodletter.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @107
   SAY UNIDENTIFIED_DESC @207
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~archhit~ resource=~%s2%a~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~archmov~ resource=~%s2%b~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%a~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%b~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY ~%abilities%/castspellself.EFF~    ~override/%s2%a.EFF~    // healing
+//healing
+COPY ~%abilities%/castspellself.EFF~    ~override/%s2%a.EFF~
   WRITE_ASCII 0x30 ~%s2%a~ #8
 COPY ~%abilities%/bloodletterheal.SPL~  ~override/%s2%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@307) END    // "Healed"
 
-COPY ~%icons%/bleed.BAM~                ~override/%s2%b.BAM~    // bleeding
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@302) STR_VAR bam=~%s2%b~ RET icon END
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%b.EFF~
+//bleeding
+COPY ~%abilities%/applyeffects.EFF~  ~override/%s2%b.EFF~
   WRITE_ASCII 0x30 ~%s2%b~ #8
-COPY ~%abilities%/bleed6rounds.SPL~    ~override/%s2%b.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@302) END    // "Bleeding"
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s2%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s2%c~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%s2%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+COPY ~inlined/bleed_core.SPL~        ~override/%s2%b.SPL~
+  LPF d2_bleed_delay INT_VAR limit=6 STR_VAR resource=d2bleed2 END
 
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%c.EFF~    // bleed damage
-  WRITE_ASCII 0x30 ~%s2%c~ #8
-COPY ~%abilities%/bleeddamage2.SPL~     ~override/%s2%c.SPL~
-
-
-//Bleeding removed by Heal or Greater Restoration
-ACTION_PHP_EACH d2restoration AS spell => type BEGIN
-  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~heal~) BEGIN    // if 'type' DOES contain 'heal'
-    ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.spl~) BEGIN
-      COPY_EXISTING ~%spell%.spl~  ~override~
-        LPF d2_remove_effects_on_cast STR_VAR resource=~%s2%b~ insert=last END
-      BUT_ONLY
-    END
-  END
-END
+LAF d2_bleed_removal STR_VAR resource=~%s2%b~ END    // add to d2!bleed.spl
 
 
 //Make clab table
@@ -141,10 +152,11 @@ LAF ADD_KIT_EX
     fallen_notice = RESOLVE_STR_REF (@100504)
   STR_VAR
     kit_name = ~D2%kitname%~
-//  unusable = ~0x00010000~        // Stalker usability (using different method)
+//  unusable = ~0x00010000~           // Stalker usability (using different method)
     clab_path = ~%kitid%~
-    clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
-    clascolr = ~25 83 66 28 23~    // Priest of Talos colors
+    clsrcreq = ~1 1 1 1 1 1 1~        // Usable by all races, if base class is usable
+    alignmnt = ~1 0 0 0 0 0 0 0 0~    // LG
+    clascolr = ~25 83 66 28 23~       // Priest of Talos colors
   RET 
     kit_id
 END
@@ -156,38 +168,53 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
 END
 
 
-//function to block entangle in spells
+//
+//function to remove rooting shot effects
+DEFINE_PATCH_FUNCTION confessor_entangle_remove BEGIN
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=321 parameter2=0 duration=0 STR_VAR resource=~%confessorhold%~ END
+END
+
+//function to block rooting shot effects
+DEFINE_PATCH_FUNCTION confessor_entangle_block BEGIN
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=318 parameter2=0 STR_VAR resource=~%confessorhold%~ END
+END
+
+//
 DEFINE_PATCH_FUNCTION confessor_entangle_spells BEGIN
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%confessorentangle%~ END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%entangle18%~ END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%entangle36%~ END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%confessorentangle%~ insert=first END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%entangle18%~ insert=first END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 opcode=321 parameter2=0 timing=1 STR_VAR match_resource=~%entangle36%~ insert=first END
-END
-
-//function to block entangle in items
-DEFINE_PATCH_FUNCTION confessor_entangle_items BEGIN
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%confessorentangle%~ END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%entangle18%~ END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=206 parameter2=0 STR_VAR resource=~%entangle36%~ END
+  LPF confessor_entangle_remove END
+  LPF confessor_entangle_block END
 END
 
 
+//
 //Set variables for external use
-OUTER_TEXT_SPRINT confessor          ~%kitid%~
-OUTER_TEXT_SPRINT rootingshot        ~%s1%~
-OUTER_TEXT_SPRINT confessorentangle  ~%s1%e~
-OUTER_TEXT_SPRINT entangle18         ~%s1%a~
-OUTER_TEXT_SPRINT entangle36         ~%s1%b~
-OUTER_TEXT_SPRINT bloodletter        ~%s2%~
-OUTER_TEXT_SPRINT confessorbleed     ~%s2%b~
-OUTER_TEXT_SPRINT fnpclass           ~zealot~
-OUTER_TEXT_SPRINT fnpdeity           ~auril_spheres~
-OUTER_TEXT_SPRINT confessor1         ~%p1%~
-OUTER_TEXT_SPRINT confessor2         ~%p2%~
-OUTER_TEXT_SPRINT confessor3         ~%p3%~
-OUTER_TEXT_SPRINT confessor4         ~%p4%~
+OUTER_TEXT_SPRINT confessor        ~%kitid%~
+OUTER_TEXT_SPRINT rootingshot      ~%s1%~
+OUTER_TEXT_SPRINT confessorhold    ~%s1%a~
+OUTER_TEXT_SPRINT bloodletter      ~%s2%~
+OUTER_TEXT_SPRINT confessorbleed   ~%s2%b~
+
+//spells
+OUTER_TEXT_SPRINT confessor1       ~%p1%~
+OUTER_TEXT_SPRINT confessor2       ~%p2%~
+OUTER_TEXT_SPRINT confessor3       ~%p3%~
+OUTER_TEXT_SPRINT confessor4       ~%p4%~
+
+//fnp
+OUTER_TEXT_SPRINT fnpclass         ~zealot~
+OUTER_TEXT_SPRINT fnpdeity         ~auril_spheres~
+OUTER_TEXT_SPRINT fnparchetype1    ~SetGlobal("D5PADEF","GLOBAL",0)~
+OUTER_TEXT_SPRINT fnparchetype2    ~SetGlobal("D5PAINQ","GLOBAL",1)~
+OUTER_TEXT_SPRINT fnparchetype3    ~SetGlobal("D5PAZEA","GLOBAL",1)~
+
+//tof
+OUTER_TEXT_SPRINT tofkitname  ~D2%kitname%~
+//OUTER_TEXT_SPRINT tofspheres  ~+charm,+divination_cleric,-good~
+OUTER_TEXT_SPRINT tofspheres  ~all,charm,combat,divination_cleric,divine,healing,protection~
+
+//dof
+OUTER_TEXT_SPRINT dofclab     ~%kitid%~
+OUTER_TEXT_SPRINT dofkitname  ~D2%kitname%~
 
 
 /*

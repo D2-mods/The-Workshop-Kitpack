@@ -58,9 +58,9 @@ Advantages:
 – May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.
 – May use the Shockwave and Incinerate abilities. Gains one use each at level 4, plus an additional use each every 4 levels, up to a maximum of 5 uses each at level 20.
 
-SHOCKWAVE: The next successful ranged attack explodes in a wave of energy. All creatures in a 15-ft. radius take 2d4 crushing damage and are propelled back a considerable distance (no save). The blast inflicts an additional 2d4 crushing damage every 4 levels thereafter, up to a maximum of 10d4 at level 20.
+SHOCKWAVE: The next successful ranged attack explodes in a wave of energy. All creatures in a 15-ft. radius take 2d4 crushing damage and are propelled back a considerable distance (no save). The blast inflicts an additional 2d4 crushing damage every 4 levels, up to a maximum of 10d4 at level 20.
 
-INCINERATE: The next successful ranged attack expands into a fiery cloud, covering a 15-ft. radius. All creatures in the cloud suffer 1d6 fire damage each round for 4 rounds (Save vs. Breath for half). Damage per round increases by 1d6 every 4 levels thereafter, up to a maximum of 5d6 at level 20.
+INCINERATE: The next successful ranged attack expands into a fiery cloud, covering a 15-ft. radius. All creatures in the cloud suffer 1d6 fire damage each round for 4 rounds (Save vs. Breath for half). Damage per round increases by 1d6 every 4 levels, up to a maximum of 5d6 at level 20.
 
 Disadvantages:
 – May not Specialize in melee weapons.
@@ -73,14 +73,14 @@ Grave Warden (Ranger)
 GRAVE WARDEN: Far to the east, the Grave Wardens tend to the tombs of the slumbering dead, ensuring they remain undisturbed. They are guardians, guides, deterrents, and storytellers, and possess a unique ability to deny death.
 
 Advantages:
-– +4 bonus to Saving Throws vs. Paralysis/Poison/Death.
+– +4 bonus to Saving Throws vs. Death.
 – +10 bonus to Lore each level.
 – May cast three arcane spells as priest spells:
   1st level: Chromatic Orb.
   2nd level: Horror.
   3rd level: Skull Trap.
 
-– 3rd level: Immune to fear and and morale failure.
+– 3rd level: Immune to fear and morale failure.
 – 5th level: May use the Denial ability once per day. Gains additional uses every 5 levels thereafter.
 
 DENIAL: This spell has two effects. First, the recipient becomes immune to all forms of death magic for 3 turns. Second, if the recipient falls below 50% of maximum Hit Points, the spell activates and restores the character to full health, consuming the spell in the process.
@@ -96,23 +96,24 @@ Disadvantages:
 ==================================================
 Moonlight Knight (Ranger)
 ==================================================
-MOONLIGHT KNIGHT: Scholars tell of a decrepit, old dragon that lies atop a high plateau, hidden away from the rest of Toril. The Moonlight Knights, who have gazed upon the forbidden "Other" moon, travel to this place, seeking a revelation from things unseen.
+MOONLIGHT KNIGHT: A forlorn warrior, branded by the Moonscar, having dreamed a dream of endless moonlight. Partakes in pilgrimage to moonlit altars, seeking a revelation from things unseen.
 
 Advantages:
-– +2 bonus to all Saving Throws.
-– May be of any alignment.
+– Moonscar: +1 bonus to all Saving Throws. The bonus becomes +2 at level 8 and +3 at level 16.
+– 3rd level: Gains the Torrent ability (passive).
+
+TORRENT: On a successful attack (melee or ranged), the character has a 10% chance to be hasted for 10 seconds, gaining an extra attack per round and doubled movement rate. At 8th level, attacks deal an extra 2 points of magic damage. At 16th level, Attacks Per Round is doubled. For the duration, the effects of Moonscar are also reversed.
+
+– 7th level: May use the Moonlight Vortex ability once per day. Gains additional uses every 4 levels thereafter.
+
+MOONLIGHT VORTEX: Unleashes a beam of torrential moonlight, which extends as far as the target point, inflicting 8d6 magic damage to enemies. Undead and outerplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.
+
+– No alignment restrictions.
 – Will not fall due to reputation loss.
-– 2nd level: Gains the Torrent ability (passive).
-
-TORRENT: On a successful melee attack, the character has a 6% chance to become hasted for 10 seconds, gaining an extra attack per round and doubled movement speed. Chance of Haste increases by 1% every 2 levels thereafter, up to a maximum of 15% at level 20.
-
-– 6th level: May use the Moonlight Vortex ability once per day. Gains additional uses at levels 10 and 14.
-
-MOONLIGHT VORTEX: Unleashes a beam of torrential moonlight, which extends as far as the target point, inflicting 4d10 magic damage to enemies in its path. Undead and outerplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.
 
 Disadvantages:
-– May not Specialize in ranged weapons.
-– May not use stealth.
+– Moonscar: -1 penalty to AC vs. slashing, piercing, and missile. The penalty becomes -2 at level 8 and -3 at level 16.
+– Only has half the normal skill in Hide In Shadows and Move Silently.
 
 
 ==================================================
@@ -150,14 +151,13 @@ Advantages:
 – May use the Lay On Hands ability three times per day.
 – 2nd level: May use the Force ability once per day. Gains additional uses every 4 levels thereafter.
 
-FORCE: Creates a shockwave. Inflicts no damage, but staggers nearby foes. All enemies within 15 feet are propelled back and stunned for 4 seconds (no save).
+FORCE: Creates a shockwave. Inflicts no damage, but staggers nearby foes. All enemies within 15 feet are propelled back and stunned for 4 seconds (no save). Huge creatures are stunned only momentarily and will not be knocked back.
 
-– 12th level: May cast Bolt of Glory as a special ability once per day.
-– 16th level: May cast Bolt of Glory as a special ability twice per day.
+– 9th level: May cast Bolt of Glory as a special ability once per day. Gains additional uses at levels 13 and 17.
 
 Disadvantages:
-– May not use missile weapons.
-– May not turn undead.
+– May not Specialize in ranged weapons.
+– Turns undead at 2 levels lower than other paladins (starting at 5th level).
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -233,12 +233,12 @@ Advantages:
 
 SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multiple sharp splinters. All enemies in a 15-ft. radius take 2 points of piercing damage and suffer a bleeding wound, which inflicts 1 point of damage per round for 1 turn (no save). A target can be wounded once per round and the effects are cumulative.
 
-– 9th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 13 and 18.
+– 9th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 13 and 17.
 
 VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 12 Hit Points and haste the character for 10 seconds.
 
 Disadvantages:
-– May only distribute 20 skill points per level among thieving skills.
+– Only gains 20 thieving skill points per level.
 – May not use the Set Snare ability.
 
 
@@ -266,7 +266,7 @@ FRENZYING FLAME: Spreads a frenzy-inducing flame that envelopes a 20-ft. radius 
 – If the "Enhanced Bard Song" HLA is learned, the character will gain an ability to switch to this song.
 
 Disadvantages:
-– Bard Song is disabled for 8 rounds after each use of a Powder Keg song.
+– Bard Song is disabled for 8 rounds after each use.
 – Only has one quarter the normal Pick Pockets score.
 
 ----------------------------------------------------------------------------------------------------
@@ -340,7 +340,7 @@ Advantages:
 – May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.
 – 3rd level: May use the Blood Bullet ability once per day. Gains additional uses every 3 levels thereafter.
 
-BLOOD BULLET: The character sacrifices 2d4 Hit Points. For the next 2 rounds, all ranged attacks deal an extra 1d3 piercing damage for every 3 levels of the character.
+BLOOD BULLET: The character sacrifices 5 Hit Points. For the next 2 rounds, the bonus to ranged THAC0 is doubled, and all ranged attacks deal an extra 1d3 piercing damage for every 3 levels of the character.
 
 – 8th level: +5% chance to score a critical hit with ranged attacks.
 – 16th level: +5% chance to score a critical hit with ranged attacks.
@@ -381,18 +381,29 @@ Nurse (Thief)
 NURSE: A born specialist, the Nurse is an adept alchemist, as well as marksman, fit for sleuthing or academia.
 
 Advantages:
-– +1 bonus to ranged attack rolls at 1st level, plus an additional +1 bonus every 5 levels.
+– +1 bonus to ranged attack rolls every 3 levels.
 – May Specialize (two slots) in shortbows, crossbows, slings, and darts.
-– May prepare a set of 10 Medical Darts. Gains one use at level 1, one use at level 5, and an additional use every 5 levels thereafter. The darts are automatically equipped and remain in the hand until thrown or expired (1 hour).
+– May use the N-Alchemy ability. Gains one use at level 1, one use at level 6, and an additional use every 6 levels thereafter.
 
-MEDICAL DARTS: These darts will heal allies or deal poison damage to enemies. The amount of healing or damage is equal to 1d4+3, with an extra +1 every 5 levels. Medical Darts are treated as magical weapons with a +5 enchantment, and attacks are made with a +5 bonus. A character's proficiency with darts does not affect attack rolls.
+N-ALCHEMY: Adds a set of medical tools as special abilities for up to 1 hour. Each requires 1 alchemy point, and the character is given 3 points to use. New abilities become available at higher levels:
+  1st level: Medical Darts
+  5th level: First Aid
+  9th level: Overdose
+  13th level: Injection Shot
+  17th level: Autoimmune
 
-– 11th level: May use the Injection Shot ability once per day. Gains additional uses at levels 15 and 19.
+MEDICAL DARTS: Equips the character with 5 medical darts, which expire after 5 rounds. These darts will heal allies or deal poison damage to enemies. The amount of healing or damage is equal to 1d4+3, with an extra +1 every 5 levels. Medical Darts strike as +2 weapons with a +5 bonus to THAC0. Proficiency with darts does not affect attack rolls.
 
-INJECTION SHOT: The next successful ranged attack forces the target to make a save vs. Death at -2 or become feebleminded for 8 hours. If the Saving Throw is made, the target is confused for 5 rounds.
+FIRST AID: Provide immediate medical care to any living creature. Restores 2 Hit Points per level, up to a maximum of 40 Hit Points.
+
+OVERDOSE: For 5 rounds, the character gains an extra attack per round, +3 per level to all thieving skills, +10% critical hit chance with ranged attacks, and immunity to slow, maze, sleep, stun, and level drain. Overdose may not be used in conjunction with the Haste or Improved Haste spells.
+
+INJECTION SHOT: The next successful ranged attack forces the target to make a save vs. Death at -2 or become feebleminded for 7 rounds. If the Saving Throw is made, the target is confused and slowed for 2 rounds.
+
+AUTOIMMUNE: The recipient is automatically cured of the next instance of poison, disease, hold, paralysis, stun, sleep, blindness, deafness, charm, berserk, fear, confusion, or feeblemind. This ability lasts up to 3 turns.
 
 Disadvantages:
-– May only distribute 15 skill points per level among thieving skills.
+– Only gains 15 thieving skill points per level.
 – May not wear armor heavier than leather.
 
 

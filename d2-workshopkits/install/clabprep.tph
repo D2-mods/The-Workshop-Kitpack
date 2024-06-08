@@ -79,6 +79,16 @@ COPY_EXISTING - ~CLABBA01.2DA~  ~inlined/d2clab_bard_nosongs~
   REPLACE_TEXTUALLY ~GA_#BARD6~   ~****~
   REPLACE_TEXTUALLY ~AP_RR#BDF01~ ~****~    // rr standard bard song
 
+//blade
+COPY_EXISTING - ~CLABBA02.2DA~ ~inlined/d2clab_blade~
+COPY_EXISTING - ~CLABBA02.2DA~ ~inlined/d2clab_blade_nosongs~
+  REPLACE_TEXTUALLY ~AP_FJBLADE~  ~****~    // BG games
+  REPLACE_TEXTUALLY ~AP_#BARD-1~  ~****~    // IWDEE
+  REPLACE_TEXTUALLY ~AP_C0BLD01~  ~****~    // Bardic Wonders song
+  REPLACE_TEXTUALLY ~AP_RR#BBL01~ ~****~    // rr song
+
+
+
 //monk
 COPY_EXISTING - ~CLABMO01.2DA~  ~inlined/d2clab_monk~
 COPY_EXISTING - ~CLABMO01.2DA~  ~inlined/d2clab_monk_noheal~
@@ -108,8 +118,8 @@ COPY_EXISTING - ~CLABPR01.2DA~  ~inlined/d2clab_cleric~
   LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
   LPF 2da_find_row_delete STR_VAR row_name = ~CLER_SPLS~ END
 
-//druid
-//shaman
+//druid (CLABDR01)
+//shaman (CLABSH01)
 
 
 /*

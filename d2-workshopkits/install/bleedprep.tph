@@ -1,0 +1,67 @@
+/*
+bleed prep
+requires d2_misc_functions.tpa
+*/
+
+
+COPY ~%icons%/bleed.BAM~  ~override/d2bleedi.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@302) STR_VAR bam=~d2bleedi~ RET icon END
+
+COPY - ~%abilities%/bleed_core.SPL~  ~inlined/bleed_core.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=177 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=206 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 opcode=326 STR_VAR resource=d2bleedt END    // immune string
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@302) END       // "Bleeding"
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
+
+
+//immune string
+OUTER_SPRINT ability_name @302    // "Bleeding"
+ACTION_TO_LOWER ability_name
+COPY ~%abilities%/spellfailed.SPL~  ~override/d2bleedt.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@350) END    // "Unaffected by..."
+  LPF DELETE_EFFECT INT_VAR match_opcode=141 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF d2_protect_on_castequip INT_VAR duration=100 END    // block string for 100 seconds (won't see every hit)
+
+
+//preset damage (bypasses resist)
+ACTION_IF !(FILE_EXISTS ~override/d2bleed3.spl~) BEGIN
+  COPY ~%abilities%/bleeddamage2.SPL~  ~override/d2bleed1.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=1 END
+  COPY ~%abilities%/bleeddamage2.SPL~  ~override/d2bleed2.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=2 END
+  COPY ~%abilities%/bleeddamage2.SPL~  ~override/d2bleed3.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=0 dicenumber=1 dicesize=3 END
+  COPY ~%abilities%/bleeddamage2.SPL~  ~override/d2bleed5.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=5 END
+END
+
+
+/*
+Copy ~inlined/bleed_core.SPL~ as bleed hit effect
+Run function and set limit and resource to build file.
+*/
+
+//limit is total rounds
+//delay is seconds between each bleed on target
+//resource should be an SPL with op12 damage (ex. damage files above)
+
+DEFINE_PATCH_FUNCTION d2_bleed_delay INT_VAR limit=4 delay=5 STR_VAR resource=~~ BEGIN
+
+  LPF update_op324_restrictions INT_VAR opcode=318 END
+  LPF d2_protect_on_castequip INT_VAR duration=delay END
+
+  SET portrait = (limit*6) - 2
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 duration=portrait END
+
+  FOR (n = 1; n <= limit; ++n) BEGIN
+    SET duration = (n*6) - 3
+    LPF CLONE_EFFECT INT_VAR match_opcode=139 opcode=326 timing=4 duration=duration parameter1=0 STR_VAR resource=~%resource%~ END
+  END
+
+END
+
+
+//
+//

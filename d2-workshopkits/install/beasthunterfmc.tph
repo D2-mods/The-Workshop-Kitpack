@@ -120,16 +120,14 @@ ACTION_IF ((vanillaclericprofs = 0) OR
            (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
            (FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
            (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
-          ) BEGIN
-
+) BEGIN
   OUTER_TEXT_SPRINT multikitprofs  ~2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3~
-END
-ELSE BEGIN
+END ELSE BEGIN
   OUTER_TEXT_SPRINT multikitprofs  ~0 0 0 0 2 2 0 2 0 0 0 0 0 0 0 0 2 2 0 0 2 2 2 0 0 0 0 2 2 2 2 3~
 END
 
 
-//Re-enable the F/M/C class (i.e. if disabled by FnP multiclass)
+//can select FMC triple class (i.e. if disabled by FnP multiclass)
 COPY_EXISTING - ~clsrcreq.2DA~  ~~
   COUNT_2DA_ROWS 3 clsrcreq_rows
   READ_2DA_ENTRIES_NOW ~clsrcreq_table~ 3
@@ -158,13 +156,20 @@ COPY_EXISTING ~clsrcreq.2DA~  ~override~
 BUT_ONLY
 
 
+//
+LAF d2_get_mc_text STR_VAR class=fighter multi=fmc RET baseclass multiclass END
+OUTER_SET kit_note = RESOLVE_STR_REF(@353)
+OUTER_SET base_kit = RESOLVE_STR_REF(@100103)
+LAF d2_build_mc_desc INT_VAR desc1=base_kit desc2=kit_note mode=2 STR_VAR multi=fmc RET kit_desc END
+
+
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
     kit_class = 17
     mixed = RESOLVE_STR_REF (@100101)
     lower = RESOLVE_STR_REF (@100102)
-    help = RESOLVE_STR_REF (@100103)
+    help = kit_desc
   STR_VAR
     kit_name = ~D2%kitname%FMC~
 //  unusable = ~0x00010000~               // Stalker usability (no effect for multiclasses)
@@ -185,12 +190,15 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
 END
 
 
-//DoF compatibility
-OUTER_TEXT_SPRINT kitid    ~%kitid%C~
-OUTER_TEXT_SPRINT kitname  ~%kitname%FMC~
+//DoF spheres
+OUTER_TEXT_SPRINT dofclab     ~%kitid%C~
+OUTER_TEXT_SPRINT dofkitname  ~D2%kitname%FMC~
 INCLUDE ~%install%/dofspheres.tph~
-OUTER_TEXT_SPRINT kitid    ~d2wk1~
-OUTER_TEXT_SPRINT kitname  ~BEASTHUNTER~
+
+//ToF spheres
+OUTER_TEXT_SPRINT tofkitname  ~D2%kitname%FMC~
+OUTER_TEXT_SPRINT tofspheres  ~all,animal,charm,combat,divination_cleric,divine,fire,good,healing,protection,summoning,sun,wards~
+INCLUDE ~%install%/tofspheres.tph~
 
 
 //Set Variable

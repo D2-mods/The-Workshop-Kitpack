@@ -1,6 +1,14 @@
 /*
-prep for later patching
+spell arrays for later patching
+run spellprep3.tph after to make status cure subspells
 */
+
+
+PRINT @11
+ACTION_IF ((IS_AN_INT silentmode) AND (silentmode > 0)) BEGIN SILENT END
+
+ACTION_CLEAR_ARRAY ~d2restoration~
+ACTION_CLEAR_ARRAY ~d2statusarray~
 
 
 //
@@ -19,10 +27,73 @@ END
 //heal
 ACTION_FOR_EACH spell IN
   ~sppr607~ ~devaheal~ ~senspihe~ ~spin679~ 
-  ~spin711~ ~spwish28~ ~spwish39~ ~spwm168~ 
+  ~spin711~ ~spwish28~ ~spwish39~ ~spwm168~ ~MEPR751~
 BEGIN
   OUTER_TEXT_SPRINT $d2restoration(~%spell%~) ~fullheal~    // ~%spell%~ => fullheal
 END
+
+//lay on hands
+ACTION_FOR_EACH spell IN ~SPCL211~ ~SPCL815~ BEGIN
+  OUTER_TEXT_SPRINT $d2restoration(~%spell%~) ~specialheal~    // ~%spell%~ => specialheal
+END
+
+//mist of eldath
+ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~CLERIC_MIST_OF_ELDATH~) BEGIN
+  LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = CLERIC_MIST_OF_ELDATH RET spell_res END
+  OUTER_TEXT_SPRINT $d2restoration(~%spell_res%~) ~specialheal~    // ~%spell%~ => specialheal
+END
+
+//maze + feeblemind
+ACTION_FOR_EACH spell IN ~SPWI813~ ~SPWI509~ ~sppr650~ BEGIN
+  OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~maze~    // ~%spell%~ => maze
+END
+
+//slow
+ACTION_FOR_EACH spell IN
+  ~SPWI312~ ~SPIN977~ ~SPIN146~
+  ~SPWISH25~ ~SPWM164~ ~SPIN983~ ~SPIN575~
+BEGIN
+  OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~slow~    // ~%spell%~ => slow
+END
+
+//haste
+ACTION_FOR_EACH spell IN
+  ~SPWI305~ ~SPWI613~ ~SPRA301~ ~SPWISH36~ ~SPWISH37~
+  ~SPWISH40~ ~spin655~ ~SPIN828~ ~spin572~ ~POTN14~
+BEGIN
+  OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~haste~    // ~%spell%~ => haste
+END
+
+//grease, web, entangle
+ACTION_FOR_EACH spell IN
+  ~SPWI101~ ~SPWI215~ ~SPPR105~ ~spwi101b~ ~spwi101c~
+BEGIN
+  OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~entangle~    // ~%spell%~ => entangle
+END
+
+//berserk (include Minsc berserk, even if tweaked)
+ACTION_FOR_EACH spell IN ~SPIN117~ ~d2ham01e~ ~d2ham01b~ BEGIN
+  OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~berserk~    // ~%spell%~ => berserk
+END
+
+//acid dot, decay, phasing etc.
+ACTION_FOR_EACH spell IN
+  ~SPWI211~ ~SPPR710~ ~SPPR715~
+  ~SPPR314~ ~SPPR610~ ~SPWI955~ ~d2abb15e~
+BEGIN
+  OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~phasing~    // ~%spell%~ => phasing
+END
+
+ACTION_FOR_EACH spell IN
+  ~WIZARD_VITRIOLIC_SPHERE~ ~WIZARD_ACID_STORM~ ~WIZARD_SHROUD_OF_FLAME~
+  ~CLERIC_WITHER~ ~CLERIC_CLOUD_OF_PESTILENCE~ ~CLERIC_SYMBOL_OF_PAIN~
+BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~%spell%~) BEGIN
+    LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = ~%spell%~ RET spell_res END
+    OUTER_TEXT_SPRINT $d2statusarray(~%spell_res%~) ~phasing~    // ~%spell%~ => phasing
+  END
+END
+
 
 
 //
@@ -30,6 +101,35 @@ END
 COPY_EXISTING - ~sppr417.spl~  ~~  READ_LONG  0x8  restore_name        // lesser restoration
 COPY_EXISTING - ~sppr713.spl~  ~~  READ_LONG  0x8  restoreheal_name    // greater restoration
 COPY_EXISTING - ~sppr607.spl~  ~~  READ_LONG  0x8  fullheal_name       // heal
+COPY_EXISTING - ~SPCL211.spl~  ~~  READ_LONG  0x8  specialheal_name    // lay on hands
+
+COPY_EXISTING - ~SPWI813.spl~  ~~  READ_LONG  0x8  maze_name
+COPY_EXISTING - ~SPWI509.spl~  ~~  READ_LONG  0x8  feeblemind_name
+COPY_EXISTING - ~SPWI312.spl~  ~~  READ_LONG  0x8  slow_name
+COPY_EXISTING - ~SPWI305.spl~  ~~  READ_LONG  0x8  haste_name
+COPY_EXISTING - ~SPWI613.spl~  ~~  READ_LONG  0x8  haste2_name    // improved haste
+
+COPY_EXISTING - ~SPWI101.spl~  ~~    // grease
+  READ_LONG  0x8  grease_name
+  READ_SHORT 0x98 grease_proj
+COPY_EXISTING - ~SPWI215.spl~  ~~    // web
+  READ_LONG  0x8  web_name
+  READ_SHORT 0x98 web_proj
+COPY_EXISTING - ~SPPR105.spl~  ~~    // entangle
+  READ_LONG  0x8  entangle_name
+  READ_SHORT 0x98 entangle_proj
+COPY_EXISTING - ~SPWI211.spl~  ~~    // acid arrow
+  READ_LONG  0x8  acidarrow_name
+  READ_SHORT 0x98 acidarrow_proj
+
+COPY_EXISTING - ~SPWI324.spl~  ~~  READ_LONG  0x8  undeadhold_name
+COPY_EXISTING - ~SPWI720.spl~  ~~  READ_LONG  0x8  undeadcharm_name
+
+COPY_EXISTING - ~SPPR710.spl~  ~~  READ_LONG  0x8  holyword_name
+COPY_EXISTING - ~SPPR715.spl~  ~~  READ_LONG  0x8  unholyword_name
+COPY_EXISTING - ~SPPR314.spl~  ~~  READ_LONG  0x8  blight_name
+COPY_EXISTING - ~SPPR610.spl~  ~~  READ_LONG  0x8  decaying_name
+
 
 
 //
@@ -42,33 +142,109 @@ END
 
 ACTION_IF !(RESOURCE_CONTAINS ~d2wkspellprep~  ~_sppr713_~) BEGIN
   ACTION_PHP_EACH d2restoration AS spell => type BEGIN  APPEND ~d2wkspellprep~  ~_%spell%_~ END
+  ACTION_PHP_EACH d2statusarray AS spell => type BEGIN  APPEND ~d2wkspellprep~  ~_%spell%_~ END
 END
 
 
+
 //
-//check for mod spells
+//scan spells + add to arrays
 COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
   PATCH_IF !(RESOURCE_CONTAINS ~d2wkspellprep~  ~_%SOURCE_RES%_~) BEGIN
+
     READ_SHORT 0x68 num_headers
     PATCH_IF (num_headers > 0) BEGIN
-      READ_LONG 0x8 splname
-      SET check_opcodes = 1
-      SET restore_opcode = 0
-      SET heal_opcode = 0
+      READ_LONG  0x8  splname
+      READ_SHORT 0x98 splproj
+      SET check_opcodes    = 1
+      SET restore_opcode   = 0
+      SET heal_opcode      = 0
+      SET slow_opcode      = 0
+      SET haste_opcode     = 0
+      SET berserk_opcode   = 0
+      SET poison_opcode    = 0
+      SET stun_opcode      = 0
+      SET confuse_opcode   = 0
+      SET web_opcode       = 0
+      SET grease_overlay   = 0
+      SET entangle_overlay = 0
+      SET control_opcode   = 0
 
-      //match name (catch clones of spells)
+      // match name (catch clones of spells)
       PATCH_IF (splname = restore_name) BEGIN
         TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~restore~    // ~%SOURCE_RES%~ => restore
         SET check_opcodes = 0
       END
-
       PATCH_IF (splname = restoreheal_name) BEGIN
         TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~restoreheal~    // ~%SOURCE_RES%~ => restoreheal
         SET check_opcodes = 0
       END
-
       PATCH_IF (splname = fullheal_name) BEGIN
         TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~fullheal~    // ~%SOURCE_RES%~ => fullheal
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = specialheal_name) BEGIN
+        TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~specialheal~    // ~%SOURCE_RES%~ => specialheal
+        SET check_opcodes = 0
+      END
+
+      // status
+      PATCH_IF (splname = maze_name) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~maze~    // ~%SOURCE_RES%~ => maze
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = feeblemind_name) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~maze~    // ~%SOURCE_RES%~ => maze
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = slow_name) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~slow~    // ~%SOURCE_RES%~ => slow
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = haste_name) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~haste~    // ~%SOURCE_RES%~ => haste
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = haste2_name) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~haste~    // ~%SOURCE_RES%~ => haste
+        SET check_opcodes = 0
+      END
+
+      // grease, web, entangle
+      PATCH_IF ((splname = grease_name) OR (splproj = grease_proj)) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~entangle~    // ~%SOURCE_RES%~ => entangle
+        SET check_opcodes = 0
+      END
+      PATCH_IF ((splname = web_name) OR (splproj = web_proj)) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~entangle~    // ~%SOURCE_RES%~ => entangle
+        SET check_opcodes = 0
+      END
+      PATCH_IF ((splname = entangle_name) OR (splproj = entangle_proj)) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~entangle~    // ~%SOURCE_RES%~ => entangle
+        SET check_opcodes = 0
+      END
+
+      // undead status
+      PATCH_IF (splname = undeadhold_name) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~undeadhold~    // ~%SOURCE_RES%~ => undeadhold
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = undeadcharm_name) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~undeadcharm~    // ~%SOURCE_RES%~ => undeadcharm
+        SET check_opcodes = 0
+      END
+
+      // acid dot, decay, phasing etc.
+      PATCH_IF ((splname = acidarrow_name) OR (splproj = acidarrow_proj)) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~phasing~    // ~%SOURCE_RES%~ => phasing
+        SET check_opcodes = 0
+      END
+      PATCH_IF ((splname = holyword_name) OR (splname = unholyword_name)) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~phasing~    // ~%SOURCE_RES%~ => phasing
+        SET check_opcodes = 0
+      END
+      PATCH_IF ((splname = blight_name) OR (splname = decaying_name)) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~phasing~    // ~%SOURCE_RES%~ => phasing
         SET check_opcodes = 0
       END
 
@@ -77,34 +253,73 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
         PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
           GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
           PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
-            PATCH_IF ((restore_opcode=0) OR (heal_opcode=0)) BEGIN
+            PATCH_IF (restore_opcode=0 OR heal_opcode=0) BEGIN
               READ_SHORT effect_off opcode                                 // opcode
-              PATCH_IF (opcode = 224) BEGIN
-                SET restore_opcode = 1
-              END
-              PATCH_IF (opcode = 17) BEGIN
-                SET heal_opcode = 1
-              END
+              PATCH_IF (opcode = 224) BEGIN  SET restore_opcode   = 1 END
+              PATCH_IF (opcode = 17)  BEGIN  SET heal_opcode      = 1 END
+              PATCH_IF (opcode = 40)  BEGIN  SET slow_opcode      = 1 END
+              PATCH_IF (opcode = 16)  BEGIN  SET haste_opcode     = 1 END
+              PATCH_IF (opcode = 3)   BEGIN  SET berserk_opcode   = 1 END
+              PATCH_IF (opcode = 25)  BEGIN  SET poison_opcode    = 1 END
+              PATCH_IF (opcode = 45)  BEGIN  SET stun_opcode      = 1 END
+              PATCH_IF (opcode = 128) BEGIN  SET confuse_opcode   = 1 END
+              PATCH_IF (opcode = 157) BEGIN  SET web_opcode       = 1 END
+              PATCH_IF (opcode = 158) BEGIN  SET grease_overlay   = 1 END
+              PATCH_IF (opcode = 154) BEGIN  SET entangle_overlay = 1 END
+              PATCH_IF (opcode = 241) BEGIN  SET control_opcode   = 1 END
             END
           END
         END
       END
 
-      //
+      // restoration spells
       PATCH_IF (restore_opcode=1 AND heal_opcode=0) BEGIN
         TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~restore~    // ~%SOURCE_RES%~ => restore
       END
-
       PATCH_IF (restore_opcode=1 AND heal_opcode=1) BEGIN
         TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~restoreheal~    // ~%SOURCE_RES%~ => restoreheal
       END
 
-      // does not check all spells with healing opcode (speeds install)
-      // there are only a few spells missed with 100% healing
+      // slow and haste spells
+      PATCH_IF (poison_opcode=0 AND stun_opcode=0 AND confuse_opcode=0) BEGIN    // extra conditions for slow/haste array
+        PATCH_IF (slow_opcode = 1) BEGIN
+          TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~slow~    // ~%SOURCE_RES%~ => slow
+        END
+        PATCH_IF (haste_opcode = 1) BEGIN
+          TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~haste~    // ~%SOURCE_RES%~ => haste
+        END
+      END
+
+      // berserk
+      PATCH_IF (berserk_opcode = 1) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~berserk~    // ~%SOURCE_RES%~ => berserk
+      END
+
+      // grease, web, entangle
+      PATCH_IF (web_opcode=1 OR grease_overlay=1 OR entangle_overlay=1) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~entangle~    // ~%SOURCE_RES%~ => entangle
+      END
+
+      // control
+      PATCH_IF (control_opcode = 1) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~undeadcharm~    // ~%SOURCE_RES%~ => undeadcharm
+      END
 
     END
   END
 // end inlined COPY
+
+
+
+//
+//functions (requires d2_misc_functions.tpa)
+DEFINE_PATCH_FUNCTION cure_undead_status STR_VAR status=hold BEGIN    // status = "hold" or "charm"
+  PHP_EACH d2statusarray AS spell => type BEGIN
+    PATCH_IF (~%type%~ STR_EQ ~undead%status%~) BEGIN
+      LPF d2_remove_effects_on_cast STR_VAR resource=~%spell%~ END
+    END
+  END
+END
 
 
 /*

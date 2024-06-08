@@ -64,10 +64,13 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s4%y~ END
 
 
+//
 //Add Blasting Song
 COPY ~%abilities%/powderkegdisable.SPL~    ~override/%s1%x.SPL~
 COPY ~%abilities%/powderkegnosong.SPL~     ~override/%s1%y.SPL~
   LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%s1%s~ END
+  LPF ALTER_EFFECT INT_VAR match_timing=9 STR_VAR resource=d2spell END
+
 COPY ~%abilities%/powderkegcast.SPL~       ~override/%s1%s.SPL~
 //  SAY NAME1 @607
   LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%f~ END
@@ -98,10 +101,13 @@ COPY ~%abilities%/powderkegblast.SPL~      ~override/%s1%e.SPL~    // follow up 
   END
 
 
+//
 //Add Booming Song
 COPY ~%abilities%/powderkegdisable.SPL~    ~override/%s2%x.SPL~
 COPY ~%abilities%/powderkegnosong.SPL~     ~override/%s2%y.SPL~
   LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%s2%s~ END
+  LPF ALTER_EFFECT INT_VAR match_timing=9 STR_VAR resource=d2spell END
+
 COPY ~%abilities%/powderkegcast.SPL~       ~override/%s2%s.SPL~
 //  SAY NAME1 @608
   LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s2%e~ END
@@ -127,10 +133,13 @@ COPY ~%abilities%/powderkegboomd.SPL~      ~override/%s2%b.SPL~    // deafness 4
   LPF ALTER_EFFECT INT_VAR savingthrow=1 END
 
 
+//
 //Add Dust Explosion
 COPY ~%abilities%/powderkegdisable.SPL~  ~override/%s3%x.SPL~
 COPY ~%abilities%/powderkegnosong.SPL~   ~override/%s3%y.SPL~
   LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%s3%s~ END
+  LPF ALTER_EFFECT INT_VAR match_timing=9 STR_VAR resource=d2spell END
+
 COPY ~%abilities%/powderkegcast.SPL~     ~override/%s3%s.SPL~
 //  SAY NAME1 @609
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%e~ END    // cloud
@@ -146,8 +155,8 @@ ADD_PROJECTILE ~%workspace%/%s3%e.PRO~
 OUTER_SET dustcloud = (~%s3%e~ - 1)    // for clearair.2da
 
 COPY ~%abilities%/powderkegdust.SPL~     ~override/%s3%e.SPL~
-  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s3%a~ END      // blindness
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s3%b~ END      // blur/invisible
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s3%a~ END    // blindness
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s3%b~ END    // blur/invisible
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s3%c~ END    // move penalty
   WRITE_SHORT 0x98 ~%s3%e~    // projectile
 
@@ -157,6 +166,7 @@ COPY ~%abilities%/powderkegdust.SPL~     ~override/%s3%f.SPL~    // fake project
 COPY ~%abilities%/powderkegdusta.SPL~    ~override/%s3%a.SPL~    // blindness
 COPY ~%abilities%/powderkegdustb.SPL~    ~override/%s3%b.SPL~    // blur/invisible
 COPY ~%abilities%/powderkegdustc.SPL~    ~override/%s3%c.SPL~    // move penalty
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!haste~ END    // remove haste
   LPF d2_safe_spell INT_VAR block_opcode=176 duration=1 END
 
 COPY - ~%abilities%/powderkegdustd.PRO~ ~%workspace%/%s3%d.PRO~    // fireball
@@ -167,10 +177,13 @@ COPY ~%abilities%/powderkegdustd.SPL~    ~override/%s3%d.SPL~
   LPF d2_safe_spell END
 
 
+//
 //Add Frenzying Flame
 COPY ~%abilities%/powderkegdisable.SPL~  ~override/%s4%x.SPL~
 COPY ~%abilities%/powderkegnosong.SPL~   ~override/%s4%y.SPL~
   LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%s4%s~ END
+  LPF ALTER_EFFECT INT_VAR match_timing=9 STR_VAR resource=d2spell END
+
 COPY ~%abilities%/powderkegcast.SPL~     ~override/%s4%s.SPL~
 //  SAY NAME1 @610
   LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s4%e~ END
@@ -199,6 +212,7 @@ COPY ~%abilities%/powderkegfrenzyc.SPL~  ~override/%s4%c.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@310) END    // "Panic"
 COPY ~%abilities%/powderkegfrenzyd.SPL~  ~override/%s4%d.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@311) END    // "Berserk"
+  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~berserk~
 
 
 //clearair.2da
@@ -210,6 +224,7 @@ COPY_EXISTING ~CLEARAIR.2DA~  ~override~
 BUT_ONLY
 
 
+//
 //Make clab table
 COPY ~inlined/d2clab_bard_nosongs~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
@@ -296,9 +311,13 @@ OUTER_TEXT_SPRINT boomingsong         ~%s2%~
 OUTER_TEXT_SPRINT dustexplosion       ~%s3%~
 OUTER_TEXT_SPRINT frenzyingflame      ~%s4%~
 OUTER_TEXT_SPRINT enhancedbardsong    ~%s5%~
+
+//subspells
 OUTER_TEXT_SPRINT blastingsongblast   ~%s1%e~    // for Evasion
 OUTER_TEXT_SPRINT boomingsongblast    ~%s2%e~
 OUTER_TEXT_SPRINT dustexplosionblast  ~%s3%d~
+OUTER_TEXT_SPRINT dustblind           ~%s3%a~
+OUTER_TEXT_SPRINT dustslow            ~%s3%c~
 
 
 /*

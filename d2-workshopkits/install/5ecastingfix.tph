@@ -4,6 +4,9 @@ This can be installed before or after 5e casting is installed.
 */
 
 
+OUTER_SET silentmode = 0
+
+
 //Rangers: Check for missing ability (if installed after 5e casting)
 ACTION_FOR_EACH clab IN ~d2wk3~ ~d2wk4~ BEGIN
   ACTION_IF (FILE_EXISTS ~override/%clab%.2DA~) BEGIN

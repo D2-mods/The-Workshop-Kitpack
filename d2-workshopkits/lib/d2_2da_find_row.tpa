@@ -7,8 +7,9 @@
 2da_find_row            PATCH or ACTION
 2da_find_row_set        PATCH or ACTION
 2da_find_row_delete     PATCH or ACTION
-2da_find_column         PATCH or ACTION     
+2da_find_column         PATCH or ACTION
 no_backstab             ACTION
+d2_splprot_adder        PATCH or ACTION
 */
 
 ////////////////////////////////////////////////////////////
@@ -306,6 +307,81 @@ ACTION_FOR_EACH 2da IN ~backstab~ ~crippstr~ ~sneakatt~ BEGIN
   END
 
 END
+
+END
+
+////////////////////////////////////////////////////////////
+
+//match is the 1st entry in row (default = None)
+//string should include the entire new line, including the first column
+//stat is number to use for "parameter2" of related opcodes (326, 318, 324, 321)
+
+/*
+all variables are optional (does nothing if no STR_VARs are set)
+if "match" is found, "stat" is for existing line, and "string" will not be added
+set exact = 1 for exact match or leave at default (only needs to contain the "match" string)
+*/
+
+DEFINE_ACTION_FUNCTION d2_splprot_adder INT_VAR exact=0 STR_VAR match=None string=~~ RET stat BEGIN
+
+  COPY_EXISTING ~splprot.2DA~  ~override~
+    SET stat = 0
+    COUNT_2DA_ROWS 1 count
+
+    PATCH_IF (RESOURCE_CONTAINS ~splprot.2DA~ ~%match%~) BEGIN
+      READ_2DA_ENTRIES_NOW ~splprot_table~ 1
+      FOR (row = 0; row < count; ++row) BEGIN
+        READ_2DA_ENTRY_FORMER ~splprot_table~ row 0 row_name
+        PATCH_IF (exact > 0) BEGIN
+          PATCH_IF (~%row_name%~ STR_EQ ~%match%~) BEGIN                     // exact match of row_name and "match" strings
+            SET stat = row - 3
+          END
+        END ELSE BEGIN
+          PATCH_IF !(~%row_name%~ STRING_CONTAINS_REGEXP ~%match%~) BEGIN    // "row_name" just needs to contain "match"
+            SET stat = row - 3
+          END
+        END
+      END
+    END ELSE BEGIN
+      PATCH_IF !(~%string%~ STR_EQ ~~) BEGIN
+        INSERT_2DA_ROW count 1 EVAL ~%string%~
+        SET stat = count - 3
+        PRETTY_PRINT_2DA
+      END
+    END
+
+  BUT_ONLY
+
+END
+
+DEFINE_PATCH_FUNCTION d2_splprot_adder INT_VAR exact=0 STR_VAR match=None string=~~ RET stat BEGIN
+
+  PATCH_IF (~%SOURCE_RES%~ STR_EQ ~splprot~) BEGIN
+    SET stat = 0
+    COUNT_2DA_ROWS 1 count
+
+    PATCH_IF (RESOURCE_CONTAINS ~splprot.2DA~ ~%match%~) BEGIN
+      READ_2DA_ENTRIES_NOW ~splprot_table~ 1
+      FOR (row = 0; row < count; ++row) BEGIN
+        READ_2DA_ENTRY_FORMER ~splprot_table~ row 0 row_name
+        PATCH_IF (exact > 0) BEGIN
+          PATCH_IF (~%row_name%~ STR_EQ ~%match%~) BEGIN                     // exact match of row_name and "match" strings
+            SET stat = row - 3
+          END
+        END ELSE BEGIN
+          PATCH_IF !(~%row_name%~ STRING_CONTAINS_REGEXP ~%match%~) BEGIN    // "row_name" just needs to contain "match"
+            SET stat = row - 3
+          END
+        END
+      END
+    END ELSE BEGIN
+      PATCH_IF !(~%string%~ STR_EQ ~~) BEGIN
+        INSERT_2DA_ROW count 1 EVAL ~%string%~
+        SET stat = count - 3
+        PRETTY_PRINT_2DA
+      END
+    END
+  END
 
 END
 

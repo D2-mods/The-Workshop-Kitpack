@@ -1,32 +1,47 @@
 /*
 prep for subspell effects
+misc fixes
 */
 
 
+//make dummy spell
+ACTION_IF !(FILE_EXISTS ~override/d2spell.SPL~) BEGIN
+  COPY_EXISTING ~SPCL142.SPL~  ~override/d2spell.SPL~
+    LPF d2_subspell_remove_effects END
+    LPF ALTER_EFFECT INT_VAR opcode=0 parameter1=0 parameter2=0 timing=0 duration=0 END
+    WRITE_LONG 0x18 THIS | BIT14
+    WRITE_LONG 0x18 THIS | BIT25
+  IF_EXISTS
+END
+
+
+//
 //haste effects (as subspell)
 
 /*after using function:
 alter durations of op16 and op142
-set op318s to new resource
+set op318s to new resource, or delete if unneeded
+
+NOTE: SCS/ToF tweak bumps haste effect to a subspell (SPWI305A.SPL)
 */
 
 DEFINE_PATCH_FUNCTION d2prep_haste BEGIN
   LPF d2_remove_level_headers END
   LPF d2_subspell_remove_effects END
-  LPF DELETE_EFFECT INT_VAR match_opcode=176 END                       // revert some sr changes
+  LPF DELETE_EFFECT INT_VAR match_opcode=176 END    // revert some sr changes
   LPF DELETE_EFFECT INT_VAR match_opcode=1 END
   LPF DELETE_EFFECT INT_VAR match_opcode=206 END
-  LPF DELETE_EFFECT INT_VAR match_timing=4 END                         // remove fatigue
-  LPF DELETE_EFFECT INT_VAR match_opcode=16 END                        // delete and re-add opcode 16 (haste)
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 opcode=318 END    // no immunity messages
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=142 opcode=16 parameter2=0 END
+  LPF DELETE_EFFECT INT_VAR match_timing=4 END      // remove fatigue
+  LPF DELETE_EFFECT INT_VAR match_opcode=16 END                                    // delete opcode 16 (haste)
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=142 opcode=16 parameter2=0 END    // add opcode 16
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 opcode=318 END                // change any op324 to op318 (no message)
 END
 
 
 //
 //set variable for cure subspell
-OUTER_TEXT_SPRINT cure_subspell ~SPPR502~
-ACTION_IF (FILE_EXISTS ~override/SPPR502B.spl~) BEGIN
+OUTER_TEXT_SPRINT cure_subspell ~SPPR502~                // set to main spell
+ACTION_IF (FILE_EXISTS ~override/SPPR502B.spl~) BEGIN    // scan subspell for heal opcode
   COPY_EXISTING - ~SPPR502B.spl~  ~~
     GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
     PHP_EACH spl_headers AS num => header_off BEGIN      // array of headers
@@ -34,7 +49,7 @@ ACTION_IF (FILE_EXISTS ~override/SPPR502B.spl~) BEGIN
       PHP_EACH spl_effects AS num => effect_off BEGIN    // array of effects on each header
         READ_SHORT effect_off opcode
         PATCH_IF (opcode = 17) BEGIN
-          TEXT_SPRINT cure_subspell ~SPPR502B~           // change resource if op17 (HP modifier)
+          TEXT_SPRINT cure_subspell ~SPPR502B~           // set to subspell (if heal opcode detected)
         END
       END
     END
@@ -53,7 +68,7 @@ END
 
 
 //
-//IWD hla tables (not used, but looks better and files exist)
+//IWD hla tables (does nothing if set correctly)
 ACTION_IF (FILE_EXISTS_IN_GAME ~luabbr.2da~) BEGIN
   COPY_EXISTING ~luabbr.2da~  ~override~
     LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_CLERIC entry=FMC END

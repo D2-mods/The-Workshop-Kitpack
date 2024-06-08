@@ -1,12 +1,118 @@
 //Nurse (d2wkg)
 
 
-//Add passive effects
+//add passive effects
 COPY ~%passives%/hitdamage1ranged.SPL~  ~override/%e1%.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=286 END
 
 
-//Add Medical Darts (item)
+//spell icons
+COPY ~%icons%/medicaldarts.BAM~   ~override/%s1%.BAM~
+COPY ~%icons%/injectionshot.BAM~  ~override/%s2%.BAM~
+COPY ~%icons%/firstaid.BAM~       ~override/%s3%.BAM~
+COPY ~%icons%/overdose.BAM~       ~override/%s4%.BAM~
+COPY ~%icons%/autoimmune.BAM~     ~override/%s5%.BAM~
+COPY ~%icons%/nursetools.BAM~     ~override/%s9%.BAM~
+
+
+//
+//add N-Alchemy (main spell)
+COPY ~%abilities%/nursetools.VVC~  ~override/%s9%.VVC~    // edit of #GRNRING.VVC
+COPY ~%abilities%/nursetools.SPL~  ~override/%s9%.SPL~
+  SAY NAME1 @132
+  SAY UNIDENTIFIED_DESC @232
+  WRITE_ASCII 0x3a ~%s9%~ #8
+  WRITE_ASCII 0x76 ~%s9%~ #8
+  LPF ALTER_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%s~ END    // main subspell
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%u~ END    // remove 1,2,3 immunities
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%v~ END    // unlock main subspell
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s9%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=301 STR_VAR resource=~%s9%x~ insert=last END    // delayed effect
+  LPF d2_remove_effects_on_cast END
+
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s9%u.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%1~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%2~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%3~ END
+
+COPY ~%abilities%/opcode318.SPL~  ~override/%s9%v.SPL~
+  LPF ALTER_EFFECT INT_VAR duration=300 STR_VAR resource=~%s9%z~ END    // enable main subspell (1 hour)
+  LPF d2_remove_effects_on_cast END
+
+//
+//main subspell
+COPY ~%abilities%/applyeffects.SPL~  ~override/%s9%s.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%0~ END    // remove delayed effects
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%1~ END    // cast 1,2,3 (give abilities)
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%2~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%3~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%x~ END    // cast s9x twice (fix bubb menu weirdness)
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%x~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%z~ END    // spell lock
+
+COPY ~%passives%/removespell.SPL~  ~override/%s9%x.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s3%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s4%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s5%~ END
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=1 END
+
+COPY ~%abilities%/opcode318.SPL~  ~override/%s9%z.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 duration=5 STR_VAR resource=~%s9%s~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 duration=5 STR_VAR resource=~%s9%0~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 duration=5 STR_VAR resource=~%s9%1~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 duration=5 STR_VAR resource=~%s9%2~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 duration=5 STR_VAR resource=~%s9%3~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 duration=5 STR_VAR resource=~%s9%x~ END
+
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s9%0.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%~ END
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=1 END
+
+
+//
+//cast # spells (give abilities)
+DEFINE_PATCH_FUNCTION give_nursetools BEGIN
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 match_timing=1 opcode=326 STR_VAR resource=~%s1%#~ END    // medical darts
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 match_timing=1 opcode=326 STR_VAR resource=~%s3%#~ END    // first aid
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 match_timing=1 opcode=326 STR_VAR resource=~%s4%#~ END    // overdose
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 match_timing=1 opcode=326 STR_VAR resource=~%s2%#~ END    // injection shot
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 match_timing=1 opcode=326 STR_VAR resource=~%s5%#~ END    // autoimmune
+END
+
+OUTER_FOR (amount = 1; amount <= 3; ++amount) BEGIN
+  COPY ~%abilities%/opcode318.SPL~  ~override/%s9%%amount%.SPL~
+    // block itself (permanent until removed)
+    LPF ALTER_EFFECT INT_VAR timing=1 duration=0 STR_VAR resource=~%s9%%amount%~ END
+
+    // block other subspells (1 second)
+    FOR (block = 0; block <= 3; ++block) BEGIN  PATCH_IF (block != amount) BEGIN
+        LPF CLONE_EFFECT INT_VAR multi_match=1 timing=0 duration=1 STR_VAR resource=~%s9%%block%~ END
+      END
+    END
+
+    FOR (n = 1; n <= amount; ++n) BEGIN
+      LPF give_nursetools END
+    END
+
+    // aura cleansing (2 seconds)
+    LPF CLONE_EFFECT INT_VAR match_opcode=318 match_timing=1 opcode=188 parameter2=1 timing=0 duration=2 END
+END
+
+
+//
+//add Medical Darts (main spell)
+COPY ~%abilities%/medicaldart.SPL~  ~override/%s1%.SPL~
+  SAY NAME1 @126
+  SAY UNIDENTIFIED_DESC @226
+  WRITE_ASCII 0x3a ~%s1%~ #8
+  WRITE_ASCII 0x76 ~%s1%~ #8
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 timing=4 duration=31 STR_VAR insert=last END
+  LPF ALTER_EFFECT INT_VAR match_opcode=111 parameter1=5 timing=1 duration=0 STR_VAR resource=~%s1%e~ END
+
+//add Medical Darts (item)
 COPY ~%icons%/medicaldarticon.BAM~  ~override/%s1%i.BAM~
 COPY ~%icons%/medicaldartdesc.BAM~  ~override/%s1%d.BAM~
 COPY ~%abilities%/medicaldart.ITM~  ~override/%s1%e.ITM~
@@ -14,70 +120,85 @@ COPY ~%abilities%/medicaldart.ITM~  ~override/%s1%e.ITM~
   SAY NAME2 @619
   WRITE_ASCII 0x3a ~%s1%i~ #8    // icon
   WRITE_ASCII 0x76 ~%s1%i~ #8
-  WRITE_ASCII 0x58 ~%s1%d~ #8
+//  WRITE_ASCII 0x58 ~%s1%d~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=324 STR_VAR resource=~%s1%e~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=177 match_parameter1=255 STR_VAR resource=~%s1%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=177 match_parameter1=199 STR_VAR resource=~%s1%a~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=341 STR_VAR resource=~%s1%e~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%a~ END    // healing
+  LPF CLONE_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%b~ END    // poison
+  LPF ALTER_EFFECT INT_VAR match_opcode=341 STR_VAR resource=~%s1%e~ END    // crit effect (double healing/poison)
 
-//double healing/poison on a critical hit
-COPY ~%abilities%/applyeffects.SPL~  ~override/%s1%e.SPL~
-  LPF ALTER_EFFECT INT_VAR opcode=177 timing=4 duration=1 parameter1=255 parameter2=2 STR_VAR resource=~%s1%b~ END
-  LPF CLONE_EFFECT INT_VAR opcode=177 timing=4 duration=1 parameter1=199 parameter2=2 STR_VAR resource=~%s1%a~ END
+  // hidden thac0 bonuses
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 parameter1=30  STR_VAR resource=~%s1%u~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=177 parameter1=200 STR_VAR resource=~%s1%v~ END
+
+  // stop attacks (after last dart is used)
+  LPF d2_protect_on_castequip STR_VAR resource=~%s1%y~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 opcode=272 parameter1=1 STR_VAR resource=~%s1%x~ END
 
 
-//Add Medical Darts (spell/effects)
-COPY ~%icons%/medicaldarts.BAM~     ~override/%s1%.BAM~
-COPY ~%abilities%/medicaldart.SPL~  ~override/%s1%.SPL~
-  SAY NAME1 @126
-  SAY UNIDENTIFIED_DESC @226
-  WRITE_ASCII 0x3a ~%s1%~ #8
-  WRITE_ASCII 0x76 ~%s1%~ #8
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=111 STR_VAR resource=~%s1%e~ END
-
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%a.EFF~    // heal
-  WRITE_ASCII 0x30 ~%s1%a~ #8
-COPY ~%abilities%/medicaldarta.SPL~     ~override/%s1%a.SPL~
+//healing
+COPY ~%abilities%/medicaldarta.SPL~  ~override/%s1%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@307) END    // "Healed"
   LPF CD_EXTEND-O-MATIC INT_VAR step_size=4 level_cap=5 END
   LPF CD_EXTEND-O-MATIC INT_VAR step_size=5 level_cap=50 min_lev_alt=5 END
   FOR (n = 1; n <= 10; ++n) BEGIN
     LPF ALTER_EFFECT INT_VAR header=n match_opcode=17 parameter1=(n+3) END
   END
+  LPF d2_safe_spell INT_VAR allies=0 neutrals=0 enemies=1 block_opcode=17 END    // block healing for enemies
 
-COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%b.EFF~    // poison
-  WRITE_ASCII 0x30 ~%s1%b~ #8
-COPY ~%abilities%/medicaldartb.SPL~     ~override/%s1%b.SPL~
+//poison
+COPY ~%abilities%/medicaldartb.SPL~  ~override/%s1%b.SPL~
   LPF CD_EXTEND-O-MATIC INT_VAR step_size=4 level_cap=5 END
   LPF CD_EXTEND-O-MATIC INT_VAR step_size=5 level_cap=50 min_lev_alt=5 END
   FOR (n = 1; n <= 10; ++n) BEGIN
     LPF ALTER_EFFECT INT_VAR header=n match_opcode=12 parameter1=(n+3) END
   END
+  LPF d2_safe_spell END    // block damage for allies/neutrals
+
+//crit effect (double healing/poison)
+COPY ~%abilities%/applyeffects.SPL~  ~override/%s1%e.SPL~
+  LPF ALTER_EFFECT INT_VAR opcode=146 timing=4 duration=1 parameter2=1 STR_VAR resource=~%s1%a~ END    // healing
+  LPF CLONE_EFFECT INT_VAR opcode=146 timing=4 duration=1 parameter2=1 STR_VAR resource=~%s1%b~ END    // poison
+
+//hidden thac0 bonuses
+COPY ~%abilities%/medicaldartbonus.EFF~  ~override/%s1%u.EFF~
+  WRITE_LONG 0x1c 30
+COPY ~%abilities%/medicaldartbonus.EFF~  ~override/%s1%v.EFF~
+  WRITE_LONG 0x1c 200
+
+//stop attacks (after last dart is used)
+COPY ~%abilities%/castspellself.EFF~  ~override/%s1%x.EFF~
+  WRITE_ASCII 0x30 ~%s1%x~ #8
+COPY ~%abilities%/applyeffects.SPL~   ~override/%s1%x.SPL~
+  LPF ALTER_EFFECT INT_VAR opcode=366 timing=0 duration=1 STR_VAR resource=~%s1%y~ END
+  LPF CLONE_EFFECT INT_VAR opcode=146 parameter2=1 timing=4 END
+  LPF d2_remove_effects_on_cast END
+COPY ~%abilities%/applyeffects.SPL~   ~override/%s1%y.SPL~
+  LPF ALTER_EFFECT INT_VAR opcode=146 STR_VAR resource=d2spell END
+  LPF d2_protect_on_castequip INT_VAR duration=2 END
 
 
-//variables
+//
+//text strings (injection shot)
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  OUTER_SET feeblemind = 14407
-  OUTER_SET confuse    = 37604
+  OUTER_SET feeblemind  = 14407
+  OUTER_SET confused    = 37604
 END
 ELSE BEGIN
   ACTION_IF (GAME_IS ~bgee~) BEGIN
-    OUTER_SET feeblemind = 23744
-    OUTER_SET confuse    = 25807
+    OUTER_SET feeblemind  = 23744
+    OUTER_SET confused    = 25807
   END
   ELSE BEGIN
-    OUTER_SET feeblemind = 23744
-    OUTER_SET confuse    = 14782
+    OUTER_SET feeblemind  = 23744
+    OUTER_SET confused    = 14782
   END
 END
 
 
 //Add Injection Shot
-COPY ~%icons%/injectionshoti.BAM~     ~override/%s2%i.BAM~
+COPY ~%icons%/injectionshoti.BAM~  ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@127) STR_VAR bam=~%s2%i~ RET icon END
 
-COPY ~%icons%/injectionshot.BAM~      ~override/%s2%.BAM~
 COPY ~%abilities%/injectionshot.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @127
   SAY UNIDENTIFIED_DESC @227
@@ -92,18 +213,28 @@ COPY ~%abilities%/injectionshot.SPL~  ~override/%s2%.SPL~
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%e.EFF~
   WRITE_ASCII 0x30 ~%s2%e~ #8
 COPY ~%abilities%/applyeffects.SPL~     ~override/%s2%e.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%b~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%a~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=324 timing=0 parameter2=55 STR_VAR resource=~%s2%e~ END
+  SAY NAME1 @127
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s2%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s2%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~d2!haste~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=324 timing=0 parameter2=55 STR_VAR resource=~%s2%e~ END    // undead and golems immune
 
+//feeblemind
 COPY ~%abilities%/injectionshota.SPL~   ~override/%s2%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s2%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=~%feeblemind%~ END    // "Feebleminded"
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=feeblemind END    // "Feebleminded"
+  LPF ALTER_EFFECT INT_VAR match_duration=2400 duration=42 END           // change duration to 7 rounds
+
+//confusion
 COPY ~%abilities%/injectionshotb.SPL~   ~override/%s2%b.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=~%confuse%~ END       // "Confused"
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=confused END      // "Confused"
+  LPF ALTER_EFFECT INT_VAR match_duration=30 duration=12 END             // change duration to 2 rounds
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=40 END                   // v4.8: add Slow status
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=142 parameter2=41 END
 
 
-//Remove effects
+//
+//Remove effects (darts and injection shot)
 COPY ~%abilities%/castspellself.EFF~  ~override/%s0%x.EFF~
   WRITE_ASCII 0x30 ~%s0%x~ #8
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
@@ -112,14 +243,266 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=112 STR_VAR resource=~%s1%e~ END
 
 
+//
+//add First Aid
+COPY_EXISTING ~spcl211.SPL~  ~override/%s3%.SPL~    // clone paladin lay on hands
+
+  // prep
+  LPF d2_remove_level_headers END
+  LPF d2_convert_spell_type INT_VAR type=4 level=1 END
+  LPF d2_no_casting INT_VAR power=0 no_castsound=1 END
+
+  SAY NAME1 @129
+  SAY UNIDENTIFIED_DESC @229
+  WRITE_ASCII 0x3a ~%s3%~ #8
+  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s3%~ END
+  WRITE_ASCII 0x10 EFF_P46 #8
+
+  // edits
+  LPF DELETE_EFFECT INT_VAR match_opcode=324 END                                         // remove IWD effects
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ END    // cures bleeding
+  LPF d2_protect_on_castequip INT_VAR cre_type=55 duration=0 STR_VAR insert=first END    // undead and golems immune
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%s3%b~ END         // workaround for display issue
+
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 timing=1 parameter2=0 STR_VAR resource=~%s3%a~ END        // visual
+  LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 STR_VAR resource=~#EFF_P26~ insert=last END    // sound
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 parameter2=0b110010000000000000000 END            // fade speed
+
+  // healing
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 target=2 parameter1=10 END         // gained at level 5 (10 healing)
+  LPF CD_EXTEND-O-MATIC INT_VAR dur_special=1 step_dur=0 min_lev_alt=5 END    // extend to 20
+
+  FOR (n = 1; n <= 15; ++n) BEGIN
+    SET bonus = n * 2
+    SET amount = 10 + bonus
+    LPF ALTER_EFFECT INT_VAR header=n match_opcode=17 parameter1=amount END
+  END
+
+//workaround for display issue
+OUTER_SPRINT ability_name @129
+COPY ~%abilities%/spellfailed.SPL~  ~override/%s3%b.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@350) END    // "Unaffected by..."
+//  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+
+//visual
+COPY ~%abilities%/firstaidheal.BAM~  ~override/%s3%a.BAM~
+COPY ~%abilities%/firstaidheal.VVC~  ~override/%s3%a.VVC~
+  WRITE_ASCII 0x8 ~%s3%a~ #8
+
+
+//
+//add Overdose
+COPY ~%icons%/overdoseicon.BAM~  ~override/%s4%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@130) STR_VAR bam=~%s4%i~ RET icon END
+
+COPY_EXISTING ~SPCL521.SPL~  ~override/%s4%.SPL~    // clone offensive spin (block haste spells)
+
+  // prep
+  LPF d2_remove_level_headers END
+  LPF d2_convert_spell_type INT_VAR type=4 level=1 update_res=0 END
+  LPF d2_no_casting INT_VAR power=0 no_castsound=1 END
+
+  SAY NAME1 @130
+  SAY UNIDENTIFIED_DESC @230
+  WRITE_ASCII 0x3a ~%s4%~ #8
+  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s4%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+  // edits
+  LPF DELETE_EFFECT INT_VAR match_opcode=282 END    // script state
+  LPF DELETE_EFFECT INT_VAR match_opcode=328 END    // spell state
+  LPF DELETE_EFFECT INT_VAR match_opcode=126 END    // movement
+  LPF DELETE_EFFECT INT_VAR match_opcode=54 END     // thac0
+  LPF DELETE_EFFECT INT_VAR match_opcode=73 END     // damage
+  LPF DELETE_EFFECT INT_VAR match_opcode=250 END    // max damage
+  LPF DELETE_EFFECT INT_VAR match_opcode=65 END     // blur visual
+//  LPF DELETE_EFFECT INT_VAR match_opcode=267 END    // block haste string
+//  LPF DELETE_EFFECT INT_VAR match_opcode=169 END    // block haste icon
+//  LPF DELETE_EFFECT INT_VAR match_opcode=101 END    // block haste opcode
+  LPF DELETE_EFFECT STR_VAR match_resource=SPCL521 END    // blade stuff
+  LPF DELETE_EFFECT STR_VAR match_resource=SPCL522 END
+
+  PHP_EACH d2statusarray AS spell => type BEGIN
+    PATCH_IF (~%type%~ STR_EQ ~haste~) BEGIN
+      LPF DELETE_EFFECT INT_VAR match_opcode=321 STR_VAR match_resource=~%spell%~ END
+    END
+  END
+
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=50 timing=1 parameter1=1669567488 parameter2=0b11110000000000000000 END            // white-orange
+//  LPF ADD_SPELL_EFFECT INT_VAR opcode=50 timing=1 parameter1=(0 - 1753961216) parameter2=0b11110000000000000000 END    // violet
+  LPF ALTER_EFFECT INT_VAR silent=1 match_timing=0 duration=30 END    // 5 rounds
+  LPF ALTER_EFFECT INT_VAR silent=1 match_timing=4 duration=30 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=206 opcode=318 parameter2=0 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=174 match_timing=1 STR_VAR resource=EFF_P23 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=174 match_timing=4 STR_VAR resource=EFF_E04 END
+  LPF ALTER_EFFECT INT_VAR target=1 resist_dispel=2 END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!haste~ END
+  LPF d2_remove_effects_on_cast END
+
+  // add effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=1 parameter1=1 parameter2=0 END    // APR bonus (in case changed)
+  LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=301 parameter1=2 special=2 END    // crits
+  LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=90  parameter1=27 END    // skills (start at level 9)
+  LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=91  parameter1=27 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=92  parameter1=27 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=275 parameter1=27 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=276 parameter1=27 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=277 parameter1=27 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=59  parameter1=27 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=326 timing=1 duration=0 STR_VAR resource=~%s4%a~ END    // immunities
+
+  LPF CD_EXTEND-O-MATIC INT_VAR dur_special=1 step_dur=0 level_cap=spellcap min_lev_alt=9 END    // extend to spellcap
+
+  FOR (n = 1; n <= (spellcap - 9); ++n) BEGIN    // skills (extend to spellcap)
+    SET bonus = n * 3
+    SET amount = 27 + bonus
+    LPF ALTER_EFFECT INT_VAR header=n match_parameter1=27 parameter1=amount END
+  END
+
+//immunities
+COPY ~%passives%/noleveldrain.SPL~  ~override/%s4%a.SPL~
+  LPF ALTER_EFFECT INT_VAR timing=0 duration=30 END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=40 END     // slow
+  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=213 END    // maze
+  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=39 END     // sleep
+  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=45 END     // stun
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=142 parameter2=90 END    // icon
+  LPF d2_remove_effects_on_cast END
+
+  // add effects
+  LPF CLONE_EFFECT INT_VAR match_parameter2=213 opcode=296 STR_VAR resource=SPSPMAZE END    // block maze animation
+  PHP_EACH d2statusarray AS spell => type BEGIN
+    PATCH_IF (~%type%~ STR_EQ ~maze~) BEGIN
+      LPF d2_protect_on_castequip INT_VAR duration=30 STR_VAR resource=~%spell%~ END
+    END
+  END
+
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_stun_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_sleep_arrays END
+  LPF d2_string_immunities END
+  LPF ee_fixpack_immunities STR_VAR status=~stun slow~ END
+
+
+//
+//add Autoimmune
+COPY ~%icons%/autoimmuneicon.BAM~  ~override/%s5%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@131) STR_VAR bam=~%s5%i~ RET icon END
+
+COPY ~%abilities%/autoimmune.SPL~  ~override/%s5%.spl~
+  SAY NAME1 @131
+  SAY UNIDENTIFIED_DESC @231
+  WRITE_ASCII 0x3a ~%s5%~ #8
+  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s5%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+  // edits
+  LPF ALTER_EFFECT INT_VAR multi_match=1 opcode=272 parameter1=3 parameter2=3 timing=0 duration=180 STR_VAR resource=~%s5%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=174 match_timing=1 STR_VAR resource=EFF_P20 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=9 END
+  LPF d2_remove_effects_on_cast END
+
+//check status
+COPY ~%abilities%/applyeffects.EFF~      ~override/%s5%a.EFF~
+  WRITE_ASCII 0x30 ~%s5%a~ #8
+COPY ~%abilities%/autoimmunetarget.SPL~  ~override/%s5%a.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%s5%b~ END
+//  LPF d2_protect_on_castequip INT_VAR duration=2 END
+
+//apply cures
+COPY ~%abilities%/autoimmune.SPL~  ~override/%s5%b.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!body~ END     // cure poison, disease, blindness, deafness
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!para~ END     // cure hold, paralysis, stun, sleep
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!mind~ END     // cure charm, berserk, fear, confusion, feeblemind
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!bleed~ END    // cures bleeding
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!phase~ END    // cures acid dot, phasing, etc.
+  LPF d2_protect_on_castequip END
+  LPF d2_remove_effects_on_cast STR_VAR resource=~%s5%~ END    // remove main spell
+
+  // visual
+  LPF DELETE_EFFECT INT_VAR match_opcode=142 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 match_timing=4 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=61 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=174 match_timing=1 STR_VAR resource=EFF_M102 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=RESURRH END
+
+  // text
+  SPRINT ability_name @131
+  LPF CLONE_EFFECT INT_VAR match_opcode=174 opcode=139 parameter1=RESOLVE_STR_REF (@352) END
+
+//
+//blocked by Bigby or Otiluke
+LAF bigby_blocked STR_VAR resource=~%s5%b~ END    // functions from riftgate prep
+LAF otiluke_blocked STR_VAR resource=~%s5%b~ END
+
+
+//
+//key spells for N-Alchemy (unlock abilities)
+ACTION_DEFINE_ASSOCIATIVE_ARRAY nursetools BEGIN
+  ~%s1%~ => ~%m1%~
+  ~%s2%~ => ~%m2%~
+  ~%s3%~ => ~%m3%~
+  ~%s4%~ => ~%m4%~
+  ~%s5%~ => ~%m5%~
+END
+
+ACTION_PHP_EACH nursetools AS spell => key BEGIN
+
+  // each ability recasts s9s (main subspell)
+  COPY_EXISTING ~%spell%.SPL~  ~override~
+    LPF ADD_SPELL_CFEFFECT INT_VAR opcode=326 target=1 timing=1 STR_VAR resource=~%s9%s~ END
+    WRITE_LONG 0x34 3    // "level" offset (affects where it shows in Bubb's Spell Menu)
+  BUT_ONLY
+
+  // # spells (give abilities)
+  COPY ~%abilities%/applyeffects.SPL~  ~override/%spell%#.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%key%g~ END
+    LPF CLONE_EFFECT STR_VAR resource=~%key%x~ END
+
+  // give ability (1 use)
+  COPY ~%passives%/giveability.SPL~  ~override/%key%g.SPL~
+    LPF ALTER_EFFECT INT_VAR timing=1 STR_VAR resource=~%spell%~ END    // need to remove ability after 1 hour
+    LPF ALTER_SPELL_HEADER INT_VAR projectile=1 END
+
+  // block above (1 second)
+  COPY ~%abilities%/opcode318.SPL~  ~override/%key%x.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%key%g~ END
+
+  // key spell (add to clab)
+  COPY ~%abilities%/opcode318.SPL~  ~override/%key%.SPL~
+    LPF ALTER_EFFECT INT_VAR timing=9 duration=0 STR_VAR resource=~%key%x~ END
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY nursetools_level BEGIN
+  ~%m1%~ => 1     // medical darts
+  ~%m2%~ => 13    // injection shot
+  ~%m3%~ => 5     // first aid
+  ~%m4%~ => 9     // overdose
+  ~%m5%~ => 17    // autoimmune
+END
+
+
+//
 //Make clab table
 COPY ~inlined/d2clab_thief~  ~override/%kitid%.2DA~
-  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
-  LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
-  LPF d2_kit_ability_adder STR_VAR resource=~%s1%~ END
-  LPF d2_kit_ability_adder INT_VAR level=11 multi=1 increment=4 limit=19 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=3 passive=1 multi=1 increment=3 STR_VAR resource=~%e1%~ END
+//  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=6 multi=1 increment=6 STR_VAR resource=~%s9%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%s9%~ END
   LPF d2_kit_ability_adder END
+
+  //unlock abilities
+  PHP_EACH nursetools_level AS file => level BEGIN
+    LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
+  END
+
+//  LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
+//  LPF d2_kit_ability_adder STR_VAR resource=~%s1%~ END
+//  LPF d2_kit_ability_adder INT_VAR level=11 multi=1 increment=4 limit=19 STR_VAR resource=~%s2%~ END
 
 
 //Kit function
@@ -132,10 +515,12 @@ LAF ADD_KIT_EX
   STR_VAR
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
-    clsrcreq = ~1 1 1 1 1 1 1~    // Usable by all races, if base class is usable
+    clsrcreq = ~1 1 1 1 1 1 1~        // Usable by all races, if base class is usable
     weapprof = ~1 1 2 0 1 0 0 2 0 1 1 0 0 1 1 1 0 1 0 0 0 0 1 2 0 2 2 2 1 1 1 1~
-    thiefskl = ~40 15~            // start with 40, gain 15 per level
-    clascolr = ~25 28 57 2 24~    // inquisitor colors
+//    weapprof = ~1 1 3 0 1 0 0 3 0 1 1 0 0 1 1 1 0 1 0 0 0 0 1 3 0 3 3 3 1 1 1 1~
+    thiefskl = ~40 15~                // start with 40, gain 15 per level
+    alignmnt = ~1 1 1 1 1 1 1 1 1~    // all alignments
+    clascolr = ~25 28 57 2 24~        // inquisitor colors
   RET 
     kit_id
 END
@@ -175,11 +560,11 @@ ACTION_PHP_EACH item_kit_effects AS item => class BEGIN
 END
 
 
-//function to block feeblemind string in spells/items
+//function to block feeblemind string
 DEFINE_PATCH_FUNCTION nurse_feeblemind_string BEGIN
 
-  LPF DELETE_EFFECT INT_VAR match_opcode=267 match_parameter1=~%feeblemind%~ END
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=~%feeblemind%~ END
+  LPF DELETE_EFFECT INT_VAR match_opcode=267 match_parameter1=feeblemind END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=feeblemind END
 
 END
 
@@ -188,6 +573,10 @@ END
 OUTER_TEXT_SPRINT nurse          ~%kitid%~
 OUTER_TEXT_SPRINT medicaldarts   ~%s1%~
 OUTER_TEXT_SPRINT injectionshot  ~%s2%~
+OUTER_TEXT_SPRINT firstaid       ~%s3%~
+OUTER_TEXT_SPRINT overdose       ~%s4%~
+OUTER_TEXT_SPRINT autoimmune     ~%s5%~
+OUTER_TEXT_SPRINT n_alchemy      ~%s9%~
 
 
 /*

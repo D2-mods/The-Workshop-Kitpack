@@ -1,0 +1,154 @@
+/*
+spell files for various kit/item abilities
+run this after spellprep2.tph
+requires d2_misc_functions.tpa and d2_bleed_removal.tpa
+*/
+
+
+//
+//Bleeding removed by healing spells (full heal or lay on hands)
+ACTION_PHP_EACH d2restoration AS spell => type BEGIN
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~heal~) BEGIN    // if "type" DOES contain "heal"
+    COPY_EXISTING ~%spell%.spl~  ~override~
+      LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ insert=last END
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+//add elemental dot to d2!phase
+ACTION_PHP_EACH d2statusarray AS spell => type BEGIN
+  ACTION_IF (~%type%~ STR_EQ ~phasing~) BEGIN
+    ACTION_FOR_EACH subspell IN ~%spell%~ ~%spell%b~ BEGIN
+      ACTION_IF (FILE_EXISTS_IN_GAME ~%subspell%.spl~) BEGIN
+        LAF d2_bleed_removal STR_VAR resource=~%subspell%~ mode=phase END
+      END
+    END
+  END
+END
+
+
+
+//
+//status removal (using d2statusarray)
+COPY_EXISTING - ~SPCL142.SPL~  ~inlined/d2spellprep2.SPL~
+  LPF d2_subspell_remove_effects END
+  LPF ALTER_EFFECT INT_VAR opcode=0 target=2 parameter1=0 parameter2=0 timing=1 duration=0 resist_dispel=2 END
+  WRITE_LONG 0x18 THIS | BIT14
+  WRITE_LONG 0x18 THIS | BIT25
+
+//slow
+COPY ~inlined/d2spellprep2.SPL~  ~override/d2!slow.SPL~
+  PHP_EACH d2statusarray AS spell => type BEGIN
+    PATCH_IF (~%type%~ STR_EQ ~slow~) BEGIN
+      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%spell%~ END
+    END
+  END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=40 END    // remove opcode
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=240 target=2 timing=1 parameter2=41 END    // remove icon
+  LPF DELETE_EFFECT INT_VAR match_opcode=0 END
+
+//haste
+COPY ~inlined/d2spellprep2.SPL~  ~override/d2!haste.SPL~
+  PHP_EACH d2statusarray AS spell => type BEGIN
+    PATCH_IF (~%type%~ STR_EQ ~haste~) BEGIN
+      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%spell%~ END
+    END
+  END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=16 END    // remove opcode
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=240 target=2 timing=1 parameter2=38 END     // remove icon
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=240 target=2 timing=1 parameter2=110 END    // remove icon (improved haste)
+  LPF DELETE_EFFECT INT_VAR match_opcode=0 END
+
+//berserk
+COPY ~inlined/d2spellprep2.SPL~  ~override/d2!rage.SPL~
+  PHP_EACH d2statusarray AS spell => type BEGIN
+    PATCH_IF (~%type%~ STR_EQ ~berserk~) BEGIN
+      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%spell%~ END
+    END
+  END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=4 target=2 timing=1 END    // cure berserk
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=246 END    // remove opcode
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=247 END    // remove opcode
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=240 target=2 timing=1 parameter2=4 END    // remove icon
+  LPF DELETE_EFFECT INT_VAR match_opcode=0 END
+
+//grease, web, entangle
+COPY ~inlined/d2spellprep2.SPL~  ~override/d2!web.SPL~
+  PHP_EACH d2statusarray AS spell => type BEGIN
+    PATCH_IF (~%type%~ STR_EQ ~entangle~) BEGIN
+      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%spell%~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 timing=0 duration=5 STR_VAR insert=below END    // immune for 5 seconds
+    END
+  END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=157 END    // remove opcodes
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=154 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=158 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=240 target=2 timing=1 parameter2=129 END    // remove icons
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=240 target=2 timing=1 parameter2=144 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=240 target=2 timing=1 parameter2=145 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=0 END
+
+
+
+//
+//status removal (clone existing spell)
+
+//poison, disease, blindness, deafness, intoxication
+COPY_EXISTING ~SPPR317.SPL~  ~override/d2!body.SPL~    // clone Cure Disease
+  LPF d2_subspell_remove_effects END
+  LPF d2_subspell_remove_visuals INT_VAR string=0 END
+  LPF update_op324_restrictions STR_VAR mode=delete END
+  LPF DELETE_EFFECT INT_VAR match_opcode=17 END     // remove IWD healing
+  LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
+
+  // cures poison and intoxication
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=11 timing=1 END     // cures poison
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=164 timing=1 END    // cures intoxication
+  LPF CLONE_EFFECT INT_VAR match_opcode=11 opcode=240 parameter2=6 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=164 opcode=240 parameter2=5 END
+  LPF ee_fixpack_status_cures STR_VAR status = ~poison intox~ END
+
+//hold, paralysis, stun, sleep (also web/entangle/grease)
+COPY_EXISTING ~SPPR308.SPL~  ~override/d2!para.SPL~    // clone Remove Paralysis
+  LPF d2_subspell_remove_effects END
+  LPF d2_subspell_remove_visuals END
+  LPF cure_undead_status STR_VAR status=hold END
+  LPF d2_remove_effects_on_cast STR_VAR resource=SPWM114 END    // Wish hold (uses op185 in IWD)
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!web~ END
+  LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
+
+  // cures sleep
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=2 timing=1 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=2 opcode=240 parameter2=14 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=2 opcode=240 parameter2=130 END
+  LPF ee_fixpack_status_cures STR_VAR status = ~sleep~ END
+
+//charm, berserk, fear, confusion, feeblemind
+COPY_EXISTING ~SPPR350.SPL~  ~override/d2!mind.SPL~    // clone Spiritual Clarity
+  LPF d2_subspell_remove_effects END
+  LPF d2_subspell_remove_visuals END
+  LPF cure_undead_status STR_VAR status=charm END
+  LPF d2_remove_effects_on_cast STR_VAR resource=SPCL103 END    // aura of despair
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=106 END    // remove op106 (morale break)
+  LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
+
+  // cures berserk
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!rage~ END
+  LPF ee_fixpack_status_cures STR_VAR status = ~berserk~ END
+
+//level drain (restoration)
+COPY_EXISTING ~SPPR417.SPL~  ~override/d2!vamp.SPL~    // clone Lesser Restoration
+  LPF d2_subspell_remove_effects END
+  LPF d2_subspell_remove_visuals INT_VAR string=0 END
+  LPF d2_no_fatigue END
+  LPF update_op324_restrictions STR_VAR mode=delete END
+  LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
+
+
+
+//
+//make perks (kit/item effects)
+
+
+/*
+*/

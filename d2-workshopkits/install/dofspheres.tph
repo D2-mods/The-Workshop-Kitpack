@@ -12,7 +12,11 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) BEGIN
 
   LAF RA_SPHERE_COMPAT 
     STR_VAR
-      kitname     = ~D2%kitname%~
-      clabfile    = ~%kitid%~
+      kitname     = ~%dofkitname%~
+      clabfile    = ~%dofclab%~
   END
 END
+
+
+//
+//

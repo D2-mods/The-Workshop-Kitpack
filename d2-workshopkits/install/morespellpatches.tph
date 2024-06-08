@@ -70,7 +70,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
 
   PATCH_IF (patch_item = 1) BEGIN
     PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
-    PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_items  END END
+    PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_block  END END
     SET patch_item = 0
   END
 
@@ -103,7 +103,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.CRE~  ~override~
 
   PATCH_IF (patch_cre = 1) BEGIN
     PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
-    PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_items  END END
+    PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_block  END END
     SET patch_cre = 0
   END
 

@@ -192,7 +192,7 @@
 
 	ACTION_DEFINE_ASSOCIATIVE_ARRAY	$priestspherelist(~D2MOONLIGHTKNIGHTCR~) BEGIN
 		~All~ => 7 
-		~Healing~ => 0
+		~Healing~ => 3
 		~Necromantic~ => 0
 		~Suffering~ => 0
 		~Animal~ => 7
@@ -212,7 +212,7 @@
 		~Fire~ => 0
 		~Divination~ => 0
 		~Travelers~ => 7
-		~Weave~ => 3
+		~Weave~ => 0
 		~Trickery~ => 3
 		~Time~ => 0
 		~Vocal~ => 0

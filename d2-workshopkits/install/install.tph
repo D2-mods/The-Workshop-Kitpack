@@ -3,6 +3,11 @@ Install kits
 */
 
 
+OUTER_SET silentmode = 2
+OUTER_SET evasionchecks = 1
+OUTER_SET buildeffects = 1
+
+
 //Prep
 INCLUDE ~%install%/clabprep.tph~
 INCLUDE ~%install%/backstabprep.tph~
@@ -10,7 +15,8 @@ INCLUDE ~%install%/monkprep.tph~
 INCLUDE ~%install%/spellprep.tph~
 INCLUDE ~%install%/spellprep2.tph~
 INCLUDE ~%install%/riftgateprep.tph~
-//INCLUDE ~%install%/usabilitykatanas.tph~
+INCLUDE ~%install%/drifterprep.tph~
+INCLUDE ~%install%/bleedprep.tph~
 
 
 
@@ -122,6 +128,7 @@ ACTION_IF (nobloodminister = 0) BEGIN
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/tofspheres.tph~
   INCLUDE ~%install%/dofspheres.tph~
   INCLUDE ~%install%/dofweapons.tph~
 END
@@ -139,6 +146,7 @@ ACTION_IF (nogravewarden = 0) BEGIN
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/presioduel.tph~
   INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/tofspheres.tph~
   INCLUDE ~%install%/dofspheres.tph~
 END
 
@@ -151,6 +159,7 @@ ACTION_IF (nomoonlightknight = 0) BEGIN
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/nofallen.tph~
   INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/tofspheres.tph~
   INCLUDE ~%install%/dofspheres.tph~
   INCLUDE ~%install%/%kitname%cr.tph~    // multiclass
 END
@@ -174,6 +183,7 @@ ACTION_IF (noconfessor = 0) BEGIN
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/fnppaladinfix.tph~
   INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/tofspheres.tph~
   INCLUDE ~%install%/dofspheres.tph~
 END
 
@@ -186,6 +196,7 @@ ACTION_IF (notempleknight = 0) BEGIN
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/fnppaladinfix.tph~
   INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/tofspheres.tph~
   INCLUDE ~%install%/dofspheres.tph~
 END
 
@@ -198,6 +209,7 @@ ACTION_IF (nonoblescion = 0) BEGIN
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/fnppaladinfix.tph~
   INCLUDE ~%install%/fnpspheres.tph~
+  INCLUDE ~%install%/tofspheres.tph~
   INCLUDE ~%install%/dofspheres.tph~
 END
 
@@ -217,10 +229,10 @@ END
 
 
 
-//End stuff
-OUTER_SET evasionchecks = 1
+//Extra stuff
 INCLUDE ~%install%/evasionchecks.tph~
 INCLUDE ~%install%/hbag.tph~
+INCLUDE ~%install%/spellprep3.tph~
 INCLUDE ~%install%/castingspeed.tph~
 INCLUDE ~%install%/restrictarmor.tph~
 INCLUDE ~%install%/crosskiteffects.tph~

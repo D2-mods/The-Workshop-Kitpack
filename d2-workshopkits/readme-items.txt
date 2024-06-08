@@ -260,7 +260,7 @@ Equipped abilities:
 
 Charge abilities:
 – Iron Flesh three times per day
-  The user's physical resistances are set to 80% and <PRO_HESHE> cannot be pushed or pulled by any force or spell, including a dragon's wing buffet, but movement speed is halved
+  The user's physical resistances are set to 80% and <PRO_HESHE> cannot be pushed or pulled by any force or spell, including a dragon's wing buffet, but movement rate is halved
   Duration: 4 rounds
 
 Weight: 0
@@ -414,6 +414,7 @@ STATISTICS:
 Special: +200,000 XP
 Wisdom: -1
 Charisma: -2
+Strength: +1
 Duration: Permanent
 
 Weight: 10
@@ -520,7 +521,7 @@ Charge abilities:
 – Anti-Clockwise Metamorphosis (can be used at will)
   Area of Effect: The party
   Duration: 24 hours
-  +4 movement speed; +0.5 Attacks Per Round; -10% to maximum Hit Points
+  +4 movement rate; +0.5 Attacks Per Round; -10% to maximum Hit Points
 
 Weight: 0
 
@@ -647,7 +648,7 @@ Charge abilities:
 – Milkweed (can be used at will)
   Area of Effect: The party
   Duration: 24 hours
-  Transform into a mind flayer during combat, but Wisdom and Constitution are set to 5; this action happens automatically and the character will revert back to natural form if no enemies are in visual range
+  Transform into a mind flayer during combat, but Wisdom and Constitution are lowered by 2; this action happens automatically and the character will revert back to natural form if no enemies are in visual range
 
 Weight: 0
 

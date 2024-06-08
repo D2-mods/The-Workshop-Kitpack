@@ -2,82 +2,168 @@
 
 
 //Add passive effects
-COPY ~%passives%/disablebutton.SPL~  ~override/%e1%.SPL~
 COPY ~%passives%/savebonus1all.SPL~  ~override/%e2%.SPL~
-  LPF ALTER_EFFECT INT_VAR parameter1=2 END
+  LPF ADD_SPELL_EFFECT INT_VAR target=2 timing=9 parameter1=(0 - 1) parameter2=2 resist_dispel=2 END    // -1 AC vs. missile
+  LPF ADD_SPELL_EFFECT INT_VAR target=2 timing=9 parameter1=(0 - 1) parameter2=4 resist_dispel=2 END    // -1 AC vs. piercing
+  LPF ADD_SPELL_EFFECT INT_VAR target=2 timing=9 parameter1=(0 - 1) parameter2=8 resist_dispel=2 END    // -1 AC vs. slashing
+
+/*
+COPY ~%passives%/disablebutton.SPL~  ~override/%e1%.SPL~
+*/
 
 
-//Add Torrent
-COPY ~%passives%/hiteffect1melee.SPL~  ~override/%e3%.SPL~
-  LPF ALTER_EFFECT STR_VAR resource=~%e3%a~ END
-  LPF CLONE_EFFECT INT_VAR opcode=139 parameter1=RESOLVE_STR_REF (@316) END    // "Gained Passive Ability: Torrent"
-
-COPY ~%abilities%/castspellself.EFF~  ~override/%e3%a.EFF~
-  WRITE_ASCII 0x30 ~%e3%b~ #8
-COPY_EXISTING ~SPWI305.SPL~           ~override/%e3%b.SPL~    // clone Haste
-  LPF d2prep_haste END
-  LPF d2_convert_spell_type INT_VAR type=0 level=1 END        // convert to special ability
+//prep
+DEFINE_PATCH_FUNCTION torrent_haste BEGIN
+  LPF d2_convert_spell_type INT_VAR type=0 level=0 END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=10 END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=10 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=146 STR_VAR resource=~%e3%c~ END    // for SCS/ToF
-  LPF ALTER_EFFECT INT_VAR target=1 power=0 probability1=6 END
-
-  LPF CD_EXTEND-O-MATIC                                  // clone spell header to level 20
-    INT_VAR 
-      step_dur=0 
-      step_size=2 
-      dur_special=1 
-      min_lev_alt=2 
-  END
-
-  LPF ALTER_EFFECT INT_VAR header=1 probability1=7 END   // level 4
-  LPF ALTER_EFFECT INT_VAR header=2 probability1=8 END
-  LPF ALTER_EFFECT INT_VAR header=3 probability1=9 END
-  LPF ALTER_EFFECT INT_VAR header=4 probability1=10 END
-  LPF ALTER_EFFECT INT_VAR header=5 probability1=11 END
-  LPF ALTER_EFFECT INT_VAR header=6 probability1=12 END
-  LPF ALTER_EFFECT INT_VAR header=7 probability1=13 END
-  LPF ALTER_EFFECT INT_VAR header=8 probability1=14 END
-  LPF ALTER_EFFECT INT_VAR header=9 probability1=15 END  // level 20
-BUT_ONLY
-
-
-//make haste subspell, if file added by SCS/ToF
-ACTION_IF (FILE_EXISTS ~override/SPWI305A.SPL~) BEGIN
-  COPY_EXISTING ~SPWI305A.SPL~  ~override/%e3%c.SPL~        // clone Haste
-    LPF d2prep_haste END
-    LPF d2_convert_spell_type INT_VAR type=0 level=1 END    // convert to special ability
-    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=10 END
-    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=10 END
-    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
-    LPF ALTER_EFFECT INT_VAR power=0 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=318 END
 END
 
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%e3%x.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e3%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e4%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e5%~ END
 
+COPY ~%icons%/torrenticon.BAM~  ~override/%e3%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@622) STR_VAR bam=~%e3%i~ RET icon END
+
+COPY - ~%abilities%/applyeffects.SPL~  ~inlined/torrentapply.SPL~
+  LPF ALTER_EFFECT INT_VAR target=1 opcode=146 parameter2=1 probability1=10 END
+  LPF CLONE_EFFECT INT_VAR opcode=142 timing=0 duration=10 resist_dispel=3 parameter2=icon STR_VAR insert=below END
+
+
+//
+//Add Torrent (main hit effects)
+COPY ~%passives%/hiteffect1all.SPL~  ~override/%e3%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%e3%e~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=139 parameter1=RESOLVE_STR_REF (@316) END    // "Gained Passive Ability: Torrent"
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%e3%x~ END
+
+COPY ~%passives%/hiteffect1all.SPL~  ~override/%e4%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%e4%e~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%e3%x~ END
+
+COPY ~%passives%/hiteffect1all.SPL~  ~override/%e5%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%e5%e~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%e3%x~ END
+
+
+//add main subspells
+COPY ~%abilities%/castspellself.EFF~  ~override/%e3%e.EFF~
+  WRITE_ASCII 0x30 ~%e3%e~ #8
+COPY ~inlined/torrentapply.SPL~       ~override/%e3%e.SPL~
+  LPF ALTER_EFFECT STR_VAR multi_match=1 resource=~%e3%a~ END    // haste
+  LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e3%t~ END    // stats
+  LPF d2_protect_on_castequip END
+
+COPY ~%abilities%/castspellself.EFF~  ~override/%e4%e.EFF~
+  WRITE_ASCII 0x30 ~%e4%e~ #8
+COPY ~inlined/torrentapply.SPL~       ~override/%e4%e.SPL~
+  LPF ALTER_EFFECT STR_VAR multi_match=1 resource=~%e3%a~ END    // haste
+  LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e4%a~ END    // damage
+  LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e4%t~ END    // stats
+  LPF d2_protect_on_castequip END
+
+COPY ~%abilities%/castspellself.EFF~  ~override/%e5%e.EFF~
+  WRITE_ASCII 0x30 ~%e5%e~ #8
+COPY ~inlined/torrentapply.SPL~       ~override/%e5%e.SPL~
+  LPF ALTER_EFFECT STR_VAR multi_match=1 resource=~%e5%a~ END    // haste
+  LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e4%a~ END    // damage
+  LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e5%t~ END    // stats
+  LPF d2_protect_on_castequip END
+
+
+//add Haste effects
+COPY_EXISTING ~SPWI305.SPL~  ~override/%e3%a.SPL~    // clone Haste
+  LPF d2prep_haste END
+  LPF torrent_haste END
+  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
+
+  // edits
+  LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=SPWI305A resource=~%e3%b~ END    // for SCS/ToF
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
+
+//make haste subspell (for SCS/ToF)
+ACTION_IF (FILE_EXISTS ~override/SPWI305A.SPL~) BEGIN
+  COPY_EXISTING ~SPWI305A.SPL~  ~override/%e3%b.SPL~
+    LPF d2prep_haste END
+    LPF torrent_haste END
+    TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
+END
+
+//improved haste (level 16)
+COPY ~override/%e3%a.SPL~  ~override/%e5%a.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=142 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 parameter2=1 END
+  LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=~%e3%b~ resource=~%e5%b~ END    // for SCS/ToF
+  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
+
+COPY ~override/%e3%b.SPL~  ~override/%e5%b.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=142 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 parameter2=1 END
+  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
+IF_EXISTS
+
+
+//add magic damage (level 8)
+COPY ~%abilities%/moonlightweapon.EFF~  ~override/%e4%a.EFF~
+COPY ~%abilities%/hiteffectall.SPL~     ~override/%e4%a.SPL~
+  LPF ALTER_EFFECT INT_VAR duration=10 resist_dispel=3 STR_VAR resource=~%e4%a~ END
+  LPF d2_remove_effects_on_cast END
+
+
+//reverse Moonscar effects (passives)
+COPY ~%abilities%/moonlighttorrent.SPL~  ~override/%e3%t.SPL~
+  LPF ALTER_EFFECT INT_VAR parameter1=2 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=325 target=2 duration=10 parameter1=(0 - 2) resist_dispel=3 END    // -2 saves (reverse +1 bonus)
+  LPF d2_remove_effects_on_cast END
+
+COPY ~%abilities%/moonlighttorrent.SPL~  ~override/%e4%t.SPL~
+  LPF ALTER_EFFECT INT_VAR parameter1=4 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=325 target=2 duration=10 parameter1=(0 - 4) resist_dispel=3 END    // -4 saves (reverse +2 bonus)
+  LPF d2_remove_effects_on_cast END
+
+COPY ~%abilities%/moonlighttorrent.SPL~  ~override/%e5%t.SPL~
+  LPF ALTER_EFFECT INT_VAR parameter1=6 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=325 target=2 duration=10 parameter1=(0 - 6) resist_dispel=3 END    // -6 saves (reverse +3 bonus)
+  LPF d2_remove_effects_on_cast END
+
+
+//
 //Add Moonlight Vortex
-COPY - ~%abilities%/moonlightspell.PRO~  ~%workspace%/%s9%a.PRO~     // projectile
-  WRITE_ASCII 0x104 ~%s9%a~ #8    // BAM animation
-ADD_PROJECTILE ~%workspace%/%s9%a.PRO~
-COPY ~%abilities%/moonlightspell.BAM~   ~override/%s9%a.BAM~
+COPY - ~%abilities%/moonlightspell.PRO~  ~inlined/%s1%s.PRO~     // projectile
+  WRITE_ASCII 0x104 ~%s1%s~ #8
+ADD_PROJECTILE ~inlined/%s1%s.PRO~
+COPY ~%abilities%/moonlightspell.BAM~    ~override/%s1%s.BAM~    // animation
 
+COPY ~%icons%/moonlightvortex.BAM~      ~override/%s1%.BAM~
 COPY ~%abilities%/moonlightvortex.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @105
   SAY UNIDENTIFIED_DESC @205
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s9%a~ END    // set projectile
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 resist_dispel=1 STR_VAR resource=~%s1%a~ END    // apply damage (can resist)
-  LPF CLONE_EFFECT INT_VAR match_opcode=326 resist_dispel=2 STR_VAR resource=~%s1%b~ END    // op177 effects (no resist)
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%~ END     // ignore allies (prevents 'resisted' message)
-  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%e~ END    // magic resist (self)
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 parameter2=52 STR_VAR resource=~%s1%d~ insert=~first~ END
+  WRITE_ASCII 0x3a ~%s1%~ #8
+  WRITE_ASCII 0x76 ~%s1%~ #8
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%s~ END    // set projectile
 
+  // damage
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%a~ END    // damage
+  LPF CLONE_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%b~ END    // damage (targeted)
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%~ END     // party friendly
+
+  // extra effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 parameter2=0 STR_VAR resource=~%s1%e~ END    // magic resist (self)
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 opcode=326 STR_VAR resource=~%s1%d~ END      // allies effect
+
+//damage
 COPY ~%abilities%/moonlightspell.SPL~   ~override/%s1%a.SPL~    // damage
-COPY ~%abilities%/moonlighttarget.SPL~  ~override/%s1%b.SPL~    // op177 effects (no resist)
+  LPF ALTER_EFFECT INT_VAR resist_dispel=1 dicenumber=8 dicesize=6 END
+COPY ~%abilities%/moonlighttarget.SPL~  ~override/%s1%b.SPL~    // damage (targeted)
   LPF ALTER_EFFECT STR_VAR resource=~%s1%b~ END
-COPY ~%abilities%/applyeffects.EFF~     ~override/%s1%b.EFF~
+COPY ~%abilities%/applyeffects.EFF~     ~override/%s1%b.EFF~    // apply effects (ignores resist)
   WRITE_ASCII 0x30 ~%s1%a~ #8
 
-COPY ~%abilities%/moonlighttickle.SPL~  ~override/%s1%d.SPL~    // lighting effect
+//extra effects
+COPY ~%abilities%/moonlighttickle.SPL~  ~override/%s1%d.SPL~    // allies effect
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@319) END    // "Tickled..."
 COPY ~%abilities%/moonlightresist.SPL~  ~override/%s1%e.SPL~    // magic resist (self)
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%e~ END
@@ -85,10 +171,13 @@ COPY ~%abilities%/moonlightresist.SPL~  ~override/%s1%e.SPL~    // magic resist 
 
 //Make clab table
 COPY ~inlined/d2clab_ranger~  ~override/%kitid%.2DA~
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
-  LPF d2_kit_ability_adder INT_VAR level=2 passive=1 STR_VAR resource=~%e3%~ END
-  LPF d2_kit_ability_adder INT_VAR level=6 multi=1 increment=4 limit=14 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=16 passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=3 passive=1 STR_VAR resource=~%e3%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e4%~ END
+  LPF d2_kit_ability_adder INT_VAR level=16 passive=1 STR_VAR resource=~%e5%~ END
+  LPF d2_kit_ability_adder INT_VAR level=7 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder END
 
 
@@ -105,20 +194,32 @@ LAF ADD_KIT_EX
     clab_path = ~%kitid%~
     clsrcreq = ~1 1 1 1 1 1 1~         // Usable by all races, if base class is usable
     alignmnt = ~1 1 1 1 1 1 1 1 1~
-    weapprof = ~2 2 1 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 2 2 2 3~
-    clasiskl = ~0 0 0 0 0 0 0~
-    thiefscl = ~0 0 0 0 0 0 0 0~
+//    weapprof = ~2 2 1 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 2 2 2 3~
+//    clasiskl = ~0 0 0 0 0 0 0~       // initial skills
+    thiefscl = ~0 0 0 50 50 0 0 0~     // skills percent modifier
     clascolr = ~137 141 142 24 138~    // shaman colors
   RET 
     kit_id
 END
 
 
+//
 //Set variables for external use
 OUTER_TEXT_SPRINT moonlightknight  ~%kitid%~
 OUTER_TEXT_SPRINT moonlightvortex  ~%s1%~
-OUTER_TEXT_SPRINT fnpclass         ~ranger~
-OUTER_TEXT_SPRINT fnpdeity         ~ranger_forest_spheres~
+
+//fnp
+OUTER_TEXT_SPRINT fnpclass    ~ranger~
+OUTER_TEXT_SPRINT fnpdeity    ~ranger_forest_spheres~
+
+//tof
+OUTER_TEXT_SPRINT tofkitname  ~D2%kitname%~
+//OUTER_TEXT_SPRINT tofspheres  ~+moon,+combat,-healing~
+OUTER_TEXT_SPRINT tofspheres  ~all,animal,combat,divine,moon,plant~
+
+//dof
+OUTER_TEXT_SPRINT dofclab     ~%kitid%~
+OUTER_TEXT_SPRINT dofkitname  ~D2%kitname%~
 
 
 /*

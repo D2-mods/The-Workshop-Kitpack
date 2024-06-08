@@ -15,14 +15,14 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY bloodbullets BEGIN
   3 => c
   4 => d
   5 => e
-  6 => f
+  6 => f     // level 18
   7 => g
   8 => h
   9 => i
-  10 => j
+  10 => j    // level 30
   11 => k
   12 => l
-  13 => m
+  13 => m    // level 39
   14 => n
   15 => o
   16 => p
@@ -39,10 +39,13 @@ COPY ~%abilities%/bloodbullets.SPL~  ~override/%s1%.SPL~
   SAY UNIDENTIFIED_DESC @225
   WRITE_ASCII 0x3a ~%s1%~ #8
   WRITE_ASCII 0x76 ~%s1%~ #8
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%a~ END    // melee hit effect
-  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END    // other effects
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s1%a~ END    // damage bonus
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s1%b~ END    // THAC0 bonus
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s0%x~ END    // remove effects
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=12 STR_VAR parameter1=5 dicenumber=0 dicesize=0 END    // self-damage = 5
 
+//damage bonus
 COPY ~%abilities%/bloodbulletsbuff.SPL~  ~override/%s1%a.SPL~
   LPF CD_EXTEND-O-MATIC
     INT_VAR
@@ -66,11 +69,26 @@ COPY ~%abilities%/bloodbulletsbuff.SPL~  ~override/%s1%a.SPL~
     END
   END
 
+  PATCH_IF (spellcap < 50) BEGIN
+    LPF CD_TRIM-O-MATIC INT_VAR level_cap = spellcap END    // cap damage at "spellcap" setting (config.ini)
+  END
 
-//remove Blood Bullet
+
+//THAC0 bonus
+COPY ~override/%e1%.SPL~  ~override/%s1%b.SPL~
+  LPF ALTER_EFFECT INT_VAR timing=0 duration=12 END
+  LPF CD_EXTEND-O-MATIC INT_VAR base_dur=12 step_dur=0 step_size=4 level_cap=5 END
+  LPF CD_EXTEND-O-MATIC INT_VAR base_dur=12 step_dur=0 step_size=5 level_cap=50 min_lev_alt=5 END
+  FOR (n = 1; n <= 10; ++n) BEGIN
+    LPF ALTER_EFFECT INT_VAR header=n parameter1=(n + 1) END
+  END
+
+
+//remove effects
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
-  LPF ALTER_EFFECT STR_VAR resource=~%s1%~ END
-  LPF CLONE_EFFECT STR_VAR resource=~%s1%a~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%b~ END
 
 
 //Make clab table
@@ -92,11 +110,12 @@ LAF ADD_KIT_EX
     fallen_notice = RESOLVE_STR_REF (@101404)
   STR_VAR
     kit_name = ~D2%kitname%~
-//  unusable = ~0x40000000~        // Barbarian usability - restricts some Paladin items
+//  unusable = ~0x40000000~           // Barbarian usability - restricts some Paladin items
     clab_path = ~%kitid%~
-    clsrcreq = ~1 1 1 1 1 1 1~     // Usable by all races, if base class is usable
+    clsrcreq = ~1 1 1 1 1 1 1~        // Usable by all races, if base class is usable
     weapprof = ~1 1 5 1 1 1 1 5 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 5 5 5 5 5 1 1 1 1~
-    clascolr = ~67 25 70 94 43~    // dragon disciple colors
+    alignmnt = ~1 1 0 1 0 0 0 0 0~    // LG, LN, NG
+    clascolr = ~67 25 70 94 43~       // dragon disciple colors
   RET 
     kit_id
 END
@@ -137,10 +156,24 @@ END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT noblescion   ~%kitid%~
-OUTER_TEXT_SPRINT bloodbullet  ~%s1%~
-OUTER_TEXT_SPRINT fnpclass     ~champion~
-OUTER_TEXT_SPRINT fnpdeity     ~corellon_spheres~
+OUTER_TEXT_SPRINT noblescion     ~%kitid%~
+OUTER_TEXT_SPRINT bloodbullet    ~%s1%~
+
+//fnp
+OUTER_TEXT_SPRINT fnpclass       ~champion~
+OUTER_TEXT_SPRINT fnpdeity       ~corellon_spheres~
+OUTER_TEXT_SPRINT fnparchetype1  ~SetGlobal("D5PADEF","GLOBAL",1)~
+OUTER_TEXT_SPRINT fnparchetype2  ~SetGlobal("D5PAINQ","GLOBAL",1)~
+OUTER_TEXT_SPRINT fnparchetype3  ~SetGlobal("D5PAZEA","GLOBAL",1)~
+
+//tof
+OUTER_TEXT_SPRINT tofkitname  ~D2%kitname%~
+//OUTER_TEXT_SPRINT tofspheres  ~+sun~
+OUTER_TEXT_SPRINT tofspheres  ~all,combat,divine,good,healing,protection,sun~
+
+//dof
+OUTER_TEXT_SPRINT dofclab     ~%kitid%~
+OUTER_TEXT_SPRINT dofkitname  ~D2%kitname%~
 
 
 /*

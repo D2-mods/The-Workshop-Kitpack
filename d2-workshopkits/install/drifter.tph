@@ -19,25 +19,22 @@ COPY ~%passives%/opcode206.SPL~  ~override/%m1%.SPL~
   LPF CLONE_EFFECT INT_VAR opcode=172 timing=1 STR_VAR resource=~d5zprp~ END
 
 
+//
+ACTION_IF ((IS_AN_INT buildeffects) AND (buildeffects = 1)) BEGIN
+  OUTER_SPRINT spellitemkit @101201
+  PRINT @13
+  ACTION_IF ((IS_AN_INT silentmode) AND (silentmode > 0)) BEGIN SILENT END
+END
+
+
 //Add SPL for immunities to ground spells
 COPY ~%passives%/drifter.SPL~  ~override/%e6%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_entangle_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_grease_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_web_arrays END
-
-  PATCH_IF (entangle_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=154 opcode=328 parameter2=entangle_immunity special=1 END
-  END
-  PATCH_IF (web_immunity > 0) BEGIN 
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=157 opcode=328 parameter2=web_immunity special=1 END
-  END
-
-  PATCH_IF (GAME_IS ~bgee~) BEGIN
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=157 opcode=267 parameter1=25866 END  // string for BGEE
-  END
-  PATCH_IF (GAME_IS ~iwdee~) BEGIN
-    LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=154 opcode=267 parameter1=37709 END  // string for IWDEE
-  END
+  LPF d2_string_immunities END
+  LPF ee_fixpack_immunities STR_VAR status=~web entangle~ END
+  LPF earthquake_immunity STR_VAR block=~quake bigby~ END
 
 COPY_EXISTING - ~spell.ids~ ~~
   PHP_EACH ~ids_terrain_immunities~ AS spell_to_add => style BEGIN
@@ -58,6 +55,8 @@ COPY_EXISTING - ~spell.ids~ ~~
 
 //Add SPL for immunity to cloud spells
 COPY ~%passives%/opcode206.SPL~  ~override/%e7%.SPL~
+  LPF insect_immunity END
+  LPF DELETE_EFFECT INT_VAR match_opcode=206 END
 
 COPY_EXISTING - ~spell.ids~ ~~
   PHP_EACH ~ids_cloud_immunities~ AS spell_to_add => style BEGIN
@@ -75,7 +74,7 @@ COPY_EXISTING - ~spell.ids~ ~~
   END
 
 
-//Check spells not in spell.IDS
+//add spells not in spell.ids (premade list of resource names)
 ACTION_PHP_EACH ~drifter_not_spellids~ AS spell_to_add => style BEGIN
 
   ACTION_IF (~%style%~ STR_EQ ~ground~) BEGIN
@@ -109,8 +108,8 @@ ACTION_BASH_FOR ~override~ ~.*\.SPL~ BEGIN
   ACTION_IF !(FILE_IS_IN_COMPRESSED_BIFF ~%BASH_FOR_FILE%~) BEGIN
     COPY - ~override/%BASH_FOR_FILE%~  ~~
       READ_LONG 0x8 stringref
-      PHP_EACH ~drifter_%ee_game%_strings~ AS string => style BEGIN
-    
+
+      PHP_EACH ~drifter_%ee_game%_strings~ AS string => style BEGIN    
         PATCH_IF (string = stringref) BEGIN
           INNER_ACTION BEGIN
             ACTION_IF (~%style%~ STR_EQ ~ground~) BEGIN
@@ -128,8 +127,8 @@ ACTION_BASH_FOR ~override~ ~.*\.SPL~ BEGIN
             END
           END
         END
-
       END
+
   END
 END
 
@@ -151,7 +150,7 @@ COPY ~inlined/d2clab_ranger~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%m1%~ END
   LPF d2_kit_ability_adder END
 
-  //Give Evasion (IWDEE or IWDification)
+  //add Evasion
   REPLACE_TEXTUALLY ~AP_#EVASION~ ~****~
   LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~#EVASION~ END    // IWDEE, ToF
   LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~CDIEVAD~ END     // IWDification

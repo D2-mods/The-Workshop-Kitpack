@@ -1,8 +1,5 @@
-//Drifter immunity arrays (for ground and cloud spells)
-//
-
 /*
-NOTE: Current version of drifter doesn't gain immunity to storms or fire clouds
+Drifter immunity arrays (for ground and cloud spells)
 */
 
 
@@ -39,6 +36,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_cloud_immunities BEGIN
   INNATE_BOMBARDIER_BEETLE_CLOUD     => cloud
   BOMBARDIER_BEETLE_CLOUD            => cloud
   WIZARD_MALAVONS_CORROSIVE_FOG      => cloud
+  WIZARD_DARKNESS_15_FOOT            => cloud
   CLERIC_DEVOURING_DARKNESS          => cloud    // sod2bg2
   WIZARD_DELETERIOUS_NIMBUS          => cloud
   HLA_WIZARD_TOLODINES_KILLING_WIND  => cloud    // MiH spells
@@ -71,21 +69,22 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_not_spellids BEGIN
   SPIN688   => ground
   SPWM111   => ground
 //talongf   => ground    // Talon of the Gloomfrost
-  holdfst   => ground
-  gasp      => ground
+  holdfst   => ground    // Holdfast Arrow
+  gasp      => ground    // weapon
   SPDR201   => ground
   SPIN575   => ground
-  SPIN683   => ground
+  SPIN683   => ground    // single target
   bdspidga  => ground
   SPIN673   => cloud
   SPIN897   => cloud
+  SPIN917   => cloud
   SPWM187   => cloud
   ohbwfog   => cloud
 //SW1H58    => ground    // Short Sword of Mask +4
 //SW1H59    => ground    // Short Sword of Mask +5
-  MOUND     => ground
-  HGNYA01   => ground
-  KUOSPER   => ground
+  MOUND     => ground    // weapon
+  HGNYA01   => ground    // weapon
+  KUOSPER   => ground    // weapon
   bdbow06   => ground206
   bdshamb   => ground206
   MEPR754D  => ground    // OlvynSpells
@@ -110,6 +109,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_not_spellids BEGIN
   RAULUT2   => storm
   RAWI404   => storm
   RAWI724   => storm
+  c0bdd#1   => ground    // bardic wonders
 END
 
 
@@ -124,6 +124,9 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_bgee_strings BEGIN
   26074   => cloud
   32350   => cloud
   26447   => storm
+  26296   => flame
+  25976   => flame
+  26642   => flame
 END
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_bg2ee_strings BEGIN
@@ -136,6 +139,9 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_bg2ee_strings BEGIN
   103067  => cloud
   12062   => storm
   63742   => storm
+  14261   => flame
+  26345   => flame
+  7663    => flame
 END
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_iwdee_strings BEGIN
@@ -146,11 +152,17 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_iwdee_strings BEGIN
   7621    => cloud
   12056   => cloud
   40895   => cloud
+  21404   => cloud
   21419   => storm
-  21404   => storm
   12062   => storm
   1208    => storm
   36414   => storm
+  14261   => flame
+  36737   => flame
+  36716   => flame
+  12064   => ground
+  21418   => ground
+  1412    => ground
 END
 
 

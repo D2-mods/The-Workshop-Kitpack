@@ -48,18 +48,26 @@ COPY ~inlined/d2clab.2DA~  ~override/%fullmetaljaguar%F.2DA~
   END
 
 
+//
+LAF d2_get_mc_text STR_VAR class=fighter multi=ft RET baseclass multiclass END
+OUTER_SET kit_note = RESOLVE_STR_REF(@353)
+OUTER_SET base_kit = RESOLVE_STR_REF(@101503)
+LAF d2_build_mc_desc INT_VAR desc1=base_kit desc2=kit_note mode=2 STR_VAR multi=ft RET kit_desc END
+
+
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
     kit_class = 9
     mixed = RESOLVE_STR_REF (@101501)
     lower = RESOLVE_STR_REF (@101502)
-    help = RESOLVE_STR_REF (@101503)
+    help = kit_desc
   STR_VAR
     kit_name = ~D2%kitname%FT~
     clab_base_f = ~%fullmetaljaguar%F.2DA~    // kit abilities added to Fighter table
     clab_base_t = ~%fullmetaljaguar%T.2DA~    // no abilities added to Thief table
     clsrcreq = ~1 1 1 1 1 1 1~                // Usable by all races, if base class is usable
+    alignmnt = ~1 1 1 1 1 1 1 1 1~            // all alignments
     clascolr = ~24 67 56 2 25~                // blade/jester colors
   RET 
     kit_id

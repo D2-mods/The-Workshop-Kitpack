@@ -12,41 +12,46 @@ COPY ~%passives%/opcode206.SPL~     ~override/%e4%.SPL~         // only relevant
 
 
 //Add Unleash Magic
-COPY ~%icons%/unleashmagic.BAM~      ~override/%s1%.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@109) STR_VAR bam=~%s1%~ RET icon END
+COPY ~%icons%/unleashmagic.BAM~      ~override/%s1%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@109) STR_VAR bam=~%s1%i~ RET icon END
+
+COPY ~%abilities%/unleashwhorl.VVC~  ~override/%s1%.VVC~
+  WRITE_ASCII 0x8 ~%s1%~ #8
+COPY ~%abilities%/unleashwhorl.BAM~  ~override/%s1%.BAM~
+
 COPY ~%abilities%/unleashmagic.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @109
   SAY UNIDENTIFIED_DESC @209
   LPF ALTER_EFFECT INT_VAR match_opcode=321 opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=332 duration=26 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s1%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
   LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=191 parameter1=2 parameter2=0 END    // v4.6: +2 caster level
   LPF ALTER_EFFECT INT_VAR resist_dispel=3 END    // dispellable
 
 
 //Add Twisted Barricade
-COPY ~%icons%/twistedbarricade.BAM~      ~override/%s2%.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@110) STR_VAR bam=~%s2%~ RET icon END
+COPY ~%icons%/twistedbarricade.BAM~      ~override/%s2%i.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@110) STR_VAR bam=~%s2%i~ RET icon END
+
+COPY ~%abilities%/twistedbarricade.VVC~  ~override/%s2%.VVC~
+  WRITE_ASCII 0x80 ~EFF_P105~ #8
+
 COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @110
   SAY UNIDENTIFIED_DESC @210
   LPF ALTER_EFFECT INT_VAR match_opcode=321 opcode=326 STR_VAR resource=~%s0%x~ END
 //  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter2=5 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s2%a~ END              // visual
-  LPF DELETE_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%s2%a~ END             // visual (old)
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s2%~ END              // visual
+  LPF DELETE_EFFECT INT_VAR match_opcode=272 END                                      // delete old visual
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%b~ insert=below END    // block normal missiles
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
-  LPF ALTER_EFFECT INT_VAR resist_dispel=3 END    // dispellable
+  LPF ALTER_EFFECT INT_VAR resist_dispel=3 END                                        // dispellable
 
   // spell deflection (level 10+)
   LPF CLONE_EFFECT INT_VAR header=2 multi_match=1 STR_VAR resource=~%s2%c~ insert=below END
   LPF CLONE_EFFECT INT_VAR header=3 multi_match=1 STR_VAR resource=~%s2%c~ insert=below END
   LPF CLONE_EFFECT INT_VAR header=4 multi_match=1 STR_VAR resource=~%s2%c~ insert=below END
-
-
-// v3.0: updated visual
-COPY ~%abilities%/twistedbarricade.VVC~  ~override/%s2%a.VVC~
-  WRITE_ASCII 0x80 ~EFF_P105~ #8
 
 
 //subspell - protection from normal missiles
@@ -71,7 +76,7 @@ COPY_EXISTING ~SPPR701.SPL~  ~override/%s2%c.SPL~
   LPF ALTER_EFFECT INT_VAR resist_dispel=3 END               // dispellable
 
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=201 parameter1=1000 STR_VAR resource=None END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=291 duration=25 parameter2=1 END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=201 opcode=291 duration=25 parameter2=1 END
 
 /*Alt version that protects from area attacks
   // change spell deflection from op201 to op102

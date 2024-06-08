@@ -51,14 +51,30 @@ COPY ~%passives%/d5fprnsp.spl~  ~override/%e7%.SPL~
 LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s1%~ new_spell=~%#1%~ END
 LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s1%~ new_spell=~%#2%~ END
 LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s1%~ new_spell=~%#3%~ END
+LAF d2_mc_import_fix INT_VAR amount=4  STR_VAR spell=~%s1%~ new_spell=~%#4%~ END
+LAF d2_mc_import_fix INT_VAR amount=5  STR_VAR spell=~%s1%~ new_spell=~%#5%~ END
+LAF d2_mc_import_fix INT_VAR amount=6  STR_VAR spell=~%s1%~ new_spell=~%#6%~ END
+LAF d2_mc_import_fix INT_VAR amount=7  STR_VAR spell=~%s1%~ new_spell=~%#7%~ END
+LAF d2_mc_import_fix INT_VAR amount=8  STR_VAR spell=~%s1%~ new_spell=~%#8%~ END
+LAF d2_mc_import_fix INT_VAR amount=9  STR_VAR spell=~%s1%~ new_spell=~%#9%~ END
+LAF d2_mc_import_fix INT_VAR amount=10 STR_VAR spell=~%s1%~ new_spell=~%#a%~ END
+LAF d2_mc_import_fix INT_VAR amount=11 STR_VAR spell=~%s1%~ new_spell=~%#b%~ END
 
 
 //Array for import fix
 ACTION_CLEAR_ARRAY ~import_fix_array~
 ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
-  ~%#1%~  => 6     // moonlight vortex
-  ~%#2%~  => 10
-  ~%#3%~  => 14
+  ~%#1%~  => 7     // moonlight vortex
+  ~%#2%~  => 11
+  ~%#3%~  => 15
+  ~%#4%~  => 19
+  ~%#5%~  => 23
+  ~%#6%~  => 27
+  ~%#7%~  => 31
+  ~%#8%~  => 35
+  ~%#9%~  => 39
+  ~%#a%~  => 43
+  ~%#b%~  => 47
 END
 
 
@@ -71,10 +87,13 @@ COPY ~inlined/d2clab.2DA~  ~override/%moonlightknight%C.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 
 COPY ~inlined/d2clab.2DA~  ~override/%moonlightknight%R.2DA~
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
-  LPF d2_kit_ability_adder INT_VAR level=2 passive=1 STR_VAR resource=~%e3%~ END
-  LPF d2_kit_ability_adder INT_VAR level=6 multi=1 increment=4 limit=14 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=16 passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=3 passive=1 STR_VAR resource=~%e3%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e4%~ END
+  LPF d2_kit_ability_adder INT_VAR level=16 passive=1 STR_VAR resource=~%e5%~ END
+  LPF d2_kit_ability_adder INT_VAR level=7 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e7%~ END
 
   //import fix (BG2, ToB, SoD)
@@ -88,13 +107,24 @@ ACTION_IF ((vanillaclericprofs = 0) OR
            (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
            (FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
            (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
-          ) BEGIN
+) BEGIN
+  OUTER_TEXT_SPRINT multikitprofs  ~2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3~
+END ELSE BEGIN
+  OUTER_TEXT_SPRINT multikitprofs  ~0 0 0 0 2 2 0 2 0 0 0 0 0 0 0 0 2 2 0 0 2 2 2 0 0 0 0 2 2 2 2 3~
+END
 
+/*ranged = 1 slot
   OUTER_TEXT_SPRINT multikitprofs  ~2 2 1 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 2 2 2 3~
-END
-ELSE BEGIN
+END ELSE BEGIN
   OUTER_TEXT_SPRINT multikitprofs  ~0 0 0 0 2 2 0 1 0 0 0 0 0 0 0 0 2 2 0 0 2 2 2 0 0 0 0 1 2 2 2 3~
-END
+*/
+
+
+//
+LAF d2_get_mc_text STR_VAR class=ranger multi=cr RET baseclass multiclass END
+OUTER_SET kit_note = RESOLVE_STR_REF(@353)
+OUTER_SET base_kit = RESOLVE_STR_REF(@100403)
+LAF d2_build_mc_desc INT_VAR desc1=base_kit desc2=kit_note mode=2 STR_VAR multi=cr RET kit_desc END
 
 
 //Kit function
@@ -103,7 +133,7 @@ LAF ADD_KIT_EX
     kit_class = 18
     mixed = RESOLVE_STR_REF (@100401)
     lower = RESOLVE_STR_REF (@100402)
-    help = RESOLVE_STR_REF (@100403)
+    help = kit_desc
   STR_VAR
     kit_name = ~D2%kitname%CR~
     clab_base_p = ~%moonlightknight%C.2DA~    // holy symbol added to Cleric table
@@ -111,20 +141,23 @@ LAF ADD_KIT_EX
     clsrcreq = ~1 1 1 1 1 1 1~                // Usable by all races, if base class is usable
     alignmnt = ~1 1 1 1 1 1 1 1 1~
     weapprof = ~%multikitprofs%~
-    clasiskl = ~0 0 0 0 0 0 0~
-    thiefscl = ~0 0 0 0 0 0 0 0~
-    clascolr = ~137 141 142 24 138~           // shaman colors
+//    clasiskl = ~0 0 0 0 0 0 0~       // initial skills
+    thiefscl = ~0 0 0 50 50 0 0 0~     // skills percent modifier
+    clascolr = ~137 141 142 24 138~    // shaman colors
   RET 
     kit_id
 END
 
 
-//DoF compatibility
-OUTER_TEXT_SPRINT kitid    ~%kitid%C~
-OUTER_TEXT_SPRINT kitname  ~%kitname%CR~
+//DoF spheres
+OUTER_TEXT_SPRINT dofclab     ~%kitid%C~
+OUTER_TEXT_SPRINT dofkitname  ~D2%kitname%CR~
 INCLUDE ~%install%/dofspheres.tph~
-OUTER_TEXT_SPRINT kitid    ~d2wk4~
-OUTER_TEXT_SPRINT kitname  ~MOONLIGHTKNIGHT~
+
+//ToF spheres
+OUTER_TEXT_SPRINT tofkitname  ~D2%kitname%CR~
+OUTER_TEXT_SPRINT tofspheres  ~all,animal,combat,divine,earth,evil,fey,good,healing,moon,necromantic,plant,protection~
+INCLUDE ~%install%/tofspheres.tph~
 
 
 END

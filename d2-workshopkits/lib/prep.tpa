@@ -10,7 +10,55 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~#BONECIR.SPL~) BEGIN
 END
 
 
-//number => id
+//
+OUTER_SPRINT d2wk1_name @100101    // Beast Hunter
+OUTER_SPRINT d2wk2_name @100201    // Warhound
+OUTER_SPRINT d2wk3_name @100301    // Grave Warden
+OUTER_SPRINT d2wk4_name @100401    // Moonlight Knight
+OUTER_SPRINT d2wk5_name @100501    // Confessor
+OUTER_SPRINT d2wk6_name @100601    // Temple Knight
+OUTER_SPRINT d2wk7_name @100701    // War Magician
+OUTER_SPRINT d2wk8_name @100801    // Starjammer
+OUTER_SPRINT d2wk9_name @100901    // Blood Minister
+OUTER_SPRINT d2wka_name @101001    // Crow Hunter
+OUTER_SPRINT d2wkb_name @101101    // Powder Keg
+OUTER_SPRINT d2wkc_name @101201    // Drifter
+OUTER_SPRINT d2wkd_name @101301    // Medic
+OUTER_SPRINT d2wke_name @101401    // Noble Scion
+OUTER_SPRINT d2wkf_name @101501    // Full Metal Jaguar
+OUTER_SPRINT d2wkg_name @101601    // Nurse
+OUTER_SPRINT d2wkh_name @101701    // Spell Fencer
+//
+OUTER_SPRINT d2wkz_name @10        // Misc item pack
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_kitname_array BEGIN
+  d2wk1 => ~%d2wk1_name%~
+  d2wk2 => ~%d2wk2_name%~
+  d2wk3 => ~%d2wk3_name%~
+  d2wk4 => ~%d2wk4_name%~
+  d2wk5 => ~%d2wk5_name%~
+  d2wk6 => ~%d2wk6_name%~
+  d2wk7 => ~%d2wk7_name%~
+  d2wk8 => ~%d2wk8_name%~
+  d2wk9 => ~%d2wk9_name%~
+  d2wka => ~%d2wka_name%~
+  d2wkb => ~%d2wkb_name%~
+  d2wkc => ~%d2wkc_name%~
+  d2wkd => ~%d2wkd_name%~
+  d2wke => ~%d2wke_name%~
+  d2wkf => ~%d2wkf_name%~
+  d2wkg => ~%d2wkg_name%~
+  d2wkh => ~%d2wkh_name%~
+  d2wki => ~%d2wki_name%~
+  d2wkj => ~%d2wkj_name%~
+  d2wkk => ~%d2wkk_name%~
+//
+  d2wkz => ~%d2wkz_name%~
+END
+
+
+//
+//number => id (not used)
 ACTION_DEFINE_ASSOCIATIVE_ARRAY array_for_import_fix BEGIN
   1   => 1
   2   => 2
@@ -35,6 +83,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY array_for_import_fix BEGIN
 END
 
 
+//
 //for Beamdog items with specific kit bonuses
 ACTION_DEFINE_ASSOCIATIVE_ARRAY item_kit_effects BEGIN
   bdamul02 => archer

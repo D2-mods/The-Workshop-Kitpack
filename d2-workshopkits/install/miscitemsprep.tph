@@ -46,8 +46,6 @@ ELSE BEGIN
 END
 
 
-
-//
 //prep for shapeshifts
 ACTION_IF (GAME_IS ~iwdee~) BEGIN 
   OUTER_TEXT_SPRINT humanform ~SPCL110~    // IWDEE
@@ -57,7 +55,7 @@ ELSE BEGIN
 END
 
 OUTER_TEXT_SPRINT psionicblast ~SPIN974~
-OUTER_TEXT_SPRINT psionicscs ~dw-sspb~
+OUTER_TEXT_SPRINT psionicscs   ~dw-sspb~
 
 
 
@@ -144,23 +142,17 @@ END
 
 
 //
-//Add Lore to SPLPROT.2DA
-OUTER_TEXT_SPRINT lore80  ~_STAT(LORE)>=80 25 80 4~    // lore >= 80
-OUTER_TEXT_SPRINT lore79  ~_STAT(LORE)<80 25 80 2~     // lore < 80
+//add Lore check to splprot.2da
+OUTER_TEXT_SPRINT d2lorecheck  ~d2lorecheck 25 -1 4~    // lore >= value
+OUTER_TEXT_SPRINT d2loreunder  ~d2loreunder 25 -1 2~    // lore < value
 
-COPY_EXISTING ~SPLPROT.2DA~  ~override~
-  COUNT_2DA_ROWS 4 rows
-  INSERT_2DA_ROW rows 4 ~%rows%%lore80%~
-  SET lore80 = rows
+COPY_EXISTING ~splprot.2da~  ~override~
+  LPF d2_splprot_adder STR_VAR mode=d2lorecheck string=~%d2lorecheck%~ RET stat END
+  SET d2lorecheck = stat
 
-  COUNT_2DA_ROWS 4 rows
-  INSERT_2DA_ROW rows 4 ~%rows%%lore79%~
-  SET lore79 = rows
-  PRETTY_PRINT_2DA
+  LPF d2_splprot_adder STR_VAR mode=d2loreunder string=~%d2loreunder%~ RET stat END
+  SET d2loreunder = stat
 BUT_ONLY
-
-PRINT ~lore80 is %lore80%    // lore >= 80~
-PRINT ~lore79 is %lore79%    // lore < 80~
 
 
 /*

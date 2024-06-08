@@ -12,40 +12,29 @@ COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~    // only relevant for 
 
 
 //Multiclass import fix
-LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s1%~ new_spell=~%#1%~ END
-LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s1%~ new_spell=~%#2%~ END
-LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s1%~ new_spell=~%#3%~ END
-LAF d2_mc_import_fix INT_VAR amount=4  STR_VAR spell=~%s1%~ new_spell=~%#4%~ END
-LAF d2_mc_import_fix INT_VAR amount=5  STR_VAR spell=~%s1%~ new_spell=~%#5%~ END
-LAF d2_mc_import_fix INT_VAR amount=6  STR_VAR spell=~%s1%~ new_spell=~%#6%~ END
-LAF d2_mc_import_fix INT_VAR amount=7  STR_VAR spell=~%s1%~ new_spell=~%#7%~ END
-LAF d2_mc_import_fix INT_VAR amount=8  STR_VAR spell=~%s1%~ new_spell=~%#8%~ END
-LAF d2_mc_import_fix INT_VAR amount=9  STR_VAR spell=~%s1%~ new_spell=~%#9%~ END
-LAF d2_mc_import_fix INT_VAR amount=10 STR_VAR spell=~%s1%~ new_spell=~%#a%~ END
-LAF d2_mc_import_fix INT_VAR amount=11 STR_VAR spell=~%s1%~ new_spell=~%#b%~ END
-
-LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s2%~ new_spell=~%!1%~ END
-LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s2%~ new_spell=~%!2%~ END
-LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s2%~ new_spell=~%!3%~ END
+LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s9%~ new_spell=~%#1%~ END
+LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s9%~ new_spell=~%#2%~ END
+LAF d2_mc_import_fix INT_VAR amount=3  STR_VAR spell=~%s9%~ new_spell=~%#3%~ END
+LAF d2_mc_import_fix INT_VAR amount=4  STR_VAR spell=~%s9%~ new_spell=~%#4%~ END
+LAF d2_mc_import_fix INT_VAR amount=5  STR_VAR spell=~%s9%~ new_spell=~%#5%~ END
+LAF d2_mc_import_fix INT_VAR amount=6  STR_VAR spell=~%s9%~ new_spell=~%#6%~ END
+LAF d2_mc_import_fix INT_VAR amount=7  STR_VAR spell=~%s9%~ new_spell=~%#7%~ END
+LAF d2_mc_import_fix INT_VAR amount=8  STR_VAR spell=~%s9%~ new_spell=~%#8%~ END
+LAF d2_mc_import_fix INT_VAR amount=9  STR_VAR spell=~%s9%~ new_spell=~%#9%~ END
 
 
 //Array for import fix
 ACTION_CLEAR_ARRAY ~import_fix_array~
 ACTION_DEFINE_ASSOCIATIVE_ARRAY import_fix_array BEGIN
-  ~%#1%~  => 1     // medical darts
-  ~%#2%~  => 5
-  ~%#3%~  => 10
-  ~%#4%~  => 15
-  ~%#5%~  => 20
-  ~%#6%~  => 25
-  ~%#7%~  => 30
-  ~%#8%~  => 35
-  ~%#9%~  => 40
-  ~%#a%~  => 45
-  ~%#b%~  => 50
-  ~%!1%~  => 11    // injection shot
-  ~%!2%~  => 15
-  ~%!3%~  => 19
+  ~%#1%~  => 1     // nurse tools
+  ~%#2%~  => 6
+  ~%#3%~  => 12
+  ~%#4%~  => 18
+  ~%#5%~  => 24
+  ~%#6%~  => 30
+  ~%#7%~  => 36
+  ~%#8%~  => 42
+  ~%#9%~  => 48
 END
 
 
@@ -55,16 +44,27 @@ COPY ~inlined/d2clab.2DA~  ~override/%nurse%M.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
 
 COPY ~inlined/d2clab.2DA~  ~override/%nurse%T.2DA~
-  LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 STR_VAR resource=~%e1%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
-  LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
-  LPF d2_kit_ability_adder STR_VAR resource=~%s1%~ END
-  LPF d2_kit_ability_adder INT_VAR level=11 multi=1 increment=4 limit=19 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=3 passive=1 multi=1 increment=3 STR_VAR resource=~%e1%~ END
+//  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR level=6 multi=1 increment=6 STR_VAR resource=~%s9%~ END
+  LPF d2_kit_ability_adder STR_VAR resource=~%s9%~ END
+
+  //unlock abilities
+  PHP_EACH nursetools_level AS file => level BEGIN
+    LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
+  END
 
   //import fix (BG2, ToB, SoD)
   PHP_EACH import_fix_array AS file => level BEGIN
     LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
   END
+
+
+//
+LAF d2_get_mc_text STR_VAR class=thief multi=mt RET baseclass multiclass END
+OUTER_SET kit_note = RESOLVE_STR_REF(@353)
+OUTER_SET base_kit = RESOLVE_STR_REF(@101603)
+LAF d2_build_mc_desc INT_VAR desc1=base_kit desc2=kit_note mode=2 STR_VAR multi=mt RET kit_desc END
 
 
 //Kit function
@@ -73,15 +73,17 @@ LAF ADD_KIT_EX
     kit_class = 13
     mixed = RESOLVE_STR_REF (@101601)
     lower = RESOLVE_STR_REF (@101602)
-    help = RESOLVE_STR_REF (@101603)
+    help = kit_desc
   STR_VAR
     kit_name = ~D2%kitname%MT~
-    clab_base_m = ~%nurse%M.2DA~    // -1 spell slots added to Mage table
-    clab_base_t = ~%nurse%T.2DA~    // kit abilities added to Thief table
-    clsrcreq = ~1 1 1 1 1 1 1~      // Usable by all races, if base class is usable
+    clab_base_m = ~%nurse%M.2DA~      // -1 spell slots added to Mage table
+    clab_base_t = ~%nurse%T.2DA~      // kit abilities added to Thief table
+    clsrcreq = ~1 1 1 1 1 1 1~        // Usable by all races, if base class is usable
     weapprof = ~1 1 2 0 1 0 0 2 0 1 1 0 0 1 1 1 0 1 0 0 0 0 1 2 0 2 2 2 1 1 1 1~
-    thiefskl = ~40 15~              // start with 40, gain 15 per level
-    clascolr = ~25 28 57 2 24~      // inquisitor colors
+//    weapprof = ~1 1 3 0 1 0 0 3 0 1 1 0 0 1 1 1 0 1 0 0 0 0 1 3 0 3 3 3 1 1 1 1~
+    thiefskl = ~40 15~                // start with 40, gain 15 per level
+    alignmnt = ~1 1 1 1 1 1 1 1 1~    // all alignments
+    clascolr = ~25 28 57 2 24~        // inquisitor colors
   RET 
     kit_id
 END

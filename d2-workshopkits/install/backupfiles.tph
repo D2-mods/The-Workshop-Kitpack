@@ -1,6 +1,20 @@
 /*
-Creates copies of mod files in weidu_external/workspace folder
+Creates copies of mod files in weidu_external/dan_p folder
 */
 
 
-COPY_EXISTING_REGEXP GLOB ~d2wk.*~  ~%workspace%~
+//
+OUTER_TEXT_SPRINT d2wk_backup  ~weidu_external/dan_p/d2wk_backup~
+
+ACTION_IF !(DIRECTORY_EXISTS ~%d2wk_backup%~) BEGIN
+  MKDIR ~%d2wk_backup%~
+END
+
+COPY_EXISTING_REGEXP GLOB ~d2wk.*~  ~%d2wk_backup%~
+
+
+PRINT ~Backup folder: weidu_external/dan_p/d2wk_backup~
+
+
+//
+//

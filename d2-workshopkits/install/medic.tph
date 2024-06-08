@@ -21,22 +21,16 @@ ACTION_PHP_EACH medicspells AS spell => res BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) BEGIN
     COPY_EXISTING ~%spell%.SPL~  ~override/%res%.SPL~
       LPF d2_convert_spell_type INT_VAR type=4 level=1 END
-      WRITE_LONG 0x18 THIS | BIT14    // ignore wild magic
-      WRITE_LONG 0x18 THIS | BIT25    // ignore silence
-      WRITE_SHORT 0x22 0              // no casting effect
-      LPF ALTER_SPELL_HEADER INT_VAR range=1 speed=0 END
-      LPF ALTER_EFFECT INT_VAR power=0 END
-      LPF DELETE_EFFECT INT_VAR match_opcode=93 END              // remove fatigue
-      LPF DELETE_EFFECT STR_VAR match_resource=~dvwinded~ END    // remove SR fatigue
+      LPF d2_no_casting INT_VAR range=1 power=0 END
+      LPF d2_no_fatigue END
   END
 END
 
-
-//replace slow poison
+//remove slow poison
 COPY ~%passives%/removespell.SPL~    ~override/%e4%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%s4%~ END
 
-//replace cure disease
+//remove cure disease
 COPY ~%passives%/removespell.SPL~    ~override/%e5%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%s5%~ END
 
@@ -54,6 +48,14 @@ OUTER_TEXT_SPRINT remedy7      ~%s9%a~
 OUTER_TEXT_SPRINT remedy4      ~%s9%b~
 OUTER_TEXT_SPRINT remedy15     ~%s9%c~
 
+//Remedy lighting (write into projectile)
+COPY ~%abilities%/remedyvisual.VVC~  ~override/%s9%e.VVC~
+ACTION_FOR_EACH projectile IN ~%remedy7%~ ~%remedy4%~ ~%remedy15%~ BEGIN
+  COPY ~override/%projectile%.PRO~   ~override~
+    WRITE_ASCII 0x21c  ~%s9%e~ #8
+  BUT_ONLY
+END
+
 
 //
 //Add Black Remedy
@@ -68,7 +70,7 @@ COPY ~%abilities%/remedy.SPL~       ~override/%s1%.SPL~
   WRITE_ASCII 0x76 ~%s1%~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=20 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=20 END    // 20 = conjure air
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%abilities%/hiteffectall.SPL~     ~override/%s1%a.SPL~
@@ -77,8 +79,17 @@ COPY ~%abilities%/hiteffectall.SPL~     ~override/%s1%a.SPL~
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%b.EFF~
   WRITE_ASCII 0x30 ~%s1%b~ #8
 COPY ~%abilities%/remedyblack.SPL~      ~override/%s1%b.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy7%~ END    // set projectile
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy7%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%b~ END
+  LPF CLONE_EFFECT INT_VAR match_parameter2=55 opcode=326 STR_VAR resource=~%s1%c~ END    // immune string (works better with Jade Feather)
+
+//immune string (works better with Jade Feather)
+OUTER_SPRINT ability_name @122
+COPY ~%abilities%/spellfailed.SPL~  ~override/%s1%c.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@350) END    // "Unaffected by..."
+  LPF DELETE_EFFECT INT_VAR match_opcode=141 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF d2_protect_on_castequip INT_VAR duration=100 END
 
 
 //
@@ -96,7 +107,7 @@ COPY ~%abilities%/remedy.SPL~       ~override/%s2%.SPL~
   WRITE_ASCII 0x76 ~SPWI903B~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=30 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=17 END    // 30 = illusion earth
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%abilities%/hiteffectall.SPL~     ~override/%s2%a.SPL~
@@ -105,21 +116,24 @@ COPY ~%abilities%/hiteffectall.SPL~     ~override/%s2%a.SPL~
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%b.EFF~
   WRITE_ASCII 0x30 ~%s2%b~ #8
 COPY ~%abilities%/remedywhite.SPL~      ~override/%s2%b.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy7%~ END    // set projectile
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%remedy7%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s2%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=~%sleep_string%~ END    // "Sleep"
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=sleep_string END
+  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~slow~
+
+  // cast subspells
+  LPF CLONE_EFFECT INT_VAR match_opcode=40 opcode=326 parameter2=0 duration=0 STR_VAR resource=~d2!haste~ END
+  LPF CLONE_EFFECT INT_VAR match_parameter2=55 opcode=326 STR_VAR resource=~%s2%c~ END    // immune string (works better with Jade Feather)
+
+//immune string (works better with Jade Feather)
+OUTER_SPRINT ability_name @123
+COPY ~%abilities%/spellfailed.SPL~  ~override/%s2%c.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@350) END    // "Unaffected by..."
+  LPF DELETE_EFFECT INT_VAR match_opcode=141 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF d2_protect_on_castequip INT_VAR duration=100 END
 
 
-//
-//Remedy lighting (write into projectile)
-COPY ~%abilities%/remedyvisual.VVC~  ~override/%s9%e.VVC~
-ACTION_FOR_EACH projectile IN ~%remedy7%~ ~%remedy4%~ ~%remedy15%~ BEGIN
-  COPY ~override/%projectile%.PRO~   ~override~
-    WRITE_ASCII 0x21c  ~%s9%e~ #8
-  BUT_ONLY
-END
-
-//
 //Remove effects
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%~ END
@@ -139,10 +153,11 @@ COPY ~%abilities%/healingrain.SPL~  ~override/%s3%.SPL~
   SAY UNIDENTIFIED_DESC @224
   WRITE_ASCII 0x3a ~%s3%~ #8
   WRITE_ASCII 0x76 ~%s3%~ #8
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s3%a~ END    // set projectile
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s3%a~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ END    // cures bleeding
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!phase~ END    // cures acid dot, phasing, etc.
 
 
-//
 //Make clab table
 COPY ~inlined/d2clab_monk_nohealstun~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR multi=1 increment=5 STR_VAR resource=~%s1%~ END
@@ -164,7 +179,6 @@ COPY ~inlined/d2clab_monk_nohealstun~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder END
 
 
-//
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
@@ -176,7 +190,7 @@ LAF ADD_KIT_EX
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
     clsrcreq = ~1 1 1 1 1 1 1~      // Usable by all races, if base class is usable
-    clascolr = ~115 24 25 24 72~    // enchanter colors
+    clascolr = ~93 72 169 93 72~    // undead hunter colors
   RET 
     kit_id
 END

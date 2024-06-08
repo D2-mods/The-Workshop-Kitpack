@@ -8,6 +8,17 @@ kitid needs to be 6 characters or less
 OUTER_TEXT_SPRINT kitfolder ~%MOD_FOLDER%/kits/%kitname%~
 
 
+//
+ACTION_PHP_EACH d2wk_kitname_array AS id => name BEGIN
+  ACTION_IF (~%kitid%~ STR_EQ ~%id%~) BEGIN
+    OUTER_TEXT_SPRINT kitid_name ~%name%~
+    PRINT @99
+  END
+END
+
+ACTION_IF ((IS_AN_INT silentmode) AND (silentmode > 0)) BEGIN SILENT END
+
+
 //passive effects
 OUTER_TEXT_SPRINT e1 ~%kitid%e1~
 OUTER_TEXT_SPRINT e2 ~%kitid%e2~
