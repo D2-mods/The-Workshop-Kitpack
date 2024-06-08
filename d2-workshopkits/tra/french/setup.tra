@@ -17,6 +17,10 @@ Text in this file appears in the weidu installer.
 @7 = ~Patches supplémentaires pour les objets.~
 @8 = ~Patches supplémentaires pour les créatures.~
 @9 = ~Patches pour les restrictions des armures.~
+@11 = ~Reconstruction des tables de sortilèges...~
+@12 = ~Construction de la table de %spellitemkit%.~
+@13 = ~Construction des effets de %spellitemkit%.~
+@99 = ~En cours %kitid_name%...~
 
 
 
