@@ -141,12 +141,19 @@ LAF ADD_KIT_EX
     clsrcreq = ~1 1 1 1 1 1 1~                // Usable by all races, if base class is usable
     alignmnt = ~1 1 1 1 1 1 1 1 1~
     weapprof = ~%multikitprofs%~
-//    clasiskl = ~0 0 0 0 0 0 0~       // initial skills
-    thiefscl = ~0 0 0 50 50 0 0 0~     // skills percent modifier
-    clascolr = ~137 141 142 24 138~    // shaman colors
+//    clasiskl = ~0 0 0 0 0 0 0~              // initial skills
+//    thiefscl = ~0 0 0 50 50 0 0 0~          // skills percent modifier (using below method)
+    clascolr = ~137 141 142 24 138~           // shaman colors
   RET 
     kit_id
 END
+
+
+//edit stealth skill
+COPY_EXISTING ~thiefscl.2da~  ~override~
+  LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%CR~ row_name=MOVE_SILENTLY entry=50 END
+  LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%CR~ row_name=HIDE_IN_SHADOWS entry=50 END
+BUT_ONLY
 
 
 //DoF spheres

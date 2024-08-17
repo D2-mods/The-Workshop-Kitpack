@@ -18,8 +18,61 @@ THEN
 END
 
 IF
+	Global("d2activate","LOCALS",0)
+	Allegiance(Myself,GOODCUTOFF)
+	!Global("d2riftga","GLOBAL",1)
+	!See([EVILCUTOFF])
+THEN
+	RESPONSE #100
+		SetGlobal("d2activate","LOCALS",1)
+		SetGlobalTimer("d2activatetimer","LOCALS",1)
+		Continue()
+END
+
+IF
+	Global("d2activate","LOCALS",1)
+	Allegiance(Myself,GOODCUTOFF)
+	!Global("d2riftga","GLOBAL",1)
+	!GlobalTimerNotExpired("d2activatetimer","LOCALS")
+	!GlobalTimerNotExpired("d2killgolem","GLOBAL")
+	!Global("d2sentry","LOCALS",1)
+	!Global("d2sentry","LOCALS",2)
+	!See([EVILCUTOFF])
+THEN
+	RESPONSE #100
+		SetGlobal("d2activate","LOCALS",2)
+//		DisplayStringHeadNoLog(Myself,@451)
+		DisplayString(Myself,"%follow_party%")
+		Continue()
+END
+
+IF
+	HotKey(B)
+	!Global("d2sentry","LOCALS",1)
+	Allegiance(Myself,GOODCUTOFF)
+THEN
+	RESPONSE #100
+		DisplayStringHeadNoLog(Myself,@452)
+		DisplayString(Myself,"%hold_position%")
+		PlaySound("GOLEM03")
+		SetGlobal("d2sentry","LOCALS",1)
+END
+
+IF
+	HotKey(E)
+	Global("d2sentry","LOCALS",1)
+	Allegiance(Myself,GOODCUTOFF)
+THEN
+	RESPONSE #100
+		DisplayStringHeadNoLog(Myself,@451)
+		DisplayString(Myself,"%follow_party%")
+		PlaySound("GOLEM04")
+		SetGlobal("d2sentry","LOCALS",2)
+END
+
+IF
 	GlobalTimerNotExpired("d2randomwalk","LOCALS")
-	Range([PC],20)
+	Range([PC],17)
 	!See(NearestEnemyOf())
 	!ActuallyInCombat()
 THEN
@@ -30,7 +83,7 @@ END
 
 IF
 	GlobalTimerNotExpired("d2randomwalk","LOCALS")
-	Range([PC],20)
+	Range([PC],17)
 	See(NearestEnemyOf())
 THEN
 	RESPONSE #100
@@ -40,9 +93,10 @@ END
 
 IF
 	ActionListEmpty()
+	!Global("d2sentry","LOCALS",1)
+	!GlobalTimerNotExpired("d2randomwalk","LOCALS")
 	Allegiance(Myself,GOODCUTOFF)
 	InMyArea(LastSummonerOf())
-	!GlobalTimerNotExpired("d2randomwalk","LOCALS")
 	!Detect([PC])
 	!See(NearestEnemyOf())
 THEN
@@ -55,6 +109,7 @@ IF
 	OR(2)
 		ActionListEmpty()
 		!Allegiance(Myself,GOODCUTOFF)
+	!Global("d2sentry","LOCALS",1)
 	!GlobalTimerNotExpired("d2randomwalk","LOCALS")
 	!Detect([PC])
 	!See(NearestEnemyOf())
@@ -79,7 +134,7 @@ IF
 	OR(2)
 		ActionListEmpty()
 		!Allegiance(Myself,GOODCUTOFF)
-	Range(NearestEnemyOf(),15)
+	Range(NearestEnemyOf(),8)
 	Delay(15)
 THEN
 	RESPONSE #100

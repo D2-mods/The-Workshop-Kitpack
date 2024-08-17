@@ -23,23 +23,27 @@ Text in this file appears in the game.
 @301 = ~Entangled~
 @302 = ~Bleeding~
 @303 = ~You cannot cast this spell until the current casting has run out.~
-@304 = ~^AActivated Golem Ring^-~
-@305 = ~^$A Caryll Rune has been etched in the minds of all party members.^-~    // symbols are for colored text
+@304 = ~Activated Golem Ring~
+@305 = ~A Caryll Rune has been etched in the minds of all party members.~ 
 @306 = ~Regenerating~
 @307 = ~Healed~
 @308 = ~Hasted~
 @309 = ~Confused~
 @310 = ~Panic~
-@311 = ~Berserk~
-@312 = ~^AUsed Hunter Bone^-~
-@313 = ~^$Consumed Demon Soul...^-~
+@311 = ~Berserk!!!~
+@312 = ~Used Hunter Bone~
+@313 = ~A Demon's Soul was consumed...~
 @314 = ~Feebleminded~
 @315 = ~Sleep~
 @316 = ~Gained Passive Ability: Torrent~
 @317 = ~Gained Passive Ability: Critical Boost~
 @318 = ~Gained Passive Ability: Flash Cast~
 @319 = ~Tickled...~
-@320 = ~^AMinistration failed! The recipient refused the Blood Transfusion.^-~
+@320 = ~Ministration failed! The recipient refused the Blood Transfusion.~    // for Blood Minister
+@321 = ~Decaying~
+@322 = ~The effects of the Moonscar grow stronger.~    // for Moonlight Knight
+@323 = ~+1 ki power restored~
+@324 = ~Not enough ki power!~
 
 
 //text with variables
@@ -47,6 +51,19 @@ Text in this file appears in the game.
 @351 = ~Gained Passive Ability: %ability_name%~
 @352 = ~%ability_name% activated. The effects have now ended.~
 @353 = ~Note: All kit abilities are gained from %baseclass% levels. (%multiclass%)~
+@354 = ~The %summon_name% follows the party when not in combat. Press the B key to make it hold position.~
+@355 = ~The %summon_name% holds position when not in combat. Press the E key to make it follow the party.~
+@356 = ~%spellitemkit% Config~
+
+
+//additional text (for game/config)
+@750 = ~This spell has no effect on undead, constructs, or extraplanar creatures.~    // medic.tph
+@751 = ~Config option: Allies are affected by the knockback effect from Shockwave.~    // shockwavepatch.tph
+@752 = ~– May not use the Cure Disease ability.~    // confessor.tph
+
+//additional text (for mod compat)
+@650 = ~The Bard's Song may be used an unlimited number of times, and lasts for 6 rounds + 1 round per 5 levels gained. The Bard Song has a cooldown of 1 turn before it may be used again.~    // rrbardsongs.tph
+@651 = ~Once a Bard's musical talents have reached a significant level, his music can stay with the listeners long after the last note has died away. After the Bard stops playing, the effects of his or her song last an additional 2 rounds.~    // rrbardsongs.tph
 
 
 //Floating text (Starjammer rift spells)
@@ -62,7 +79,9 @@ Text in this file appears in the game.
 @409 = ~What the...!?~
 @410 = ~Uhh, maybe this wasn't such a great idea...~
 @411 = ~Be careful!~
-@450 = ~^$The balor retreats, seeking other worlds to destroy.^-~
+@450 = ~The balor retreats, seeking other worlds to destroy...~
+@451 = ~I follow.~
+@452 = ~I stay here.~
 
 
 //Names that don't fit in other sections
@@ -89,6 +108,11 @@ Text in this file appears in the game.
 @620 = ~Critical Boost~              // for Full Metal Jaguar
 @621 = ~Flash Cast~                  // for Spell Fencer
 @622 = ~Torrent~
+@623 = ~Torrent ( II )~
+@624 = ~Torrent ( III )~
+@625 = ~Hide Feedback~               // medicconfig.tph
+@626 = ~Show Feedback~
+@627 = ~Remove Config (permanent)~
 
 
 //checks made during install (not used anymore)
@@ -109,9 +133,9 @@ Text in this file appears in the game.
 	@60111 = ~Reach in to grab the stone.~
 	@60112 = ~Leave it alone.~
 
-@60121 = ~It runs away!~
-@60131 = ~It dropped something!~
- 
+@60121 = ~It runs away!~ [CHICK07]
+@60131 = ~It dropped something!~ [CHICK06]
+
 
 
 //
@@ -150,7 +174,7 @@ Advantages:
 – +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.
 – 2nd level: May use the Hunter Tools ability once per day. Gains additional uses every 4 levels thereafter.
 
-HUNTER TOOLS: For 12 rounds, the character gains a +1 bonus to luck and a +1 bonus to Saving Throws, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
+HUNTER TOOLS: For 12 rounds, the character gains a +1 bonus to luck rolls and Saving Throws, and melee attacks deal an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
 
 – 5th level: May use the Quicksilver ability once per day. Gains additional uses at levels 9 and 13.
 
@@ -170,12 +194,12 @@ Disadvantages:
 Advantages:
 – +1 bonus to Armor Class vs. missile, plus an additional +1 bonus every 5 levels.
 – +1 to ranged attack and damage rolls at 3rd level and an additional +1 bonus every 5 levels thereafter.
-– May achieve Grand Mastery (five slots) in longbows, shortbows, crossbows, slings, and darts.
+– May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.
 – May use the Shockwave and Incinerate abilities. Gains one use each at level 4, plus an additional use each every 4 levels, up to a maximum of 5 uses each at level 20.
 
-SHOCKWAVE: The next successful ranged attack explodes in a wave of energy. All creatures in a 15-ft. radius take 2d4 crushing damage and are propelled back a considerable distance (no save). The blast inflicts an additional 2d4 crushing damage every 4 levels, up to a maximum of 10d4 at level 20.
+SHOCKWAVE: The next successful ranged attack explodes in a 15-ft. radius, inflicting 2d4 crushing damage for every 4 levels of the character, up to a maximum of 10d4 at level 20. Any enemies in the blast are also propelled back a considerable distance (no save).
 
-INCINERATE: The next successful ranged attack expands into a fiery cloud, covering a 15-ft. radius. All creatures in the cloud suffer 1d6 fire damage each round for 4 rounds (Save vs. Breath for half). Damage per round increases by 1d6 every 4 levels, up to a maximum of 5d6 at level 20.
+INCINERATE: The next successful ranged attack creates a fiery cloud, which covers a 15-ft. radius and lasts for 4 rounds. Once each round, creatures in the cloud suffer 1d6 fire damage per 4 levels of the character, up to a maximum of 5d6 at level 20 (Save vs. Breath for half).
 
 Disadvantages:
 – May not Specialize in melee weapons.
@@ -339,13 +363,13 @@ Advantages:
   10th level: Madman's Blood.
   14th level: Lead Elixir.
 
-HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
+HEALING BLOOD: Blood drawn from a nun of the Healing Church. Restores 15% of maximum Hit Points and grants the miracle of regeneration, healing an additional 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
 
 BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The recipient gains a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the recipient incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
 
-MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +4 to all mental Attributes, +5% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
 
-LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhibit other abilities. The recipient has all physical damage resistances set to 50%, but incurs a -1 penalty to luck. The effects last for 3 turns. This blood will also prevent level drain.
+LEAD ELIXIR: A mysterious concoction that shifts weight to boost defense and resilience. The recipient gains a +4 bonus to Armor Class and Saving Throws, and 20% base resistance to all damage types, but incurs a -1 penalty to luck rolls. The effects last for 3 turns. This blood will also prevent level drain.
 
 Disadvantages:
 – May not wear gauntlets or bracers.~
@@ -445,26 +469,32 @@ Disadvantages:
 @101303 = ~MEDIC: This Monk is a skilled medical practitioner, as well as warrior, and has undergone special training, applying powerful herbal remedies to aid in combat.
 
 Advantages:
-– May use the Black Remedy and White Remedy abilities. Gains one use each at level 1 and an additional use each every 5 levels thereafter.
+– Gains ki power, which is used to activate kit abilities. Gains +1 to maximum ki power every 2 levels (starting at 1st level).
+– Ki Regen: The character passively regains 1 ki power every 5 rounds.
+– May use the Black Remedy ability. Requires 1 ki power.
 
 BLACK REMEDY: All attacks in the next 10 seconds spread a healing remedy. Restores 2d6 Hit Points to allies in a 7-ft. radius.
 
+– 5th level: May use the White Remedy ability. Requires 2 ki power.
+
 WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
 
-– 5th level: May use Slow Poison three times per day.
-– 7th level: May use Cure Disease once per day.
-– 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
+– 7th level: May use the Medic Arts ability. Requires 3 ki power.
 
-HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius for 2 rounds, washing away fatigue and healing all creatures in the area 3d8+2 Hit Points each round.
+MEDIC ARTS: Use this ability to select from a list of Medic Arts. The list of abilities includes Lay On Hands, Cure Afflictions, Recall Spirit, Spiritual Clarity, and Poison Weapon. Curative spells are applied instantly to the touched creature.
 
-– 10th level: May use Neutralize Poison three times per day (replaces Slow Poison).
-– 14th level: May use Heal once per day (replaces Cure Disease).
-– 18th level: May use Lesser Restoration three times per day.
+– 9th level: May use the Healing Rain ability. Requires 4 ki power.
+
+HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius for 2 rounds, washing away fatigue and healing all allied and neutral creatures in the area 3d8+2 Hit Points each round.
+
+– 13th level: May use the Dragonrot ability. Requires 5 ki power.
+
+DRAGONROT: An illusory dragon's head spews forth decaying breath. All enemies in a 15-ft. radius suffer a deathly rotting, which inflicts 1d8+5 magic damage per round for 5 rounds (no save). Victims also suffer a -4 penalty to Saving Throws for the duration. The effects are noncumulative.
 
 Disadvantages:
-– May not use bladed weapons, other than short swords or daggers.
-– May not use the Lay On Hands ability.
-– May not use the Stunning Blow ability.~
+– Only gains 8 thieving skill points per level.
+– May not use the Stunning Blow ability.
+– May not use the Quivering Palm ability.~
 @101304 = ~~
 @101305 = ~~
 
@@ -476,7 +506,7 @@ Disadvantages:
 
 Advantages:
 – +1 bonus to ranged attack rolls at 1st level, plus an additional +1 bonus every 5 levels.
-– May achieve Grand Mastery (five slots) in longbows, shortbows, crossbows, slings, and darts.
+– May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.
 – 3rd level: May use the Blood Bullet ability once per day. Gains additional uses every 3 levels thereafter.
 
 BLOOD BULLET: The character sacrifices 5 Hit Points. For the next 2 rounds, the bonus to ranged THAC0 is doubled, and all ranged attacks deal an extra 1d3 piercing damage for every 3 levels of the character.
@@ -503,12 +533,12 @@ Disadvantages:
 
 Advantages:
 – +1 bonus to attack and damage rolls.
-– Immune to backstab.
+– 3rd level: Immune to backstab.
 – 5th level: May use the Ghostwalker ability once per day. Gains additional uses every 5 levels thereafter.
 
 GHOSTWALKER: This ability lasts 5 rounds. Once each round, 1 mirror image is created on the character, which can absorb one attack during that round. The number of images created increases to 2 per round at level 10, 3 per round at level 15, and 4 per round at level 20.
 
-– 8th level: Gains the Critical Boost ability (passive).
+– 7th level: Gains the Critical Boost ability (passive).
 
 CRITICAL BOOST: Ranged attacks boost melee critical chance. Each hit with a ranged weapon gives a cumulative +5% bonus for 3 rounds. A critical miss resets the bonus.
 
@@ -606,7 +636,7 @@ Disadvantages:
 @100 = ~Hunter Tools~
 @200 = ~Hunter Tools
 
-For 12 rounds, the character gains a +1 bonus to luck and a +1 bonus to Saving Throws, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.~
+For 12 rounds, the character gains a +1 bonus to luck rolls and Saving Throws, and melee attacks deal an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.~
 
 @101 = ~Quicksilver~
 @201 = ~Quicksilver
@@ -618,7 +648,7 @@ The enchantment bonus is at +4. It works against natural immunities and general 
 @102 = ~Shockwave~
 @202 = ~Shockwave
 
-The next successful ranged attack explodes in a wave of energy. All creatures in a 15-ft. radius take 2d4 crushing damage and are propelled back a considerable distance (no save). Damage increases to 4d4 at level 8, 6d4 at level 12, 8d4 at level 16, and 10d4 at level 20.
+The next successful ranged attack explodes in a 15-ft. radius, inflicting 2d4 crushing damage for every 4 levels of the character, up to a maximum of 10d4 at level 20. Any enemies in the blast are also propelled back a considerable distance (no save).
 
 The shot must be made within 2 rounds or the effect will dissipate.
 Cannot be used together with Incinerate.~
@@ -626,7 +656,7 @@ Cannot be used together with Incinerate.~
 @103 = ~Incinerate~
 @203 = ~Incinerate
 
-The next successful ranged attack expands into a fiery cloud, covering a 15-ft. radius. All creatures in the cloud suffer 1d6 fire damage each round for 4 rounds (Save vs. Breath for half). Damage per round increases to 2d6 at level 8, 3d6 at level 12, 4d6 at level 16, and 5d6 at level 20.
+The next successful ranged attack creates a fiery cloud, which covers a 15-ft. radius and lasts for 4 rounds. Once each round, creatures in the cloud suffer 1d6 fire damage per 4 levels of the character, up to a maximum of 5d6 at level 20 (Save vs. Breath for half).
 
 The shot must be made within 2 rounds or the effect will dissipate.
 Cannot be used together with Shockwave.~
@@ -688,13 +718,13 @@ The following transfusions are gained:
   10th level: Madman's Blood.
   14th level: Lead Elixir.
 
-HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
+HEALING BLOOD: Blood drawn from a nun of the Healing Church. Restores 15% of maximum Hit Points and grants the miracle of regeneration, healing an additional 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
 
 BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The recipient gains a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the recipient incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
 
-MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +4 to all mental Attributes, +5% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
 
-LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhibit other abilities. The recipient has all physical damage resistances set to 50%, but incurs a -1 penalty to luck. The effects last for 3 turns. This blood will also prevent level drain.~
+LEAD ELIXIR: A mysterious concoction that shifts weight to boost defense and resilience. The recipient gains a +4 bonus to Armor Class and Saving Throws, and 20% base resistance to all damage types, but incurs a -1 penalty to luck rolls. The effects last for 3 turns. This blood will also prevent level drain.~
 
 @113 = ~Splintering Shot~
 @213 = ~Splintering Shot
@@ -752,17 +782,23 @@ Use this ability to craft 1 Hunter Badge. This action requires a full round to c
 @122 = ~Black Remedy~
 @222 = ~Black Remedy
 
-All attacks in the next 10 seconds spread a healing remedy. Restores 2d6 Hit Points to allies in a 7-ft. radius.~
+All attacks in the next 10 seconds spread a healing remedy. Restores 2d6 Hit Points to allies in a 7-ft. radius.
+
+Requires 1 ki power.~
 
 @123 = ~White Remedy~
 @223 = ~White Remedy
 
-All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.~
+All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
+
+Requires 2 ki power.~
 
 @124 = ~Healing Rain~
 @224 = ~Healing Rain
 
-Crystal healing shards rain down in a 12-ft. radius for 2 rounds, washing away fatigue and healing all creatures in the area 3d8+2 Hit Points each round.~
+Crystal healing shards rain down in a 12-ft. radius for 2 rounds, washing away fatigue and healing all allied and neutral creatures in the area 3d8+2 Hit Points each round.
+
+Requires 4 ki power.~
 
 @125 = ~Blood Bullet~
 @225 = ~Blood Bullet
@@ -825,6 +861,25 @@ OVERDOSE: For 5 rounds, the character gains an extra attack per round, +3 per le
 INJECTION SHOT: The next successful ranged attack forces the target to make a save vs. Death at -2 or become feebleminded for 7 rounds. If the Saving Throw is made, the target is confused and slowed for 2 rounds.
 
 AUTOIMMUNE: The recipient is automatically cured of the next instance of poison, disease, hold, paralysis, stun, sleep, blindness, deafness, charm, berserk, fear, confusion, or feeblemind. This ability lasts up to 3 turns.~
+
+@133 = ~Cure Afflictions~
+@233 = ~Cure Afflictions
+
+The touched creature is healed 5 Hit Points and cured of poison, disease, blindness, deafness, level drain, feeblemind, berserk, and petrification.~
+
+@134 = ~Dragonrot~
+@234 = ~Dragonrot
+
+An illusory dragon's head spews forth decaying breath. All enemies in a 15-ft. radius suffer a deathly rotting, which inflicts 1d8+5 magic damage per round for 5 rounds (no save). Victims also suffer a -4 penalty to Saving Throws for the duration. The effects are noncumulative.
+
+Requires 5 ki power.~
+
+@135 = ~Medic Arts~
+@235 = ~Medic Arts
+
+Use this ability to select from a list of Medic Arts. The list of abilities includes Lay On Hands, Cure Afflictions, Recall Spirit, Spiritual Clarity, and Poison Weapon. Curative spells are applied instantly to the touched creature.
+
+Requires 3 ki power.~
 
 
 
@@ -1256,7 +1311,8 @@ STATISTICS:
 Equipped abilities: 
 – Armor Class: +1
 – Saving Throws: +1
-– Magic Resistance: +10%
+– Magic Resistance: +5%
+– Vocalize
 
 Special (Beast Hunter): 
 – Hunter Tools: Target is drained 1 level on a failed save vs. Spell at -2

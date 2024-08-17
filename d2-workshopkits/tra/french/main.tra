@@ -22,23 +22,23 @@ Text in this file appears in the game.
 @301 = ~Enchevêtré(e)~
 @302 = ~Hémorragie~ 
 @303 = ~Vous ne pouvez pas lancer ce sort tant que le sort précédent n’a pas expiré.~
-@304 = ~^$AAnneau du Golem activé^-~
-@305 = ~^$Une Rune de Caryll a été gravée dans l'esprit de tous les membres du groupe.^-~    // symbols are for colored text
+@304 = ~Anneau du Golem activé~
+@305 = ~Une Rune de Caryll a été gravée dans l'esprit de tous les membres du groupe.~    // symbols are for colored text
 @306 = ~Régénération~
 @307 = ~Guéri~
 @308 = ~Sous l'effet de la hâte~
 @309 = ~Confus~
 @310 = ~Panique~
 @311 = ~Berserk~
-@312 = ~^AOs du chasseur épuisé^-~
-@313 = ~^$Âme du démon consumé...^-~
+@312 = ~Os du chasseur épuisé~
+@313 = ~Âme du démon consumé...~
 @314 = ~Débilité mentale~
 @315 = ~Sommeil~
 @316 = ~Nouvelle capacité passive « Cascade »~
 @317 = ~Nouvelle capacité passive « Décochage critique »~
 @318 = ~Nouvelle capacité passive « Plus vite que son ombre »~
 @319 = ~Ça chatouille...~
-@320 = ~^ASanguination inopérante ! Le sujet a rejeté la transfusion.^-~
+@320 = ~Sanguination inopérante ! Le sujet a rejeté la transfusion.~
 
 
 //text with variables
@@ -62,7 +62,7 @@ Text in this file appears in the game.
 @409 = ~Qu'est-ce que... !?~
 @410 = ~Hum, ce n'était peut-être pas une si bonne idée finalement...~
 @411 = ~Soyez prudent !~
-@450 = ~^$Le balor bat en retraite et part à la recherche d'autres mondes à dévaster.^-~
+@450 = ~Le balor bat en retraite et part à la recherche d'autres mondes à dévaster.~
 
 
 //Names that don't fit in other sections

@@ -1,0 +1,100 @@
+/*
+for archer kits
+add Argent77 HLAs if detected (kit with hla must be installed)
+*/
+
+
+//
+ACTION_IF !(IS_AN_INT archerhla1) BEGIN  OUTER_SET archerhla1 = 0 END
+ACTION_IF !(IS_AN_INT archerhla2) BEGIN  OUTER_SET archerhla2 = 0 END
+ACTION_IF !(FILE_EXISTS ~override/A7#IN0A.SPL~) BEGIN  OUTER_SET archerhla1 = 0 END
+ACTION_IF !(FILE_EXISTS ~override/A7#IN0B.SPL~) BEGIN  OUTER_SET archerhla2 = 0 END
+
+/*variables
+archerhla1 = 1 (sure shot)
+archerhla2 = 1 (missile trap)
+idsname - kit name in luabbr
+abbrev - new hla table name (without the "lu")
+
+one of the archerhlas must be set to = 1 to do anything (disabled if not set)
+idsname and abbrev are required to make new hla table (cloned from kit's existing table)
+*/
+
+
+//
+ACTION_IF (archerhla1 > 0) BEGIN
+  OUTER_SET clone_match = 0
+  ACTION_FOR_EACH table IN ~A7ra1~ ~A7fi1~ ~A7pa1~ BEGIN
+    ACTION_IF (clone_match = 0) BEGIN
+      ACTION_IF (RESOURCE_CONTAINS ~lu%table%.2da~ ~GA_A7#IN0A~) BEGIN
+        OUTER_TEXT_SPRINT hla1_2da ~lu%table%~
+        OUTER_SET clone_match = 1
+      END
+    END
+  END
+
+  ACTION_IF (clone_match = 0) BEGIN
+    OUTER_SET archerhla1 = 0
+  END
+END
+
+ACTION_IF (archerhla2 > 0) BEGIN
+  OUTER_SET clone_match = 0
+  ACTION_FOR_EACH table IN ~A7ra1~ ~A7th1~ BEGIN
+    ACTION_IF (clone_match = 0) BEGIN
+      ACTION_IF (RESOURCE_CONTAINS ~lu%table%.2da~ ~GA_A7#IN0B~) BEGIN
+        OUTER_TEXT_SPRINT hla2_2da ~lu%table%~
+        OUTER_SET clone_match = 1
+      END
+    END
+  END
+
+  ACTION_IF (clone_match = 0) BEGIN
+    OUTER_SET archerhla2 = 0
+  END
+END
+
+
+//
+ACTION_IF ((archerhla1 > 0) OR (archerhla2 > 0)) BEGIN
+  LAF d2_clone_hla_table STR_VAR kitids=~%idsname%~ abbrev=~%abbrev%~ RET hlatable END
+END
+
+ACTION_IF (archerhla1 > 0) BEGIN
+  OUTER_SET insert_match = 0
+  ACTION_FOR_EACH spell IN ~GA_SPCL906~ ~GA_SPCL908~ ~GA_SPCL907~ BEGIN
+    ACTION_IF (insert_match = 0) BEGIN
+      ACTION_IF (RESOURCE_CONTAINS ~%hlatable%.2da~ ~%spell%~) BEGIN
+        OUTER_TEXT_SPRINT hla1_insert ~%spell%~
+        OUTER_SET insert_match = 1
+      END
+    END
+  END
+  LAF d2_get_hla_string STR_VAR clone_res=~GA_A7#IN0A~ clone_2da=~%hla1_2da%~ RET hlastring END
+  LAF d2_add_hla_string STR_VAR hlatable=~%hlatable%~ hlastring=~%hlastring%~ match=~%hla1_insert%~ END
+END
+
+ACTION_IF (archerhla2 > 0) BEGIN
+  OUTER_SET insert_match = 0
+  ACTION_FOR_EACH spell IN ~AP_SPCL915~ ~GA_SPCL916~ ~GA_SPCL918~ BEGIN
+    ACTION_IF (insert_match = 0) BEGIN
+      ACTION_IF (RESOURCE_CONTAINS ~%hlatable%.2da~ ~%spell%~) BEGIN
+        OUTER_TEXT_SPRINT hla2_insert ~%spell%~
+        OUTER_SET insert_match = 1
+      END
+    END
+  END
+  LAF d2_get_hla_string STR_VAR clone_res=~GA_A7#IN0B~ clone_2da=~%hla2_2da%~ RET hlastring END
+  LAF d2_add_hla_string STR_VAR hlatable=~%hlatable%~ hlastring=~%hlastring%~ match=~%hla2_insert%~ END
+END
+
+
+//variables
+OUTER_TEXT_SPRINT argent77_hla1  ~A7#IN0A~
+OUTER_TEXT_SPRINT argent77_hla2  ~A7#IN0B~
+OUTER_SET archerhla1 = 0
+OUTER_SET archerhla2 = 0
+
+
+//
+//

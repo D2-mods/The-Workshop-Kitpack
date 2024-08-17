@@ -64,8 +64,8 @@ ADD_JOURNAL @50391
 <<<<<<<< .../temp/oldjed
 EXTEND_BOTTOM ~DOLDJED~ 14 15 16
 
-IF ~ GlobalGT("Siren_Quest","GLOBAL",2)  // did Siren quest
-     GlobalGT("Arbor_Total","GLOBAL",3)  // did Arboretum quest
+IF ~ GlobalGT("Siren_Quest","GLOBAL",2)    // did Siren quest
+     GlobalGT("Arbor_Total","GLOBAL",3)    // did Arboretum quest
      Global("d2JedMilkweed","GLOBAL",0)
    ~ DO ~ SetGlobal("d2JedMilkweed","GLOBAL",1)
           GiveItemCreate("%milkweed%",LastTalkedToBy,0,0,0) 
@@ -93,7 +93,7 @@ END
 
 
 
-//Moon Rune chicken (all games)
+//moon rune chicken
 <<<<<<<< .../temp/moonrunechicken
 BEGIN ~d2wkmrc~
 
@@ -123,7 +123,7 @@ END
 
 IF ~~ BEGIN chickendrop
   SAY @60131 
-  IF ~~ DO ~ SetGlobal("d2moonrunechicken","GLOBAL",50)
+  IF ~~ DO ~ SetGlobal("d2moonrunechicken","GLOBAL",99)
              DropItem("%moon_rune%",[-1.-1])
              ApplySpellRES("runrun",Myself)
              RunAwayFrom(LastTalkedToBy,60)

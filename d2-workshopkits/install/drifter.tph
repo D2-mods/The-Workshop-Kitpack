@@ -26,111 +26,129 @@ ACTION_IF ((IS_AN_INT buildeffects) AND (buildeffects = 1)) BEGIN
   ACTION_IF ((IS_AN_INT silentmode) AND (silentmode > 0)) BEGIN SILENT END
 END
 
+//functions
+DEFINE_PATCH_FUNCTION drifter206 BEGIN
+  PHP_EACH d2riftgate AS spell => type BEGIN
+    PATCH_IF !(~%type%~ STRING_CONTAINS_REGEXP ~206~) BEGIN
+      LPF ALTER_EFFECT INT_VAR silent=1 opcode=206 parameter1=0 STR_VAR match_resource=~%spell%~ END
+    END
+  END
+END
 
-//Add SPL for immunities to ground spells
+DEFINE_PATCH_FUNCTION drifter_entangle_check BEGIN
+  PHP_EACH d2statusarray AS spell => type BEGIN
+    PATCH_IF (~%type%~ STR_EQ ~entangle~) BEGIN
+      PATCH_IF !(FILE_EXISTS_IN_GAME ~%spell%.itm~) BEGIN
+        LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%spell%~ END
+      END ELSE BEGIN
+        LPF DELETE_EFFECT STR_VAR match_resource=~%spell%~ END
+        LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=206 parameter1=0 parameter2=0 STR_VAR resource=~%spell%~ END
+      END
+    END
+  END
+END
+
+DEFINE_ACTION_FUNCTION drifter_hit_effects STR_VAR block = ~entangle ground206~ BEGIN
+  ACTION_PHP_EACH d2riftgate AS spell => type BEGIN
+    ACTION_IF !(~%block%~ STRING_CONTAINS_REGEXP ~%type%~) BEGIN
+      COPY_EXISTING ~%spell%.itm~  ~override~
+        LPF drifter_hit_patches END
+      IF_EXISTS BUT_ONLY
+    END
+  END
+END
+
+DEFINE_PATCH_FUNCTION drifter_hit_patches BEGIN
+  LPF d2_protect_on_castequip INT_VAR globals=0 headers=1 header_type=1 cre_type=109 cre_special=IDS_OF_SYMBOL (kit ~D2%kitname%~) duration=0 overwrite=1 STR_VAR insert=first END
+  LPF d2_protect_on_castequip INT_VAR globals=0 headers=1 header_type=2 cre_type=109 cre_special=IDS_OF_SYMBOL (kit ~D2%kitname%~) duration=0 overwrite=0 STR_VAR insert=first END
+END
+
+
+//
+//check spell.ids
+COPY_EXISTING - ~spell.ids~ ~~
+  PHP_EACH ~ids_terrain_immunities~ AS spell_to_add => style BEGIN
+    COUNT_REGEXP_INSTANCES ~[^_]%spell_to_add%[^_]~ spell_is_listed
+    PATCH_IF (spell_is_listed > 0) BEGIN
+      LPF RES_NUM_OF_SPELL_NAME STR_VAR spell_name=~%spell_to_add%~ RET spell_res END
+      TEXT_SPRINT $d2riftgate(~%spell_res%~) ~ground~    // ~%spell_res%~ => ground
+    END
+  END
+
+  PHP_EACH ~ids_cloud_immunities~ AS spell_to_add => style BEGIN
+    COUNT_REGEXP_INSTANCES ~[^_]%spell_to_add%[^_]~ spell_is_listed
+    PATCH_IF (spell_is_listed > 0) BEGIN
+      LPF RES_NUM_OF_SPELL_NAME STR_VAR spell_name=~%spell_to_add%~ RET spell_res END
+      TEXT_SPRINT $d2riftgate(~%spell_res%~) ~cloud~    // ~%spell_res%~ => cloud
+    END
+  END
+// end inlined COPY
+
+
+//
+//Check spell resource (stuff not in spell.ids)
+ACTION_PHP_EACH ~drifter_not_spellids~ AS spell_to_add => style BEGIN
+
+  ACTION_IF (~%style%~ STR_EQ ~ground~) BEGIN
+    OUTER_TEXT_SPRINT $d2riftgate(~%spell_to_add%~) ~ground~    // ~%spell_to_add%~ => ground
+  END
+  ACTION_IF (~%style%~ STR_EQ ~ground206~) BEGIN
+    OUTER_TEXT_SPRINT $d2riftgate(~%spell_to_add%~) ~ground206~    // ~%spell_to_add%~ => ground206
+  END
+  ACTION_IF (~%style%~ STR_EQ ~cloud~) BEGIN
+    OUTER_TEXT_SPRINT $d2riftgate(~%spell_to_add%~) ~cloud~    // ~%spell_to_add%~ => cloud
+  END
+  ACTION_IF (~%style%~ STR_EQ ~cloud206~) BEGIN
+    OUTER_TEXT_SPRINT $d2riftgate(~%spell_to_add%~) ~cloud206~    // ~%spell_to_add%~ => cloud206
+  END
+
+END
+
+
+//
+//match spell name as string ref (catch clones of spells)
+ACTION_IF (GAME_IS ~bgee~)       BEGIN OUTER_TEXT_SPRINT ee_game ~bgee~ END
+ACTION_IF (GAME_IS ~bg2ee eet~)  BEGIN OUTER_TEXT_SPRINT ee_game ~bg2ee~ END
+ACTION_IF (GAME_IS ~iwdee~)      BEGIN OUTER_TEXT_SPRINT ee_game ~iwdee~ END
+
+ACTION_BASH_FOR ~override~ ~.*\.SPL~ BEGIN
+  ACTION_IF !(FILE_IS_IN_COMPRESSED_BIFF ~%BASH_FOR_FILE%~) BEGIN    // only check mod resource
+    COPY - ~override/%BASH_FOR_FILE%~  ~~
+      READ_LONG 0x8 stringref
+
+      PHP_EACH ~drifter_%ee_game%_strings~ AS string => style BEGIN    
+        PATCH_IF (string = stringref) BEGIN
+          PATCH_IF (~%style%~ STR_EQ ~ground~) BEGIN
+            TEXT_SPRINT $d2riftgate(~%BASH_FOR_RES%~) ~ground~    // ~%BASH_FOR_RES%~ => ground
+          END
+          PATCH_IF (~%style%~ STR_EQ ~cloud~) BEGIN
+            TEXT_SPRINT $d2riftgate(~%BASH_FOR_RES%~) ~cloud~    // ~%BASH_FOR_RES%~ => cloud
+          END
+        END
+      END
+    // end inlined COPY
+  END
+END
+
+
+//
+//add SPLs for immunities to ground spells
 COPY ~%passives%/drifter.SPL~  ~override/%e6%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_entangle_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_grease_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_web_arrays END
   LPF d2_string_immunities END
   LPF ee_fixpack_immunities STR_VAR status=~web entangle~ END
-  LPF earthquake_immunity STR_VAR block=~quake bigby~ END
-
-COPY_EXISTING - ~spell.ids~ ~~
-  PHP_EACH ~ids_terrain_immunities~ AS spell_to_add => style BEGIN
-    COUNT_REGEXP_INSTANCES ~[^_]%spell_to_add%[^_]~ spell_is_listed
-    PATCH_IF (spell_is_listed > 0) BEGIN
-      LPF RES_NUM_OF_SPELL_NAME STR_VAR spell_name=~%spell_to_add%~ RET spell_res END
-      INNER_ACTION BEGIN
-        ACTION_IF (FILE_EXISTS_IN_GAME ~%spell_res%.SPL~) BEGIN
-          COPY ~override/%e6%.SPL~  ~override~
-            LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell_res%~ END
-            LPF DELETE_EFFECT INT_VAR match_opcode=206 STR_VAR match_resource=~%spell_res%~ END
-          BUT_ONLY
-        END
-      END
-    END
-  END
-
-
-//Add SPL for immunity to cloud spells
-COPY ~%passives%/opcode206.SPL~  ~override/%e7%.SPL~
-  LPF insect_immunity END
+  LPF riftgate_immunity STR_VAR block=~ground quake ground206~ END
   LPF DELETE_EFFECT INT_VAR match_opcode=206 END
+  LPF drifter_entangle_check END
+  LPF drifter206 END
 
-COPY_EXISTING - ~spell.ids~ ~~
-  PHP_EACH ~ids_cloud_immunities~ AS spell_to_add => style BEGIN
-    COUNT_REGEXP_INSTANCES ~[^_]%spell_to_add%[^_]~ spell_is_listed
-    PATCH_IF (spell_is_listed > 0) BEGIN
-      LPF RES_NUM_OF_SPELL_NAME STR_VAR spell_name=~%spell_to_add%~ RET spell_res END
-      INNER_ACTION BEGIN
-        ACTION_IF (FILE_EXISTS_IN_GAME ~%spell_res%.SPL~) BEGIN
-          COPY ~override/%e7%.SPL~  ~override~
-            LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell_res%~ END
-          BUT_ONLY
-        END
-      END
-    END
-  END
-
-
-//add spells not in spell.ids (premade list of resource names)
-ACTION_PHP_EACH ~drifter_not_spellids~ AS spell_to_add => style BEGIN
-
-  ACTION_IF (~%style%~ STR_EQ ~ground~) BEGIN
-    COPY ~override/%e6%.SPL~  ~override~
-      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell_to_add%~ END
-      LPF DELETE_EFFECT INT_VAR match_opcode=206 STR_VAR match_resource=~%spell_to_add%~ END
-    BUT_ONLY
-  END
-
-  ACTION_IF (~%style%~ STR_EQ ~ground206~) BEGIN
-    COPY ~override/%e6%.SPL~  ~override~
-      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=206 STR_VAR resource=~%spell_to_add%~ END
-    BUT_ONLY
-  END
-
-  ACTION_IF (~%style%~ STR_EQ ~cloud~) BEGIN
-    COPY ~override/%e7%.SPL~  ~override~
-      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%spell_to_add%~ END
-    BUT_ONLY
-  END
-
-END
-
-
-//check spells names in override (catch clones of spells)
-ACTION_IF (GAME_IS ~bgee~)       BEGIN OUTER_TEXT_SPRINT ee_game ~bgee~ END
-ACTION_IF (GAME_IS ~bg2ee eet~)  BEGIN OUTER_TEXT_SPRINT ee_game ~bg2ee~ END
-ACTION_IF (GAME_IS ~iwdee~)      BEGIN OUTER_TEXT_SPRINT ee_game ~iwdee~ END
-
-ACTION_BASH_FOR ~override~ ~.*\.SPL~ BEGIN
-  ACTION_IF !(FILE_IS_IN_COMPRESSED_BIFF ~%BASH_FOR_FILE%~) BEGIN
-    COPY - ~override/%BASH_FOR_FILE%~  ~~
-      READ_LONG 0x8 stringref
-
-      PHP_EACH ~drifter_%ee_game%_strings~ AS string => style BEGIN    
-        PATCH_IF (string = stringref) BEGIN
-          INNER_ACTION BEGIN
-            ACTION_IF (~%style%~ STR_EQ ~ground~) BEGIN
-              COPY ~override/%e6%.SPL~  ~override~
-                LPF DELETE_EFFECT INT_VAR match_opcode=318 STR_VAR match_resource=~%BASH_FOR_RES%~ END
-                LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%BASH_FOR_RES%~ END
-              BUT_ONLY
-            END
-      
-            ACTION_IF (~%style%~ STR_EQ ~cloud~) BEGIN
-              COPY ~override/%e7%.SPL~  ~override~
-                LPF DELETE_EFFECT INT_VAR match_opcode=318 STR_VAR match_resource=~%BASH_FOR_RES%~ END
-                LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%BASH_FOR_RES%~ END
-              BUT_ONLY
-            END
-          END
-        END
-      END
-
-  END
-END
+//add SPL for immunity to cloud spells
+COPY ~%passives%/opcode206.SPL~  ~override/%e7%.SPL~
+  LPF riftgate_immunity STR_VAR block=~cloud insect cloud206~ END
+  LPF DELETE_EFFECT INT_VAR match_opcode=206 END
+  LPF drifter206 END
 
 
 //Make clab table
@@ -146,14 +164,19 @@ COPY ~inlined/d2clab_ranger~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=6 passive=1 STR_VAR resource=~%e6%~ END
   LPF d2_kit_ability_adder INT_VAR level=12 passive=1 STR_VAR resource=~%e7%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e8%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e9%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 limit=20 STR_VAR resource=~%e9%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%m1%~ END
   LPF d2_kit_ability_adder END
 
-  //add Evasion
+  // add Evasion
   REPLACE_TEXTUALLY ~AP_#EVASION~ ~****~
   LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~#EVASION~ END    // IWDEE, ToF
   LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~CDIEVAD~ END     // IWDification
+
+  // add a few extra -1 spell slots
+  FOR (n = 1; n < 5; ++n) BEGIN
+    LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
+  END
 
 
 //Kit function
@@ -174,6 +197,16 @@ LAF ADD_KIT_EX
   RET 
     kit_id
 END
+
+
+//patch weapons (block kit for on-hit effects)
+LAF drifter_hit_effects END
+
+/*test
+COPY_EXISTING ~SW1H58.ITM~ override
+  LPF d2_protect_on_castequip INT_VAR globals=0 headers=1 header_type=1 cre_type=109 cre_special=IDS_OF_SYMBOL (kit ~D2%kitname%~) duration=0 STR_VAR insert=first END
+IF_EXISTS BUT_ONLY
+*/
 
 
 //Usability - restrict to hide or leather

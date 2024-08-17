@@ -1,0 +1,31 @@
+/*
+use to reassign tob starting bags for some kits
+installed with "misc items" component
+*/
+
+
+ACTION_IF (GAME_INCLUDES ~tob~) BEGIN
+  COPY_EXISTING ~25STWEAP.2da~  ~override~
+    PATCH_FOR_EACH kit IN
+      ~d2beasthunter~ ~d2beasthunterfm~ ~d2beasthunterfc~ ~d2beasthunterfmc~
+    BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=bag entry=bag21 END    // bag21 has hunter bone (thematic fit)
+    END
+
+    PATCH_FOR_EACH kit IN
+      ~d2warhound~ ~d2warhoundfm~
+    BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=bag entry=bag20 END    // bag20 has ether limiter (kit effect)
+    END
+
+    PATCH_FOR_EACH kit IN
+      ~d2crowhunter~ ~d2crowhunterft~ ~d2crowhuntermt~ ~d2crowhunterfmt~
+    BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=bag entry=bag28 END    // bag28 has crowfeather cloak (kit effect)
+    END
+  BUT_ONLY
+END
+
+
+//
+//

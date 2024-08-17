@@ -3,6 +3,7 @@ Scripts for conditional items
 */
 
 
+//
 //BG1 scripts
 ACTION_IF (GAME_INCLUDES ~bg1~) BEGIN
 
@@ -33,7 +34,7 @@ EXTEND_TOP ~%bg1%1002.BCS~      ~%workspace%/aecdemonsoul.BAF~
 END
 
 
-
+//
 //SoD scripts
 ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
 
@@ -79,7 +80,7 @@ EXTEND_BOTTOM ~bd0108.BCS~  ~%workspace%/calamity.BAF~
 END
 
 
-
+//
 //BG2EE scripts
 ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
 
@@ -139,7 +140,7 @@ EXTEND_BOTTOM ~AR4500.BCS~  ~%workspace%/calamity.BAF~
 END
 
 
-
+//
 //IWDEE scripts
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
 
@@ -183,8 +184,8 @@ EXTEND_BOTTOM ~ar2100.BCS~    ~%workspace%/gerthstore.BAF~
 EXTEND_BOTTOM ~ar2113.BCS~    ~%workspace%/gerthstore.BAF~
 
 
-
-//Add Calamity Ring to HoW (if not obtained)
+//
+//HoW scripts
 <<<<<<<< .../temp/variables
 IF
 	PartyHasItem("%calamity%")
@@ -220,6 +221,32 @@ EXTEND_BOTTOM ~AR9604.BCS~  ~%workspace%/calamity.BAF~
 
 
 END
+
+
+//
+//moon rune chicken
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@60101) STR_VAR color=cloud RET newstring END
+
+<<<<<<<< .../temp/d2moonrunehint
+IF
+	!GlobalTimerNotExpired("d2moonrunehint","GLOBAL")
+	!See([EVILCUTOFF])
+	Range([PC],8)
+	HasItem("%moon_rune%",Myself)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("d2moonrunehint","GLOBAL",300)
+		DisplayStringHeadNoLog(Myself,"%newstring%")
+		PlaySound("AMB_E39B")
+END
+>>>>>>>>
+
+COPY - ~.../temp/d2moonrunehint~  ~inlined/d2wkmrc.BAF~
+  EVALUATE_BUFFER
+  PATCH_IF (GAME_IS ~iwdee~) BEGIN
+    REPLACE_TEXTUALLY ~!See~  ~Global("AR2003_visited","GLOBAL",1) !See~    // visited tower (IWDEE)
+  END
+COMPILE ~inlined/d2wkmrc.BAF~
 
 
 /*

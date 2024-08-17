@@ -1,0 +1,414 @@
+//
+//
+
+/*functions:
+d2_add_hla_string    PATCH or ACTION
+d2_get_hla_string    PATCH or ACTION
+*/
+
+
+////////////////////////////////////////////////////////////
+
+/*presets
+renumber is automatically enabled if (1) hlarow is set and (2) hlalabel is not set
+overwrite is automatically enabled if (1) added to end of list and (2) hlalabel is not set
+added as last entry by default, or above a match (if match variable is set)
+*/
+
+//insert has priority over hlarow (insert = first is the same as hlarow = 0)
+//if match is found, match position has priority over hlarow
+//if hlastring is NOT set, function will not add line above existing hlas (regardless of other settings)
+
+
+DEFINE_ACTION_FUNCTION d2_add_hla_string
+  INT_VAR
+    hlarow    = ~-1~    // optional, 0 is top row (adds to end of list if not set or set too high)
+    overwrite = 0       // replace existing "hlarow" or "match" row
+    renumber  = 0       // renumber column 0 (ignored if "hlalabel" is set)
+    respace   = 1       // runs PRETTY_PRINT_2DA at the end
+  STR_VAR
+    hlatable  = ~~      // required, hla table to edit
+    hlastring = ~~      // required, string for new line (without column 0)
+    hlalabel  = ~~      // optional, column 0 entry (if NOT set assigns a number and renumbers below rows)
+    insert    = ~~      // "first" for top, "below" for under "match" (default is last or above "match")
+    match     = ~~      // hla to match (column 1), ignored if not set or not found
+BEGIN
+
+  ACTION_IF !(FILE_EXISTS_IN_GAME ~%hlatable%.2da~) BEGIN
+    // PRINT ~file not found~
+  END ELSE BEGIN
+
+    COPY_EXISTING ~%hlatable%.2da~  ~override~
+
+      // variables
+      PATCH_IF (~%insert%~ STR_EQ ~first~) BEGIN  SET hlarow = 0 END
+      PATCH_IF (~%insert%~ STR_EQ ~top~) BEGIN  SET hlarow = 0 END
+      PATCH_IF (~%insert%~ STR_EQ ~last~) BEGIN  SET hlarow = 0 - 1 END
+      COUNT_2DA_COLS 2dacols
+      COUNT_2DA_ROWS 2dacols 2darows
+      READ_2DA_ENTRIES_NOW 2datable 2dacols
+
+      // if match variable is set
+      SET matchfind = 0
+      PATCH_IF !(~%match%~ STR_EQ ~~) BEGIN
+        SET matchfind = 1
+      END
+
+      // reset hlarow if too high
+      PATCH_IF (hlarow >= 2darows) BEGIN
+        SET hlarow = 0 - 1
+      END
+
+      // reset hlarow if no string
+      PATCH_IF (~%hlastring%~ STR_EQ ~~) BEGIN
+        SET hlarow = 0 - 1
+        SET matchfind = 0
+      END
+
+      // if hlarow was set
+      PATCH_IF (hlarow >= 0) BEGIN
+        SET n_hlarow = hlarow + 1
+        PATCH_IF (~%hlalabel%~ STR_EQ ~~) BEGIN  SET renumber = 1 END
+      END
+
+      SET slotfind = 1
+      FOR (r = 0; r < 2darows; ++r) BEGIN
+        READ_2DA_ENTRY_FORMER ~2datable~ r 1 spell
+
+        // find match if set
+        PATCH_IF (matchfind = 1) BEGIN
+          PATCH_IF (~%spell%~ STR_EQ ~%match%~) BEGIN
+
+            // check overwrite and insert
+            PATCH_IF (overwrite > 0) BEGIN
+              SET hlarow = r
+              READ_2DA_ENTRY_FORMER ~2datable~ r 0 n_hlarow
+              SET slotfind = 0
+              SET matchfind = 99
+            END ELSE PATCH_IF (~%insert%~ STR_EQ ~~) BEGIN
+              SET hlarow = r
+              SET matchfind = 2
+            END ELSE PATCH_IF (~%insert%~ STR_EQ ~above~) BEGIN
+              SET hlarow = r
+              SET matchfind = 2
+            END ELSE PATCH_IF (~%insert%~ STR_EQ ~below~) BEGIN
+              SET hlarow = r + 1
+              SET matchfind = 2
+            END
+
+            // auto-set variables
+            PATCH_IF (matchfind = 2) BEGIN
+              SET n_hlarow = hlarow + 1
+              PATCH_IF (~%hlalabel%~ STR_EQ ~~) BEGIN  SET renumber = 1 END
+              SET slotfind = 0
+            END
+          END
+        END
+
+        // find open slot
+        PATCH_IF (slotfind > 0) BEGIN
+          PATCH_IF (~%spell%~ STR_EQ ~*~) BEGIN
+
+            // reset hlarow if too high
+            PATCH_IF (hlarow > r) BEGIN
+              SET hlarow = 0 - 1
+            END
+
+            // find next open row (unless "hlarow" was set)
+            PATCH_IF (hlarow < 0) BEGIN
+              SET hlarow = r
+              READ_2DA_ENTRY_FORMER ~2datable~ r 0 n_hlarow
+              PATCH_IF (~%hlalabel%~ STR_EQ ~~) BEGIN  SET overwrite = 1 END
+            END
+          END
+        END
+      END
+
+      // new line if no open slots
+      PATCH_IF (hlarow < 0) BEGIN
+        SET hlarow = 2darows
+        SET n_hlarow = hlarow + 1
+      END
+
+      // set hlalabel, or disable renumber of already set
+      PATCH_IF (~%hlalabel%~ STR_EQ ~~) BEGIN
+        TEXT_SPRINT hlalabel  ~%n_hlarow%~
+      END ELSE BEGIN
+        SET renumber = 0
+      END
+
+      // check string
+      PATCH_IF (~%hlastring%~ STR_EQ ~~) BEGIN
+        TEXT_SPRINT hlastring ~%hlalabel%~
+        FOR (n = 1; n < 2dacols; ++n) BEGIN
+          TEXT_SPRINT hlastring ~%hlastring%%TAB%*~
+        END
+      END ELSE BEGIN
+        TEXT_SPRINT hlastring ~%hlalabel%%TAB%%hlastring%~
+      END
+
+      // add string to hla table
+      PATCH_IF (overwrite > 0) BEGIN
+        REMOVE_2DA_ROW hlarow 2dacols
+        SET 2darows -= 1
+      END
+      INSERT_2DA_ROW hlarow 2dacols ~%hlastring%~
+      SET 2darows += 1
+
+      // renumber if enabled
+      PATCH_IF (renumber > 0) BEGIN
+        FOR (r = 0; r < 2darows; ++r) BEGIN
+          SET entry = r + 1
+          SET_2DA_ENTRY_LATER ~2datable_edits~ r 0 entry
+        END
+        SET_2DA_ENTRIES_NOW ~2datable_edits~ 2dacols
+      END
+
+      PATCH_IF (respace > 0) BEGIN
+        PRETTY_PRINT_2DA
+      END
+
+    BUT_ONLY
+
+  END
+END
+
+////////////////////////////////////////////////////////////
+
+DEFINE_PATCH_FUNCTION d2_add_hla_string
+  INT_VAR
+    hlarow    = ~-1~    // optional, 0 is top row (adds to end of list if not set or set too high)
+    overwrite = 0       // replace existing "hlarow" or "match" row
+    renumber  = 0       // renumber column 0 (ignored if "hlalabel" is set)
+    respace   = 1       // runs PRETTY_PRINT_2DA at the end
+  STR_VAR
+    hlastring = ~~      // required, string for new line (without column 0)
+    hlalabel  = ~~      // optional, column 0 entry (if NOT set assigns a number and renumbers below rows)
+    insert    = ~~      // "first" for top, "below" for under "match" (default is last or above "match")
+    match     = ~~      // hla to match (column 1), ignored if not set or not found
+BEGIN
+
+  PATCH_IF (~%SOURCE_RES%~ STRING_CONTAINS_REGEXP ~^lu~) BEGIN    // check resource name
+    // PATCH_PRINT ~not HLA table~
+  END ELSE BEGIN
+
+//    COPY_EXISTING ~%hlatable%.2da~  ~override~
+
+      // variables
+      PATCH_IF (~%insert%~ STR_EQ ~first~) BEGIN  SET hlarow = 0 END
+      PATCH_IF (~%insert%~ STR_EQ ~top~) BEGIN  SET hlarow = 0 END
+      PATCH_IF (~%insert%~ STR_EQ ~last~) BEGIN  SET hlarow = 0 - 1 END
+      COUNT_2DA_COLS 2dacols
+      COUNT_2DA_ROWS 2dacols 2darows
+      READ_2DA_ENTRIES_NOW 2datable 2dacols
+
+      // if match variable is set
+      SET matchfind = 0
+      PATCH_IF !(~%match%~ STR_EQ ~~) BEGIN
+        SET matchfind = 1
+      END
+
+      // reset hlarow if too high
+      PATCH_IF (hlarow >= 2darows) BEGIN
+        SET hlarow = 0 - 1
+      END
+
+      // reset hlarow if no string
+      PATCH_IF (~%hlastring%~ STR_EQ ~~) BEGIN
+        SET hlarow = 0 - 1
+        SET matchfind = 0
+      END
+
+      // if hlarow was set
+      PATCH_IF (hlarow >= 0) BEGIN
+        SET n_hlarow = hlarow + 1
+        PATCH_IF (~%hlalabel%~ STR_EQ ~~) BEGIN  SET renumber = 1 END
+      END
+
+      SET slotfind = 1
+      FOR (r = 0; r < 2darows; ++r) BEGIN
+        READ_2DA_ENTRY_FORMER ~2datable~ r 1 spell
+
+        // find match if set
+        PATCH_IF (matchfind = 1) BEGIN
+          PATCH_IF (~%spell%~ STR_EQ ~%match%~) BEGIN
+
+            // check overwrite and insert
+            PATCH_IF (overwrite > 0) BEGIN
+              SET hlarow = r
+              READ_2DA_ENTRY_FORMER ~2datable~ r 0 n_hlarow
+              SET slotfind = 0
+              SET matchfind = 99
+            END ELSE PATCH_IF (~%insert%~ STR_EQ ~~) BEGIN
+              SET hlarow = r
+              SET matchfind = 2
+            END ELSE PATCH_IF (~%insert%~ STR_EQ ~above~) BEGIN
+              SET hlarow = r
+              SET matchfind = 2
+            END ELSE PATCH_IF (~%insert%~ STR_EQ ~below~) BEGIN
+              SET hlarow = r + 1
+              SET matchfind = 2
+            END
+
+            // auto-set variables
+            PATCH_IF (matchfind = 2) BEGIN
+              SET n_hlarow = hlarow + 1
+              PATCH_IF (~%hlalabel%~ STR_EQ ~~) BEGIN  SET renumber = 1 END
+              SET slotfind = 0
+            END
+          END
+        END
+
+        // find open slot
+        PATCH_IF (slotfind > 0) BEGIN
+          PATCH_IF (~%spell%~ STR_EQ ~*~) BEGIN
+
+            // reset hlarow if too high
+            PATCH_IF (hlarow > r) BEGIN
+              SET hlarow = 0 - 1
+            END
+
+            // find next open row (unless "hlarow" was set)
+            PATCH_IF (hlarow < 0) BEGIN
+              SET hlarow = r
+              READ_2DA_ENTRY_FORMER ~2datable~ r 0 n_hlarow
+              PATCH_IF (~%hlalabel%~ STR_EQ ~~) BEGIN  SET overwrite = 1 END
+            END
+          END
+        END
+      END
+
+      // new line if no open slots
+      PATCH_IF (hlarow < 0) BEGIN
+        SET hlarow = 2darows
+        SET n_hlarow = hlarow + 1
+      END
+
+      // set hlalabel, or disable renumber of already set
+      PATCH_IF (~%hlalabel%~ STR_EQ ~~) BEGIN
+        TEXT_SPRINT hlalabel  ~%n_hlarow%~
+      END ELSE BEGIN
+        SET renumber = 0
+      END
+
+      // check string
+      PATCH_IF (~%hlastring%~ STR_EQ ~~) BEGIN
+        TEXT_SPRINT hlastring ~%hlalabel%~
+        FOR (n = 1; n < 2dacols; ++n) BEGIN
+          TEXT_SPRINT hlastring ~%hlastring%%TAB%*~
+        END
+      END ELSE BEGIN
+        TEXT_SPRINT hlastring ~%hlalabel%%TAB%%hlastring%~
+      END
+
+      // add string to hla table
+      PATCH_IF (overwrite > 0) BEGIN
+        REMOVE_2DA_ROW hlarow 2dacols
+        SET 2darows -= 1
+      END
+      INSERT_2DA_ROW hlarow 2dacols ~%hlastring%~
+      SET 2darows += 1
+
+      // renumber if enabled
+      PATCH_IF (renumber > 0) BEGIN
+        FOR (r = 0; r < 2darows; ++r) BEGIN
+          SET entry = r + 1
+          SET_2DA_ENTRY_LATER ~2datable_edits~ r 0 entry
+        END
+        SET_2DA_ENTRIES_NOW ~2datable_edits~ 2dacols
+      END
+
+      PATCH_IF (respace > 0) BEGIN
+        PRETTY_PRINT_2DA
+      END
+
+//    BUT_ONLY
+
+  END
+END
+
+////////////////////////////////////////////////////////////
+
+//clone_res is the hla row to copy (including the prefix)
+//clone_2da is the 2da to get hla row (skipped with message if not found)
+//RET hlastring for hla row as text string (minus the first column)
+//col_check can be ignored
+
+/*
+if no match is found, hlastring returns a blank string
+*/
+
+DEFINE_ACTION_FUNCTION d2_get_hla_string INT_VAR col_check=0 STR_VAR clone_res=~~ clone_2da=~~ RET hlastring BEGIN
+
+  OUTER_TEXT_SPRINT hlastring ~~
+
+  ACTION_IF !(FILE_EXISTS_IN_GAME ~%clone_2da%.2da~) BEGIN
+    // PRINT ~file not found~
+  END ELSE ACTION_IF !(~%clone_res%~ STR_EQ ~~) BEGIN
+
+    COPY_EXISTING - ~%clone_2da%.2da~  ~~
+      COUNT_2DA_COLS clone_cols
+      COUNT_2DA_ROWS clone_cols clone_rows
+      READ_2DA_ENTRIES_NOW clone_table clone_cols
+
+      PATCH_IF (col_check = 0) BEGIN
+        SET col_check = clone_cols
+      END
+
+      FOR (r = 0; r < clone_rows; ++r) BEGIN
+        READ_2DA_ENTRY_FORMER clone_table r 1 spell
+        PATCH_IF (~%spell%~ STR_EQ ~%clone_res%~) BEGIN
+          FOR (col = 1; col < clone_cols; ++col) BEGIN
+            PATCH_IF (col < col_check) BEGIN
+              READ_2DA_ENTRY_FORMER ~clone_table~ r col entry
+              PATCH_IF (~%hlastring%~ STR_EQ ~~) BEGIN
+                TEXT_SPRINT hlastring ~%entry%~
+              END ELSE BEGIN
+                TEXT_SPRINT hlastring ~%hlastring%%TAB%%entry%~
+              END
+            END
+          END
+        END
+      END
+
+  END
+END
+
+//
+DEFINE_PATCH_FUNCTION d2_get_hla_string INT_VAR col_check=0 STR_VAR clone_res=~~ RET hlastring BEGIN
+
+  TEXT_SPRINT hlastring ~~
+
+  PATCH_IF (~%SOURCE_RES%~ STRING_CONTAINS_REGEXP ~^lu~) BEGIN    // check resource name
+    // PATCH_PRINT ~not HLA table~
+  END ELSE PATCH_IF !(~%clone_res%~ STR_EQ ~~) BEGIN
+
+//    COPY_EXISTING - ~%clone_2da%.2da~  ~~
+      COUNT_2DA_COLS clone_cols
+      COUNT_2DA_ROWS clone_cols clone_rows
+      READ_2DA_ENTRIES_NOW clone_table clone_cols
+
+      PATCH_IF (col_check = 0) BEGIN
+        SET col_check = clone_cols
+      END
+
+      FOR (r = 0; r < clone_rows; ++r) BEGIN
+        READ_2DA_ENTRY_FORMER clone_table r 1 spell
+        PATCH_IF (~%spell%~ STR_EQ ~%clone_res%~) BEGIN
+          FOR (col = 1; col < clone_cols; ++col) BEGIN
+            PATCH_IF (col < col_check) BEGIN
+              READ_2DA_ENTRY_FORMER ~clone_table~ r col entry
+              PATCH_IF (~%hlastring%~ STR_EQ ~~) BEGIN
+                TEXT_SPRINT hlastring ~%entry%~
+              END ELSE BEGIN
+                TEXT_SPRINT hlastring ~%hlastring%%TAB%%entry%~
+              END
+            END
+          END
+        END
+      END
+
+  END
+END
+
+////////////////////////////////////////////////////////////

@@ -1,0 +1,25 @@
+/*
+remove icons from natural immunities
+*/
+
+
+ACTION_IF (noiconpatch = 0) BEGIN
+
+
+ACTION_FOR_EACH spell IN
+  ~%wardennofear%~
+  ~%ministernodrain%~
+BEGIN
+
+  COPY_EXISTING ~%spell%.SPL~  ~override~
+    LPF DELETE_EFFECT INT_VAR match_opcode=142 END
+  IF_EXISTS BUT_ONLY
+
+END
+
+
+END
+
+
+//
+//

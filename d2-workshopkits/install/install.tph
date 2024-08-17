@@ -12,6 +12,7 @@ OUTER_SET buildeffects = 1
 INCLUDE ~%install%/clabprep.tph~
 INCLUDE ~%install%/backstabprep.tph~
 INCLUDE ~%install%/monkprep.tph~
+INCLUDE ~%install%/rangerprep.tph~
 INCLUDE ~%install%/spellprep.tph~
 INCLUDE ~%install%/spellprep2.tph~
 INCLUDE ~%install%/riftgateprep.tph~
@@ -85,6 +86,7 @@ ACTION_IF (nowarhound = 0) BEGIN
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/%kitname%fm.tph~     // multiclass
+  INCLUDE ~%install%/shockwavepatch.tph~
 END
 
 //Full Metal Jaguar (d2wkf)
@@ -224,7 +226,8 @@ ACTION_IF (nomedic = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
-  INCLUDE ~%install%/%kitname%profs.tph~
+//  INCLUDE ~%install%/%kitname%profs.tph~
+  INCLUDE ~%install%/%kitname%config.tph~
 END
 
 
@@ -239,6 +242,7 @@ INCLUDE ~%install%/crosskiteffects.tph~
 INCLUDE ~%install%/morespellpatches.tph~
 INCLUDE ~%install%/hunterbadgescripts.tph~
 INCLUDE ~%install%/hunterbadgestores.tph~
+INCLUDE ~%install%/iconpatch.tph~
 INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/5ecastingspells.tph~
 INCLUDE ~%install%/olvynspellsfix.tph~

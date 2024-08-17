@@ -144,7 +144,7 @@ END
 
 //simplifies adding op321 to spells/items
 //if no variables are set, will remove effects of current resource on cast/equip
-//can optionally set 'cre_type' variable to affect specific creature type
+//can optionally set cre_type to check splprot stat (cre_special sets parameter1, if needed)
 
 /*326override
 replaces op321 with op326 (i.e. cast spell with list of op321's)
@@ -162,15 +162,12 @@ adds as first effect in stack
 
 DEFINE_PATCH_FUNCTION d2_remove_effects_on_cast
   INT_VAR globals=~-1~ headers=~-1~ header_type=~-1~ match_opcode=~-1~ probability=~-1~
-          cre_type=0 326override=0 overwrite=1
+          cre_type=0 cre_special=0 timing=1 duration=0 326override=0 overwrite=1
   STR_VAR resource=~~ insert=first
 BEGIN
 
   //prep
   PATCH_IF (~%resource%~ STR_EQ ~~) BEGIN  TEXT_SPRINT  resource ~%DEST_RES%~ END
-  PATCH_IF (overwrite > 0) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=321 match_parameter2=cre_type STR_VAR match_resource=EVAL ~%resource%~ END
-  END
 
   SET opcode = 321
   PATCH_IF (326override > 0) BEGIN
@@ -179,6 +176,15 @@ BEGIN
         LPF DELETE_EFFECT INT_VAR match_opcode=326 match_parameter2=cre_type STR_VAR match_resource=EVAL ~%resource%~ END
       END
       SET opcode = 326
+    END
+  END
+
+  PATCH_IF (opcode = 321) BEGIN
+    PATCH_IF (overwrite > 0) BEGIN
+      LPF DELETE_EFFECT INT_VAR match_opcode=321 STR_VAR match_resource=EVAL ~%resource%~ END
+    END
+    PATCH_IF ((cre_type < 0) OR (cre_type > 2)) BEGIN
+      SET cre_type = 0
     END
   END
 
@@ -201,7 +207,7 @@ BEGIN
   //add effect
   LPF CLONE_EFFECT 
     INT_VAR check_globals=globals check_headers=headers header_type=header_type match_opcode=match_opcode
-            silent=1 multi_match=1 opcode=opcode parameter1=0 parameter2=cre_type timing=1 duration=0
+            silent=1 multi_match=1 opcode=opcode parameter1=cre_special parameter2=cre_type timing=timing duration=duration
             probability1=probability probability2=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
     STR_VAR resource=EVAL ~%resource%~  insert=EVAL ~%insert%~
   END
@@ -232,7 +238,7 @@ adds as LAST effect in stack
 
 DEFINE_PATCH_FUNCTION d2_protect_on_castequip
   INT_VAR globals=~-1~ headers=~-1~ header_type=~-1~ match_opcode=~-1~ probability=~-1~
-          opcode=318 timing=0 duration=6 cre_type=0 overwrite=1
+          opcode=318 timing=0 duration=6 cre_type=0 cre_special=0 overwrite=1
   STR_VAR resource=~~ insert=last
 BEGIN
 
@@ -267,19 +273,19 @@ BEGIN
   PATCH_IF (~%DEST_EXT%~ STR_EQ ~cre~) BEGIN  SET gtiming=9 SET gduration=0 END
 
   //add effect
-  PATCH_IF (globals = 1) BEGIN
+  PATCH_IF (globals > 0) BEGIN
     LPF CLONE_EFFECT 
       INT_VAR check_globals=1 check_headers=0 header_type=header_type match_opcode=match_opcode
-              silent=1 multi_match=1 opcode=opcode parameter1=0 parameter2=cre_type timing=gtiming duration=gduration
+              silent=1 multi_match=1 opcode=opcode parameter1=cre_special parameter2=cre_type timing=gtiming duration=gduration
               probability1=probability probability2=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
       STR_VAR resource=EVAL ~%resource%~  insert=EVAL ~%insert%~
     END
   END
 
-  PATCH_IF (headers = 1) BEGIN
+  PATCH_IF (headers > 0) BEGIN
     LPF CLONE_EFFECT 
       INT_VAR check_globals=0 check_headers=1 header_type=header_type match_opcode=match_opcode
-              silent=1 multi_match=1 opcode=opcode parameter1=0 parameter2=cre_type timing=htiming duration=hduration
+              silent=1 multi_match=1 opcode=opcode parameter1=cre_special parameter2=cre_type timing=htiming duration=hduration
               probability1=probability probability2=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
       STR_VAR resource=EVAL ~%resource%~  insert=EVAL ~%insert%~
     END
@@ -326,6 +332,7 @@ END
 DEFINE_PATCH_FUNCTION d2_no_fatigue BEGIN
   LPF DELETE_EFFECT INT_VAR match_opcode=93 END              // remove fatigue opcode
   LPF DELETE_EFFECT STR_VAR match_resource=~dvwinded~ END    // remove SR fatigue
+  LPF DELETE_EFFECT STR_VAR match_resource=~SPCL321D~ END    // remove Enrage fatigue
 END
 
 ////////////////////////////////////////////////////////////

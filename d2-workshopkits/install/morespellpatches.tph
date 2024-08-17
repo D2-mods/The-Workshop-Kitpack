@@ -4,7 +4,7 @@ Use for mass patching that attempts a CLONE_EFFECT on every file.
 */
 
 
-ACTION_IF ((nonurse = 0) OR (noconfessor = 0)) BEGIN
+ACTION_IF (nonurse=0 OR noconfessor=0 OR nopowderkeg=0) BEGIN
 
 
 OUTER_SET patch_spell = 0
@@ -32,6 +32,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
   PATCH_IF (patch_spell = 1) BEGIN
     PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
     PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_spells END END
+    PATCH_IF (nopowderkeg = 0) BEGIN  LPF powderkeg_block_strings   END END
     SET patch_spell = 0
   END
 
@@ -71,6 +72,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
   PATCH_IF (patch_item = 1) BEGIN
     PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
     PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_block  END END
+    PATCH_IF (nopowderkeg = 0) BEGIN  LPF powderkeg_block_strings   END END
     SET patch_item = 0
   END
 
@@ -97,13 +99,14 @@ COPY_EXISTING_REGEXP GLOB ~.*\.CRE~  ~override~
 //Using the simpler check below instead. Speed isn't that much slower.
 
   READ_LONG 0x2c8 cre_effects
-  PATCH_IF (cre_effects > 10) BEGIN    // immunities always have many effects
+  PATCH_IF (cre_effects > 14) BEGIN    // immunities always have many effects
     SET patch_cre = 1
   END
 
   PATCH_IF (patch_cre = 1) BEGIN
     PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
     PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_block  END END
+    PATCH_IF (nopowderkeg = 0) BEGIN  LPF powderkeg_block_strings   END END
     SET patch_cre = 0
   END
 

@@ -1,23 +1,44 @@
 /*
 bleed prep
-requires d2_misc_functions.tpa
+requires d2_misc_functions.tpa and d2_bleed_removal.tpa
 */
 
 
+//
+//add stoneskin check
+OUTER_TEXT_SPRINT d2stoneskincheck  ~d2stoneskincheck 88 1 4~     // STONESKINS >= 1
+OUTER_TEXT_SPRINT d2golemskincheck  ~d2golemskincheck 199 1 4~    // STONESKINSGOLEM >= 1
+
+COPY_EXISTING ~splprot.2da~  ~override~
+  LPF d2_splprot_adder STR_VAR match=d2stoneskincheck string=~%d2stoneskincheck%~ RET stat END
+  SET d2stoneskincheck = stat
+
+  LPF d2_splprot_adder STR_VAR match=d2golemskincheck string=~%d2golemskincheck%~ RET stat END
+  SET d2golemskincheck = stat
+BUT_ONLY
+
+
+//
+//make inlined bleed file
 COPY ~%icons%/bleed.BAM~  ~override/d2bleedi.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@302) STR_VAR bam=~d2bleedi~ RET icon END
 
 COPY - ~%abilities%/bleed_core.SPL~  ~inlined/bleed_core.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=177 END
   LPF DELETE_EFFECT INT_VAR match_opcode=206 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=318 opcode=326 STR_VAR resource=d2bleedt END    // immune string
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@302) END       // "Bleeding"
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@302) END    // "Bleeding"
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
+
+  // immunity stuff
+  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=~%d2stoneskincheck%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=~%d2golemskincheck%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 opcode=326 STR_VAR resource=d2bleedt END    // immune string
 
 
 //immune string
-OUTER_SPRINT ability_name @302    // "Bleeding"
-ACTION_TO_LOWER ability_name
+OUTER_SPRINT ability_name @302
+ACTION_TO_LOWER ability_name    // "bleeding"
+
 COPY ~%abilities%/spellfailed.SPL~  ~override/d2bleedt.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@350) END    // "Unaffected by..."
   LPF DELETE_EFFECT INT_VAR match_opcode=141 END
@@ -25,7 +46,7 @@ COPY ~%abilities%/spellfailed.SPL~  ~override/d2bleedt.SPL~
   LPF d2_protect_on_castequip INT_VAR duration=100 END    // block string for 100 seconds (won't see every hit)
 
 
-//preset damage (bypasses resist)
+//preset damage (set as "resource" variable)
 ACTION_IF !(FILE_EXISTS ~override/d2bleed3.spl~) BEGIN
   COPY ~%abilities%/bleeddamage2.SPL~  ~override/d2bleed1.SPL~
     LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=1 END
@@ -39,13 +60,13 @@ END
 
 
 /*
-Copy ~inlined/bleed_core.SPL~ as bleed hit effect
-Run function and set limit and resource to build file.
+Copy ~inlined/bleed_core.SPL~ to new file in override (this is the main bleed subspell)
+Run function and set limit and resource variables.
 */
 
-//limit is total rounds
-//delay is seconds between each bleed on target
-//resource should be an SPL with op12 damage (ex. damage files above)
+//limit is total rounds (damage applied once per round)
+//resource should be an SPL with op12 damage (ex. preset damage files)
+//delay is seconds between each new bleed on a target (stackable)
 
 DEFINE_PATCH_FUNCTION d2_bleed_delay INT_VAR limit=4 delay=5 STR_VAR resource=~~ BEGIN
 
@@ -61,6 +82,132 @@ DEFINE_PATCH_FUNCTION d2_bleed_delay INT_VAR limit=4 delay=5 STR_VAR resource=~~
   END
 
 END
+
+
+//make bleed resource blocked by protection spells (from bleed_protection_array)
+//resource should be the same as above function
+//also adds resource to d2_bleedprep_arrays file
+
+DEFINE_ACTION_FUNCTION d2_bleed_effects INT_VAR opcode=318 match_opcode=142 STR_VAR resource=~~ BEGIN
+
+ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
+
+  REINCLUDE ~override/d2_bleedprep_arrays~
+
+  // prep
+  ACTION_IF (opcode!=318 AND opcode!=324 AND opcode!=206) BEGIN
+    OUTER_SET opcode = 318
+  END
+
+  // patching
+  ACTION_PHP_EACH bleed_protection_array AS spell => type BEGIN
+    ACTION_IF (~%type%~ STR_EQ ~ids~) BEGIN
+      ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~[^_]%spell%[^_]~) BEGIN
+        LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = ~%spell%~ RET spell_res END
+        COPY_EXISTING ~%spell_res%.spl~  ~override~
+          LPF CLONE_EFFECT
+            INT_VAR silent=1 multi_match=1 match_opcode=match_opcode opcode=opcode parameter1=0 parameter2=0 special=0
+            STR_VAR resource=~%resource%~
+          END
+        IF_EXISTS BUT_ONLY
+      END
+    END
+    ACTION_IF (~%type%~ STR_EQ ~res~) BEGIN
+      ACTION_FOR_EACH ext IN ~spl~ ~itm~ BEGIN
+        COPY_EXISTING ~%spell%.%ext%~  ~override~
+          LPF CLONE_EFFECT
+            INT_VAR silent=1 multi_match=1 match_opcode=match_opcode opcode=opcode parameter1=0 parameter2=0 special=0
+            STR_VAR resource=~%resource%~
+          END
+        IF_EXISTS BUT_ONLY
+      END
+    END
+  END
+
+  // add to d2_bleedprep_arrays
+  COPY_EXISTING ~override/d2_bleedprep_arrays~  ~override~
+    REPLACE_TEXTUALLY ~bleed => bleed~  ~bleed => bleed%WNL%  %resource% => bleed~
+  BUT_ONLY UNLESS ~%resource% => bleed~
+
+END
+END
+
+
+//make spell resource block bleed effects (from bleed_effects_array)
+//mode can be "res" or "ids" (if ids, resource should be a spell.ids name)
+//also adds resource to d2_bleedprep_arrays file
+
+DEFINE_ACTION_FUNCTION d2_bleed_protection INT_VAR opcode=318 match_opcode=142 STR_VAR resource=~~ mode=res BEGIN
+
+ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
+
+  REINCLUDE ~override/d2_bleedprep_arrays~
+
+  // prep
+  ACTION_IF (opcode!=318 AND opcode!=324 AND opcode!=206) BEGIN
+    OUTER_SET opcode = 318
+  END
+
+  ACTION_IF (!(~%mode%~ STR_EQ ~res~) AND !(~%mode%~ STR_EQ ~ids~)) BEGIN
+    OUTER_TEXT_SPRINT mode  ~res~
+  END
+
+  ACTION_IF (~%mode%~ STR_EQ ~ids~) BEGIN
+    ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~[^_]%resource%[^_]~) BEGIN
+      LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = ~%resource%~ RET spell_res END
+    END
+    OUTER_TEXT_SPRINT resource  ~%spell_res%~
+  END
+
+  // patching
+  ACTION_FOR_EACH ext IN ~spl~ ~itm~ BEGIN
+    COPY_EXISTING ~%resource%.%ext%~  ~override~
+      PHP_EACH bleed_effects_array AS spell => type BEGIN
+        PATCH_IF !(~%spell%~ STR_EQ ~bleed~) BEGIN
+          LPF CLONE_EFFECT
+            INT_VAR silent=1 multi_match=1 match_opcode=match_opcode opcode=opcode parameter1=0 parameter2=0 special=0
+            STR_VAR resource=~%spell%~
+          END
+        END
+      END
+    IF_EXISTS BUT_ONLY
+  END
+
+  // add to d2_bleedprep_arrays
+  COPY_EXISTING ~override/d2_bleedprep_arrays~  ~override~
+    REPLACE_TEXTUALLY ~%mode%name => %mode%~  ~%mode%name => %mode%%WNL%  %resource% => %mode%~
+  BUT_ONLY UNLESS ~%resource% => %mode%~
+
+END
+END
+
+
+//
+//include bleed arrays
+ACTION_IF !(FILE_EXISTS ~override/d2_bleedprep_arrays~) BEGIN
+
+<<<<<<<< .../temp/d2_bleedprep_arrays
+ACTION_DEFINE_ASSOCIATIVE_ARRAY bleed_effects_array BEGIN
+  d2swd05e => bleed
+  d2abb03e => bleed
+  bleed => bleed
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY bleed_protection_array BEGIN
+  CLERIC_SHIELD_OF_LATHANDER          => ids
+  CLERIC_GREATER_SHIELD_OF_LATHANDER  => ids
+  ~_!SP111~  => res
+  ~_!SP112~  => res
+  ~MEPR653~  => res
+  idsname => ids
+  resname => res
+END
+>>>>>>>>
+COPY ~.../temp/d2_bleedprep_arrays~  ~override~
+
+END
+
+INCLUDE ~override/d2_bleedprep_arrays~
 
 
 //

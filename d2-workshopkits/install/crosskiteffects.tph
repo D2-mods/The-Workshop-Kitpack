@@ -4,7 +4,7 @@ anything that's not directly for making the kit work
 */
 
 
-//Drifter is immune to Rooting Shot, Dust Explosion
+//Drifter is immune to Rooting Shot, Dust Explosion (negative effects only)
 ACTION_IF (nodrifter = 0) BEGIN
 
   ACTION_IF (FILE_EXISTS ~override/%rootingshot%.SPL~) BEGIN
@@ -22,6 +22,30 @@ ACTION_IF (nodrifter = 0) BEGIN
   END
 
 END
+
+
+//powder keg: set target = 7 for song changing abilities
+//cast instantly, no casting animation, cast when paused
+
+ACTION_FOR_EACH ability IN 
+    ~%blastingsong%~    // song switching
+    ~%boomingsong%~
+    ~%dustexplosion%~
+    ~%frenzyingflame%~
+    ~%enhancedbardsong%~
+    ~%rrenhancedsong%~    // rr songs
+    ~%rrlingeringsong%~
+BEGIN
+
+  COPY_EXISTING ~%ability%.SPL~  ~override~
+    LPF ALTER_SPELL_HEADER INT_VAR target=7 END
+  IF_EXISTS BUT_ONLY
+
+END
+
+/*
+a few other abilities were considered, but I prefer how they look with a casting animation
+*/
 
 
 //

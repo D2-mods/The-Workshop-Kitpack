@@ -55,6 +55,7 @@ THEN
 		SetGlobal("d2riftga","GLOBAL",0)
 		SetGlobal("d2riftend","GLOBAL",0)
         ScreenShake([50.50],60)
+		PlaySound("#ARE_P27")
 END
 >>>>>>>>
 

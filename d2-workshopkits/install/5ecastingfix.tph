@@ -22,6 +22,8 @@ ACTION_FOR_EACH clab IN ~d2wk3~ ~d2wk4~ BEGIN
   END
 END
 
+// for druid, would need to add AP_D5GADRS (match AP_D5ZZ000 in clab)
+
 
 
 //Fixes spell slots of Mage kits (will match regular Mage)

@@ -1,0 +1,89 @@
+/*
+add Medic Config
+*/
+
+
+//
+DEFINE_PATCH_FUNCTION medicconfig BEGIN
+  WRITE_SHORT 0x1c 4
+  WRITE_SHORT 0x34 0
+  WRITE_LONG 0x18 THIS | BIT14    // ignore wild magic
+  WRITE_LONG 0x18 THIS | BIT25    // ignore silence
+  LPF ALTER_SPELL_HEADER INT_VAR target=7 range=1 projectile=1 END
+END
+
+OUTER_SPRINT spellitemkit @101301
+OUTER_SPRINT config @356
+OUTER_SPRINT option1 @625
+OUTER_SPRINT option2 @626
+OUTER_SPRINT option3 @627
+OUTER_SPRINT config_desc ~%config%%WNL%%WNL%%option1%%WNL%%option2%%WNL%%option3%~
+
+
+//add main ability
+COPY ~override/%s4%.SPL~  ~override/%m0%.SPL~
+  SAY NAME1 @356
+  SAY UNIDENTIFIED_DESC  ~%config_desc%~
+  WRITE_ASCII 0x3a SPWI402B #8
+  WRITE_ASCII 0x76 SPWI402B #8
+  WRITE_ASCII 0x10 None #8
+  WRITE_LONG 0x34 0
+  LPF ALTER_SPELL_HEADER INT_VAR target=7 END
+  LPF DELETE_EFFECT INT_VAR check_headers=0 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=141 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=326 END
+  LPF ALTER_EFFECT STR_VAR resource=~%m0%~ END
+
+  // cast at will
+  LPF ADD_SPELL_CFEFFECT INT_VAR opcode=171 target=1 timing=9 STR_VAR resource=~%DEST_RES%~ END
+  LPF ADD_SPELL_CFEFFECT INT_VAR opcode=172 target=1 timing=1 STR_VAR resource=~%DEST_RES%~ END
+
+//add 2da table
+COPY ~%abilities%/bloodtransfusion.2DA~  ~override/%m0%.2DA~
+APPEND ~%m0%.2DA~  ~hidefeedback  %m0%b 3~
+APPEND ~%m0%.2DA~  ~removeconfig  %m0%x 3~
+APPEND ~%m0%.2DA~  ~showfeedback  %m0%c 3~
+
+
+//Hide Feedback
+COPY ~%abilities%/applyeffects.SPL~  ~override/%m0%b.SPL~
+  SAY NAME1 @625
+  SAY UNIDENTIFIED_DESC @625
+  WRITE_ASCII 0x3a SPPR211B #8
+  WRITE_ASCII 0x76 SPPR211B #8
+  LPF medicconfig END
+  LPF ALTER_EFFECT INT_VAR opcode=318 timing=9 STR_VAR resource=~%e3%c~ END
+  LPF CLONE_EFFECT INT_VAR opcode=318 timing=9 STR_VAR resource=~%s9%t~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=174 STR_VAR resource=EFF_P67 END
+
+//Show Feedback
+COPY ~%abilities%/applyeffects.SPL~  ~override/%m0%c.SPL~
+  SAY NAME1 @626
+  SAY UNIDENTIFIED_DESC @626
+  WRITE_ASCII 0x3a SPWI219B #8
+  WRITE_ASCII 0x76 SPWI219B #8
+  LPF medicconfig END
+  LPF ALTER_EFFECT INT_VAR opcode=321 STR_VAR resource=~%m0%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=174 STR_VAR resource=EFF_P67 END
+
+//Remove Config (permanent)
+COPY ~%passives%/removespell.SPL~  ~override/%m0%x.SPL~
+  SAY NAME1 @627
+  SAY UNIDENTIFIED_DESC @627
+  WRITE_ASCII 0x3a SPPR415B #8
+  WRITE_ASCII 0x76 SPPR415B #8
+  LPF medicconfig END
+  LPF ALTER_EFFECT STR_VAR resource=~%m0%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=174 STR_VAR resource=EFF_P04 END
+
+
+/*
+//add to 2da
+COPY ~override/%kitid%.2DA~  ~override/%kitid%.2DA~
+  LPF d2_kit_ability_adder STR_VAR resource=~%m0%~ END
+BUT_ONLY
+*/
+
+
+//
+//

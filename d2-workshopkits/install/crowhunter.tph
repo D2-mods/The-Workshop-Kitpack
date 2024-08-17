@@ -11,16 +11,18 @@ COPY ~%passives%/damagevstype.SPL~  ~override/%e8%.SPL~
   LPF ALTER_EFFECT INT_VAR parameter1=1 parameter2=3 special=3 END    // +3 vs. humanoids
   LPF d2_remove_effects_on_cast STR_VAR resource=~%e7%~ END
 
-COPY ~%passives%/useeff.SPL~           ~override/%e3%.SPL~    // for hla traps
+//for hla traps
+COPY ~%passives%/useeff.SPL~           ~override/%e3%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%e3%~ END
-COPY ~%passives%/settraps1second.EFF~  ~override/%e3%.EFF~
+COPY ~%passives%/settraps1second.EFF~  ~override/%e3%.EFF~    // skill bonus from EFF works (even if 0 in thiefscl.2da)
   WRITE_LONG 0x1c 200
   WRITE_LONG 0x24 9
   WRITE_LONG 0x28 0
 
+//set snares unusable
 COPY ~%passives%/opcode206.SPL~   ~override/%e6%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~D5CL412~ END
-  LPF CLONE_EFFECT STR_VAR resource=~SPCL412~ END    // set snares unusable
+  LPF CLONE_EFFECT STR_VAR resource=~SPCL412~ END
 
 
 //remove set snares (for multiclass variants or custom multiclasses)
@@ -35,7 +37,7 @@ LAF d2_recast_at_interval STR_VAR spell=~%e2%~ new_spell=~%@2%~ END
 //for Splintering Shot (add piercing resist check to splprot.2da)
 OUTER_TEXT_SPRINT d2splintercheck  ~d2splintercheck 23 100 4~    // piercing resist >= 100
 
-LAF d2_splprot_adder STR_VAR mode=d2splintercheck string=~%d2splintercheck%~ RET stat END
+LAF d2_splprot_adder STR_VAR match=d2splintercheck string=~%d2splintercheck%~ RET stat END
 OUTER_SET d2splintercheck = stat
 
 
@@ -67,13 +69,14 @@ ADD_PROJECTILE ~%workspace%/%s1%s.PRO~
 COPY ~%abilities%/splinteringburst.SPL~    ~override/%s1%s.SPL~
   WRITE_SHORT 0x98 ~%s1%s~    // projectile
 
-COPY ~inlined/bleed_core.SPL~        ~override/%s1%b.SPL~
+COPY ~inlined/bleed_core.SPL~  ~override/%s1%b.SPL~
   WRITE_SHORT 0x98 ~%s1%s~    // projectile
   LPF d2_bleed_delay INT_VAR limit=10 STR_VAR resource=d2bleed1 END
   LPF d2_protect_on_castequip INT_VAR duration=0 cre_type=d2splintercheck STR_VAR insert=first END
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=d2bleedt END
 
 LAF d2_bleed_removal STR_VAR resource=~%s1%b~ END    // add to d2!bleed.spl
+LAF d2_bleed_effects STR_VAR resource=~%s1%b~ END    // blocked by damage immunity (ex. shield of lathander)
 
 
 //

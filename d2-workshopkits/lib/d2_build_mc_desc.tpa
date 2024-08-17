@@ -1,4 +1,5 @@
 //adds mc text to top of kit text (as new string)
+//can also combine multiple strings into one description (desc1,desc2,desc3)
 //this is an EE function
 
 
@@ -9,17 +10,18 @@ d2_get_mc_text      ACTION
 
 
 /*
-%class% variable should be an abbreviation or symbolic name (FM or FIGHTER_MAGE)
-desc variables (desc1,desc2,desc3) refer to a string ref (ignored if unchanged from defaults)
+"multi" variable should be an abbreviation or symbolic name (FM or FIGHTER_MAGE)
+desc variables (desc1,desc2,desc3) refer to a string ref (each is optional, ignored if not set)
 desc variables are added in order under the multiclass text, with 1 line of space above each
 
-ex. LAF d2_build_mc_desc INT_VAR desc1 = RESOLVE_STR_REF (~kit text~) STR_VAR class=fmc RET kit_desc END
+ex. LAF d2_build_mc_desc INT_VAR desc1 = RESOLVE_STR_REF (~kit text~) STR_VAR multi=fmc RET kit_desc END
+Above example will be the FMC description at top, one space, then the line "kit text".
 */
 
 
 //RET kit_desc for string ref number
 //RET kit_text for updated text (as string)
-//set mode = 2 to hide multiclass blurb at top (i.e. use function to combine desc1 + desc2 + desc3)
+//set mode = 2 to hide multiclass blurb at top (i.e. just use function to combine desc1 + desc2 + desc3)
 
 DEFINE_ACTION_FUNCTION d2_build_mc_desc
   INT_VAR desc1=~-1~ desc2=~-1~ desc3=~-1~ mode=1
@@ -107,7 +109,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_multiclass_base BEGIN
   FIGHTER_MAGE         => FM
   FIGHTER_CLERIC       => FC
   FIGHTER_THIEF        => FT
-  FIGHTER_MAGE_THIEF   => FMT    // %class% can match either side of arrow
+  FIGHTER_MAGE_THIEF   => FMT    // "class" and "multi" can match either side of arrow
   MAGE_THIEF           => MT
   CLERIC_MAGE          => CM
   CLERIC_THIEF         => CT

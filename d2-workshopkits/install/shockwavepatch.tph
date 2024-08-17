@@ -1,0 +1,30 @@
+/*
+Shockwave patch
+Make knockback affect only enemies
+*/
+
+
+ACTION_IF (noshockwavepatch = 0) BEGIN
+
+  ACTION_FOR_EACH spell IN ~%shockwaveblast%~ ~%shockwavepush%~ BEGIN
+    COPY_EXISTING ~%spell%.SPL~  ~override~
+      LPF d2_safe_spell INT_VAR block_opcode=235 STR_VAR insert=above END
+    IF_EXISTS BUT_ONLY
+  END
+
+END
+ELSE BEGIN
+
+  OUTER_SPRINT desc @202
+  OUTER_SPRINT note @751
+  OUTER_SET shockwave_desc = RESOLVE_STR_REF (~%desc%%WNL%%WNL%%note%~)
+
+  COPY_EXISTING ~%shockwave%.SPL~  ~override~
+    WRITE_LONG 0x50 shockwave_desc
+  IF_EXISTS BUT_ONLY
+
+END
+
+
+//
+//

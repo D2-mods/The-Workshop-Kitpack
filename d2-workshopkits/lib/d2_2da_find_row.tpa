@@ -4,13 +4,43 @@
 
 
 /*functions:
+d2_edit_2da_entry       PATCH or ACTION
 2da_find_row            PATCH or ACTION
 2da_find_row_set        PATCH or ACTION
 2da_find_row_delete     PATCH or ACTION
 2da_find_column         PATCH or ACTION
 no_backstab             ACTION
 d2_splprot_adder        PATCH or ACTION
+d2_clone_hla_table      ACTION
 */
+
+////////////////////////////////////////////////////////////
+
+//for editing single entries (use SET_2DA_ENTRY_LATER for multiple entries)
+//adds entry to spot that matches row_name and col_name (exact match)
+//col_read is the column read for row_name (0 = first row)
+
+DEFINE_ACTION_FUNCTION d2_edit_2da_entry
+  INT_VAR col_read=0
+  STR_VAR 2da=~~ col_name=~~ row_name=~~ entry=~~
+BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~%2da%.2DA~  ~[^_]%col_name%[^_]~) BEGIN
+    COPY_EXISTING ~%2da%.2da~  ~override~
+      LPF 2da_find_column STR_VAR col_name=EVAL ~%col_name%~ RET col_number END
+      LPF 2da_find_row_set INT_VAR col_read=col_read col_write=col_number STR_VAR row_name=EVAL ~%row_name%~ entry=EVAL ~%entry%~ END
+    BUT_ONLY
+  END
+END
+
+DEFINE_PATCH_FUNCTION d2_edit_2da_entry
+  INT_VAR col_read=0
+  STR_VAR col_name=~~ row_name=~~ entry=~~
+BEGIN
+  PATCH_IF (RESOURCE_CONTAINS ~%SOURCE_RES%.2DA~  ~[^_]%col_name%[^_]~) BEGIN
+    LPF 2da_find_column STR_VAR col_name=EVAL ~%col_name%~ RET col_number END
+    LPF 2da_find_row_set INT_VAR col_read=col_read col_write=col_number STR_VAR row_name=EVAL ~%row_name%~ entry=EVAL ~%entry%~ END
+  END
+END
 
 ////////////////////////////////////////////////////////////
 
@@ -314,7 +344,7 @@ END
 
 //match is the 1st entry in row (default = None)
 //string should include the entire new line, including the first column
-//stat is number to use for "parameter2" of related opcodes (326, 318, 324, 321)
+//RET stat for number to use for "parameter2" of related opcodes (326, 318, 324)
 
 /*
 all variables are optional (does nothing if no STR_VARs are set)
@@ -322,7 +352,7 @@ if "match" is found, "stat" is for existing line, and "string" will not be added
 set exact = 1 for exact match or leave at default (only needs to contain the "match" string)
 */
 
-DEFINE_ACTION_FUNCTION d2_splprot_adder INT_VAR exact=0 STR_VAR match=None string=~~ RET stat BEGIN
+DEFINE_ACTION_FUNCTION d2_splprot_adder INT_VAR exact=0 STR_VAR match=d2stats string=~~ RET stat BEGIN
 
   COPY_EXISTING ~splprot.2DA~  ~override~
     SET stat = 0
@@ -354,7 +384,7 @@ DEFINE_ACTION_FUNCTION d2_splprot_adder INT_VAR exact=0 STR_VAR match=None strin
 
 END
 
-DEFINE_PATCH_FUNCTION d2_splprot_adder INT_VAR exact=0 STR_VAR match=None string=~~ RET stat BEGIN
+DEFINE_PATCH_FUNCTION d2_splprot_adder INT_VAR exact=0 STR_VAR match=d2stats string=~~ RET stat BEGIN
 
   PATCH_IF (~%SOURCE_RES%~ STR_EQ ~splprot~) BEGIN
     SET stat = 0
@@ -380,6 +410,76 @@ DEFINE_PATCH_FUNCTION d2_splprot_adder INT_VAR exact=0 STR_VAR match=None string
         SET stat = count - 3
         PRETTY_PRINT_2DA
       END
+    END
+  END
+
+END
+
+////////////////////////////////////////////////////////////
+
+//kitids, clone, copy are optional (if none are set function does nothing)
+//abbrev is required
+//kitids refers to the name in luabbr.2da
+
+/*
+if "kitids" is set, function also sets the new hla table for kit
+if "kitids" is set, but clone/copy are not set, function clones the kit's current hla table
+if "kitids" does not exist, function still makes new hla table if "clone" or "copy" is set
+if resource for clone/copy does not exist, no change is made to luabbr.2da, even if kitids exists
+*/
+
+//
+DEFINE_ACTION_FUNCTION d2_clone_hla_table
+  STR_VAR
+    kitids = ~~    // optional, set new table for this kit (luabbr), clones current hla table if clone/copy not set
+    clone  = ~~    // optional, abbrev of hla table to clone (without the "lu"), higher priority than "copy"
+    copy   = ~~    // optional, kit ids name to copy hla table (checks luabbr)
+    abbrev = ~~    // required, abbrev of new hla table (without the "lu")
+  RET
+    hlatable    // resource of new hla table (full name including the "lu")
+BEGIN
+
+  OUTER_TEXT_SPRINT hlatable  ~file not found~
+
+  ACTION_IF !(~%clone%~ STR_EQ ~~) BEGIN
+    OUTER_TEXT_SPRINT hlatable  ~lu%clone%~
+  END
+
+  ACTION_IF (RESOURCE_CONTAINS ~luabbr.2da~ ~%kitids%~) BEGIN
+    ACTION_IF !(FILE_EXISTS_IN_GAME ~%hlatable%.2DA~) BEGIN
+      ACTION_IF !(~%copy%~ STR_EQ ~~) BEGIN
+        COPY_EXISTING - ~luabbr.2da~  ~override~
+          LPF 2da_find_row STR_VAR row_name=EVAL ~%copy%~ RET row_number columns END
+          READ_2DA_ENTRY row_number 1 columns ~tableres~
+        OUTER_TEXT_SPRINT hlatable  ~lu%tableres%~
+      END
+    END
+
+    ACTION_IF !(FILE_EXISTS_IN_GAME ~%hlatable%.2DA~) BEGIN
+      ACTION_IF !(~%kitids%~ STR_EQ ~~) BEGIN
+        COPY_EXISTING - ~luabbr.2da~  ~override~
+          LPF 2da_find_row STR_VAR row_name=EVAL ~%kitids%~ RET row_number columns END
+          READ_2DA_ENTRY row_number 1 columns ~tableres~
+        OUTER_TEXT_SPRINT hlatable  ~lu%tableres%~
+      END
+    END
+  END
+
+  // add new 2da table
+  ACTION_IF !(~%abbrev%~ STR_EQ ~~) BEGIN
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%hlatable%.2DA~) BEGIN
+      COPY_EXISTING ~%hlatable%.2DA~  ~override/lu%abbrev%.2DA~
+      OUTER_TEXT_SPRINT hlatable  ~lu%abbrev%~
+    END ELSE BEGIN
+      OUTER_TEXT_SPRINT hlatable  ~file not found~
+    END
+  END
+
+  ACTION_IF (RESOURCE_CONTAINS ~luabbr.2da~ ~%kitids%~) BEGIN
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%hlatable%.2DA~) BEGIN
+      COPY_EXISTING ~luabbr.2da~  ~override~
+        LPF 2da_find_row_set STR_VAR row_name=EVAL ~%kitids%~ entry=EVAL ~%abbrev%~ END
+      BUT_ONLY
     END
   END
 

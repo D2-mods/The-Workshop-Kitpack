@@ -21,11 +21,25 @@ COPY ~%passives%/nopanic.SPL~      ~override/%e4%.SPL~
   LPF d2_string_immunities END
   LPF ee_fixpack_immunities STR_VAR status=~fear~ END
 
+  // block other fear-related debuffs
+  LPF statusarray_function INT_VAR opcode=324 timing=9 STR_VAR status=panic324 mode=protect END
+  LPF statusarray_function INT_VAR opcode=318 timing=9 STR_VAR status=panic318 mode=protect END
+
+
 //Immune to blindness and gaze attacks
 COPY ~%passives%/gravewarden.SPL~  ~override/%e5%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_blindness_arrays END
   LPF d2_string_immunities END
   LPF block_death_gaze END
+
+  // block other gaze attacks (ones not using gaze.pro)
+  PATCH_FOR_EACH spell IN ~UMBERGAZ~ ~SPIN839~ BEGIN
+    LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%spell%~ END
+  END
+
+  PATCH_FOR_EACH spell IN ~INSANITY~ ~BEGUILE~ ~SPIN784~ BEGIN
+    LPF d2_protect_on_castequip INT_VAR opcode=324 timing=9 STR_VAR resource=~%spell%~ END
+  END
 
 
 //Clone mage spells
@@ -83,16 +97,17 @@ COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~        // clone Death Ward
   SAY UNIDENTIFIED_DESC @204
   LPF d2_remove_level_headers END
   LPF d2_convert_spell_type INT_VAR type=0 level=1 END    // convert to special ability
-  WRITE_ASCII 0x3a ~%s1%~ #8    // icon BAMs
+  WRITE_ASCII 0x3a ~%s1%~ #8
   WRITE_ASCII 0x76 ~%s1%~ #8
   LPF ALTER_SPELL_HEADER INT_VAR range=25 speed=3 END
+  WRITE_LONG 0x18 THIS | BIT24    // can target invisible
 
   //edit stuff
-  LPF ALTER_EFFECT INT_VAR power=0 duration=181 END                   // 3 turns + 1 second delay
-  LPF DELETE_EFFECT INT_VAR match_opcode=174 match_timing=1 END       // sound moved to VVC
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 duration=0 END    // EEs (silent to not have warning with sr)
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END    // spell revisions
-  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END     // not silent to get warning if no icon added
+  LPF ALTER_EFFECT INT_VAR power=0 duration=181 resist_dispel=2 END    // edit all effects
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 match_timing=1 END        // sound moved to VVC
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 duration=0 END     // EEs (silent to not have warning with sr)
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END     // spell revisions
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END      // not silent to get warning if no icon added
 
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 timing=1 parameter2=0 STR_VAR resource=~%s1%g~ END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=174 match_timing=4 STR_VAR resource=~EFF_E03~ END
@@ -103,7 +118,7 @@ COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~        // clone Death Ward
 
 //repeating effect (checks HP percent)
 COPY ~%abilities%/hpcheck50.SPL~  ~override/%s1%e.SPL~
-  LPF ALTER_EFFECT INT_VAR resist_dispel=3 timing=0 duration=180 STR_VAR resource=~%s1%a~ END
+  LPF ALTER_EFFECT INT_VAR resist_dispel=2 timing=0 duration=180 STR_VAR resource=~%s1%a~ END
 
 /*
 The 1 second delay is needed to recast the spell on a target.
@@ -115,10 +130,11 @@ Otherwise, it gives a message that the "contingency" could not be recast.
 COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%s1%a.SPL~
   LPF d2_remove_level_headers END
   LPF d2_subspell_remove_effects END
+  LPF update_op324_restrictions INT_VAR opcode=318 END    // update IWD restrictions
 
   // edits
+  LPF ALTER_EFFECT INT_VAR power=0 resist_dispel=2 END
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=100 parameter2=2 END
-  LPF update_op324_restrictions INT_VAR opcode=318 END                                               // update IWD restrictions
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ insert=last END    // cures bleeding
   LPF d2_remove_effects_on_cast STR_VAR resource=~%s1%~ insert=last END                              // removes main spell
   LPF d2_remove_effects_on_cast STR_VAR resource=~%s1%e~ insert=last END                             // removes repeating effect
@@ -129,8 +145,7 @@ COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%s1%a.SPL~
 
 
 //Make clab table
-COPY ~inlined/d2clab_ranger~  ~override/%kitid%.2DA~
-  REPLACE_TEXTUALLY ~GA_SPCL311~ ~****~
+COPY ~inlined/d2clab_ranger_nocharm~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 limit=20 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
@@ -168,6 +183,10 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
 END
 
 
+//edit ToB starting bag
+LAF d2_edit_2da_entry STR_VAR 2da=25STWEAP col_name=~D2%kitname%~ row_name=bag entry=bag25 END
+
+
 //
 //Set variables for external use
 OUTER_TEXT_SPRINT gravewarden   ~%kitid%~
@@ -175,6 +194,7 @@ OUTER_TEXT_SPRINT denial        ~%s1%~
 OUTER_TEXT_SPRINT gravewarden1  ~%p1%~
 OUTER_TEXT_SPRINT gravewarden2  ~%p2%~
 OUTER_TEXT_SPRINT gravewarden3  ~%p3%~
+OUTER_TEXT_SPRINT wardennofear  ~%e4%~
 
 //fnp
 OUTER_TEXT_SPRINT fnpclass    ~ranger~

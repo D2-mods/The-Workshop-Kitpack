@@ -55,11 +55,11 @@ BEGIN
     END
 
     PATCH_IF (safe = 9999) BEGIN
-      LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=opcode parameter2=0 END    // all protected
+      LPF ALTER_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=opcode parameter2=0 END    // all protected
     END
     PATCH_IF (safe = 999) BEGIN
-      LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=opcode parameter2=49 END    // allies
-      LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=opcode parameter2=51 END    // enemies
+      LPF ALTER_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=opcode parameter2=49 END    // allies
+      LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=opcode parameter2=51 END    // enemies
     END
   END
 

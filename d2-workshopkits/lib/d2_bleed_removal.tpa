@@ -1,12 +1,13 @@
-//creates the d2!bleed.spl and d2!phase.spl files (if not already created)
-//Used for removal of bleeding or phasing/dot damage (excluding poison/disease).
-
-
 /*
-run function to add resource to a file
-Set mode to bleed (default) or phase, or both
-no effect gets added if resource is not set (files are still created)
+d2!bleed removes "bleeding" effects
+d2!phase removes phasing/dot damage (excluding poison/disease)
+files are only created if they don't already exist
 */
+
+
+//run function to add resource to a file
+//Set mode to bleed (default) or phase, or both
+//no effect gets added if resource is not set (files are still created)
 
 
 DEFINE_ACTION_FUNCTION d2_bleed_removal INT_VAR overwrite=1 STR_VAR resource=~~ mode=bleed BEGIN
@@ -32,6 +33,9 @@ DEFINE_ACTION_FUNCTION d2_bleed_removal INT_VAR overwrite=1 STR_VAR resource=~~ 
           LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=EVAL ~%res%~ END
         END
       END
+//    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=221 parameter1=10 parameter2=9 END
+//    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=221 parameter1=10 parameter2=10 END
+      LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=12 END    // op12 (delayed damage)
   END
 
   // add to files
@@ -41,7 +45,7 @@ DEFINE_ACTION_FUNCTION d2_bleed_removal INT_VAR overwrite=1 STR_VAR resource=~~ 
         PATCH_IF (overwrite > 0) BEGIN
           LPF DELETE_EFFECT INT_VAR match_opcode=321 STR_VAR match_resource=EVAL ~%resource%~ END
         END
-        LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 parameter2=0 STR_VAR resource=EVAL ~%resource%~ END
+        LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 timing=1 parameter2=0 STR_VAR resource=EVAL ~%resource%~ END
       BUT_ONLY
     END
 
@@ -50,7 +54,7 @@ DEFINE_ACTION_FUNCTION d2_bleed_removal INT_VAR overwrite=1 STR_VAR resource=~~ 
         PATCH_IF (overwrite > 0) BEGIN
           LPF DELETE_EFFECT INT_VAR match_opcode=321 STR_VAR match_resource=EVAL ~%resource%~ END
         END
-        LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 parameter2=0 STR_VAR resource=EVAL ~%resource%~ END
+        LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 timing=1 parameter2=0 STR_VAR resource=EVAL ~%resource%~ END
       BUT_ONLY
     END
   END
@@ -73,6 +77,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_bleed_removal_array BEGIN
   bdsw1h21  => bleed
   SW1H38    => bleed    // bg2
   NPSW04    => bleed
+  ohbbleed  => bleed
   U1HAM5A   => phase    // iwd
   U2HAM4B   => phase
   U2HAX4A   => phase
@@ -80,9 +85,11 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_bleed_removal_array BEGIN
   UBSWD4B   => phase
   UMSTR3C   => phase
   USSWD2B   => phase
-  d2swd05e  => bleed    // mod
+  backstab  => bleed
+  d2swd05e  => bleed    // mod (temp)
   d2abb03e  => bleed
-  d2drt01e  => bleed
+  d2abb15e  => phase
+  d2drt01e  => phase
 END
 
 

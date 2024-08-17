@@ -1,4 +1,6 @@
 /*
+v6.0: not used anymore (better compat with ToF)
+
 customized for Medic (from dofweapons.tph)
 Make custom "medicweapontype" array, then INCLUDE this file
 Sets both proficiencies and weapon restrictions.

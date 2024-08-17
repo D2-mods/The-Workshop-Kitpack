@@ -8,17 +8,24 @@ ACTION_IF (nobeasthunterfc = 0) BEGIN
 COPY ~%passives%/opcode206.SPL~  ~override/%e9%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~cdhlysym~ END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~BELT12.ITM~) BEGIN
+ACTION_IF !(FILE_EXISTS ~override/%m9%.SPL~) BEGIN
   COPY ~%passives%/useeff.SPL~  ~override/%m9%.SPL~
-      LPF ALTER_EFFECT INT_VAR multi_match=1 parameter1=33 parameter2=8 STR_VAR resource=~%m9%a~ END  // Lathander
-      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=49 parameter2=8 STR_VAR resource=~%m9%a~ END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=50 parameter2=8 STR_VAR resource=~%m9%a~ END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=34 parameter2=8 STR_VAR resource=~%m9%b~ END  // Helm
-      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=17 parameter2=8 STR_VAR resource=~%m9%b~ END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=18 parameter2=8 STR_VAR resource=~%m9%b~ END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=19 parameter2=8 STR_VAR resource=~%m9%b~ END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=35 parameter2=8 STR_VAR resource=~%m9%c~ END  // Talos
-      LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=51 parameter2=8 STR_VAR resource=~%m9%c~ END
+    LPF ALTER_EFFECT INT_VAR multi_match=1 parameter1=17 parameter2=8 STR_VAR resource=~%m9%a~ END    // Lathander
+    LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=33 parameter2=8 STR_VAR resource=~%m9%a~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=49 parameter2=8 STR_VAR resource=~%m9%a~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=18 parameter2=8 STR_VAR resource=~%m9%b~ END    // Helm
+    LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=34 parameter2=8 STR_VAR resource=~%m9%b~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=19 parameter2=8 STR_VAR resource=~%m9%b~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=50 parameter2=8 STR_VAR resource=~%m9%c~ END    // Talos
+    LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=35 parameter2=8 STR_VAR resource=~%m9%c~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=51 parameter2=8 STR_VAR resource=~%m9%c~ END
+
+    PATCH_IF (FILE_EXISTS_IN_GAME ~beltty.ITM~) BEGIN
+      LPF ALTER_EFFECT INT_VAR match_parameter1=17 STR_VAR resource=~%m9%d~ END    // Tyr
+    END
+    PATCH_IF (FILE_EXISTS_IN_GAME ~OHTEMPUS.ITM~) BEGIN
+      LPF ALTER_EFFECT INT_VAR match_parameter1=50 STR_VAR resource=~%m9%e~ END    // Tempus
+    END
 
   COPY ~%abilities%/applyeffects.EFF~   ~override/%m9%a.EFF~
     WRITE_ASCII 0x30 ~%m9%a~ #8
@@ -26,13 +33,21 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~BELT12.ITM~) BEGIN
     WRITE_ASCII 0x30 ~%m9%b~ #8
   COPY ~%abilities%/applyeffects.EFF~   ~override/%m9%c.EFF~
     WRITE_ASCII 0x30 ~%m9%c~ #8
+  COPY ~%abilities%/applyeffects.EFF~   ~override/%m9%d.EFF~
+    WRITE_ASCII 0x30 ~%m9%d~ #8
+  COPY ~%abilities%/applyeffects.EFF~   ~override/%m9%e.EFF~
+    WRITE_ASCII 0x30 ~%m9%e~ #8
 
   COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%a.SPL~
-    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT12~ END  // Lathander
+    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT12~ END    // Lathander
   COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%b.SPL~
-    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT13~ END  // Helm
+    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT13~ END    // Helm
   COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%c.SPL~
-    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT14~ END  // Talos
+    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~BELT14~ END    // Talos
+  COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%d.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~beltty~ END    // Tyr
+  COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%e.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~OHTEMPUS~ END    // Tempus
 END
 
 
@@ -132,7 +147,6 @@ LAF ADD_KIT_EX
     help = kit_desc
   STR_VAR
     kit_name = ~D2%kitname%FC~
-//  unusable = ~0x00010000~               // Stalker usability (no effect for multiclasses)
     clab_base_f = ~%beasthunter%F.2DA~    // kit abilities added to Fighter table
     clab_base_p = ~%beasthunter%C.2DA~    // holy symbol added to Cleric table
     clsrcreq = ~1 1 1 1 1 1 1~            // Usable by all races, if base class is usable

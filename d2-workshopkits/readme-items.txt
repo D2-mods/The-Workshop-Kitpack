@@ -92,7 +92,8 @@ STATISTICS:
 Equipped abilities: 
 – Armor Class: +1
 – Saving Throws: +1
-– Magic Resistance: +10%
+– Magic Resistance: +5%
+– Vocalize
 
 Special (Beast Hunter): 
 – Hunter Tools: Target is drained 1 level on a failed save vs. Spell at -2

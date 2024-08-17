@@ -31,6 +31,7 @@ INCLUDE ~%install%/spellprep3.tph~
 INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/castingspeedpatch.tph~
 INCLUDE ~%install%/iwditempatch.tph~
+INCLUDE ~%install%/tobbags.tph~
 //INCLUDE ~%install%/backupfiles.tph~
 
 

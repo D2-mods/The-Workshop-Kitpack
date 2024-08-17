@@ -56,9 +56,9 @@ COPY ~%abilities%/ghostwalkerimage.SPL~  ~override/%s1%a.SPL~
 //Make clab table
 COPY ~inlined/d2clab_fighter~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
-  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e3%~ END
-  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e4%~ END
+  LPF d2_kit_ability_adder INT_VAR level=3 passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~%e3%~ END
+  LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~%e4%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder END
 

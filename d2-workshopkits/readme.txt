@@ -102,6 +102,8 @@ General guidelines:
 - Install after mods that revise or overwrite spells.
 - Install after mods that add new weapons or armor.
 
+NOTE: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. This is the order I use. Technically, this mod is actually safe to install even after most tweak mods (with the exception of proficiency overhauls), but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
+
 Spellcasting systems:
 - Compatible with Faiths and Powers spheres system.
 	- Can install before or after FnP (but I'd recommend after).
@@ -114,12 +116,26 @@ Spellcasting systems:
 
 --
 
-Talents of Faerun note: Spell components can be installed before or after this mod (I'd personally install them before). Other components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so best to just install everything after.
+Talents of Faerun notes: (tl;dr install spells before and other stuff after)
+- Spell components can be installed before or after this mod. I'd recommend to install them before (especially IWD spells).
+- Race component can be installed before or after this mod.
+- Kit/Tweak components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so easier to just install everything after.
+- To be clear, any tweaks that edit class tables, but don't do UI edits, should be fine installed before or after this mod.
+
+NOTE: This was asked about, so I'll mention that ToF Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion Check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
+
+--
+
+OlvynSpells notes:
+- Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
+- Paladin/Ranger components can be installed before or after. Note that these need to be installed after most other kit mods.
+- New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds the spells directly to the kit tables).
+- Untested with 3e metamagic component. To be safe, install it after this mod.
 
 --
 
 HLA traps/songs:
-- v4.7.8 update: Crow Hunter can now use any HLA traps (install order doesn't matter).
+- v4.7.8 update: Crow Hunter can now use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
 - Powder Keg is compatible with the Rogue Rebalancing HLA song (including Lingering song). Requires patching the rr songs, so this mod needs to be installed after rr.
 - Powder Keg can select the HLA song from Talents of Faerun, but the special ability (to switch songs) will change to the unmodded HLA song. Also, ToF's "Lingering Song" feat will work with the HLA song, but it does not affect Powder Keg songs.
 - Powder Keg is untested with other mod-added HLA songs (if any exist).
@@ -149,6 +165,59 @@ This is how I'd do the install:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v5.7
+- Drifter: 
+- Artisan's Kitpack: fixed compat issue with Medic kit's Poison Weapon (from Medic Arts ability). This mod must be installed after Artisan's kitpack for fix to be applied (it needs to know which resource is the correct Poison Weapon before install).
+
+v5.6
+- Updates:
+	- Powder Keg: song icons now have different colors. (config option to change back to old blue icons)
+	- Medic: removed Config ability. This was used to turn on/off text feedback for ki regen (now always on).
+	- Grave Warden: Denial no longer dispellable. Still affected by wild/dead magic.
+	- Full Metal Jaguar: Critical Boost now gained at level 7. Backstab immunity gained at level 3.
+	- War Magician: kit abilities no longer dispellable. Still affected by wild/dead magic.
+	- Shaman Bone Blade: Charm duration changed back to 4 rounds, but charmed creature will not become hostile if attacked or hit with an aoe. Also, the charm no longer makes neutral NPCs hostile after wearing off (changed to match berserk, which doesn't make hostile).
+	- ToB: changed starting bags for some kits if "misc items" component is installed.
+- Compatibility notes:
+	- Improved Archer(argent77): archer kits (anything with +hit with ranged) can now take Sure Shot or Missile Trap as HLAs. This mod should be installed after Improved Archer.
+	- Artisan's Kitpack: fixed Moonlight Knight issue when installed after ranger revision (was gaining Set Snares, but couldn't use it due to having 0 Set Traps). Now gains the proper skill points from the revision. A couple other minor tweaks.
+	- fix for cleric/ranger (Artisan's Kitpack): ranger revision currently gives the c/r multiclass Set Snares, but no skill points in Set Traps. Workshop Kitpack now assigns changes to ranger skills to the base c/r multiclass. This is done by default, so it should cover any revision installed before this mod.
+
+v5.5
+- Blood Minister: tweaked blood effects. Removed portrait icons for status immunities.
+- Starjammer: Improved effects structure for Riftgate and Riftstep.
+- Grave Warden: Removed portrait icons for status immunities.
+- Cosmic Watcher Badge: Changed equipped effects. Added visual feedback for level drain if save failed.
+- Confessor: no longer gains paladin Cure Disease if detected before install (extra line is also added to kit description). This will catch mods that add Cure Disease to BGEE/BG2EE, as long as installed the proper way (with spell.ids entry).
+- more work done on various functions or prep files (cumulative work over all the v5.x).
+- compatibility: tested v5.x changes with SR, SR-Revised, MiH mods, EE fixpack, and a few others.
+
+v5.4
+- Updates:
+	- Powder Keg: Song switching now usable while paused and ignores spell delays.
+	- Medic: Added a "Medic Config" ability. Lets you turn on/off feedback messages for ki power (default is ON). Can also remove the ability from current playthrough.
+	- Nurse: Fixed minor issue with Overdose ability in IWDEE (was giving a movement bonus).
+- Compatibility notes:
+	- Rogue Rebalancing: fixed installer warnings when installed after rr HLA songs. Caused by a recent change that I forgot to apply to rr patching.
+	- Shohy's bard song mod: Fixed various issues when installed after Shohy's mod. Powder Keg can take the HLA song and gains an ability to switch to it (note: does not gain "chorus" abilities).
+	- Bardic Wonders: Fixed install issue with the Blade revision. Caused the Nurse kit's Overdose ability to not install correctly (it's made by cloning and editing Offensive Spin).
+	- Install this mod after the above mods for best compatibility (there is specific patching for each mod).
+
+v5.3
+- Medic: redesigned kit (see description). It's now based around a ki power system. Ki increases with level and regenerates +1 per 5 rounds. The old abilities are still there, but fit into the new system. See release post for more info.
+- Starjammer: can now stop Riftgate summon from following party by itself (B key). This is also mentioned in the dialogue box when summoned.
+- Moonlight Knight: higher versions of Torrent now have slightly different portrait icons.
+- More colored strings. Strings are now colored with a custom function instead of directly in the TRA file.
+- Bleed effects: now blocked by stoneskins and IWD Shield of Lathander (including similar mod spells). Damage from bleeding no longer wakes sleeping creatures.
+
+v5.2
+- Powder Keg: Visual adjustments. All status effect strings will now be blocked by immunity to the status (some were but some weren't).
+- Warhound: Shockwave's knockback effect will now only affect enemies. The damage still hits anyone. If you prefer knocking away allies, the change can be reversed in the Config file.
+- Grave Warden: Fear and gaze immunity now cover a few additional spells (ex. umber hulk gaze, IWD harpy wail).
+- Drifter: Items with on-hit entangle/grease effects are now patched directly (this will catch any mod items installed before this mod).
+- Shaman Bone Blade: Elf/half-elf can now resist both charm and berserk from this item. Charm duration increased to 8 rounds (berserk still at 4 rounds).
+- More floating text. Changed some annoying sounds. Status effects more colorful (fade/pulse colors).
 
 v5.0
 - Kit/item changes:

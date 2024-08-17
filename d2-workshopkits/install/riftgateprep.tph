@@ -50,6 +50,22 @@ BEGIN
   OUTER_TEXT_SPRINT $d2riftgate(~%spell%~) ~otiluke~    // ~%spell%~ => otiluke
 END
 
+//stinking cloud, cloudkill, death fog
+ACTION_FOR_EACH spell IN
+  ~SPWI213~ ~SPWI502~ ~SPWI614~ ~SPIN979~
+BEGIN
+  OUTER_TEXT_SPRINT $d2riftgate(~%spell%~) ~cloud~    // ~%spell%~ => cloud
+END
+
+//entangle hit effects
+ACTION_FOR_EACH spell IN
+  ~SW1H58~ ~SW1H59~ ~MOUND~ ~HGNYA01~ ~KUOSPER~
+  ~bdbow06~ ~bdshamb~ ~talongf~ ~holdfst~ ~gasp~
+BEGIN
+  OUTER_TEXT_SPRINT $d2riftgate(~%spell%~) ~entangle~    // ~%spell%~ => entangle
+END
+
+
 
 //
 //get spell info
@@ -75,6 +91,19 @@ COPY_EXISTING - ~SPWI818.spl~  ~~  READ_LONG  0x8  bigby8_name
 COPY_EXISTING - ~SPWI918.spl~  ~~  READ_LONG  0x8  bigby9_name
 COPY_EXISTING - ~SPWI413.spl~  ~~  READ_LONG  0x8  otiluke_name
 
+COPY_EXISTING - ~SPWI213.spl~  ~~    // stinking cloud
+  READ_LONG  0x8  stinkcloud_name
+  READ_SHORT 0x98 stinkcloud_proj
+COPY_EXISTING - ~SPWI502.spl~  ~~    // cloudkill
+  READ_LONG  0x8  cloudkill_name
+  READ_SHORT 0x98 cloudkill_proj
+COPY_EXISTING - ~SPWI614.spl~  ~~    // death fog
+  READ_LONG  0x8  deathfog_name
+  READ_SHORT 0x98 deathfog_proj
+COPY_EXISTING - ~SPIN979.spl~  ~~    // golem cloud
+  READ_LONG  0x8  golemcloud_name
+  READ_SHORT 0x98 golemcloud_proj
+
 
 
 //
@@ -90,8 +119,9 @@ ACTION_IF !(RESOURCE_CONTAINS ~d2wkspellprep~  ~_SPPR517_~) BEGIN
 END
 
 
+
 //
-//check for mod spells
+//scan spells + add to array
 COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
   PATCH_IF (!(RESOURCE_CONTAINS ~d2wkspellprep~  ~_%SOURCE_RES%_~) AND
             !(~%SOURCE_RES%~ STR_EQ ~SPPR728~) AND    // skip implosion
@@ -102,71 +132,148 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
     PATCH_IF (num_headers > 0) BEGIN
       READ_LONG  0x8  splname
       READ_SHORT 0x98 splproj
-      SET quake_opcode = 0
+      SET check_opcodes = 1
+      SET quake_opcode  = 0
+      SET damage_opcode = 0
+      SET move_opcode   = 0
+      SET move2_opcode  = 0
+      SET sleep_opcode  = 0
 
-      GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
-      PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
-        GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
-        PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
-          PATCH_IF (quake_opcode = 0) BEGIN
-            READ_SHORT effect_off opcode                                 // opcode
-            PATCH_IF (opcode = 269) BEGIN
-              SET quake_opcode = 1
+      // match name or projectile (catch clones of spells)
+      PATCH_IF ((splname = insectspell_name) OR (splproj = insectspell_proj)) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~insect~    // ~%SOURCE_RES%~ => insect
+        SET check_opcodes = 0
+      END
+      PATCH_IF ((splname = insectswarm_name) OR (splproj = insectswarm_proj)) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~insect~    // ~%SOURCE_RES%~ => insect
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = earthquake_name) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~quake~    // ~%SOURCE_RES%~ => quake
+        SET check_opcodes = 0
+      END
+
+      // stinking cloud, cloudkill, death fog
+      PATCH_IF ((splname = stinkcloud_name) OR (splproj = stinkcloud_proj)) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~cloud~    // ~%SOURCE_RES%~ => cloud
+        SET check_opcodes = 0
+      END
+      PATCH_IF ((splname = cloudkill_name) OR (splproj = cloudkill_proj)) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~cloud~    // ~%SOURCE_RES%~ => cloud
+        SET check_opcodes = 0
+      END
+      PATCH_IF ((splname = deathfog_name) OR (splproj = deathfog_proj)) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~cloud~    // ~%SOURCE_RES%~ => cloud
+        SET check_opcodes = 0
+      END
+      PATCH_IF ((splname = golemcloud_name) OR (splproj = golemcloud_proj)) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~cloud~    // ~%SOURCE_RES%~ => cloud
+        SET check_opcodes = 0
+      END
+
+      // dispel, breach, lower resist
+      PATCH_IF (splname = dispel_name) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~dispel~    // ~%SOURCE_RES%~ => dispel
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = dispel2_name) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~dispel~    // ~%SOURCE_RES%~ => dispel
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = breach_name) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~breach~    // ~%SOURCE_RES%~ => breach
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = lowerresist_name) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~breach~    // ~%SOURCE_RES%~ => breach
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = pierceshield_name) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~breach~    // ~%SOURCE_RES%~ => breach
+        SET check_opcodes = 0
+      END
+
+      // bigby, otiluke
+      PATCH_IF (splname = bigby8_name) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~bigby~    // ~%SOURCE_RES%~ => bigby
+        SET check_opcodes = 0
+      END
+     PATCH_IF (splname = bigby9_name) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~bigby~    // ~%SOURCE_RES%~ => bigby
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = otiluke_name) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~otiluke~    // ~%SOURCE_RES%~ => otiluke
+        SET check_opcodes = 0
+      END
+
+      PATCH_IF (check_opcodes = 1) BEGIN
+        GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
+        PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
+          GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
+          PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
+            PATCH_IF (quake_opcode=0 OR damage_opcode=0) BEGIN
+              READ_SHORT effect_off opcode                                 // opcode
+              PATCH_IF (opcode = 269) BEGIN SET quake_opcode  = 1 END
+              PATCH_IF (opcode = 12 ) BEGIN SET damage_opcode = 1 END
+              PATCH_IF (opcode = 126) BEGIN SET move_opcode   = 1 END
+              PATCH_IF (opcode = 176) BEGIN SET move2_opcode  = 1 END
+              PATCH_IF (opcode = 39)  BEGIN SET sleep_opcode  = 1 END
             END
           END
         END
       END
 
-      // add to array
-      PATCH_IF ((splname = insectspell_name) OR (splname = insectswarm_name) OR
-                (splproj = insectspell_proj) OR (splproj = insectswarm_proj)
-      ) BEGIN
-        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~insect~    // ~%SOURCE_RES%~ => insect
+      // check opcodes
+      PATCH_IF (quake_opcode=1) BEGIN
+        PATCH_IF (damage_opcode=1 OR sleep_opcode=1) BEGIN
+          TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~quake~    // ~%SOURCE_RES%~ => quake
+        END
       END
-
-      PATCH_IF ((splname = earthquake_name) OR (quake_opcode = 1)) BEGIN
-        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~quake~    // ~%SOURCE_RES%~ => quake
+      PATCH_IF (damage_opcode=1 AND quake_opcode=0) BEGIN
+        PATCH_IF (move_opcode=1 OR move2_opcode=1) BEGIN
+          TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~cloud~    // ~%SOURCE_RES%~ => cloud
+        END
       END
-
-      PATCH_IF (splname = dispel_name)       BEGIN  TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~dispel~  END
-      PATCH_IF (splname = dispel2_name)      BEGIN  TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~dispel~  END
-      PATCH_IF (splname = breach_name)       BEGIN  TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~breach~  END
-      PATCH_IF (splname = lowerresist_name)  BEGIN  TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~breach~  END
-      PATCH_IF (splname = pierceshield_name) BEGIN  TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~breach~  END
-
-      PATCH_IF (splname = bigby8_name) BEGIN  TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~bigby~  END
-      PATCH_IF (splname = bigby9_name) BEGIN  TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~bigby~  END
-      PATCH_IF (splname = otiluke_name) BEGIN  TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~otiluke~  END
 
     END
   END
 // end inlined COPY
 
 
+
 //
-//check for mod items
+//scan items + add to array
 COPY_EXISTING_REGEXP - GLOB ~.*\.ITM~  ~~
   PATCH_IF (!(RESOURCE_CONTAINS ~d2wkspellprep~  ~_%SOURCE_RES%_~) AND
             !(~%SOURCE_RES%~ STR_EQ ~REAVER~)    // skip IWD weapon
   ) BEGIN
+    SET kill_opcode      = 0
+    SET web_opcode       = 0
+    SET grease_overlay   = 0
+    SET entangle_overlay = 0
 
-    SET kill_opcode = 0
     GET_OFFSET_ARRAY itm_headers  ITM_V10_HEADERS
     PHP_EACH itm_headers AS num => header_off BEGIN                    // array of headers
       GET_OFFSET_ARRAY2 itm_effects header_off ITM_V10_HEAD_EFFECTS
       PHP_EACH itm_effects AS num => effect_off BEGIN                  // array of effects on each header
         PATCH_IF (kill_opcode = 0) BEGIN
           READ_SHORT effect_off opcode                                 // opcode
-          PATCH_IF (opcode=13 OR opcode=55) BEGIN
-            SET kill_opcode = 1
-          END
+          PATCH_IF (opcode = 13)  BEGIN  SET kill_opcode      = 1 END
+          PATCH_IF (opcode = 55)  BEGIN  SET kill_opcode      = 1 END
+          PATCH_IF (opcode = 157) BEGIN  SET web_opcode       = 1 END
+          PATCH_IF (opcode = 158) BEGIN  SET grease_overlay   = 1 END
+          PATCH_IF (opcode = 154) BEGIN  SET entangle_overlay = 1 END
         END
       END
     END
 
-    // add to array
+    // add to arrays
     PATCH_IF (kill_opcode = 1) BEGIN
       TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~vorpal~    // ~%SOURCE_RES%~ => vorpal
+    END
+    PATCH_IF (web_opcode=1 OR grease_overlay=1 OR entangle_overlay=1) BEGIN
+      TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~entangle~    // ~%SOURCE_RES%~ => entangle
     END
 
   END
@@ -184,7 +291,7 @@ DEFINE_PATCH_FUNCTION insect_immunity BEGIN
   END
 END
 
-DEFINE_PATCH_FUNCTION earthquake_immunity STR_VAR block = ~quake bigby otiluke~ BEGIN
+DEFINE_PATCH_FUNCTION riftgate_immunity STR_VAR block = ~quake bigby otiluke cloud entangle~ BEGIN
   PHP_EACH d2riftgate AS spell => type BEGIN
     PATCH_IF !(~%block%~ STRING_CONTAINS_REGEXP ~%type%~) BEGIN
       LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%spell%~ END
@@ -220,7 +327,7 @@ DEFINE_PATCH_FUNCTION breach_immunity INT_VAR block_opcode=1 BEGIN    // block_o
   END
 END
 
-DEFINE_PATCH_FUNCTION vorpal_immunity_noequip BEGIN
+DEFINE_PATCH_FUNCTION vorpal_immunity_npc BEGIN
   PHP_EACH d2riftgate AS spell => type BEGIN
     PATCH_IF (~%type%~ STR_EQ ~vorpal~) BEGIN
       LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%spell%~ END
@@ -228,9 +335,10 @@ DEFINE_PATCH_FUNCTION vorpal_immunity_noequip BEGIN
   END
 END
 
+
 //
 //for Autoimmune (blocked by Bigby or Otiluke)
-DEFINE_ACTION_FUNCTION bigby_blocked STR_VAR resource=~~ BEGIN
+DEFINE_ACTION_FUNCTION bigby_blocked STR_VAR resource = ~~ BEGIN
   ACTION_PHP_EACH d2riftgate AS spell => type BEGIN
     ACTION_IF (~%type%~ STR_EQ ~bigby~) BEGIN
       ACTION_FOR_EACH spell2 IN ~%spell%~ ~%spell%A~ BEGIN
@@ -242,13 +350,31 @@ DEFINE_ACTION_FUNCTION bigby_blocked STR_VAR resource=~~ BEGIN
   END
 END
 
-DEFINE_ACTION_FUNCTION otiluke_blocked STR_VAR resource=~~ BEGIN
+DEFINE_ACTION_FUNCTION otiluke_blocked STR_VAR resource = ~~ BEGIN
   ACTION_PHP_EACH d2riftgate AS spell => type BEGIN
     ACTION_IF (~%type%~ STR_EQ ~otiluke~) BEGIN
       ACTION_FOR_EACH spell2 IN ~%spell%~ ~%spell%A~ BEGIN
         COPY_EXISTING ~%spell2%.spl~  ~override~
           LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=185 opcode=318 parameter2=0 special=0 STR_VAR resource=~%resource%~ END
         IF_EXISTS BUT_ONLY
+      END
+    END
+  END
+END
+
+
+//
+//function for d2!web
+DEFINE_PATCH_FUNCTION entangle_hit_effects INT_VAR timing=9 duration=0 STR_VAR mode=remove BEGIN
+  PHP_EACH d2riftgate AS item => type BEGIN
+    PATCH_IF !(~entangle ground206~ STRING_CONTAINS_REGEXP ~%type%~) BEGIN
+      PATCH_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+        PATCH_IF (~%mode%~ STR_EQ ~remove~) BEGIN
+          LPF d2_remove_effects_on_cast STR_VAR resource=~%item%~ END
+        END
+        PATCH_IF (~%mode%~ STR_EQ ~protect~) BEGIN
+          LPF d2_protect_on_castequip INT_VAR timing=timing duration=duration STR_VAR resource=~%item%~ END
+        END
       END
     END
   END

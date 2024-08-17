@@ -53,12 +53,18 @@ COPY ~%abilities%/riftstep.SPL~          ~override/%w1%.SPL~
   SAY UNIDENTIFIED_DESC @40208
   LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%w1%a~ END       // time stop
   LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~d2ddoor~ END     // visual
-  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%w1%g~ END       // gibberlings
+  LPF ALTER_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%w1%g~ END       // gibberlings
+
+COPY ~%abilities%/riftgatebalor.SPL~  ~override/%w1%g.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 duration=10 STR_VAR resource=~%w1%g~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=265 STR_VAR resource=~d2riftst~ END    // variable for script action
+  LPF ALTER_EFFECT INT_VAR match_opcode=265 duration=9 STR_VAR resource=~d2riftst~ END    // variable for script action
+
+//block %w1%g to prevent gibberlings being summoned (use op318)
 
 
 //
@@ -322,8 +328,16 @@ COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%w7%.SPL~    // clone a Cure Woun
 
 //
 //Add Riftgate golem
+OUTER_SPRINT summon_name @601
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@354) STR_VAR color=blue RET newstring END
+  OUTER_TEXT_SPRINT follow_party ~%newstring%~
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@355) STR_VAR color=blue RET newstring END
+  OUTER_TEXT_SPRINT hold_position ~%newstring%~
+
 COPY - ~%abilities%/riftgategolem.BAF~  ~%workspace%/%w8%g.BAF~    // golem script
+  EVALUATE_BUFFER
 COMPILE ~%workspace%/%w8%g.BAF~
+
 COPY ~%abilities%/riftgategolem.CRE~  ~override/%w8%g.CRE~         // add golem
   SAY NAME1 @601 
   SAY NAME2 @601
@@ -363,17 +377,17 @@ COPY_EXISTING ~goliro.ITM~  ~override/%w8%g.ITM~       // golem weapon (clone fr
 
   // specific spell immunities
   LPF insect_immunity END
-  LPF earthquake_immunity END
+  LPF riftgate_immunity END
   LPF dispel_immunity END
   LPF breach_immunity END
-  LPF vorpal_immunity_noequip END
+  LPF vorpal_immunity_npc END
 
 //end COPY of golem weapon
 
 //stun effect for golem weapon
 COPY_EXISTING - ~STUNSTRG.EFF~ ~~    // get string ref for "Stunned" (this file is in every game)
   READ_LONG 0x1c stunstring
-COPY ~%abilities%/riftgategolem.SPL~  ~override/%w8%g.SPL~    // stun effect (same as golem manual)
+COPY ~%abilities%/riftgategolem.SPL~  ~override/%w8%g.SPL~    // stun effect (similar to golem manual)
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=stunstring END
 
 
@@ -385,7 +399,7 @@ COPY - ~%abilities%/riftgatebalor.BAF~  ~%workspace%/%w8%d.BAF~    // balor scri
     REPLACE_TEXTUALLY ~CLERIC_STORM_OF_VENGEANCE~     ~CLERIC_UNHOLY_BLIGHT~
     REPLACE_TEXTUALLY ~CLERIC_SUMMON_FALLEN_DEVA~     ~CLERIC_AERIAL_SERVANT~
     REPLACE_TEXTUALLY ~CLERIC_AURA_OF_FLAMING_DEATH~  ~WIZARD_FIRE_SHIELD_RED~
-    REPLACE_TEXTUALLY ~CLERIC_IMPLOSION~              ~WIZARD_CHROMATIC_ORB~
+    REPLACE_TEXTUALLY ~CLERIC_IMPLOSION~              ~WIZARD_DELAYED_BLAST_FIREBALL~
   END
 COMPILE ~%workspace%/%w8%d.BAF~
 
@@ -428,11 +442,35 @@ COPY ~%abilities%/riftgatebalor.ITM~    ~override/%w8%d.ITM~       // balor weap
 
   // specific spell immunities
   LPF insect_immunity END
-  LPF earthquake_immunity END
+  LPF riftgate_immunity END
   LPF dispel_immunity END
   LPF breach_immunity END
 
 //end COPY of balor weapon
+
+
+//
+//extra block for balor script
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@450) STR_VAR color=gold RET newstring END
+OUTER_SET string = newstring
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@450) STR_VAR color=pearl RET newstring END
+OUTER_SET float = newstring
+
+<<<<<<<< .../temp/balorgone
+IF
+	OnCreation()
+	Global("d2phase1","LOCALS",1)
+	!InMyArea(LastSummonerOf(Myself))
+THEN
+	RESPONSE #100
+		DisplayStringHeadNoLog(Player1,"%float%")
+		DisplayStringNoName(Myself,"%string%")
+		DestroySelf()
+END
+>>>>>>>>
+COPY - ~.../temp/balorgone~  ~inlined/balorgone.BAF~
+  EVALUATE_BUFFER
+EXTEND_TOP ~%w8%d.BCS~       ~inlined/balorgone.BAF~
 
 
 //
@@ -443,11 +481,17 @@ LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@40115) STR_VAR bam=~%w8%i~ R
 COPY ~%abilities%/riftgate.SPL~   ~override/%w8%.SPL~
   SAY NAME1 @40115
   SAY UNIDENTIFIED_DESC @40215
-  LPF ALTER_EFFECT INT_VAR match_opcode=206 parameter1=RESOLVE_STR_REF (@303) STR_VAR resource=~%w8%~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~sumsunn~ resource=~%w8%g~ END
-  LPF ALTER_EFFECT STR_VAR match_resource=~sumzaam~ resource=~%w8%d~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=265 STR_VAR resource=~d2riftga~ END    // variable for script action
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%w8%g~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%w8%d~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=206 parameter1=RESOLVE_STR_REF (@303) STR_VAR resource=~%w8%~ END
+
+COPY ~%abilities%/riftgatebalor.SPL~  ~override/%w8%d.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%w8%d~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=265 STR_VAR resource=~d2riftga~ END    // variable for script action
+  LPF d2_remove_effects_on_cast INT_VAR timing=4 duration=4 STR_VAR resource=~%w8%~ insert=last END
+
+//block %w8%d to prevent balor being summoned (use op318)
 
 
 //

@@ -59,23 +59,85 @@ END
 
 //
 //temp fix for cdmindfl.itm (does nothing if no fix needed)
-ACTION_IF (FILE_EXISTS_IN_GAME ~cdmindfl.itm~) BEGIN
-  COPY_EXISTING ~cdmindfl.itm~  ~override~
-    LPF ALTER_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=700 match_parameter1=10 opcode=15 END
-    LPF ALTER_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=700 match_parameter1=10 opcode=44 END
-  BUT_ONLY
-END
-
+COPY_EXISTING ~cdmindfl.itm~  ~override~
+  LPF ALTER_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=700 match_parameter1=10 opcode=15 END
+  LPF ALTER_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=700 match_parameter1=10 opcode=44 END
+IF_EXISTS BUT_ONLY
 
 //
 //IWD hla tables (does nothing if set correctly)
-ACTION_IF (FILE_EXISTS_IN_GAME ~luabbr.2da~) BEGIN
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
   COPY_EXISTING ~luabbr.2da~  ~override~
     LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_CLERIC entry=FMC END
     LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_THIEF  entry=FMT END
   BUT_ONLY
 END
 
+//
+//temp fix for Shohy song switching (does nothing if no fix needed)
+COPY_EXISTING ~BI#B1ST.SPL~  ~override~
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=99 parameter1=300 parameter2=2 END
+IF_EXISTS BUT_ONLY
+
 
 /*
+patches for sleep effect
+effects cloned from existing op39
 */
+
+//show display string for sleep resist (elf, half-elf)
+//string is "Unaffected by effects from sleep"
+DEFINE_PATCH_FUNCTION d2_sleep_elfresist INT_VAR overwrite=1 string=1 opcode=318 BEGIN
+
+  PATCH_IF (opcode!=318 AND opcode!=324) BEGIN SET opcode=318 END
+  PATCH_IF opcode = 324 BEGIN SET string = 0 END
+
+  PATCH_IF (overwrite > 0) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_parameter2=15 match_probability1=90 END
+    LPF DELETE_EFFECT INT_VAR match_parameter2=19 match_probability1=30 END
+  END
+
+  LPF d2_protect_on_castequip INT_VAR match_opcode=39 opcode=opcode cre_type=15 probability=90 duration=0 STR_VAR insert=above END
+  LPF d2_protect_on_castequip INT_VAR match_opcode=39 opcode=opcode cre_type=19 probability=30 duration=0 STR_VAR insert=above END
+
+  PATCH_IF (string > 0) BEGIN
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=318 match_parameter2=15 opcode=326 STR_VAR resource=d2sleept END
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=318 match_parameter2=19 opcode=326 STR_VAR resource=d2sleept END
+  END
+
+END
+
+//
+//make d2sleept file (for above function)
+COPY_EXISTING - ~SPWI116.spl~  ~~  READ_LONG 0x8 sleep_name
+ACTION_GET_STRREF EVAL ~%sleep_name%~  sleep_string
+OUTER_TEXT_SPRINT ability_name ~%sleep_string%~
+ACTION_TO_LOWER ability_name    // "sleep"
+
+COPY ~%abilities%/spellfailed.SPL~  ~override/d2sleept.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@350) END    // "Unaffected by..."
+  LPF DELETE_EFFECT INT_VAR match_opcode=141 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF d2_protect_on_castequip INT_VAR duration=5 END    // block string for 5 seconds (won't see every hit)
+
+//
+//show "Sleep" string (does not block unconscious string in BG games)
+DEFINE_PATCH_FUNCTION d2_sleep_string INT_VAR overwrite=1 BEGIN
+
+  PATCH_IF (GAME_IS ~bgee~)      BEGIN SET sleep_string = 26371 SET unconscious = 20438 END
+  PATCH_IF (GAME_IS ~bg2ee eet~) BEGIN SET sleep_string = 14001 SET unconscious = 20438 END
+  PATCH_IF (GAME_IS ~iwdee~)     BEGIN SET sleep_string = 37613 SET unconscious = 37340 END
+
+  PATCH_IF (overwrite > 0) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=139 match_parameter1=sleep_string END
+    LPF DELETE_EFFECT INT_VAR match_opcode=139 match_parameter1=unconscious END
+  END
+
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=39 opcode=139 parameter1=sleep_string timing=1 duration=0 STR_VAR insert=below END
+//  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=39 opcode=267 parameter1=unconscious timing=0 duration=1 savingthrow=0 special=0 STR_VAR insert=first END
+
+END
+
+
+//
+//

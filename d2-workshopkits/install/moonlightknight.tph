@@ -25,27 +25,41 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%e3%x.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e4%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e5%~ END
 
-COPY ~%icons%/torrenticon.BAM~  ~override/%e3%i.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@622) STR_VAR bam=~%e3%i~ RET icon END
-
 COPY - ~%abilities%/applyeffects.SPL~  ~inlined/torrentapply.SPL~
   LPF ALTER_EFFECT INT_VAR target=1 opcode=146 parameter2=1 probability1=10 END
-  LPF CLONE_EFFECT INT_VAR opcode=142 timing=0 duration=10 resist_dispel=3 parameter2=icon STR_VAR insert=below END
+  LPF CLONE_EFFECT INT_VAR opcode=142 timing=0 duration=10 resist_dispel=3 STR_VAR insert=below END
+
+
+//portrait icons
+COPY ~%icons%/torrenticon1.BAM~   ~override/%e3%i.BAM~
+COPY ~%icons%/torrenticon2.BAM~  ~override/%e4%i.BAM~
+COPY ~%icons%/torrenticon3.BAM~  ~override/%e5%i.BAM~
+
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@622) STR_VAR bam=~%e3%i~ RET icon END
+OUTER_SET torrent1 = icon
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@623) STR_VAR bam=~%e4%i~ RET icon END
+OUTER_SET torrent2 = icon
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@624) STR_VAR bam=~%e5%i~ RET icon END
+OUTER_SET torrent3 = icon
 
 
 //
 //Add Torrent (main hit effects)
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@322) STR_VAR color=blue RET newstring END
+
 COPY ~%passives%/hiteffect1all.SPL~  ~override/%e3%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%e3%e~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=139 parameter1=RESOLVE_STR_REF (@316) END    // "Gained Passive Ability: Torrent"
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=139 parameter1=RESOLVE_STR_REF (@316) END
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%e3%x~ END
 
 COPY ~%passives%/hiteffect1all.SPL~  ~override/%e4%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%e4%e~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=330 parameter1=newstring timing=4 duration=1 END
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%e3%x~ END
 
 COPY ~%passives%/hiteffect1all.SPL~  ~override/%e5%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%e5%e~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=330 parameter1=newstring timing=4 duration=1 END
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%e3%x~ END
 
 
@@ -55,6 +69,7 @@ COPY ~%abilities%/castspellself.EFF~  ~override/%e3%e.EFF~
 COPY ~inlined/torrentapply.SPL~       ~override/%e3%e.SPL~
   LPF ALTER_EFFECT STR_VAR multi_match=1 resource=~%e3%a~ END    // haste
   LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e3%t~ END    // stats
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=torrent1 END
   LPF d2_protect_on_castequip END
 
 COPY ~%abilities%/castspellself.EFF~  ~override/%e4%e.EFF~
@@ -63,6 +78,7 @@ COPY ~inlined/torrentapply.SPL~       ~override/%e4%e.SPL~
   LPF ALTER_EFFECT STR_VAR multi_match=1 resource=~%e3%a~ END    // haste
   LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e4%a~ END    // damage
   LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e4%t~ END    // stats
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=torrent2 END
   LPF d2_protect_on_castequip END
 
 COPY ~%abilities%/castspellself.EFF~  ~override/%e5%e.EFF~
@@ -71,6 +87,7 @@ COPY ~inlined/torrentapply.SPL~       ~override/%e5%e.SPL~
   LPF ALTER_EFFECT STR_VAR multi_match=1 resource=~%e5%a~ END    // haste
   LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e4%a~ END    // damage
   LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e5%t~ END    // stats
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=torrent3 END
   LPF d2_protect_on_castequip END
 
 
@@ -85,12 +102,11 @@ COPY_EXISTING ~SPWI305.SPL~  ~override/%e3%a.SPL~    // clone Haste
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
 
 //make haste subspell (for SCS/ToF)
-ACTION_IF (FILE_EXISTS ~override/SPWI305A.SPL~) BEGIN
-  COPY_EXISTING ~SPWI305A.SPL~  ~override/%e3%b.SPL~
-    LPF d2prep_haste END
-    LPF torrent_haste END
-    TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
-END
+COPY_EXISTING ~SPWI305A.SPL~  ~override/%e3%b.SPL~
+  LPF d2prep_haste END
+  LPF torrent_haste END
+  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
+IF_EXISTS
 
 //improved haste (level 16)
 COPY ~override/%e3%a.SPL~  ~override/%e5%a.SPL~
@@ -164,7 +180,8 @@ COPY ~%abilities%/applyeffects.EFF~     ~override/%s1%b.EFF~    // apply effects
 
 //extra effects
 COPY ~%abilities%/moonlighttickle.SPL~  ~override/%s1%d.SPL~    // allies effect
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@319) END    // "Tickled..."
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@319) STR_VAR color=misty RET newstring END    // "Tickled..."
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 opcode=330 parameter1=newstring END
 COPY ~%abilities%/moonlightresist.SPL~  ~override/%s1%e.SPL~    // magic resist (self)
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%e~ END
 
@@ -192,15 +209,22 @@ LAF ADD_KIT_EX
   STR_VAR
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
-    clsrcreq = ~1 1 1 1 1 1 1~         // Usable by all races, if base class is usable
+    clsrcreq = ~1 1 1 1 1 1 1~           // Usable by all races, if base class is usable
     alignmnt = ~1 1 1 1 1 1 1 1 1~
 //    weapprof = ~2 2 1 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 2 2 2 3~
-//    clasiskl = ~0 0 0 0 0 0 0~       // initial skills
-    thiefscl = ~0 0 0 50 50 0 0 0~     // skills percent modifier
-    clascolr = ~137 141 142 24 138~    // shaman colors
+//    clasiskl = ~0 0 0 0 0 0 0~         // initial skills
+//    thiefscl = ~0 0 0 50 50 0 0 0~     // skills percent modifier (using below method)
+    clascolr = ~137 141 142 24 138~      // shaman colors
   RET 
     kit_id
 END
+
+
+//edit stealth skill
+COPY_EXISTING ~thiefscl.2da~  ~override~
+  LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=MOVE_SILENTLY entry=50 END
+  LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=HIDE_IN_SHADOWS entry=50 END
+BUT_ONLY
 
 
 //

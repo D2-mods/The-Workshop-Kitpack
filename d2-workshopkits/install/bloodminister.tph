@@ -64,7 +64,8 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%a.SPL~    // cast by bl
 COPY ~override/%s0%a.SPL~  ~override/%s0%x.SPL~                    // cast by Restoration (can be blocked separately)
 
 COPY ~%abilities%/spellfailed.SPL~  ~override/%s0%b.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@320) END    // "Ministration fail!"
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@320) STR_VAR color=blue RET newstring END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=newstring END    // "Ministration fail..."
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END
 
 
@@ -83,11 +84,12 @@ COPY ~inlined/d2bloodtype.SPL~  ~override/%s2%.SPL~
 
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@603) STR_VAR bam=~%s1%i~ RET icon END
 COPY ~%abilities%/bloodtypea.SPL~  ~override/%s2%a.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@306) END    // "Regenerating"
 //  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=324 STR_VAR resource=~%s2%a~ END
   LPF DELETE_EFFECT INT_VAR match_opcode=324 END
   LPF DELETE_EFFECT INT_VAR match_opcode=321 END
   LPF DELETE_EFFECT INT_VAR match_opcode=146 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@306) END        // "Regenerating"
+  LPF CLONE_EFFECT INT_VAR match_opcode=98 opcode=17 parameter1=15 parameter2=2 timing=1 duration=0 END    // heal 15% hp
   LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!body~ END     // cures poison and disease
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ END    // cures bleeding
@@ -144,6 +146,8 @@ COPY ~%abilities%/bloodtypec.SPL~  ~override/%s4%a.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=324 END
   LPF DELETE_EFFECT INT_VAR match_opcode=321 END
   LPF DELETE_EFFECT INT_VAR match_opcode=146 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=166 parameter1=5 END    // 5% magic resist
+  LPF CLONE_EFFECT INT_VAR match_opcode=19 opcode=6 END         // +4 charisma
   LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!vamp~ END    // cures level drain
   LPF d2_protect_on_castequip INT_VAR duration=2 STR_VAR resource=~%s0%x~ insert=first END
@@ -176,6 +180,13 @@ COPY ~%abilities%/bloodtyped.SPL~  ~override/%s5%a.SPL~
 //  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=324 STR_VAR resource=~%s5%a~ END
   LPF DELETE_EFFECT INT_VAR match_opcode=324 END
   LPF DELETE_EFFECT INT_VAR match_opcode=321 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=27 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=28 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=29 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=30 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=31 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=84 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=85 END
   LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END
@@ -217,17 +228,15 @@ BUT_ONLY
 
 
 //Make clab table
-COPY ~inlined/d2clab_cleric~  ~override/%kitid%.2DA~
+COPY ~inlined/d2clab_cleric_nosymbol~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=2 limit=20 STR_VAR resource=~%s1%~ END
+  LPF d2_kit_ability_adder END
 
   PATCH_IF (holysymbols > 0) BEGIN    // add Holy Symbol
     LPF d2_kit_ability_adder INT_VAR level=25 passive=1 STR_VAR resource=~%m9%~ END
   END
-
-  REPLACE_TEXTUALLY ~AP_CDHLYSYM~  ~****~    // remove default Holy Symbol
-  LPF d2_kit_ability_adder END
 
 
 //Kit function
@@ -247,8 +256,12 @@ LAF ADD_KIT_EX
 END
 
 
+//edit ToB starting bag
+LAF d2_edit_2da_entry STR_VAR 2da=25STWEAP col_name=~D2%kitname%~ row_name=bag entry=bag27a END
+
+
 //
-//Weapon restrictions
+//Weapon restrictions (mod compat)
 
 /*
 For DoF sphere system.
@@ -258,7 +271,7 @@ Or if installed after FnP. If installed before, will use FnP default Cleric usab
 ACTION_IF ((FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
            (FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
            (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
-          ) BEGIN
+) BEGIN
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY weapontype BEGIN    // weapon => usable
   15 => 0    // bows
@@ -309,6 +322,7 @@ OUTER_TEXT_SPRINT healingbloodregen  ~%s2%a~
 OUTER_TEXT_SPRINT beastblood         ~%s3%~
 OUTER_TEXT_SPRINT madmanblood        ~%s4%~
 OUTER_TEXT_SPRINT leadelixir         ~%s5%~
+OUTER_TEXT_SPRINT ministernodrain    ~%e2%~
 
 //fnp
 OUTER_TEXT_SPRINT fnpclass    ~cleric~

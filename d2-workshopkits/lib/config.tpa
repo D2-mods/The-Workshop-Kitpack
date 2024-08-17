@@ -68,16 +68,40 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~castingspeedpatch.*=.*[^0-9]0[^0-9]*$~       nocastingspeedpatch
   COUNT_REGEXP_INSTANCES  ~evasionchecks.*=.*[^0-9]0[^0-9]*$~           noevasionchecks
   COUNT_REGEXP_INSTANCES  ~backstabprep.*=.*[^0-9]0[^0-9]*$~            nobackstabprep
+  COUNT_REGEXP_INSTANCES  ~shockwavepatch.*=.*[^0-9]0[^0-9]*$~          noshockwavepatch
+  COUNT_REGEXP_INSTANCES  ~hideimmunityicons.*=.*[^0-9]0[^0-9]*$~       noiconpatch
+  COUNT_REGEXP_INSTANCES  ~powderkegicons.*=.*[^0-9]0[^0-9]*$~          nopowderkegpatch
+
+//Bubb's Menu levels
+  COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]0[^0-9]*$~        medictools0
+  COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]1[^0-9]*$~        medictools1
+  COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]2[^0-9]*$~        medictools2
+  COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]3[^0-9]*$~        medictools3
+  COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]4[^0-9]*$~        medictools4
+  COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]5[^0-9]*$~        medictools5
+  COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]6[^0-9]*$~        medictools6
+  COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]7[^0-9]*$~        medictools7
+  COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]8[^0-9]*$~        medictools8
+  COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]9[^0-9]*$~        medictools9
+  COUNT_REGEXP_INSTANCES  ~nursetools_level.*=.*[^0-9]0[^0-9]*$~        nursetools0
+  COUNT_REGEXP_INSTANCES  ~nursetools_level.*=.*[^0-9]1[^0-9]*$~        nursetools1
+  COUNT_REGEXP_INSTANCES  ~nursetools_level.*=.*[^0-9]2[^0-9]*$~        nursetools2
+  COUNT_REGEXP_INSTANCES  ~nursetools_level.*=.*[^0-9]3[^0-9]*$~        nursetools3
+  COUNT_REGEXP_INSTANCES  ~nursetools_level.*=.*[^0-9]4[^0-9]*$~        nursetools4
+  COUNT_REGEXP_INSTANCES  ~nursetools_level.*=.*[^0-9]5[^0-9]*$~        nursetools5
+  COUNT_REGEXP_INSTANCES  ~nursetools_level.*=.*[^0-9]6[^0-9]*$~        nursetools6
+  COUNT_REGEXP_INSTANCES  ~nursetools_level.*=.*[^0-9]7[^0-9]*$~        nursetools7
+  COUNT_REGEXP_INSTANCES  ~nursetools_level.*=.*[^0-9]8[^0-9]*$~        nursetools8
+  COUNT_REGEXP_INSTANCES  ~nursetools_level.*=.*[^0-9]9[^0-9]*$~        nursetools9
 
 
 
 //
 //Set spell cap (Starjammer spells)
-
-OUTER_SET spellcapBG2  = 20                                      // default
+OUTER_SET spellcapBG2  = 20
 OUTER_SET spellcapIWD  = 30
 
-ACTION_IF (bg2cap20 > 0) BEGIN OUTER_SET spellcapBG2 = 20 END    // adjusted
+ACTION_IF (bg2cap20 > 0) BEGIN OUTER_SET spellcapBG2 = 20 END
 ACTION_IF (bg2cap30 > 0) BEGIN OUTER_SET spellcapBG2 = 30 END
 ACTION_IF (bg2cap40 > 0) BEGIN OUTER_SET spellcapBG2 = 40 END
 ACTION_IF (bg2cap50 > 0) BEGIN OUTER_SET spellcapBG2 = 50 END
@@ -108,5 +132,33 @@ ACTION_IF (noholysymbols = 0) BEGIN OUTER_SET holysymbols = 1 END
 ACTION_IF (noholysymbols > 0) BEGIN OUTER_SET holysymbols = 0 END
 
 
-/*
-*/
+
+//
+//Set Bubb's Menu row
+OUTER_SET medic_row  = 3
+OUTER_SET nurse_row  = 3
+
+ACTION_IF (medictools0 > 0) BEGIN OUTER_SET medic_row = 0 END
+ACTION_IF (medictools1 > 0) BEGIN OUTER_SET medic_row = 1 END
+ACTION_IF (medictools2 > 0) BEGIN OUTER_SET medic_row = 2 END
+ACTION_IF (medictools3 > 0) BEGIN OUTER_SET medic_row = 3 END
+ACTION_IF (medictools4 > 0) BEGIN OUTER_SET medic_row = 4 END
+ACTION_IF (medictools5 > 0) BEGIN OUTER_SET medic_row = 5 END
+ACTION_IF (medictools6 > 0) BEGIN OUTER_SET medic_row = 6 END
+ACTION_IF (medictools7 > 0) BEGIN OUTER_SET medic_row = 7 END
+ACTION_IF (medictools8 > 0) BEGIN OUTER_SET medic_row = 8 END
+ACTION_IF (medictools9 > 0) BEGIN OUTER_SET medic_row = 9 END
+ACTION_IF (nursetools0 > 0) BEGIN OUTER_SET nurse_row = 0 END
+ACTION_IF (nursetools1 > 0) BEGIN OUTER_SET nurse_row = 1 END
+ACTION_IF (nursetools2 > 0) BEGIN OUTER_SET nurse_row = 2 END
+ACTION_IF (nursetools3 > 0) BEGIN OUTER_SET nurse_row = 3 END
+ACTION_IF (nursetools4 > 0) BEGIN OUTER_SET nurse_row = 4 END
+ACTION_IF (nursetools5 > 0) BEGIN OUTER_SET nurse_row = 5 END
+ACTION_IF (nursetools6 > 0) BEGIN OUTER_SET nurse_row = 6 END
+ACTION_IF (nursetools7 > 0) BEGIN OUTER_SET nurse_row = 7 END
+ACTION_IF (nursetools8 > 0) BEGIN OUTER_SET nurse_row = 8 END
+ACTION_IF (nursetools9 > 0) BEGIN OUTER_SET nurse_row = 9 END
+
+
+//
+//

@@ -127,6 +127,13 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
 END
 
 
+//mod compat (Argent77's improved archer)
+OUTER_SET archerhla1 = 1
+OUTER_TEXT_SPRINT idsname ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev ~%kitid%~
+INCLUDE ~%install%/argent77archer.tph~
+
+
 //Gains archer effects from items
 OUTER_TEXT_SPRINT kit_group ~archer~
 OUTER_TEXT_SPRINT ids_name  ~D2%kitname%~

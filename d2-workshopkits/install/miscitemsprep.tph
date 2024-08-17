@@ -96,7 +96,7 @@ END
 //Powder Keg (d2wkb)
 ACTION_IF (FILE_EXISTS ~override/d2wkb.2DA~) BEGIN
   OUTER_TEXT_SPRINT powderkeg     ~d2wkb~
-  OUTER_TEXT_SPRINT nosongchange  ~d2wkbs0~
+  OUTER_TEXT_SPRINT nosongchange  ~d2wkbs0a~
 END
 
 //Warhound (d2wk2)
@@ -123,9 +123,9 @@ ACTION_IF (FILE_EXISTS ~override/d2wkds1.SPL~) BEGIN
   OUTER_TEXT_SPRINT whiteremedyblast    ~d2wkds2b~
   OUTER_TEXT_SPRINT medicremove         ~d2wkds0x~
 
-  OUTER_SET remedy7  = 1 + IDS_OF_SYMBOL (PROJECTL ~d2wkds9a~)
-  OUTER_SET remedy4  = 1 + IDS_OF_SYMBOL (PROJECTL ~d2wkds9b~)
-  OUTER_SET remedy15 = 1 + IDS_OF_SYMBOL (PROJECTL ~d2wkds9c~)
+  OUTER_SET remedy7  = 1 + IDS_OF_SYMBOL (PROJECTL ~d2wkds0a~)
+  OUTER_SET remedy4  = 1 + IDS_OF_SYMBOL (PROJECTL ~d2wkds0b~)
+  OUTER_SET remedy15 = 1 + IDS_OF_SYMBOL (PROJECTL ~d2wkds0c~)
 END
 
 //Starjammer (d2wk8)
@@ -147,10 +147,10 @@ OUTER_TEXT_SPRINT d2lorecheck  ~d2lorecheck 25 -1 4~    // lore >= value
 OUTER_TEXT_SPRINT d2loreunder  ~d2loreunder 25 -1 2~    // lore < value
 
 COPY_EXISTING ~splprot.2da~  ~override~
-  LPF d2_splprot_adder STR_VAR mode=d2lorecheck string=~%d2lorecheck%~ RET stat END
+  LPF d2_splprot_adder STR_VAR match=d2lorecheck string=~%d2lorecheck%~ RET stat END
   SET d2lorecheck = stat
 
-  LPF d2_splprot_adder STR_VAR mode=d2loreunder string=~%d2loreunder%~ RET stat END
+  LPF d2_splprot_adder STR_VAR match=d2loreunder string=~%d2loreunder%~ RET stat END
   SET d2loreunder = stat
 BUT_ONLY
 

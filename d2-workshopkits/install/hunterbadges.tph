@@ -74,7 +74,7 @@ END
     WRITE_ASCII 0x58 ~CMISCAD~ #8    // description image
     LPF d2_protect_on_castequip STR_VAR resource=~%m2%x~ END
 
-    //IWD: charm immunity 
+    // charm immunity (for IWDEE)
     PATCH_IF (GAME_IS ~iwdee~) BEGIN
       LPF CLONE_EFFECT INT_VAR multi_match=1 match_timing=2 opcode=101 parameter2=5 END
       LPF cd_apply_batch STR_VAR array_name = cd_immunity_charm_arrays END
@@ -84,13 +84,29 @@ END
 
   // cosmic watcher badge
   COPY ~%icons%/badge_cosmic.BAM~  ~override/%m3%c.BAM~
-  COPY ~%files%/badge_cosmic.EFF~  ~override/%m3%a.EFF~
   COPY ~%files%/badge_cosmic.ITM~  ~override/%m3%.ITM~
     SAY NAME1 @70103 SAY UNIDENTIFIED_DESC @70203
     SAY NAME2 @70103 SAY DESC @70203
     WRITE_ASCII 0x3a ~IAMUL23~ #8    // icon
     WRITE_ASCII 0x58 ~%m3%c~ #8      // description image
     LPF d2_protect_on_castequip STR_VAR resource=~%m3%x~ END
+
+    // vocalize
+    LPF cd_apply_batch STR_VAR array_name = cd_immunity_silence_arrays END
+    LPF d2_string_immunities END
+    LPF ee_fixpack_immunities STR_VAR status=~silence~ END
+
+  OUTER_SET leveldrain = 41495
+  ACTION_IF (GAME_IS ~iwdee~) BEGIN  OUTER_SET leveldrain = 35498 END
+  ACTION_IF (GAME_IS ~bgee~) BEGIN  OUTER_SET leveldrain = 25802 END
+
+  COPY ~%abilities%/applyeffects.EFF~  ~override/%m3%a.EFF~
+    WRITE_ASCII 0x30 ~%m3%a~ #8
+    WRITE_LONG 0x40 1       // save vs. spell
+    WRITE_LONG 0x44 ~-2~    // -2 penalty to save
+  COPY ~%files%/badge_cosmic.SPL~      ~override/%m3%a.SPL~
+    LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=leveldrain END
+    LPF ALTER_EFFECT INT_VAR savingthrow=0 savebonus=0 END
 
   // powder keg badge
   COPY ~%files%/badge_pkeg.EFF~  ~override/%m4%a.EFF~

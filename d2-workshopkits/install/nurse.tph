@@ -179,19 +179,17 @@ COPY ~%abilities%/applyeffects.SPL~   ~override/%s1%y.SPL~
 
 //
 //text strings (injection shot)
+OUTER_SET feeblemind  = 23744
+OUTER_SET confused    = 14782
+
+ACTION_IF (GAME_IS ~bgee~) BEGIN
+  OUTER_SET feeblemind  = 23744
+  OUTER_SET confused    = 25807
+END
+
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   OUTER_SET feeblemind  = 14407
   OUTER_SET confused    = 37604
-END
-ELSE BEGIN
-  ACTION_IF (GAME_IS ~bgee~) BEGIN
-    OUTER_SET feeblemind  = 23744
-    OUTER_SET confused    = 25807
-  END
-  ELSE BEGIN
-    OUTER_SET feeblemind  = 23744
-    OUTER_SET confused    = 14782
-  END
 END
 
 
@@ -310,25 +308,45 @@ COPY_EXISTING ~SPCL521.SPL~  ~override/%s4%.SPL~    // clone offensive spin (blo
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
   // edits
-  LPF DELETE_EFFECT INT_VAR match_opcode=282 END    // script state
+//  LPF DELETE_EFFECT INT_VAR match_opcode=282 END    // script state
   LPF DELETE_EFFECT INT_VAR match_opcode=328 END    // spell state
-  LPF DELETE_EFFECT INT_VAR match_opcode=126 END    // movement
+  LPF DELETE_EFFECT INT_VAR match_opcode=126 END    // movement (bg)
+  LPF DELETE_EFFECT INT_VAR match_opcode=176 END    // movement (iwd)
   LPF DELETE_EFFECT INT_VAR match_opcode=54 END     // thac0
   LPF DELETE_EFFECT INT_VAR match_opcode=73 END     // damage
   LPF DELETE_EFFECT INT_VAR match_opcode=250 END    // max damage
   LPF DELETE_EFFECT INT_VAR match_opcode=65 END     // blur visual
 //  LPF DELETE_EFFECT INT_VAR match_opcode=267 END    // block haste string
-//  LPF DELETE_EFFECT INT_VAR match_opcode=169 END    // block haste icon
-//  LPF DELETE_EFFECT INT_VAR match_opcode=101 END    // block haste opcode
-  LPF DELETE_EFFECT STR_VAR match_resource=SPCL521 END    // blade stuff
-  LPF DELETE_EFFECT STR_VAR match_resource=SPCL522 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=169 END    // block haste icon
+  LPF DELETE_EFFECT INT_VAR match_opcode=101 END    // block haste opcode
+  LPF DELETE_EFFECT STR_VAR match_resource=SPCL521 END    // offensive spin
+  LPF DELETE_EFFECT STR_VAR match_resource=SPCL522 END    // defensive spin
 
+  // v6.0 edits
+  LPF DELETE_EFFECT INT_VAR match_opcode=145 END    // disable casting
+  LPF DELETE_EFFECT INT_VAR match_opcode=317 END    // haste 2
+  LPF DELETE_EFFECT INT_VAR match_opcode=16 END     // haste opcode (in case added by a revision)
+  LPF DELETE_EFFECT STR_VAR match_resource=SPCL521a END    // bardic wonders fatigue
+
+  // re-add APR and haste immunity
+  LPF DELETE_EFFECT INT_VAR match_opcode=1 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=1 parameter1=1 parameter2=0 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=101 parameter2=16 END    // block haste opcode
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=101 parameter2=93 END    // block fatigue opcode
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=169 parameter2=38 END    // block Haste icon
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=169 parameter2=110 END    // block Improved Haste icon
+  LPF d2_string_immunities INT_VAR overwrite=1 END
+  LPF ee_fixpack_immunities STR_VAR status=~haste~ END
+
+  // block haste spells (delayed effects)
   PHP_EACH d2statusarray AS spell => type BEGIN
     PATCH_IF (~%type%~ STR_EQ ~haste~) BEGIN
-      LPF DELETE_EFFECT INT_VAR match_opcode=321 STR_VAR match_resource=~%spell%~ END
+      LPF DELETE_EFFECT STR_VAR match_resource=~%spell%~ END
+      LPF d2_protect_on_castequip INT_VAR duration=30 STR_VAR resource=~%spell%~ END
     END
   END
 
+  // edits
   LPF ADD_SPELL_EFFECT INT_VAR opcode=50 timing=1 parameter1=1669567488 parameter2=0b11110000000000000000 END            // white-orange
 //  LPF ADD_SPELL_EFFECT INT_VAR opcode=50 timing=1 parameter1=(0 - 1753961216) parameter2=0b11110000000000000000 END    // violet
   LPF ALTER_EFFECT INT_VAR silent=1 match_timing=0 duration=30 END    // 5 rounds
@@ -342,7 +360,6 @@ COPY_EXISTING ~SPCL521.SPL~  ~override/%s4%.SPL~    // clone offensive spin (blo
   LPF d2_remove_effects_on_cast END
 
   // add effects
-  LPF ALTER_EFFECT INT_VAR match_opcode=1 parameter1=1 parameter2=0 END    // APR bonus (in case changed)
   LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=301 parameter1=2 special=2 END    // crits
   LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=90  parameter1=27 END    // skills (start at level 9)
   LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=91  parameter1=27 END
@@ -362,7 +379,7 @@ COPY_EXISTING ~SPCL521.SPL~  ~override/%s4%.SPL~    // clone offensive spin (blo
   END
 
 //immunities
-COPY ~%passives%/noleveldrain.SPL~  ~override/%s4%a.SPL~
+COPY ~%passives%/opcode101.SPL~  ~override/%s4%a.SPL~
   LPF ALTER_EFFECT INT_VAR timing=0 duration=30 END
   LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=40 END     // slow
   LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=213 END    // maze
@@ -454,7 +471,7 @@ ACTION_PHP_EACH nursetools AS spell => key BEGIN
   // each ability recasts s9s (main subspell)
   COPY_EXISTING ~%spell%.SPL~  ~override~
     LPF ADD_SPELL_CFEFFECT INT_VAR opcode=326 target=1 timing=1 STR_VAR resource=~%s9%s~ END
-    WRITE_LONG 0x34 3    // "level" offset (affects where it shows in Bubb's Spell Menu)
+    WRITE_LONG 0x34 nurse_row    // "level" offset (row for Bubb's Spell Menu)
   BUT_ONLY
 
   // # spells (give abilities)
@@ -530,6 +547,13 @@ END
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
   ~D2%kitname%~ => ~leather~
 END
+
+
+//mod compat (Argent77's improved archer)
+OUTER_SET archerhla2 = 1
+OUTER_TEXT_SPRINT idsname ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev ~%kitid%~
+INCLUDE ~%install%/argent77archer.tph~
 
 
 //Gains archer effects from items

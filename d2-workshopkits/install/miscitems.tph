@@ -6,6 +6,27 @@ Caryll runes are in a separate file (miscitemsrunes.tph).
 */
 
 
+/*
+//Crowfeather Cloak (cloak)
+//Etherbomb Songbook (quick item)
+//Ether Booster (amulet)
+//Prisoner's Chain (ring)
+//Cruciform (amulet)
+//Golem Ring (ring)
+//Calamity Ring (ring)
+//Stone Ring (ring)
+//Flynn's Ring (ring)
+//Ether Limiter (amulet)
+//Gold Scarab (amulet)
+//Winged Sword Insignia (ring)
+//Red Tearstone Ring (ring)
+//Hunter Bone (quick item)
+//Jade Feather (amulet)
+//Colorless Demon Soul (consumable)
+//Shaman Bone Blade (quick item)
+*/
+
+
 //Crowfeather Cloak (cloak)
 COPY ~%files%/crowfeather.ITM~  ~override/%m1%.ITM~
   SAY NAME1 @70105 SAY UNIDENTIFIED_DESC @70205
@@ -241,7 +262,10 @@ ACTION_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
     LPF DELETE_EFFECT INT_VAR match_opcode=139 END
 
   LAF d2_bleed_removal STR_VAR resource=~%m5%a~ END    // add to d2!bleed.spl
+  LAF d2_bleed_effects STR_VAR resource=~%m5%a~ END    // blocked by damage immunity (ex. shield of lathander)
+
   LAF d2_bleed_removal STR_VAR resource=~%m5%b~ END    // add to d2!bleed.spl
+  LAF d2_bleed_effects STR_VAR resource=~%m5%b~ END    // blocked by damage immunity (ex. shield of lathander)
 
 END
 
@@ -275,6 +299,8 @@ COPY ~%files%/golemring.SPL~  ~override/%m6%.SPL~
   LPF ee_fixpack_immunities STR_VAR status=~haste slow~ END
   LPF d2_remove_effects_on_cast END
 
+LAF d2_bleed_protection STR_VAR resource=~%m6%~ END
+
 
 
 //Calamity Ring (ring)
@@ -306,7 +332,14 @@ COPY ~%abilities%/applyeffects.EFF~  ~override/%m8%a.EFF~    // stun
 COPY ~%files%/stoneringstun.SPL~  ~override/%m8%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=stunstring END
 
-COPY ~%files%/stoneringpush.EFF~     ~override/%m8%b.EFF~    // wing buffet
+COPY ~%abilities%/applyeffects.EFF~  ~override/%m8%b.EFF~    // wing buffet
+  WRITE_SHORT 0x2c 25
+  WRITE_ASCII 0x30 ~%m8%b~ #8
+COPY ~%abilities%/shockwavepush.SPL~    ~override/%m8%b.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=235 parameter1=30 END
+  LPF ALTER_EFFECT INT_VAR duration=10 END
+
+
 
 
 
@@ -455,6 +488,13 @@ COPY ~%files%/redtearstone.SPL~  ~override/%md%e.SPL~
 
 
 //Hunter Bone (quick item)
+DEFINE_PATCH_FUNCTION hunterbone_haste BEGIN
+  LPF d2_subspell_remove_visuals INT_VAR icon=0 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=20 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=20 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
+END
+
 COPY ~%icons%/hunterbone.BAM~      ~override/%me%.BAM~
 COPY ~%icons%/hunterbonedesc.BAM~  ~override/%me%d.BAM~
 COPY ~%files%/hunterbone.ITM~      ~override/%me%.ITM~
@@ -467,8 +507,6 @@ COPY ~%files%/hunterbone.ITM~      ~override/%me%.ITM~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%me%b~ END
 //  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@312) END    // "Used Hunter Bone"
   LPF DELETE_EFFECT INT_VAR match_opcode=139 END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%me%a~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%me%b~ END
 
 //clone Blur
 COPY_EXISTING ~SPWI201.SPL~  ~override/%me%a.SPL~
@@ -484,24 +522,19 @@ COPY_EXISTING ~SPWI201.SPL~  ~override/%me%a.SPL~
 //clone Haste
 COPY_EXISTING ~SPWI305.SPL~  ~override/%me%b.SPL~
   LPF d2prep_haste END
-  LPF d2_subspell_remove_visuals INT_VAR icon=0 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=20 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=20 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=146 STR_VAR resource=~%me%c~ END    // for SCS/ToF
-  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
+  LPF hunterbone_haste END
   TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
 
+  // edits
+  LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=SPWI305A resource=~%me%c~ END    // for SCS/ToF
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
+
 //make haste subspell (for SCS/ToF)
-ACTION_IF (FILE_EXISTS ~override/SPWI305A.SPL~) BEGIN
-  COPY_EXISTING ~SPWI305A.SPL~  ~override/%me%c.SPL~
-    LPF d2prep_haste END
-    LPF d2_subspell_remove_visuals INT_VAR icon=0 END
-    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=20 END
-    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=20 END
-    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
-    TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
-END
+COPY_EXISTING ~SPWI305A.SPL~  ~override/%me%c.SPL~
+  LPF d2prep_haste END
+  LPF hunterbone_haste END
+  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
+IF_EXISTS
 
 
 
@@ -592,7 +625,10 @@ COPY ~%files%/demonsoul.ITM~      ~override/%mg%.ITM~
   WRITE_ASCII 0x76 ~%mg%~ #8     // icon (ability)
   WRITE_ASCII 0x58 ~%mg%d~ #8    // description image
   LPF CLONE_EFFECT INT_VAR match_opcode=49 opcode=44 parameter1=1 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@313) END    // "Consumed Demon Soul"
+
+  // color string
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@313) STR_VAR color=gold RET newstring END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 opcode=330 parameter1=newstring timing=4 duration=2 END
 
 
 
@@ -605,17 +641,50 @@ COPY ~%files%/shamanbone.ITM~      ~override/%mh%.ITM~
   WRITE_ASCII 0x3a ~%mh%~ #8     // icon
   WRITE_ASCII 0x76 ~%mh%~ #8     // icon (ability)
   WRITE_ASCII 0x58 ~%mh%d~ #8    // description image
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 parameter2=56 STR_VAR resource=~%mh%b~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=326 parameter2=0  STR_VAR resource=~%mh%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%mh%b~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%mh%a~ END
+  LPF d2_protect_on_castequip INT_VAR headers=1 cre_type=55 duration=0 STR_VAR insert=first END
+  LPF d2_protect_on_castequip INT_VAR headers=1 cre_type=19 probability=30 duration=0 STR_VAR insert=below END
+  LPF d2_protect_on_castequip INT_VAR headers=1 cre_type=15 probability=90 duration=0 STR_VAR insert=below END
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 opcode=326 STR_VAR resource=~%mh%c~ END    // immune string
 
+//immune string
+OUTER_SPRINT ability_name @70137
+COPY ~%abilities%/spellfailed.SPL~  ~override/%mh%c.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@350) END    // "Unaffected by..."
+//  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+
+//charm subspell
 COPY ~%files%/shamanbonea.SPL~  ~override/%mh%a.SPL~
   SAY NAME1 @70137
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%mh%b~ END    // block berserk if save failed
-  LPF ALTER_EFFECT INT_VAR match_opcode=324 STR_VAR resource=~%mh%a~ END    // racial checks
+  LPF DELETE_EFFECT INT_VAR match_opcode=324 END
+//  LPF ALTER_EFFECT INT_VAR match_duration=24 duration=48 END                // duration 8 rounds
+  LPF d2_remove_effects_on_cast END
+  LPF d2_remove_effects_on_cast STR_VAR resource=~%mh%b~ END                // overwrite berserk subspell
+  // repeating charm
+  LPF CLONE_EFFECT INT_VAR match_opcode=5 opcode=272 duration=45 parameter1=1 parameter2=0 STR_VAR resource=~%mh%a~ END
 
+//repeating charm (no message)
+COPY ~%abilities%/charm7seconds.EFF~  ~override/%mh%a.EFF~
+    WRITE_LONG 0x20 1002
+    WRITE_LONG 0x28 5
+
+//berserk subspell
 COPY ~%files%/shamanboneb.SPL~  ~override/%mh%b.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@311) END    // "Berserk"
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@311) END    // "Berserk!"
   TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~berserk~
+
+//add to status cures (delayed sound effect)
+LAF ee_fixpack_add_status STR_VAR resource=~%mh%b~ status=~berserk~ END    // berserk removed by EEFP subspell
+
+ACTION_PHP_EACH d2restoration AS spell => type BEGIN
+  ACTION_IF (~%type%~ STR_EQ ~clarity~) BEGIN
+    COPY_EXISTING ~%spell%.spl~  ~override~
+      LPF d2_remove_effects_on_cast STR_VAR resource=~%mh%a~ END
+    IF_EXISTS BUT_ONLY
+  END
+END
 
 
 

@@ -37,7 +37,7 @@ Advantages:
 – +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.
 – 2nd level: May use the Hunter Tools ability once per day. Gains additional uses every 4 levels thereafter.
 
-HUNTER TOOLS: For 12 rounds, the character gains a +1 bonus to luck and a +1 bonus to Saving Throws, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
+HUNTER TOOLS: For 12 rounds, the character gains a +1 bonus to luck rolls and Saving Throws, and melee attacks deal an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
 
 – 5th level: May use the Quicksilver ability once per day. Gains additional uses at levels 9 and 13.
 
@@ -58,9 +58,9 @@ Advantages:
 – May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.
 – May use the Shockwave and Incinerate abilities. Gains one use each at level 4, plus an additional use each every 4 levels, up to a maximum of 5 uses each at level 20.
 
-SHOCKWAVE: The next successful ranged attack explodes in a wave of energy. All creatures in a 15-ft. radius take 2d4 crushing damage and are propelled back a considerable distance (no save). The blast inflicts an additional 2d4 crushing damage every 4 levels, up to a maximum of 10d4 at level 20.
+SHOCKWAVE: The next successful ranged attack explodes in a 15-ft. radius, inflicting 2d4 crushing damage for every 4 levels of the character, up to a maximum of 10d4 at level 20. Any enemies in the blast are also propelled back a considerable distance (no save).
 
-INCINERATE: The next successful ranged attack expands into a fiery cloud, covering a 15-ft. radius. All creatures in the cloud suffer 1d6 fire damage each round for 4 rounds (Save vs. Breath for half). Damage per round increases by 1d6 every 4 levels, up to a maximum of 5d6 at level 20.
+INCINERATE: The next successful ranged attack creates a fiery cloud, which covers a 15-ft. radius and lasts for 4 rounds. Once each round, creatures in the cloud suffer 1d6 fire damage per 4 levels of the character, up to a maximum of 5d6 at level 20 (Save vs. Breath for half).
 
 Disadvantages:
 – May not Specialize in melee weapons.
@@ -210,13 +210,13 @@ Advantages:
   10th level: Madman's Blood.
   14th level: Lead Elixir.
 
-HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
+HEALING BLOOD: Blood drawn from a nun of the Healing Church. Restores 15% of maximum Hit Points and grants the miracle of regeneration, healing an additional 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
 
 BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The recipient gains a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the recipient incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
 
-MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +4 to all mental Attributes, +5% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
 
-LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhibit other abilities. The recipient has all physical damage resistances set to 50%, but incurs a -1 penalty to luck. The effects last for 3 turns. This blood will also prevent level drain.
+LEAD ELIXIR: A mysterious concoction that shifts weight to boost defense and resilience. The recipient gains a +4 bonus to Armor Class and Saving Throws, and 20% base resistance to all damage types, but incurs a -1 penalty to luck rolls. The effects last for 3 turns. This blood will also prevent level drain.
 
 Disadvantages:
 – May not wear gauntlets or bracers.
@@ -308,26 +308,32 @@ Medic (Monk)
 MEDIC: This Monk is a skilled medical practitioner, as well as warrior, and has undergone special training, applying powerful herbal remedies to aid in combat.
 
 Advantages:
-– May use the Black Remedy and White Remedy abilities. Gains one use each at level 1 and an additional use each every 5 levels thereafter.
+– Gains ki power, which is used to activate kit abilities. Gains +1 to maximum ki power every 2 levels (starting at 1st level).
+– Ki Regen: The character passively regains 1 ki power every 5 rounds.
+– May use the Black Remedy ability. Requires 1 ki power.
 
 BLACK REMEDY: All attacks in the next 10 seconds spread a healing remedy. Restores 2d6 Hit Points to allies in a 7-ft. radius.
 
+– 5th level: May use the White Remedy ability. Requires 2 ki power.
+
 WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
 
-– 5th level: May use Slow Poison three times per day.
-– 7th level: May use Cure Disease once per day.
-– 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
+– 7th level: May use the Medic Arts ability. Requires 3 ki power.
 
-HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius for 2 rounds, washing away fatigue and healing all creatures in the area 3d8+2 Hit Points each round.
+MEDIC ARTS: Use this ability to select from a list of Medic Arts. The list of abilities includes Lay On Hands, Cure Afflictions, Recall Spirit, Spiritual Clarity, and Poison Weapon. Curative spells are applied instantly to the touched creature.
 
-– 10th level: May use Neutralize Poison three times per day (replaces Slow Poison).
-– 14th level: May use Heal once per day (replaces Cure Disease).
-– 18th level: May use Lesser Restoration three times per day.
+– 9th level: May use the Healing Rain ability. Requires 4 ki power.
+
+HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius for 2 rounds, washing away fatigue and healing all allied and neutral creatures in the area 3d8+2 Hit Points each round.
+
+– 13th level: May use the Dragonrot ability. Requires 5 ki power.
+
+DRAGONROT: An illusory dragon's head spews forth decaying breath. All enemies in a 15-ft. radius suffer a deathly rotting, which inflicts 1d8+5 magic damage per round for 5 rounds (no save). Victims also suffer a -4 penalty to Saving Throws for the duration. The effects are noncumulative.
 
 Disadvantages:
-– May not use bladed weapons, other than short swords or daggers.
-– May not use the Lay On Hands ability.
+– Only gains 8 thieving skill points per level.
 – May not use the Stunning Blow ability.
+– May not use the Quivering Palm ability.
 
 
 ==================================================
@@ -362,12 +368,12 @@ FULL METAL JAGUAR: A highly capable and versatile warrior, the Full Metal Jaguar
 
 Advantages:
 – +1 bonus to attack and damage rolls.
-– Immune to backstab.
+– 3rd level: Immune to backstab.
 – 5th level: May use the Ghostwalker ability once per day. Gains additional uses every 5 levels thereafter.
 
 GHOSTWALKER: This ability lasts 5 rounds. Once each round, 1 mirror image is created on the character, which can absorb one attack during that round. The number of images created increases to 2 per round at level 10, 3 per round at level 15, and 4 per round at level 20.
 
-– 8th level: Gains the Critical Boost ability (passive).
+– 7th level: Gains the Critical Boost ability (passive).
 
 CRITICAL BOOST: Ranged attacks boost melee critical chance. Each hit with a ranged weapon gives a cumulative +5% bonus for 3 rounds. A critical miss resets the bonus.
 

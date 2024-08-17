@@ -50,6 +50,11 @@ ACTION_FOR_EACH ability IN
     ~%overdose%~
     ~%autoimmune%~
     ~%n_alchemy%~
+    ~%medicarts%~
+    ~%healingrain%~
+    ~%dragonrot%~
+    ~%argent77_hla1%~
+    ~%argent77_hla2%~
 BEGIN
 
   ACTION_IF (FILE_EXISTS_IN_GAME ~%ability%.SPL~) BEGIN

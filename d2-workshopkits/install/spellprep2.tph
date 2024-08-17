@@ -27,20 +27,27 @@ END
 //heal
 ACTION_FOR_EACH spell IN
   ~sppr607~ ~devaheal~ ~senspihe~ ~spin679~ 
-  ~spin711~ ~spwish28~ ~spwish39~ ~spwm168~ ~MEPR751~
+  ~spin711~ ~spwish28~ ~spwish39~ ~spwm168~
+  ~MEPR751~ ~MEPR758~
 BEGIN
   OUTER_TEXT_SPRINT $d2restoration(~%spell%~) ~fullheal~    // ~%spell%~ => fullheal
 END
 
-//lay on hands
-ACTION_FOR_EACH spell IN ~SPCL211~ ~SPCL815~ BEGIN
+//lay on hands + regen
+ACTION_FOR_EACH spell IN
+  ~SPCL211~ ~SPCL815~ ~SPPR711~ ~QDMNKA2~
+BEGIN
   OUTER_TEXT_SPRINT $d2restoration(~%spell%~) ~specialheal~    // ~%spell%~ => specialheal
 END
 
-//mist of eldath
-ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~CLERIC_MIST_OF_ELDATH~) BEGIN
-  LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = CLERIC_MIST_OF_ELDATH RET spell_res END
-  OUTER_TEXT_SPRINT $d2restoration(~%spell_res%~) ~specialheal~    // ~%spell%~ => specialheal
+//mist of eldath + regen
+ACTION_FOR_EACH spell IN
+  ~CLERIC_MIST_OF_ELDATH~ ~WIZARD_TROLLISH_FORTITUDE~
+BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~[^_]%spell%[^_]~) BEGIN
+    LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = ~%spell%~ RET spell_res END
+    OUTER_TEXT_SPRINT $d2restoration(~%spell_res%~) ~specialheal~    // ~%spell%~ => specialheal
+  END
 END
 
 //maze + feeblemind
@@ -59,7 +66,7 @@ END
 //haste
 ACTION_FOR_EACH spell IN
   ~SPWI305~ ~SPWI613~ ~SPRA301~ ~SPWISH36~ ~SPWISH37~
-  ~SPWISH40~ ~spin655~ ~SPIN828~ ~spin572~ ~POTN14~
+  ~SPWISH40~ ~spin655~ ~SPIN828~ ~spin572~ ~POTN14~ ~LABELT~
 BEGIN
   OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~haste~    // ~%spell%~ => haste
 END
@@ -76,21 +83,59 @@ ACTION_FOR_EACH spell IN ~SPIN117~ ~d2ham01e~ ~d2ham01b~ BEGIN
   OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~berserk~    // ~%spell%~ => berserk
 END
 
-//acid dot, decay, phasing etc.
+//phasing (elemental dot, decaying, etc.)
 ACTION_FOR_EACH spell IN
-  ~SPWI211~ ~SPPR710~ ~SPPR715~
-  ~SPPR314~ ~SPPR610~ ~SPWI955~ ~d2abb15e~
+  ~SPWI211~ ~SPPR314~ ~SPPR610~ ~SPPR722~
+  ~SPWI955~ ~bdsympai~    // symbol, pain
 BEGIN
   OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~phasing~    // ~%spell%~ => phasing
 END
 
 ACTION_FOR_EACH spell IN
   ~WIZARD_VITRIOLIC_SPHERE~ ~WIZARD_ACID_STORM~ ~WIZARD_SHROUD_OF_FLAME~
-  ~CLERIC_WITHER~ ~CLERIC_CLOUD_OF_PESTILENCE~ ~CLERIC_SYMBOL_OF_PAIN~
+  ~WIZARD_SUFFOCATE~ ~CLERIC_WITHER~ ~CLERIC_SYMBOL_OF_PAIN~
+  ~INNATE_ZOMBIE_LORD_AURA~ ~MEPHIT_GLASS_DUST~ ~CLERIC_INFERNO~
 BEGIN
-  ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~%spell%~) BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~[^_]%spell%[^_]~) BEGIN
     LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = ~%spell%~ RET spell_res END
     OUTER_TEXT_SPRINT $d2statusarray(~%spell_res%~) ~phasing~    // ~%spell%~ => phasing
+  END
+END
+
+//stat drain (magical or blood-related)
+ACTION_FOR_EACH spell IN
+  ~ohhdrain~ ~ohhdrai2~ ~bdvoid~ ~bdstrdrn~
+  ~SPWI928~ ~SPIN901~ ~SPPR751~ ~SPIN808~
+BEGIN
+  OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~statdrain~    // ~%spell%~ => statdrain
+END
+
+//toxins (stat drain, delayed effects)
+ACTION_FOR_EACH spell IN ~OHBDRAG1~ ~bdghastn~ ~SPPR411~ ~SPCL423~ BEGIN
+  OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~toxic~    // ~%spell%~ => toxic
+END
+
+ACTION_FOR_EACH spell IN
+  ~CLERIC_CLOUD_OF_PESTILENCE~
+  ~INNATE_BOMBARDIER_BEETLE_CLOUD~ ~INNATE_MYCONID_SPORES~ ~BOMBARDIER_BEETLE_CLOUD~
+BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~[^_]%spell%[^_]~) BEGIN
+    LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = ~%spell%~ RET spell_res END
+    OUTER_TEXT_SPRINT $d2statusarray(~%spell_res%~) ~toxicphasing~    // ~%spell%~ => toxicphasing
+  END
+END
+
+//fear-related (stat drain or stun)
+ACTION_FOR_EACH spell IN
+  ~SPCL103~ ~IDSP138X~ ~bdgfear~
+  ~bddragg2~ ~SPIN882~ ~SPIN895~
+BEGIN
+  OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~panic324~    // ~%spell%~ => panic324
+END
+
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  ACTION_FOR_EACH spell IN ~SPIN139~ ~SPIN115~ ~SPIN119~ BEGIN
+    OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~panic324~    // ~%spell%~ => panic324
   END
 END
 
@@ -98,10 +143,11 @@ END
 
 //
 //get spell info
-COPY_EXISTING - ~sppr417.spl~  ~~  READ_LONG  0x8  restore_name        // lesser restoration
-COPY_EXISTING - ~sppr713.spl~  ~~  READ_LONG  0x8  restoreheal_name    // greater restoration
-COPY_EXISTING - ~sppr607.spl~  ~~  READ_LONG  0x8  fullheal_name       // heal
-COPY_EXISTING - ~SPCL211.spl~  ~~  READ_LONG  0x8  specialheal_name    // lay on hands
+COPY_EXISTING - ~sppr417.spl~  ~~  READ_LONG  0x8  restore_name         // lesser restoration
+COPY_EXISTING - ~sppr713.spl~  ~~  READ_LONG  0x8  restoreheal_name     // greater restoration
+COPY_EXISTING - ~sppr607.spl~  ~~  READ_LONG  0x8  fullheal_name        // heal
+COPY_EXISTING - ~SPCL211.spl~  ~~  READ_LONG  0x8  layonhands_name      // lay on hands
+COPY_EXISTING - ~SPPR711.spl~  ~~  READ_LONG  0x8  regeneration_name    // regeneration
 
 COPY_EXISTING - ~SPWI813.spl~  ~~  READ_LONG  0x8  maze_name
 COPY_EXISTING - ~SPWI509.spl~  ~~  READ_LONG  0x8  feeblemind_name
@@ -118,18 +164,19 @@ COPY_EXISTING - ~SPWI215.spl~  ~~    // web
 COPY_EXISTING - ~SPPR105.spl~  ~~    // entangle
   READ_LONG  0x8  entangle_name
   READ_SHORT 0x98 entangle_proj
-COPY_EXISTING - ~SPWI211.spl~  ~~    // acid arrow
-  READ_LONG  0x8  acidarrow_name
-  READ_SHORT 0x98 acidarrow_proj
 
 COPY_EXISTING - ~SPWI324.spl~  ~~  READ_LONG  0x8  undeadhold_name
 COPY_EXISTING - ~SPWI720.spl~  ~~  READ_LONG  0x8  undeadcharm_name
-
-COPY_EXISTING - ~SPPR710.spl~  ~~  READ_LONG  0x8  holyword_name
-COPY_EXISTING - ~SPPR715.spl~  ~~  READ_LONG  0x8  unholyword_name
-COPY_EXISTING - ~SPPR314.spl~  ~~  READ_LONG  0x8  blight_name
 COPY_EXISTING - ~SPPR610.spl~  ~~  READ_LONG  0x8  decaying_name
 
+COPY_EXISTING - ~SPWI211.spl~  ~~    // acid arrow
+  READ_LONG  0x8  acidarrow_name
+  READ_SHORT 0x98 acidarrow_proj
+COPY_EXISTING - ~SPPR314.spl~  ~~    // unholy blight
+  READ_LONG  0x8  blight_name
+  READ_SHORT 0x98 blight_proj
+
+COPY_EXISTING - ~SPPR350.spl~  ~~  READ_LONG  0x8  clarity_name
 
 
 //
@@ -169,8 +216,12 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
       SET grease_overlay   = 0
       SET entangle_overlay = 0
       SET control_opcode   = 0
+      SET regen_opcode     = 0
+      SET panic_opcode     = 0
+      SET thac0_opcode     = 0
+      SET strength_opcode  = 0
 
-      // match name (catch clones of spells)
+      // match name or projectile (catch clones of spells)
       PATCH_IF (splname = restore_name) BEGIN
         TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~restore~    // ~%SOURCE_RES%~ => restore
         SET check_opcodes = 0
@@ -183,8 +234,16 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
         TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~fullheal~    // ~%SOURCE_RES%~ => fullheal
         SET check_opcodes = 0
       END
-      PATCH_IF (splname = specialheal_name) BEGIN
+      PATCH_IF (splname = layonhands_name) BEGIN
         TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~specialheal~    // ~%SOURCE_RES%~ => specialheal
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = regeneration_name) BEGIN
+        TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~specialheal~    // ~%SOURCE_RES%~ => specialheal
+        SET check_opcodes = 0
+      END
+      PATCH_IF (splname = clarity_name) BEGIN
+        TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~clarity~    // ~%SOURCE_RES%~ => clarity
         SET check_opcodes = 0
       END
 
@@ -239,11 +298,11 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
         TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~phasing~    // ~%SOURCE_RES%~ => phasing
         SET check_opcodes = 0
       END
-      PATCH_IF ((splname = holyword_name) OR (splname = unholyword_name)) BEGIN
+      PATCH_IF ((splname = blight_name) OR (splproj = blight_proj)) BEGIN
         TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~phasing~    // ~%SOURCE_RES%~ => phasing
         SET check_opcodes = 0
       END
-      PATCH_IF ((splname = blight_name) OR (splname = decaying_name)) BEGIN
+      PATCH_IF (splname = decaying_name) BEGIN
         TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~phasing~    // ~%SOURCE_RES%~ => phasing
         SET check_opcodes = 0
       END
@@ -267,6 +326,11 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
               PATCH_IF (opcode = 158) BEGIN  SET grease_overlay   = 1 END
               PATCH_IF (opcode = 154) BEGIN  SET entangle_overlay = 1 END
               PATCH_IF (opcode = 241) BEGIN  SET control_opcode   = 1 END
+              PATCH_IF (opcode = 98)  BEGIN  SET regen_opcode     = 1 END
+              PATCH_IF (opcode = 24)  BEGIN  SET panic_opcode     = 1 END
+              PATCH_IF (opcode = 54)  BEGIN  SET thac0_opcode     = 1 END
+              PATCH_IF (opcode = 278) BEGIN  SET thac0_opcode     = 1 END
+              PATCH_IF (opcode = 44)  BEGIN  SET strength_opcode  = 1 END
             END
           END
         END
@@ -281,7 +345,7 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
       END
 
       // slow and haste spells
-      PATCH_IF (poison_opcode=0 AND stun_opcode=0 AND confuse_opcode=0) BEGIN    // extra conditions for slow/haste array
+      PATCH_IF (poison_opcode=0 AND stun_opcode=0 AND confuse_opcode=0) BEGIN    // extra conditions
         PATCH_IF (slow_opcode = 1) BEGIN
           TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~slow~    // ~%SOURCE_RES%~ => slow
         END
@@ -290,19 +354,27 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
         END
       END
 
-      // berserk
-      PATCH_IF (berserk_opcode = 1) BEGIN
-        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~berserk~    // ~%SOURCE_RES%~ => berserk
-      END
-
       // grease, web, entangle
       PATCH_IF (web_opcode=1 OR grease_overlay=1 OR entangle_overlay=1) BEGIN
         TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~entangle~    // ~%SOURCE_RES%~ => entangle
       END
 
-      // control
+      // fear-related (stat drain or stun)
+      PATCH_IF (panic_opcode = 1) BEGIN
+        PATCH_IF (thac0_opcode=1 OR strength_opcode=1 OR stun_opcode=1) BEGIN
+          TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~panic318~    // ~%SOURCE_RES%~ => panic318
+        END
+      END
+
+      // other
+      PATCH_IF (berserk_opcode = 1) BEGIN
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~berserk~    // ~%SOURCE_RES%~ => berserk
+      END
       PATCH_IF (control_opcode = 1) BEGIN
         TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~undeadcharm~    // ~%SOURCE_RES%~ => undeadcharm
+      END
+      PATCH_IF (regen_opcode = 1) BEGIN
+        TEXT_SPRINT $d2restoration(~%SOURCE_RES%~) ~specialheal~    // ~%SOURCE_RES%~ => specialheal
       END
 
     END
@@ -312,11 +384,44 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
 
 
 //
-//functions (requires d2_misc_functions.tpa)
+//functions
+DEFINE_PATCH_FUNCTION statusarray_function
+  INT_VAR opcode=318 timing=0 duration=30    // used for "protect" mode
+  STR_VAR status=none mode=remove
+BEGIN
+  PHP_EACH d2statusarray AS spell => type BEGIN
+    PATCH_IF (!(~%status%~ STRING_CONTAINS_REGEXP ~%type%~) OR
+              !(~%type%~ STRING_CONTAINS_REGEXP ~%status%~)
+    ) BEGIN
+      PATCH_IF (~%mode%~ STR_EQ ~remove~) BEGIN
+        LPF d2_remove_effects_on_cast STR_VAR resource=~%spell%~ END
+      END
+      PATCH_IF (~%mode%~ STR_EQ ~protect~) BEGIN
+        LPF d2_protect_on_castequip INT_VAR opcode=opcode timing=timing duration=duration STR_VAR resource=~%spell%~ END
+      END
+    END
+  END
+END
+
 DEFINE_PATCH_FUNCTION cure_undead_status STR_VAR status=hold BEGIN    // status = "hold" or "charm"
   PHP_EACH d2statusarray AS spell => type BEGIN
     PATCH_IF (~%type%~ STR_EQ ~undead%status%~) BEGIN
       LPF d2_remove_effects_on_cast STR_VAR resource=~%spell%~ END
+    END
+  END
+END
+
+//function for d2!web
+DEFINE_PATCH_FUNCTION entangle_hit_effects INT_VAR timing=9 duration=0 STR_VAR mode=remove BEGIN
+  PATCH_FOR_EACH item IN
+    ~SW1H58~ ~SW1H59~ ~MOUND~ ~HGNYA01~ ~KUOSPER~
+    ~bdbow06~ ~bdshamb~ ~talongf~ ~holdfst~ ~gasp~
+  BEGIN
+    PATCH_IF (~%mode%~ STR_EQ ~remove~) BEGIN
+      LPF d2_remove_effects_on_cast STR_VAR resource=~%item%~ END
+    END
+    PATCH_IF (~%mode%~ STR_EQ ~protect~) BEGIN
+      LPF d2_protect_on_castequip INT_VAR timing=timing duration=duration STR_VAR resource=~%item%~ END
     END
   END
 END

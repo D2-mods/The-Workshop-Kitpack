@@ -1,6 +1,6 @@
 /*
-All armor restrictions are now made from this file.
-Do for all kits at once, instead of individually.
+armor restrictions
+requires d2_restrict_armor.tpa
 */
 
 

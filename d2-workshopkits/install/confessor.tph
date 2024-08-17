@@ -128,11 +128,11 @@ COPY ~inlined/bleed_core.SPL~        ~override/%s2%b.SPL~
   LPF d2_bleed_delay INT_VAR limit=6 STR_VAR resource=d2bleed2 END
 
 LAF d2_bleed_removal STR_VAR resource=~%s2%b~ END    // add to d2!bleed.spl
+LAF d2_bleed_effects STR_VAR resource=~%s2%b~ END    // blocked by damage immunity (ex. shield of lathander)
 
 
 //Make clab table
-COPY ~inlined/d2clab_paladin~  ~override/%kitid%.2DA~
-  REPLACE_TEXTUALLY ~GA_SPCL211~ ~****~    // remove Lay On Hands
+COPY ~inlined/d2clab_paladin_noheal~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%p1%~ END
@@ -142,13 +142,23 @@ COPY ~inlined/d2clab_paladin~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder END
 
 
+//kit description
+ACTION_IF (paladin_cd > 0) BEGIN
+  OUTER_SPRINT desc @100503
+  OUTER_SPRINT note @752
+  OUTER_SET confessor_desc = RESOLVE_STR_REF (~%desc%%WNL%%note%~)
+END ELSE BEGIN
+  OUTER_SET confessor_desc = RESOLVE_STR_REF (@100503)
+END
+
+
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
     kit_class = 6
     mixed = RESOLVE_STR_REF (@100501)
     lower = RESOLVE_STR_REF (@100502)
-    help = RESOLVE_STR_REF (@100503)
+    help = confessor_desc
     fallen_notice = RESOLVE_STR_REF (@100504)
   STR_VAR
     kit_name = ~D2%kitname%~

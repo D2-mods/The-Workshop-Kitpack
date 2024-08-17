@@ -23,11 +23,10 @@ COPY ~%abilities%/force.SPL~  ~override/%s1%.SPL~
   WRITE_SHORT 0x98 ~%s1%~       // projectile
   WRITE_ASCII 0x10 ~%s1%~ #8    // casting sound
   LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s1%~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=45 opcode=165 STR_VAR insert=below END    // add "pause" effect (bypass free action)
+  LPF CLONE_EFFECT INT_VAR match_opcode=235 opcode=165 STR_VAR insert=below END    // add "pause" effect (same duration as knockback)
 
   // large creatures (stunned 1 second)
   LPF d2_protect_on_castequip INT_VAR cre_type=13 duration=0 STR_VAR insert=first END
-  LPF CLONE_EFFECT INT_VAR match_opcode=165 duration=1 STR_VAR insert=first END
   LPF CLONE_EFFECT INT_VAR match_opcode=45 duration=1 STR_VAR insert=first END
 
 

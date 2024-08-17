@@ -1,9 +1,9 @@
-//adds the EE fixpack status cures (PATCH function)
+//apply EE fixpack status cure subspells (PATCH function)
 //function does nothing if EE fixpack is not installed (skipped silently)
 
 
 /*
-"status" variable can be a list (i.e. status = ~sleep poison berserk~)
+"status" variable can be a list (ex. status = ~sleep poison berserk~)
 INT variables are all optional (usually no reason to change)
 by default, adds as SPL header effects (no global effect)
 by default, adds as ITM equipped effect (no header effects)
@@ -34,6 +34,9 @@ Alternate names will usually work (ex. status=fear or status=panic).
 */
 
 ////////////////////////////////////////////////////////////
+
+//
+//cast status cure subspell (patch for SPL or ITM)
 
 DEFINE_PATCH_FUNCTION ee_fixpack_status_cures
   INT_VAR globals=~-1~ headers=~-1~ header_type=~-1~ match_opcode=~-1~
@@ -71,9 +74,41 @@ BEGIN
 END
 
 
+//
+//add new resource to status cure subspell
+
+/*
+This is only needed if spell has extra limited or delayed effects (status and icon should already be removed).
+*/
+
+DEFINE_ACTION_FUNCTION ee_fixpack_add_status INT_VAR overwrite=1 STR_VAR resource=~~ status=~~ BEGIN
+
+  ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
+    ACTION_PHP_EACH ee_fixpack_status_cures AS type => cure BEGIN
+      ACTION_IF !(~%status%~ STRING_CONTAINS_REGEXP ~%type%~) BEGIN    // if "status" DOES contain "type"
+
+        COPY_EXISTING ~%cure%.SPL~  ~override~
+          PATCH_IF (overwrite > 0) BEGIN
+            LPF DELETE_EFFECT STR_VAR match_resource=EVAL ~%resource%~ END
+          END
+
+          LPF CLONE_EFFECT 
+            INT_VAR silent=1 multi_match=1 opcode=321 parameter1=0 parameter2=0 timing=1 duration=0
+                    probability1=100 probability2=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
+            STR_VAR resource=EVAL ~%resource%~
+          END
+        IF_EXISTS BUT_ONLY
+
+      END
+    END
+  END
+
+END
+
+
 /*
 "status" variable just needs to include the "type" string to get a match (spacing doesn't matter)
-function will add op326's, which cast the associated "cure" files
+function will add op326's, which cast the associated cure subspells
 */
 
 //type => cure

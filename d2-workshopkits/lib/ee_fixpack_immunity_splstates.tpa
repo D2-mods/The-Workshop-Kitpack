@@ -27,8 +27,9 @@ function does nothing if EE fixpack is not installed (skipped silently)
 ////////////////////////////////////////////////////////////
 
 /*
-"status" variable can be a list (i.e. status = ~sleep charm feeblemind~)
+"status" variable can be a list (ex. status = ~sleep charm feeblemind~)
 will only patch if SPL/ITM has an opcode 101 with immunity to the effect (table at bottom)
+will not make duplicate effects (deletes old effect)
 */
 
 //
@@ -47,7 +48,8 @@ DEFINE_PATCH_FUNCTION ee_fixpack_immunities  STR_VAR status = ~~ BEGIN
         // check match array
         PHP_EACH ee_fixpack_immunities_match AS splstates2 => match BEGIN
           PATCH_IF (~%splstates%~ STR_EQ ~%splstates2%~) BEGIN
-            LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=101 match_parameter2=match opcode=328 parameter2=ee_splstate special=1 END
+            LPF DELETE_EFFECT INT_VAR match_opcode=328 match_parameter2=ee_splstate END
+            LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=101 match_parameter2=match opcode=328 parameter2=ee_splstate special=1 END
           END
         END
       END

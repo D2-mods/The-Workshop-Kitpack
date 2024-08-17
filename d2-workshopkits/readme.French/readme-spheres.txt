@@ -168,9 +168,7 @@ Moonlight Knight CR
 
 Talents of Faerun
 
-Notes:
 - Sphere lists will appear in the kit description. Nature sphere only appears if it has spells in it.
-- IWDEE: Goodberry is Nature sphere, not Plant (as seen in beta 12). Grave Warden is the only kit here that learns it in IWDEE. This is the case even if you don't edit the sphere config files.
 - Moonlight Knight intentionally has Divine sphere, instead of Nature. I didn't want to give Moonlight Knight CR both Nature and Divine, so went with Divine. The single class also has Divine to match up with the cleric/ranger version (rangers normally have Nature sphere).
 
 =====================================================================
@@ -184,10 +182,10 @@ Confessor:
 	- All, Charm, Combat, Divination, Divine, Healing, Protection
 
 Temple Knight: 
-	- All, Combat, Divine,Earth, Good, Healing, Protection
+	- All, Combat, Divine, Earth, Good, Healing, Protection
 
 Noble Scion: 
-	- All, Combat, Divine,good, Healing, Protection, Sun
+	- All, Combat, Divine, Good, Healing, Protection, Sun
 
 Blood Minister: 
 	- All, Air, Charm, Divination, Divine, Evil, Healing, Moon, Necromantic, Plant, Protection, Summoning, Wards

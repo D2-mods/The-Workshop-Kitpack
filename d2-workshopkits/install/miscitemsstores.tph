@@ -36,6 +36,7 @@ ACTION_IF (GAME_IS ~bgee eet~) BEGIN
 
   //add Moon Rune
   COPY_EXISTING ~chicke.cre~  ~override/d2wkmrc.CRE~
+    WRITE_ASCII 0x250 ~d2wkmrc~ #32                     // set script
     WRITE_ASCII 0x280 ~d2wkmrc~ #32                     // set script name
     WRITE_ASCII 0x2cc ~d2wkmrc~ #8                      // set dialogue
     ADD_CRE_ITEM ~%moon_rune%~ #0 #0 #0 ~none~ ~inv~    // add rune
@@ -249,6 +250,7 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
 
   //add Moon Rune
   COPY_EXISTING ~chicke.cre~  ~override/d2wkmrc.CRE~
+    WRITE_ASCII 0x250 ~d2wkmrc~ #32                     // set script
     WRITE_ASCII 0x280 ~d2wkmrc~ #32                     // set script name
     WRITE_ASCII 0x2cc ~d2wkmrc~ #8                      // set dialogue
     ADD_CRE_ITEM ~%moon_rune%~ #0 #0 #0 ~none~ ~inv~    // add rune
@@ -429,6 +431,7 @@ THEN
 		SetGlobal("d2moon_rune","GLOBAL",1)
 		GiveItemCreate("%moon_rune%","Chicken2",0,0,0)
 		ActionOverride("Chicken2",SetDialog("d2wkmrc"))
+		ActionOverride("Chicken2",ChangeAIScript("d2wkmrc",CLASS))
 		Continue()
 END
 >>>>>>>>

@@ -3,13 +3,17 @@ Drifter immunity arrays (for ground and cloud spells)
 */
 
 
-//Check spell.IDS
+//arrays for spell.IDS
 ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_terrain_immunities BEGIN
   CLERIC_ENTANGLE                 => ground
   WIZARD_GREASE                   => ground
   WIZARD_WEB                      => ground
   CLERIC_SPIKE_GROWTH             => ground
   CLERIC_SPIKE_STONES             => ground
+  CLERIC_PRODUCE_FIRE             => ground
+  BLACK_DRAGON_PLANT              => ground
+  VORTEX_WEB                      => ground
+//mod stuff
   CLERIC_ASSASSIN_VINES           => ground    // FnP
   CLERIC_GRASPING_SHADOWS         => ground    // sod2bg2
   CLERIC_CAUSTIC_QUAGMIRE         => ground
@@ -25,6 +29,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_cloud_immunities BEGIN
   WIZARD_STINKING_CLOUD              => cloud
   WIZARD_DEATH_FOG                   => cloud
 //WIZARD_INCENDIARY_CLOUD            => flame
+  WIZARD_SUFFOCATE                   => cloud
   TRAP_CLOUDKILL                     => cloud
   TRAP_STINKING_CLOUD                => cloud
   TRAP_DEATH_FOG                     => cloud
@@ -37,6 +42,10 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_cloud_immunities BEGIN
   BOMBARDIER_BEETLE_CLOUD            => cloud
   WIZARD_MALAVONS_CORROSIVE_FOG      => cloud
   WIZARD_DARKNESS_15_FOOT            => cloud
+  SPORE_DEATH                        => cloud
+  BEHOLDER_GAS_SPORE                 => cloud
+  MANE_GAS                           => cloud
+//mod stuff
   CLERIC_DEVOURING_DARKNESS          => cloud    // sod2bg2
   WIZARD_DELETERIOUS_NIMBUS          => cloud
   HLA_WIZARD_TOLODINES_KILLING_WIND  => cloud    // MiH spells
@@ -44,58 +53,69 @@ END
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY ids_storm_immunities BEGIN
   CLERIC_CLOUDBURST               => storm
+  CLERIC_WHIRLWIND                => storm
   WIZARD_ACID_STORM               => storm
   WIZARD_ICE_STORM                => storm
   CLERIC_STORM_OF_VENGEANCE       => storm
 //CLERIC_FIRE_STORM               => flame
 //WIZARD_METEOR_SWARM             => flame
+//WIZARD_COMET                    => flame
   DRAGON_RAIN                     => storm
   MEPHIT_RAINSTORM                => storm
+//mod stuff
   WIZARD_MAELSTROM                => storm    // sod2bg2
   CLERIC_ICE_STORM                => storm    // MiH spells
   CLERIC_LIGHTNING_STORM          => storm
+//WIZARD_TRUE_METEOR_SWARM        => flame
   WIZARD_STYGIAN_ICE_STORM        => storm
 END
 
 
 
-//Check spells not in spell.ids (also a few items)
+//array for spell resource (stuff not in spell.ids)
 
 /*
-The ones marked 206 should use op206 (instead of op318 or op324)
+The ones marked 206 should use op206 (instead of op318)
 */
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_not_spellids BEGIN
-  SPIN688   => ground
   SPWM111   => ground
-//talongf   => ground    // Talon of the Gloomfrost
-  holdfst   => ground    // Holdfast Arrow
-  gasp      => ground    // weapon
   SPDR201   => ground
-  SPIN575   => ground
   SPIN683   => ground    // single target
   bdspidga  => ground
-  SPIN673   => cloud
-  SPIN897   => cloud
-  SPIN917   => cloud
   SPWM187   => cloud
   ohbwfog   => cloud
+  OHRDARK   => cloud
+  ohbicew   => storm
+//weapons
 //SW1H58    => ground    // Short Sword of Mask +4
 //SW1H59    => ground    // Short Sword of Mask +5
-  MOUND     => ground    // weapon
-  HGNYA01   => ground    // weapon
-  KUOSPER   => ground    // weapon
+  holdfst   => ground
+  gasp      => ground
+  MOUND     => ground
+  HGNYA01   => ground
+  KUOSPER   => ground
+  talongf   => ground206
+  handgf    => cloud206
   bdbow06   => ground206
   bdshamb   => ground206
+//mod stuff
   MEPR754D  => ground    // OlvynSpells
   MEPR754E  => ground
+  MEWI660   => ground
   MEWI657   => cloud
+  MEWI754   => storm
+  MEPR764D  => storm
+  mepr761   => flame
+  MEPR762D  => flame
   ca#cckil  => cloud     // FnP
   ca#cstin  => cloud
   d5_rf81   => ground    // MnG
   d5_rf24b  => ground
   d5_rf82   => cloud
   dtkwfog   => cloud     // sod2bg2
+  dtkdarkn  => cloud
+  dtkdevd   => cloud
   RAWI101   => ground    // DoF
   RASHIA2   => ground
   RAIBRA3   => ground
@@ -110,11 +130,16 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_not_spellids BEGIN
   RAWI404   => storm
   RAWI724   => storm
   c0bdd#1   => ground    // bardic wonders
+  IDSP030   => cloud     // a7-totlm
+  ~_!SP107A~  => ground    // dimension gate
+  ~_!SP110A~  => flame
+  ~_!SP110B~  => flame
+  ~_!SP110C~  => flame
 END
 
 
 
-//Spell names (string refs)
+//arrays for spell names (string refs)
 ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_bgee_strings BEGIN
   26127   => ground
   26344   => ground
@@ -123,6 +148,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_bgee_strings BEGIN
   26575   => cloud
   26074   => cloud
   32350   => cloud
+  52366   => cloud
   26447   => storm
   26296   => flame
   25976   => flame
@@ -137,6 +163,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_bg2ee_strings BEGIN
   7621    => cloud
   12056   => cloud
   103067  => cloud
+  99992   => cloud
   12062   => storm
   63742   => storm
   14261   => flame
@@ -153,10 +180,12 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY drifter_iwdee_strings BEGIN
   12056   => cloud
   40895   => cloud
   21404   => cloud
+  21430   => cloud
   21419   => storm
   12062   => storm
   1208    => storm
   36414   => storm
+  21398   => storm
   14261   => flame
   36737   => flame
   36716   => flame

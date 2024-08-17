@@ -150,65 +150,65 @@ COPY_EXISTING ~weapprof.2DA~  override
   PHP_EACH weapontype AS type => usable BEGIN    // set weapon to %type% and usable to %usable%
     PATCH_IF (usable > 0) BEGIN
       PATCH_IF (type = 15) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 5 col_number 1     // bg1 bows
-        SET_2DA_ENTRY_LATER ~make_edits~ 27 col_number 1    // longbow
-        SET_2DA_ENTRY_LATER ~make_edits~ 28 col_number 1    // shortbow
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 5 col_number 1     // bg1 bows
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 27 col_number 1    // longbow
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 28 col_number 1    // shortbow
       END
       PATCH_IF (type = 16) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 18 col_number 1    // dagger
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 18 col_number 1    // dagger
       END
       PATCH_IF (type = 17) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 7 col_number 1     // bg1 blunt
-        SET_2DA_ENTRY_LATER ~make_edits~ 24 col_number 1    // mace
-        SET_2DA_ENTRY_LATER ~make_edits~ 20 col_number 1    // club
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 7 col_number 1     // bg1 blunt
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 24 col_number 1    // mace
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 20 col_number 1    // club
       END
       PATCH_IF (type = 18) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 30 col_number 1    // sling
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 30 col_number 1    // sling
       END
       PATCH_IF (type = 19) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 4 col_number 1     // bg1 small swords
-        SET_2DA_ENTRY_LATER ~make_edits~ 13 col_number 1    // short sword
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 4 col_number 1     // bg1 small swords
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 13 col_number 1    // short sword
       END
       PATCH_IF (type = 20) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 3 col_number 1     // bg1 large swords
-        SET_2DA_ENTRY_LATER ~make_edits~ 11 col_number 1    // bastard sword
-        SET_2DA_ENTRY_LATER ~make_edits~ 12 col_number 1    // long sword
-        SET_2DA_ENTRY_LATER ~make_edits~ 15 col_number 1    // 2 handed sword
-        SET_2DA_ENTRY_LATER ~make_edits~ 16 col_number 1    // katana
-        SET_2DA_ENTRY_LATER ~make_edits~ 17 col_number 1    // scimitar
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 3 col_number 1     // bg1 large swords
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 11 col_number 1    // bastard sword
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 12 col_number 1    // long sword
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 15 col_number 1    // 2 handed sword
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 16 col_number 1    // katana
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 17 col_number 1    // scimitar
       END
       PATCH_IF (type = 21) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 19 col_number 1    // warhammer
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 19 col_number 1    // warhammer
       END
       PATCH_IF (type = 23) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 8 col_number 1     // bg1 spiked
-        SET_2DA_ENTRY_LATER ~make_edits~ 23 col_number 1    // flail
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 8 col_number 1     // bg1 spiked
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 23 col_number 1    // flail
       END
       PATCH_IF (type = 24) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 10 col_number 1    // bg1 missile
-        SET_2DA_ENTRY_LATER ~make_edits~ 29 col_number 1    // dart
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 10 col_number 1    // bg1 missile
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 29 col_number 1    // dart
       END
       PATCH_IF (type = 25) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 9 col_number 1     // bg1 axe
-        SET_2DA_ENTRY_LATER ~make_edits~ 14 col_number 1    // axe
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 9 col_number 1     // bg1 axe
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 14 col_number 1    // axe
       END
       PATCH_IF (type = 26) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 25 col_number 1    // staff
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 25 col_number 1    // staff
       END
       PATCH_IF (type = 27) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 26 col_number 1    // crossbow
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 26 col_number 1    // crossbow
       END
       PATCH_IF (type = 29) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 6 col_number 1     // bg1 spears
-        SET_2DA_ENTRY_LATER ~make_edits~ 21 col_number 1    // spear
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 6 col_number 1     // bg1 spears
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 21 col_number 1    // spear
       END
       PATCH_IF (type = 30) BEGIN
-        SET_2DA_ENTRY_LATER ~make_edits~ 22 col_number 1    // halberd
+        SET_2DA_ENTRY_LATER ~dofweapons_edits~ 22 col_number 1    // halberd
       END
     END
   END
 
-  SET_2DA_ENTRIES_NOW ~make_edits~ 1
+  SET_2DA_ENTRIES_NOW ~dofweapons_edits~ 1
   PRETTY_PRINT_2DA
 
 BUT_ONLY
