@@ -63,11 +63,13 @@ Components:
 	- Option 3: Misc items only (no kits or Hunter Badges)
 2. Misc item pack
 
-Extra patching:
+--
+
+**Extra patching:**
 - Component for subtledoctor's 5e casting mod (this component can be installed before or after 5e casting)
 - Update description for Medic Arts (use if Poison Weapon or Lay On Hands were revised after this mod was installed)
 
---
+#
 
 **Additional Info:**
 - If Option 1/2 is installed, then "Misc items" will be the next (separate) component.
