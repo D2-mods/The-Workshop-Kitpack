@@ -284,7 +284,7 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
 
   COPY_EXISTING ~bag30.STO~  ~override~     // Bard
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 STR_VAR item_name=~%etherbomb%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%moon_rune%~ flags=~identified~ END
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%oedonwrithe%~ flags=~identified~ END
   BUT_ONLY
 
   COPY_EXISTING ~bag29.STO~  ~override~     // Mage, Sorcerer, all Mage multiclasses
@@ -318,8 +318,8 @@ ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
   BUT_ONLY
 
   COPY_EXISTING ~bag27.STO~  ~override~     // Druid, F/D
+    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%moon_rune%~ flags=~identified~ END
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 STR_VAR item_name=~%golemring%~ flags=~identified~ END
-    LPF ADD_STORE_ITEM_EX STR_VAR item_name=~%oedonwrithe%~ flags=~identified~ END
   BUT_ONLY
 
   COPY_EXISTING ~bag24.STO~  ~override~     // Ranger

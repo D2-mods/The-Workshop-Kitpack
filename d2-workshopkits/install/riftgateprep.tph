@@ -1,6 +1,6 @@
 /*
 spell arrays/functions for later patching
-used for: Riftgate, Nurse, Drifter
+used for: Riftgate, Nurse, Drifter, dragon scales (restrictarmor.tph)
 */
 
 
@@ -252,6 +252,19 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.ITM~  ~~
     SET web_opcode       = 0
     SET grease_overlay   = 0
     SET entangle_overlay = 0
+
+    // check dragon scales (for restrictarmor.tph)
+    READ_LONG  0x8 stringref    // unidentified name (as string ref)
+    PATCH_IF (stringref=39544 OR stringref=40636 OR stringref=5394) BEGIN
+      PATCH_IF !(FILE_CONTAINS ~%functions%/d2_restrict_armor.tpa~ ~%SOURCE_RES%~) BEGIN
+        READ_ASCII 0x22 itemtype (2) NULL
+        PATCH_IF (~%itemtype%~ STR_EQ ~4A~) BEGIN    // if plate visuals
+          TEXT_SPRINT $d2_scalearmor_array(~%SOURCE_RES%~) ~dragonplate~    // ~%SOURCE_RES%~ => dragonplate
+        END ELSE BEGIN
+          TEXT_SPRINT $d2_scalearmor_array(~%SOURCE_RES%~) ~dragonscale~    // ~%SOURCE_RES%~ => dragonscale
+        END
+      END
+    END
 
     GET_OFFSET_ARRAY itm_headers  ITM_V10_HEADERS
     PHP_EACH itm_headers AS num => header_off BEGIN                    // array of headers

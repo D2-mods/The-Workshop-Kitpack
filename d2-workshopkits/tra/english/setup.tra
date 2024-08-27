@@ -2,10 +2,10 @@
 Text in this file appears in the weidu installer.
 */
 
+
 //Setup
 @9999  = ~The Workshop Kitpack~
 @10 = ~Misc item pack~
-@50 = ~Install if using subtledoctor's 5e casting mod~
 
 @1 = ~Base kits + multiclass variants~
 @2 = ~Base kits only~
@@ -22,3 +22,12 @@ Text in this file appears in the weidu installer.
 @12 = ~Building %spellitemkit% array.~
 @13 = ~Building %spellitemkit% effects.~
 @99 = ~working on %kitid_name%...~
+
+
+//extra patches
+@50 = ~Install if using subtledoctor's 5e casting mod (this component can be installed before or after 5e casting)~
+@1010 = ~Update description for Medic Arts (use if Poison Weapon or Lay On Hands were revised after this mod was installed)~
+
+
+//
+//

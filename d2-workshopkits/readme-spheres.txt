@@ -5,9 +5,9 @@ Supports custom spheres from these mods:
 - Deities of Faerun
 - Talents of Faerun
 
-- tested with FnP v0.86sd9 (also works with v0.84.5)
+- tested with FnP v0.90 (also works with v0.84.5)
 - tested with DoF v1.9.8
-- tested with ToF beta 12
+- tested with ToF beta 13
 
 
 FnP install info:

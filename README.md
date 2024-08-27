@@ -62,7 +62,10 @@ Components:
 	- Option 2: Base kits only
 	- Option 3: Misc items only (no kits or Hunter Badges)
 2. Misc item pack
-3. Component for subtledoctor's 5e casting mod
+
+Extra patching:
+- Component for subtledoctor's 5e casting mod (this component can be installed before or after 5e casting)
+- Update description for Medic Arts (use if Poison Weapon or Lay On Hands were revised after this mod was installed)
 
 --
 
@@ -70,10 +73,12 @@ Components:
 - If Option 1/2 is installed, then "Misc items" will be the next (separate) component.
 - If Option 3 is installed, it will skip the rest of the components.
 - Hunter Badges are installed together with the Beast Hunter kit.
+- Medic Arts update: skipped on initial mod install, can be re-run at any time (does not uninstall other mods).
 
 **Config:**
 - config.ini: Set a kit to = 0 to prevent install
-- Option 2 will skip all multiclass variants, regardless of config settings.
+- "Base kits only" will skip all multiclass variants, regardless of config settings.
+- There are several other options. These need to be set before the mod is installed.
 
 --
 
@@ -93,7 +98,7 @@ Advantages:
 - +3 bonus to attack and damage rolls vs. lycanthropes and fiendish creatures.
 - 2nd level: May use the Hunter Tools ability once per day. Gains additional uses every 4 levels thereafter.
 
-HUNTER TOOLS: For 12 rounds, the character gains a +1 bonus to luck and a +1 bonus to Saving Throws, and melee attacks inflict an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
+HUNTER TOOLS: For 12 rounds, the character gains a +1 bonus to luck rolls and Saving Throws, and melee attacks deal an extra 1d3 acid damage. This ability can be enhanced by equipping special Hunter Badges.
 
 - 5th level: May use the Quicksilver ability once per day. Gains additional uses at levels 9 and 13.
 
@@ -114,9 +119,9 @@ Advantages:
 - May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.  
 - May use the Shockwave and Incinerate abilities. Gains one use each at level 4, plus an additional use each every 4 levels, up to a maximum of 5 uses each at level 20.
 
-SHOCKWAVE: The next successful ranged attack explodes in a wave of energy. All creatures in a 15-ft. radius take 2d4 crushing damage and are propelled back a considerable distance (no save). The blast inflicts an additional 2d4 crushing damage every 4 levels, up to a maximum of 10d4 at level 20.
+SHOCKWAVE: The next successful ranged attack explodes in a 15-ft. radius, inflicting 2d4 crushing damage for every 4 levels of the character, up to a maximum of 10d4 at level 20. Any enemies in the blast are also propelled back a considerable distance (no save).
 
-INCINERATE: The next successful ranged attack expands into a fiery cloud, covering a 15-ft. radius. All creatures in the cloud suffer 1d6 fire damage each round for 4 rounds (Save vs. Breath for half). Damage per round increases by 1d6 every 4 levels, up to a maximum of 5d6 at level 20.
+INCINERATE: The next successful ranged attack creates a fiery cloud, which covers a 15-ft. radius and lasts for 4 rounds. Once each round, creatures in the cloud suffer 1d6 fire damage per 4 levels of the character, up to a maximum of 5d6 at level 20 (Save vs. Breath for half).
 
 Disadvantages:  
 - May not Specialize in melee weapons.  
@@ -269,13 +274,13 @@ Advantages:
 	- 10th level: Madman's Blood.  
 	- 14th level: Lead Elixir.
 
-HEALING BLOOD: Blood drawn from a nun of the Healing Church. Regenerates 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
+HEALING BLOOD: Blood drawn from a nun of the Healing Church. Restores 15% of maximum Hit Points and grants the miracle of regeneration, healing an additional 2 Hit Points per round for 3 turns. While in effect, the recipient incurs a -1 penalty to attack rolls. This blood will also cure any poisons or diseases.
 
 BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 turns. The recipient gains a +1 bonus to damage, and each successful melee attack gives an additional +1 bonus to damage for 2 rounds. While in effect, the recipient incurs a -3 penalty to Armor Class. This blood will also prevent any poisons or diseases.
 
-MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +5 Intelligence, +3 Wisdom, +10% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
+MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +4 to all mental Attributes, +5% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
 
-LEAD ELIXIR: A mysterious concoction that greatly enhances defense, but may inhibit other abilities. The recipient has all physical damage resistances set to 50%, but incurs a -1 penalty to luck. The effects last for 3 turns. This blood will also prevent level drain.
+LEAD ELIXIR: A mysterious concoction that shifts weight to boost defense and resilience. The recipient gains a +4 bonus to Armor Class and Saving Throws, and 20% base resistance to all damage types, but incurs a -1 penalty to luck rolls. The effects last for 3 turns. This blood will also prevent level drain.
 
 Disadvantages:  
 - May not wear gauntlets or bracers.
@@ -370,26 +375,32 @@ Disadvantages:
 MEDIC: This Monk is a skilled medical practitioner, as well as warrior, and has undergone special training, applying powerful herbal remedies to aid in combat.
 
 Advantages:
-- May use the Black Remedy and White Remedy abilities. Gains one use each at level 1 and an additional use each every 5 levels thereafter.
+- Gains Ki Energy, which is used to activate kit abilities. Gains +1 to maximum Ki Energy every 2 levels (starting at 1st level).
+- Ki Regen: The character passively regains +1 Ki Energy every 5 rounds.
+- May use the Black Remedy ability. Requires 1 Ki Energy.
 
 BLACK REMEDY: All attacks in the next 10 seconds spread a healing remedy. Restores 2d6 Hit Points to allies in a 7-ft. radius.
 
+- 5th level: May use the White Remedy ability. Requires 2 Ki Energy.
+
 WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
 
-- 5th level: May use Slow Poison three times per day.
-- 7th level: May use Cure Disease once per day.
-- 9th level: May use the Healing Rain ability once per day. Gains additional uses at levels 12 and 15.
+- 7th level: May use the Medic Arts ability. Requires 3 Ki Energy.
 
-HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius for 2 rounds, washing away fatigue and healing all creatures in the area 3d8+2 Hit Points each round.
+MEDIC ARTS: Use this ability to select from a list of Medic Arts. The list of abilities includes Lay On Hands, Cure Afflictions, Recall Spirit, Spiritual Clarity, and Poison Weapon. Curative spells are applied instantly to the touched creature.
 
-- 10th level: May use Neutralize Poison three times per day (replaces Slow Poison).
-- 14th level: May use Heal once per day (replaces Cure Disease).
-- 18th level: May use Lesser Restoration three times per day.
+- 9th level: May use the Healing Rain ability. Requires 4 Ki Energy.
+
+HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius for 2 rounds, washing away fatigue and healing all allied and neutral creatures in the area 10 + 15% of maximum Hit Points each round.
+
+- 13th level: May use the Dragonrot ability. Requires 5 Ki Energy.
+
+DRAGONROT: An illusory dragon spews forth decaying breath. All enemies in a 15-ft. radius are afflicted with Dragonrot, which deals 8 + 5% of max HP damage per round for 5 rounds (no save). Victims also suffer a -4 penalty to Saving Throws for the duration. The effects are not cumulative.
 
 Disadvantages:
-- May not use bladed weapons, other than short swords or daggers.
-- May not use the Lay On Hands ability.
+- Only gains 8 thieving skill points per level.
 - May not use the Stunning Blow ability.
+- May not use the Quivering Palm ability.
 
 ---
 
@@ -427,12 +438,12 @@ FULL METAL JAGUAR: A highly capable and versatile warrior, the Full Metal Jaguar
 
 Advantages:
 - +1 bonus to attack and damage rolls.
-- Immune to backstab.
+- 3rd level: Immune to backstab.
 - 5th level: May use the Ghostwalker ability once per day. Gains additional uses every 5 levels thereafter.
 
 GHOSTWALKER: This ability lasts 5 rounds. Once each round, 1 mirror image is created on the character, which can absorb one attack during that round. The number of images created increases to 2 per round at level 10, 3 per round at level 15, and 4 per round at level 20.
 
-- 8th level: Gains the Critical Boost ability (passive).
+- 7th level: Gains the Critical Boost ability (passive).
 
 CRITICAL BOOST: Ranged attacks boost melee critical chance. Each hit with a ranged weapon gives a cumulative +5% bonus for 3 rounds. A critical miss resets the bonus.
 
@@ -508,6 +519,11 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 - Install after class revision mods, unless they specifically say to install after any kits.
 - Install after mods that revise or overwrite spells.
 - Install after mods that add new weapons or armor.
+- Install before mods that overhaul proficiencies.
+
+NOTE: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. Technically, this mod is safe to install even after most tweak mods, but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
+
+--
 
 #### Spellcasting systems:
 - Compatible with Faiths and Powers spheres system.
@@ -521,15 +537,37 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 
 --
 
-**Talents of Faerun note:** Spell components can be installed before or after this mod (I'd personally install them before). Other components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so best to just install everything after.
+**Talents of Faerun notes:** (tl;dr install spells before and other stuff after)
+- Spell components can be installed before or after this mod. I'd recommend to install them before (especially IWD spells).
+- Race component can be installed before or after this mod.
+- Kit/Tweak components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so easier to just install everything after.
+- The divine casting kits definitely need to be installed before the cleric revisions for custom spheres to work.
+- All kits need to be before anything that touches the proficiency or HLA screens (or buttons might not work).
+
+NOTE: This was asked about, so I'll mention that ToF Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
 
 --
 
-#### HLA traps/songs:
-- v4.7.8 update: Crow Hunter can now use any HLA traps (install order doesn't matter).
-- Powder Keg is compatible with the Rogue Rebalancing HLA song (including Lingering song). Requires patching the rr songs, so this mod needs to be installed after rr.
-- Powder Keg can select the HLA song from Talents of Faerun, but the special ability (to switch songs) will change to the unmodded HLA song. Also, ToF's "Lingering Song" feat will work with the HLA song, but it does not affect Powder Keg songs.
-- Powder Keg is untested with other mod-added HLA songs (if any exist).
+**OlvynSpells notes:**
+- Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
+- Paladin/Ranger components can be installed before or after. Note that these need to be installed after most other kit mods.
+- New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds the spells directly to the kit tables).
+- Untested with 3e metamagic component. To be safe, install it after this mod.
+
+--
+
+**Feats/abilities mods:**
+- Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
+- Crow Hunter (all variants) should not take Set Snares if using a mod that lets thieves gain extra uses.
+- Grave Warden should not take Charm Animal if using a mod that lets rangers gain extra uses.
+- Confessor can take extra Lay On Hands uses from feats/abilities mods.
+
+**Bard revisions notes:**
+- Rogue Rebalancing: Powder Keg is compatible with the RR HLA song (including Lingering song). Requires patching the RR songs, so this mod needs to be installed after RR.
+- Shohy's bard song mod: The HLA song from Shohy's mod by default gives an ability to switch to it. This mod will patch that ability for better compat with Powder Keg songs (remove delayed effects). Install after Shohy's mod for best compatibility.
+- Bardic Wonders: Powder Keg will gain Bardic Inspiration at level 1 if installed after that component. If installed after the Bard Song Mechanics tweak, a line will be added to the "Change Song" ability for the HLA song, describing the tweak effects.
+- Talents of Faerun: Powder Keg can take the HLA song, but the special ability (to switch songs) will change to the vanilla HLA song. This mod should be installed before the ToF HLA component (or buttons might not work).
+- Untested with other bard revisions.
 
 #
 ### FnP additional info:
@@ -558,34 +596,40 @@ Additional Info (Kit Abilities):
 
 **Affected by Wild/Dead Magic zones:**
 - Denial (Grave Warden)  
+- Dragonrot (Medic)
 - Moonlight Vortex (Moonlight Knight)  
 - Force (Temple Knight)  
 - Bolt of Glory (Temple Knight)
 - Unleash Magic (War Magican)
 - Twisted Barricade (War Magican)
 
-**Can be dispelled:**
-- Denial  
-- Moonlight Vortex (magic resist)  
-- Rooting Shot (entangled status)  
-- Frenzying Flame (status effects)
-- Unleash Magic
-- Twisted Barricade
-
 **Can be removed by Zone of Sweet Air:**
 - Incinerate (Warhound)  
 - Dust Explosion (Powder Keg)
 
+**Cures elemental DoT damage (ex. Melf Arrows):**
+- Healing Blood (Blood Minister)  
+- Healing Rain (Medic)
+- Cure Afflictions (Medic)
+- Autoimmune (Nurse)
+
+#
+
 **Other info:**
-- Blood transfusions will be removed by a Restoration or Greater Restoration.
-- Bleeding effects can be cured by Heal or Greater Restoration, or by the Blood Minister's "Healing Blood".
-- The multiclass Cleric kits will gain Holy Symbols at around 4 million XP (BG2/EET).
+- Blood Minister's Blood transfusions will be removed by a Restoration or Greater Restoration (any spell with restoration opcode). This is done for lore reasons. (Madman's Blood will obviously not remove itself)
+- Bleeding effects don't wake sleeping creatures. These effects can be cured by Heal, Regeneration, Lay On Hands, and similar spells, as well as most healing spells/abilities from this mod. Also, Stoneskins and Shield of Lathander (or similar mod spells) will protect from bleeding.
+- Drifter and Grave Warden can see clearly inside a Powder Keg's Dust Explosion once they gain the requisite effects (cloud immunities and blindness immunity).
+- Nurse's Medical Darts deal double healing or poison damage on a critical hit (target must be vulnerable to crits).
+- Shaman Bone Blade's Charm effect lasts only a few rounds, but it can't be broken, except by a Spiritual Clarity (i.e. if you hit it with an AoE spell, it remains charmed).
+- Medic's Dragonrot is affected by wild/dead magic, but otherwise is treated as a natural effect. It will bypass most spell defenses, and can affect any creature type. It is treated as a status effect, so effects cannot be stacked. It can cured by Heal, Greater Restoration, and abilities from this mod that cure elemental DoT spells.
+- This mod accounts for EE Fixpack changes to status immunity/curing. For causing statuses, currently only one thing has longer duration effects that need removing separately (Shaman Bone Blade). A subspell for that is added to the relevant EEFP file, if detected.
+- The multiclass Cleric kits will gain Holy Symbols at the next Cleric level after 4 million XP (BG2/EET).
 
 --
 
 **Gain bonus effects from these Beamdog items:**
 - Archer's Eyes: Warhound, Noble Scion, Nurse
-- Belt of the Skillful Blade: Drifter
+- Belt of the Skillful Blade: Drifter, Spell Fencer
 - Screaming Bagpipes: Powder Keg
 - Stalker Gauntlets: Crow Hunter
 
@@ -661,7 +705,8 @@ STATISTICS:
 Equipped abilities:  
 - Armor Class: +1  
 - Saving Throws: +1  
-- Magic Resistance: +10%
+- Magic Resistance: +5%
+- Vocalize
 
 Special (Beast Hunter):  
 - Hunter Tools: Target is drained 1 level on a failed save vs. Spell at -2

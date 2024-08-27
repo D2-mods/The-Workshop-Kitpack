@@ -308,27 +308,27 @@ Medic (Monk)
 MEDIC: This Monk is a skilled medical practitioner, as well as warrior, and has undergone special training, applying powerful herbal remedies to aid in combat.
 
 Advantages:
-– Gains ki power, which is used to activate kit abilities. Gains +1 to maximum ki power every 2 levels (starting at 1st level).
-– Ki Regen: The character passively regains 1 ki power every 5 rounds.
-– May use the Black Remedy ability. Requires 1 ki power.
+– Gains Ki Energy, which is used to activate kit abilities. Gains +1 to maximum Ki Energy every 2 levels (starting at 1st level).
+– Ki Regen: The character passively regains +1 Ki Energy every 5 rounds.
+– May use the Black Remedy ability. Requires 1 Ki Energy.
 
 BLACK REMEDY: All attacks in the next 10 seconds spread a healing remedy. Restores 2d6 Hit Points to allies in a 7-ft. radius.
 
-– 5th level: May use the White Remedy ability. Requires 2 ki power.
+– 5th level: May use the White Remedy ability. Requires 2 Ki Energy.
 
 WHITE REMEDY: All attacks in the next 10 seconds spread a soothing remedy. All enemies in a 7-ft. radius are slowed for 1 round, and must make a save vs. Death or fall asleep for 5 rounds or until attacked.
 
-– 7th level: May use the Medic Arts ability. Requires 3 ki power.
+– 7th level: May use the Medic Arts ability. Requires 3 Ki Energy.
 
 MEDIC ARTS: Use this ability to select from a list of Medic Arts. The list of abilities includes Lay On Hands, Cure Afflictions, Recall Spirit, Spiritual Clarity, and Poison Weapon. Curative spells are applied instantly to the touched creature.
 
-– 9th level: May use the Healing Rain ability. Requires 4 ki power.
+– 9th level: May use the Healing Rain ability. Requires 4 Ki Energy.
 
-HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius for 2 rounds, washing away fatigue and healing all allied and neutral creatures in the area 3d8+2 Hit Points each round.
+HEALING RAIN: Crystal healing shards rain down in a 12-ft. radius for 2 rounds, washing away fatigue and healing all allied and neutral creatures in the area 10 + 15% of maximum Hit Points each round.
 
-– 13th level: May use the Dragonrot ability. Requires 5 ki power.
+– 13th level: May use the Dragonrot ability. Requires 5 Ki Energy.
 
-DRAGONROT: An illusory dragon's head spews forth decaying breath. All enemies in a 15-ft. radius suffer a deathly rotting, which inflicts 1d8+5 magic damage per round for 5 rounds (no save). Victims also suffer a -4 penalty to Saving Throws for the duration. The effects are noncumulative.
+DRAGONROT: An illusory dragon spews forth decaying breath. All enemies in a 15-ft. radius are afflicted with Dragonrot, which deals 8 + 5% of max HP damage per round for 5 rounds (no save). Victims also suffer a -4 penalty to Saving Throws for the duration. The effects are not cumulative.
 
 Disadvantages:
 – Only gains 8 thieving skill points per level.
@@ -391,7 +391,7 @@ Advantages:
 – May Specialize (two slots) in shortbows, crossbows, slings, and darts.
 – May use the N-Alchemy ability. Gains one use at level 1, one use at level 6, and an additional use every 6 levels thereafter.
 
-N-ALCHEMY: Adds a set of medical tools as special abilities for up to 1 hour. Each requires 1 alchemy point, and the character is given 3 points to use. New abilities become available at higher levels:
+N-ALCHEMY: Adds a set of medical tools as special abilities for up to 1 hour. Each requires 1 Alchemy Point, and the character is given 3 points to use. New abilities become available at higher levels:
   1st level: Medical Darts
   5th level: First Aid
   9th level: Overdose

@@ -21,7 +21,7 @@ OUTER_SPRINT config_desc ~%config%%WNL%%WNL%%option1%%WNL%%option2%%WNL%%option3
 
 
 //add main ability
-COPY ~override/%s4%.SPL~  ~override/%m0%.SPL~
+COPY ~override/%medicarts%.SPL~  ~override/%m0%.SPL~
   SAY NAME1 @356
   SAY UNIDENTIFIED_DESC  ~%config_desc%~
   WRITE_ASCII 0x3a SPWI402B #8
@@ -77,12 +77,12 @@ COPY ~%passives%/removespell.SPL~  ~override/%m0%x.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=174 STR_VAR resource=EFF_P04 END
 
 
-/*
 //add to 2da
-COPY ~override/%kitid%.2DA~  ~override/%kitid%.2DA~
-  LPF d2_kit_ability_adder STR_VAR resource=~%m0%~ END
-BUT_ONLY
-*/
+ACTION_IF (nomedicconfig = 0) BEGIN
+  COPY ~override/%kitid%.2DA~  ~override~
+    LPF d2_kit_ability_adder STR_VAR resource=~%m0%~ END
+  BUT_ONLY
+END
 
 
 //

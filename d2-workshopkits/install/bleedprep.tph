@@ -84,8 +84,8 @@ DEFINE_PATCH_FUNCTION d2_bleed_delay INT_VAR limit=4 delay=5 STR_VAR resource=~~
 END
 
 
-//make bleed resource blocked by protection spells (from bleed_protection_array)
-//resource should be the same as above function
+//make bleed effects blocked by protection spells (from bleed_protection_array)
+//resource should be the main bleed subspell (the one created from ~inlined/bleed_core.SPL~)
 //also adds resource to d2_bleedprep_arrays file
 
 DEFINE_ACTION_FUNCTION d2_bleed_effects INT_VAR opcode=318 match_opcode=142 STR_VAR resource=~~ BEGIN

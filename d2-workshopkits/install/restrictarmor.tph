@@ -28,23 +28,32 @@ ACTION_IF (noarmorrestrictions = 0) BEGIN
 PRINT @9
 
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
-  PATCH_IF (!(~%SOURCE_RES%~ STRING_EQUAL_CASE ~secret05~) AND    // skip these armors
-            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~d2tec05~) AND
-            !(~%SOURCE_RES%~ STRING_EQUAL_CASE ~FISH~)            // skip a fish in IWD
+  PATCH_IF (!(~%SOURCE_RES%~ STR_EQ ~secret05~) AND    // skip these armors
+            !(~%SOURCE_RES%~ STR_EQ ~d2tec05~) AND
+            !(~%SOURCE_RES%~ STR_EQ ~FISH~)            // skip a fish in IWD
   ) BEGIN
 
-    LPF d2_restrict_armor_flags RET droppable displayable END
+    LPF d2_restrict_item_flags RET droppable displayable restrictions END
     PATCH_IF ((%droppable%) AND (%displayable%)) BEGIN
+      PATCH_IF (restrictions != 0) BEGIN    // skip anything with no race/class/alignment restrictions
 
-      READ_LONG  0x8 stringref             // unidentified name (as string ref)
-      READ_ASCII 0x22 itemtype (2) NULL    // equipped appearance
+        READ_LONG  0x8 stringref             // unidentified name (as string ref)
+        READ_ASCII 0x22 itemtype (2) NULL    // equipped appearance
 
-      PHP_EACH d2_restrict_armor_array AS kit => type BEGIN
-        PATCH_IF (RESOURCE_CONTAINS ~kit.ids~  ~%kit%~) BEGIN
-          LPF ~d2_restrict_armor_%type%~  STR_VAR kit_to_patch = ~%kit%~ END
+        PHP_EACH d2_restrict_armor_array AS kit => type BEGIN
+          PATCH_IF (RESOURCE_CONTAINS ~kit.ids~  ~%kit%~) BEGIN
+            TEXT_SPRINT scale ~scale~
+            PATCH_IF (~%type%~ STR_EQ ~splint~) BEGIN  TEXT_SPRINT scale ~dragon~ END
+            PATCH_IF (~%type%~ STR_EQ ~chain~)  BEGIN  TEXT_SPRINT scale ~dragon~ END
+            LPF d2_scalearmor_check STR_VAR armor=~%scale%~ RET scalearmor END    // returns 1 if match (skip patching)
+
+            PATCH_IF (scalearmor = 0) BEGIN
+              LPF ~d2_restrict_armor_%type%~  STR_VAR kit_to_patch = ~%kit%~ END
+            END
+          END
         END
-      END
 
+      END
     END
   END
 BUT_ONLY

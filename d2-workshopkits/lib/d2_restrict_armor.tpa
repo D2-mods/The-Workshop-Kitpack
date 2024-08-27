@@ -4,21 +4,19 @@ functions for armor restrictions
 
 
 //check item flags
-DEFINE_PATCH_FUNCTION d2_restrict_armor_flags  RET droppable displayable BEGIN
+DEFINE_PATCH_FUNCTION d2_restrict_item_flags  RET droppable displayable restrictions BEGIN
   READ_LONG 0x18 item_flags
   SET droppable = %item_flags% & BIT2
   SET displayable = %item_flags% & BIT3
+  READ_LONG 0x1e restrictions    // 0 = no race/class/alignment restrictions
 END
 
 /*usage:
-  LPF d2_restrict_armor_flags RET droppable displayable END
+  LPF d2_restrict_item_flags RET droppable displayable END
   PATCH_IF ((%droppable%) AND (%displayable%)) BEGIN
     patching...
   END
 */
-
-
-//additional checks?
 
 
 
@@ -51,7 +49,7 @@ BEGIN
     END
 END
 
-//no chain, splint, or plate (beast hunter multi)
+//no chain, splint, or plate (beast hunter, confessor)
 DEFINE_PATCH_FUNCTION d2_restrict_armor_studded
   STR_VAR  kit_to_patch  = ~~
 BEGIN
@@ -106,6 +104,46 @@ BEGIN
       parameter1 = IDS_OF_SYMBOL (kit ~%kit_to_patch%~)
       parameter2 = 9
       timing = 2
+  END
+END
+
+
+
+//
+//add checks for scale armor
+
+/*
+function is only relevant for resource from array (can add more if scanning ITMs)
+RET "scalearmor" variable, 1 = match "type", 0 = not match
+matching only needs to contain the "type" string (type = dragon will match all armors)
+*/
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_scalearmor_array BEGIN
+//bg2
+  ~LEAT19~    => ~dragonscale~    // shadow dragon
+  ~CHAN17~    => ~dragonscale~    // ashen scales
+  ~CHAN20~    => ~dragonscale~    // white dragon
+  ~PLAT18~    => ~dragonplate~    // red dragon
+  ~PLAT20~    => ~dragonplate~    // blue dragon
+  ~ohdarmor~  => ~dragonplate~    // silver dragon
+//sod
+  ~bdleat04~  => ~dragonscale~    // changeling vest
+  ~bdleat05~  => ~dragonscale~    // dragonscale
+//iwd
+  ~cdscale~   => ~dragonscale~    // white dragon
+  ~DRAGARM~   => ~dragonscale~    // dragonscale
+  ~KING~      => ~dragonplate~    // winter plate
+//mod
+END
+
+DEFINE_PATCH_FUNCTION d2_scalearmor_check STR_VAR armor=scale RET scalearmor BEGIN
+  SET scalearmor = 0
+  PHP_EACH d2_scalearmor_array AS res => check BEGIN
+    PATCH_IF (~%SOURCE_RES%~ STR_EQ ~%res%~) BEGIN
+      PATCH_IF !(~%check%~ STRING_CONTAINS_REGEXP ~%armor%~) BEGIN    // if "check" DOES contain "armor"
+        SET scalearmor = 1
+      END
+    END
   END
 END
 

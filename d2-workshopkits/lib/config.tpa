@@ -71,6 +71,7 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~shockwavepatch.*=.*[^0-9]0[^0-9]*$~          noshockwavepatch
   COUNT_REGEXP_INSTANCES  ~hideimmunityicons.*=.*[^0-9]0[^0-9]*$~       noiconpatch
   COUNT_REGEXP_INSTANCES  ~powderkegicons.*=.*[^0-9]0[^0-9]*$~          nopowderkegpatch
+  COUNT_REGEXP_INSTANCES  ~medicconfig.*=.*[^0-9]0[^0-9]*$~             nomedicconfig
 
 //Bubb's Menu levels
   COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]0[^0-9]*$~        medictools0

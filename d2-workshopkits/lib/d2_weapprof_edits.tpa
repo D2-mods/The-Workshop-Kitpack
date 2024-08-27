@@ -536,18 +536,24 @@ BEGIN
       END
     END
   END
-    
-  PATCH_IF (%entry% > 0) BEGIN
+
+  PATCH_IF (entry > 0) BEGIN
     SET a = 0
     SET b = 0
     SET c = 0
     SET d = 0
   END
+
+  PATCH_IF (entry < 0) BEGIN  SET entry = 0 END
+  PATCH_IF (a < 0) BEGIN  SET a = 1 END
+  PATCH_IF (b < 0) BEGIN  SET b = 1 END
+  PATCH_IF (c < 0) BEGIN  SET c = 1 END
+  PATCH_IF (d < 0) BEGIN  SET d = 1 END
   
-  SET entry1 = (%entry% + %a%)
-  SET entry2 = (%entry% + %b%)
-  SET entry3 = (%entry% + %c%)
-  SET entry4 = (%entry% + %d%)
+  SET entry1 = (entry + a)
+  SET entry2 = (entry + b)
+  SET entry3 = (entry + c)
+  SET entry4 = (entry + d)
   
   SET_2DA_ENTRY_LATER ~weapprof_quick_edit~ 31 col_number entry1    // two handed
   SET_2DA_ENTRY_LATER ~weapprof_quick_edit~ 32 col_number entry2    // sword and shield
@@ -595,17 +601,23 @@ COPY_EXISTING ~weapprof.2DA~ ~override~
     END
   END
     
-  PATCH_IF (%entry% > 0) BEGIN
+  PATCH_IF (entry > 0) BEGIN
     SET a = 0
     SET b = 0
     SET c = 0
     SET d = 0
   END
+
+  PATCH_IF (entry < 0) BEGIN  SET entry = 0 END
+  PATCH_IF (a < 0) BEGIN  SET a = 1 END
+  PATCH_IF (b < 0) BEGIN  SET b = 1 END
+  PATCH_IF (c < 0) BEGIN  SET c = 1 END
+  PATCH_IF (d < 0) BEGIN  SET d = 1 END
   
-  SET entry1 = (%entry% + %a%)
-  SET entry2 = (%entry% + %b%)
-  SET entry3 = (%entry% + %c%)
-  SET entry4 = (%entry% + %d%)
+  SET entry1 = (entry + a)
+  SET entry2 = (entry + b)
+  SET entry3 = (entry + c)
+  SET entry4 = (entry + d)
   
   SET_2DA_ENTRY_LATER ~weapprof_quick_edit~ 31 col_number entry1    // two handed
   SET_2DA_ENTRY_LATER ~weapprof_quick_edit~ 32 col_number entry2    // sword and shield

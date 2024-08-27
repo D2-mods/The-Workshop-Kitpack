@@ -35,7 +35,7 @@ DEFINE_ACTION_FUNCTION d2_add_hla_string
 BEGIN
 
   ACTION_IF !(FILE_EXISTS_IN_GAME ~%hlatable%.2da~) BEGIN
-    // PRINT ~file not found~
+    PRINT ~DEFINE_ACTION_FUNCTION d2_add_hla_string: %hlatable%.2da not found~
   END ELSE BEGIN
 
     COPY_EXISTING ~%hlatable%.2da~  ~override~
@@ -189,7 +189,7 @@ DEFINE_PATCH_FUNCTION d2_add_hla_string
 BEGIN
 
   PATCH_IF (~%SOURCE_RES%~ STRING_CONTAINS_REGEXP ~^lu~) BEGIN    // check resource name
-    // PATCH_PRINT ~not HLA table~
+    PATCH_PRINT ~DEFINE_PATCH_FUNCTION d2_add_hla_string: not an HLA table~
   END ELSE BEGIN
 
 //    COPY_EXISTING ~%hlatable%.2da~  ~override~

@@ -7,6 +7,7 @@ COPY ~%passives%/resistup20fire.SPL~  ~override/%e1%.SPL~
 //Change bard song at level 1 (Blasting Song)
 COPY_EXISTING ~FJBARD.SPL~            ~override/%e2%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s1%s~ END
+  LPF DELETE_EFFECT STR_VAR match_resource=~#bard7a~ END    // compat fix for IWDification
 
 //other new songs not automatically set, except HLA song
 

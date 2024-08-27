@@ -3,7 +3,7 @@ Make spells compatible with 5e casting mod.
 spell_type = divine or arcane
 
 Not needed for sorcerer/shaman spells
-Latest versions of 5e casting may convert spells automatically (if installed after)
+Latest versions of 5e casting may convert spells automatically
 */
 
 

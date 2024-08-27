@@ -1,0 +1,86 @@
+/*
+update Medic Arts description
+add or remove Medic Config from kit clab
+Fix skill points in thiefskl.2da if changed by a tweak
+*/
+
+
+//prep
+OUTER_TEXT_SPRINT kitid ~d2wkd~
+OUTER_TEXT_SPRINT kitname ~MEDIC~
+INCLUDE ~%install%/variables.tph~
+INCLUDE ~%install%/resources.tph~
+
+
+//variables
+OUTER_TEXT_SPRINT mediccure1  ~SPCL815~    // lay on hands
+OUTER_TEXT_SPRINT mediccure2  ~%s4%b~      // cure afflictions
+OUTER_TEXT_SPRINT mediccure3  ~%s4%c~      // recall spirit
+OUTER_TEXT_SPRINT mediccure4  ~%s4%d~      // spiritual clarity
+OUTER_TEXT_SPRINT mediccure5  ~SPCL423~    // poison weapon
+
+ACTION_IF (RESOURCE_CONTAINS ~CLABMO01.2DA~ ~QDMNKA2~) BEGIN    // if Monastic Orders
+  OUTER_TEXT_SPRINT mediccure1  ~QDMNKA2~
+END
+
+ACTION_IF (FILE_EXISTS ~override/c0as#p1.spl~) BEGIN    // if Artisan's kitpack
+  OUTER_TEXT_SPRINT mediccure5  ~c0as#p1~
+END
+
+//check header levels (Poison Weapon and Lay On Hands)
+ACTION_FOR_EACH spell IN ~%mediccure1%~ ~%mediccure5%~ BEGIN
+  COPY_EXISTING ~%spell%.spl~  ~override~
+    WRITE_LONG 0x34 1    // "level" offset (row for Bubb's Spell Menu)
+  BUT_ONLY
+END
+
+
+//edit desc
+OUTER_SPRINT desc @235
+OUTER_TEXT_SPRINT line ~--~
+ACTION_FOR_EACH spell IN
+  ~%mediccure1%~ ~%mediccure2%~ ~%mediccure3%~ ~%mediccure4%~ ~%mediccure5%~
+BEGIN
+  COPY_EXISTING - ~%spell%.spl~  ~~
+    READ_STRREF 0x50 ~note~
+    TEXT_SPRINT desc ~%desc%%WNL%%WNL%%line%%WNL%%WNL%%note%~
+  IF_EXISTS
+END
+
+COPY ~override/%s4%.SPL~  ~override~
+  SAY UNIDENTIFIED_DESC ~%desc%~
+BUT_ONLY
+
+
+//recreate 2da table
+COPY ~%abilities%/bloodtransfusion.2DA~  ~override/%s4%.2DA~
+APPEND ~%s4%.2DA~  ~mediccure1  %mediccure1% 3~
+APPEND ~%s4%.2DA~  ~mediccure2  %mediccure2% 3~
+APPEND ~%s4%.2DA~  ~mediccure3  %mediccure3% 3~
+APPEND ~%s4%.2DA~  ~mediccure4  %mediccure4% 3~
+APPEND ~%s4%.2DA~  ~mediccure5  %mediccure5% 3~
+
+
+//add or remove Medic Config
+ACTION_IF (nomedicconfig = 0) BEGIN
+  ACTION_IF !(RESOURCE_CONTAINS ~%kitid%.2DA~  ~%m0%~) BEGIN
+    COPY ~override/%kitid%.2DA~  ~override~
+      LPF d2_kit_ability_adder STR_VAR resource=~%m0%~ END
+    BUT_ONLY
+  END
+END ELSE BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~%kitid%.2DA~  ~%m0%~) BEGIN
+    COPY ~override/%kitid%.2DA~  ~override~
+      REPLACE_TEXTUALLY ~GA_%m0%~  ~****~
+      PRETTY_PRINT_2DA
+    BUT_ONLY
+  END
+END
+
+
+//check thiefskl.2da
+LAF d2_edit_2da_entry STR_VAR 2da=thiefskl col_name=LEVEL_POINTS row_name=~D2%kitname%~ entry=8 END
+
+
+//
+//

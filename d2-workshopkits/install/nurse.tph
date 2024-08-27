@@ -263,9 +263,9 @@ COPY_EXISTING ~spcl211.SPL~  ~override/%s3%.SPL~    // clone paladin lay on hand
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%s3%b~ END         // workaround for display issue
 
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=215 timing=1 parameter2=0 STR_VAR resource=~%s3%a~ END        // visual
-  LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 STR_VAR resource=~#EFF_P26~ insert=last END    // sound
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 parameter2=0b110010000000000000000 END            // fade speed
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 timing=1 parameter2=0 STR_VAR resource=~%s3%a~ END        // visual
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=215 opcode=174 STR_VAR resource=~#EFF_P26~ insert=last END    // sound
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 parameter2=0b110010000000000000000 END                     // fade speed
 
   // healing
   LPF ALTER_EFFECT INT_VAR match_opcode=17 target=2 parameter1=10 END         // gained at level 5 (10 healing)

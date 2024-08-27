@@ -249,6 +249,10 @@ COPY ~%abilities%/healingrain.SPL~  ~override/%s3%a.SPL~
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!rage~ END     // cures berserk (blood rage)
   LPF d2_safe_spell INT_VAR allies=0 neutrals=0 enemies=1 block_opcode=17 END
 
+  // heals 10 + 15% per round
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 dicesize=0 dicenumber=0 parameter1=10 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=17 parameter1=15 parameter2=2 STR_VAR insert=below END
+
   // cure "winded" effects
   PATCH_FOR_EACH spell IN ~SPCL321D~ ~dvwinded~ ~d2mk1s2~ ~d2ham01c~ BEGIN
     LPF d2_remove_effects_on_cast INT_VAR match_opcode=93 STR_VAR resource=~%spell%~ insert=above END
@@ -303,6 +307,8 @@ COPY ~%icons%/mediccure3.BAM~  ~override/%mediccure3%.BAM~
 //
 //edit Recall Spirit
 COPY_EXISTING ~%mediccure3%.SPL~  ~override~
+  SAY NAME1 @136
+  SAY UNIDENTIFIED_DESC @236
   WRITE_ASCII 0x3a ~%mediccure3%~ #8
   LPF ALTER_SPELL_HEADER STR_VAR icon=~%mediccure3%~ END
 BUT_ONLY
@@ -310,10 +316,16 @@ BUT_ONLY
 //
 //edit Spiritual Clarity
 COPY_EXISTING ~%mediccure4%.SPL~  ~override~
+  SAY NAME1 @137
+  SAY UNIDENTIFIED_DESC @237
   LPF statusarray_function STR_VAR status=panic END
   LPF cure_undead_status STR_VAR status=charm END
   LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=106 END    // remove op106 (morale break)
   LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
+
+  // removes curses
+  LPF CLONE_EFFECT INT_VAR match_opcode=77 opcode=26 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=26 opcode=240 parameter2=35 END
 BUT_ONLY
 
 //
@@ -333,7 +345,7 @@ COPY_EXISTING ~%mediccure2%.SPL~  ~override~    // cloned from Heal (cures poiso
 
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!rage~ insert=last END     // cures berserk
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!vamp~ insert=last END     // cures level drain
-  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!stone~ insert=last END     // cures petrify
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!stone~ insert=last END    // cures petrify
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ insert=last END    // cures bleeding
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!phase~ insert=last END    // cures acid dot, phasing, etc.
   LPF ee_fixpack_status_cures STR_VAR status=~berserk~ END
@@ -345,7 +357,7 @@ COPY ~%abilities%/cureafflictions.BAM~  ~override/%s4%h.BAM~
 COPY ~%abilities%/cureafflictions.VVC~  ~override/%s4%h.VVC~
   WRITE_ASCII 0x8 ~%s4%h~ #8
 
-//IWD edit
+//IWD edit (racial resistance)
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   OUTER_SPRINT desc @233
   OUTER_SPRINT note @750
@@ -440,10 +452,26 @@ COPY ~%abilities%/dragonrotdecay.SPL~  ~override/%s5%b.SPL~
 
 //damage subspell
 COPY ~%abilities%/bleeddamage2.SPL~  ~override/%s5%d.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=88 opcode=31 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=5 parameter2=4194304 dicenumber=1 dicesize=8 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=88 opcode=85 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=8 parameter2=67108864 special=1056 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=12 parameter1=5 parameter2=67108867 STR_VAR insert=below END
 
-//cloud projectile (visual only)
+  // damage string (percentage damage does not give feedback)
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@325) STR_VAR color=misty RET newstring END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=139 timing=1 parameter1=newstring END
+
+/*
+magic
+  LPF ALTER_EFFECT INT_VAR match_opcode=88 opcode=31 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=8 parameter2=4194304 special=1056 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=12 parameter1=5 parameter2=4194307 STR_VAR insert=below END
+magiccold
+  LPF ALTER_EFFECT INT_VAR match_opcode=88 opcode=85 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=8 parameter2=67108864 special=1056 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=12 parameter1=5 parameter2=67108867 STR_VAR insert=below END
+*/
+
+//cloud projectile (visual only - real projectile is the glowing on the ground)
 COPY ~%abilities%/dragonrotdecay3.BAM~  ~override/%s5%c.BAM~
 COPY - ~%abilities%/dragonrotdecay3.PRO~ ~%workspace%/%s5%c.PRO~
   WRITE_ASCII 0x228 ~%s5%c~ #8

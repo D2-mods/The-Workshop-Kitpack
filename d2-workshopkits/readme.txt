@@ -6,11 +6,8 @@ Languages: English, French (JohnBob)
 
 Info:
 - Takes heavy inspiration from FromSoft's Soulsborne games, though only some names, short phrases, and ability concepts are taken directly from those games.
-
 - The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
-
 - If any spells were changed, then the revised spells may be learned by some kits. For example, the Confessor kit normally gains Blindness as a level 1 Priest spell. If you install Spell Revisions beforehand, it will instead gain Obscuring Mist.
-
 - Compatible with BG:EE, BG2:EE, IWD:EE, and EET. My original plan was to also be compatible with classic BG2, but it's probably too late for that. This mod makes heavy use of EE-only opcodes.
 
 ----------------------------------------------------------------------------------------------------
@@ -66,7 +63,10 @@ Components:
 	- Option 2: Base kits only
 	- Option 3: Misc items only (no kits or Hunter Badges)
 2. Misc item pack
-3. Component for subtledoctor's 5e casting mod
+
+Extra patching:
+- Component for subtledoctor's 5e casting mod (this component can be installed before or after 5e casting)
+- Update description for Medic Arts (use if Poison Weapon or Lay On Hands were revised after this mod was installed)
 
 --
 
@@ -74,10 +74,12 @@ Additional Info:
 - If Option 1/2 is installed, then "Misc items" will be the next (separate) component.
 - If Option 3 is installed, it will skip the rest of the components.
 - Hunter Badges are installed together with the Beast Hunter kit.
+- Medic Arts update: skipped on initial mod install, can be re-run at any time (does not uninstall other mods).
 
 Config:
 - config.ini: Set a kit to = 0 to prevent install
-- Option 2 will skip all multiclass variants, regardless of config settings.
+- "Base kits only" will skip all multiclass variants, regardless of config settings.
+- There are several other options. These need to be set before the mod is installed.
 
 Kit info: See GitHub page, in-game descriptions, forum posts, etc.
 
@@ -101,8 +103,11 @@ General guidelines:
 - Install after class revision mods, unless they specifically say to install after any kits.
 - Install after mods that revise or overwrite spells.
 - Install after mods that add new weapons or armor.
+- Install before mods that overhaul proficiencies.
 
-NOTE: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. This is the order I use. Technically, this mod is actually safe to install even after most tweak mods (with the exception of proficiency overhauls), but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
+NOTE: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. Technically, this mod is safe to install even after most tweak mods, but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
+
+--
 
 Spellcasting systems:
 - Compatible with Faiths and Powers spheres system.
@@ -120,9 +125,10 @@ Talents of Faerun notes: (tl;dr install spells before and other stuff after)
 - Spell components can be installed before or after this mod. I'd recommend to install them before (especially IWD spells).
 - Race component can be installed before or after this mod.
 - Kit/Tweak components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so easier to just install everything after.
-- To be clear, any tweaks that edit class tables, but don't do UI edits, should be fine installed before or after this mod.
+- The divine casting kits definitely need to be installed before the cleric revisions for custom spheres to work.
+- All kits need to be before anything that touches the proficiency or HLA screens (or buttons might not work).
 
-NOTE: This was asked about, so I'll mention that ToF Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion Check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
+NOTE: This was asked about, so I'll mention that ToF Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
 
 --
 
@@ -134,11 +140,18 @@ OlvynSpells notes:
 
 --
 
-HLA traps/songs:
-- v4.7.8 update: Crow Hunter can now use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
-- Powder Keg is compatible with the Rogue Rebalancing HLA song (including Lingering song). Requires patching the rr songs, so this mod needs to be installed after rr.
-- Powder Keg can select the HLA song from Talents of Faerun, but the special ability (to switch songs) will change to the unmodded HLA song. Also, ToF's "Lingering Song" feat will work with the HLA song, but it does not affect Powder Keg songs.
-- Powder Keg is untested with other mod-added HLA songs (if any exist).
+Feats/abilities mods:
+- Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
+- Crow Hunter (all variants) should not take Set Snares if using a mod that lets thieves gain extra uses.
+- Grave Warden should not take Charm Animal if using a mod that lets rangers gain extra uses.
+- Confessor can take extra Lay On Hands uses from feats/abilities mods.
+
+Bard revisions notes:
+- Rogue Rebalancing: Powder Keg is compatible with the RR HLA song (including Lingering song). Requires patching the RR songs, so this mod needs to be installed after RR.
+- Shohy's bard song mod: The HLA song from Shohy's mod by default gives an ability to switch to it. This mod will patch that ability for better compat with Powder Keg songs (remove delayed effects). Install after Shohy's mod for best compatibility.
+- Bardic Wonders: Powder Keg will gain Bardic Inspiration at level 1 if installed after that component. If installed after the Bard Song Mechanics tweak, a line will be added to the "Change Song" ability for the HLA song, describing the tweak effects.
+- Talents of Faerun: Powder Keg can take the HLA song, but the special ability (to switch songs) will change to the vanilla HLA song. This mod should be installed before the ToF HLA component (or buttons might not work).
+- Untested with other bard revisions.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -167,8 +180,18 @@ This is how I'd do the install:
 Version info:
 
 v5.7
-- Drifter: 
-- Artisan's Kitpack: fixed compat issue with Medic kit's Poison Weapon (from Medic Arts ability). This mod must be installed after Artisan's kitpack for fix to be applied (it needs to know which resource is the correct Poison Weapon before install).
+- Updates:
+	- Medic: Ki Power is now called Ki Energy. Healing Rain now heals 10 + 15% of max HP each round. Dragonrot damage changed to 8 + 5% of max HP damage per round. Medic's Spiritual Clarity now also breaks curses. Text changes.
+	- Added extra component to update description of Medic Arts ability. This component is only relevant if Poison Weapon or Lay On Hands were changed after installing this mod (ex. with ToF). This component can be re-run at any time (does not uninstall other mods).
+	- ToB: if starting new game, Beast Hunter and Confessor now start with Leather Armor, so they can wear it.
+- Compatibility notes:
+	- Powder Keg: fixed minor issue when installed after IWDification (was gaining 2 HLA song abilities).
+	- Medic: fix compat issue with Artisan's Kitpack (related to Poison Weapon changes). This mod must be installed after Artisan's kitpack for fix to be applied (it needs to know which resource is the correct Poison Weapon before install).
+	- Blood Minister: weapon restrictions (for FnP or DoF mods) will no longer include any item that is usable by all classes, races, alignments, regardless of weapon type.
+	- Talents of Faerun: Fixed possible installer warning if installed after class revisions section. Not recommending to install after, I just did it as an experiment. Most kits will probably work fine installed before or after (will account for class revisions either way). However, the divine casting kits need to be before the cleric revisions for custom spheres to work.
+- Armor restrictions notes:
+	- Loosened restrictions for dragonscale armors. Kits with restrictions can now wear a full step up for dragon type armors (ex. if restricted to chain or splint, can wear plate-style dragon scales). Class restrictions will still apply. For BG2EE and IWDEE, this will catch mod items installed before this mod if they have "Scale Armor" (39544 in dialog.tlk) as the unidentified name.
+	- No longer restricts any armor that is usable by all classes, races, alignments, regardless of armor type. This is to account for possible mod items usable by anyone (for lore reasons, etc.).
 
 v5.6
 - Updates:

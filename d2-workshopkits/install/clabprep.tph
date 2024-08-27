@@ -200,7 +200,8 @@ COPY - ~inlined/d2clab_druid~   ~inlined/d2clab_druid_noanimal~
   PATCH_FOR_EACH shapeshift IN
     ~SPCL611~ ~SPCL612~ ~SPCL613~    // bg animals
     ~SPCL107~ ~SPCL108~ ~SPCL101~    // iwd animals
-    ~cdidrww~ ~cdidrbb~ ~cdidrpb~ ~C0WSHAP~
+    ~cdidrww~ ~cdidrbb~ ~cdidrpb~
+    ~C0WSHAP~ ~DW-DSBA~
   BEGIN
     REPLACE_TEXTUALLY ~GA_%shapeshift%~  ~****~
   END
@@ -231,7 +232,7 @@ DEFINE_PATCH_FUNCTION clab_cleanup STR_VAR type=melee BEGIN
   PATCH_IF (~%type%~ STR_EQ ~ranged~) BEGIN
     REPLACE_TEXTUALLY ~GA_C0FIG02~  ~****~
   END
-  PATCH_IF (~%preset%~ STR_EQ ~archer~) BEGIN
+  PATCH_IF (~%type%~ STR_EQ ~archer~) BEGIN
     REPLACE_TEXTUALLY ~GA_C0FIG01~  ~****~
     REPLACE_TEXTUALLY ~GA_C0FIG02~  ~****~
   END
