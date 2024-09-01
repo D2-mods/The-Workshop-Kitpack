@@ -34,14 +34,14 @@ BEGIN
 
   COPY_EXISTING ~STATDESC.2DA~ ~override~
 
-//Set some variables
+    // Set some variables
     GET_STRREF name iconname
     READ_2DA_ENTRIES_NOW ~statdesc_table~ 1
     COUNT_2DA_ROWS 1 rows
     SET row_count = (rows - 1)    // count starts at 0
     SET icon = ~-1~
 
-//uses existing icon if already added (from my mods)
+    // uses existing icon if already added (from my mods)
     FOR (r = 3; r < rows; ++r) BEGIN
       READ_2DA_ENTRY_FORMER ~statdesc_table~ r 1 stringref
       GET_STRREF stringref string
@@ -54,7 +54,7 @@ BEGIN
       END
     END
 
-//Otherwise, create new icon
+    // Otherwise, create new icon
     PATCH_IF (icon = ~-1~) BEGIN
       READ_2DA_ENTRY_FORMER ~statdesc_table~ row_count 0 icon    // get last icon number, then add +1
       SET icon += 1    // RET variable

@@ -257,7 +257,9 @@ END
 
 
 //edit ToB starting bag
-LAF d2_edit_2da_entry STR_VAR 2da=25STWEAP col_name=~D2%kitname%~ row_name=bag entry=bag27a END
+ACTION_IF (FILE_EXISTS_IN_GAME ~bag27a.itm~) BEGIN
+  LAF d2_edit_2da_entry STR_VAR 2da=25STWEAP col_name=~D2%kitname%~ row_name=bag entry=bag27a END
+END
 
 
 //

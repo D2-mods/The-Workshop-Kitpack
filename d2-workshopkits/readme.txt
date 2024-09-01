@@ -125,7 +125,7 @@ Talents of Faerun notes: (tl;dr install spells before and other stuff after)
 - Spell components can be installed before or after this mod. I'd recommend to install them before (especially IWD spells).
 - Race component can be installed before or after this mod.
 - Kit/Tweak components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so easier to just install everything after.
-- The divine casting kits definitely need to be installed before the cleric revisions for custom spheres to work.
+- The divine casting kits have full support for custom spheres. Must be installed before the cleric revisions.
 - All kits need to be before anything that touches the proficiency or HLA screens (or buttons might not work).
 
 NOTE: This was asked about, so I'll mention that ToF Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
@@ -135,7 +135,7 @@ NOTE: This was asked about, so I'll mention that ToF Evasion can be installed be
 OlvynSpells notes:
 - Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
 - Paladin/Ranger components can be installed before or after. Note that these need to be installed after most other kit mods.
-- New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds the spells directly to the kit tables).
+- New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds spells directly to the kit tables for some classes).
 - Untested with 3e metamagic component. To be safe, install it after this mod.
 
 --

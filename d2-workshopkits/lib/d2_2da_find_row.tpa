@@ -108,6 +108,9 @@ DEFINE_PATCH_FUNCTION 2da_find_row
    
 BEGIN
 
+  PATCH_IF (col_read=1 AND col_count<2) BEGIN  SET col_count = 2 END
+  PATCH_IF (col_read>1 AND col_count<3) BEGIN  SET col_count = 3 END
+
   SET columns = col_count        // RET variable
   COUNT_2DA_ROWS columns rows    // rows = # rows with the required amount of columns
   SET row_number = rows          // set RET variable to final blank line as default
@@ -136,6 +139,9 @@ DEFINE_ACTION_FUNCTION 2da_find_row
 BEGIN
 
 COPY_EXISTING - ~%2da%.2DA~ ~~
+
+  PATCH_IF (col_read=1 AND col_count<2) BEGIN  SET col_count = 2 END
+  PATCH_IF (col_read>1 AND col_count<3) BEGIN  SET col_count = 3 END
 
   SET columns = col_count        // RET variable
   COUNT_2DA_ROWS columns rows    // rows = # rows with the required amount of columns
@@ -171,9 +177,13 @@ DEFINE_PATCH_FUNCTION 2da_find_row_set
      
 BEGIN
 
+  PATCH_IF (col_read=1 AND col_count<2) BEGIN  SET col_count = 2 END
+  PATCH_IF (col_read>1 AND col_count<3) BEGIN  SET col_count = 3 END
+
   SET columns = col_count        // RET variable
   COUNT_2DA_ROWS columns rows    // rows = # rows with the required amount of columns
   SET row_number = rows          // set RET variable to final blank line as default
+
   COUNT_2DA_COLS total_columns
   PATCH_IF (col_write > total_columns) BEGIN SET col_write = total_columns END
   
@@ -205,9 +215,13 @@ BEGIN
 
 COPY_EXISTING ~%2da%.2DA~ ~override~
 
+  PATCH_IF (col_read=1 AND col_count<2) BEGIN  SET col_count = 2 END
+  PATCH_IF (col_read>1 AND col_count<3) BEGIN  SET col_count = 3 END
+
   SET columns = col_count        // RET variable
   COUNT_2DA_ROWS columns rows    // rows = # rows with the required amount of columns
   SET row_number = rows          // set RET variable to final blank line as default
+
   COUNT_2DA_COLS total_columns
   PATCH_IF (col_write > total_columns) BEGIN SET col_write = total_columns END
   
@@ -244,6 +258,9 @@ DEFINE_PATCH_FUNCTION 2da_find_row_delete
    
 BEGIN
 
+  PATCH_IF (col_read=1 AND col_count<2) BEGIN  SET col_count = 2 END
+  PATCH_IF (col_read>1 AND col_count<3) BEGIN  SET col_count = 3 END
+
   SET columns = col_count        // RET variable
   COUNT_2DA_ROWS columns rows    // rows = # rows with the required amount of columns
   SET row_number = rows          // set RET variable to final blank line as default
@@ -273,6 +290,9 @@ DEFINE_ACTION_FUNCTION 2da_find_row_delete
 BEGIN
 
 COPY_EXISTING ~%2da%.2DA~ ~override~
+
+  PATCH_IF (col_read=1 AND col_count<2) BEGIN  SET col_count = 2 END
+  PATCH_IF (col_read>1 AND col_count<3) BEGIN  SET col_count = 3 END
 
   SET columns = col_count        // RET variable
   COUNT_2DA_ROWS columns rows    // rows = # rows with the required amount of columns

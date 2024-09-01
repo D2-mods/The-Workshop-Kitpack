@@ -463,7 +463,7 @@ Advantages:
 - May Specialize (two slots) in shortbows, crossbows, slings, and darts.
 - May use the N-Alchemy ability. Gains one use at level 1, one use at level 6, and an additional use every 6 levels thereafter.
 
-N-ALCHEMY: Adds a set of medical tools as special abilities for up to 1 hour. Each requires 1 alchemy point, and the character is given 3 points to use. New abilities become available at higher levels:  
+N-ALCHEMY: Adds a set of medical tools as special abilities for up to 1 hour. Each requires 1 Alchemy Point, and the character is given 3 points to use. New abilities become available at higher levels:  
 &emsp;&emsp;1st level: Medical Darts  
 &emsp;&emsp;5th level: First Aid  
 &emsp;&emsp;9th level: Overdose  
@@ -543,7 +543,7 @@ NOTE: I'd recommend to install this mod generally together with other kits, but 
 - Spell components can be installed before or after this mod. I'd recommend to install them before (especially IWD spells).
 - Race component can be installed before or after this mod.
 - Kit/Tweak components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so easier to just install everything after.
-- The divine casting kits definitely need to be installed before the cleric revisions for custom spheres to work.
+- The divine casting kits have full support for custom spheres. Must be installed before the cleric revisions.
 - All kits need to be before anything that touches the proficiency or HLA screens (or buttons might not work).
 
 NOTE: This was asked about, so I'll mention that ToF Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
@@ -553,7 +553,7 @@ NOTE: This was asked about, so I'll mention that ToF Evasion can be installed be
 **OlvynSpells notes:**
 - Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
 - Paladin/Ranger components can be installed before or after. Note that these need to be installed after most other kit mods.
-- New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds the spells directly to the kit tables).
+- New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds spells directly to the kit tables for some classes).
 - Untested with 3e metamagic component. To be safe, install it after this mod.
 
 --
@@ -620,12 +620,12 @@ Additional Info (Kit Abilities):
 **Other info:**
 - Blood Minister's Blood transfusions will be removed by a Restoration or Greater Restoration (any spell with restoration opcode). This is done for lore reasons. (Madman's Blood will obviously not remove itself)
 - Bleeding effects don't wake sleeping creatures. These effects can be cured by Heal, Regeneration, Lay On Hands, and similar spells, as well as most healing spells/abilities from this mod. Also, Stoneskins and Shield of Lathander (or similar mod spells) will protect from bleeding.
-- Drifter and Grave Warden can see clearly inside a Powder Keg's Dust Explosion once they gain the requisite effects (cloud immunities and blindness immunity).
+- Drifter and Grave Warden can see clearly while inside a Powder Keg's Dust Explosion once they gain the requisite effects (cloud immunities and blindness immunity).
 - Nurse's Medical Darts deal double healing or poison damage on a critical hit (target must be vulnerable to crits).
 - Shaman Bone Blade's Charm effect lasts only a few rounds, but it can't be broken, except by a Spiritual Clarity (i.e. if you hit it with an AoE spell, it remains charmed).
-- Medic's Dragonrot is affected by wild/dead magic, but otherwise is treated as a natural effect. It will bypass most spell defenses, and can affect any creature type. It is treated as a status effect, so effects cannot be stacked. It can cured by Heal, Greater Restoration, and abilities from this mod that cure elemental DoT spells.
+- Medic's Dragonrot is affected by wild/dead magic, but otherwise is treated as a natural effect. It will bypass most spell defenses, and can affect any creature type. It is treated as a status effect, so effects cannot be stacked. It can be cured by Heal, Greater Restoration, and abilities from this mod that cure elemental DoT spells.
 - This mod accounts for EE Fixpack changes to status immunity/curing. For causing statuses, currently only one thing has longer duration effects that need removing separately (Shaman Bone Blade). A subspell for that is added to the relevant EEFP file, if detected.
-- The multiclass Cleric kits will gain Holy Symbols at the next Cleric level after 4 million XP (BG2/EET).
+- The multiclass Cleric kits will gain Holy Symbols at the next Cleric level after 4 million total XP (BG2/EET).
 
 --
 

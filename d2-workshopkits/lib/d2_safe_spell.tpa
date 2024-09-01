@@ -6,9 +6,10 @@ allies/enemies is relative to creature
 
 
 /*opcode notes
-EEs: 'opcode' variable must be 318 or 324 (defaults to 318 if not)
-IWD1/IWD2: 'opcode' variable is ignored (always sets to 206)
-function matches the 'block_opcode' variable for effect (default 12 = damage opcode)
+EEs: "opcode" variable must be 318 or 324 (defaults to 318 if not)
+IWD1/IWD2: "opcode" variable is ignored (always sets to 206)
+function matches the "block_opcode" variable for adding effect (default 12 = damage opcode)
+if "block_opcode" is not in the file, nothing happens (silently skipped)
 */
 
 
