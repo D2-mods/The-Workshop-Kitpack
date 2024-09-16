@@ -96,7 +96,8 @@ PARAMÈTRES :
 Capacités d'équipement : 
 – Classe d'armure : +1
 – Jets de sauvegarde : +1
-– Résistance à la magie : +10 %
+– Résistance à la magie : +5 %
+– Vocaliser
 
 Spécial (Chasseur): 
 – Techniques de chasseur : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.

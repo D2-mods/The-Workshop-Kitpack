@@ -66,9 +66,9 @@ Composants :
 	- Option 2: Uniquements les Kits de base
 	- Option 3: Pack d'objets divers (Pas de kits ou d'insignes de chasseur)
 2. Pack d'objets divers
-3. Composant pour le mod 5E_spellcasting de subtledoctor
-
-config.ini: Définir un kit = 0 pour éviter de l'installer
+3. Patches supplémentaire
+	- Composant pour le mod 5E_spellcasting de subtledoctor (il peut être installé avant ou après).
+	- Composant pour mettre à jour la description de la capacité « Chirurgie » (à utiliser si « Arme empoisonnée » ou « Imposition des mains » ont été révisés après l'installation du Workshop Kitpack).
 
 --
 
@@ -76,10 +76,12 @@ config.ini: Définir un kit = 0 pour éviter de l'installer
 - Si l'option 1 ou 2 est installée, Alors le composant "Pack d'objets divers" sera proposé séparément.
 - Si l'option 3 est installée, les autres composants seront sautés.
 - Les insignes de chasseur sont installées en combinaison avec le kit de Chasseur.
+- Mettre à jour la description de la capacité « Chirurgie » : si ce composant a été ignoré lors de l'installation initiale du mod, il peut être installé à tout moment et ne désinstalle pas les autres mods..
 
-**Configuration :**
-- config.ini : Définir un kit = 0 pour éviter de l'installer
-- L'Option 2 ignorera toutes les variantes Multi-classes, quels que soient les paramètres de configuration dans le fichier config.ini.
+**Configuration (config.ini) :**
+-  Définir un kit = 0 pour éviter de l'installer
+- Le composant "Uniquement les Kits de base" ignorera toutes les variants multiclasses, quels que soient les paramètres de configuration..
+- Il existe plusieurs autres options. Elles doivent être configurées avant l'installation du mod.
 
 
 Descriptions des Kits :
@@ -280,13 +282,13 @@ Avantages :
   10ème niveau : « Sang du lunatique ».  
   14ème niveau : « Élixir sanglant ».
 
-GUÉRISON PAR LE SANG : Du sang prélevé sur une des sœurs de l'Église de la Guérison permet de régénérer 2 points de vie par round pendant 3 tours. Dans ce laps de temps, le bénéficiaire subit une pénalité de 1 aux jets d'attaque. Ce sang guérit également les empoisonnements et les maladies.
+GUÉRISON PAR LE SANG : Du sang prélevé sur une des sœurs de l'Église de la Guérison restaure 15 % des points de vie maximum et régénère miraculeusement 2 points de vie par round pendant 3 tours. Dans ce laps de temps, le bénéficiaire subit une pénalité de 1 aux jets d'attaque. Ce sang guérit également les empoisonnements et les maladies.
 
 SANG DE LA BÊTE : Administrez ce sang confère temporairement les aptitudes d'une bête. Pendant 3 tours la cible bénéficie d'un bonus de 1 aux dégâts et elle reçoit un bonus de 1 supplémentaire pendant 2 rounds pour chaque attaque réussie, mais subit une pénalité de 3 à la classe d'armure. Ce sang protège également contre les poisons et les maladies.
 
-SANG DU LUNATIQUE : Cette injection donne un léger aperçu du cosmos et de ses mystères. La cible bénéficie d'un bonus de 5 à l'intelligence, un bonus de 3 à la sagesse, 10 % de résistance supplémentaire à la magie et un bonus de 1 à la vitesse d'incantation, mais elle subit aussi une pénalité de 1 à tous ses jets de sauvegarde. Les effets durent 3 tours. Ce sang restaure également les niveaux perdus.
+SANG DU LUNATIQUE : Cette injection donne un léger aperçu du cosmos et de ses mystères. La cible bénéficie d'un bonus de 4 à l'intelligence et à la sagesse, 5 % de résistance supplémentaire à la magie et un bonus de 1 à la vitesse d'incantation, mais elle subit aussi une pénalité de 1 à tous ses jets de sauvegarde. Les effets durent 3 tours. Ce sang restaure également les niveaux perdus.
 
-ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment d'autres capacités. Le destinataire voit sa résistance à tous les dégâts physiques fixées à 50 %, mais subit aussi une pénalité de 1 à la chance. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.
+ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment d'autres capacités. Le destinataire voit sa résistance à tous les dégâts physiques fixées à 20 % et bénéficie d'un bonus de 4 à sa classe d'armure et ses jets de sauvegarde, mais subit aussi une pénalité de 1 à la chance. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.
 
 Inconvénients : 
 - Ne peut porter de gantelets ou de bracelets.
@@ -372,29 +374,40 @@ Inconvénients :
 
 **Chirurgien (Moine)**
 
-CHIRURGIEN : Le Chirurgien est un guerrier disposant d'une connaissance approfondie en médecine. Il a bénéficié d'un entraînement spécifique lui conférant la capacité de concocter de puissants remèdes à base de plantes pour renforcer ses alliés au cours des combats.
+CHIRURGIEN : Le Chirurgien est un combattant disposant d'une connaissance approfondie en médecine. Il a bénéficié d'un entraînement spécifique lui conférant la capacité de concocter de puissants remèdes à base de plantes pour renforcer ses alliés au cours des combats.
 
 Avantages :
-- Peut utiliser les capacités « Sombre Remède » et « Remède Vital » une fois par jour au niveau 1, puis une fois supplémentaire tous les 5 niveaux.
+- Peut utiliser l'énergie mystique afin d'activer ses capacités spéciales, le chirurgien obtient 1 point tout les 2 niveaux à partir du niveau 1.
+– Régénération mystique : Cette capacité passive permet au chirurgien de récupérer 1 point d'énergie mystique tout les 5 rounds.
+– Peut utiliser la capacité « Sombre Remède », nécessite 1 point d’énergie mystique.
 
 SOMBRE REMÈDE : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède curatif qui restaure 2d6 points de vie à tous les alliés dans un rayon de 2,1 mètres.
 
+– 5ème niveau : Peut utiliser la capacité « Remède Vital », nécessite 2 points d’énergie mystique.
+
 REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède apaisant. Tous les ennemis présents dans un rayon de 2,1 m sont ralentis durant 1 round, et doivent effectuer un jet de sauvegarde contre la mort ou s'endormir pendant 5 rounds, à moins d'être attaqués dans leur sommeil.
 
-- 5ème niveau : Peut utiliser « Ralentissement du poison » trois fois par jour.
-- 7ème niveau : Peut utiliser « Guérison des maladies » une fois par jour.
-- 9ème niveau : Peut utiliser la capacité « Déluge Salvateur » une fois par jour, puis une fois supplémentaire au niveau 12 et 15.
+– 7ème niveau : Peut utiliser la capacité « Chirurgie », nécessite 3 points d’énergie mystique.
 
-DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Balayant la fatigue et soignant 3d8+2 points de vie à chaque round de toutes les créatures présentes dans la zone.
+CHIRURGIE : Cette capacité permet de sélectionner un des traitements chirurgicaux suivants, les actions curatives sont appliquées instantanément à la créature ciblées : 
+- « Imposition des mains »
+- « Saignée »
+- « Appel de l'esprit »
+- « Ablation Spirituelle »
+- « Arme empoisonnée »
 
-– 10ème niveau : Peut utiliser « Neutralisation du poison » trois fois par jour.
-– 14ème niveau : Peut utiliser « Guérison » une fois par jour.
-– 18ème niveau : Peut utiliser « Restauration mineur » trois fois par jour.
+– 9ème niveau : Peut utiliser la capacité « Déluge Salvateur », nécessite 4 points d’énergie mystique.
+
+DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Balayant la fatigue et soignant à hauteur de 15 % + 10 du total de points de vie à chaque round de toutes les créatures alliés ou neutres présentes dans la zone.
+
+– 13ème niveau : Peut utiliser la capacité « Pestilence du dragon », nécessite 5 points d’énergie mystique.
+
+PESTILENCE DU DRAGON : Un dragon onirique éructe un souffle fétide, tous les ennemis dans un rayon de 4,5 m sont affectés par sa pestilence et subissent des dégâts, 5 % + 8 du total de points de vie par round pendant 5 rounds sans jet de sauvegarde possible. Les victimes reçoivent aussi un malus de 4 à leurs jets de sauvegarde pour la durée du sort.
 
 Inconvénients :
-- Ne peut pas utiliser d'autre lame que les épées courtes ou les dagues.
-- Ne peut utiliser « Imposition des mains ».
-- Ne peut utiliser « Coup étourdissant ».
+– Ne dispose que de 8 points par niveau pour les talents de voleur.
+– Ne peut utiliser « Paume vibratoire ».
+– Ne peut utiliser « Coup étourdissant ».
 
 **Seigneur Scion (Paladin)**
 
@@ -429,18 +442,18 @@ Inconvénients :
 FULL METAL JAGUAR : Un grand guerrier aux talents multiples, le Full Metal Jaguar commence par décocher une salve de projectiles sur ses ennemis avant de se jeter dans la bataille et de les terrasser au corps-à-corps.
 
 Avantages :
-- Bonus de 1 aux jets d'attaque et de dégâts.
-- Immunité à l'attaque sournoise.
-- 5ème niveau : Peut utiliser la capacité « Fantomatique » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
+– Bonus de 1 aux jets d'attaque et de dégâts.
+– 3ème niveau : Immunité à l'attaque sournoise.
+– 5ème niveau : Peut utiliser la capacité « Fantomatique » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
 
 FANTOMATIQUE : Cette capacité est effective pendant 5 rounds. À chaque round, 1 image miroir du personnage apparaît, celle-ci absorbera une attaque pendant ce même round. Le nombre d'images passe à 2 par round au niveau 10, à 3 au niveau 15 et enfin à 4 au niveau 20.
 
-- 8ème niveau : Gagne la capacité passive « Décochage critique ».
+– 7ème niveau : Gagne la capacité passive « Décochage critique ».
 
 DÉCOCHAGE CRITIQUE : Les attaques à distance augmentent les chances d'effectuer un coup critique avec les armes de mêlée. Chaque attaque réussie avec une arme à distance confère un bonus cumulatif de 5 % pendant 3 rounds. Un échec critique annule les bonus.
 
 Inconvénients :
-- Ne peut porter d'armure plus lourde que l'armure feuilletée.
+– Ne peut porter d'armure plus lourde que l'armure feuilletée.
 
 ---
 
@@ -469,7 +482,7 @@ ADRÉNALINE : Prodigue les premiers soins à n'importe quelle créature vivante.
 
 OVERDOSE : Pendant 5 rounds, le personnage bénéficie d'une attaque supplémentaire par round, de 3 points de talent par niveau dans les compétences de voleur, de 10 % de chances de coup critique avec les armes à distance et d'une immunité aux sorts : Lenteur, Labyrinthe, Sommeil, Étourdissement et Drain de niveau. Cette capacité ne peut pas être utilisée en combinaison avec les sorts de hâte et hâte améliorée.
 
-INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental pendant 7 rounds. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de Confusion et Lenteur  pendant 2 rounds.
+INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental pendant 7 rounds. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de Confusion et Lenteur pendant 2 rounds.
 
 COCKTAIL : Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité dure 3 tours et ne protège qu'une fois.
 
@@ -514,6 +527,9 @@ Informations supplémentaires : En raison de la façon dont le jeu détecte les 
 - Installez après les mods qui modifient les classes, à moins qu'il ne soit spécifiquement indiqué d'installer après n'importe quel kit.
 - Installer après les mods qui modifient ou écrasent les sorts.
 - Installer après les mods qui ajoutent de nouvelles armes ou armures.
+- Installer avant les mods qui révisent les compétences martiales.
+
+NOTE : En général, je recommande d'installer ce mod après les autres kits, à l'exception de Talents of Faerun et des mods dédiés aux multiclasses. Techniquement, ce mod peut être installé en toute sécurité même après la plupart des mods de tweak, mais c'est toujours une bonne idée de suivre les directives d'installation habituelles, qui font passer les kits avant les tweaks.
 
 #### Les systèmes de lancement de sorts :
 
@@ -527,16 +543,39 @@ Informations supplémentaires : En raison de la façon dont le jeu détecte les 
 
 --
 
-Note sur le mod Talents of Faerun : Les composants de sorts peuvent être installés avant ou après The Workshop Kitpack (personnellement, je les installerais avant). Les autres composants doivent être installés après The Workshop Kitpack. Certains pourraient être installés avant, mais le plus simple est de tout installer après.
+Note sur le mod Talents of Faerun : 
+	- Les composants de sorts peuvent être installés avant ou après The Workshop Kitpack, je recommande de les installer avant(en particulier les sorts d'IWD).
+	- Les composants liés aux races peuvent être installés avant ou après The Workshop Kitpack.
+	- Les composants qui tweak les kits devraient être installés après The Workshop Kitpack (Certains peuvent être installés avant, mais ils sont souvent tous mélangés, il est donc plus simple de tout installer après.)
+	- The divine casting kits have full support for custom spheres. Must be installed before the cleric revisions.
+	- All kits need to be before anything that touches the proficiency or HLA screens (or buttons might not work).
+
+NOTE : This was asked about, so I'll mention that ToF Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
 
 --
 
-#### Capacités de haut niveau (HLA) Pièges et Chants du barde :
+OlvynSpells notes:
+- Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
+- Paladin/Ranger components can be installed before or after. Note that these need to be installed after most other kit mods.
+- New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds spells directly to the kit tables for some classes).
+- Untested with 3e metamagic component. To be safe, install it after this mod.
 
-- v4.7.8 update: Le Prédateur peut désormais utiliser n'importe quel piège HLA (l'ordre d'installation n'a pas d'importance).
-- Le Chantre de la poudre est compatible avec les chants de haut niveau du barde (HLA) du mod Rogue Rebalancing (y compris le Chant Persistant). Cela nécessite de patcher les chansons de rr, donc The Workshop Kitpack doit être installé après rr.
-- Le Chantre de la poudre peut sélectionner les chants de haut niveau du barde (HLA) du mod Talents of Faerun, mais la capacité spéciale (permettant de changer de chanson) sera remplacée par le chant HLA du jeu original sans mod. De plus, la capacité "Chant Persistant" de ToF fonctionnera avec les autres chants de haut niveau du barde (HLA), mais n'affectera pas les chansons du Chantre de la poudre.
-- Le Chantre de la poudre n'est pas testé avec d'autres les chants de haut niveau du barde (HLA) ajoutées par des mods (s'il en existe).
+--
+
+#### Feats/abilities mods :
+
+- Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
+- Crow Hunter (all variants) should not take Set Snares if using a mod that lets thieves gain extra uses.
+- Grave Warden should not take Charm Animal if using a mod that lets rangers gain extra uses.
+- Confessor can take extra Lay On Hands uses from feats/abilities mods.
+
+#### Bard revisions notes :
+
+- Rogue Rebalancing: Powder Keg is compatible with the RR HLA song (including Lingering song). Requires patching the RR songs, so this mod needs to be installed after RR.
+- Shohy's bard song mod: The HLA song from Shohy's mod by default gives an ability to switch to it. This mod will patch that ability for better compat with Powder Keg songs (remove delayed effects). Install after Shohy's mod for best compatibility.
+- Bardic Wonders: Powder Keg will gain Bardic Inspiration at level 1 if installed after that component. If installed after the Bard Song Mechanics tweak, a line will be added to the "Change Song" ability for the HLA song, describing the tweak effects.
+- Talents of Faerun: Powder Keg can take the HLA song, but the special ability (to switch songs) will change to the vanilla HLA song. This mod should be installed before the ToF HLA component (or buttons might not work).
+- Untested with other bard revisions.
 
 #### Information supplémentaire pour FnP : 
 
@@ -557,32 +596,36 @@ Informations additionnelles (Les capacités des kits) :
 
 - **Affecté par les zones sans magie ou d'entropie :** 
 	- "Dénégation" (Protecteur de sépultures)  
+	- Pestilence du dragon (Chirurgien)
 	- "Albédo" (Chevalier au clair de lune)  
 	- "Force" (Champion du temple)  
 	- "Rayon divin" (Champion du temple)
 	- Déchaînement de magie (Mage de bataille)
 	- Barricade (Mage de bataille)
-
-- **Peut être dissipé :**  
-	- "Dénégation"  
-	- "Albédo" (résistance à la magie)  
-	- "Empalement" (Protection contre les effets d’enchevêtrement) (Exécuteur)
-	- "Flamme frénétique" (Protection contre les effets) (Chantre de la poudre)
-	- Déchaînement de magie (Mage de bataille)
-	- Barricade (Mage de bataille)
-
+	
 - **Peut être dissipé par le sort Zone d'air pur :**
 	- "Incinération" (Limier)  
 	- "Déflagration de poussière" (Chantre de la poudre)
 
+- **Cures elemental DoT damage (ex. Melf Arrows):**
+	- Healing Blood (Blood Minister)  
+	- Healing Rain (Medic)
+	- Cure Afflictions (Medic)
+	- Autoimmune (Nurse)
+
 - **Autres informations :  **
-	- "Injection" sera retiré par un sort de "Restauration" ou de "Restauration majeure". (Ecclésiaste sanglant)
-	- Les hémorragies peuvent être soignés par "Soins", "Restauration majeure", ou par "Guérison par le sang" de l'Ecclésiaste sanglant.
-	- Les kits de clerc multi-classes obtiendront leur symbole sacré lorsqu'il atteindrons 4 million XP (BG2EE / EET)
+	- Blood Minister's Blood transfusions will be removed by a Restoration or Greater Restoration (any spell with restoration opcode). This is done for lore reasons. (Madman's Blood will obviously not remove itself)
+	- Bleeding effects don't wake sleeping creatures. These effects can be cured by Heal, Regeneration, Lay On Hands, and similar spells, as well as most healing spells/abilities from this mod. Also, Stoneskins and Shield of Lathander (or similar mod spells) will protect from bleeding.
+	- Drifter and Grave Warden can see clearly while inside a Powder Keg's Dust Explosion once they gain the requisite effects (cloud immunities and blindness immunity).
+	- Nurse's Medical Darts deal double healing or poison damage on a critical hit (target must be vulnerable to crits).
+	- Shaman Bone Blade's Charm effect lasts only a few rounds, but it can't be broken, except by a Spiritual Clarity (i.e. if you hit it with an AoE spell, it remains charmed).
+	- Medic's Dragonrot is affected by wild/dead magic, but otherwise is treated as a natural effect. It will bypass most spell defenses, and can affect any creature type. It is treated as a status effect, so effects cannot be stacked. It can be cured by Heal, Greater Restoration, and abilities from this mod that cure elemental DoT spells.
+	- This mod accounts for EE Fixpack changes to status immunity/curing. For causing statuses, currently only one thing has longer duration effects that need removing separately (Shaman Bone Blade). A subspell for that is added to the relevant EEFP file, if detected.
+	- The multiclass Cleric kits will gain Holy Symbols at the next Cleric level after 4 million total XP (BG2/EET).
 
 - **Enhanced Éditions, Beamdog items (effets additionnels):**
 	- Yeux d'archer : Limier, Limier, Seigneur Scion, Urgentiste
-	- Ceinture de la fine lame : Vagabond 
+	- Ceinture de la fine lame : Vagabond, Dégaineur de sortilège
 	- Cornemuse hurlante : Chantre de la poudre
 	- Gantelets du traqueur : Prédateur
 
@@ -659,7 +702,8 @@ PARAMÈTRES :
 Capacités d'équipement : 
 - Classe d'armure : +1
 - Jets de sauvegarde : +1
-- Résistance à la magie : +10 %
+– Résistance à la magie : +5 %
+– Vocaliser
 
 Spécial (Chasseur): 
 - Techniques de chasseur : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
