@@ -374,7 +374,7 @@ SANG DE LA BÊTE : Administrez ce sang confère temporairement les aptitudes d'u
 
 SANG DU LUNATIQUE : Cette injection donne un léger aperçu du cosmos et de ses mystères. La cible bénéficie d'un bonus de 4 à l'intelligence et à la sagesse, 5 % de résistance supplémentaire à la magie et un bonus de 1 à la vitesse d'incantation, mais elle subit aussi une pénalité de 1 à tous ses jets de sauvegarde. Les effets durent 3 tours. Ce sang restaure également les niveaux perdus.
 
-ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment d'autres capacités. Le destinataire voit sa résistance à tous les dégâts physiques fixées à 20 % et bénéficie d'un bonus de 4 à sa classe d'armure et ses jets de sauvegarde, mais subit aussi une pénalité de 1 à la chance. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.
+ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment d'autres capacités. Le destinataire voit sa résistance à tous les dégâts physiques augmentée de 20 % et bénéficie d'un bonus de 4 à sa classe d'armure et ses jets de sauvegarde, mais subit aussi une pénalité de 1 à la chance. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.
 
 Inconvénients : 
 – Ne peut porter de gantelets ou de bracelets.~
@@ -410,7 +410,7 @@ Inconvénients :
 @101103 = ~CHANTRE DE LA POUDRE : Les Chantres de la poudre sont une faction de bardes, connus pour leur amour des armes mécaniques complexes et des grosses explosions. Leurs instruments font office de dispositifs incendiaires et peuvent provoquer une variété d'effets explosifs.
 
 Avantages :
-– Bénéficie de 20 % de résistance au feu.
+– Bénéficie de 10 % de résistance au feu, ce bonus augmente de 10 % tous les 5 niveaux jusqu'à un maximum de 50 % au niveau 20.
 – Accède à un chant du barde spécifique au Chantre de la poudre. Les chansons peuvent être sélectionnées à partir du menu des capacités spéciales. De nouvelles chansons sont disponibles en fonction du niveau :
   1er niveau : « Chant enflammé ».
   5ème niveau : « Son détonant ».
@@ -735,7 +735,7 @@ SANG DE LA BÊTE : Administrez ce sang confère temporairement les aptitudes d'u
 
 SANG DU LUNATIQUE : Cette injection donne un léger aperçu du cosmos et de ses mystères. La cible bénéficie d'un bonus de 4 à l'intelligence et à la sagesse, 5 % de résistance supplémentaire à la magie et un bonus de 1 à la vitesse d'incantation, mais elle subit aussi une pénalité de 1 à tous ses jets de sauvegarde. Les effets durent 3 tours. Ce sang restaure également les niveaux perdus.
 
-ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment d'autres capacités. Le destinataire voit sa résistance à tous les dégâts physiques fixées à 20 % et bénéficie d'un bonus de 4 à sa classe d'armure et ses jets de sauvegarde, mais subit aussi une pénalité de 1 à la chance. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.~
+ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment d'autres capacités. Le destinataire voit sa résistance à tous les dégâts physiques augmentée de 20 % et bénéficie d'un bonus de 4 à sa classe d'armure et ses jets de sauvegarde, mais subit aussi une pénalité de 1 à la chance. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.~
 
 @113 = ~Tir éclatant~
 @213 = ~Tir éclatant

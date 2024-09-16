@@ -174,6 +174,13 @@ FnP multiclass :
 
 Version info:
 
+v5.8
+- Updated French translation from JohnBob.
+- Fixed issue where poison cures were also removing the assassin Poison Weapon buff.
+- Medic: Dragonrot damage should no longer cause frozen death (or at least super low chance). Specifically, only the flat 8 damage can kill a creature. The 5% damage won't drop below 1 HP. (note: this ignores damage resistance, cold damage is used because I like the visual/sound)
+- Blood Minister: Lead Elixir now increments resists, instead of setting them.
+- Powder Keg: Fire resist now starts at 10% and scales with level up to 50%.
+
 v5.7
 - Updates:
 	- Medic: Ki Power is now called Ki Energy. Healing Rain now heals 10 + 15% of max HP each round. Dragonrot damage changed to 8 + 5% of max HP damage per round. Medic's Spiritual Clarity now also breaks curses. Text changes.
