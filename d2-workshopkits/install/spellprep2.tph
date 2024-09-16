@@ -79,14 +79,13 @@ BEGIN
 END
 
 //berserk (include Minsc berserk, even if tweaked)
-ACTION_FOR_EACH spell IN ~SPIN117~ ~d2ham01e~ ~d2ham01b~ BEGIN
+ACTION_FOR_EACH spell IN ~SPIN117~ ~d2ragef~ ~d2ham01b~ ~d2ham01e~ BEGIN
   OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~berserk~    // ~%spell%~ => berserk
 END
 
-//phasing (elemental dot, decaying, etc.)
+//phasing (elemental dot, etc.)
 ACTION_FOR_EACH spell IN
-  ~SPWI211~ ~SPPR314~ ~SPPR610~ ~SPPR722~
-  ~SPWI955~ ~bdsympai~    // symbol, pain
+  ~SPWI211~ ~SPPR314~ ~SPPR722~ ~SPWI955~ ~bdsympai~
 BEGIN
   OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~phasing~    // ~%spell%~ => phasing
 END
@@ -111,8 +110,10 @@ BEGIN
 END
 
 //toxins (stat drain, delayed effects)
-ACTION_FOR_EACH spell IN ~OHBDRAG1~ ~bdghastn~ ~SPPR411~ ~SPCL423~ BEGIN
-  OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~toxic~    // ~%spell%~ => toxic
+ACTION_FOR_EACH spell IN
+  ~OHBDRAG1~ ~bdghastn~ ~SPPR411~ ~SPPR610~ ~c0as#p02~
+BEGIN
+  OUTER_TEXT_SPRINT $d2statusarray(~%spell%~) ~toxicphasing~    // ~%spell%~ => toxicphasing
 END
 
 ACTION_FOR_EACH spell IN
@@ -303,7 +304,7 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
         SET check_opcodes = 0
       END
       PATCH_IF (splname = decaying_name) BEGIN
-        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~phasing~    // ~%SOURCE_RES%~ => phasing
+        TEXT_SPRINT $d2statusarray(~%SOURCE_RES%~) ~toxicphasing~    // ~%SOURCE_RES%~ => toxicphasing
         SET check_opcodes = 0
       END
 

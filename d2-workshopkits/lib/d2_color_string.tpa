@@ -97,6 +97,18 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_color_string_array BEGIN
   ~0xffe9edf6~ => pearl    // very light shade (not white)
   ~0xfffcdcfd~ => cloud    // very light purple
   ~0xff98fbca~ => mana     // very light green
+//elemental
+  ~0xff00d7ff~ => magic
+  ~0xff00d7ff~ => magicdamage
+  ~0xff002a9c~ => fire
+  ~0xffffbf00~ => cold
+  ~0xffffbf00~ => ice
+  ~0xfffff97d~ => lightning
+  ~0xfffff97d~ => electricity
+  ~0xff19bba8~ => acid
+  ~0xffbed7d7~ => slashing
+  ~0xffbed7d7~ => crushing
+  ~0xff76e4c7~ => poison
 END
 
 

@@ -20,12 +20,13 @@ d2_get_2da_entry        PATCH or ACTION
 no_backstab             ACTION
 d2_splprot_adder        PATCH or ACTION
 d2_clone_hla_table      ACTION
+d2_2da_row_adder        PATCH or ACTION
 */
 
 ////////////////////////////////////////////////////////////
 
 //adds entry to spot that matches row_name and col_name (exact match)
-//col_read is the column check for row_name (0 = first row)
+//col_read is the column to check for row_name (0 = first column)
 //col_name should be the column header
 
 DEFINE_ACTION_FUNCTION d2_edit_2da_entry
@@ -57,7 +58,7 @@ END
 ////////////////////////////////////////////////////////////
 
 //reads entry at spot that matches row_name and col_name (exact match)
-//col_read is the column check for row_name (0 = first row)
+//col_read is the column to check for row_name (0 = first column)
 //col_name should be the column header
 
 DEFINE_ACTION_FUNCTION d2_get_2da_entry
@@ -565,6 +566,55 @@ BEGIN
     END
   END
 
+END
+
+////////////////////////////////////////////////////////////
+
+//quickly add new line to 2da
+//best for 2das with few or set number of columns
+//will extend string with default entry if 2da has more columns than string
+
+/*
+"string" should be full new line
+"columns" is number of columns in "string" (default 4 because this was originally made for tooltip.2da)
+*/
+
+DEFINE_ACTION_FUNCTION d2_2da_row_adder INT_VAR columns=4 STR_VAR 2da=~~ string=~~ BEGIN
+  COPY_EXISTING ~%2da%.2da~  ~override~
+    COUNT_2DA_COLS col_count
+    COUNT_2DA_ROWS col_count row_count
+
+    // extend string if too few columns
+    SET check = col_count - columns
+    PATCH_IF (check > 0) BEGIN
+      READ_2DA_ENTRY 1 0 1 default
+      FOR (n = 1; n <= check; ++n) BEGIN
+        TEXT_SPRINT string ~%string%%TAB%%default%~
+      END
+    END
+
+    INSERT_2DA_ROW row_count col_count ~%string%~
+    PRETTY_PRINT_2DA
+  BUT_ONLY
+END
+
+DEFINE_PATCH_FUNCTION d2_2da_row_adder INT_VAR columns=4 STR_VAR string=~~ BEGIN
+  PATCH_IF (~%SOURCE_EXT%~ STR_EQ ~2da~) BEGIN
+    COUNT_2DA_COLS col_count
+    COUNT_2DA_ROWS col_count row_count
+
+    // extend string if too few columns (tooltip.2da can have more than default columns)
+    SET check = col_count - columns
+    PATCH_IF (check > 0) BEGIN
+      READ_2DA_ENTRY 1 0 1 default
+      FOR (n = 1; n <= check; ++n) BEGIN
+        TEXT_SPRINT string ~%string%%TAB%%default%~
+      END
+    END
+
+    INSERT_2DA_ROW row_count col_count ~%string%~
+    PRETTY_PRINT_2DA
+  END
 END
 
 ////////////////////////////////////////////////////////////

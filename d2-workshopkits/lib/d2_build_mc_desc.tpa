@@ -29,8 +29,8 @@ DEFINE_ACTION_FUNCTION d2_build_mc_desc
   RET kit_desc kit_text
 BEGIN
 
-  OUTER_TEXT_SPRINT kit_desc ~%multi% is not a valid class~
-  OUTER_TEXT_SPRINT kit_text ~%multi% is not a valid class~
+  OUTER_TEXT_SPRINT kit_desc ~d2_build_mc_desc: %multi% is not a valid class~
+  OUTER_TEXT_SPRINT kit_text ~d2_build_mc_desc: %multi% is not a valid class~
 
   ACTION_PHP_EACH d2_multiclass_base AS class2 => abbrev BEGIN
     ACTION_IF ((~%multi%~ STR_EQ ~%class2%~) OR (~%multi%~ STR_EQ ~%abbrev%~)
@@ -73,10 +73,10 @@ DEFINE_ACTION_FUNCTION d2_get_mc_text
   RET baseclass multiclass classdesc multidesc
 BEGIN
 
-  OUTER_TEXT_SPRINT baseclass ~%class% is not a valid class~
-  OUTER_TEXT_SPRINT multiclass ~%multi% is not a valid class~
-  OUTER_TEXT_SPRINT classdesc ~%class% is not a valid class~
-  OUTER_TEXT_SPRINT multidesc ~%multi% is not a valid class~
+  OUTER_TEXT_SPRINT baseclass ~d2_get_mc_text: %class% is not a valid class~
+  OUTER_TEXT_SPRINT multiclass ~d2_get_mc_text: %multi% is not a valid class~
+  OUTER_TEXT_SPRINT classdesc ~d2_get_mc_text: %class% is not a valid class~
+  OUTER_TEXT_SPRINT multidesc ~d2_get_mc_text: %multi% is not a valid class~
 
   OUTER_TEXT_SPRINT abc ~_name~
   ACTION_IF (lower > 0) BEGIN OUTER_TEXT_SPRINT abc ~_lower~ END
@@ -134,7 +134,7 @@ COPY_EXISTING - ~clastext.2da~  ~~
     READ_2DA_ENTRY_FORMER ~clastext_table~ r 0 label
     PHP_EACH d2_multiclass_base AS class => abbrev BEGIN
       PATCH_IF (patch_class = 0) BEGIN
-        PATCH_IF (~%label%~ STR_EQ ~%class%~) BEGIN    // if %label% DOES contain %class%
+        PATCH_IF (~%label%~ STR_EQ ~%class%~) BEGIN
           READ_2DA_ENTRY r 8 3 ~%abbrev%_desc~
           READ_2DA_ENTRY r 3 3 ~%abbrev%_lower~
           READ_2DA_ENTRY r 5 3 ~%abbrev%_name~

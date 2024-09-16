@@ -180,6 +180,7 @@ COPY ~%abilities%/bloodtyped.SPL~  ~override/%s5%a.SPL~
 //  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=324 STR_VAR resource=~%s5%a~ END
   LPF DELETE_EFFECT INT_VAR match_opcode=324 END
   LPF DELETE_EFFECT INT_VAR match_opcode=321 END
+  LPF ALTER_EFFECT INT_VAR match_parameter1=20 parameter2=0 END    // change to increment
   LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=27 END
   LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=28 END
   LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=29 END
@@ -187,6 +188,7 @@ COPY ~%abilities%/bloodtyped.SPL~  ~override/%s5%a.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=31 END
   LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=84 END
   LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=85 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=173 END
   LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END

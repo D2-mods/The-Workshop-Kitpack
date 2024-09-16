@@ -254,7 +254,7 @@ COPY ~%abilities%/healingrain.SPL~  ~override/%s3%a.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=17 parameter1=15 parameter2=2 STR_VAR insert=below END
 
   // cure "winded" effects
-  PATCH_FOR_EACH spell IN ~SPCL321D~ ~dvwinded~ ~d2mk1s2~ ~d2ham01c~ BEGIN
+  PATCH_FOR_EACH spell IN ~SPCL321D~ ~dvwinded~ ~d2mk1s1a~ ~d2ham01c~ ~d2ragew~ BEGIN
     LPF d2_remove_effects_on_cast INT_VAR match_opcode=93 STR_VAR resource=~%spell%~ insert=above END
   END
 
@@ -348,6 +348,7 @@ COPY_EXISTING ~%mediccure2%.SPL~  ~override~    // cloned from Heal (cures poiso
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!stone~ insert=last END    // cures petrify
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ insert=last END    // cures bleeding
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!phase~ insert=last END    // cures acid dot, phasing, etc.
+  LPF statusarray_function STR_VAR status=toxic END
   LPF ee_fixpack_status_cures STR_VAR status=~berserk~ END
 
 BUT_ONLY
@@ -415,7 +416,7 @@ COPY ~%abilities%/dragonrot.SPL~  ~override/%s5%.SPL~
   LPF ALTER_SPELL_HEADER INT_VAR projectile=1 END
   LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s5%a~ END    // visual
   LPF ALTER_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%s5%b~ END    // rot effects
-  LPF CLONE_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%s5%c~ END    // dummy projectile
+  LPF CLONE_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%s5%c~ END    // cloud projectile (visual only)
 
 //visuals
 COPY ~%abilities%/dragonrothead4.BAM~  ~override/%s5%a.BAM~    // dragon head (edit of Dragon's Breath visual)
@@ -460,6 +461,10 @@ COPY ~%abilities%/bleeddamage2.SPL~  ~override/%s5%d.SPL~
   LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@325) STR_VAR color=misty RET newstring END
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=139 timing=1 parameter1=newstring END
 
+  // edits
+  LPF CLONE_EFFECT INT_VAR match_parameter1=5 opcode=208 parameter1=1 timing=0 duration=0 END      // less chance of frozen death
+  LPF CLONE_EFFECT INT_VAR match_opcode=85 opcode=283 parameter2=2 STR_VAR resource=~%s5%e~ END    // cursed EFF for resist modifier
+
 /*
 magic
   LPF ALTER_EFFECT INT_VAR match_opcode=88 opcode=31 END
@@ -470,6 +475,12 @@ magiccold
   LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=8 parameter2=67108864 special=1056 END
   LPF CLONE_EFFECT INT_VAR match_opcode=12 parameter1=5 parameter2=67108867 STR_VAR insert=below END
 */
+
+//cursed EFF (resist modifier)
+COPY ~%abilities%/applyeffects.EFF~  ~override/%s5%e.EFF~
+  WRITE_LONG 0x10 85    // magic cold resist
+  WRITE_LONG 0x20 1     // parameter2 = 1
+  WRITE_LONG 0x24 0     // timing = 0
 
 //cloud projectile (visual only - real projectile is the glowing on the ground)
 COPY ~%abilities%/dragonrotdecay3.BAM~  ~override/%s5%c.BAM~

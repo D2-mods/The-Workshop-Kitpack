@@ -216,7 +216,7 @@ BEAST BLOOD: Administer medicinal blood that grants temporary Beasthood for 3 tu
 
 MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. The recipient gains +4 to all mental Attributes, +5% Magic Resistance, and a +1 bonus to casting speed, but incurs a -1 penalty to all Saving Throws. The effects last for 3 turns. This blood will also cure level drain.
 
-LEAD ELIXIR: A mysterious concoction that shifts weight to boost defense and resilience. The recipient gains a +4 bonus to Armor Class and Saving Throws, and 20% base resistance to all damage types, but incurs a -1 penalty to luck rolls. The effects last for 3 turns. This blood will also prevent level drain.
+LEAD ELIXIR: A mysterious concoction that shifts weight to boost defense and resilience. The recipient gains a +4 bonus to Armor Class and Saving Throws, and 20% resistance to all damage types, but incurs a -1 penalty to luck rolls. The effects last for 3 turns. This blood will also prevent level drain.
 
 Disadvantages:
 – May not wear gauntlets or bracers.
@@ -248,7 +248,7 @@ Powder Keg (Bard)
 POWDER KEG: The Powder Kegs are a faction of bards, known for their love of intricate mechanical weapons and big booms. Their instruments double as incendiary devices and may cause a variety of other explosive effects.
 
 Advantages:
-– +20% bonus to Fire Resistance.
+– 10% resistance to fire, and increases by +10% every 5 levels, up to a maximum of 50% at level 20.
 – Gains Bard Songs unique to the Powder Kegs. Songs can be switched between from the special abilities menu. New songs become available at higher levels:
   1st level: Blasting Song.
   5th level: Booming Song.

@@ -114,8 +114,8 @@ END
 
 /*
 function is only relevant for resource from array (can add more if scanning ITMs)
-RET "scalearmor" variable, 1 = match "type", 0 = not match
-matching only needs to contain the "type" string (type = dragon will match all armors)
+RET "scalearmor" variable, 1 = match "armor", 0 = not match
+matching only needs to contain the "armor" string (armor = dragon will match all armors)
 */
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_scalearmor_array BEGIN
