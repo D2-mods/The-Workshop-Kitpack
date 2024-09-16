@@ -71,9 +71,10 @@ Composants :
 	- Option 2: Uniquements les Kits de base
 	- Option 3: Pack d'objets divers (Pas de kits ou d'insignes de chasseur)
 2. Pack d'objets divers
-3. Composant pour le mod 5E_spellcasting de subtledoctor
 
-config.ini: Définir un kit = 0 pour éviter de l'installer
+3. Patches supplémentaire
+	- Composant pour le mod 5E_spellcasting de subtledoctor (il peut être installé avant ou après).
+	- Composant pour mettre à jour la description de la capacité « Chirurgie » (à utiliser si « Arme empoisonnée » ou « Imposition des mains » ont été révisés après l'installation du Workshop Kitpack).
 
 --
 
@@ -81,10 +82,12 @@ Informations supplémentaires :
 - Si l'option 1 ou 2 est installée, Alors le composant "Pack d'objets divers" sera proposé séparément.
 - Si l'option 3 est installée, les autres composants seront sautés.
 - Les insignes de chasseur sont installées en combinaison avec le kit de Chasseur.
+- Mettre à jour la description de la capacité « Chirurgie » : si ce composant a été ignoré lors de l'installation initiale du mod, il peut être installé à tout moment et ne désinstalle pas les autres mods..
 
-Configuration :
-- config.ini : Définir un kit = 0 pour éviter de l'installer
-- L'Option 2 ignorera toutes les variantes Multi-classes, quels que soient les paramètres de configuration dans le fichier config.ini.
+Configuration (config.ini):
+- Définir un kit = 0 pour éviter de l'installer
+- Le composant "Uniquement les Kits de base" ignorera toutes les variants multiclasses, quels que soient les paramètres de configuration..
+- Il existe plusieurs autres options. Elles doivent être configurées avant l'installation du mod.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -109,6 +112,9 @@ Instructions générales :
 - Installez après les mods qui modifient les classes, à moins qu'il ne soit spécifiquement indiqué d'installer après n'importe quel kit.
 - Installer après les mods qui modifient ou écrasent les sorts.
 - Installer après les mods qui ajoutent de nouvelles armes ou armures.
+- Installer avant les mods qui révisent les compétences martiales.
+
+NOTE : En général, je recommande d'installer ce mod après les autres kits, à l'exception de Talents of Faerun et des mods dédiés aux multiclasses. Techniquement, ce mod peut être installé en toute sécurité même après la plupart des mods de tweak, mais c'est toujours une bonne idée de suivre les directives d'installation habituelles, qui font passer les kits avant les tweaks.
 
 Les systèmes de lancement de sorts :
 
@@ -122,16 +128,32 @@ Les systèmes de lancement de sorts :
 
 --
 
-Note sur le mod Talents of Faerun : Les composants de sorts peuvent être installés avant ou après The Workshop Kitpack (personnellement, je les installerais avant). Les autres composants doivent être installés après The Workshop Kitpack. Certains pourraient être installés avant, mais le plus simple est de tout installer après.
+Note sur le mod Talents of Faerun : 
+	- Les composants de sorts peuvent être installés avant ou après The Workshop Kitpack, je recommande de les installer avant(en particulier les sorts d'IWD).
+	- Les composants liés aux races peuvent être installés avant ou après The Workshop Kitpack.
+	- Les composants qui tweak les kits devraient être installés après The Workshop Kitpack (Certains peuvent être installés avant, mais ils sont souvent tous mélangés, il est donc plus simple de tout installer après.)
+- The divine casting kits have full support for custom spheres. Must be installed before the cleric revisions.
+- All kits need to be before anything that touches the proficiency or HLA screens (or buttons might not work).
+
+NOTE: This was asked about, so I'll mention that ToF Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
+
+--
+
+OlvynSpells notes:
+- Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
+- Paladin/Ranger components can be installed before or after. Note that these need to be installed after most other kit mods.
+- New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds spells directly to the kit tables for some classes).
+- Untested with 3e metamagic component. To be safe, install it after this mod.
 
 --
 
 Capacités de haut niveau (HLA) Pièges et Chants du barde :
 
-- v4.7.8 update: Le Prédateur peut désormais utiliser n'importe quel piège HLA (l'ordre d'installation n'a pas d'importance).
-- Le Chantre de la poudre est compatible avec les chants de haut niveau du barde (HLA) du mod Rogue Rebalancing (y compris le Chant Persistant). Cela nécessite de patcher les chansons de rr, donc The Workshop Kitpack doit être installé après rr.
-- Le Chantre de la poudre peut sélectionner les chants de haut niveau du barde (HLA) du mod Talents of Faerun, mais la capacité spéciale (permettant de changer de chanson) sera remplacée par le chant HLA du jeu original sans mod. De plus, la capacité "Chant Persistant" de ToF fonctionnera avec les autres chants de haut niveau du barde (HLA), mais n'affectera pas les chansons du Chantre de la poudre.
-- Le Chantre de la poudre n'est pas testé avec d'autres les chants de haut niveau du barde (HLA) ajoutées par des mods (s'il en existe).
+- Rogue Rebalancing: Powder Keg is compatible with the RR HLA song (including Lingering song). Requires patching the RR songs, so this mod needs to be installed after RR.
+- Shohy's bard song mod: The HLA song from Shohy's mod by default gives an ability to switch to it. This mod will patch that ability for better compat with Powder Keg songs (remove delayed effects). Install after Shohy's mod for best compatibility.
+- Bardic Wonders: Powder Keg will gain Bardic Inspiration at level 1 if installed after that component. If installed after the Bard Song Mechanics tweak, a line will be added to the "Change Song" ability for the HLA song, describing the tweak effects.
+- Talents of Faerun: Powder Keg can take the HLA song, but the special ability (to switch songs) will change to the vanilla HLA song. This mod should be installed before the ToF HLA component (or buttons might not work).
+- Untested with other bard revisions.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -152,7 +174,68 @@ FnP multiclass :
 
 Version info:
 
-Version info:
+v5.7
+- Updates:
+	- Medic: Ki Power is now called Ki Energy. Healing Rain now heals 10 + 15% of max HP each round. Dragonrot damage changed to 8 + 5% of max HP damage per round. Medic's Spiritual Clarity now also breaks curses. Text changes.
+	- Added extra component to update description of Medic Arts ability. This component is only relevant if Poison Weapon or Lay On Hands were changed after installing this mod (ex. with ToF). This component can be re-run at any time (does not uninstall other mods).
+	- ToB: if starting new game, Beast Hunter and Confessor now start with Leather Armor, so they can wear it.
+- Compatibility notes:
+	- Powder Keg: fixed minor issue when installed after IWDification (was gaining 2 HLA song abilities).
+	- Medic: fix compat issue with Artisan's Kitpack (related to Poison Weapon changes). This mod must be installed after Artisan's kitpack for fix to be applied (it needs to know which resource is the correct Poison Weapon before install).
+	- Blood Minister: weapon restrictions (for FnP or DoF mods) will no longer include any item that is usable by all classes, races, alignments, regardless of weapon type.
+	- Talents of Faerun: Fixed possible installer warning if installed after class revisions section. Not recommending to install after, I just did it as an experiment. Most kits will probably work fine installed before or after (will account for class revisions either way). However, the divine casting kits need to be before the cleric revisions for custom spheres to work.
+- Armor restrictions notes:
+	- Loosened restrictions for dragonscale armors. Kits with restrictions can now wear a full step up for dragon type armors (ex. if restricted to chain or splint, can wear plate-style dragon scales). Class restrictions will still apply. For BG2EE and IWDEE, this will catch mod items installed before this mod if they have "Scale Armor" (39544 in dialog.tlk) as the unidentified name.
+	- No longer restricts any armor that is usable by all classes, races, alignments, regardless of armor type. This is to account for possible mod items usable by anyone (for lore reasons, etc.).
+
+v5.6
+- Updates:
+	- Powder Keg: song icons now have different colors. (config option to change back to old blue icons)
+	- Medic: removed Config ability. This was used to turn on/off text feedback for ki regen (now always on).
+	- Grave Warden: Denial no longer dispellable. Still affected by wild/dead magic.
+	- Full Metal Jaguar: Critical Boost now gained at level 7. Backstab immunity gained at level 3.
+	- War Magician: kit abilities no longer dispellable. Still affected by wild/dead magic.
+	- Shaman Bone Blade: Charm duration changed back to 4 rounds, but charmed creature will not become hostile if attacked or hit with an aoe. Also, the charm no longer makes neutral NPCs hostile after wearing off (changed to match berserk, which doesn't make hostile).
+	- ToB: changed starting bags for some kits if "misc items" component is installed.
+- Compatibility notes:
+	- Improved Archer(argent77): archer kits (anything with +hit with ranged) can now take Sure Shot or Missile Trap as HLAs. This mod should be installed after Improved Archer.
+	- Artisan's Kitpack: fixed Moonlight Knight issue when installed after ranger revision (was gaining Set Snares, but couldn't use it due to having 0 Set Traps). Now gains the proper skill points from the revision. A couple other minor tweaks.
+	- fix for cleric/ranger (Artisan's Kitpack): ranger revision currently gives the c/r multiclass Set Snares, but no skill points in Set Traps. Workshop Kitpack now assigns changes to ranger skills to the base c/r multiclass. This is done by default, so it should cover any revision installed before this mod.
+
+v5.5
+- Blood Minister: tweaked blood effects. Removed portrait icons for status immunities.
+- Starjammer: Improved effects structure for Riftgate and Riftstep.
+- Grave Warden: Removed portrait icons for status immunities.
+- Cosmic Watcher Badge: Changed equipped effects. Added visual feedback for level drain if save failed.
+- Confessor: no longer gains paladin Cure Disease if detected before install (extra line is also added to kit description). This will catch mods that add Cure Disease to BGEE/BG2EE, as long as installed the proper way (with spell.ids entry).
+- more work done on various functions or prep files (cumulative work over all the v5.x).
+- compatibility: tested v5.x changes with SR, SR-Revised, MiH mods, EE fixpack, and a few others.
+
+v5.4
+- Updates:
+	- Powder Keg: Song switching now usable while paused and ignores spell delays.
+	- Medic: Added a "Medic Config" ability. Lets you turn on/off feedback messages for ki power (default is ON). Can also remove the ability from current playthrough.
+	- Nurse: Fixed minor issue with Overdose ability in IWDEE (was giving a movement bonus).
+- Compatibility notes:
+	- Rogue Rebalancing: fixed installer warnings when installed after rr HLA songs. Caused by a recent change that I forgot to apply to rr patching.
+	- Shohy's bard song mod: Fixed various issues when installed after Shohy's mod. Powder Keg can take the HLA song and gains an ability to switch to it (note: does not gain "chorus" abilities).
+	- Bardic Wonders: Fixed install issue with the Blade revision. Caused the Nurse kit's Overdose ability to not install correctly (it's made by cloning and editing Offensive Spin).
+	- Install this mod after the above mods for best compatibility (there is specific patching for each mod).
+
+v5.3
+- Medic: redesigned kit (see description). It's now based around a ki power system. Ki increases with level and regenerates +1 per 5 rounds. The old abilities are still there, but fit into the new system. See release post for more info.
+- Starjammer: can now stop Riftgate summon from following party by itself (B key). This is also mentioned in the dialogue box when summoned.
+- Moonlight Knight: higher versions of Torrent now have slightly different portrait icons.
+- More colored strings. Strings are now colored with a custom function instead of directly in the TRA file.
+- Bleed effects: now blocked by stoneskins and IWD Shield of Lathander (including similar mod spells). Damage from bleeding no longer wakes sleeping creatures.
+
+v5.2
+- Powder Keg: Visual adjustments. All status effect strings will now be blocked by immunity to the status (some were but some weren't).
+- Warhound: Shockwave's knockback effect will now only affect enemies. The damage still hits anyone. If you prefer knocking away allies, the change can be reversed in the Config file.
+- Grave Warden: Fear and gaze immunity now cover a few additional spells (ex. umber hulk gaze, IWD harpy wail).
+- Drifter: Items with on-hit entangle/grease effects are now patched directly (this will catch any mod items installed before this mod).
+- Shaman Bone Blade: Elf/half-elf can now resist both charm and berserk from this item. Charm duration increased to 8 rounds (berserk still at 4 rounds).
+- More floating text. Changed some annoying sounds. Status effects more colorful (fade/pulse colors).
 
 v5.0
 - Kit/item changes:
