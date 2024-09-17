@@ -27,6 +27,7 @@ Caryll runes are in a separate file (miscitemsrunes.tph).
 */
 
 
+//
 //Crowfeather Cloak (cloak)
 COPY ~%files%/crowfeather.ITM~  ~override/%m1%.ITM~
   SAY NAME1 @70105 SAY UNIDENTIFIED_DESC @70205
@@ -81,7 +82,7 @@ ACTION_IF (FILE_EXISTS ~override/%visceralattack%.SPL~) BEGIN
 END
 
 
-
+//
 //Etherbomb Songbook (quick item)
 COPY ~%icons%/etherbomb.BAM~  ~override/%m2%.BAM~
 COPY ~%files%/etherbomb.ITM~  ~override/%m2%.ITM~
@@ -153,9 +154,9 @@ ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
 END
 
 
-
+//
 //Ether Booster (amulet)
-COPY ~%files%/etherbooster.ITM~     ~override/%m3%.ITM~
+COPY ~%files%/etherbooster.ITM~  ~override/%m3%.ITM~
   SAY NAME1 @70107 SAY UNIDENTIFIED_DESC @70207
   SAY NAME2 @70107 SAY DESC @70207
   WRITE_ASCII 0x3a ~IAMUL24~ #8    // icon
@@ -189,7 +190,7 @@ ACTION_IF (FILE_EXISTS ~override/%unleashmagic%.SPL~) BEGIN
 END
 
 
-
+//
 //Prisoner's Chain (ring)
 COPY ~%icons%/prisonchain.BAM~  ~override/%m4%.BAM~
 COPY ~%files%/prisonchain.ITM~  ~override/%m4%.ITM~
@@ -199,15 +200,14 @@ COPY ~%files%/prisonchain.ITM~  ~override/%m4%.ITM~
   WRITE_ASCII 0x58 ~CRING29~ #8    // description image
 
 
-
+//
 //Cruciform (amulet)
-COPY ~%icons%/cruciformb.BAM~  ~override/%m5%b.BAM~
-COPY ~%icons%/cruciformc.BAM~  ~override/%m5%c.BAM~
-COPY ~%files%/cruciform.ITM~   ~override/%m5%.ITM~
+COPY ~%icons%/cruciform.BAM~  ~override/%m5%.BAM~
+COPY ~%files%/cruciform.ITM~  ~override/%m5%.ITM~
   SAY NAME1 @70109 SAY UNIDENTIFIED_DESC @70209
   SAY NAME2 @70109 SAY DESC @70209
-  WRITE_ASCII 0x3a ~%m5%b~ #8    // icon
-  WRITE_ASCII 0x58 ~%m5%c~ #8    // description image
+  WRITE_ASCII 0x3a ~%m5%~ #8    // icon
+  WRITE_ASCII 0x58 ~%m5%d~ #8    // description image
   LPF d2_protect_on_castequip STR_VAR resource=~%m5%x~ END
   LPF d2_protect_on_castequip STR_VAR resource=~%m5%y~ END
 
@@ -270,7 +270,7 @@ ACTION_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
 END
 
 
-
+//
 //Golem Ring (ring)
 COPY ~%icons%/golemring.BAM~  ~override/%m6%.BAM~
 COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
@@ -302,7 +302,7 @@ COPY ~%files%/golemring.SPL~  ~override/%m6%.SPL~
 LAF d2_bleed_protection STR_VAR resource=~%m6%~ END
 
 
-
+//
 //Calamity Ring (ring)
 COPY ~%icons%/calamity.BAM~  ~override/%m7%.BAM~
 COPY ~%files%/calamity.ITM~  ~override/%m7%.ITM~
@@ -312,10 +312,10 @@ COPY ~%files%/calamity.ITM~  ~override/%m7%.ITM~
   WRITE_ASCII 0x58 ~CRING36~ #8    // description image
 
 
-
+//
 //Stone Ring (ring)
-COPY ~%icons%/stonering.BAM~      ~override/%m8%.BAM~
-COPY ~%files%/stonering.ITM~      ~override/%m8%.ITM~
+COPY ~%icons%/stonering.BAM~  ~override/%m8%.BAM~
+COPY ~%files%/stonering.ITM~  ~override/%m8%.ITM~
   SAY NAME1 @70112 SAY UNIDENTIFIED_DESC @70212
   SAY NAME2 @70112 SAY DESC @70212
   WRITE_ASCII 0x3a ~%m8%~ #8       // icon
@@ -340,9 +340,7 @@ COPY ~%abilities%/shockwavepush.SPL~    ~override/%m8%b.SPL~
   LPF ALTER_EFFECT INT_VAR duration=10 END
 
 
-
-
-
+//
 //Flynn's Ring (ring)
 COPY ~%files%/flynnsring.EFF~  ~override/%m9%a.EFF~    // block item effects
   WRITE_ASCII 0x30 ~%m9%~ #8
@@ -368,7 +366,7 @@ COPY ~%files%/flynnsring.SPL~  ~override/%m9%s.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%m9%s~ END
 
 
-
+//
 //Ether Limiter (amulet)
 COPY ~%files%/etherlimiter.ITM~  ~override/%ma%.ITM~
   SAY NAME1 @70128 SAY UNIDENTIFIED_DESC @70228
@@ -439,7 +437,7 @@ ACTION_IF (FILE_EXISTS ~override/%incinerate%.SPL~) BEGIN
 END
 
 
-
+//
 //Gold Scarab (amulet)
 COPY ~%icons%/goldscarab.BAM~  ~override/%mb%.BAM~
 COPY ~%files%/goldscarab.ITM~  ~override/%mb%.ITM~
@@ -452,7 +450,7 @@ COPY ~%files%/goldscarab.ITM~  ~override/%mb%.ITM~
 COPY ~%files%/goldscarab.SPL~  ~override/%mb%e.SPL~
 
 
-
+//
 //Winged Sword Insignia (ring)
 COPY ~%icons%/wingedsword.BAM~  ~override/%mc%.BAM~
 COPY ~%files%/wingedsword.ITM~  ~override/%mc%.ITM~
@@ -468,9 +466,9 @@ COPY ~%abilities%/damageup1.SPL~      ~override/%mc%e.SPL~
   LPF ALTER_EFFECT INT_VAR probability1=33 END
 
 
-
+//
 //Red Tearstone Ring (ring)
-COPY ~%icons%/redtearstoneicon.BAM~      ~override/%md%i.BAM~
+COPY ~%icons%/redtearstoneicon.BAM~  ~override/%md%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70133) STR_VAR bam=~%md%i~ RET icon END
 
 COPY ~%icons%/redtearstone.BAM~  ~override/%md%.BAM~
@@ -486,7 +484,7 @@ COPY ~%files%/redtearstone.SPL~  ~override/%md%e.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 
-
+//
 //Hunter Bone (quick item)
 DEFINE_PATCH_FUNCTION hunterbone_haste BEGIN
   LPF d2_subspell_remove_visuals INT_VAR icon=0 END
@@ -495,9 +493,8 @@ DEFINE_PATCH_FUNCTION hunterbone_haste BEGIN
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
 END
 
-COPY ~%icons%/hunterbone.BAM~      ~override/%me%.BAM~
-COPY ~%icons%/hunterbonedesc.BAM~  ~override/%me%d.BAM~
-COPY ~%files%/hunterbone.ITM~      ~override/%me%.ITM~
+COPY ~%icons%/hunterbone.BAM~  ~override/%me%.BAM~
+COPY ~%files%/hunterbone.ITM~  ~override/%me%.ITM~
   SAY NAME1 @70134 SAY UNIDENTIFIED_DESC @70234
   SAY NAME2 @70134 SAY DESC @70234
   WRITE_ASCII 0x3a ~%me%~ #8     // icon
@@ -537,7 +534,7 @@ COPY_EXISTING ~SPWI305A.SPL~  ~override/%me%c.SPL~
 IF_EXISTS
 
 
-
+//
 //Jade Feather (amulet)
 COPY ~%icons%/jadefeather.BAM~  ~override/%mf%.BAM~
 COPY ~%files%/jadefeather.ITM~  ~override/%mf%.ITM~
@@ -614,11 +611,10 @@ ACTION_IF (FILE_EXISTS ~override/%whiteremedy%.SPL~) BEGIN
 END
 
 
-
+//
 //Colorless Demon Soul (consumable)
-COPY ~%icons%/demonsoul.BAM~      ~override/%mg%.BAM~
-COPY ~%icons%/demonsouldesc.BAM~  ~override/%mg%d.BAM~
-COPY ~%files%/demonsoul.ITM~      ~override/%mg%.ITM~
+COPY ~%icons%/demonsoul.BAM~  ~override/%mg%.BAM~
+COPY ~%files%/demonsoul.ITM~  ~override/%mg%.ITM~
   SAY NAME1 @70136 SAY UNIDENTIFIED_DESC @70236
   SAY NAME2 @70136 SAY DESC @70236
   WRITE_ASCII 0x3a ~%mg%~ #8     // icon
@@ -631,11 +627,10 @@ COPY ~%files%/demonsoul.ITM~      ~override/%mg%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 opcode=330 parameter1=newstring timing=4 duration=2 END
 
 
-
+//
 //Shaman Bone Blade (quick item)
-COPY ~%icons%/shamanbone.BAM~      ~override/%mh%.BAM~
-COPY ~%icons%/shamanbonedesc.BAM~  ~override/%mh%d.BAM~
-COPY ~%files%/shamanbone.ITM~      ~override/%mh%.ITM~
+COPY ~%icons%/shamanbone.BAM~  ~override/%mh%.BAM~
+COPY ~%files%/shamanbone.ITM~  ~override/%mh%.ITM~
   SAY NAME1 @70137 SAY UNIDENTIFIED_DESC @70237
   SAY NAME2 @70137 SAY DESC @70237
   WRITE_ASCII 0x3a ~%mh%~ #8     // icon
@@ -687,7 +682,7 @@ ACTION_PHP_EACH d2restoration AS spell => type BEGIN
 END
 
 
-
+//
 //function for Evasion (used later)
 DEFINE_ACTION_FUNCTION miscitemsevasion BEGIN
   LAF d2_evasion_check INT_VAR clone=1 STR_VAR spell=~%m2%f~ END    // Etherbomb Song
@@ -697,7 +692,7 @@ DEFINE_ACTION_FUNCTION miscitemsevasion BEGIN
 END
 
 
-
+//
 //Set variables for external use
 OUTER_TEXT_SPRINT crowfeather    ~%m1%~
 OUTER_TEXT_SPRINT etherbomb      ~%m2%~

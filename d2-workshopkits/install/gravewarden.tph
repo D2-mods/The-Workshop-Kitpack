@@ -196,7 +196,8 @@ OUTER_TEXT_SPRINT denial        ~%s1%~
 OUTER_TEXT_SPRINT gravewarden1  ~%p1%~
 OUTER_TEXT_SPRINT gravewarden2  ~%p2%~
 OUTER_TEXT_SPRINT gravewarden3  ~%p3%~
-OUTER_TEXT_SPRINT wardennofear  ~%e4%~
+OUTER_TEXT_SPRINT wardennofear  ~%e4%~     // iconpatch.tph
+OUTER_TEXT_SPRINT denialheal    ~%s1%a~    // iwdspellpatch.tph
 
 //fnp
 OUTER_TEXT_SPRINT fnpclass    ~ranger~

@@ -54,13 +54,21 @@ END
 //
 //install item files
 
+  // BAM images (descriptions)
+  COPY ~%icons%/badge_spark2.BAM~      ~override/%m1%d.BAM~
+  COPY ~%icons%/badge_radiant2.BAM~    ~override/%m2%d.BAM~
+  COPY ~%icons%/badge_cosmic2.BAM~     ~override/%m3%d.BAM~
+  COPY ~%icons%/badge_powder2.BAM~     ~override/%m4%d.BAM~
+  COPY ~%icons%/badge_sawhunter2.BAM~  ~override/%m5%d.BAM~
+  COPY ~%icons%/badge_oldhunter2.BAM~  ~override/%m6%d.BAM~
+
   // spark hunter badge
   COPY ~%files%/badge_spark.EFF~  ~override/%m1%a.EFF~
   COPY ~%files%/badge_spark.ITM~  ~override/%m1%.ITM~
     SAY NAME1 @70101 SAY UNIDENTIFIED_DESC @70201
     SAY NAME2 @70101 SAY DESC @70201
     WRITE_ASCII 0x3a ~IAMUL22~ #8    // icon
-    WRITE_ASCII 0x58 ~CAMUL22~ #8    // description image
+    WRITE_ASCII 0x58 ~%m1%d~ #8      // description image
     LPF d2_protect_on_castequip STR_VAR resource=~%m1%x~ END
 
   // radiant sword badge
@@ -71,7 +79,7 @@ END
     SAY NAME1 @70102 SAY UNIDENTIFIED_DESC @70202
     SAY NAME2 @70102 SAY DESC @70202
     WRITE_ASCII 0x3a ~IAMUL15~ #8    // icon
-    WRITE_ASCII 0x58 ~CMISCAD~ #8    // description image
+    WRITE_ASCII 0x58 ~%m2%d~ #8      // description image
     LPF d2_protect_on_castequip STR_VAR resource=~%m2%x~ END
 
     // charm immunity (for IWDEE)
@@ -83,12 +91,11 @@ END
     END
 
   // cosmic watcher badge
-  COPY ~%icons%/badge_cosmic.BAM~  ~override/%m3%c.BAM~
   COPY ~%files%/badge_cosmic.ITM~  ~override/%m3%.ITM~
     SAY NAME1 @70103 SAY UNIDENTIFIED_DESC @70203
     SAY NAME2 @70103 SAY DESC @70203
     WRITE_ASCII 0x3a ~IAMUL23~ #8    // icon
-    WRITE_ASCII 0x58 ~%m3%c~ #8      // description image
+    WRITE_ASCII 0x58 ~%m3%d~ #8      // description image
     LPF d2_protect_on_castequip STR_VAR resource=~%m3%x~ END
 
     // vocalize
@@ -114,17 +121,17 @@ END
     SAY NAME1 @70104 SAY UNIDENTIFIED_DESC @70204
     SAY NAME2 @70104 SAY DESC @70204
     WRITE_ASCII 0x3a ~IAMUL25~ #8    // icon
-    WRITE_ASCII 0x58 ~CAMUL25~ #8    // description image
+    WRITE_ASCII 0x58 ~%m4%d~ #8      // description image
     LPF d2_protect_on_castequip STR_VAR resource=~%m4%x~ END
 
   // saw hunter badge
-  COPY ~%icons%/badge_sawhunter.BAM~  ~override/%m5%i.BAM~
+  COPY ~%icons%/badge_sawhunter.BAM~  ~override/%m5%.BAM~
   COPY ~%files%/badge_sawhunter.EFF~  ~override/%m5%a.EFF~
   COPY ~%files%/badge_sawhunter.ITM~  ~override/%m5%.ITM~
     SAY NAME1 @70129 SAY UNIDENTIFIED_DESC @70229
     SAY NAME2 @70129 SAY DESC @70229
-    WRITE_ASCII 0x3a ~%m5%i~ #8      // icon
-    WRITE_ASCII 0x58 ~CMISC7R~ #8    // description image
+    WRITE_ASCII 0x3a ~%m5%~ #8     // icon
+    WRITE_ASCII 0x58 ~%m5%d~ #8    // description image
     LPF d2_protect_on_castequip STR_VAR resource=~%m5%x~ END
 
   // old hunter badge
@@ -132,11 +139,11 @@ END
     SAY NAME1 @70130 SAY UNIDENTIFIED_DESC @70230
     SAY NAME2 @70130 SAY DESC @70230
     WRITE_ASCII 0x3a ~IAMUL20~ #8    // icon
-    WRITE_ASCII 0x58 ~PAMUL27~ #8    // description image
+    WRITE_ASCII 0x58 ~%m6%d~ #8      // description image
     LPF d2_protect_on_castequip STR_VAR resource=~%m6%x~ END
 
   COPY ~%files%/badge_oldhunter.SPL~   ~override/%m6%e.SPL~
-    LPF DELETE_EFFECT INT_VAR match_opcode=321 END    // not needed (removed from main subspell)
+    LPF DELETE_EFFECT INT_VAR match_opcode=321 END    // not needed (already removed by main subspell)
 
 
 //

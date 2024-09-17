@@ -247,6 +247,7 @@ INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/5ecastingspells.tph~
 INCLUDE ~%install%/olvynspellsfix.tph~
 INCLUDE ~%install%/iwditempatch.tph~
+INCLUDE ~%install%/iwdspellpatch.tph~
 //INCLUDE ~%install%/backupfiles.tph~
 
 

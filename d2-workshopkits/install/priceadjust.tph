@@ -77,14 +77,13 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponiwdprices BEGIN
 END
 
 
+//
 //patch items
 ACTION_PHP_EACH ~d2weapon%game%prices~ AS item => price BEGIN
   ACTION_IF (FILE_EXISTS ~override/%item%.itm~) BEGIN
-
     COPY_EXISTING ~%item%.itm~ ~override~
       WRITE_LONG 0x34 price
     BUT_ONLY
-
   END
 END
 

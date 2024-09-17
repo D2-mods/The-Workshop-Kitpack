@@ -177,9 +177,11 @@ Version info:
 v5.8
 - Updated French translation from JohnBob.
 - Fixed issue where poison cures were also removing the assassin Poison Weapon buff.
-- Medic: Dragonrot damage should no longer cause frozen death (or at least super low chance). Specifically, only the flat 8 damage can kill a creature. The 5% damage won't drop below 1 HP. (note: this ignores damage resistance, cold damage is used because I like the visual/sound)
+- Medic: Dragonrot damage should no longer cause frozen death (or at least super low chance). Damage is now split between cold and acid, instead of all cold. (note: this ignores damage resistance, cold is used because I like the visual/sound)
 - Blood Minister: Lead Elixir now increments resists, instead of setting them.
 - Powder Keg: Fire resist now starts at 10% and scales with level up to 50%.
+- Compat update (Talents of Faerun): For IWDEE, all healing spells from this mod can now heal any of the new PC races added by ToF. Restrictions for other races may still apply (depends on spell). These restrictions should normally only apply to summons (classic IWD had more restricted summon types, like boneguard skeletons and salamanders).
+- Changes to BAM images for item descriptions. Should look better with UI overhaul mods (ex. Infinity UI++).
 
 v5.7
 - Updates:

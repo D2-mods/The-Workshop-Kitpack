@@ -1,0 +1,23 @@
+/*
+temp patch for ToF mod
+allow tieflings and genasi races to be healed by spells from this mod
+*/
+
+
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+
+  ACTION_FOR_EACH spell IN
+    ~%denialheal%~ ~%revitalizer%~ ~%mediccure2%~
+  BEGIN
+    COPY_EXISTING ~%spell%.SPL~  ~override~
+      LPF DELETE_EFFECT INT_VAR match_parameter1=153 match_parameter2=104 END                    // delete tiefling
+      LPF DELETE_EFFECT INT_VAR match_parameter1=147 match_parameter2=104 END                    // delete genie
+      LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_parameter2=104 parameter1=201 END    // add sword race (nonliving)
+    IF_EXISTS BUT_ONLY
+  END
+
+END
+
+
+//
+//

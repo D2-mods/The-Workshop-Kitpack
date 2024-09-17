@@ -211,6 +211,7 @@ END
 COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m9%~ END
 COPY ~%icons%/holysymbol_blood.BAM~   ~override/%m9%.BAM~
+COPY ~%icons%/holysymbol_blood2.BAM~   ~override/%m9%d.BAM~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~belt12.itm~) BEGIN
   COPY_EXISTING ~belt12.itm~          ~override/%m9%.ITM~    // clone Lathander symbol
@@ -224,8 +225,8 @@ END
 COPY_EXISTING ~%m9%.ITM~  ~override~
   SAY NAME1 @70100 SAY UNIDENTIFIED_DESC @70200
   SAY NAME2 @70100 SAY DESC @70200
-  WRITE_ASCII 0x3a ~%m9%~ #8       // icon
-  WRITE_ASCII 0x58 ~CMISC98~ #8    // description image
+  WRITE_ASCII 0x3a ~%m9%~ #8     // icon
+  WRITE_ASCII 0x58 ~%m9%d~ #8    // description image
 BUT_ONLY
 
 
@@ -326,7 +327,7 @@ OUTER_TEXT_SPRINT healingbloodregen  ~%s2%a~
 OUTER_TEXT_SPRINT beastblood         ~%s3%~
 OUTER_TEXT_SPRINT madmanblood        ~%s4%~
 OUTER_TEXT_SPRINT leadelixir         ~%s5%~
-OUTER_TEXT_SPRINT ministernodrain    ~%e2%~
+OUTER_TEXT_SPRINT ministernodrain    ~%e2%~    // iconpatch.2da
 
 //fnp
 OUTER_TEXT_SPRINT fnpclass    ~cleric~

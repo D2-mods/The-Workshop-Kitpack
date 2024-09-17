@@ -13,6 +13,7 @@ COPY ~%passives%/opcode206.SPL~  ~override/%e9%.SPL~
 COPY ~%files%/holysymbol_core.SPL~    ~override/%m9%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=122 STR_VAR resource=~%m9%~ END
 COPY ~%icons%/holysymbol_moon.BAM~    ~override/%m9%.BAM~
+COPY ~%icons%/holysymbol_moon2.BAM~    ~override/%m9%d.BAM~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~belt12.itm~) BEGIN
   COPY_EXISTING ~belt12.itm~          ~override/%m9%.ITM~    // clone Lathander symbol
@@ -26,8 +27,8 @@ END
 COPY_EXISTING ~%m9%.ITM~  ~override~
   SAY NAME1 @70123 SAY UNIDENTIFIED_DESC @70223
   SAY NAME2 @70123 SAY DESC @70223
-  WRITE_ASCII 0x3a ~%m9%~ #8        // icon
-  WRITE_ASCII 0x58 ~1cband06~ #8    // description image
+  WRITE_ASCII 0x3a ~%m9%~ #8     // icon
+  WRITE_ASCII 0x58 ~%m9%d~ #8    // description image
 BUT_ONLY
 
 

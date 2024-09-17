@@ -20,5 +20,41 @@ ACTION_IF (FILE_EXISTS ~override/%medicaldarts%.SPL~) BEGIN
 END
 
 
+//update BAM images (descriptions)
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_miscitems_bam2 BEGIN
+  ~%crowfeather%~    => crowfeather2
+  ~%etherbomb%~      => etherbomb2
+  ~%etherbooster%~   => etherbooster2
+  ~%prisonchain%~    => prisonchain2
+  ~%cruciform%~      => cruciform2
+//
+  ~%golemring%~      => golemring2
+  ~%calamity%~       => calamity2
+  ~%stonering%~      => stonering2
+  ~%flynnring%~      => flynnring2
+  ~%etherlimiter%~   => etherlimiter2
+//
+  ~%goldscarab%~     => goldscarab2
+  ~%wingedsword%~    => wingedsword2
+  ~%redtearstone%~   => redtearstone2
+  ~%hunterbone%~     => hunterbone2
+  ~%jadefeather%~    => jadefeather2
+//
+  ~%demonsoul%~      => demonsoul2
+  ~%shamanbone%~     => shamanbone2
+END
+
+//
+ACTION_PHP_EACH d2_miscitems_bam2 AS res => bam BEGIN
+  ACTION_IF (FILE_EXISTS ~%icons%/%bam%.BAM~) BEGIN
+    COPY ~%icons%/%bam%.BAM~  ~override/%res%d.BAM~
+
+    COPY_EXISTING ~%res%.ITM~  ~override~
+      WRITE_ASCII 0x58 ~%res%d~ #8
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+
 //
 //

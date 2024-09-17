@@ -1,0 +1,200 @@
+//functions for items specifically
+//all can be used as PATCH or ACTION
+
+
+/*functions:
+d2_magic_item_flags    : set or remove enchantment flags
+d2_silverweapon        : set flags for silver or gold/coldiron (use for melee weapons or ammo)
+d2_silverweapon_buff   : EE-only, adds as equipped effects (use for launchers or non-weapons)
+d2_droppableitems      : add or remove droppable flag (usable by PCs or not)
+d2_soddrowitems        : add or remove adamantine flag (only relevant for SoD)
+*/
+
+////////////////////////////////////////////////////////////
+
+/*presets
+"magical" enabled by default, "cursed" and "critical" disabled by default
+others are set to -1 (no change)
+if "magical" is set and patching an ITM with 0 enchantment, "enchantment" is set to at least +1 (if not set higher manually)
+if "enchantment" is set to 1+, the "magical" flag will always be enabled by function
+*/
+
+DEFINE_ACTION_FUNCTION d2_magic_item_flags
+  INT_VAR magical=1 cursed=0 critical=0 enchantment=~-1~
+          undispellable=~-1~ silver=~-1~ gold=~-1~ coldiron=~-1~
+  STR_VAR item=~~ resource=~~
+BEGIN
+  ACTION_FOR_EACH file IN ~%item%~ ~%resource%~ BEGIN
+    COPY_EXISTING ~%file%.ITM~  ~override~
+      // enchantment level
+      PATCH_IF (magical>0 AND enchantment<1) BEGIN
+        READ_LONG 0x60 enchant_level
+        PATCH_IF (enchant_level = 0) BEGIN  SET enchantment = 1 END
+      END
+      PATCH_IF (magical<1 AND enchantment>0) BEGIN  SET magical = 1  END
+      PATCH_IF (enchantment > 6) BEGIN  SET enchantment = 6  END
+      PATCH_IF (enchantment >= 0) BEGIN  WRITE_LONG 0x60 enchantment  END
+
+      // set flag
+      PATCH_IF (magical > 0)          BEGIN  WRITE_LONG 0x18 THIS | BIT6  END
+      PATCH_IF (cursed > 0)           BEGIN  WRITE_LONG 0x18 THIS | BIT4  END
+      PATCH_IF (undispellable > 0)    BEGIN  WRITE_LONG 0x18 THIS | BIT24  END
+      PATCH_IF (critical > 0)         BEGIN  WRITE_LONG 0x18 THIS | BIT0  END
+      PATCH_IF (silver > 0)           BEGIN  WRITE_LONG 0x18 THIS | BIT8  END
+      PATCH_IF (gold>0 OR coldiron>0) BEGIN  WRITE_LONG 0x18 THIS | BIT9  END
+
+      // remove flag
+      PATCH_IF (magical = 0)          BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT6)  END
+      PATCH_IF (cursed = 0)           BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT4)  END
+      PATCH_IF (undispellable = 0)    BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT24)  END
+      PATCH_IF (critical = 0)         BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT0)  END
+      PATCH_IF (silver = 0)           BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT8)  END
+      PATCH_IF (gold=0 OR coldiron=0) BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT9)  END
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+DEFINE_PATCH_FUNCTION d2_magic_item_flags
+  INT_VAR magical=1 cursed=0 critical=0 enchantment=~-1~
+          undispellable=~-1~ silver=~-1~ gold=~-1~ coldiron=~-1~
+  STR_VAR item=~~ resource=~~
+BEGIN
+  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+      // enchantment level
+      PATCH_IF (magical>0 AND enchantment<1) BEGIN
+        READ_LONG 0x60 enchant_level
+        PATCH_IF (enchant_level = 0) BEGIN  SET enchantment = 1 END
+      END
+      PATCH_IF (magical<1 AND enchantment>0) BEGIN  SET magical = 1  END
+      PATCH_IF (enchantment > 6) BEGIN  SET enchantment = 6  END
+      PATCH_IF (enchantment >= 0) BEGIN  WRITE_LONG 0x60 enchantment  END
+
+      // set flag
+      PATCH_IF (magical > 0)          BEGIN  WRITE_LONG 0x18 THIS | BIT6  END
+      PATCH_IF (cursed > 0)           BEGIN  WRITE_LONG 0x18 THIS | BIT4  END
+      PATCH_IF (undispellable > 0)    BEGIN  WRITE_LONG 0x18 THIS | BIT24  END
+      PATCH_IF (critical > 0)         BEGIN  WRITE_LONG 0x18 THIS | BIT0  END
+      PATCH_IF (silver > 0)           BEGIN  WRITE_LONG 0x18 THIS | BIT8  END
+      PATCH_IF (gold>0 OR coldiron>0) BEGIN  WRITE_LONG 0x18 THIS | BIT9  END
+
+      // remove flag
+      PATCH_IF (magical = 0)          BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT6)  END
+      PATCH_IF (cursed = 0)           BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT4)  END
+      PATCH_IF (undispellable = 0)    BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT24)  END
+      PATCH_IF (critical = 0)         BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT0)  END
+      PATCH_IF (silver = 0)           BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT8)  END
+      PATCH_IF (gold=0 OR coldiron=0) BEGIN  WRITE_LONG 0x18 (THIS BAND BNOT BIT9)  END
+  END
+END
+
+////////////////////////////////////////////////////////////
+
+//silver and gold/coldiron are enabled by default
+//if either gold or coldiron is set to 0, it is NOT added
+
+DEFINE_ACTION_FUNCTION d2_silverweapon INT_VAR silver=1 gold=1 coldiron=1 STR_VAR item=~~ resource=~~ BEGIN
+  ACTION_FOR_EACH file IN ~%item%~ ~%resource%~ BEGIN
+    COPY_EXISTING ~%file%.ITM~  ~override~
+      PATCH_IF (silver > 0)            BEGIN  WRITE_LONG 0x18 THIS | BIT8  END
+      PATCH_IF (gold>0 AND coldiron>0) BEGIN  WRITE_LONG 0x18 THIS | BIT9  END
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+DEFINE_PATCH_FUNCTION d2_silverweapon INT_VAR silver=1 gold=1 coldiron=1 BEGIN
+  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+      PATCH_IF (silver > 0)            BEGIN  WRITE_LONG 0x18 THIS | BIT8  END
+      PATCH_IF (gold>0 AND coldiron>0) BEGIN  WRITE_LONG 0x18 THIS | BIT9  END
+  END
+END
+
+////////////////////////////////////////////////////////////
+
+//"mode" variable is the special field in effect (default 3 = all attacks)
+//will overwrite existing effects (won't duplicate effects)
+
+DEFINE_ACTION_FUNCTION d2_silverweapon_buff INT_VAR silver=1 gold=1 coldiron=1 mode=3 STR_VAR item=~~ resource=~~ BEGIN
+  ACTION_FOR_EACH file IN ~%item%~ ~%resource%~ BEGIN
+    COPY_EXISTING ~%file%.ITM~  ~override~
+      PATCH_IF (silver > 0) BEGIN
+        LPF DELETE_EFFECT INT_VAR match_opcode=345 match_parameter2=3 END
+        LPF ADD_ITEM_EQEFFECT INT_VAR opcode=345 target=1 timing=2 parameter2=3 special=mode insert_point=~-1~ END
+      END
+      PATCH_IF (gold>0 AND coldiron>0) BEGIN
+        LPF DELETE_EFFECT INT_VAR match_opcode=345 match_parameter2=10 END
+        LPF ADD_ITEM_EQEFFECT INT_VAR opcode=345 target=1 timing=2 parameter2=10 special=mode insert_point=~-1~ END
+      END
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+DEFINE_PATCH_FUNCTION d2_silverweapon_buff INT_VAR silver=1 gold=1 coldiron=1 mode=3 BEGIN
+  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+    PATCH_IF (silver > 0) BEGIN
+        LPF DELETE_EFFECT INT_VAR match_opcode=345 match_parameter2=3 END
+        LPF ADD_ITEM_EQEFFECT INT_VAR opcode=345 target=1 timing=2 parameter2=3 special=mode insert_point=~-1~ END
+    END
+    PATCH_IF (gold>0 AND coldiron>0) BEGIN
+        LPF DELETE_EFFECT INT_VAR match_opcode=345 match_parameter2=10 END
+        LPF ADD_ITEM_EQEFFECT INT_VAR opcode=345 target=1 timing=2 parameter2=10 special=mode insert_point=~-1~ END
+    END
+  END
+END
+
+////////////////////////////////////////////////////////////
+
+//makes item usable by PCs (droppable and displayable)
+//set "mode" variable to "remove" or "delete" to remove flag (only removes droppable)
+
+DEFINE_ACTION_FUNCTION d2_droppableitems STR_VAR item=~~ resource=~~ mode=add BEGIN
+  ACTION_FOR_EACH file IN ~%item%~ ~%resource%~ BEGIN
+    COPY_EXISTING ~%file%.ITM~  ~override~
+      PATCH_IF ((~%mode%~ STR_EQ ~remove~) OR (~%mode%~ STR_EQ ~delete~)) BEGIN
+        WRITE_LONG 0x18 (THIS BAND BNOT BIT2)
+      END ELSE BEGIN
+        WRITE_LONG 0x18 THIS | BIT2
+        WRITE_LONG 0x18 THIS | BIT3
+      END
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+DEFINE_PATCH_FUNCTION d2_droppableitems STR_VAR mode=add BEGIN
+  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+      PATCH_IF ((~%mode%~ STR_EQ ~remove~) OR (~%mode%~ STR_EQ ~delete~)) BEGIN
+        WRITE_LONG 0x18 (THIS BAND BNOT BIT2)
+      END ELSE BEGIN
+        WRITE_LONG 0x18 THIS | BIT2
+        WRITE_LONG 0x18 THIS | BIT3
+      END
+  END
+END
+
+////////////////////////////////////////////////////////////
+
+//destroyed by DestroyAllFragileEquipment script action (only relevant for SoD)
+//set "mode" variable to "remove" or "delete" to remove flag
+
+DEFINE_ACTION_FUNCTION d2_soddrowitems STR_VAR item=~~ resource=~~ mode=add BEGIN
+  ACTION_FOR_EACH file IN ~%item%~ ~%resource%~ BEGIN
+    COPY_EXISTING ~%file%.ITM~  ~override~
+      PATCH_IF ((~%mode%~ STR_EQ ~remove~) OR (~%mode%~ STR_EQ ~delete~)) BEGIN
+        WRITE_LONG 0x18 (THIS BAND BNOT BIT15)
+      END ELSE BEGIN
+        WRITE_LONG 0x18 THIS | BIT15
+      END
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+DEFINE_PATCH_FUNCTION d2_soddrowitems STR_VAR mode=add BEGIN
+  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+      PATCH_IF ((~%mode%~ STR_EQ ~remove~) OR (~%mode%~ STR_EQ ~delete~)) BEGIN
+        WRITE_LONG 0x18 (THIS BAND BNOT BIT15)
+      END ELSE BEGIN
+        WRITE_LONG 0x18 THIS | BIT15
+      END
+  END
+END
+
+////////////////////////////////////////////////////////////
