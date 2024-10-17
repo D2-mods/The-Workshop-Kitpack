@@ -55,6 +55,10 @@ Text in this file appears in the game.
 @354 = ~The %summon_name% follows the party when not in combat. Press the B key to make it hold position.~
 @355 = ~The %summon_name% holds position when not in combat. Press the E key to make it follow the party.~
 @356 = ~%spellitemkit% Config~
+@357 = ~%spellitemkit% Config
+
+Use this ability to select one of the following options:~
+@358 = ~You cannot cast %ability_name% until the cooldown timer has run out.~
 
 
 //additional text (for game/config)
@@ -109,8 +113,8 @@ Text in this file appears in the game.
 @620 = ~Critical Boost~              // for Full Metal Jaguar
 @621 = ~Flash Cast~                  // for Spell Fencer
 @622 = ~Torrent~
-@623 = ~Torrent ( II )~
-@624 = ~Torrent ( III )~
+@623 = ~Torrent (+)~
+@624 = ~Torrent (++)~
 @625 = ~Hide Feedback~               // medicconfig.tph
 @626 = ~Show Feedback~
 @627 = ~Remove Config (permanent)~

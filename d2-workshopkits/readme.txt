@@ -103,7 +103,7 @@ General guidelines:
 - Install after class revision mods, unless they specifically say to install after any kits.
 - Install after mods that revise or overwrite spells.
 - Install after mods that add new weapons or armor.
-- Install before mods that overhaul proficiencies.
+- Install before mods that overhaul the weapon proficiency system.
 
 NOTE: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. Technically, this mod is safe to install even after most tweak mods, but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
 
@@ -136,21 +136,19 @@ OlvynSpells notes:
 - Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
 - Paladin/Ranger components can be installed before or after. Note that these need to be installed after most other kit mods.
 - New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds spells directly to the kit tables for some classes).
-- Untested with 3e metamagic component. To be safe, install it after this mod.
+- Untested with 3e metamagic component. Install it after this mod (it adds an EEex effect to each spell).
 
 --
 
-Feats/abilities mods:
+Feats/abilities mods (ex. ToF):
 - Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
-- Crow Hunter (all variants) should not take Set Snares if using a mod that lets thieves gain extra uses.
-- Grave Warden should not take Charm Animal if using a mod that lets rangers gain extra uses.
-- Confessor can take extra Lay On Hands uses from feats/abilities mods.
+- Kits that have a disadvantage of not gaining a class ability should generally not take those abilities as feats.
 
-Bard revisions notes:
-- Rogue Rebalancing: Powder Keg is compatible with the RR HLA song (including Lingering song). Requires patching the RR songs, so this mod needs to be installed after RR.
-- Shohy's bard song mod: The HLA song from Shohy's mod by default gives an ability to switch to it. This mod will patch that ability for better compat with Powder Keg songs (remove delayed effects). Install after Shohy's mod for best compatibility.
-- Bardic Wonders: Powder Keg will gain Bardic Inspiration at level 1 if installed after that component. If installed after the Bard Song Mechanics tweak, a line will be added to the "Change Song" ability for the HLA song, describing the tweak effects.
-- Talents of Faerun: Powder Keg can take the HLA song, but the special ability (to switch songs) will change to the vanilla HLA song. This mod should be installed before the ToF HLA component (or buttons might not work).
+Bard revisions:
+- Rogue Rebalancing: Install after all components of RR (patches a couples files).
+- Shohy's bard song mod: Install after Shohy's mod (patches 1 file).
+- Bardic Wonders: Install after tweak components of Bardic Wonders.
+- Talents of Faerun: With the HLA component, Powder Keg can take Enhanced Song but the song switching ability will change to the vanilla HLA song. This mod needs to be installed before the HLA component.
 - Untested with other bard revisions.
 
 ----------------------------------------------------------------------------------------------------
@@ -179,13 +177,24 @@ This is how I'd do the install:
 
 Version info:
 
+v5.10
+- 
+
+v5.9
+- Powder Keg songs will now break invisibility. If Improved Invisible, will still keep the other effects. Previously you could just stand around invisible until enemies were dead, unless they could see through invisibility.
+- Moonlight Knight: Moonlight Vortex has a bigger beam visual and hits in a wider area (kind of). The actual beam itself is still a narrow line, but it does some stuff to approximate a wider area.
+- Bubb's Spell Menu note: Fixed display issues in Overlay mode with Ki Energy (Medic kit). It should now always display the correct amount of Ki Energy after using an ability. (This was just a display issue. The actual Ki Energy amount was always correct.)
+- Multiclass kits should no longer randomly regain all daily uses of abilities. This only happened rarely. It was a side effect of a workaround for a possible export/import issue (still implemented, but improved effects structure).
+- Warhound explosions and Powder Keg's fiery explosions now dispel effects of webs, grease, and entangle on allies in the area (even if they don't take damage). Also protected for 5 seconds (enough time to leave the area). A couple kit abilities may do something similar.
+- Other minor changes (sound effects, BAM images, text colors, etc.).
+
 v5.8
 - Updated French translation from JohnBob.
 - Fixed issue where poison cures were also removing the assassin Poison Weapon buff.
 - Medic: Dragonrot damage should no longer cause frozen death (or at least super low chance). Damage is now split between cold and acid, instead of all cold. (note: this ignores damage resistance, cold is used because I like the visual/sound)
 - Blood Minister: Lead Elixir now increments resists, instead of setting them.
 - Powder Keg: Fire resist now starts at 10% and scales with level up to 50%.
-- Compat update (Talents of Faerun): For IWDEE, all healing spells from this mod can now heal any of the new PC races added by ToF. Restrictions for other races may still apply (depends on spell). These restrictions should normally only apply to summons (classic IWD had more restricted summon types, like boneguard skeletons and salamanders).
+- Compat update (Talents of Faerun): For IWDEE, all healing spells from this mod can now heal any of the new PC races added by ToF. Restrictions for other races may still apply (depends on spell). These restrictions should normally only apply to summons.
 - Changes to BAM images for item descriptions. Should look better with UI overhaul mods (ex. Infinity UI++).
 
 v5.7

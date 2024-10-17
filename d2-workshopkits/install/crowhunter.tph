@@ -4,12 +4,16 @@
 //Add passive effects
 COPY ~%passives%/damagevstype.SPL~  ~override/%e1%.SPL~
   LPF ALTER_EFFECT INT_VAR parameter1=1 parameter2=3 special=1 END    // +1 vs. humanoids
+  LPF d2_remove_effects_on_cast END
 COPY ~%passives%/damagevstype.SPL~  ~override/%e7%.SPL~
   LPF ALTER_EFFECT INT_VAR parameter1=1 parameter2=3 special=2 END    // +2 vs. humanoids
   LPF d2_remove_effects_on_cast STR_VAR resource=~%e1%~ END
+  LPF d2_remove_effects_on_cast END
 COPY ~%passives%/damagevstype.SPL~  ~override/%e8%.SPL~
   LPF ALTER_EFFECT INT_VAR parameter1=1 parameter2=3 special=3 END    // +3 vs. humanoids
+  LPF d2_remove_effects_on_cast STR_VAR resource=~%e1%~ END
   LPF d2_remove_effects_on_cast STR_VAR resource=~%e7%~ END
+  LPF d2_remove_effects_on_cast END
 
 //for hla traps
 COPY ~%passives%/useeff.SPL~           ~override/%e3%.SPL~
@@ -31,6 +35,10 @@ COPY ~%abilities%/applyeffects.SPL~  ~override/%e2%.SPL~
 COPY ~%passives%/removespell.SPL~    ~override/%e2%a.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~SPCL412~ END
 LAF d2_recast_at_interval STR_VAR spell=~%e2%~ new_spell=~%@2%~ END
+
+COPY ~override/%@2%.SPL~  ~override~
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%e2%~ insert=last END
+BUT_ONLY
 
 
 //

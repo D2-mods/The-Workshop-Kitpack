@@ -50,6 +50,7 @@ ACTION_IF (nopowderkeg = 0) BEGIN
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/rrbardsongs.tph~
+  INCLUDE ~%install%/d2scriptpatch.tph~
 END
 
 //Spell Fencer (d2wkh)

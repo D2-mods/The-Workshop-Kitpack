@@ -5,7 +5,7 @@
 /*
 "stringref" is a tlk number, ex. RESOLVE_STR_REF (@99)
 "string" is a text string
-"color" is a predefined color from bgee.lua (ex. color=A is light blue)
+"color" is a predefined color from bgee.lua (see array below)
 "hex" is a color hex value (without the # in front), 6 characters in BBGGRR format
 */
 

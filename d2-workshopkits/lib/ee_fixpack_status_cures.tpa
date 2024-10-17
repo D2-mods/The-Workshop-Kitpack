@@ -27,7 +27,7 @@ sleep/unconscious
 stun
 invisibility    - removes invisibility (no effect if nondetection)
 nondetection    - removes nondetection
-pause           - removes pause effect (i.e. mental battle with elementals)
+pause           - removes pause effect (ex. mental battle with elementals)
 
 NOTE: only needs to match a few letters (ex. status=paral or status=drain)
 Alternate names will usually work (ex. status=fear or status=panic).

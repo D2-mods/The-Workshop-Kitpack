@@ -515,8 +515,10 @@ END
 //remove and re-add abilities (cast from each ability)
 COPY ~%abilities%/applyeffects.SPL~  ~override/%s9%s.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%i~ END    // give abilities
-  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%x~ END    // cast s9x twice (fix bubb menu weirdness)
-  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%x~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%x~ END    // removes abilities
+  FOR (n = 1; n <= 25; ++n) BEGIN
+    LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%x~ END    // apply 25 times (fix for bubb menu overlay)
+  END
   LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%z~ END    // spell lock
   LPF d2_remove_effects_on_cast END
 

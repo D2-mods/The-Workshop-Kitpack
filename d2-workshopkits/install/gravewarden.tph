@@ -13,6 +13,10 @@ COPY ~%passives%/removespell.SPL~    ~override/%e3%a.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~SPCL311~ END
 LAF d2_recast_at_interval STR_VAR spell=~%e3%~ new_spell=~%@3%~ END
 
+COPY ~override/%@3%.SPL~  ~override~
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%e3%~ insert=last END
+BUT_ONLY
+
 
 //Immune to fear
 COPY ~%passives%/nopanic.SPL~      ~override/%e4%.SPL~
@@ -141,7 +145,8 @@ COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%s1%a.SPL~
 
   // text
   SPRINT ability_name @104
-  LPF CLONE_EFFECT INT_VAR match_opcode=17 opcode=139 parameter1=RESOLVE_STR_REF (@352) END
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@352) STR_VAR color=cloud RET newstring END
+  LPF CLONE_EFFECT INT_VAR match_opcode=17 opcode=139 parameter1=newstring END
 
 
 //Make clab table

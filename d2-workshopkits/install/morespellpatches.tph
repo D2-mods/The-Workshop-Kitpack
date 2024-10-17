@@ -16,26 +16,29 @@ PRINT @6
 
 COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
 
-  GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
-  PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
-    GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
-    PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
-      PATCH_IF (patch_spell = 0) BEGIN
-        READ_SHORT effect_off opcode                                 // opcode
-        PATCH_IF (opcode = 101) BEGIN
-          SET patch_spell = 1
+  PATCH_IF (SOURCE_SIZE > 0x99) BEGIN    // skip if no headers
+
+    GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
+    PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
+      GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
+      PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
+        PATCH_IF (patch_spell = 0) BEGIN
+          READ_SHORT effect_off opcode                                 // opcode
+          PATCH_IF (opcode = 101) BEGIN
+            SET patch_spell = 1
+          END
         END
       END
     END
-  END
 
-  PATCH_IF (patch_spell = 1) BEGIN
-    PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
-    PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_spells END END
-    PATCH_IF (nopowderkeg = 0) BEGIN  LPF powderkeg_block_strings   END END
-    SET patch_spell = 0
-  END
+    PATCH_IF (patch_spell = 1) BEGIN
+      PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
+      PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_spells END END
+      PATCH_IF (nopowderkeg = 0) BEGIN  LPF powderkeg_block_strings   END END
+      SET patch_spell = 0
+    END
 
+  END
 BUT_ONLY
 
 
@@ -44,38 +47,41 @@ PRINT @7
 
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
 
-  GET_OFFSET_ARRAY itm_equip  ITM_V10_GEN_EFFECTS
-  PHP_EACH itm_equip AS num => equip_off BEGIN    // array of equipped effects
-    PATCH_IF (patch_item = 0) BEGIN
-      READ_SHORT equip_off opcode                 // opcode
-      PATCH_IF (opcode = 101) BEGIN
-        SET patch_item = 1
+  PATCH_IF (SOURCE_SIZE > 0xa0) BEGIN    // skip if no effects
+
+    GET_OFFSET_ARRAY itm_equip  ITM_V10_GEN_EFFECTS
+    PHP_EACH itm_equip AS num => equip_off BEGIN    // array of equipped effects
+      PATCH_IF (patch_item = 0) BEGIN
+        READ_SHORT equip_off opcode                 // opcode
+        PATCH_IF (opcode = 101) BEGIN
+          SET patch_item = 1
+        END
       END
     END
-  END
 
-  PATCH_IF (patch_item = 0) BEGIN
-    GET_OFFSET_ARRAY itm_headers  ITM_V10_HEADERS
-    PHP_EACH itm_headers AS num => header_off BEGIN                    // array of headers
-      GET_OFFSET_ARRAY2 itm_effects header_off ITM_V10_HEAD_EFFECTS
-      PHP_EACH itm_effects AS num => effect_off BEGIN                  // array of effects on each header
-        PATCH_IF (patch_item = 0) BEGIN
-          READ_SHORT effect_off opcode                                 // opcode
-          PATCH_IF (opcode = 101) BEGIN
-            SET patch_item = 1
+    PATCH_IF (patch_item = 0) BEGIN
+      GET_OFFSET_ARRAY itm_headers  ITM_V10_HEADERS
+      PHP_EACH itm_headers AS num => header_off BEGIN                    // array of headers
+        GET_OFFSET_ARRAY2 itm_effects header_off ITM_V10_HEAD_EFFECTS
+        PHP_EACH itm_effects AS num => effect_off BEGIN                  // array of effects on each header
+          PATCH_IF (patch_item = 0) BEGIN
+            READ_SHORT effect_off opcode                                 // opcode
+            PATCH_IF (opcode = 101) BEGIN
+              SET patch_item = 1
+            END
           END
         END
       END
     END
-  END
 
-  PATCH_IF (patch_item = 1) BEGIN
-    PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
-    PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_block  END END
-    PATCH_IF (nopowderkeg = 0) BEGIN  LPF powderkeg_block_strings   END END
-    SET patch_item = 0
-  END
+    PATCH_IF (patch_item = 1) BEGIN
+      PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
+      PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_block  END END
+      PATCH_IF (nopowderkeg = 0) BEGIN  LPF powderkeg_block_strings   END END
+      SET patch_item = 0
+    END
 
+  END
 BUT_ONLY
 
 
@@ -98,16 +104,18 @@ COPY_EXISTING_REGEXP GLOB ~.*\.CRE~  ~override~
 */
 //Using the simpler check below instead. Speed isn't that much slower.
 
-  READ_LONG 0x2c8 cre_effects
-  PATCH_IF (cre_effects > 14) BEGIN    // immunities always have many effects
-    SET patch_cre = 1
-  END
+  PATCH_IF (SOURCE_SIZE > 0x2d3) BEGIN    // valid cre file
+    READ_LONG 0x2c8 cre_effects
+    PATCH_IF (cre_effects > 14) BEGIN    // immunities always have many effects
+      SET patch_cre = 1
+    END
 
-  PATCH_IF (patch_cre = 1) BEGIN
-    PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
-    PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_block  END END
-    PATCH_IF (nopowderkeg = 0) BEGIN  LPF powderkeg_block_strings   END END
-    SET patch_cre = 0
+    PATCH_IF (patch_cre = 1) BEGIN
+      PATCH_IF (nonurse = 0)     BEGIN  LPF nurse_feeblemind_string   END END
+      PATCH_IF (noconfessor = 0) BEGIN  LPF confessor_entangle_block  END END
+      PATCH_IF (nopowderkeg = 0) BEGIN  LPF powderkeg_block_strings   END END
+      SET patch_cre = 0
+    END
   END
 
 BUT_ONLY

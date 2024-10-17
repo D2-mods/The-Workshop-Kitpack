@@ -47,7 +47,9 @@ COPY ~%abilities%/applyeffects.SPL~  ~override/%s9%s.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%2~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%3~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%x~ END    // cast s9x twice (fix bubb menu weirdness)
-  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%x~ END
+  FOR (n = 1; n <= 3; ++n) BEGIN
+    LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%x~ END    // apply 3 times (fix for bubb menu overlay)
+  END
   LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%z~ END    // spell lock
 
 COPY ~%passives%/removespell.SPL~  ~override/%s9%x.SPL~
@@ -422,11 +424,13 @@ COPY ~%abilities%/autoimmune.SPL~  ~override/%s5%.spl~
   LPF DELETE_EFFECT INT_VAR match_opcode=9 END
   LPF d2_remove_effects_on_cast END
 
-//check status
+//check status, cures bleed/dot every round
 COPY ~%abilities%/applyeffects.EFF~      ~override/%s5%a.EFF~
   WRITE_ASCII 0x30 ~%s5%a~ #8
 COPY ~%abilities%/autoimmunetarget.SPL~  ~override/%s5%a.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%s5%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!bleed~ END    // cures bleeding
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!phase~ END    // cures acid dot, phasing, etc.
 //  LPF d2_protect_on_castequip INT_VAR duration=2 END
 
 //apply cures
@@ -434,8 +438,6 @@ COPY ~%abilities%/autoimmune.SPL~  ~override/%s5%b.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!body~ END     // cure poison, disease, blindness, deafness
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!para~ END     // cure hold, paralysis, stun, sleep
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!mind~ END     // cure charm, berserk, fear, confusion, feeblemind
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!bleed~ END    // cures bleeding
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~d2!phase~ END    // cures acid dot, phasing, etc.
   LPF d2_protect_on_castequip END
   LPF d2_remove_effects_on_cast STR_VAR resource=~%s5%~ END    // remove main spell
 
@@ -448,7 +450,8 @@ COPY ~%abilities%/autoimmune.SPL~  ~override/%s5%b.SPL~
 
   // text
   SPRINT ability_name @131
-  LPF CLONE_EFFECT INT_VAR match_opcode=174 opcode=139 parameter1=RESOLVE_STR_REF (@352) END
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@352) STR_VAR color=cloud RET newstring END
+  LPF CLONE_EFFECT INT_VAR match_opcode=174 opcode=139 parameter1=newstring END
 
 //
 //blocked by Bigby or Otiluke

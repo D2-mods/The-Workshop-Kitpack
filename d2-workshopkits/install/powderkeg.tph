@@ -218,7 +218,8 @@ COPY ~%abilities%/powderkegdusta.SPL~    ~override/%s3%a.SPL~    // blindness
 COPY ~%abilities%/powderkegdustb.SPL~    ~override/%s3%b.SPL~    // blur/invisible
   LPF ALTER_EFFECT INT_VAR duration=15 END
 COPY ~%abilities%/powderkegdustc.SPL~    ~override/%s3%c.SPL~    // move penalty
-  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!haste~ END    // remove haste
+  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter2=5 END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!haste~ END
   LPF d2_safe_spell INT_VAR block_opcode=176 duration=1 END
 
 COPY - ~%abilities%/powderkegdustd.PRO~ ~%workspace%/%s3%d.PRO~    // fireball
@@ -375,6 +376,7 @@ OUTER_TEXT_SPRINT boomingsong         ~%s2%~
 OUTER_TEXT_SPRINT dustexplosion       ~%s3%~
 OUTER_TEXT_SPRINT frenzyingflame      ~%s4%~
 OUTER_TEXT_SPRINT enhancedbardsong    ~%s5%~
+OUTER_TEXT_SPRINT pkegstartsong       ~%e2%~
 
 //subspells
 OUTER_TEXT_SPRINT blastingsongblast   ~%s1%e~    // for Evasion

@@ -11,13 +11,13 @@ d2_recast_at_interval         ACTION
 
 //Fix for multiclass kits losing abilities when imported (affects Charname in BG2/ToB/SoD)
 //Adds an effect that removes, then re-adds ability in correct amount (based on %amount% variable)
-//Recast every x seconds (default is once per day)
+//Recast every x seconds (default is once per 8 hours)
 //Automatically overwrites effects that give the same ability.
 
 DEFINE_ACTION_FUNCTION d2_mc_import_fix
 
   INT_VAR  amount     = 1            // number of times to give the ability
-           interval   = 7200         // reapply every x seconds (7200 = 24 hours)
+           interval   = 2400         // reapply every x seconds (2400 = 8 hours)
   STR_VAR  spell      = ~~           // ability filename (7 characters or less)
            new_spell  = ~d2spell~    // shell spell (7 characters or less)
   RET      new_spell
@@ -34,7 +34,12 @@ COPY ~.../temp/d2_mc_import_fix~  ~override~
 END
 
 
-  ACTION_IF !(FILE_CONTAINS ~override/d2_mc_import_fix~ ~%new_spell%~) BEGIN    // check list of shell spells
+  // make "new_spell"
+  ACTION_IF !(FILE_CONTAINS ~override/d2_mc_import_fix~ ~%new_spell%_done~) BEGIN    // check list of shell spells
+
+    // check variables
+    ACTION_IF (amount < 1) BEGIN OUTER_SET amount = 1 END
+    ACTION_IF (interval < 2) BEGIN OUTER_SET interval = 2400 END
 
     // base spell
     COPY_EXISTING ~SPCL142.SPL~  ~override/%new_spell%.SPL~
@@ -55,36 +60,79 @@ END
       WRITE_ASCII  0x30 ~%new_spell%a~ #8
 
     COPY_EXISTING ~SPCL142.SPL~  ~override/%new_spell%a.SPL~
-      // add ability
+      // apply spell
+      LPF ALTER_EFFECT INT_VAR opcode=326 parameter1=0 parameter2=0 timing=1 STR_VAR resource=~%new_spell%s~ END
+      // immune for x seconds
+      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 timing=0 duration=interval STR_VAR resource=~%new_spell%a~ insert=last END
+
+    COPY_EXISTING ~SPCL142.SPL~  ~override/%new_spell%s.SPL~
+      LPF ALTER_EFFECT INT_VAR opcode=326 parameter1=0 parameter2=0 timing=1 END
+      LPF ALTER_EFFECT INT_VAR timing=4 duration=1 STR_VAR resource=~%new_spell%g~ END    // give ability
+      LPF CLONE_EFFECT INT_VAR timing=1 duration=0 STR_VAR resource=~%new_spell%x~ END    // remove ability
+
+    // give ability
+    COPY_EXISTING ~SPCL142.SPL~  ~override/%new_spell%g.SPL~
       LPF ALTER_EFFECT INT_VAR opcode=171 parameter1=0 STR_VAR resource=~%spell%~ END
       PATCH_IF (amount > 1) BEGIN
-        FOR (n = 2; n <= amount; ++n) BEGIN
+        FOR (n = 1; n < amount; ++n) BEGIN
           LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~%spell%~ END
         END
       END
-      // remove ability
-      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=172 STR_VAR match_resource=~%spell%~ END
-      // immune for x seconds
-      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 timing=0 duration=interval STR_VAR resource=~%new_spell%a~ insert=last END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=172 END
+
+    // remove ability
+    COPY_EXISTING ~SPCL142.SPL~  ~override/%new_spell%x.SPL~
+      LPF ALTER_EFFECT INT_VAR opcode=172 parameter1=0 STR_VAR resource=~%spell%~ END
+      PATCH_IF (amount > 1) BEGIN
+        FOR (n = 1; n < amount; ++n) BEGIN
+          LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR match_resource=~%spell%~ END
+        END
+      END
 
 
     // subspell to overwrite base spell
     ACTION_IF !(FILE_EXISTS ~override/%spell%!.SPL~) BEGIN
       COPY_EXISTING ~SPCL142.SPL~  ~override/%spell%!.SPL~
-        LPF ALTER_EFFECT INT_VAR opcode=321 parameter1=0 parameter2=0 STR_VAR resource=~%new_spell%~ END
+        LPF ALTER_EFFECT INT_VAR opcode=321 parameter1=0 parameter2=0 timing=1 STR_VAR resource=~%spell%@~ END
+        LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%new_spell%~ END
+        LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%new_spell%a~ END
     END
     ELSE BEGIN
       COPY_EXISTING ~%spell%!.SPL~  ~override~
         LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%new_spell%~ END
+        LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%new_spell%a~ END
       BUT_ONLY
     END
 
 
-    //add to list of shell spells (use to skip making the same spell twice)
-    APPEND ~d2_mc_import_fix~  ~%new_spell%~
+    // delay recast when ability used (8 hours or same as "interval")
+    ACTION_IF !(FILE_EXISTS ~override/%spell%@.SPL~) BEGIN
+      COPY_EXISTING ~SPCL142.SPL~  ~override/%spell%@.SPL~
+        LPF ALTER_EFFECT INT_VAR opcode=321 parameter1=0 parameter2=0 timing=1 STR_VAR resource=~%spell%@~ END
+        SET delay = 2400
+        PATCH_IF (delay > interval) BEGIN SET delay = interval END
+        LPF CLONE_EFFECT INT_VAR opcode=318 timing=0 duration=delay STR_VAR resource=~%new_spell%a~ insert=last END
+    END
+    ELSE BEGIN
+      COPY_EXISTING ~%spell%@.SPL~  ~override~
+        LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=318 STR_VAR resource=~%new_spell%a~ END
+      BUT_ONLY
+    END
+
+
+    // add to list of shell spells (skip making the same spell twice)
+    APPEND ~d2_mc_import_fix~  ~%new_spell%_done~
 
 
   END
+
+  // delay recast when ability used (8 hours or same as "interval")
+  ACTION_IF !(FILE_CONTAINS ~override/d2_mc_import_fix~ ~%spell%_patched~) BEGIN
+    COPY_EXISTING ~%spell%.SPL~  ~override~
+      LPF ADD_SPELL_CFEFFECT INT_VAR opcode=326 target=1 timing=1 STR_VAR resource=~%spell%@~ END
+    APPEND ~d2_mc_import_fix~  ~%spell%_patched~
+  END
+
   END
 
 END
@@ -92,12 +140,12 @@ END
 ////////////////////////////////////////////////////////////
 
 //Variation of above, used to apply effect directly (instead of giving abilities)
-//Recast every x seconds (default is once per day)
+//Recast every x seconds (default is once per 8 hours)
 //Automatically overwrites effects that apply the same spell.
 
 DEFINE_ACTION_FUNCTION d2_recast_at_interval
 
-  INT_VAR  interval   = 7200         // reapply every x seconds (7200 = 24 hours)
+  INT_VAR  interval   = 2400         // reapply every x seconds (2400 = 8 hours)
   STR_VAR  spell      = ~~           // ability filename (7 characters or less)
            new_spell  = ~d2spell~    // shell spell (7 characters or less)
   RET      new_spell
@@ -114,7 +162,11 @@ COPY ~.../temp/d2_recast_at_interval~  ~override~
 END
 
 
-  ACTION_IF !(FILE_CONTAINS ~override/d2_recast_at_interval~ ~%new_spell%~) BEGIN    // check list of shell spells
+  // make "new_spell"
+  ACTION_IF !(FILE_CONTAINS ~override/d2_recast_at_interval~ ~%new_spell%_done~) BEGIN    // check list of shell spells
+
+    // check variables
+    ACTION_IF (interval < 2) BEGIN OUTER_SET interval = 2400 END
 
     // base spell
     COPY_EXISTING ~SPCL142.SPL~  ~override/%new_spell%.SPL~
@@ -135,8 +187,8 @@ END
       WRITE_ASCII  0x30 ~%new_spell%a~ #8
 
     COPY_EXISTING ~SPCL142.SPL~  ~override/%new_spell%a.SPL~
-      // add ability
-      LPF ALTER_EFFECT INT_VAR opcode=326 parameter1=0 parameter2=0 STR_VAR resource=~%spell%~ END
+      // apply spell
+      LPF ALTER_EFFECT INT_VAR opcode=326 parameter1=0 parameter2=0 timing=1 STR_VAR resource=~%spell%~ END
       // immune for x seconds
       LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 timing=0 duration=interval STR_VAR resource=~%new_spell%a~ insert=last END
 
@@ -144,7 +196,7 @@ END
     // subspell to overwrite base spell
     ACTION_IF !(FILE_EXISTS ~override/%spell%!.SPL~) BEGIN
       COPY_EXISTING ~SPCL142.SPL~  ~override/%spell%!.SPL~
-        LPF ALTER_EFFECT INT_VAR opcode=321 parameter1=0 parameter2=0 STR_VAR resource=~%new_spell%~ END
+        LPF ALTER_EFFECT INT_VAR opcode=321 parameter1=0 parameter2=0 timing=1 STR_VAR resource=~%new_spell%~ END
         LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%new_spell%a~ END
     END
     ELSE BEGIN
@@ -155,8 +207,8 @@ END
     END
 
 
-    //add to list of shell spells (use to skip making the same spell twice)
-    APPEND ~d2_recast_at_interval~  ~%new_spell%~
+    // add to list of shell spells (skip making the same spell twice)
+    APPEND ~d2_recast_at_interval~  ~%new_spell%_done~
 
 
   END

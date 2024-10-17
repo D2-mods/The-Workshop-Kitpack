@@ -328,6 +328,7 @@ OUTER_TEXT_SPRINT beastblood         ~%s3%~
 OUTER_TEXT_SPRINT madmanblood        ~%s4%~
 OUTER_TEXT_SPRINT leadelixir         ~%s5%~
 OUTER_TEXT_SPRINT ministernodrain    ~%e2%~    // iconpatch.2da
+OUTER_TEXT_SPRINT holysymbolblood    ~%m9%~
 
 //fnp
 OUTER_TEXT_SPRINT fnpclass    ~cleric~

@@ -28,11 +28,8 @@ ACTION_IF (noarmorrestrictions = 0) BEGIN
 PRINT @9
 
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
-  PATCH_IF (!(~%SOURCE_RES%~ STR_EQ ~secret05~) AND    // skip these armors
-            !(~%SOURCE_RES%~ STR_EQ ~d2tec05~) AND
-            !(~%SOURCE_RES%~ STR_EQ ~FISH~)            // skip a fish in IWD
-  ) BEGIN
 
+  PATCH_IF (SOURCE_SIZE > 0xa0) BEGIN    // skip if no effects
     LPF d2_restrict_item_flags RET droppable displayable restrictions END
     PATCH_IF ((%droppable%) AND (%displayable%)) BEGIN
       PATCH_IF (restrictions != 0) BEGIN    // skip anything with no race/class/alignment restrictions
@@ -56,6 +53,7 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
       END
     END
   END
+
 BUT_ONLY
 
 END

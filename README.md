@@ -10,6 +10,11 @@ This is a kitpack I've been working on for a while. It currently has 17 kits + 1
 
 NOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
 
+--
+
+![Preview image](d2-workshopkits/preview/preview2.webp)
+
+--
 
 Mod contents:
 -
@@ -521,7 +526,7 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 - Install after class revision mods, unless they specifically say to install after any kits.
 - Install after mods that revise or overwrite spells.
 - Install after mods that add new weapons or armor.
-- Install before mods that overhaul proficiencies.
+- Install before mods that overhaul the weapon proficiency system.
 
 NOTE: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. Technically, this mod is safe to install even after most tweak mods, but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
 
@@ -554,21 +559,19 @@ NOTE: This was asked about, so I'll mention that ToF Evasion can be installed be
 - Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
 - Paladin/Ranger components can be installed before or after. Note that these need to be installed after most other kit mods.
 - New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds spells directly to the kit tables for some classes).
-- Untested with 3e metamagic component. To be safe, install it after this mod.
+- Untested with 3e metamagic component. Install it after this mod (it adds an EEex effect to each spell).
 
 --
 
 **Feats/abilities mods:**
 - Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
-- Crow Hunter (all variants) should not take Set Snares if using a mod that lets thieves gain extra uses.
-- Grave Warden should not take Charm Animal if using a mod that lets rangers gain extra uses.
-- Confessor can take extra Lay On Hands uses from feats/abilities mods.
+- Kits that have a disadvantage of not gaining a class ability should generally not take those abilities as feats.
 
 **Bard revisions notes:**
-- Rogue Rebalancing: Powder Keg is compatible with the RR HLA song (including Lingering song). Requires patching the RR songs, so this mod needs to be installed after RR.
-- Shohy's bard song mod: The HLA song from Shohy's mod by default gives an ability to switch to it. This mod will patch that ability for better compat with Powder Keg songs (remove delayed effects). Install after Shohy's mod for best compatibility.
-- Bardic Wonders: Powder Keg will gain Bardic Inspiration at level 1 if installed after that component. If installed after the Bard Song Mechanics tweak, a line will be added to the "Change Song" ability for the HLA song, describing the tweak effects.
-- Talents of Faerun: Powder Keg can take the HLA song, but the special ability (to switch songs) will change to the vanilla HLA song. This mod should be installed before the ToF HLA component (or buttons might not work).
+- Rogue Rebalancing: Install after all components of RR (patches a couples files).
+- Shohy's bard song mod: Install after Shohy's mod (patches 1 file).
+- Bardic Wonders: Install after tweak components of Bardic Wonders.
+- Talents of Faerun: With the HLA component, Powder Keg can take Enhanced Song but the song switching ability will change to the vanilla HLA song. This mod needs to be installed before the HLA component.
 - Untested with other bard revisions.
 
 #

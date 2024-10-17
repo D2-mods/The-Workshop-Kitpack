@@ -128,8 +128,7 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
             !(~%SOURCE_RES%~ STR_EQ ~SAREVEFF~)       // skip Sarevok special
   ) BEGIN
 
-    READ_SHORT 0x68 num_headers
-    PATCH_IF (num_headers > 0) BEGIN
+    PATCH_IF (SOURCE_SIZE > 0x99) BEGIN    // skip if no headers
       READ_LONG  0x8  splname
       READ_SHORT 0x98 splproj
       SET check_opcodes = 1
@@ -248,47 +247,50 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.ITM~  ~~
   PATCH_IF (!(RESOURCE_CONTAINS ~d2wkspellprep~  ~_%SOURCE_RES%_~) AND
             !(~%SOURCE_RES%~ STR_EQ ~REAVER~)    // skip IWD weapon
   ) BEGIN
-    SET kill_opcode      = 0
-    SET web_opcode       = 0
-    SET grease_overlay   = 0
-    SET entangle_overlay = 0
 
-    // check dragon scales (for restrictarmor.tph)
-    READ_LONG  0x8 stringref    // unidentified name (as string ref)
-    PATCH_IF (stringref=39544 OR stringref=40636 OR stringref=5394) BEGIN
-      PATCH_IF !(FILE_CONTAINS ~%functions%/d2_restrict_armor.tpa~ ~%SOURCE_RES%~) BEGIN
-        READ_ASCII 0x22 itemtype (2) NULL
-        PATCH_IF (~%itemtype%~ STR_EQ ~4A~) BEGIN    // if plate visuals
-          TEXT_SPRINT $d2_scalearmor_array(~%SOURCE_RES%~) ~dragonplate~    // ~%SOURCE_RES%~ => dragonplate
-        END ELSE BEGIN
-          TEXT_SPRINT $d2_scalearmor_array(~%SOURCE_RES%~) ~dragonscale~    // ~%SOURCE_RES%~ => dragonscale
+    PATCH_IF (SOURCE_SIZE > 0xa8) BEGIN    // skip if no header (0 chance it's a weapon)
+      SET kill_opcode      = 0
+      SET web_opcode       = 0
+      SET grease_overlay   = 0
+      SET entangle_overlay = 0
+
+      // check dragon scales (for restrictarmor.tph)
+      READ_LONG  0x8 stringref    // unidentified name (as string ref)
+      PATCH_IF (stringref=39544 OR stringref=40636 OR stringref=5394) BEGIN
+        PATCH_IF !(FILE_CONTAINS ~%functions%/d2_restrict_armor.tpa~ ~%SOURCE_RES%~) BEGIN
+          READ_ASCII 0x22 itemtype (2) NULL
+          PATCH_IF (~%itemtype%~ STR_EQ ~4A~) BEGIN    // if plate visuals
+            TEXT_SPRINT $d2_scalearmor_array(~%SOURCE_RES%~) ~dragonplate~    // ~%SOURCE_RES%~ => dragonplate
+          END ELSE BEGIN
+            TEXT_SPRINT $d2_scalearmor_array(~%SOURCE_RES%~) ~dragonscale~    // ~%SOURCE_RES%~ => dragonscale
+          END
         END
       END
-    END
 
-    GET_OFFSET_ARRAY itm_headers  ITM_V10_HEADERS
-    PHP_EACH itm_headers AS num => header_off BEGIN                    // array of headers
-      GET_OFFSET_ARRAY2 itm_effects header_off ITM_V10_HEAD_EFFECTS
-      PHP_EACH itm_effects AS num => effect_off BEGIN                  // array of effects on each header
-        PATCH_IF (kill_opcode = 0) BEGIN
-          READ_SHORT effect_off opcode                                 // opcode
-          PATCH_IF (opcode = 13)  BEGIN  SET kill_opcode      = 1 END
-          PATCH_IF (opcode = 55)  BEGIN  SET kill_opcode      = 1 END
-          PATCH_IF (opcode = 157) BEGIN  SET web_opcode       = 1 END
-          PATCH_IF (opcode = 158) BEGIN  SET grease_overlay   = 1 END
-          PATCH_IF (opcode = 154) BEGIN  SET entangle_overlay = 1 END
+      GET_OFFSET_ARRAY itm_headers  ITM_V10_HEADERS
+      PHP_EACH itm_headers AS num => header_off BEGIN                    // array of headers
+        GET_OFFSET_ARRAY2 itm_effects header_off ITM_V10_HEAD_EFFECTS
+        PHP_EACH itm_effects AS num => effect_off BEGIN                  // array of effects on each header
+          PATCH_IF (kill_opcode = 0) BEGIN
+            READ_SHORT effect_off opcode                                 // opcode
+            PATCH_IF (opcode = 13)  BEGIN  SET kill_opcode      = 1 END
+            PATCH_IF (opcode = 55)  BEGIN  SET kill_opcode      = 1 END
+            PATCH_IF (opcode = 157) BEGIN  SET web_opcode       = 1 END
+            PATCH_IF (opcode = 158) BEGIN  SET grease_overlay   = 1 END
+            PATCH_IF (opcode = 154) BEGIN  SET entangle_overlay = 1 END
+          END
         END
       END
-    END
 
-    // add to arrays
-    PATCH_IF (kill_opcode = 1) BEGIN
-      TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~vorpal~    // ~%SOURCE_RES%~ => vorpal
-    END
-    PATCH_IF (web_opcode=1 OR grease_overlay=1 OR entangle_overlay=1) BEGIN
-      TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~entangle~    // ~%SOURCE_RES%~ => entangle
-    END
+      // add to arrays
+      PATCH_IF (kill_opcode = 1) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~vorpal~    // ~%SOURCE_RES%~ => vorpal
+      END
+      PATCH_IF (web_opcode=1 OR grease_overlay=1 OR entangle_overlay=1) BEGIN
+        TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~entangle~    // ~%SOURCE_RES%~ => entangle
+      END
 
+    END
   END
 // end inlined COPY
 

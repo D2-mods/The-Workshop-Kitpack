@@ -26,6 +26,21 @@ ACTION_PHP_EACH d2statusarray AS spell => type BEGIN
   END
 END
 
+//some spells also cure web/entangle/grease (allies only)
+ACTION_FOR_EACH spell IN
+  ~%shockwaveblast%~ ~%incinerateblast%~ ~%blastingsongblast%~ ~%dustexplosionblast%~
+BEGIN
+  COPY_EXISTING ~%spell%.SPL~  ~override~
+    LPF d2_remove_effects_on_cast INT_VAR 326override=1 cre_type=49 STR_VAR resource=~d2!web~ END
+  IF_EXISTS BUT_ONLY
+END
+
+ACTION_FOR_EACH spell IN ~%twistedbarricade%~ ~%fireweapon%~ BEGIN
+  COPY_EXISTING ~%spell%.SPL~  ~override~
+    LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!web~ END
+  IF_EXISTS BUT_ONLY
+END
+
 
 
 //

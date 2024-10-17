@@ -200,8 +200,7 @@ END
 COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
   PATCH_IF !(RESOURCE_CONTAINS ~d2wkspellprep~  ~_%SOURCE_RES%_~) BEGIN
 
-    READ_SHORT 0x68 num_headers
-    PATCH_IF (num_headers > 0) BEGIN
+    PATCH_IF (SOURCE_SIZE > 0x99) BEGIN    // skip if no headers
       READ_LONG  0x8  splname
       READ_SHORT 0x98 splproj
       SET check_opcodes    = 1

@@ -60,19 +60,21 @@ ACTION_IF (FILE_EXISTS ~override/%visceralattack%.SPL~) BEGIN
     LPF CLONE_EFFECT INT_VAR probability1=100 STR_VAR resource=~%m1%x~ END
     LPF d2_remove_effects_on_cast STR_VAR resource=~%m1%a~ END                // remove amulet effects
 
-  COPY_EXISTING ~%visceralattack%.SPL~  ~override/%m1%a.SPL~     // subspell casts amulet effect
+  COPY_EXISTING ~%visceralattack%.SPL~  ~override/%m1%a.SPL~    // subspell casts amulet effect
     LPF d2_subspell_remove_visuals END    // remove visuals
     WRITE_LONG 0x8 ~-1~                   // remove spell name
+    LPF ALTER_EFFECT INT_VAR match_duration=10 duration=15 END
     LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=248 STR_VAR resource=~%m1%b~ END
+    LPF DELETE_EFFECT STR_VAR match_resource=~%visceralmulti%~ END
 
-  COPY ~%abilities%/opcode318.SPL~      ~override/%m1%x.SPL~     // subspell blocks amulet effect
+  COPY ~%abilities%/opcode318.SPL~      ~override/%m1%x.SPL~    // subspell blocks amulet effect
     LPF ALTER_EFFECT STR_VAR resource=~%m1%a~ END
 
-  COPY ~%abilities%/applyeffects.EFF~  ~override/%m1%b.EFF~      // "Visceral Attack"
+  COPY ~%abilities%/applyeffects.EFF~   ~override/%m1%b.EFF~    // "Visceral Attack"
     WRITE_LONG 0x10 139
     WRITE_LONG 0x1c RESOLVE_STR_REF (@114)
 
-  // Crow Hunter can use cloak ability
+  // activate cloak effects (add to damage bonus subspells)
   ACTION_FOR_EACH crowbonus IN ~%crowdamage1%~ ~%crowdamage2%~ ~%crowdamage3%~ BEGIN
     COPY_EXISTING ~%crowbonus%.SPL~  ~override~
       LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%m1%x~ END
@@ -120,7 +122,7 @@ COPY ~%files%/etherbomb.SPL~  ~override/%m2%t.SPL~    // hits all
 
 ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
 
-  COPY_EXISTING ~%nosongchange%.SPL~  ~override~
+  COPY_EXISTING ~%pkegcooldown%.SPL~  ~override~
     LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m2%y~ END
   BUT_ONLY
 
@@ -137,17 +139,16 @@ ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
     LPF DELETE_EFFECT INT_VAR check_headers=0 END
     LPF DELETE_EFFECT INT_VAR match_opcode=174 END
     LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%m2%v~ END
-    LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%nosongchange%~ END
+    LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%pkegcooldown%~ END
+    LPF CLONE_EFFECT INT_VAR match_opcode=251 opcode=309 parameter1=1 parameter2=0 timing=9 STR_VAR resource=d2pkeg1 END    // local variable
 
-  COPY ~%abilities%/powderkegdisable.SPL~    ~override/%m2%x.SPL~
   COPY ~%abilities%/powderkegnosong.SPL~     ~override/%m2%y.SPL~
     LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%m2%v~ END
     LPF ALTER_EFFECT INT_VAR match_timing=9 STR_VAR resource=d2spell END
 
   COPY ~%abilities%/powderkegcast.SPL~       ~override/%m2%v.SPL~
-  //  SAY NAME1 @615
     LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%f~ END
-    LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%m2%x~ END
+    LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%pkegdisable%~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%m2%y~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=174 STR_VAR resource=~EFF_M51~ END
 
@@ -293,6 +294,7 @@ LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@616) STR_VAR bam=~%m6%i~ RET
 COPY ~%files%/golemring.SPL~  ~override/%m6%.SPL~
   SAY NAME1 @70110
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+//  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter2=5 END            // movement (set mode 5)
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_haste_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slow_arrays END
   LPF d2_string_immunities END
@@ -392,7 +394,7 @@ ACTION_IF (FILE_EXISTS ~override/%shockwave%.SPL~) BEGIN
   COPY_EXISTING ~%shockwaveblast%.SPL~    ~override/%ma%b.SPL~
     SAY NAME1 @102
     LPF DELETE_EFFECT INT_VAR match_parameter2=63 END
-    LPF d2_safe_spell END
+    LPF d2_safe_spell STR_VAR insert=above END
 
   // base subspell blocks amulet effects
   COPY_EXISTING ~%shockwaveeffects%.SPL~  ~override~
@@ -422,7 +424,7 @@ ACTION_IF (FILE_EXISTS ~override/%incinerate%.SPL~) BEGIN
   COPY_EXISTING ~%incinerateblast%.SPL~    ~override/%ma%f.SPL~
     SAY NAME1 @103
     LPF DELETE_EFFECT INT_VAR match_parameter2=63 END
-    LPF d2_safe_spell END
+    LPF d2_safe_spell STR_VAR insert=above END
 
   // base subspell blocks amulet effects
   COPY_EXISTING ~%incinerateeffects%.SPL~  ~override~

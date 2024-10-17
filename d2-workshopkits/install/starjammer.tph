@@ -55,6 +55,7 @@ COPY ~%abilities%/riftstep.SPL~          ~override/%w1%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~d2ddoor~ END     // visual
   LPF ALTER_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%w1%g~ END       // gibberlings
 
+//summon gibberlings
 COPY ~%abilities%/riftgatebalor.SPL~  ~override/%w1%g.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END
   LPF ALTER_EFFECT INT_VAR match_opcode=177 duration=10 STR_VAR resource=~%w1%g~ END
@@ -484,8 +485,12 @@ COPY ~%abilities%/riftgate.SPL~   ~override/%w8%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%w8%g~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%w8%d~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
-  LPF ALTER_EFFECT INT_VAR match_opcode=206 parameter1=RESOLVE_STR_REF (@303) STR_VAR resource=~%w8%~ END
 
+  // cooldown message
+  SPRINT ability_name @40115
+  LPF ALTER_EFFECT INT_VAR match_opcode=206 parameter1=RESOLVE_STR_REF (@358) STR_VAR resource=~%w8%~ END
+
+//summon balor
 COPY ~%abilities%/riftgatebalor.SPL~  ~override/%w8%d.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%w8%d~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=265 STR_VAR resource=~d2riftga~ END    // variable for script action

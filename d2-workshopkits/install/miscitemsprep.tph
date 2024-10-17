@@ -75,11 +75,7 @@ ACTION_IF (FILE_EXISTS ~override/d2wkas2.SPL~) BEGIN
   OUTER_TEXT_SPRINT crowdamage1     ~d2wkae1~
   OUTER_TEXT_SPRINT crowdamage2     ~d2wkae7~
   OUTER_TEXT_SPRINT crowdamage3     ~d2wkae8~
-
-  COPY_EXISTING - ~kit.ids~ ~~
-    COUNT_REGEXP_INSTANCES ~D2CROWHUNTERFT~   crowhunterft
-    COUNT_REGEXP_INSTANCES ~D2CROWHUNTERFMT~  crowhunterfmt
-    COUNT_REGEXP_INSTANCES ~D2CROWHUNTERMT~   crowhuntermt
+  OUTER_TEXT_SPRINT visceralmulti   ~d2wkas2@~
 END
 
 //Confessor (d2wk5)
@@ -96,7 +92,8 @@ END
 //Powder Keg (d2wkb)
 ACTION_IF (FILE_EXISTS ~override/d2wkb.2DA~) BEGIN
   OUTER_TEXT_SPRINT powderkeg     ~d2wkb~
-  OUTER_TEXT_SPRINT nosongchange  ~d2wkbs0a~
+  OUTER_TEXT_SPRINT pkegcooldown  ~d2wkbs0a~
+  OUTER_TEXT_SPRINT pkegdisable   ~d2wkbs0x~
 END
 
 //Warhound (d2wk2)
@@ -108,9 +105,6 @@ ACTION_IF (FILE_EXISTS ~override/d2wk2s1.SPL~) BEGIN
   OUTER_TEXT_SPRINT incinerateeffects  ~d2wk2s2a~
   OUTER_TEXT_SPRINT incinerateblast    ~d2wk2s2b~
   OUTER_TEXT_SPRINT warhoundremove     ~d2wk2s0x~
-
-  COPY_EXISTING - ~kit.ids~ ~~
-    COUNT_REGEXP_INSTANCES ~D2WARHOUNDFM~  warhoundfm
 END
 
 //Medic (d2wkd)
