@@ -191,6 +191,22 @@ COPY_EXISTING ~SPWI625.SPL~  ~override/d2!stone.SPL~    // clone Stone to Flesh
   LPF update_op324_restrictions INT_VAR opcode=318 END    // for IWDEE
   LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
 
+//curses
+COPY_EXISTING ~SPPR307.SPL~  ~override/d2!curse.SPL~    // clone Remove Curse
+  LPF d2_subspell_remove_effects END
+  LPF d2_subspell_remove_visuals END
+  LPF update_op324_restrictions INT_VAR opcode=318 END
+  LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
+
+//dispel effects
+COPY_EXISTING ~SPPR303.SPL~  ~override/d2!disp.SPL~    // clone Dispel Magic
+  LPF d2_subspell_remove_effects END
+  LPF d2_subspell_remove_visuals INT_VAR string=0 END
+  LPF update_op324_restrictions INT_VAR opcode=318 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=58 parameter2=0 END    // 100% dispel chance
+  LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
+  LPF d2_remove_spelltypes STR_VAR insert=last END             // dispel Secondary types (not level 0 spells)
+
 
 /*
 */

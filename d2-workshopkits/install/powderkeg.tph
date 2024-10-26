@@ -310,9 +310,9 @@ END
 
 //patch HLA song (gives "Change Song" ability)
 ACTION_IF (FILE_EXISTS_IN_GAME ~SPCL920.SPL~) BEGIN
-  COPY ~%abilities%/castspelltarget.EFF~  ~override/%s5%a.EFF~    // unmodded
+  COPY ~%abilities%/applyeffects.EFF~  ~override/%s5%a.EFF~
     WRITE_ASCII 0x30 ~%s5%a~ #8
-  COPY ~%passives%/giveability.SPL~       ~override/%s5%a.SPL~
+  COPY ~%passives%/giveability.SPL~    ~override/%s5%a.SPL~
     LPF ALTER_EFFECT STR_VAR resource=~%s5%~ END
 
   COPY_EXISTING ~SPCL920.SPL~  ~override~

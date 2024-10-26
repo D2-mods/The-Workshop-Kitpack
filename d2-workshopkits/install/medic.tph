@@ -322,10 +322,7 @@ COPY_EXISTING ~%mediccure4%.SPL~  ~override~
   LPF cure_undead_status STR_VAR status=charm END
   LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=106 END    // remove op106 (morale break)
   LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
-
-  // removes curses
-  LPF CLONE_EFFECT INT_VAR match_opcode=77 opcode=26 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=26 opcode=240 parameter2=35 END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!curse~ insert=last END    // breaks curses
 BUT_ONLY
 
 //

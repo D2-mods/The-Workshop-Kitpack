@@ -177,14 +177,13 @@ This is how I'd do the install:
 
 Version info:
 
-v5.10
-- 
-
 v5.9
-- Powder Keg songs will now break invisibility. If Improved Invisible, will still keep the other effects. Previously you could just stand around invisible until enemies were dead, unless they could see through invisibility.
-- Moonlight Knight: Moonlight Vortex has a bigger beam visual and hits in a wider area (kind of). The actual beam itself is still a narrow line, but it does some stuff to approximate a wider area.
 - Bubb's Spell Menu note: Fixed display issues in Overlay mode with Ki Energy (Medic kit). It should now always display the correct amount of Ki Energy after using an ability. (This was just a display issue. The actual Ki Energy amount was always correct.)
 - Multiclass kits should no longer randomly regain all daily uses of abilities. This only happened rarely. It was a side effect of a workaround for a possible export/import issue (still implemented, but improved effects structure).
+- Fixed patching issue when installed after EE Fixpack (only affected Medic's Spiritual Clarity).
+- Starjammer: Now briefly invisible when using Riftstep (cancels spells against, unless caster sees through invisibility).
+- Powder Keg songs will now break invisibility. If Improved Invisible, will still keep the other effects. Previously you could just stand around invisible until enemies were dead, unless they could see through invisibility.
+- Moonlight Knight: Moonlight Vortex has a bigger beam visual and hits in a wider area (kind of). The actual beam itself is still a narrow line, but it does some stuff to approximate a wider area.
 - Warhound explosions and Powder Keg's fiery explosions now dispel effects of webs, grease, and entangle on allies in the area (even if they don't take damage). Also protected for 5 seconds (enough time to leave the area). A couple kit abilities may do something similar.
 - Other minor changes (sound effects, BAM images, text colors, etc.).
 
@@ -763,8 +762,11 @@ Tools/Resources used to make this mod:
 - paint.net (https://www.getpaint.net/)
 - IESDP (https://gibberlings3.github.io/iesdp/main.htm)
 - WeiDU readme (https://weidu.org/~thebigg/README-WeiDU.html)
-- Infinity Auto Packager (https://github.com/InfinityTools/InfinityAutoPackager)
 - Git Bash (https://git-scm.com/downloads)
+- WeiDU Mod Packager (https://github.com/InfinityTools/WeiduModPackager)
+
+Used for older releases (replaced by WeiDU Mod Packager):
+- Infinity Auto Packager (https://github.com/InfinityTools/InfinityAutoPackager)
 - 7-Zip (https://www.7-zip.org/)
 
 Original game resources included with this mod belong to the rights holders.

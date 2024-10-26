@@ -182,16 +182,15 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sppr308.SPL~) BEGIN         // clone Remove Para
     LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 STR_VAR resource=~EFF_E06~ END
 
     //spell effects
-    LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 opcode=26 END     // break curse
     LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 opcode=2 END      // cure sleep
     LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 opcode=77 END     // cure feeblemind
     LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 opcode=164 END    // cure intoxication
-    LPF CLONE_EFFECT INT_VAR match_opcode=26 opcode=240 parameter2=35 END
     LPF CLONE_EFFECT INT_VAR match_opcode=2 opcode=240 parameter2=14 END
     LPF CLONE_EFFECT INT_VAR match_opcode=2 opcode=240 parameter2=130 END
     LPF CLONE_EFFECT INT_VAR match_opcode=77 opcode=240 parameter2=48 END
     LPF CLONE_EFFECT INT_VAR match_opcode=164 opcode=240 parameter2=5 END
     LPF ee_fixpack_status_cures STR_VAR status = ~sleep feeblemind intox~ END
+    LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!curse~ END    // breaks curses
   //
 END
 
