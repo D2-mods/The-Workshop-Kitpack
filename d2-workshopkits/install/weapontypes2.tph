@@ -1,0 +1,186 @@
+/*
+weapontype attributes, new weapprof functions
+requires weapontypes.tph and d2_2da_find_row.tpa
+*/
+
+
+/*functions
+d2_weapprof_kitedits    ACTION or PATCH
+*/
+
+
+//use to group weapontypes together
+//this is checked with below functions
+
+ACTION_CLEAR_ARRAY ~d2_weapontype_attributes~
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_weapontype_attributes BEGIN
+  axe            => heavymetalshaman
+  bastardsword   => heavymetal
+  club           => bluntthiefdruid
+  compositebow   => ranged
+  dagger         => sharpthiefmetaldruid
+  dart           => rangedthiefsharpdruid
+  flail          => bluntspikedmetal
+  greataxe       => heavymetalshaman
+  greatsword     => heavymetal
+  halberd        => heavypolemetal
+  hammer         => bluntmetal
+  heavycrossbow  => rangedthief
+  katana         => sharpthiefmetal
+  lightcrossbow  => rangedthief
+  longbow        => ranged
+  longsword      => sharpthiefmetal
+  mace           => bluntmetal
+  morningstar    => bluntspikedmetal
+  ninjato        => sharpthiefmetal
+  scimitar       => sharpthiefmetaldruid
+  shortbow       => rangedthiefshaman
+  shortsword     => sharpthiefmetal
+  sling          => rangedthiefdruid
+  spear          => sharppolemetaldruid
+  staff          => bluntthiefpoledruid
+  throwingdagger => sharpthiefmetaldruid
+  throwingaxe    => heavymetalshaman
+  throwinghammer => bluntmetal
+  wakizashi      => sharpthiefmetal
+//ammo
+  arrow          => ammosharp
+  bolt           => ammosharp
+  bullet         => ammoblunt
+//pst
+  punchdagger    => sharpthiefmetal
+  knuckles       => bluntmetal
+END
+
+
+
+/*
+kit is column header (kit symbolic name)
+attribute matches with right side (only needs to include "attribute" string)
+type matches with left side (can be a list of items, can also include the "type" string)
+amount is max slots (if higher than fighter max, will be lowered automatically)
+*/
+
+//attributes are arbitrary words used to group items together
+//if neither type nor attribute is set, then it matches everything
+//if both are set, then it needs to match both
+
+DEFINE_ACTION_FUNCTION d2_weapprof_kitedits INT_VAR amount=1 STR_VAR kit=none attribute=all type=all BEGIN
+
+  COPY_EXISTING ~weapprof.2da~  ~override~
+
+    PATCH_IF (RESOURCE_CONTAINS ~weapprof.2da~  ~%kit%~) BEGIN
+      // get prof numbers
+      PHP_EACH d2_weapontype_attributes AS item => words BEGIN
+        PATCH_IF ((~%attribute%~ STR_EQ ~all~) OR !(~%words%~ STRING_CONTAINS_REGEXP ~%attribute%~)
+        ) BEGIN
+          PATCH_IF ((~%type%~ STR_EQ ~all~) OR !(~%item%~ STRING_CONTAINS_REGEXP ~%type%~) OR !(~%type%~ STRING_CONTAINS_REGEXP ~%item%~)
+          ) BEGIN
+            PHP_EACH d2_weapontype_prof AS item2 => prof BEGIN
+              PATCH_IF (~%item%~ STR_EQ ~%item2%~) BEGIN
+                PATCH_IF (IS_AN_INT prof AND prof > 0) BEGIN
+                  TEXT_SPRINT $d2_weapprof_kitedits_array (~%prof%~) ~set~    // make array
+                END
+              END
+            END
+          END
+        END
+      END
+  
+      // variables
+      COUNT_2DA_ROWS 3 weapprof_rows
+      READ_2DA_ENTRIES_NOW ~weapprof_table~ 3
+  
+      LPF 2da_find_column STR_VAR col_name=fighter RET col_number END
+      SET fighter_col = col_number
+      LPF 2da_find_column STR_VAR col_name=EVAL ~%kit%~ RET col_number END
+      SET kit_col = col_number
+  
+      // patch
+      FOR (r = 1; r < weapprof_rows; ++r) BEGIN
+        READ_2DA_ENTRY_FORMER ~weapprof_table~ r 1 value
+        PHP_EACH d2_weapprof_kitedits_array AS prof => set BEGIN
+          PATCH_IF (value = prof) BEGIN
+            // check "amount" against fighter
+            PATCH_IF (fighter_col > 0) BEGIN
+              READ_2DA_ENTRY_FORMER ~weapprof_table~ r fighter_col fighter_slots
+              PATCH_IF (amount > fighter_slots) BEGIN SET amount = fighter_slots END
+              SET fighter_col = 0
+            END
+  
+            // set edits
+            SET_2DA_ENTRY_LATER ~d2weapprof_edits~ r kit_col amount
+          END
+        END
+      END
+  
+      // make edits
+      SET_2DA_ENTRIES_NOW ~d2weapprof_edits~ 3
+      PRETTY_PRINT_2DA
+
+    END
+  IF_EXISTS BUT_ONLY
+
+END
+
+DEFINE_PATCH_FUNCTION d2_weapprof_kitedits INT_VAR amount=1 STR_VAR kit=none attribute=all type=all BEGIN
+
+  PATCH_IF (~%SOURCE_RES%~ STR_EQ ~weapprof~) BEGIN
+
+    PATCH_IF (RESOURCE_CONTAINS ~weapprof.2da~  ~%kit%~) BEGIN
+      // get prof numbers
+      PHP_EACH d2_weapontype_attributes AS item => words BEGIN
+        PATCH_IF ((~%attribute%~ STR_EQ ~all~) OR !(~%words%~ STRING_CONTAINS_REGEXP ~%attribute%~)
+        ) BEGIN
+          PATCH_IF ((~%type%~ STR_EQ ~all~) OR !(~%item%~ STRING_CONTAINS_REGEXP ~%type%~) OR !(~%type%~ STRING_CONTAINS_REGEXP ~%item%~)
+          ) BEGIN
+            PHP_EACH d2_weapontype_prof AS item2 => prof BEGIN
+              PATCH_IF (~%item%~ STR_EQ ~%item2%~) BEGIN
+                PATCH_IF (IS_AN_INT prof AND prof > 0) BEGIN
+                  TEXT_SPRINT $d2_weapprof_kitedits_array (~%prof%~) ~set~    // make array
+                END
+              END
+            END
+          END
+        END
+      END
+  
+      // variables
+      COUNT_2DA_ROWS 3 weapprof_rows
+      READ_2DA_ENTRIES_NOW ~weapprof_table~ 3
+  
+      LPF 2da_find_column STR_VAR col_name=fighter RET col_number END
+      SET fighter_col = col_number
+      LPF 2da_find_column STR_VAR col_name=EVAL ~%kit%~ RET col_number END
+      SET kit_col = col_number
+  
+      // patch
+      FOR (r = 1; r < weapprof_rows; ++r) BEGIN
+        READ_2DA_ENTRY_FORMER ~weapprof_table~ r 1 value
+        PHP_EACH d2_weapprof_kitedits_array AS prof => set BEGIN
+          PATCH_IF (value = prof) BEGIN
+            // check "amount" against fighter
+            PATCH_IF (fighter_col > 0) BEGIN
+              READ_2DA_ENTRY_FORMER ~weapprof_table~ r fighter_col fighter_slots
+              PATCH_IF (amount > fighter_slots) BEGIN SET amount = fighter_slots END
+              SET fighter_col = 0
+            END
+  
+            // set edits
+            SET_2DA_ENTRY_LATER ~d2weapprof_edits~ r kit_col amount
+          END
+        END
+      END
+  
+      // make edits
+      SET_2DA_ENTRIES_NOW ~d2weapprof_edits~ 3
+      PRETTY_PRINT_2DA
+
+    END
+  END
+
+END
+
+
+//
+//

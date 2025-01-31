@@ -1,0 +1,33 @@
+/*
+can cast support spells on invisible or sanctuaried
+enable or disable from config.ini (default enabled)
+*/
+
+
+ACTION_FOR_EACH ability IN
+  ~%denial%~
+  ~%revitalizer%~
+  ~%jolt%~
+  ~%firstaid%~
+  ~%autoimmune%~
+  ~%mediccure2%~
+  ~%mediccure4%~
+  ~%healingblood%~
+  ~%beastblood%~
+  ~%madmanblood%~
+  ~%leadelixir%~
+BEGIN
+
+  COPY_EXISTING ~%ability%.spl~  ~override~
+    PATCH_IF (nosupportmode = 0) BEGIN
+      WRITE_LONG 0x18 THIS | BIT24
+    END ELSE BEGIN
+      WRITE_LONG 0x18 (THIS BAND BNOT BIT24)
+    END
+  IF_EXISTS BUT_ONLY
+
+END
+
+
+//
+//

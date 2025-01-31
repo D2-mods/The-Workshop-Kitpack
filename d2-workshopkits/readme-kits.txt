@@ -43,6 +43,9 @@ HUNTER TOOLS: For 12 rounds, the character gains a +1 bonus to luck rolls and Sa
 
 QUICKSILVER: Enhances ranged attacks for 6 rounds, adding 2 points of piercing damage and a +5% chance to score a critical hit. All ammo types (arrows, bolts, and bullets) are also enchanted and become able to hit enemies that normally require magical or silver weapons to hit.
 
+– 8th level: +2 bonus to AC and Saving Throws vs. lycanthropes and fiendish creatures.
+– 16th level: Additional +5% to critical hit chance with Quicksilver.
+
 Disadvantages:
 – May not wear armor heavier than studded leather.
 
@@ -61,6 +64,8 @@ Advantages:
 SHOCKWAVE: The next successful ranged attack explodes in a 15-ft. radius, inflicting 2d4 crushing damage for every 4 levels of the character, up to a maximum of 10d4 at level 20. Any enemies in the blast are also propelled back a considerable distance (no save).
 
 INCINERATE: The next successful ranged attack creates a fiery cloud, which covers a 15-ft. radius and lasts for 4 rounds. Once each round, creatures in the cloud suffer 1d6 fire damage per 4 levels of the character, up to a maximum of 5d6 at level 20 (Save vs. Breath for half).
+
+– Warhounds take no damage from their own Shockwave or Incinerate.
 
 Disadvantages:
 – May not Specialize in melee weapons.
@@ -219,7 +224,7 @@ MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. 
 LEAD ELIXIR: A mysterious concoction that shifts weight to boost defense and resilience. The recipient gains a +4 bonus to Armor Class and Saving Throws, and 20% resistance to all damage types, but incurs a -1 penalty to luck rolls. The effects last for 3 turns. This blood will also prevent level drain.
 
 Disadvantages:
-– May not wear gauntlets or bracers.
+– May not wear magic gauntlets or bracers.
 
 
 ==================================================
@@ -235,7 +240,7 @@ SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multip
 
 – 9th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 13 and 17.
 
-VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 12 Hit Points and haste the character for 10 seconds.
+VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 5 + 20% of maximum Hit Points and haste the character for 10 seconds.
 
 Disadvantages:
 – Only gains 20 thieving skill points per level.
@@ -406,11 +411,11 @@ OVERDOSE: For 5 rounds, the character gains an extra attack per round, +3 per le
 
 INJECTION SHOT: The next successful ranged attack forces the target to make a save vs. Death at -2 or become feebleminded for 7 rounds. If the Saving Throw is made, the target is confused and slowed for 2 rounds.
 
-AUTOIMMUNE: The recipient is automatically cured of the next instance of poison, disease, hold, paralysis, stun, sleep, blindness, deafness, charm, berserk, fear, confusion, or feeblemind. This ability lasts up to 3 turns.
+AUTOIMMUNE: The recipient is automatically cured of the next instance of poison, disease, hold, paralysis, stun, sleep, blindness, deafness, charm, berserk, fear, confusion, or feeblemind. On activation, the character is also restored 30% of maximum Hit Points. This ability lasts up to 3 turns.
 
 Disadvantages:
 – Only gains 15 thieving skill points per level.
-– May not wear armor heavier than leather.
+– May only wear leather or hide armor.
 
 
 ==================================================

@@ -1,0 +1,62 @@
+/*
+subtledoctor's Combat Skills: various edits
+Skills & Abilities: removes "Heavy Armor" for some kits
+*/
+
+
+OUTER_SET patch_subtle = 1
+OUTER_SET patch_skills = 1
+
+ACTION_IF !(IS_AN_INT noarmorrestrictions) BEGIN OUTER_SET noarmorrestrictions = 0 END
+
+
+//
+COPY_EXISTING ~weapprof.2da~  ~override~
+
+  // check mods
+  PATCH_IF !(RESOURCE_CONTAINS ~weapprof.2da~  ~MELEETHAC0~)   BEGIN SET patch_subtle = 0 END
+  PATCH_IF !(RESOURCE_CONTAINS ~weapprof.2da~  ~ACCURACY~)     BEGIN SET patch_subtle = 0 END
+  PATCH_IF !(RESOURCE_CONTAINS ~weapprof.2da~  ~MISCSKILLS~)   BEGIN SET patch_subtle = 0 END
+  PATCH_IF !(RESOURCE_CONTAINS ~weapprof.2da~  ~SPELLCRAFT~)   BEGIN SET patch_skills = 0 END
+  PATCH_IF !(RESOURCE_CONTAINS ~weapprof.2da~  ~DEVOTION~)     BEGIN SET patch_skills = 0 END
+  PATCH_IF !(RESOURCE_CONTAINS ~weapprof.2da~  ~CONDITIONING~) BEGIN SET patch_skills = 0 END
+
+  // subltedoctor skills
+  PATCH_IF (patch_subtle > 0) BEGIN
+    PATCH_FOR_EACH kit IN
+      ~d2crowhunter~ ~d2crowhunterft~ ~d2crowhuntermt~ ~d2crowhunterfmt~
+    BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=SNARES entry=0 END    // no traps
+    END
+
+    PATCH_FOR_EACH kit IN
+      ~d2drifter~ ~d2spellfencer~
+      ~d2fullmetaljaguar~ ~d2fullmetaljaguarfm~ ~d2fullmetaljaguarft~
+    BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=DODGE entry=4 END    // 4 in dodge
+    END
+
+    PATCH_FOR_EACH kit IN
+      ~d2warhound~ ~d2warhoundfm~ ~d2noblescion~ ~d2nurse~ ~d2nursemt~
+    BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=ACCURACY entry=4 END    // 4 in ranged
+    END
+  END
+
+  // skills & abilities
+  PATCH_IF (patch_skills>0 AND noarmorrestrictions=0) BEGIN
+    PATCH_FOR_EACH kit IN
+      ~d2drifter~ ~d2gravewarden~ ~d2confessor~
+      ~d2beasthunter~ ~d2beasthunterfm~ ~d2beasthunterfmc~ ~d2beasthunterfc~
+//    ~d2spellfencer~ ~d2noblescion~
+//    ~d2fullmetaljaguar~ ~d2fullmetaljaguarfm~ ~d2fullmetaljaguarft~
+    BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=ARMOR entry=0 END    // no heavy armor
+    END
+  END
+
+BUT_ONLY
+
+
+//
+//

@@ -1,0 +1,46 @@
+/*
+reset all profs to same as base class
+runs from Kit Updater, before other edits
+*/
+
+
+REINCLUDE ~override/d2_hla_baseclass_array~
+
+
+COPY_EXISTING ~weapprof.2da~  ~override~
+
+  // variables
+  COUNT_2DA_ROWS 3 weapprof_rows
+  READ_2DA_ENTRIES_NOW ~weapprof_table~ 3
+
+  PHP_EACH d2_hla_baseclass_array AS kit => class BEGIN
+    PATCH_IF !(~%kit%~ STR_EQ ~d2kensaizerker~) BEGIN
+    PATCH_IF !(~%kit%~ STR_EQ ~d2monastery~) BEGIN
+    PATCH_IF !(~%kit%~ STR_EQ ~d2jesterblade~) BEGIN
+
+    PATCH_IF (RESOURCE_CONTAINS ~%SOURCE_RES%.2da~  ~[^0-9^a-z^_]%kit%[^0-9^a-z^_]~) BEGIN
+    PATCH_IF (RESOURCE_CONTAINS ~%SOURCE_RES%.2da~  ~[^0-9^a-z^_]%class%[^0-9^a-z^_]~) BEGIN
+      LPF 2da_find_column STR_VAR col_name=~%class%~ RET col_number END
+      SET class_col = col_number
+      LPF 2da_find_column STR_VAR col_name=~%kit%~ RET col_number END
+      SET kit_col = col_number
+
+      // patch
+      FOR (r = 1; r < weapprof_rows; ++r) BEGIN
+        READ_2DA_ENTRY_FORMER ~weapprof_table~ r class_col slots
+        SET_2DA_ENTRY_LATER ~weapprof_edits~ r kit_col slots
+      END
+    END
+    END
+
+    END
+    END
+    END
+  END
+  SET_2DA_ENTRIES_NOW ~weapprof_edits~ 3
+
+BUT_ONLY
+
+
+//
+//

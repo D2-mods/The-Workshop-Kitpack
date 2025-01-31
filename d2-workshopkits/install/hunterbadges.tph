@@ -200,6 +200,9 @@ END
   OUTER_TEXT_SPRINT give_badge_saw      ~%m5%g~
   OUTER_TEXT_SPRINT give_badge_old      ~%m6%g~
 
+  OUTER_TEXT_SPRINT mode  ~badge~
+  INCLUDE ~%install%/itemtypepatch.tph~    // set item fields (function work)
+
 
 END
 

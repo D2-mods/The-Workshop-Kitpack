@@ -1,0 +1,99 @@
+/*
+patches for RR, Shohy's mod, Bardic Wonders
+runs from main component and updater
+
+RR#BDF03 - gives RR#BDF04
+RR#BDF04 - HLA song (lasts 1 round)
+RR#BDF05 - gives RR#BDF06
+RR#BDF06 - HLA song (lasts 3 rounds)
+*/
+
+
+//for Rogue Rebalancing
+DEFINE_ACTION_FUNCTION pkeg_hlaedits STR_VAR hla=~~ subspell=~~ block=~~ BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%hla%.SPL~) BEGIN
+    // edit hla
+    COPY_EXISTING ~%hla%.SPL~  ~override~
+      LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%subspell%~ END
+    BUT_ONLY
+
+    //block x spells
+    COPY ~override/%pkegstartsong%.SPL~  ~override~
+      LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%block%~ END
+    BUT_ONLY
+  END
+END
+
+LAF pkeg_hlaedits STR_VAR hla=SPCL920 subspell=~%s5%a~ block=~%s5%x~ END
+LAF pkeg_hlaedits STR_VAR hla=RR#BDF03 subspell=~%s6%a~ block=~%s6%x~ END
+LAF pkeg_hlaedits STR_VAR hla=RR#BDF05 subspell=~%s7%a~ block=~%s7%x~ END
+
+
+//for Bardic Wonders (extended song tweak)
+OUTER_SPRINT desc @219
+OUTER_SPRINT note @650
+OUTER_SPRINT newdesc  ~%desc%%WNL%%WNL%%note%~    // add tweak note
+ACTION_IF (FILE_EXISTS ~override/c0bardsx.SPL~) BEGIN  OUTER_SPRINT desc ~%newdesc%~  END
+
+COPY_EXISTING ~%enhancedbardsong%.SPL~  ~override~
+  SAY UNIDENTIFIED_DESC ~%desc%~
+BUT_ONLY
+
+
+//patch Shohy HLA song (remove delayed effects)
+OUTER_TEXT_SPRINT pkegremove ~%s0%a~
+COPY_EXISTING ~BI#B1SA.SPL~  ~override~
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%pkegremove%~ END
+IF_EXISTS BUT_ONLY
+
+
+//
+//check for ToF HLAs
+OUTER_SET tof_hlasong = 0
+ACTION_IF (RESOURCE_CONTAINS ~LUBA0.2DA~ ~AP_DW-HLAVD~) BEGIN    // hlas detected
+  ACTION_IF (FILE_EXISTS_IN_GAME ~#bard7.SPL~) BEGIN             // tof song switcher
+    ACTION_IF (FILE_EXISTS_IN_GAME ~RR#BDF04.SPL~) BEGIN         // rr hla song
+      OUTER_SET tof_hlasong = 1
+    END
+  END
+END
+
+//get name and desc
+ACTION_IF (tof_hlasong > 0) BEGIN
+  COPY_EXISTING - ~#bard7.spl~  ~~
+    READ_STRREF 0x8 hlasong_name    // get tof text (will be there if HLAs are installed)
+    READ_STRREF 0x50 hlasong_desc
+  IF_EXISTS
+  ACTION_IF !(VARIABLE_IS_SET hlasong_name) BEGIN OUTER_SPRINT hlasong_name @120 END
+  ACTION_IF !(VARIABLE_IS_SET hlasong_desc) BEGIN OUTER_SPRINT hlasong_desc @220 END
+  ACTION_IF (~%hlasong_name%~ STR_EQ ~~)    BEGIN OUTER_SPRINT hlasong_name @120 END
+  ACTION_IF (~%hlasong_desc%~ STR_EQ ~~)    BEGIN OUTER_SPRINT hlasong_desc @220 END
+  OUTER_TEXT_SPRINT hlasong_res ~RR#BDF04~
+END ELSE BEGIN
+  OUTER_SPRINT hlasong_name @119
+  OUTER_SPRINT hlasong_desc @219
+  OUTER_TEXT_SPRINT hlasong_res ~SPCL920A~
+END
+
+// patch hla song switcher
+COPY_EXISTING ~%enhancedbardsong%.spl~  ~override~
+  SAY NAME1 ~%hlasong_name%~
+  SAY UNIDENTIFIED_DESC ~%hlasong_desc%~
+  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%hlasong_res%~ END
+BUT_ONLY
+
+// temp fix for ToF HLA changing to vanilla song
+COPY_EXISTING ~SPCL920.spl~  ~override~
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=251 STR_VAR resource=~%hlasong_res%~ END
+IF_EXISTS BUT_ONLY
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT enhancedbardsong   ~%s5%~
+OUTER_TEXT_SPRINT rrenhancedsong     ~%s6%~
+OUTER_TEXT_SPRINT rrlingeringsong    ~%s7%~
+OUTER_TEXT_SPRINT shohyenhancedsong  ~BI#B1SA~
+
+
+//
+//

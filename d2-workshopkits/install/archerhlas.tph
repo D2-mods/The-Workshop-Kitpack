@@ -1,28 +1,27 @@
 /*
-for archer kits
-add Argent77 HLAs if detected (kit with hla must be installed)
+add Improved Archer HLAs if detected (mod by Argent77)
+if hlas don't exist, this is skipped silently
 */
 
 
 //
-ACTION_IF !(IS_AN_INT archerhla1) BEGIN  OUTER_SET archerhla1 = 0 END
-ACTION_IF !(IS_AN_INT archerhla2) BEGIN  OUTER_SET archerhla2 = 0 END
-ACTION_IF !(FILE_EXISTS ~override/A7#IN0A.SPL~) BEGIN  OUTER_SET archerhla1 = 0 END
-ACTION_IF !(FILE_EXISTS ~override/A7#IN0B.SPL~) BEGIN  OUTER_SET archerhla2 = 0 END
+ACTION_IF !(IS_AN_INT shot) BEGIN  OUTER_SET shot = 0 END
+ACTION_IF !(IS_AN_INT trap) BEGIN  OUTER_SET trap = 0 END
+ACTION_IF !(FILE_EXISTS ~override/A7#IN0A.SPL~) BEGIN  OUTER_SET shot = 0 END
+ACTION_IF !(FILE_EXISTS ~override/A7#IN0B.SPL~) BEGIN  OUTER_SET trap = 0 END
 
 /*variables
-archerhla1 = 1 (sure shot)
-archerhla2 = 1 (missile trap)
-idsname - kit name in luabbr
-abbrev - new hla table name (without the "lu")
+shot = 1 (sure shot)
+trap = 1 (missile trap)
+hlatable - hla table name (including the "lu")
 
-one of the archerhlas must be set to = 1 to do anything (disabled if not set)
-idsname and abbrev are required to make new hla table (cloned from kit's existing table)
+Can set 1 or both HLAs (shot or trap)
+If both hlas are 0, this file doesn nothing.
 */
 
 
 //
-ACTION_IF (archerhla1 > 0) BEGIN
+ACTION_IF (shot > 0) BEGIN
   OUTER_SET clone_match = 0
   ACTION_FOR_EACH table IN ~A7ra1~ ~A7fi1~ ~A7pa1~ BEGIN
     ACTION_IF (clone_match = 0) BEGIN
@@ -34,11 +33,11 @@ ACTION_IF (archerhla1 > 0) BEGIN
   END
 
   ACTION_IF (clone_match = 0) BEGIN
-    OUTER_SET archerhla1 = 0
+    OUTER_SET shot = 0
   END
 END
 
-ACTION_IF (archerhla2 > 0) BEGIN
+ACTION_IF (trap > 0) BEGIN
   OUTER_SET clone_match = 0
   ACTION_FOR_EACH table IN ~A7ra1~ ~A7th1~ BEGIN
     ACTION_IF (clone_match = 0) BEGIN
@@ -50,17 +49,13 @@ ACTION_IF (archerhla2 > 0) BEGIN
   END
 
   ACTION_IF (clone_match = 0) BEGIN
-    OUTER_SET archerhla2 = 0
+    OUTER_SET trap = 0
   END
 END
 
 
 //
-ACTION_IF ((archerhla1 > 0) OR (archerhla2 > 0)) BEGIN
-  LAF d2_clone_hla_table STR_VAR kitids=~%idsname%~ abbrev=~%abbrev%~ RET hlatable END
-END
-
-ACTION_IF (archerhla1 > 0) BEGIN
+ACTION_IF (shot > 0) BEGIN
   OUTER_SET insert_match = 0
   ACTION_FOR_EACH spell IN ~GA_SPCL906~ ~GA_SPCL908~ ~GA_SPCL907~ BEGIN
     ACTION_IF (insert_match = 0) BEGIN
@@ -74,7 +69,7 @@ ACTION_IF (archerhla1 > 0) BEGIN
   LAF d2_add_hla_string STR_VAR hlatable=~%hlatable%~ hlastring=~%hlastring%~ match=~%hla1_insert%~ END
 END
 
-ACTION_IF (archerhla2 > 0) BEGIN
+ACTION_IF (trap > 0) BEGIN
   OUTER_SET insert_match = 0
   ACTION_FOR_EACH spell IN ~AP_SPCL915~ ~GA_SPCL916~ ~GA_SPCL918~ BEGIN
     ACTION_IF (insert_match = 0) BEGIN
@@ -92,8 +87,8 @@ END
 //variables
 OUTER_TEXT_SPRINT argent77_hla1  ~A7#IN0A~
 OUTER_TEXT_SPRINT argent77_hla2  ~A7#IN0B~
-OUTER_SET archerhla1 = 0
-OUTER_SET archerhla2 = 0
+OUTER_SET shot = 0
+OUTER_SET trap = 0
 
 
 //

@@ -1,0 +1,38 @@
+/*
+gain kit effects from Beamdog items (ex. archer's eyes)
+*/
+
+
+/*example
+OUTER_TEXT_SPRINT kit_group ~blade jester~
+OUTER_TEXT_SPRINT ids_name  ~D2%kitname%~
+INCLUDE ~%install%/beamdogitems.tph~
+*/
+
+
+ACTION_PHP_EACH item_kit_effects AS item => class BEGIN
+  ACTION_IF !(~%kit_group%~ STRING_CONTAINS_REGEXP ~%class%~) BEGIN
+    ACTION_FOR_EACH res IN ~SPL~ ~ITM~ BEGIN
+      ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.%res%~) BEGIN
+        COPY_EXISTING ~%item%.%res%~  ~override~
+          PHP_EACH kit_ids_array AS class2 => eff_to_copy BEGIN
+            PATCH_IF (~%class%~ STR_EQ ~%class2%~) BEGIN
+              LPF CLONE_EFFECT 
+                INT_VAR 
+                  silent            = 1
+                  match_opcode      = 177 
+                  match_parameter1  = %eff_to_copy%
+                  match_parameter2  = 9 
+                  parameter1        = IDS_OF_SYMBOL (kit ~%ids_name%~)
+              END
+            END
+          END
+        BUT_ONLY
+      END
+    END
+  END
+END
+
+
+/*
+*/

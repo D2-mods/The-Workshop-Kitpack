@@ -1,0 +1,78 @@
+/*
+add all hlas from 1 kit/class table to another table
+only added if not already in table
+for more specific patching, do it in a separate file (ex. deleting stuff)
+
+requires d2_add_hla_string.tpa
+variables: hlatable, copyclass, restrict (optional)
+*/
+
+
+//hlatable is the hla table to copy abilities to (including the "lu")
+//copyclass is class of table to copy from (can be any class/kit from luabbr.2da)
+//restrict is ABILITY in copyclass table to skip copying (including the "AP_" or "GA_")
+
+/*example (monk kit)
+OUTER_TEXT_SPRINT hlatable   ~lu%kitid%~
+OUTER_TEXT_SPRINT copyclass  ~kensai~
+OUTER_TEXT_SPRINT restrict   ~GA_SPCL904~    // skip Resist Magic (can be a list)
+INCLUDE ~%install%/hlacopyclass.tph~
+*/
+
+
+//check table
+ACTION_PHP_EACH d2_luabbr_classes AS class => abbrev BEGIN
+  ACTION_IF (~%class%~ STR_EQ ~%copyclass%~) BEGIN OUTER_TEXT_SPRINT table2 ~%abbrev%~ END
+END
+
+OUTER_SET patch_hlas = 1
+
+
+//variables
+OUTER_TEXT_SPRINT copyhlas  ~lu%table2%~
+ACTION_IF !(VARIABLE_IS_SET hlatable) BEGIN OUTER_TEXT_SPRINT hlatable ~lu%kitid%~ END
+ACTION_IF (~%hlatable%~ STR_EQ ~~)    BEGIN OUTER_TEXT_SPRINT hlatable ~lu%kitid%~ END
+ACTION_IF !(VARIABLE_IS_SET restrict) BEGIN OUTER_TEXT_SPRINT restrict ~none~ END
+ACTION_IF (~%restrict%~ STR_EQ ~~)    BEGIN OUTER_TEXT_SPRINT restrict ~none~ END
+
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%copyhlas%.2da~) BEGIN OUTER_SET patch_hlas = 0 END
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%hlatable%.2da~) BEGIN OUTER_SET patch_hlas = 0 END
+
+
+//
+ACTION_IF (patch_hlas > 0) BEGIN
+  // check copyclass table for anything not in hlatable
+  COPY_EXISTING - ~%copyhlas%.2da~  ~~
+    COUNT_2DA_ROWS 3 copyhlas_rows
+    READ_2DA_ENTRIES_NOW ~copyhlas_table~ 3
+    FOR (r = 1; r < copyhlas_rows; ++r) BEGIN
+      READ_2DA_ENTRY_FORMER ~copyhlas_table~ r 1 ability
+      PATCH_IF !(~%ability%~ STR_EQ ~*~) BEGIN
+
+        // patch if "restrict" does NOT contain "ability"
+        PATCH_IF (~%restrict%~ STRING_CONTAINS_REGEXP ~%ability%~) BEGIN
+          PATCH_IF !(RESOURCE_CONTAINS ~%hlatable%.2da~ ~[^0-9^a-z]%ability%[^0-9^a-z]~) BEGIN
+            LPF d2_get_hla_string STR_VAR clone_res=~%ability%~ RET hlastring END
+            TEXT_SPRINT $d2_hlacopyclass (~%ability%~) ~%hlastring%~
+          END
+        END
+
+      END
+    END
+
+  // add hlas to kit table (if any)
+  COPY_EXISTING ~%hlatable%.2da~  ~override~
+    PHP_EACH d2_hlacopyclass AS ability => hlastring BEGIN
+      LPF d2_add_hla_string STR_VAR hlastring=~%hlastring%~ END
+    END
+  BUT_ONLY
+END
+
+
+ACTION_CLEAR_ARRAY ~d2_hlacopyclass~
+OUTER_TEXT_SPRINT copyclass ~~
+OUTER_TEXT_SPRINT restrict ~~
+
+
+/*
+*/

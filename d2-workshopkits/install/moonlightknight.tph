@@ -63,13 +63,14 @@ COPY ~%passives%/hiteffect1all.SPL~  ~override/%e5%.SPL~
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%e3%x~ END
 
 
-//add main subspells
+//add effects subspells
 COPY ~%abilities%/castspellself.EFF~  ~override/%e3%e.EFF~
   WRITE_ASCII 0x30 ~%e3%e~ #8
 COPY ~inlined/torrentapply.SPL~       ~override/%e3%e.SPL~
   LPF ALTER_EFFECT STR_VAR multi_match=1 resource=~%e3%a~ END    // haste
   LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e3%t~ END    // stats
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=torrent1 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=8 parameter1=1162809856 parameter2=255 END
   LPF d2_protect_on_castequip END
 
 COPY ~%abilities%/castspellself.EFF~  ~override/%e4%e.EFF~
@@ -79,6 +80,7 @@ COPY ~inlined/torrentapply.SPL~       ~override/%e4%e.SPL~
   LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e4%a~ END    // damage
   LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e4%t~ END    // stats
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=torrent2 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=8 parameter1=1934163968 parameter2=255 END
   LPF d2_protect_on_castequip END
 
 COPY ~%abilities%/castspellself.EFF~  ~override/%e5%e.EFF~
@@ -88,6 +90,7 @@ COPY ~inlined/torrentapply.SPL~       ~override/%e5%e.SPL~
   LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e4%a~ END    // damage
   LPF CLONE_EFFECT STR_VAR multi_match=1 resource=~%e5%t~ END    // stats
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=torrent3 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=8 parameter1=6516224 parameter2=255 END
   LPF d2_protect_on_castequip END
 
 
@@ -252,6 +255,14 @@ COPY_EXISTING ~thiefscl.2da~  ~override~
   LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=MOVE_SILENTLY entry=50 END
   LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=HIDE_IN_SHADOWS entry=50 END
 BUT_ONLY
+
+
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~ranger~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
 
 
 //

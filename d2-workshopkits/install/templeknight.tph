@@ -57,6 +57,7 @@ COPY_EXISTING ~SPPR612.SPL~  ~override/%s2%.SPL~
 
 //Make clab table
 COPY ~inlined/d2clab_paladin~  ~override/%kitid%.2DA~
+  LPF d2clab_artisancheck STR_VAR type=melee END
   LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END    // extra Lay On Hands
   LPF d2_kit_ability_adder STR_VAR resource=~SPCL211~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
@@ -82,13 +83,21 @@ LAF ADD_KIT_EX
 //    unusable = ~0x00000008~         // Cavalier usability (v4.8: not using)
     clab_path = ~%kitid%~
     clsrcreq = ~1 1 1 1 1 1 1~        // Usable by all races, if base class is usable
-    weapprof = ~2 2 1 4 4 4 2 1 2 2 2 2 2 2 2 2 4 4 4 4 4 4 4 1 1 1 1 1 2 2 2 3~
+//    weapprof = ~2 2 1 4 4 4 2 1 2 2 2 2 2 2 2 2 4 4 4 4 4 4 4 1 1 1 1 1 2 2 2 3~
 //    weapprof = ~2 2 0 4 4 4 2 0 2 2 2 2 2 2 2 2 4 4 4 4 4 4 4 0 0 0 0 0 2 2 2 3~
     alignmnt = ~1 1 0 0 0 0 0 0 0~    // LG, LN
     clascolr = ~24 99 169 2 25~       // Skald colors
   RET 
     kit_id
 END
+
+
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~paladin~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
 
 
 //Set variables for external use

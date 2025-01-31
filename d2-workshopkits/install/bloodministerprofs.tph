@@ -1,0 +1,75 @@
+/*
+all profs are only set if base class can learn it
+anything set higher than fighter class is automatically lowered to match it
+anything set lower than cleric class is raised to match it
+*/
+
+
+//prep
+COPY_EXISTING - ~weapprof.2da~  ~~
+  LPF d2_get_weapontype_fields STR_VAR type=mace RET item_prof END
+  LPF d2_get_2da_entry INT_VAR col_read=1 STR_VAR col_name=cleric row_name=~%item_prof%~ RET entry END
+  SET slots = entry
+
+  LPF d2_get_2da_entry INT_VAR col_read=1 STR_VAR col_name=cleric row_name=113 RET entry END
+  SET styles = entry
+
+  LPF d2_get_weapontype_fields STR_VAR type=greatsword RET item_prof END
+  LPF d2_get_2da_entry INT_VAR col_read=1 STR_VAR col_name=cleric row_name=~%item_prof%~ RET entry END
+  SET patch_usable = entry
+
+
+//
+ACTION_CLEAR_ARRAY ~d2_weapontype_usable~
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_weapontype_usable BEGIN    // type => slots
+  axe            => 0
+  bastardsword   => 0
+  club           => ~%slots%~
+  compositebow   => 0
+  dagger         => ~%slots%~
+  dart           => ~%slots%~
+  flail          => ~%slots%~
+  greataxe       => 0
+  greatsword     => 0
+  halberd        => 0
+  hammer         => ~%slots%~
+  heavycrossbow  => ~%slots%~
+  katana         => 0
+  lightcrossbow  => ~%slots%~
+  longbow        => 0
+  longsword      => 0
+  mace           => ~%slots%~
+  morningstar    => ~%slots%~
+  ninjato        => 0
+  scimitar       => 0
+  shortbow       => 0
+  shortsword     => ~%slots%~
+  sling          => ~%slots%~
+  spear          => 0
+  staff          => ~%slots%~
+  throwingdagger => ~%slots%~
+  throwingaxe    => 0
+  throwinghammer => ~%slots%~
+  wakizashi      => 0
+END
+
+OUTER_TEXT_SPRINT ids_name  ~D2%kitname%~
+OUTER_TEXT_SPRINT baseclass  ~cleric~
+OUTER_SET stringref = RESOLVE_STR_REF (@100901)    // kit name (used if restrictitems > 0)
+OUTER_SET restrictitems = 1
+OUTER_SET clearprofs = 1
+OUTER_SET force2weapon = 1
+
+//weapon styles
+OUTER_SET stylemode = 1
+ACTION_IF (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) BEGIN  OUTER_SET stylemode = 2  END    // if DoF detected
+ACTION_IF (styles > 1) BEGIN  OUTER_SET stylemode = 5  END    // if base cleric was tweaked higher
+
+//
+ACTION_IF (patch_usable > 0) BEGIN
+  INCLUDE ~%install%/usableweapons.tph~
+END
+
+
+//
+//

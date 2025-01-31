@@ -78,14 +78,15 @@ COPY ~%abilities%/rootingshot.SPL~  ~override/%s1%.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=249 STR_VAR resource=~%s1%x~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=249 STR_VAR resource=~%s1%e~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_duration=12 duration=15 END    // 15 seconds (close enough to 2 rounds)
 
 //main subspell
 COPY ~%abilities%/applyeffects.EFF~  ~override/%s1%e.EFF~
   WRITE_ASCII 0x30 ~%s1%e~ #8
 COPY ~%abilities%/rootingapply.SPL~  ~override/%s1%e.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s1%b~ END
-  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
   LPF d2_remove_effects_on_cast END
 
 COPY ~%abilities%/rootingentangle.SPL~  ~override/%s1%a.SPL~
@@ -105,11 +106,15 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%s1%x.SPL~
 
 //
 //Add Bloodletter
-COPY ~%icons%/bloodletter.BAM~      ~override/%s2%i.BAM~
+COPY ~%icons%/bloodlettericon.BAM~  ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@107) STR_VAR bam=~%s2%i~ RET icon END
+
+COPY ~%icons%/bloodletter.BAM~      ~override/%s2%.BAM~
 COPY ~%abilities%/bloodletter.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @107
   SAY UNIDENTIFIED_DESC @207
+  WRITE_ASCII 0x3a ~%s2%~ #8
+  WRITE_ASCII 0x76 ~%s2%~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%b~ END
@@ -172,21 +177,38 @@ LAF ADD_KIT_EX
 END
 
 
-//Usability - restrict to studded leather
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
-  ~D2%kitname%~ => ~studded~
-END
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~paladin~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
+
+
+//armor restriction
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT armor_type ~studded~
+OUTER_TEXT_SPRINT $d2_restrict_armor_array (~%ids_name%~) ~%armor_type%~
+
+OUTER_SET stringref = RESOLVE_STR_REF (@100501)
+OUTER_TEXT_SPRINT $d2_restrict_armor_stringref (~%ids_name%~) ~%stringref%~
 
 
 //
 //function to remove rooting shot effects
 DEFINE_PATCH_FUNCTION confessor_entangle_remove BEGIN
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=321 parameter2=0 duration=0 STR_VAR resource=~%confessorhold%~ END
+  LPF CLONE_EFFECT
+    INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=321 parameter2=0 duration=0
+    STR_VAR resource=~%confessorhold%~
+  END
 END
 
 //function to block rooting shot effects
 DEFINE_PATCH_FUNCTION confessor_entangle_block BEGIN
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=318 parameter2=0 STR_VAR resource=~%confessorhold%~ END
+  LPF CLONE_EFFECT
+    INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=318 parameter2=0
+    STR_VAR resource=~%confessorhold%~
+  END
 END
 
 //

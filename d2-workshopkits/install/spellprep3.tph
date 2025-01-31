@@ -62,9 +62,11 @@ COPY ~inlined/d2spellprep2.SPL~  ~override/d2!slow.SPL~
   LPF ADD_SPELL_EFFECT INT_VAR opcode=240 target=2 timing=1 parameter2=41 END    // remove icon
   LPF DELETE_EFFECT INT_VAR match_opcode=0 END
 
+/*
 COPY_EXISTING ~d2!phase.SPL~  ~override~
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
 IF_EXISTS BUT_ONLY
+*/
 
 //haste
 COPY ~inlined/d2spellprep2.SPL~  ~override/d2!haste.SPL~

@@ -24,35 +24,19 @@ ACTION_IF (nodrifter = 0) BEGIN
 END
 
 
-//powder keg: set target = 7 for song changing abilities
-//cast instantly, no casting animation, cast when paused
-
-ACTION_FOR_EACH ability IN 
-    ~%blastingsong%~    // song switching
-    ~%boomingsong%~
-    ~%dustexplosion%~
-    ~%frenzyingflame%~
-    ~%enhancedbardsong%~
-    ~%rrenhancedsong%~    // rr songs
-    ~%rrlingeringsong%~
-BEGIN
-
-  COPY_EXISTING ~%ability%.SPL~  ~override~
-    LPF ALTER_SPELL_HEADER INT_VAR target=7 END
-  IF_EXISTS BUT_ONLY
-
-END
-
-
 //change ToB starting armor for some kits
 ACTION_IF (GAME_INCLUDES ~tob~) BEGIN
   COPY_EXISTING ~25STWEAP.2da~  ~override~
-    PATCH_FOR_EACH kit IN ~d2beasthunter~ ~d2beasthunterfc~ BEGIN
-      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=armor entry=LEAT20 END    // changed to hide armor
+    PATCH_FOR_EACH kit IN ~d2drifter~ ~d2nurse~ BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=armor entry=leat20 END    // changed to hide armor
     END
 
-    PATCH_FOR_EACH kit IN ~d2confessor~ BEGIN
-      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=armor entry=leat14 END    // changed to leather armor
+    PATCH_FOR_EACH kit IN ~d2beasthunter~ ~d2beasthunterfc~ ~d2confessor~ BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=armor entry=leat19 END    // changed to dragon scale
+    END
+
+    PATCH_FOR_EACH kit IN ~d2moonlightknight~ ~d2moonlightknightcr~ BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=armor entry=chan09 END    // changed to chain mail
     END
   BUT_ONLY
 END

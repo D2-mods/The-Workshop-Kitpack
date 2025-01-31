@@ -1,0 +1,119 @@
+/*
+functions for editing m_dw_hld.lua (enable ToF HLAs)
+this is required for level-gated HLAs
+Without editing the LUA file, these abilities are grayed out permanently.
+
+note: The ability still needs to be in the kit's HLA table to appear in the list.
+*/
+
+
+/*function list
+d2_tof_addhlaclass    PATCH or ACTION
+d2_tof_addhlakit      PATCH or ACTION
+*/
+
+
+//////////////////////////////////////////////////
+
+//add class to ToF ability/hla (class, not kit)
+//see class.ids for class numbers, enabling single class will enable multiclass
+
+//string format => string = ~[2]=4~    (this gives at fighter level 4)
+//ability is the resource name (other stuff is added by function)
+
+/*example
+LAF d2_tof_addhlaclass STR_VAR string=~[20]=5~ ability=~DW-FTDIR~ END
+
+This lets monks (class 20) use dirty fighting ("DW-FTDIR") at level 5.
+*/
+
+DEFINE_ACTION_FUNCTION d2_tof_addhlaclass STR_VAR string=~~ ability=d2spell BEGIN
+  COPY_EXISTING ~m_dw_hld.lua~  ~override~
+    TEXT_SPRINT newline ~%WNL%%TAB%%string%,~
+    TEXT_SPRINT match ~%ability%']={~
+    REPLACE_TEXTUALLY EXACT_MATCH
+      ~%match%~
+      ~%match%%newline%~
+    EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~,,~ ~,~
+  IF_EXISTS BUT_ONLY
+END
+
+DEFINE_PATCH_FUNCTION d2_tof_addhlaclass STR_VAR string=~~ ability=d2spell BEGIN
+  PATCH_IF (~%SOURCE_RES%~ STR_EQ ~m_dw_hld~) BEGIN
+    TEXT_SPRINT newline ~%WNL%%TAB%%string%,~
+    TEXT_SPRINT match ~%ability%']={~
+    REPLACE_TEXTUALLY EXACT_MATCH
+      ~%match%~
+      ~%match%%newline%~
+    EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~,,~ ~,~
+  END ELSE BEGIN
+    INNER_ACTION BEGIN
+      COPY_EXISTING ~m_dw_hld.lua~  ~override~
+        TEXT_SPRINT newline ~%WNL%%TAB%%string%,~
+        TEXT_SPRINT match ~%ability%']={~
+        REPLACE_TEXTUALLY EXACT_MATCH
+          ~%match%~
+          ~%match%%newline%~
+        EVALUATE_BUFFER
+        REPLACE_TEXTUALLY ~,,~ ~,~
+      IF_EXISTS BUT_ONLY
+    END
+  END
+END
+
+//////////////////////////////////////////////////
+
+//add kit to ToF abilities
+//adds "string" in front of "match" text, with comma in between
+//run function d2_get_kitnum to get kitlist number (in d2_2da_find_row.tpa)
+
+/*example
+LAF d2_get_kitnum STR_VAR kit=d2jesterblade RET kitnum END
+LAF d2_tof_addhlakit STR_VAR string=EVAL ~[%kitnum%]={[5]=3}~ match=~[13]={[5]=3}~ END
+
+This returns the kit number for "d2jesterblade" as "kitnum" variable.
+Then it runs d2_tof_addhlakit, matching Blade (kit 13) with same class (5 = bard) at level 3.
+*/
+
+/*example 2 (match range of levels)
+  PATCH_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2jesterblade~) BEGIN
+    LPF d2_get_kitnum STR_VAR kit=d2jesterblade RET kitnum END
+    PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~[%kitnum%]={[5]=3}~) BEGIN
+      FOR (level=1; level < 20; ++level) BEGIN
+        LPF d2_tof_addhlakit STR_VAR string=EVAL ~[%kitnum%]={[5]=%level%}~ match=EVAL ~[13]={[5]=%level%}~ END
+      END
+    END
+  END
+*/
+
+DEFINE_ACTION_FUNCTION d2_tof_addhlakit STR_VAR string=~~ match=kitstring BEGIN
+  COPY_EXISTING ~m_dw_hld.lua~  ~override~
+    REPLACE_TEXTUALLY EXACT_MATCH
+      ~%match%~  ~%string%,%match%~
+    REPLACE_TEXTUALLY ~,,~ ~,~
+  IF_EXISTS BUT_ONLY
+END
+
+DEFINE_PATCH_FUNCTION d2_tof_addhlakit STR_VAR string=~~ match=kitstring BEGIN
+  PATCH_IF (~%SOURCE_RES%~ STR_EQ ~m_dw_hld~) BEGIN
+    REPLACE_TEXTUALLY EXACT_MATCH
+      ~%match%~  ~%string%,%match%~
+    REPLACE_TEXTUALLY ~,,~ ~,~
+  END ELSE BEGIN
+    INNER_ACTION BEGIN
+      COPY_EXISTING ~m_dw_hld.lua~  ~override~
+        REPLACE_TEXTUALLY EXACT_MATCH
+          ~%match%~  ~%string%,%match%~
+        REPLACE_TEXTUALLY ~,,~ ~,~
+      IF_EXISTS BUT_ONLY
+    END
+  END
+END
+
+//////////////////////////////////////////////////
+
+
+/*
+*/

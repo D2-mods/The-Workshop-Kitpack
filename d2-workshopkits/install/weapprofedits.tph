@@ -1,0 +1,119 @@
+/*
+weapprof edits
+changes account for tweaks and overhauls
+*/
+
+
+//build array
+ACTION_FOR_EACH kit IN ~d2warhound~ ~d2warhoundfm~ ~d2noblescion~ BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~%kit%~) BEGIN
+    OUTER_TEXT_SPRINT $d2wk_weapprofedits (~%kit%~) ~archer~
+  END
+END
+
+ACTION_FOR_EACH kit IN ~d2nurse~ ~d2nursemt~ BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~%kit%~) BEGIN
+    OUTER_TEXT_SPRINT $d2wk_weapprofedits (~%kit%~) ~nurse~
+  END
+END
+
+ACTION_FOR_EACH kit IN ~d2templeknight~ BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~%kit%~) BEGIN
+    OUTER_TEXT_SPRINT $d2wk_weapprofedits (~%kit%~) ~temple~
+  END
+END
+
+ACTION_FOR_EACH kit IN ~d2spellfencer~ BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~%kit%~) BEGIN
+    OUTER_TEXT_SPRINT $d2wk_weapprofedits (~%kit%~) ~ranged1~
+  END
+END
+
+ACTION_FOR_EACH kit IN ~d2beasthunterfc~ ~d2beasthunterfmc~ ~d2moonlightknightcr~ BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~%kit%~) BEGIN
+    OUTER_TEXT_SPRINT $d2wk_weapprofedits (~%kit%~) ~clericmulti~
+  END
+END
+
+
+//check profs
+COPY_EXISTING - ~weapprof.2da~  ~~
+  // nurse
+  PATCH_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2nurse~) BEGIN
+    LPF d2_get_weapontype_fields STR_VAR type=shortbow RET item_prof END
+    LPF d2_get_2da_entry INT_VAR col_read=1 STR_VAR col_name=thief row_name=~%item_prof%~ RET entry END
+    SET nurseprof = entry + 1    // thief+1 in ranged
+  END
+
+  // temple knight
+  PATCH_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2templeknight~) BEGIN
+    LPF d2_get_weapontype_fields STR_VAR type=halberd RET item_prof END
+    LPF d2_get_2da_entry INT_VAR col_read=1 STR_VAR col_name=paladin row_name=~%item_prof%~ RET entry END
+    SET templeprof = entry + 2    // paladin+2
+  END
+
+  // cleric multiclass
+  LPF d2_get_weapontype_fields STR_VAR type=greatsword RET item_prof END
+  // check fc
+  LPF d2_get_2da_entry INT_VAR col_read=1 STR_VAR col_name=FIGHTER_CLERIC row_name=~%item_prof%~ RET entry END
+  SET fcprof = entry
+  // check fd
+  LPF d2_get_2da_entry INT_VAR col_read=1 STR_VAR col_name=FIGHTER_DRUID row_name=~%item_prof%~ RET entry END
+  SET fdprof = entry
+
+  //check bard prof (use for kit disadvantage)
+  LPF d2_get_weapontype_fields STR_VAR type=dagger RET item_prof END
+  LPF d2_get_2da_entry INT_VAR col_read=1 STR_VAR col_name=bard row_name=~%item_prof%~ RET entry END
+  SET lower = entry
+
+
+//config (cleric multiclass)
+OUTER_SET patch_fc = 0
+ACTION_IF (vanillaclericprofs=0 OR fcprof>0) BEGIN  OUTER_SET patch_fc = 1  END
+ACTION_IF (patch_fc>0 AND fcprof<2) BEGIN OUTER_SET fcprof = 2 END
+
+OUTER_SET patch_fd = 0
+ACTION_IF (vanilladruidprofs=0 OR fdprof>0) BEGIN  OUTER_SET patch_fd = 1  END
+ACTION_IF (patch_fd>0 AND fdprof<2) BEGIN OUTER_SET fdprof = 2 END
+
+
+
+//
+COPY_EXISTING ~weapprof.2da~  ~override~
+
+  PHP_EACH d2wk_weapprofedits AS kit => style BEGIN
+    PATCH_IF (~%style%~ STR_EQ ~archer~) BEGIN
+      LPF d2_weapprof_kitedits INT_VAR amount=lower STR_VAR kit=~%kit%~ attribute=all END
+      LPF d2_weapprof_kitedits INT_VAR amount=5 STR_VAR kit=~%kit%~ attribute=ranged END
+      LPF d2_weapprof_styles INT_VAR amount=lower STR_VAR kit=~%kit%~ END
+    END
+    PATCH_IF (~%style%~ STR_EQ ~nurse~) BEGIN
+      LPF d2_weapprof_kitedits INT_VAR amount=nurseprof STR_VAR kit=~%kit%~ attribute=rangedthief END
+    END
+    PATCH_IF (~%style%~ STR_EQ ~temple~) BEGIN
+      LPF d2_weapprof_kitedits INT_VAR amount=templeprof STR_VAR kit=~%kit%~ attribute=blunt END
+      LPF d2_weapprof_kitedits INT_VAR amount=templeprof STR_VAR kit=~%kit%~ attribute=pole END
+      LPF d2_weapprof_kitedits INT_VAR amount=lower STR_VAR kit=~%kit%~ attribute=ranged END
+    END
+    PATCH_IF (~%style%~ STR_EQ ~ranged1~) BEGIN
+      LPF d2_weapprof_kitedits INT_VAR amount=lower STR_VAR kit=~%kit%~ attribute=ranged END
+    END
+
+    // divine multiclass
+    PATCH_IF (~%style%~ STR_EQ ~clericmulti~) BEGIN
+      PATCH_IF (patch_fc > 0) BEGIN
+        LPF d2_weapprof_kitedits INT_VAR amount=fcprof STR_VAR kit=~%kit%~ attribute=all END
+      END
+    END
+    PATCH_IF (~%style%~ STR_EQ ~druidmulti~) BEGIN
+      PATCH_IF (patch_fd > 0) BEGIN
+        LPF d2_weapprof_kitedits INT_VAR amount=fdprof STR_VAR kit=~%kit%~ attribute=all END
+      END
+    END
+  END
+
+BUT_ONLY
+
+
+//
+//

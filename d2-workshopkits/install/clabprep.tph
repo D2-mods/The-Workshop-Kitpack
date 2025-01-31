@@ -33,13 +33,6 @@ DEFINE_PATCH_FUNCTION clabprep_spellids INT_VAR passive=0 STR_VAR spellids=d2spe
   END
 END
 
-DEFINE_PATCH_FUNCTION tnb_innate_familiars BEGIN
-  PATCH_IF (RESOURCE_CONTAINS ~CLABMA01.2DA~ ~AP_D5FMINN~) BEGIN
-    LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~D5FMINN~ END
-  END
-END
-
-
 
 
 /*
@@ -111,8 +104,7 @@ COPY - ~inlined/d2clab_thief~   ~inlined/d2clab_thief_notraps~
 
 //bard
 COPY_EXISTING - ~CLABBA01.2DA~  ~inlined/d2clab_bard~
-  LPF tnb_innate_familiars END
-COPY - ~inlined/d2clab_bard~   ~inlined/d2clab_bard_nosongs~
+COPY_EXISTING - ~CLABBA01.2DA~  ~inlined/d2clab_bard_nosongs~
   REPLACE_TEXTUALLY ~AP_FJBARD~   ~****~    // remove BG song
   REPLACE_TEXTUALLY ~AP_#BARD-1~  ~****~    // remove IWD songs (also for IWDification)
   REPLACE_TEXTUALLY ~GA_#BARD1~   ~****~
@@ -132,19 +124,18 @@ COPY - ~inlined/d2clab_bard~   ~inlined/d2clab_bard_nosongs~
   REPLACE_TEXTUALLY ~GA_BI#B16A~  ~****~
 
 //blade
-COPY_EXISTING - ~CLABBA02.2DA~ ~inlined/d2clab_blade~
-  LPF tnb_innate_familiars END
-COPY - ~inlined/d2clab_blade~   ~inlined/d2clab_blade_nosongs~
+COPY_EXISTING - ~CLABBA02.2DA~  ~inlined/d2clab_blade~
+COPY_EXISTING - ~CLABBA02.2DA~  ~inlined/d2clab_blade_nosongs~
   REPLACE_TEXTUALLY ~AP_FJBLADE~  ~****~    // BG games
   REPLACE_TEXTUALLY ~AP_#BARD-1~  ~****~    // IWDEE
 //mod stuff
-  REPLACE_TEXTUALLY ~AP_RR#BBL01~ ~****~    // rr song
+  REPLACE_TEXTUALLY ~AP_RR#BBL01~ ~****~          // rr song
+  REPLACE_TEXTUALLY ~AP_C0BLD01~  ~AP_d2c0bld~    // Bardic Wonders song
   REPLACE_TEXTUALLY ~AP_BI#B20A~  ~AP_d2BIbld~    // Shohy song switching
   REPLACE_TEXTUALLY ~GA_BI#B11A~  ~****~
   REPLACE_TEXTUALLY ~GA_BI#B12A~  ~****~
   REPLACE_TEXTUALLY ~GA_BI#B13A~  ~****~
   REPLACE_TEXTUALLY ~GA_BI#B14A~  ~****~
-  REPLACE_TEXTUALLY ~AP_C0BLD01~  ~AP_d2c0bld~    // Bardic Wonders song
 
 //Bardic Wonders - Blade passives
 COPY_EXISTING ~c0bld01.spl~  ~override/d2c0bld.SPL~    // remove song change
@@ -224,24 +215,49 @@ OUTER_SET paladin_cd = 0
 ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~PALADIN_CURE_DISEASE~) BEGIN OUTER_SET paladin_cd = 1 END
 ACTION_IF (RESOURCE_CONTAINS ~CLABPA01.2DA~ ~GA_C0PAL05~) BEGIN OUTER_SET paladin_cd = 1 END
 
-//additional cleanup (run from kit file)
-DEFINE_PATCH_FUNCTION clab_cleanup STR_VAR type=melee BEGIN
-  PATCH_IF (~%type%~ STR_EQ ~melee~) BEGIN
-    REPLACE_TEXTUALLY ~GA_C0ARC03~  ~****~
+
+//
+// add or remove artisan stuff
+DEFINE_PATCH_FUNCTION d2clab_artisancheck STR_VAR type=default mode=add BEGIN
+
+  PATCH_IF (RESOURCE_CONTAINS ~CLABFI01.2DA~  ~C0ARC03~) BEGIN
+    TEXT_SPRINT powerattack ~C0FIG01~
+    TEXT_SPRINT expertise ~C0FIG02~
+    TEXT_SPRINT rapidshot ~C0ARC03~
+
+    TEXT_SPRINT res ~%powerattack% %expertise% %rapidshot%~
+    PATCH_IF (~%type%~ STR_EQ ~melee~)   BEGIN TEXT_SPRINT res ~%powerattack% %expertise%~ END
+    PATCH_IF (~%type%~ STR_EQ ~ranged~)  BEGIN TEXT_SPRINT res ~%powerattack% %rapidshot%~ END
+    PATCH_IF (~%type%~ STR_EQ ~archer~)  BEGIN TEXT_SPRINT res ~%rapidshot%~ END
+    PATCH_IF (~%type%~ STR_EQ ~power~)   BEGIN TEXT_SPRINT res ~%powerattack%~ END
+    PATCH_IF (~%type%~ STR_EQ ~finesse~) BEGIN TEXT_SPRINT res ~%expertise% %rapidshot%~ END
+
+    REPLACE_TEXTUALLY ~GA_%powerattack%~  ~****~
+    REPLACE_TEXTUALLY ~GA_%expertise%~  ~****~
+    REPLACE_TEXTUALLY ~GA_%rapidshot%~  ~****~
+    PHP_EACH d2clab_artisancheck AS spell => level BEGIN
+      PATCH_IF !(~%res%~ STRING_CONTAINS_REGEXP ~%spell%~) BEGIN
+        PATCH_IF (~%mode%~ STR_EQ ~add~) BEGIN
+          LPF d2_kit_ability_adder INT_VAR level=level STR_VAR resource=~%spell%~ END
+        END
+      END
+    END
+
   END
-  PATCH_IF (~%type%~ STR_EQ ~ranged~) BEGIN
-    REPLACE_TEXTUALLY ~GA_C0FIG02~  ~****~
-  END
-  PATCH_IF (~%type%~ STR_EQ ~archer~) BEGIN
-    REPLACE_TEXTUALLY ~GA_C0FIG01~  ~****~
-    REPLACE_TEXTUALLY ~GA_C0FIG02~  ~****~
-  END
-  PATCH_IF (~%type%~ STR_EQ ~power~) BEGIN
-    REPLACE_TEXTUALLY ~GA_C0FIG02~  ~****~
-    REPLACE_TEXTUALLY ~GA_C0ARC03~  ~****~
-  END
-  PATCH_IF (~%type%~ STR_EQ ~finesse~) BEGIN
-    REPLACE_TEXTUALLY ~GA_C0FIG01~  ~****~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2clab_artisancheck BEGIN
+  C0FIG01 => 5
+  C0FIG02 => 5
+  C0ARC03 => 6
+END
+
+
+//
+//tnb innate familiars
+DEFINE_PATCH_FUNCTION tnb_innate_familiars BEGIN
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.2DA~  ~AP_D5FMINN~) BEGIN
+    LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~D5FMINN~ END
   END
 END
 

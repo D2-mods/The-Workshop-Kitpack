@@ -1,0 +1,94 @@
+/*
+Make song switching abilities for HLA songs
+Moved updater stuff to powderkeghla2.tph
+
+RR#BDF03 - gives RR#BDF04
+RR#BDF04 - HLA song (lasts 1 round)
+RR#BDF05 - gives RR#BDF06
+RR#BDF06 - HLA song (lasts 3 rounds)
+*/
+
+
+//vanilla HLA song
+COPY ~%abilities%/changebardsong.SPL~  ~override/%s5%.SPL~
+  SAY NAME1 @119
+  SAY UNIDENTIFIED_DESC @219
+  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~SPCL920A~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
+  LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s5%~ END
+  WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
+  WRITE_ASCII 0x76 ~SPENBARB~ #8
+
+COPY ~%abilities%/applyeffects.SPL~  ~override/%s5%a.SPL~     // main subspell
+  LPF ALTER_EFFECT STR_VAR resource=~%s5%g~ END
+  LPF CLONE_EFFECT STR_VAR resource=~%s5%x~ END
+
+COPY ~%passives%/giveability.SPL~    ~override/%s5%g.SPL~     // give ability
+  LPF ALTER_EFFECT STR_VAR resource=~%s5%~ END
+COPY ~%abilities%/opcode318.SPL~      ~override/%s5%x.SPL~    // block g spell
+  LPF ALTER_EFFECT STR_VAR resource=~%s5%g~ END
+
+
+//rr enhanced song
+COPY ~%abilities%/changebardsong.SPL~  ~override/%s6%.SPL~
+  SAY NAME1 @120
+  SAY UNIDENTIFIED_DESC @220
+  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~RR#BDF04~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
+  LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s6%~ END
+  WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
+  WRITE_ASCII 0x76 ~SPENBARB~ #8
+
+COPY ~%abilities%/applyeffects.SPL~  ~override/%s6%a.SPL~     // main subspell
+  LPF ALTER_EFFECT STR_VAR resource=~%s6%g~ END
+  LPF CLONE_EFFECT STR_VAR resource=~%s6%x~ END
+
+COPY ~%passives%/giveability.SPL~    ~override/%s6%g.SPL~     // give ability
+  LPF ALTER_EFFECT STR_VAR resource=~%s6%~ END
+  LPF CLONE_EFFECT INT_VAR opcode=172 STR_VAR resource=~%s5%~ END    // removes vanilla HLA (just in case)
+COPY ~%abilities%/opcode318.SPL~      ~override/%s6%x.SPL~    // block g spell
+  LPF ALTER_EFFECT STR_VAR resource=~%s6%g~ END
+
+
+//rr lingering song
+OUTER_SPRINT desc @220
+OUTER_SPRINT note @651
+OUTER_SET lingering_desc = RESOLVE_STR_REF (~%desc%%WNL%%WNL%%note%~)
+
+COPY ~%abilities%/changebardsong.SPL~  ~override/%s7%.SPL~
+  SAY NAME1 @120
+  WRITE_LONG 0x50 lingering_desc
+  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~RR#BDF06~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
+  LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s7%~ END
+  WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
+  WRITE_ASCII 0x76 ~SPENBARB~ #8
+
+COPY ~%abilities%/applyeffects.SPL~  ~override/%s7%a.SPL~     // main subspell
+  LPF ALTER_EFFECT STR_VAR resource=~%s7%g~ END
+  LPF CLONE_EFFECT STR_VAR resource=~%s7%x~ END
+
+COPY ~%passives%/giveability.SPL~    ~override/%s7%g.SPL~     // give ability
+  LPF ALTER_EFFECT STR_VAR resource=~%s7%~ END
+  LPF CLONE_EFFECT INT_VAR opcode=172 STR_VAR resource=~%s6%~ END    // removes non-lingering version
+COPY ~%abilities%/opcode318.SPL~      ~override/%s7%x.SPL~    // block g spell
+  LPF ALTER_EFFECT STR_VAR resource=~%s7%g~ END
+
+
+//block during cooldown
+COPY_EXISTING ~%pkegdisable%.spl~  ~override~
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~SPCL920A~ END
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~RR#BDF04~ END
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~RR#BDF06~ END
+BUT_ONLY
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT enhancedbardsong   ~%s5%~
+OUTER_TEXT_SPRINT rrenhancedsong     ~%s6%~
+OUTER_TEXT_SPRINT rrlingeringsong    ~%s7%~
+OUTER_TEXT_SPRINT shohyenhancedsong  ~BI#B1SA~
+
+
+//
+//

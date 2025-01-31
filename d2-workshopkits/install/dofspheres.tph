@@ -7,7 +7,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~RASPHERE.tpa~) BEGIN
     COPY_EXISTING ~RASPHERE.tpa~  ~override~
       APPEND_FILE ~%install%/dofarrays7.tph~
-    BUT_ONLY UNLESS ~D2%kitname%~
+    BUT_ONLY UNLESS ~%dofkitname%~
   END
 
   LAF RA_SPHERE_COMPAT 

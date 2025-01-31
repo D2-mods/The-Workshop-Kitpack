@@ -103,6 +103,7 @@ COPY ~inlined/d2clab.2DA~  ~override/%moonlightknight%R.2DA~
   END
 
 
+/*moved to weapprofedits.tph
 //Set variable for proficiencies
 ACTION_IF ((vanillaclericprofs = 0) OR
            (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
@@ -113,11 +114,6 @@ ACTION_IF ((vanillaclericprofs = 0) OR
 END ELSE BEGIN
   OUTER_TEXT_SPRINT multikitprofs  ~0 0 0 0 2 2 0 2 0 0 0 0 0 0 0 0 2 2 0 0 2 2 2 0 0 0 0 2 2 2 2 3~
 END
-
-/*ranged = 1 slot
-  OUTER_TEXT_SPRINT multikitprofs  ~2 2 1 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 2 2 2 3~
-END ELSE BEGIN
-  OUTER_TEXT_SPRINT multikitprofs  ~0 0 0 0 2 2 0 1 0 0 0 0 0 0 0 0 2 2 0 0 2 2 2 0 0 0 0 1 2 2 2 3~
 */
 
 
@@ -141,7 +137,7 @@ LAF ADD_KIT_EX
     clab_base_r = ~%moonlightknight%R.2DA~    // kit abilities added to Ranger table
     clsrcreq = ~1 1 1 1 1 1 1~                // Usable by all races, if base class is usable
     alignmnt = ~1 1 1 1 1 1 1 1 1~
-    weapprof = ~%multikitprofs%~
+//    weapprof = ~%multikitprofs%~
 //    clasiskl = ~0 0 0 0 0 0 0~              // initial skills
 //    thiefscl = ~0 0 0 50 50 0 0 0~          // skills percent modifier (using below method)
     clascolr = ~137 141 142 24 138~           // shaman colors
@@ -155,6 +151,14 @@ COPY_EXISTING ~thiefscl.2da~  ~override~
   LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%CR~ row_name=MOVE_SILENTLY entry=50 END
   LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%CR~ row_name=HIDE_IN_SHADOWS entry=50 END
 BUT_ONLY
+
+
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%CR~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%0~
+OUTER_TEXT_SPRINT class    ~CLERIC_RANGER~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
 
 
 //DoF spheres

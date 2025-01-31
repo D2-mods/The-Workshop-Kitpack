@@ -1,0 +1,387 @@
+/*
+compatible with BG1, BG2, IWD1, IWD2, PST (classic and EEs)
+for items/accessories (includes a few pst armors)
+*/
+
+
+/*functions
+d2_set_itemtype_fields    PATCH
+d2_get_itemtype_fields    ACTION or PATCH
+d2_itemtype_print         ACTION or PATCH
+*/
+
+
+//Sets category and unusable fields
+//Sets kit flags for EEs, BG2, IWD2
+//Sets unidentified name/desc if magical = 1 (default)
+
+/*
+All info is read from base items at install time (this is done below)
+"magical": ON by default, if set to 0 it skips unidentified name/desc
+"visual": ON by default, this sets the 0x22 visual to match base item (avatar/paperdoll)
+"ground": ON by default, this sets the ground icon to match base item
+*/
+
+DEFINE_PATCH_FUNCTION d2_set_itemtype_fields INT_VAR magical=1 visual=1 ground=1 STR_VAR type=~~ BEGIN
+
+  PATCH_IF (~%SOURCE_EXT%~ STR_EQ ~itm~) BEGIN
+
+    // match array type names
+    LPF d2_check_itemtype STR_VAR type=EVAL ~%type%~ RET type END
+
+    PHP_EACH d2_itemtype_res AS type2 => res BEGIN
+      PATCH_IF (~%type%~ STR_EQ ~%type2%~) BEGIN
+        PATCH_IF (FILE_EXISTS_IN_GAME ~%res%.itm~) BEGIN
+  
+          // set variables
+          SET item_cat = EVAL ~%%type%_cat%~
+          SET item_unusable = EVAL ~%%type%_unusable%~
+          SET item_flags = EVAL ~%%type%_flags%~
+          SET item_name = EVAL ~%%type%_name%~
+          SET item_desc = EVAL ~%%type%_desc%~
+          SET item_kits1 = EVAL ~%%type%_kits1%~
+          SET item_kits2 = EVAL ~%%type%_kits2%~
+          SET item_kits3 = EVAL ~%%type%_kits3%~
+          SET item_kits4 = EVAL ~%%type%_kits4%~
+          TEXT_SPRINT item_visual EVAL ~%%type%_visual%~
+          TEXT_SPRINT ground_icon EVAL ~%%type%_ground%~
+
+          // category and unusable (all games)
+          WRITE_SHORT 0x1c item_cat
+          WRITE_LONG 0x1e  item_unusable
+          WRITE_LONG 0x18  item_flags
+
+          // if magical
+          PATCH_IF (magical > 0) BEGIN
+            WRITE_LONG 0x18 THIS | BIT6
+            WRITE_LONG 0x8  item_name
+            WRITE_LONG 0x50 item_desc
+          END ELSE BEGIN
+            WRITE_LONG 0x18 (THIS BAND BNOT BIT6)
+            WRITE_LONG 0x60 0
+          END
+  
+          // kit restrictions
+          PATCH_IF (FILE_EXISTS_IN_GAME ~kitlist.2da~) BEGIN
+            WRITE_BYTE 0x29  item_kits1
+            WRITE_BYTE 0x2b  item_kits2
+            WRITE_BYTE 0x2d  item_kits3
+            WRITE_BYTE 0x2f  item_kits4
+          END
+  
+          // visuals
+          PATCH_IF (visual > 0) BEGIN
+            WRITE_EVALUATED_ASCII 0x22 ~%item_visual%~ #2
+          END
+          PATCH_IF (ground > 0) BEGIN
+            WRITE_EVALUATED_ASCII 0x44 ~%ground_icon%~ #8
+          END
+  
+        END
+      END
+    END
+  END
+END
+
+
+//This is a separate function ("set" function above is standalone)
+//This returns specific fields from the normal item of each type.
+//ex. for BG2/EEs, can use to get proficiency number, then match against weapprof.2da
+
+DEFINE_DIMORPHIC_FUNCTION d2_get_itemtype_fields
+  STR_VAR type=~~
+  RET item_cat item_unusable item_flags
+      item_name item_desc item_visual ground_icon
+      item_kits1 item_kits2 item_kits3 item_kits4
+BEGIN
+
+    // default values
+    OUTER_SET item_cat = 0         // item category
+    OUTER_SET item_unusable = 0    // unusable flags
+    OUTER_SET item_flags = 0       // item flags
+    OUTER_SET item_name = ~-1~     // base item name
+    OUTER_SET item_desc = ~-1~     // base item desc
+    OUTER_SET item_kits1 = 0       // kit restrictions (0 if no kitlist.2da)
+    OUTER_SET item_kits2 = 0
+    OUTER_SET item_kits3 = 0
+    OUTER_SET item_kits4 = 0
+    OUTER_TEXT_SPRINT item_visual ~  ~      // visual (avatar/paperdoll)
+    OUTER_TEXT_SPRINT ground_icon ~None~    // ground icon
+
+    // match array type names
+    LAF d2_check_itemtype STR_VAR type=EVAL ~%type%~ RET type END
+
+    ACTION_PHP_EACH d2_itemtype_res AS type2 => res BEGIN
+      ACTION_IF (~%type%~ STR_EQ ~%type2%~) BEGIN
+        ACTION_IF (FILE_EXISTS_IN_GAME ~%res%.itm~) BEGIN
+
+          // RET variables
+          OUTER_SET item_cat = EVAL ~%%type%_cat%~              // item category
+          OUTER_SET item_unusable = EVAL ~%%type%_unusable%~    // unusable flags
+          OUTER_SET item_flags = EVAL ~%%type%_flags%~          // item flags
+          OUTER_SET item_name = EVAL ~%%type%_name%~            // base item name
+          OUTER_SET item_desc = EVAL ~%%type%_desc%~            // base item desc
+          OUTER_SET item_kits1 = EVAL ~%%type%_kits1%~          // kit restrictions (0 if no kitlist.2da)
+          OUTER_SET item_kits2 = EVAL ~%%type%_kits2%~
+          OUTER_SET item_kits3 = EVAL ~%%type%_kits3%~
+          OUTER_SET item_kits4 = EVAL ~%%type%_kits4%~
+          OUTER_TEXT_SPRINT item_visual EVAL ~%%type%_visual%~    // visual (avatar/paperdoll)
+          OUTER_TEXT_SPRINT ground_icon EVAL ~%%type%_ground%~    // ground icon
+
+        END
+      END
+    END
+
+END
+
+
+//run from above functions
+//this will change some "type" entries to match array names
+
+DEFINE_DIMORPHIC_FUNCTION d2_check_itemtype STR_VAR type=~~ RET type BEGIN
+
+  OUTER_TEXT_SPRINT type ~%type%~
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~amul~) BEGIN  OUTER_TEXT_SPRINT type ~amulet~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~neck~) BEGIN  OUTER_TEXT_SPRINT type ~necklace~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~robe~) BEGIN  OUTER_TEXT_SPRINT type ~robe~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~boot~) BEGIN  OUTER_TEXT_SPRINT type ~boots~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~foot~) BEGIN  OUTER_TEXT_SPRINT type ~boots~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~girdle~) BEGIN  OUTER_TEXT_SPRINT type ~belt~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~brac~) BEGIN  OUTER_TEXT_SPRINT type ~bracers~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~wrist~) BEGIN  OUTER_TEXT_SPRINT type ~bracers~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~gaunt~) BEGIN  OUTER_TEXT_SPRINT type ~gauntlets~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~hand~) BEGIN  OUTER_TEXT_SPRINT type ~gauntlets~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~glove~) BEGIN  OUTER_TEXT_SPRINT type ~gauntlets~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~helm~) BEGIN  OUTER_TEXT_SPRINT type ~helmet~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~head~) BEGIN  OUTER_TEXT_SPRINT type ~helmet~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~mask~) BEGIN  OUTER_TEXT_SPRINT type ~helmet~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~book~) BEGIN  OUTER_TEXT_SPRINT type ~tome~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~manual~) BEGIN  OUTER_TEXT_SPRINT type ~tome~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~pot~) BEGIN  OUTER_TEXT_SPRINT type ~potion~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~vial~) BEGIN  OUTER_TEXT_SPRINT type ~potion~  END
+
+  //pst
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~ear~) BEGIN  OUTER_TEXT_SPRINT type ~earring~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~fall~) BEGIN  OUTER_TEXT_SPRINT type ~bodice~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~leat~) BEGIN  OUTER_TEXT_SPRINT type ~leather~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~jerkin~) BEGIN  OUTER_TEXT_SPRINT type ~leather~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~eye~) BEGIN  OUTER_TEXT_SPRINT type ~eyeball~  END
+
+END
+
+
+
+//
+//set arrays and variables (for above functions)
+
+ACTION_CLEAR_ARRAY ~d2_itemtype_res~
+
+//base item array
+//these are in bgee, bg2ee, iwdee, bg1, bg2, iwd (unless stated otherwise)
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_itemtype_res BEGIN
+//equips
+  amulet      => amul14
+  necklace    => amul01
+  ring        => ring06
+  cloak       => clck01
+  robe        => clck12
+  boots       => boot02
+  belt        => belt02
+  bracers     => brac01
+  gauntlets   => brac09
+  helmet      => helm06
+//quick items
+  tome        => book06
+  potion      => potn02
+  bottle      => BOTSMITH
+  wand        => wand02
+  magewand    => wand05
+  clericwand  => wand11
+  rod         => rods01
+  horn        => misc3l
+  harp        => misc3o
+//misc
+  diamond     => MISC42
+  emerald     => MISC43
+END
+
+//
+ACTION_IF !(FILE_EXISTS_IN_GAME ~BOTSMITH.itm~) BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~potn02.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~bottle~) ~potn02~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00POTN01.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~bottle~) ~00POTN01~ END
+END
+ACTION_IF !(FILE_EXISTS_IN_GAME ~rods01.itm~) BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~wand02.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~rod~) ~wand02~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00WAND01.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~rod~) ~00WAND01~ END
+END
+ACTION_IF !(FILE_EXISTS_IN_GAME ~misc3l.itm~) BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~MISC73.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~horn~) ~MISC73~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~MHORN.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~horn~) ~MHORN~ END
+END
+ACTION_IF !(FILE_EXISTS_IN_GAME ~misc3o.itm~) BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~MISC2P.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~harp~) ~MISC2P~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~HARP.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~harp~) ~HARP~ END
+END
+
+//iwd2 alts
+ACTION_IF (GAME_INCLUDES ~iwd2~) BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00AMUL13.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~amulet~) ~00AMUL13~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00AMUL12.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~necklace~) ~00AMUL12~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00RING19.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~ring~) ~00RING19~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00CLCK01.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~cloak~) ~00CLCK01~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00ROBE02.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~robe~) ~00ROBE02~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00BOOT02.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~boots~) ~00BOOT02~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00BELT02.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~belt~) ~00BELT02~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00BRAC02.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~bracers~) ~00BRAC02~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00BRAC09.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~gauntlets~) ~00BRAC09~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00HELM07.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~helmet~) ~00HELM07~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~52BOOKDV.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~tome~) ~52BOOKDV~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00POTN01.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~potion~) ~00POTN01~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00WAND01.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~wand~) ~00WAND01~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00WAND04.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~magewand~) ~00WAND04~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00WAND08.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~clericwand~) ~00WAND08~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00BARD05.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~horn~) ~00BARD05~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00BARD03.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~harp~) ~00BARD03~ END
+//
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00GEM26.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~diamond~) ~00GEM26~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~00GEM27.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~emerald~) ~00GEM27~ END
+END
+
+//pst alts
+ACTION_IF (GAME_IS ~pst pstee~) BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~SILBRA.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~bracers~) ~SILBRA~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~SILRING.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~ring~) ~SILRING~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~SILEAR.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~amulet~) ~SILEAR~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~SILEAR.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~earring~) ~SILEAR~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~EYEKAL.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~diamond~) ~EYEKAL~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~EYEKAL.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~eyeball~) ~EYEKAL~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~BLOOCHRM.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~potion~) ~BLOOCHRM~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~BLOOCHRM.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~charm~) ~BLOOCHRM~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~TTCHR1.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~tattoo~) ~TTCHR1~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~BJOURN.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~tome~) ~BJOURN~ END
+//mage items
+  ACTION_IF (FILE_EXISTS_IN_GAME ~MAGGUARD.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~gauntlets~) ~MAGGUARD~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~BBWAND.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~wand~) ~BBWAND~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~BBWAND.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~magewand~) ~BBWAND~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~SHAMAN.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~rod~) ~SHAMAN~ END
+//body slot
+  ACTION_IF (FILE_EXISTS_IN_GAME ~DUSTROBE.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~cloak~) ~DUSTROBE~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~DUSTROBE.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~robe~) ~DUSTROBE~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~BOD_PQ.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~bodice~) ~BOD_PQ~ END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~JER_FS.itm~) BEGIN OUTER_TEXT_SPRINT $d2_itemtype_res (~leather~) ~JER_FS~ END
+END
+
+//note: many pst items don't have generic name/desc, but this can be used for item type, restrictions, ground icon
+
+
+
+//
+//get info from base items
+ACTION_PHP_EACH d2_itemtype_res AS type => res BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%res%.itm~) BEGIN
+    COPY_EXISTING - ~%res%.itm~  ~~
+      READ_SHORT 0x1c item_cat
+      READ_LONG  0x1e item_unusable
+      READ_LONG  0x18 item_flags
+      READ_LONG  0x8  item_name    // unidentified name (as stringref)
+      READ_LONG  0x50 item_desc    // unidentified desc (as stringref)
+      READ_ASCII 0x22 item_visual (2)
+      READ_ASCII 0x44 ground_icon (8)
+
+      // check name/desc
+      PATCH_IF (item_name < 1) BEGIN  READ_LONG 0xc  item_name  END     // use 0xc if 0x8 was invalid
+      PATCH_IF (item_desc < 1) BEGIN  READ_LONG 0x54  item_desc  END    // use 0x54 if 0x50 was invalid
+
+      // kit restrictions for EEs, BG2, IWD2
+      PATCH_IF (FILE_EXISTS_IN_GAME ~kitlist.2da~) BEGIN
+        READ_BYTE 0x29 item_kits1
+        READ_BYTE 0x2b item_kits2
+        READ_BYTE 0x2d item_kits3
+        READ_BYTE 0x2f item_kits4
+      END ELSE BEGIN
+        SET item_kits1 = 0
+        SET item_kits2 = 0
+        SET item_kits3 = 0
+        SET item_kits4 = 0
+      END
+
+      // write to arrays
+      TEXT_SPRINT $d2_itemtype_cat (~%type%~) ~%item_cat%~
+      TEXT_SPRINT $d2_itemtype_unusable (~%type%~) ~%item_unusable%~
+      TEXT_SPRINT $d2_itemtype_flags (~%type%~) ~%item_flags%~
+      TEXT_SPRINT $d2_itemtype_name (~%type%~) ~%item_name%~
+      TEXT_SPRINT $d2_itemtype_desc (~%type%~) ~%item_desc%~
+      TEXT_SPRINT $d2_itemtype_kits1 (~%type%~) ~%item_kits1%~
+      TEXT_SPRINT $d2_itemtype_kits2 (~%type%~) ~%item_kits2%~
+      TEXT_SPRINT $d2_itemtype_kits3 (~%type%~) ~%item_kits3%~
+      TEXT_SPRINT $d2_itemtype_kits4 (~%type%~) ~%item_kits4%~
+      TEXT_SPRINT $d2_itemtype_visual (~%type%~) ~%item_visual%~
+      TEXT_SPRINT $d2_itemtype_ground (~%type%~) ~%ground_icon%~
+
+      // set variables
+      SET EVAL ~%type%_cat~ = item_cat
+      SET EVAL ~%type%_unusable~ = item_unusable
+      SET EVAL ~%type%_flags~ = item_flags
+      SET EVAL ~%type%_name~ = item_name
+      SET EVAL ~%type%_desc~ = item_desc
+      SET EVAL ~%type%_kits1~ = item_kits1
+      SET EVAL ~%type%_kits2~ = item_kits2
+      SET EVAL ~%type%_kits3~ = item_kits3
+      SET EVAL ~%type%_kits4~ = item_kits4
+      TEXT_SPRINT EVAL ~%type%_visual~ ~%item_visual%~
+      TEXT_SPRINT EVAL ~%type%_ground~ ~%ground_icon%~
+
+    // end inlined COPY
+  END
+END
+
+
+
+//
+//extra stuff
+
+/*
+print info from item of each type (in Weidu log)
+"files" check also says if an item does not exist in game
+*/
+
+DEFINE_DIMORPHIC_FUNCTION d2_itemtype_print INT_VAR files=1 info=0 BEGIN
+
+  // prints out resource names for items from arrays.
+  ACTION_IF (files > 0) BEGIN
+    ACTION_PHP_EACH d2_itemtype_res AS type => res BEGIN
+      ACTION_IF (FILE_EXISTS_IN_GAME ~%res%.itm~) BEGIN
+        PRINT ~type %type% is: %res%.itm~
+      END ELSE BEGIN
+        PRINT ~type %type% does not exist in game~
+      END
+    END
+  END
+
+  // prints out name, desc, and category info for each item type.
+  ACTION_IF (info > 0) BEGIN
+    ACTION_PHP_EACH d2_itemtype_res AS type => res BEGIN
+      ACTION_IF (FILE_EXISTS_IN_GAME ~%res%.itm~) BEGIN
+        OUTER_TEXT_SPRINT item ~%type%~
+
+        ACTION_GET_STRREF EVAL ~%%item%_name%~ item_name
+        ACTION_GET_STRREF EVAL ~%%item%_desc%~ item_desc
+        OUTER_SET item_cat = EVAL ~%%item%_cat%~
+        OUTER_TEXT_SPRINT item_visual EVAL ~%%item%_visual%~
+        ACTION_IF (~%item_visual%~ STR_EQ ~  ~) BEGIN  OUTER_TEXT_SPRINT item_visual ~None~ END
+
+        PRINT ~%item_name%~
+        PRINT ~%item_desc%~
+        PRINT ~%item% cat: %item_cat%~
+        PRINT ~%item% visual: %item_visual%~
+        PRINT ~%WNL%--%WNL%~
+      END
+    END
+  END
+
+END
+
+
+//
+//

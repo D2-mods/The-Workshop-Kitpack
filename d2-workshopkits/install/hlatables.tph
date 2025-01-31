@@ -1,0 +1,180 @@
+/*
+HLA stuff
+run this from "prep" section (before kits or updates)
+*/
+
+
+//run functions from kit file
+//REINCLUDE d2_hla_baseclass_array file to use arrays (for later patching)
+
+//
+//assign class for each kit (should be name from luabbr.2da)
+DEFINE_ACTION_FUNCTION d2_hla_baseclass STR_VAR kit=~~ class=~~ BEGIN
+  COPY_EXISTING ~override/d2_hla_baseclass_array~  ~override~
+    REPLACE_TEXTUALLY ~kitids => baseclass~  ~kitids => baseclass%WNL%  %kit% => %class%~
+  BUT_ONLY UNLESS ~%kit% => %class%~
+END
+
+//
+//assign luabbr ABBREV for each kit (no "lu" prefix)
+DEFINE_ACTION_FUNCTION d2_hla_tableres STR_VAR kit=~~ abbrev=~~ BEGIN
+  COPY_EXISTING ~override/d2_hla_baseclass_array~  ~override~
+    REPLACE_TEXTUALLY ~kitids => tableres~  ~kitids => tableres%WNL%  %kit% => %abbrev%~
+  BUT_ONLY UNLESS ~%kit% => %abbrev%~
+END
+
+//
+ACTION_IF !(FILE_EXISTS ~override/d2_hla_baseclass_array~) BEGIN
+<<<<<<<< .../inlined/d2_hla_baseclass_array
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_hla_baseclass_array BEGIN
+  kitids => baseclass
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_hla_tableres_array BEGIN
+  kitids => tableres
+END
+>>>>>>>>
+COPY ~.../inlined/d2_hla_baseclass_array~  ~override~
+END
+
+
+
+//makes sure IWD triple class tables are set correctly
+//Skipped if tables already changed from default
+
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  COPY_EXISTING ~luabbr.2da~  ~override~
+    LPF d2_get_2da_entry STR_VAR col_name=abbrev row_name=FIGHTER_MAGE_THIEF RET entry END
+    PATCH_IF (~%entry%~ STR_EQ ~FT0~) BEGIN
+      LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_THIEF entry=FMT END
+    END
+
+    LPF d2_get_2da_entry STR_VAR col_name=abbrev row_name=FIGHTER_MAGE_CLERIC RET entry END
+    PATCH_IF (~%entry%~ STR_EQ ~FC0~) BEGIN
+      LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_CLERIC entry=FMC END
+    END
+  IF_EXISTS BUT_ONLY
+END
+
+
+
+//
+//make array from current luabbr.2da
+
+/*
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_luabbr_classes BEGIN
+  class => abbrev
+END
+*/
+
+COPY_EXISTING - ~luabbr.2da~  ~~
+  // variables
+  COUNT_2DA_ROWS 2 luabbr_rows
+  READ_2DA_ENTRIES_NOW ~luabbr_table~ 2    // at 2 columns, row 1 is MAGE
+
+  FOR (r = 1; r < luabbr_rows; ++r) BEGIN
+    READ_2DA_ENTRY_FORMER ~luabbr_table~ r 0 class
+    READ_2DA_ENTRY_FORMER ~luabbr_table~ r 1 abbrev
+    TEXT_SPRINT $d2_luabbr_classes (~%class%~) ~%abbrev%~
+  END
+IF_EXISTS
+
+/*
+ACTION_PHP_EACH d2_luabbr_classes AS class => abbrev BEGIN
+  OUTER_TEXT_SPRINT table ~lu%abbrev%~
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%table%.2da~) BEGIN
+    PRINT ~%class%  =>  %table%~
+  END ELSE BEGIN
+    PRINT ~file not in game~
+  END
+END
+*/
+
+
+
+//
+//stuff for Talents of Faerun
+
+//denote Use Wands (unlocks UAI)
+DEFINE_PATCH_FUNCTION tof_denote_usewands BEGIN
+  REPLACE_TEXTUALLY  ~AP_d2dwuwm~  ~****~
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~d2dwuwm~ END
+END
+
+OUTER_TEXT_SPRINT feat  ~DW-BDUWM~
+OUTER_TEXT_SPRINT newspell ~d2dwuwm~
+COPY_EXISTING ~%feat%.spl~ ~override/%newspell%.spl~ IF_EXISTS
+
+
+//denote Arcane Knowledge (unlocks HLA spells)
+DEFINE_PATCH_FUNCTION tof_denote_spellschool STR_VAR type=none BEGIN
+  PHP_EACH tof_denote_spellschool AS spell => school BEGIN
+    SET denote = 0
+    PATCH_IF !(~%type%~ STRING_CONTAINS_REGEXP ~%spell%~) BEGIN SET denote = 1 END
+    PATCH_IF !(~%type%~ STRING_CONTAINS_REGEXP ~%school%~) BEGIN SET denote = 1 END
+    PATCH_IF (denote > 0) BEGIN
+
+      // denote feat at level 1
+      PATCH_IF !(~%spell%~ STRING_CONTAINS_REGEXP ~dw~) BEGIN
+        REPLACE_TEXTUALLY  ~AP_%spell%~  ~****~
+        LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%spell%~ END
+        TEXT_SPRINT res ~%spell%~
+      END
+      PATCH_IF !(~%school%~ STRING_CONTAINS_REGEXP ~dw~) BEGIN
+        REPLACE_TEXTUALLY  ~AP_%school%~  ~****~
+        LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%school%~ END
+        TEXT_SPRINT res ~%school%~
+      END
+
+      // add feat effect at level 18
+      LPF tof_arcaneknowledge STR_VAR spell=~%res%~ END
+
+    END
+  END
+END
+
+DEFINE_PATCH_FUNCTION tof_arcaneknowledge STR_VAR spell=none BEGIN
+  PHP_EACH tof_arcaneknowledge AS spell2 => feat BEGIN
+    PATCH_IF (~%spell%~ STR_EQ ~%spell2%~) BEGIN
+      LPF d2_kit_ability_adder INT_VAR level=18 passive=1 STR_VAR resource=~%feat%~ END
+    END
+  END
+END
+
+
+//
+ACTION_DEFINE_ASSOCIATIVE_ARRAY tof_denote_spellschool BEGIN
+  dw-akl1 => abj
+  dw-akl2 => conj
+  dw-akl3 => div
+  dw-akl4 => ench
+  dw-akl5 => illu
+  dw-akl6 => invo
+  dw-akl7 => nec
+  dw-akl8 => alt
+  evo     => dw-akl6
+  trans   => dw-akl8
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY tof_arcaneknowledge BEGIN
+  dw-akl1 => dw-hlak1
+  dw-akl2 => dw-hlak2
+  dw-akl3 => dw-hlak3    // 8 characters (change to 7 below)
+  dw-akl4 => dw-hlak4
+  dw-akl5 => dw-hlak5
+  dw-akl6 => dw-hlak6
+  dw-akl7 => dw-hlak7
+  dw-akl8 => dw-hlak8
+END
+
+OUTER_SET n = 1
+ACTION_PHP_EACH tof_arcaneknowledge AS denote => feat BEGIN
+  OUTER_TEXT_SPRINT newspell ~d2dwak%n%~
+  COPY_EXISTING ~%feat%.spl~ ~override/%newspell%.spl~ IF_EXISTS
+  OUTER_TEXT_SPRINT $tof_arcaneknowledge (~%denote%~) ~%newspell%~ 
+  OUTER_SET n += 1
+END
+
+
+//
+//

@@ -134,10 +134,14 @@ Otherwise, it gives a message that the "contingency" could not be recast.
 COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%s1%a.SPL~
   LPF d2_remove_level_headers END
   LPF d2_subspell_remove_effects END
-  LPF update_op324_restrictions INT_VAR opcode=318 END    // update IWD restrictions
+  LPF ALTER_EFFECT INT_VAR power=0 resist_dispel=2 END
+
+  // update IWD restrictions
+  LPF update_op324_restrictions INT_VAR opcode=318 END
+  LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_parameter2=104 parameter1=201 END    // add sword race
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=318 opcode=326 STR_VAR resource=~%s1%t~ END
 
   // edits
-  LPF ALTER_EFFECT INT_VAR power=0 resist_dispel=2 END
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=100 parameter2=2 END
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ insert=last END    // cures bleeding
   LPF d2_remove_effects_on_cast STR_VAR resource=~%s1%~ insert=last END                              // removes main spell
@@ -147,6 +151,13 @@ COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%s1%a.SPL~
   SPRINT ability_name @104
   LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@352) STR_VAR color=cloud RET newstring END
   LPF CLONE_EFFECT INT_VAR match_opcode=17 opcode=139 parameter1=newstring END
+
+//IWDEE text (unhealable creatures)
+OUTER_SPRINT ability_name @104
+COPY ~%abilities%/spellfailed.SPL~  ~override/%s1%t.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@350) END    // "Unaffected by..."
+  LPF d2_protect_on_castequip INT_VAR duration=180 END
 
 
 //Make clab table
@@ -161,6 +172,7 @@ COPY ~inlined/d2clab_ranger_nocharm~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=3 passive=1 STR_VAR resource=~%e4%~ END
   LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e5%~ END
   LPF d2_kit_ability_adder END
+//  LPF tof_denote_usewands END    // ToF: added as feat instead of denoting here
 
 
 //Kit function
@@ -182,10 +194,24 @@ LAF ADD_KIT_EX
 END
 
 
-//Usability - restrict to chain mail
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
-  ~D2%kitname%~ => ~chain~
-END
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~ranger~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
+
+
+//armor restriction
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT armor_type ~chain~
+OUTER_TEXT_SPRINT $d2_restrict_armor_array (~%ids_name%~) ~%armor_type%~
+
+OUTER_SET stringref = RESOLVE_STR_REF (@100301)
+OUTER_TEXT_SPRINT $d2_restrict_armor_stringref (~%ids_name%~) ~%stringref%~
+
+OUTER_TEXT_SPRINT baseclass ~ranger~
+OUTER_TEXT_SPRINT $d2_restrict_armor_baseclass (~%ids_name%~) ~%baseclass%~
 
 
 //edit ToB starting bag

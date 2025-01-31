@@ -9,10 +9,13 @@ OUTER_SET buildeffects = 1
 
 
 //Prep
+INCLUDE ~%install%/weapontypes.tph~
+INCLUDE ~%install%/weapontypes2.tph~
+INCLUDE ~%install%/itemtypes.tph~
 INCLUDE ~%install%/clabprep.tph~
 INCLUDE ~%install%/backstabprep.tph~
-INCLUDE ~%install%/monkprep.tph~
-INCLUDE ~%install%/rangerprep.tph~
+INCLUDE ~%install%/classchecks.tph~
+INCLUDE ~%install%/hlatables.tph~
 INCLUDE ~%install%/spellprep.tph~
 INCLUDE ~%install%/spellprep2.tph~
 INCLUDE ~%install%/riftgateprep.tph~
@@ -49,8 +52,11 @@ ACTION_IF (nopowderkeg = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
-  INCLUDE ~%install%/rrbardsongs.tph~
-  INCLUDE ~%install%/d2scriptpatch.tph~
+  INCLUDE ~%install%/%kitname%hla.tph~
+  INCLUDE ~%install%/%kitname%hla2.tph~
+  INCLUDE ~%install%/%kitname%var.tph~
+  INCLUDE ~%install%/%kitname%icons.tph~
+  INCLUDE ~%install%/%kitname%cast.tph~
 END
 
 //Spell Fencer (d2wkh)
@@ -130,10 +136,10 @@ ACTION_IF (nobloodminister = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/%kitname%profs.tph~
   INCLUDE ~%install%/fnpspheres.tph~
   INCLUDE ~%install%/tofspheres.tph~
   INCLUDE ~%install%/dofspheres.tph~
-  INCLUDE ~%install%/dofweapons.tph~
 END
 
 
@@ -227,22 +233,27 @@ ACTION_IF (nomedic = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
-//  INCLUDE ~%install%/%kitname%profs.tph~
   INCLUDE ~%install%/%kitname%config.tph~
 END
 
 
 
 //Extra stuff
-INCLUDE ~%install%/evasionchecks.tph~
-INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/spellprep3.tph~
-INCLUDE ~%install%/castingspeed.tph~
 INCLUDE ~%install%/restrictarmor.tph~
 INCLUDE ~%install%/crosskiteffects.tph~
+INCLUDE ~%install%/hlaupdater.tph~
+INCLUDE ~%install%/weapprofedits.tph~
+INCLUDE ~%install%/subtleskills.tph~
+INCLUDE ~%install%/evasionchecks.tph~
 INCLUDE ~%install%/morespellpatches.tph~
 INCLUDE ~%install%/hunterbadgescripts.tph~
 INCLUDE ~%install%/hunterbadgestores.tph~
+INCLUDE ~%install%/trackingcheck.tph~
+
+INCLUDE ~%install%/hbag.tph~
+INCLUDE ~%install%/castingspeed.tph~
+INCLUDE ~%install%/supportmode.tph~
 INCLUDE ~%install%/iconpatch.tph~
 INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/5ecastingspells.tph~

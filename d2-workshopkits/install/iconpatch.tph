@@ -3,21 +3,17 @@ remove icons from natural immunities
 */
 
 
-ACTION_IF (noiconpatch = 0) BEGIN
+OUTER_SET noicons = 0
+ACTION_IF (noiconpatch = 0) BEGIN  OUTER_SET noicons = 100 END    // 100 = out of range (effect not applied)
 
 
 ACTION_FOR_EACH spell IN
   ~%wardennofear%~
   ~%ministernodrain%~
 BEGIN
-
   COPY_EXISTING ~%spell%.SPL~  ~override~
-    LPF DELETE_EFFECT INT_VAR match_opcode=142 END
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 probability2=noicons END
   IF_EXISTS BUT_ONLY
-
-END
-
-
 END
 
 

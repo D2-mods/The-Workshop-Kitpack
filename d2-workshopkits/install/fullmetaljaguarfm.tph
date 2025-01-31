@@ -48,7 +48,7 @@ COPY ~inlined/d2clab.2DA~  ~override/%fullmetaljaguar%F.2DA~
   LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~%e4%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
 
-  //import fix (BG2, ToB, SoD)
+  // import fix (BG2, ToB, SoD)
   PHP_EACH import_fix_array AS file => level BEGIN
     LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
   END
@@ -56,6 +56,7 @@ COPY ~inlined/d2clab.2DA~  ~override/%fullmetaljaguar%F.2DA~
 COPY ~inlined/d2clab.2DA~  ~override/%fullmetaljaguar%M.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e7%~ END
+  LPF tof_denote_spellschool STR_VAR type=~illusion~ END    // tof denote hla
 
 
 //
@@ -83,10 +84,21 @@ LAF ADD_KIT_EX
 END
 
 
-//Usability - restrict to splint mail
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
-  ~D2%kitname%FM~ => ~splint~
-END
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%FM~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%1~
+OUTER_TEXT_SPRINT class    ~FIGHTER_MAGE~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
+
+
+//armor restriction
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%FM~
+OUTER_TEXT_SPRINT armor_type ~splint~
+OUTER_TEXT_SPRINT $d2_restrict_armor_array (~%ids_name%~) ~%armor_type%~
+
+OUTER_TEXT_SPRINT baseclass ~fm~
+OUTER_TEXT_SPRINT $d2_restrict_armor_baseclass (~%ids_name%~) ~%baseclass%~
 
 
 END

@@ -1,0 +1,591 @@
+/*
+make unique HLA table name (cloned from base class)
+for some kits, check for mod HLAs
+for some kits, check for missing abilities (can be caused by ToF)
+
+requires hlatables.tph, hlatables2.tph, hlacopyclass.tph, archerhlas.tph
+*/
+
+
+//anything added is copy pasted from another class (as in the exact line except column 0)
+//HLAs must be in table to be copied (will account for added/removed HLAs)
+
+
+//abbrev is entry in luabbr
+//copyclass is class to copy hlas from (as listed in luabbr)
+//restrict is ABILITY entry to ignore when copying (can be list, include the GA_ or AP_)
+
+DEFINE_ACTION_FUNCTION d2_updatehlas STR_VAR abbrev=~~ copyclass=~~ restrict=~~ BEGIN
+  OUTER_TEXT_SPRINT hlatable  ~lu%abbrev%~
+  INCLUDE ~%install%/hlacopyclass.tph~
+END
+
+DEFINE_ACTION_FUNCTION d2_archerhlas INT_VAR shot=0 trap=0 STR_VAR abbrev=~~ BEGIN
+  OUTER_TEXT_SPRINT hlatable  ~lu%abbrev%~
+  INCLUDE ~%install%/archerhlas.tph~
+END
+
+
+//clone hla tables
+OUTER_TEXT_SPRINT prefix ~d2wk~
+INCLUDE ~%install%/hlatables2.tph~
+
+
+
+//
+//check abilities
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_checkhlas BEGIN    // kit => class (can be a list)
+  d2medic             => fighter
+  d2drifter           => fighter
+  d2warmagician       => invokerabjurer
+  d2starjammer        => transmuter
+  d2gravewarden       => fighter
+  d2moonlightknight   => fighter
+  d2moonlightknightcr => fighter
+  d2confessor         => fighter
+  d2templeknight      => fighter
+  d2noblescion        => fighter
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_restricthlas BEGIN    // abilities to skip (can be a list)
+  d2medic             => ~GA_SPCL904 AP_DW-FTMTY AP_DW-FTDDL AP_DW-GCRY AP_MO#HLA07 AP_MO#HLA08~
+  d2drifter           => ~AP_DW-GCRY GA_SPCL909~
+  d2warmagician       => none
+  d2starjammer        => none
+  d2gravewarden       => ~AP_DW-FTMTY AP_DW-FTDDL AP_DW-GCRY GA_SPCL909 AP_MO#HLA07 AP_MO#HLA08~
+  d2moonlightknight   => ~AP_DW-FTMTY AP_DW-FTDDL AP_DW-GCRY GA_SPCL909 AP_MO#HLA07 AP_MO#HLA08~
+  d2moonlightknightcr => ~AP_DW-FTMTY AP_DW-FTDDL AP_DW-GCRY GA_SPCL909 AP_MO#HLA07 AP_MO#HLA08~
+  d2confessor         => ~AP_DW-FTMTY AP_DW-FTDDL GA_SPCL901 AP_SPCL901 AP_MO#HLA07 AP_MO#HLA08 AP_DW-FTFOP~
+  d2templeknight      => ~AP_DW-FTDDL AP_DW-FTDIR GA_SPCL901 AP_SPCL901 AP_MO#HLA07 AP_MO#HLA08 AP_DW-FTFOP~
+  d2noblescion        => ~AP_DW-FTMTY AP_DW-FTDIR GA_SPCL901 AP_SPCL901 AP_MO#HLA07 AP_MO#HLA08 AP_DW-FTFOP~
+END
+
+ACTION_PHP_EACH d2wk_checkhlas AS kit => class BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+      ACTION_PHP_EACH d2wk_restricthlas AS kit3 => restrict BEGIN
+        ACTION_IF (~%kit%~ STR_EQ ~%kit3%~) BEGIN
+
+  ACTION_PHP_EACH d2_luabbr_classes AS copy => table BEGIN
+    ACTION_IF !(~%class%~ STRING_CONTAINS_REGEXP ~%copy%~) BEGIN
+      LAF d2_updatehlas STR_VAR abbrev=~%abbrev%~ copyclass=~%copy%~ restrict=~%restrict%~ END
+    END
+  END
+
+        END
+      END
+    END
+  END
+END
+
+
+//
+//improved archer mod
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_argent77archer BEGIN
+  d2warhound   => shot
+  d2warhoundfm => shot
+  d2noblescion => shot
+  d2nurse      => trap
+  d2nursemt    => trap
+END
+
+ACTION_PHP_EACH d2wk_argent77archer AS kit => type BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+      OUTER_SET shot = 0
+      OUTER_SET trap = 0
+      ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~shot~) BEGIN OUTER_SET shot = 1 END
+      ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~trap~) BEGIN OUTER_SET trap = 1 END
+      LAF d2_archerhlas INT_VAR shot=shot trap=trap STR_VAR abbrev=~%abbrev%~ END
+    END
+  END
+END
+
+
+//
+//check multiclass
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_checkhlas_multi BEGIN    // kit => class (can be a list)
+  d2spellfencer       => fightermage
+  d2beasthunterfm     => fightermage
+  d2beasthunterfmc    => fightercleric
+  d2beasthunterfc     => fightercleric
+  d2warhoundfm        => fightermage
+  d2fullmetaljaguarfm => fightermage
+  d2fullmetaljaguarft => fighterthief
+  d2moonlightknightcr => clericranger
+  d2crowhunterft      => fighterthief
+  d2crowhunterfmt     => fighterthief
+  d2crowhuntermt      => magethief
+  d2nursemt           => magethief
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_restricthlas_multi BEGIN    // abilities to skip (can be a list)
+  d2spellfencer       => none
+  d2beasthunterfm     => none
+  d2beasthunterfmc    => none
+  d2beasthunterfc     => none
+  d2warhoundfm        => none
+  d2fullmetaljaguarfm => none
+  d2fullmetaljaguarft => none
+  d2moonlightknightcr => none
+  d2crowhunterft      => none
+  d2crowhunterfmt     => ~AP_DW-FTSCR AP_DW-FTWND~
+  d2crowhuntermt      => ~AP_DW-FTSCR AP_DW-FTWND~
+  d2nursemt           => ~AP_DW-FTSCR AP_DW-FTWND~
+END
+
+ACTION_PHP_EACH d2wk_checkhlas_multi AS kit => class BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+      ACTION_PHP_EACH d2wk_restricthlas_multi AS kit3 => restrict BEGIN
+        ACTION_IF (~%kit%~ STR_EQ ~%kit3%~) BEGIN
+
+  ACTION_PHP_EACH d2_luabbr_classes AS copy => table BEGIN
+    ACTION_IF !(~%class%~ STRING_CONTAINS_REGEXP ~%copy%~) BEGIN
+      LAF d2_updatehlas STR_VAR abbrev=~%abbrev%~ copyclass=~%copy%~ restrict=~%restrict%~ END
+    END
+  END
+
+        END
+      END
+    END
+  END
+END
+
+
+//
+//check FnP spells
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_checkhlas_fnp BEGIN    // kit => class (can be a list)
+  d2bloodminister     => ~shaman B_PRIEST_SUNE D5_MY_LIGHT~
+  d2moonlightknightcr => ~D5_CLERIC_MALAR D5_MY_EARTH~
+  d2beasthunterfmc    => ~B_CLERIC_LATHANDER D5_OC_BEAST~
+  d2beasthunterfc     => ~B_CLERIC_LATHANDER D5_OC_BEAST~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_restricthlas_fnp BEGIN    // abilities to skip (can be a list)
+  d2bloodminister     => ~GA_TG#SPIR AP_D5PHLA4~
+  d2moonlightknightcr => ~GA_TG#SPIR~
+  d2beasthunterfmc    => ~AP_D5PHLA4~
+  d2beasthunterfc     => ~AP_D5PHLA4~
+END
+
+ACTION_PHP_EACH d2wk_checkhlas_fnp AS kit => class BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+      ACTION_PHP_EACH d2wk_restricthlas_fnp AS kit3 => restrict BEGIN
+        ACTION_IF (~%kit%~ STR_EQ ~%kit3%~) BEGIN
+
+  ACTION_PHP_EACH d2_luabbr_classes AS copy => table BEGIN
+    ACTION_IF !(~%class%~ STRING_CONTAINS_REGEXP ~%copy%~) BEGIN
+      LAF d2_updatehlas STR_VAR abbrev=~%abbrev%~ copyclass=~%copy%~ restrict=~%restrict%~ END
+    END
+  END
+
+        END
+      END
+    END
+  END
+END
+
+
+//
+//remove if detected
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_removehlas_kit BEGIN    // kit => res (can be a list)
+  d2confessor     => ~GA_SPCL211 AP_DW-FTEMH~
+  d2gravewarden   => ~GA_SPCL311~
+  d2crowhunter    => ~AP_DW-FTTRP GA_SPCL412~
+  d2crowhunterft  => ~AP_DW-FTTRP GA_SPCL412~
+  d2crowhunterfmt => ~AP_DW-FTTRP GA_SPCL412 AP_DW-FTSCR AP_DW-FTWND~
+  d2crowhuntermt  => ~AP_DW-FTTRP GA_SPCL412 AP_DW-FTSCR AP_DW-FTWND~
+  d2drifter       => ~AP_DW-FTEMP AP_DW-FTEPG AP_DW-FTEMH GA_DW-SCSC1~
+  d2nursemt       => ~AP_DW-FTSCR AP_DW-FTWND~
+  d2templeknight  => AP_DW-FTICR
+  d2noblescion    => AP_DW-FTICM
+  d2warhound      => AP_DW-FTICM
+  d2warhoundfm    => AP_DW-FTICM
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_removehlas_res BEGIN    // ability => mod (just for reference)
+  GA_SPCL211  => delete    // paladin hands
+  GA_SPCL311  => delete    // ranger charm
+  GA_SPCL412  => delete    // set snare
+  AP_DW-FTTRP => delete    // traps bonus
+  AP_DW-FTEMP => delete    // caster bonus
+  AP_DW-FTEPG => delete    // caster bonus
+  AP_DW-FTEMH => delete    // healing bonus
+  AP_DW-FTSCR => delete    // use scrolls
+  AP_DW-FTWND => delete    // use wands
+  GA_DW-SCSC1 => delete    // scribe scrolls
+  AP_DW-FTICM => delete    // melee crits
+  AP_DW-FTICR => delete    // ranged crits
+END
+
+ACTION_PHP_EACH d2wk_removehlas_kit AS kit => res BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+
+  OUTER_TEXT_SPRINT hlatable ~lu%abbrev%~
+  COPY_EXISTING ~%hlatable%.2da~ ~override~
+    PHP_EACH d2wk_removehlas_res AS ability => delete BEGIN
+      PATCH_IF !(~%res%~ STRING_CONTAINS_REGEXP ~%ability%~) BEGIN
+        PATCH_IF (RESOURCE_CONTAINS ~%hlatable%.2da~  ~[^0-9^a-z]%ability%[^0-9^a-z]~) BEGIN
+          LPF 2da_find_row_delete INT_VAR col_read=1 STR_VAR row_name=~%ability%~ END
+        END
+      END
+    END
+    LPF d2_add_hla_string INT_VAR renumber=1 END
+  BUT_ONLY
+
+    END
+  END
+END
+
+
+//
+//remove if a mod equivalent is detected
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_replacehlas_kit BEGIN    // kit => res
+  d2medic => ~GA_SPCL905 GA_SPCL909 GA_SPCL900 GA_SPCL901 AP_SPCL901 GA_SPCL907~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_replacehlas_res BEGIN    // res => mod
+  GA_SPCL906 => none             // power attack
+  GA_SPCL905 => ~GA_c0mn#h05~    // critical strike
+  GA_SPCL909 => ~GA_c0mn#h06 GA_TG#TIGS~    // smite
+  GA_SPCL900 => ~GA_c0mn#h07~    // whirlwind
+  GA_SPCL901 => ~GA_c0mn#h07~    // greater whirwind
+  AP_SPCL901 => ~GA_c0mn#h07~    // ToF greater whirwind
+  GA_SPCL907 => ~GA_TG#CHNT~     // hardiness
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_replacehlas_mod BEGIN    // mod => list
+  GA_c0mn#h05 => replace
+  GA_c0mn#h06 => replace
+  GA_c0mn#h07 => replace
+  GA_TG#TIGS  => replace
+  GA_TG#CHNT  => replace
+END
+
+ACTION_PHP_EACH d2wk_replacehlas_kit AS kit => res BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+
+  OUTER_TEXT_SPRINT hlatable ~lu%abbrev%~
+  COPY_EXISTING ~%hlatable%.2da~ ~override~
+    PHP_EACH d2wk_replacehlas_res AS oldspell => list BEGIN
+      PATCH_IF !(~%res%~ STRING_CONTAINS_REGEXP ~%oldspell%~) BEGIN
+    PHP_EACH d2wk_replacehlas_mod AS newspell => replace BEGIN
+      PATCH_IF !(~%list%~ STRING_CONTAINS_REGEXP ~%newspell%~) BEGIN
+
+        PATCH_IF (RESOURCE_CONTAINS ~%hlatable%.2da~  ~[^0-9^a-z]%newspell%[^0-9^a-z]~) BEGIN
+        PATCH_IF (RESOURCE_CONTAINS ~%hlatable%.2da~  ~[^0-9^a-z]%oldspell%[^0-9^a-z]~) BEGIN
+          LPF 2da_find_row_delete INT_VAR col_read=1 STR_VAR row_name=~%oldspell%~ END
+        END
+        END
+
+          END
+        END
+      END
+    END
+    LPF d2_add_hla_string INT_VAR renumber=1 END
+  BUT_ONLY
+
+    END
+  END
+END
+
+
+//
+//add extra or missing abilities
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_bonushlas_res BEGIN
+  d2gravewarden     => ~AP_SPCL915 AP_DW-FTSCR AP_DW-FTWND GA_SPCL232~
+  d2crowhunter      => ~GA_SPCL922 AP_DW-FTAMB GA_C0ASHLA1 AP_C0ASHLA2~
+  d2crowhunterft    => ~GA_SPCL922 AP_DW-FTAMB GA_C0ASHLA1 AP_C0ASHLA2~
+  d2crowhunterfmt   => ~GA_SPCL922 AP_DW-FTAMB GA_C0ASHLA1 AP_C0ASHLA2~
+  d2crowhuntermt    => ~GA_SPCL922 AP_DW-FTAMB GA_C0ASHLA1 AP_C0ASHLA2~
+  d2moonlightknight => ~GA_SPCL923 GA_SPCL935~
+  d2powderkeg       => ~GA_SPCL910 GA_SPCL911 GA_RR#THL04~    // damage traps (if removed by tweak)
+  d2warhound        => ~GA_TG#PREC GA_C0ARCH01~
+  d2warhoundfm      => ~GA_TG#PREC GA_C0ARCH01~
+  d2nurse           => ~AP_DW-FTICR AP_DW-FTDDL GA_TG#PREC GA_C0ARCH01~
+  d2nursemt         => ~AP_DW-FTICR AP_DW-FTDDL GA_TG#PREC GA_C0ARCH01~
+  d2noblescion      => ~AP_TG#VIRT GA_TG#PREC GA_C0ARCH01~
+  d2confessor       => ~GA_SPCL232 GA_SPCL922 GA_C0ASHLA1~
+  d2templeknight    => ~GA_TG#CIOL~
+  d2medic           => ~GA_DWPSS2 GA_DWPSS3 GA_DWPSS4 GA_DWPSS5 AP_DW-HLPAP AP_DW-HLPEX~
+  d2drifter         => ~GA_SPCL913 GA_SPCL914 GA_SPCL917 AP_DW-HLAAD AP_DW-HLAVD~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_bonushlas_class BEGIN
+  AP_DW-FTSCR => thief         // use scrolls (unlocks use wands)
+  AP_DW-FTWND => thief         // use wands (unlocks UAI with ToF)
+  AP_SPCL915  => thief         // UAI
+  GA_SPCL922  => ranger        // tracking
+  GA_SPCL923  => paladin       // paladin deva
+  GA_SPCL935  => blackguard    // blackguard deva
+  GA_SPCL910  => thief         // spike trap
+  GA_SPCL911  => thief         // exploding trap (if removed by a tweak)
+  GA_RR#THL04 => thief         // rr acid trap
+  AP_DW-FTDDL => fighter       // ranged damage
+  AP_DW-FTICR => fighter       // ranged crits
+  GA_DWPSS1   => ASSASIN       // tof blue whinnis (sleep)
+  GA_DWPSS2   => ASSASIN       // tof carrion ichor (paralysis)
+  GA_DWPSS3   => ASSASIN       // tof nightmare paste (confuse)
+  GA_DWPSS4   => ASSASIN       // tof death kiss (instant death)
+  GA_DWPSS5   => ASSASIN       // tof nerve venom (stats debuff)
+  AP_DW-HLPAP => ASSASIN       // tof poison saves
+  AP_DW-HLPEX => ASSASIN       // tof poison saves
+  AP_TG#VIRT  => cavalier      // tg virtue
+  GA_TG#CIOL  => inquisitor    // circle of law
+  GA_SPCL231  => inquisitor    // dispel magic
+  GA_SPCL232  => inquisitor    // true sight
+  GA_TG#PREC  => feralan       // archer hla
+  AP_DW-FTAMB => blade         // ambidexterity
+  GA_C0ASHLA1 => ASSASIN       // expose weakness
+  AP_C0ASHLA2 => ASSASIN       // assassin blade
+  GA_C0ARCH01 => feralan       // archer hla
+//  GA_SPCL913  => thief         // bg2 evasion, tof avoid danger
+//  GA_SPCL914  => thief         // bg2 greater evasion
+  GA_SPCL917  => thief         // bg2 avoid death
+  AP_DW-HLAAD => thief         // tof avoid danger advanced
+  AP_DW-HLAVD => thief         // tof avoid death
+END
+
+ACTION_PHP_EACH d2wk_bonushlas_res AS kit => res BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+      ACTION_PHP_EACH d2wk_bonushlas_class AS ability => class BEGIN
+        ACTION_IF !(~%res%~ STRING_CONTAINS_REGEXP ~%ability%~) BEGIN
+
+  ACTION_PHP_EACH d2_luabbr_classes AS class2 => table BEGIN
+    ACTION_IF (~%class%~ STR_EQ ~%class2%~) BEGIN
+      OUTER_TEXT_SPRINT hlatable ~lu%abbrev%~
+      OUTER_TEXT_SPRINT copytable ~lu%table%~
+      ACTION_IF (RESOURCE_CONTAINS ~%copytable%.2da~ ~[^0-9^a-z]%ability%[^0-9^a-z]~) BEGIN
+        ACTION_IF !(RESOURCE_CONTAINS ~%hlatable%.2da~ ~[^0-9^a-z]%ability%[^0-9^a-z]~) BEGIN
+          LAF d2_get_hla_string STR_VAR clone_res=~%ability%~ clone_2da=~%copytable%~ RET hlastring END
+          LAF d2_add_hla_string STR_VAR hlatable=~%hlatable%~ hlastring=~%hlastring%~ END
+        END
+      END
+    END
+  END 
+
+        END
+      END
+    END
+  END
+END
+
+
+//
+//restrict deva version
+ACTION_FOR_EACH kit IN ~d2moonlightknight~ BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+
+  OUTER_TEXT_SPRINT hlatable ~lu%abbrev%~
+  COPY_EXISTING ~%hlatable%.2da~ ~override~
+    COUNT_REGEXP_INSTANCES  ~GA_SPCL923~  devagood
+    COUNT_REGEXP_INSTANCES  ~GA_SPCL935~  devaevil
+    PATCH_IF (devagood>0 AND devaevil>0) BEGIN
+      LPF d2_edit_2da_entry INT_VAR col_read=1 STR_VAR col_name=ALIGNMENT_RESTRICT row_name=GA_SPCL923 entry=ALL_EVIL END
+      LPF d2_edit_2da_entry INT_VAR col_read=1 STR_VAR col_name=EXCLUDED_BY row_name=GA_SPCL923 entry=GA_SPCL935 END
+      LPF d2_edit_2da_entry INT_VAR col_read=1 STR_VAR col_name=ALIGNMENT_RESTRICT row_name=GA_SPCL935 entry=ALL_GOOD END
+      LPF d2_edit_2da_entry INT_VAR col_read=1 STR_VAR col_name=EXCLUDED_BY row_name=GA_SPCL935 entry=GA_SPCL923 END
+    END
+    PRETTY_PRINT_2DA
+  BUT_ONLY
+
+    END
+  END
+END
+
+
+//add ToF prereq for Avoid Death
+OUTER_TEXT_SPRINT prereq ~GA_SPCL913~
+OUTER_TEXT_SPRINT hla1 ~AP_DW-HLAAD~
+OUTER_TEXT_SPRINT hla2 ~AP_DW-HLAVD~
+
+ACTION_FOR_EACH kit IN ~d2drifter~ BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+
+  ACTION_PHP_EACH d2_luabbr_classes AS copy => table BEGIN
+    ACTION_IF (~%copy%~ STR_EQ ~thief~) BEGIN
+      OUTER_TEXT_SPRINT hlatable ~lu%abbrev%~
+      OUTER_TEXT_SPRINT copytable ~lu%table%~
+      ACTION_IF (RESOURCE_CONTAINS ~%hlatable%.2da~ ~[^0-9^a-z]%hla2%[^0-9^a-z]~) BEGIN
+        ACTION_IF (RESOURCE_CONTAINS ~%copytable%.2da~ ~[^0-9^a-z]%prereq%[^0-9^a-z]~) BEGIN
+          LAF d2_get_hla_string STR_VAR clone_res=~%prereq%~ clone_2da=~%copytable%~ RET hlastring END
+          LAF d2_add_hla_string STR_VAR hlatable=~%hlatable%~ hlastring=~%hlastring%~ match=~%hla1%~ END
+        END
+      END
+    END
+  END 
+
+    END
+  END
+END
+
+
+
+//
+//edits for ToF HLA file (m_dw_hld.lua)
+
+//backup lua file
+ACTION_IF (FILE_EXISTS_IN_GAME ~m_dw_hld.lua~) BEGIN
+  ACTION_IF !(FILE_EXISTS ~weidu_external/d2wk/m_dw_hld.lua~) BEGIN
+    COPY_EXISTING ~m_dw_hld.lua~  ~weidu_external/d2wk/m_dw_hld.lua~
+  END
+END
+
+
+/*add as kit effect instead
+//denote "Use wands" in mage clab table
+//in case multiclass kit has UAI but not Use Wands
+ACTION_IF (FILE_EXISTS_IN_GAME ~DW-BDUWM.spl~) BEGIN
+  COPY_EXISTING ~CLABMA01.2da~  ~override~
+    LPF tof_denote_usewands END
+  IF_EXISTS BUT_ONLY
+END
+*/
+
+
+//match archer (ranged crits)
+DEFINE_PATCH_FUNCTION d2wk_tofarcherhla INT_VAR class=2 STR_VAR ids_name=~~ BEGIN
+  PATCH_IF (RESOURCE_CONTAINS ~kit.ids~ ~%ids_name%~) BEGIN
+    LPF d2_get_kitnum STR_VAR kit=~%ids_name%~ RET kitnum END
+    PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[%kitnum%\]={\[%class%\]=5}~) BEGIN
+      FOR (level=1; level < 20; ++level) BEGIN
+        LPF d2_tof_addhlakit STR_VAR string=EVAL ~[%kitnum%]={[%class%]=%level%}~ match=EVAL ~[7]={[12]=%level%}~ END
+      END
+    END
+  END
+END
+
+//match inquisitor (for true sight)
+DEFINE_PATCH_FUNCTION d2wk_tofinquisitorhla INT_VAR class=6 STR_VAR ids_name=~~ BEGIN
+  PATCH_IF (RESOURCE_CONTAINS ~kit.ids~ ~%ids_name%~) BEGIN
+    LPF d2_get_kitnum STR_VAR kit=~%ids_name%~ RET kitnum END
+    PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[%kitnum%\]={\[%class%\]=3}~) BEGIN
+      FOR (level=1; level < 20; ++level) BEGIN
+        LPF d2_tof_addhlakit STR_VAR string=EVAL ~[%kitnum%]={[%class%]=%level%}~ match=EVAL ~[5]={[6]=%level%}~ END
+      END
+    END
+  END
+END
+
+//match swashbuckler (for ambidexterity)
+DEFINE_PATCH_FUNCTION d2wk_tofswashbucklerhla INT_VAR class=4 STR_VAR ids_name=~~ BEGIN
+  PATCH_IF (RESOURCE_CONTAINS ~kit.ids~ ~%ids_name%~) BEGIN
+    LPF d2_get_kitnum STR_VAR kit=~%ids_name%~ RET kitnum END
+    PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[%kitnum%\]={\[%class%\]=11}~) BEGIN
+      FOR (level=1; level < 20; ++level) BEGIN
+        LPF d2_tof_addhlakit STR_VAR string=EVAL ~[%kitnum%]={[%class%]=%level%}~ match=EVAL ~[12]={[4]=%level%}~ END
+      END
+    END
+  END
+END
+
+
+//class changes (lua edits)
+COPY_EXISTING ~m_dw_hld.lua~  ~override~
+
+  // turn undead fix
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[3\]=2~) BEGIN
+    LPF d2_tof_addhlaclass STR_VAR string=~[3]=2~ ability=~DW-FTIMT~ END    // using "=2" because string not in file
+  END
+
+  // monk edits (use fighter levels)
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[20\]=8~) BEGIN
+    LPF d2_tof_addhlaclass STR_VAR string=~[20]=8~ ability=~DW-FTICM~ END    // melee crits
+    LPF d2_tof_addhlaclass STR_VAR string=~[20]=8~ ability=~DW-FTICR~ END    // ranged crits
+//    LPF d2_tof_addhlaclass STR_VAR string=~[20]=4~ ability=~DW-FTMTY~ END    // melee damage
+//    LPF d2_tof_addhlaclass STR_VAR string=~[20]=4~ ability=~DW-FTDDL~ END    // ranged damage
+    LPF d2_tof_addhlaclass STR_VAR string=~[20]=5~ ability=~DW-FTDIR~ END    // dirty fighting
+  END
+
+IF_EXISTS BUT_ONLY
+
+
+//kit changes (lua edits)
+COPY_EXISTING ~m_dw_hld.lua~  ~override~
+
+  // ranger edit (for drifter)
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[12\]=6~) BEGIN
+    LPF d2_tof_addhlaclass STR_VAR string=~[12]=6~ ability=~DW-FTMTY~ END    // melee damage
+    LPF d2_tof_addhlaclass STR_VAR string=~[12]=6~ ability=~DW-FTDDL~ END    // ranged damage
+  END
+
+  // paladin edits (noble scion, temple knight)
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[6\]=4~) BEGIN
+    LPF d2_tof_addhlaclass STR_VAR string=~[6]=4~ ability=~DW-FTMTY~ END    // melee damage
+    LPF d2_tof_addhlaclass STR_VAR string=~[6]=4~ ability=~DW-FTDDL~ END    // ranged damage
+  END
+
+  // thief edit (for nurse)
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[4\]=4~) BEGIN
+//  LPF d2_tof_addhlaclass STR_VAR string=~[4]=8~ ability=~DW-FTICR~ END    // ranged crits (match archer below)
+    LPF d2_tof_addhlaclass STR_VAR string=~[4]=4~ ability=~DW-FTDDL~ END    // ranged damage
+  END
+
+  // ranger edit (for grave warden)
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[12\]=2~) BEGIN
+    LPF d2_tof_addhlaclass STR_VAR string=~[12]=2~ ability=~DW-FTSCR~ END    // use scrolls
+    LPF d2_tof_addhlaclass STR_VAR string=~[12]=2~ ability=~DW-FTWND~ END    // use wands
+  END
+
+  // monk edits (for medic)
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[20\]=11~) BEGIN
+    LPF d2_tof_addhlaclass STR_VAR string=~[20]=8~ ability=~DWPSS2~ END    // poison paralyze
+    LPF d2_tof_addhlaclass STR_VAR string=~[20]=11~ ability=~DWPSS3~ END    // poison confuse
+  END
+
+
+  // match archer (ranged crits)
+  DEFINE_ASSOCIATIVE_ARRAY d2wk_tofarcherhla BEGIN
+    d2warhound   => 2
+    d2warhoundfm => 2    // multiclass kits use baseclass number
+    d2noblescion => 6
+    d2nurse      => 4
+    d2nursemt    => 4
+  END
+  PHP_EACH d2wk_tofarcherhla AS kit => class BEGIN
+    LPF d2wk_tofarcherhla INT_VAR class=class STR_VAR ids_name=~%kit%~ END
+  END
+
+  // match inquisitor (for true sight)
+  DEFINE_ASSOCIATIVE_ARRAY d2wk_tofinquisitorhla BEGIN
+    d2confessor    => 6
+    d2gravewarden  => 12
+  END
+  PHP_EACH d2wk_tofinquisitorhla AS kit => class BEGIN
+    LPF d2wk_tofinquisitorhla INT_VAR class=class STR_VAR ids_name=~%kit%~ END
+  END
+
+  // match swashbuckler (for ambidexterity)
+  DEFINE_ASSOCIATIVE_ARRAY d2wk_tofswashbucklerhla BEGIN
+    d2crowhunter    => 4
+    d2crowhunterft  => 4
+    d2crowhunterfmt => 4
+    d2crowhuntermt  => 4
+  END
+  PHP_EACH d2wk_tofswashbucklerhla AS kit => class BEGIN
+    LPF d2wk_tofswashbucklerhla INT_VAR class=class STR_VAR ids_name=~%kit%~ END
+  END
+
+
+  // give jesterblade any blade abilities
+  PATCH_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2jesterblade~) BEGIN
+    LPF d2_get_kitnum STR_VAR kit=d2jesterblade RET kitnum END
+    PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[%kitnum%\]={\[5\]=3}~) BEGIN
+      FOR (level=1; level < 20; ++level) BEGIN
+        LPF d2_tof_addhlakit STR_VAR string=EVAL ~[%kitnum%]={[5]=%level%}~ match=EVAL ~[13]={[5]=%level%}~ END
+      END
+    END
+  END
+
+IF_EXISTS BUT_ONLY
+
+
+//
+//

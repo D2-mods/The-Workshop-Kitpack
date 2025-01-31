@@ -1,0 +1,40 @@
+//
+//
+
+
+//check icon colors option
+ACTION_IF (nopowderkegpatch = 0) BEGIN
+  OUTER_TEXT_SPRINT icon1 ~%s1%~
+  OUTER_TEXT_SPRINT icon2 ~%s2%~
+  OUTER_TEXT_SPRINT icon3 ~%s3%~
+  OUTER_TEXT_SPRINT icon4 ~%s4%~
+END ELSE BEGIN
+  OUTER_TEXT_SPRINT icon1 ~bard6~
+  OUTER_TEXT_SPRINT icon2 ~bard4~
+  OUTER_TEXT_SPRINT icon3 ~bard3~
+  OUTER_TEXT_SPRINT icon4 ~bard2~
+END
+
+COPY_EXISTING ~%blastingsong%.SPL~  ~override~
+  WRITE_ASCII 0x3a ~%icon1%~ #8
+  WRITE_ASCII 0x76 ~%icon1%~ #8
+IF_EXISTS BUT_ONLY
+
+COPY_EXISTING ~%boomingsong%.SPL~  ~override~
+  WRITE_ASCII 0x3a ~%icon2%~ #8
+  WRITE_ASCII 0x76 ~%icon2%~ #8
+IF_EXISTS BUT_ONLY
+
+COPY_EXISTING ~%dustexplosion%.SPL~  ~override~
+  WRITE_ASCII 0x3a ~%icon3%~ #8
+  WRITE_ASCII 0x76 ~%icon3%~ #8
+IF_EXISTS BUT_ONLY
+
+COPY_EXISTING ~%frenzyingflame%.SPL~  ~override~
+  WRITE_ASCII 0x3a ~%icon4%~ #8
+  WRITE_ASCII 0x76 ~%icon4%~ #8
+IF_EXISTS BUT_ONLY
+
+
+/*
+*/

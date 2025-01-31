@@ -1,19 +1,28 @@
 /*
-Creates copies of mod files in weidu_external/dan_p folder
+Creates copies of mod files in weidu_external/d2wk folder
 */
 
 
 //
-OUTER_TEXT_SPRINT d2wk_backup  ~weidu_external/dan_p/d2wk_backup~
+OUTER_TEXT_SPRINT d2wk_backup  ~weidu_external/d2wk/backup~
+ACTION_IF !(DIRECTORY_EXISTS ~%d2wk_backup%~) BEGIN  MKDIR ~%d2wk_backup%~  END
 
-ACTION_IF !(DIRECTORY_EXISTS ~%d2wk_backup%~) BEGIN
-  MKDIR ~%d2wk_backup%~
+COPY_EXISTING_REGEXP - GLOB ~^d2.*~  ~~
+  SET backup = 0
+  PATCH_IF !(~%SOURCE_RES%~ STRING_CONTAINS_REGEXP ~d2wk~) BEGIN SET backup = 1 END
+  PATCH_IF !(~%SOURCE_RES%~ STRING_CONTAINS_REGEXP ~d2!~)  BEGIN SET backup = 1 END
+  PATCH_IF !(~%SOURCE_RES%~ STRING_CONTAINS_REGEXP ~d2sleep~)  BEGIN SET backup = 1 END
+  PATCH_IF !(~%SOURCE_RES%~ STRING_CONTAINS_REGEXP ~d2bleed~)  BEGIN SET backup = 1 END
+  PATCH_IF !(~%SOURCE_RES%~ STRING_CONTAINS_REGEXP ~hbag~)  BEGIN SET backup = 1 END
+  PATCH_IF (backup > 0) BEGIN
+    TEXT_SPRINT $d2wk_backupfiles (~%SOURCE_FILE%~) ~backup~
+  END
+
+ACTION_PHP_EACH d2wk_backupfiles AS file => backup BEGIN
+  COPY_EXISTING ~%file%~  ~%d2wk_backup%~
 END
 
-COPY_EXISTING_REGEXP GLOB ~d2wk.*~  ~%d2wk_backup%~
-
-
-PRINT ~Backup folder: weidu_external/dan_p/d2wk_backup~
+PRINT ~Backup folder: %d2wk_backup%~
 
 
 //

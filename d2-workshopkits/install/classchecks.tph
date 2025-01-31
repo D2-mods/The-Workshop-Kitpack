@@ -1,0 +1,67 @@
+/*
+class checks
+*/
+
+
+//only if monk kit is installed
+//make sure Monk class is enabled for Humans (if disabled by a mod)
+
+OUTER_SET patch_monk = 0
+ACTION_IF (IS_AN_INT nomedic AND nomedic = 0) BEGIN OUTER_SET patch_monk = 1 END
+ACTION_IF (IS_AN_INT nomonastery AND nomonastery = 0) BEGIN OUTER_SET patch_monk = 1 END
+
+ACTION_IF (patch_monk > 0) BEGIN
+  COPY_EXISTING ~clsrcreq.2DA~  ~override~
+    COUNT_2DA_ROWS 3 clsrcreq_rows
+    READ_2DA_ENTRIES_NOW ~clsrcreq_table~ 3
+    FOR (r = 1; r < clsrcreq_rows; ++r) BEGIN
+      READ_2DA_ENTRY_FORMER ~clsrcreq_table~ r 0 class
+      PATCH_IF (~%class%~ STR_EQ ~MONK~) BEGIN
+        SET_2DA_ENTRY r 1 3 1
+      END
+    END
+  BUT_ONLY
+END
+
+
+//makes sure the fmc triple class is available (if disabled by a mod)
+//checks human, half-elf, half-orc, but only enables if f/m is also enabled
+
+ACTION_IF (RESOURCE_CONTAINS ~clsrcreq.2da~ ~FIGHTER_MAGE_CLERIC~) BEGIN
+  COPY_EXISTING ~clsrcreq.2DA~  ~override~
+    PATCH_FOR_EACH race IN ~HUMAN~ ~HALF_ELF~ ~HALFORC~ BEGIN
+      LPF d2_get_2da_entry STR_VAR col_name=~%race%~ row_name=FIGHTER_MAGE RET entry END
+      PATCH_IF (entry = 1) BEGIN
+        LPF d2_edit_2da_entry STR_VAR col_name=~%race%~ row_name=FIGHTER_MAGE_CLERIC entry=~%entry%~ END
+      END
+    END
+  BUT_ONLY
+END
+
+
+//makes sure skill points for cleric/ranger are same as base ranger
+//at least one ranger revision changes skill points, but not for c/r
+
+COPY_EXISTING ~thiefscl.2da~  ~override~
+
+  // variables
+  COUNT_2DA_ROWS 3 thiefscl_rows
+  READ_2DA_ENTRIES_NOW ~thiefscl_table~ 3
+
+  LPF 2da_find_column STR_VAR col_name=ranger RET col_number END
+  SET ranger_col = col_number
+  LPF 2da_find_column STR_VAR col_name=cleric_ranger RET col_number END
+  SET cr_col = col_number
+
+  // patch
+  FOR (r = 1; r < thiefscl_rows; ++r) BEGIN
+    READ_2DA_ENTRY_FORMER ~thiefscl_table~ r ranger_col skill
+    SET_2DA_ENTRY_LATER ~thiefscl_edits~ r cr_col skill
+  END
+  SET_2DA_ENTRIES_NOW ~thiefscl_edits~ 3
+
+IF_EXISTS BUT_ONLY
+
+
+//
+//

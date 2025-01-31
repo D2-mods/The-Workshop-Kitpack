@@ -1,0 +1,51 @@
+/*
+custom hla tables (clones table of baseclass from d2_hla_baseclass_array)
+runs from "Update" component
+safe to run at end of order (after mods that say they need to be last)
+
+requires d2_2da_find_row.tpa, hlatables.tph
+variables: prefix (use to limit patching)
+*/
+
+
+REINCLUDE ~override/d2_hla_baseclass_array~
+
+
+//
+OUTER_TEXT_SPRINT kit_class ~d2_hla_baseclass_array~
+OUTER_TEXT_SPRINT kit_abbrev ~d2_hla_tableres_array~
+OUTER_TEXT_SPRINT class_abbrev ~d2_luabbr_classes~
+ACTION_IF !(VARIABLE_IS_SET prefix) BEGIN OUTER_TEXT_SPRINT prefix  ~skip~ END
+ACTION_IF (~%prefix%~ STR_EQ ~~)    BEGIN OUTER_TEXT_SPRINT prefix  ~skip~ END
+
+//
+ACTION_PHP_EACH ~%kit_class%~ AS kit => class BEGIN
+  ACTION_PHP_EACH ~%kit_abbrev%~ AS kit2 => newres BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+      ACTION_PHP_EACH ~%class_abbrev%~ AS class2 => oldres BEGIN
+        ACTION_IF (~%class%~ STR_EQ ~%class2%~) BEGIN
+
+          ACTION_IF !(~%newres%~ STRING_CONTAINS_REGEXP ~%prefix%~) BEGIN    // "newres" DOES contain "prefix"
+            OUTER_TEXT_SPRINT hlatable ~lu%newres%~
+//          ACTION_IF !(FILE_EXISTS ~override/%hlatable%.2da~) BEGIN
+              LAF d2_clone_hla_table
+                STR_VAR
+                  kitids = ~%kit%~
+                  clone  = ~%oldres%~
+                  abbrev = ~%newres%~
+              END
+//          END
+          END
+
+        END
+      END
+    END
+  END
+END
+
+
+OUTER_TEXT_SPRINT prefix  ~~
+
+
+//
+//

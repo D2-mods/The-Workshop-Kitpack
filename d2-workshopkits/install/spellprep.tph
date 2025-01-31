@@ -64,21 +64,6 @@ COPY_EXISTING ~cdmindfl.itm~  ~override~
   LPF ALTER_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=700 match_parameter1=10 opcode=44 END
 IF_EXISTS BUT_ONLY
 
-//
-//IWD hla tables (does nothing if set correctly)
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  COPY_EXISTING ~luabbr.2da~  ~override~
-    LPF d2_get_2da_entry STR_VAR col_name=abbrev row_name=FIGHTER_MAGE_THIEF RET entry END
-    PATCH_IF (~%entry%~ STR_EQ ~FT0~) BEGIN
-      LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_THIEF  entry=FMT END
-    END
-
-    LPF d2_get_2da_entry STR_VAR col_name=abbrev row_name=FIGHTER_MAGE_CLERIC RET entry END
-    PATCH_IF (~%entry%~ STR_EQ ~FC0~) BEGIN
-      LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_CLERIC entry=FMC END
-    END
-  BUT_ONLY
-END
 
 //
 //temp fix for Shohy song switching (does nothing if no fix needed)
@@ -87,8 +72,9 @@ COPY_EXISTING ~BI#B1ST.SPL~  ~override~
 IF_EXISTS BUT_ONLY
 
 
+
 /*
-patches for sleep effect
+patches for sleep effects
 effects cloned from an existing op39 on the SPL/ITM
 */
 

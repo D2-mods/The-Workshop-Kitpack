@@ -1,0 +1,92 @@
+/*
+Just function work
+Sets nonmagical name/desc (skip name?)
+*/
+
+
+ACTION_IF !(GAME_IS ~pstee~) BEGIN
+
+
+ACTION_IF !(~%mode%~ STR_EQ ~badge~) BEGIN
+  OUTER_TEXT_SPRINT mode ~item~
+END
+
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_itemtypes_array BEGIN
+  ~%crowfeather%~   => cloak
+  ~%etherbomb%~     => tome
+  ~%etherbooster%~  => amulet
+  ~%prisonchain%~   => ring
+  ~%cruciform%~     => amulet
+//
+  ~%golemring%~     => ring
+  ~%calamity%~      => ring
+  ~%stonering%~     => ring
+  ~%flynnring%~     => ring
+  ~%etherlimiter%~  => amulet
+//
+  ~%goldscarab%~    => necklace
+  ~%wingedsword%~   => ring
+  ~%redtearstone%~  => ring
+  ~%hunterbone%~    => wand       // ground icon: GSACK01 
+  ~%jadefeather%~   => amulet     // ground icon: gohbcom5 
+  ~%demonsoul%~     => diamond    // ground icon: GGEM01 
+  ~%shamanbone%~    => wand       // ground icon: GDAGG01 
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_badgetypes_array BEGIN
+  ~%badge_spark%~    => amulet
+  ~%badge_radiant%~  => amulet
+  ~%badge_cosmic%~   => amulet
+  ~%badge_pkeg%~     => amulet
+  ~%badge_saw%~      => amulet
+  ~%badge_old%~      => amulet
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_miscitems_noflags BEGIN
+  ~%calamity%~      => 1
+  ~%goldscarab%~    => 1
+  ~%hunterbone%~    => 1
+  ~%demonsoul%~     => 1
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_miscitems_ground BEGIN
+  ~%hunterbone%~    => GSACK01
+  ~%jadefeather%~   => gohbcom5
+  ~%demonsoul%~     => GGEM01
+  ~%shamanbone%~    => GDAGG01
+END
+
+
+//
+ACTION_PHP_EACH ~d2wk_%mode%types_array~ AS item => type BEGIN
+
+  COPY_EXISTING ~%item%.itm~  ~override~
+    LPF d2_get_itemtype_fields STR_VAR type=~%type%~ RET item_desc END
+    WRITE_LONG 0x50 item_desc
+
+    PHP_EACH ~d2wk_miscitems_noflags~ AS item2 => noflags BEGIN
+      PATCH_IF (~%item%~ STR_EQ ~%item2%~) BEGIN
+        PATCH_IF (noflags > 0) BEGIN
+          LPF d2_no_usableflags END
+        END
+      END
+    END
+
+    PHP_EACH ~d2wk_miscitems_ground~ AS item3 => ground BEGIN
+      PATCH_IF (~%item%~ STR_EQ ~%item3%~) BEGIN
+        PATCH_IF !(~%ground%~ STR_EQ ~default~) BEGIN
+          WRITE_EVALUATED_ASCII 0x44 ~%ground%~ #8
+        END
+      END
+    END
+  IF_EXISTS BUT_ONLY
+
+END
+
+
+END
+
+
+//
+//

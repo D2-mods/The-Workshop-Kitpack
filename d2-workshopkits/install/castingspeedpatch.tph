@@ -4,8 +4,6 @@ Some spell-like abilities are skipped (ex. Summon Spirit Animal or Cleric abilit
 */
 
 
-ACTION_IF (nocastingspeedpatch = 0) BEGIN
-
 ACTION_FOR_EACH ability IN 
     ~SPCL521~    // blade
     ~SPCL522~
@@ -95,17 +93,19 @@ ACTION_FOR_EACH ability IN
     ~SPIN667~
     ~SPIN718~
     ~SPMDSLAY~
+//mod
+    ~%argent77_hla1%~    // archerhlas.tph
+    ~%argent77_hla2%~
+    ~%shohyenhancedsong%~    // powderkeghla.tph
 BEGIN
 
-  ACTION_IF (FILE_EXISTS_IN_GAME ~%ability%.SPL~) BEGIN
-    COPY_EXISTING ~%ability%.SPL~  ~override~
+  COPY_EXISTING ~%ability%.SPL~  ~override~
+    LPF DELETE_EFFECT INT_VAR check_headers=0 match_opcode=189 match_timing=0 END
+    PATCH_IF (nocastingspeedpatch = 0) BEGIN
       READ_SHORT 0x84 speed
-      LPF DELETE_EFFECT INT_VAR check_headers=0 match_opcode=189 match_timing=0 END
       LPF ADD_SPELL_CFEFFECT INT_VAR opcode=189 target=1 parameter1=~%speed%~ parameter2=1 resist_dispel=2 duration=1 END
-    BUT_ONLY
-  END
-
-END
+    END
+  IF_EXISTS BUT_ONLY
 
 END
 

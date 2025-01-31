@@ -86,7 +86,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_bleed_removal_array BEGIN
   UMSTR3C   => phase
   USSWD2B   => phase
   backstab  => bleed
-  d2swd05e  => bleed    // mod (temp)
+//  d2swd05b  => bleed    // mod (temp)
   d2abb03e  => bleed
   d2abb15e  => phase
   d2drt01e  => phase

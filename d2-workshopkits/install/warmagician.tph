@@ -99,6 +99,7 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
 
 //Make clab table
 COPY ~inlined/d2clab_mage~  ~override/%kitid%.2DA~
+  LPF tof_denote_spellschool STR_VAR type=~invocation abjuration~ END    // tof denote hla
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 limit=20 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
@@ -127,6 +128,14 @@ LAF ADD_KIT_EX
   RET 
     kit_id
 END
+
+
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~mage~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
 
 
 //Set variables for external use

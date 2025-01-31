@@ -1,0 +1,277 @@
+/*
+Can set both proficiencies and weapon restrictions (optional)
+Set array and variables, then INCLUDE this file
+requires weapontypes.tph, weapontypes2.tph, d2_2da_find_row.tpa, d2_restrict_armor.tpa
+
+STR_VAR: ids_name, baseclass
+INT_VAR: restrictitems, stylemode, clearprofs, force2weapon, stringref
+*/
+
+
+/*example
+OUTER_TEXT_SPRINT ids_name  ~D2%kitname%~
+OUTER_TEXT_SPRINT baseclass  ~monk~
+OUTER_SET stringref = RESOLVE_STR_REF (@10201)    // kit name (used if restrictitems > 0)
+OUTER_SET restrictitems = 1
+OUTER_SET stylemode = 5
+OUTER_SET clearprofs = 1
+OUTER_SET force2weapon = 1
+INCLUDE ~%install%/usableweapons.tph~
+*/
+
+
+/*item restrictions
+op319 is not added if base class is already flagged
+Patches both magic and normal weapons.
+*/
+
+
+//all profs are only set if base class can learn it
+//anything set higher than base fighter class is automatically lowered to match it
+
+/*array outline
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_weapontype_usable BEGIN    // type => slots
+  axe            => 0
+  bastardsword   => 0
+  club           => 1
+  compositebow   => 0
+  dagger         => 1
+  dart           => 1
+  flail          => 1    // if usable and unusable items share a prof, usable has priority
+  greataxe       => 0    // can leave items off array (no prof, but no op319 if restrictitems > 0)
+  greatsword     => 0
+  halberd        => 0
+  hammer         => 1
+  heavycrossbow  => 1
+  katana         => 0
+  lightcrossbow  => 1
+  longbow        => 0
+  longsword      => 0
+  mace           => 1
+  morningstar    => 1
+  ninjato        => 0
+  scimitar       => 0
+  shortbow       => 0
+  shortsword     => 1
+  sling          => 1
+  spear          => 0
+  staff          => 1
+  throwingdagger => 1
+  throwingaxe    => 0
+  throwinghammer => 1
+  wakizashi      => 0
+END
+*/
+
+
+//check variables
+ACTION_IF !(VARIABLE_IS_SET ids_name)  BEGIN OUTER_TEXT_SPRINT ids_name ~D2%kitname%~ END
+ACTION_IF (~%ids_name%~ STR_EQ ~~)     BEGIN OUTER_TEXT_SPRINT ids_name ~D2%kitname%~ END
+ACTION_IF !(VARIABLE_IS_SET baseclass) BEGIN OUTER_TEXT_SPRINT baseclass ~%ids_name%~ END
+ACTION_IF (~%baseclass%~ STR_EQ ~~)    BEGIN OUTER_TEXT_SPRINT baseclass ~%ids_name%~ END
+ACTION_IF (~%baseclass%~ STR_EQ ~%ids_name%~) BEGIN OUTER_SET clearprofs = 0 END
+
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~[^0-9^a-z^_]%ids_name%[^0-9^a-z^_]~) BEGIN
+  OUTER_SET patch_usable = 1
+END ELSE BEGIN
+  OUTER_SET patch_usable = 0
+END
+
+ACTION_IF !(IS_AN_INT force2weapon) BEGIN OUTER_SET force2weapon = 0 END
+ACTION_IF !(IS_AN_INT stringref)    BEGIN OUTER_SET stringref = 0 END
+ACTION_IF !(RESOURCE_CONTAINS ~action.ids~ ~ZoomLock~) BEGIN OUTER_SET restrictitems = 0 END
+
+
+//
+ACTION_IF (patch_usable > 0) BEGIN
+
+  // split array into usable and unusable
+  ACTION_PHP_EACH d2_weapontype_usable AS type => usable BEGIN
+    ACTION_IF (IS_AN_INT usable AND usable > 0) BEGIN
+      LAF d2_get_weapontype_fields STR_VAR type=~%type%~ RET item_cat item_prof END
+      OUTER_TEXT_SPRINT $d2_weapprof_slots (~%item_prof%~) ~%usable%~    // prof => slots
+      OUTER_TEXT_SPRINT $d2_weapprof_cat (~%item_prof%~) ~%item_cat%~    // prof => cat
+    END
+  END
+
+  ACTION_PHP_EACH d2_weapontype_usable AS type => usable BEGIN
+    ACTION_IF (IS_AN_INT usable AND usable = 0) BEGIN
+      LAF d2_get_weapontype_fields STR_VAR type=~%type%~ RET item_cat item_prof END
+
+      // skip if in usable array (different item with same prof)
+      OUTER_SET add_to_array = 1
+      ACTION_PHP_EACH d2_weapprof_cat AS prof => cat BEGIN
+        ACTION_IF (item_prof = prof) BEGIN  OUTER_SET add_to_array = 0  END
+        ACTION_IF (item_cat = cat) BEGIN  OUTER_SET add_to_array = 0  END
+      END
+
+      ACTION_IF (add_to_array > 0) BEGIN
+        OUTER_TEXT_SPRINT $d2_restrict_weapons (~%type%~) ~%item_cat%~    // type => category
+      END
+    END
+  END
+
+
+  //
+  OUTER_TEXT_SPRINT classcheck  ~BIT5~
+  ACTION_PHP_EACH d2_itemflags_classes AS class => bit BEGIN
+    ACTION_IF (~%class%~ STR_EQ ~%baseclass%~) BEGIN
+      OUTER_TEXT_SPRINT classcheck  ~%bit%~
+    END
+  END
+
+
+  // patch items
+  ACTION_IF (IS_AN_INT restrictitems AND restrictitems > 0) BEGIN
+    OUTER_SET ids_num = IDS_OF_SYMBOL (kit ~%ids_name%~)
+
+    COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+
+      READ_LONG 0x1e item_flags
+      SET blocked = EVAL ~%classcheck%~
+      PATCH_IF !(item_flags & blocked) BEGIN    // skip if class already flagged
+
+        LPF d2_restrict_item_flags RET droppable displayable restrictions kitflags END
+        PATCH_IF ((%droppable%) AND (%displayable%)) BEGIN
+//        PATCH_IF (restrictions!=0 OR kitflags!=0) BEGIN    // skip if no restriction flags
+
+            READ_SHORT 0x1c item_cat
+            PATCH_IF !(item_cat=27 AND restrictions=0 AND kitflags=0) BEGIN    // skip Big Metal Rod
+              PHP_EACH d2_restrict_weapons AS type => cat BEGIN
+                PATCH_IF (item_cat = cat) BEGIN
+                  LPF DELETE_EFFECT INT_VAR match_opcode=319 match_parameter1=ids_num END
+                  LPF ADD_ITEM_EQEFFECT INT_VAR opcode=319 target=1 timing=2 parameter1=ids_num parameter2=9 special=stringref END
+                END
+              END
+            END
+
+//        END
+        END
+      END
+    BUT_ONLY
+  END
+
+
+  // check styles (the 5s will lower to match Fighter slots)
+  ACTION_IF (IS_AN_INT stylemode AND stylemode=1) BEGIN
+    OUTER_SET style1 = 1 OUTER_SET style2 = 1 OUTER_SET style3 = 1 OUTER_SET style4 = 1    // all set to 1
+  END
+  ACTION_IF (IS_AN_INT stylemode AND stylemode=2) BEGIN
+    OUTER_SET style1 = 1 OUTER_SET style2 = 1 OUTER_SET style3 = 1 OUTER_SET style4 = 2    // DoF clerics
+  END
+  ACTION_IF (IS_AN_INT stylemode AND stylemode=3) BEGIN
+    OUTER_SET style1 = 1 OUTER_SET style2 = 1 OUTER_SET style3 = 1 OUTER_SET style4 = 5    // Blade styles
+  END
+  ACTION_IF (IS_AN_INT stylemode AND stylemode>3) BEGIN
+    OUTER_SET style1 = 5 OUTER_SET style2 = 5 OUTER_SET style3 = 5 OUTER_SET style4 = 5    // Warrior styles
+  END
+  ACTION_IF !(IS_AN_INT style1) BEGIN OUTER_SET style1 = 1 END    // 2 handed
+  ACTION_IF !(IS_AN_INT style2) BEGIN OUTER_SET style2 = 1 END    // shield
+  ACTION_IF !(IS_AN_INT style3) BEGIN OUTER_SET style3 = 1 END    // single
+  ACTION_IF !(IS_AN_INT style4) BEGIN OUTER_SET style4 = 1 END    // 2 weapon
+
+  OUTER_TEXT_SPRINT $d2_weaponstyle_slots (~111~) ~%style1%~
+  OUTER_TEXT_SPRINT $d2_weaponstyle_slots (~112~) ~%style2%~
+  OUTER_TEXT_SPRINT $d2_weaponstyle_slots (~113~) ~%style3%~
+  OUTER_TEXT_SPRINT $d2_weaponstyle_slots (~114~) ~%style4%~
+
+
+  // edit proficiencies
+  COPY_EXISTING ~weapprof.2DA~  ~override~
+    PATCH_IF (IS_AN_INT clearprofs AND clearprofs>0) BEGIN
+      LPF d2_weapprof_kitedits INT_VAR amount=0 STR_VAR kit=~%ids_name%~ type=all END
+    END
+
+    // variables
+    COUNT_2DA_ROWS 3 weapprof_rows
+    READ_2DA_ENTRIES_NOW ~weapprof_table~ 3
+    COUNT_2DA_COLS weapprof_cols
+
+    LPF 2da_find_column STR_VAR col_name=~%baseclass%~ RET col_number END
+    SET baseclass_col = col_number
+    LPF 2da_find_column STR_VAR col_name=fighter RET col_number END
+    SET fighter_col = col_number
+    LPF 2da_find_column STR_VAR col_name=~%ids_name%~ RET col_number END
+    SET kit_col = col_number
+
+    PATCH_IF (baseclass_col>3 AND baseclass_col<weapprof_cols) BEGIN
+    PATCH_IF (fighter_col>3 AND fighter_col<weapprof_cols) BEGIN
+    PATCH_IF (kit_col>3 AND kit_col<weapprof_cols) BEGIN
+
+      FOR (r = 1; r < weapprof_rows; ++r) BEGIN
+        READ_2DA_ENTRY_FORMER ~weapprof_table~ r 1 value
+
+        // check profs
+        PHP_EACH d2_weapprof_slots AS prof => slots BEGIN
+          PATCH_IF (value = prof) BEGIN
+
+            // check if baseclass can learn
+            READ_2DA_ENTRY_FORMER ~weapprof_table~ r baseclass_col baseclass_slots
+            PATCH_IF (baseclass_slots > 0) BEGIN
+
+              // check "slots" against fighter
+              READ_2DA_ENTRY_FORMER ~weapprof_table~ r fighter_col fighter_slots
+              PATCH_IF (slots > fighter_slots) BEGIN SET slots = fighter_slots END
+
+              // set edits
+              SET_2DA_ENTRY_LATER ~d2weapprof_edits~ r kit_col slots
+
+            END
+          END
+        END
+
+        // check styles
+        PHP_EACH d2_weaponstyle_slots AS style => slots BEGIN
+          PATCH_IF (value = style) BEGIN
+
+            // check if baseclass can learn style
+            READ_2DA_ENTRY_FORMER ~weapprof_table~ r baseclass_col baseclass_slots
+            PATCH_IF (style=114 AND force2weapon>0) BEGIN  SET baseclass_slots = 1  END
+            PATCH_IF (baseclass_slots > 0) BEGIN
+
+              // check "slots" against fighter
+              READ_2DA_ENTRY_FORMER ~weapprof_table~ r fighter_col fighter_slots
+              PATCH_IF (slots > fighter_slots) BEGIN SET slots = fighter_slots END
+
+              // set edits
+              SET_2DA_ENTRY_LATER ~d2weapprof_edits~ r kit_col slots
+
+            END
+          END
+        END
+      END
+
+      // make edits
+      SET_2DA_ENTRIES_NOW ~d2weapprof_edits~ 3
+      PRETTY_PRINT_2DA
+
+    END
+    END
+    END
+  BUT_ONLY
+
+END
+
+
+//reset variables
+OUTER_SET stylemode = 0
+OUTER_SET style1 = 1
+OUTER_SET style2 = 1
+OUTER_SET style3 = 1
+OUTER_SET style4 = 1
+
+OUTER_TEXT_SPRINT ids_name  ~~
+OUTER_TEXT_SPRINT baseclass ~~
+OUTER_SET stringref = 0
+OUTER_SET restrictitems = 0
+OUTER_SET clearprofs = 0
+OUTER_SET force2weapon = 0
+
+ACTION_CLEAR_ARRAY ~d2_weapontype_usable~
+ACTION_CLEAR_ARRAY ~d2_weapprof_slots~
+ACTION_CLEAR_ARRAY ~d2_weapprof_cat~
+ACTION_CLEAR_ARRAY ~d2_restrict_weapons~
+
+
+//
+//

@@ -2,6 +2,7 @@
 update Medic Arts description
 add or remove Medic Config from kit clab
 Fix skill points in thiefskl.2da if changed by a tweak
+Set row/level for Bubb's menu
 */
 
 
@@ -9,7 +10,6 @@ Fix skill points in thiefskl.2da if changed by a tweak
 OUTER_TEXT_SPRINT kitid ~d2wkd~
 OUTER_TEXT_SPRINT kitname ~MEDIC~
 INCLUDE ~%install%/variables.tph~
-INCLUDE ~%install%/resources.tph~
 
 
 //variables
@@ -80,6 +80,14 @@ END
 
 //check thiefskl.2da
 LAF d2_edit_2da_entry STR_VAR 2da=thiefskl col_name=LEVEL_POINTS row_name=~D2%kitname%~ entry=8 END
+
+
+//set Bubb's Menu level
+ACTION_FOR_EACH spell IN ~%s1%~ ~%s2%~ ~%s3%~ ~%s4%~ ~%s5%~ BEGIN
+  COPY_EXISTING ~%spell%.SPL~  ~override~
+    WRITE_LONG 0x34 medic_row    // "level" offset (row for Bubb's Spell Menu)
+  IF_EXISTS BUT_ONLY
+END
 
 
 //

@@ -16,11 +16,13 @@ COPY ~%abilities%/shockwave.SPL~  ~override/%s1%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_duration=12 duration=15 END
 
 COPY ~%abilities%/hiteffectranged.SPL~  ~override/%s1%a.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%b~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%c~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s0%x~ END
+  LPF ALTER_EFFECT INT_VAR match_duration=12 duration=15 END
 
 COPY - ~%abilities%/shockwave.PRO~ ~%workspace%/%s1%a.PRO~
 ADD_PROJECTILE ~%workspace%/%s1%a.PRO~
@@ -32,11 +34,13 @@ COPY ~%abilities%/shockwaveblast.SPL~   ~override/%s1%b.SPL~
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%a~ END
 
   // edits
-  LPF CLONE_EFFECT INT_VAR match_opcode=235 duration=25 STR_VAR insert=last END            // shift effects below damage
+  LPF CLONE_EFFECT INT_VAR match_opcode=235 duration=25 STR_VAR insert=last END    // shift effects below damage
   LPF CLONE_EFFECT INT_VAR match_opcode=45 duration=25 STR_VAR insert=last END
-  LPF DELETE_EFFECT INT_VAR multi_match=1 match_opcode=235 END                             // delete old effects
+  LPF DELETE_EFFECT INT_VAR multi_match=1 match_opcode=235 END                     // delete old effects
   LPF DELETE_EFFECT INT_VAR multi_match=1 match_opcode=45 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=45 opcode=165 STR_VAR insert=last END              // add "pause" effect (same duration as knockback)
+  LPF CLONE_EFFECT INT_VAR match_opcode=45 opcode=165 STR_VAR insert=last END      // add "pause" effect (same duration as knockback)
+  LPF d2_safe_spell INT_VAR source=1 END    // immune to own explosions
+
 //  LPF d2_safe_spell STR_VAR insert=below END
 //  LPF d2_protect_on_castequip INT_VAR cre_type=13 duration=0 STR_VAR insert=below END    // no effect on huge creatures (not added)
 
@@ -57,10 +61,12 @@ COPY ~%abilities%/incinerate.SPL~  ~override/%s2%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_duration=12 duration=15 END
 
 COPY ~%abilities%/hiteffectranged.SPL~  ~override/%s2%a.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%b~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s0%x~ END
+  LPF ALTER_EFFECT INT_VAR match_duration=12 duration=15 END
 
 COPY - ~%abilities%/incinerate.PRO~ ~%workspace%/%s2%a.PRO~
 ADD_PROJECTILE ~%workspace%/%s2%a.PRO~
@@ -70,6 +76,7 @@ COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%b.EFF~
 COPY ~%abilities%/incineratecloud.SPL~  ~override/%s2%b.SPL~
   SAY NAME1 @103
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s2%a~ END
+  LPF d2_safe_spell INT_VAR source=1 END    // immune to own explosions
 
 
 //Remove effects
@@ -112,46 +119,25 @@ LAF ADD_KIT_EX
     kit_name = ~D2%kitname%~
     clab_path = ~%kitid%~
     clsrcreq = ~1 1 1 1 1 1 1~         // Usable by all races, if base class is usable
-    weapprof = ~1 1 5 1 1 1 1 5 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 5 5 5 5 5 1 1 1 1~
+//    weapprof = ~1 1 5 1 1 1 1 5 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 5 5 5 5 5 1 1 1 1~
     clascolr = ~97 137 138 142 188~    // Totemic Druid colors
   RET 
     kit_id
 END
 
 
-//mod compat (Argent77's improved archer)
-OUTER_SET archerhla1 = 1
-OUTER_TEXT_SPRINT idsname ~D2%kitname%~
-OUTER_TEXT_SPRINT abbrev ~%kitid%~
-INCLUDE ~%install%/argent77archer.tph~
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~fighter~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
 
 
 //Gains archer effects from items
 OUTER_TEXT_SPRINT kit_group ~archer~
 OUTER_TEXT_SPRINT ids_name  ~D2%kitname%~
-
-ACTION_PHP_EACH item_kit_effects AS item => class BEGIN
-  ACTION_IF !(~%kit_group%~ STRING_CONTAINS_REGEXP ~%class%~) BEGIN
-    ACTION_FOR_EACH res IN ~SPL~ ~ITM~ BEGIN
-      ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.%res%~) BEGIN
-        COPY_EXISTING ~%item%.%res%~  ~override~
-          PHP_EACH kit_ids_array AS class2 => eff_to_copy BEGIN
-            PATCH_IF (~%class%~ STR_EQ ~%class2%~) BEGIN
-              LPF CLONE_EFFECT 
-                INT_VAR 
-                  silent            = 1
-                  match_opcode      = 177 
-                  match_parameter1  = %eff_to_copy%
-                  match_parameter2  = 9 
-                  parameter1        = IDS_OF_SYMBOL (kit ~%ids_name%~)
-              END
-            END
-          END
-        BUT_ONLY
-      END
-    END
-  END
-END
+INCLUDE ~%install%/beamdogitems.tph~
 
 
 //Set variables for external use

@@ -4,14 +4,15 @@ requires d2_restrict_armor.tpa
 */
 
 
-//add kits to armor array
-//will add to array, without removing previous entries
+//stringref only needed if listing in item desc (Unusable section)
+//baseclass used to skip patching if flagged (class restriction flags)
 
 /*
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
-  kit_internal_name => armor_type
-END
+OUTER_TEXT_SPRINT $d2_restrict_armor_array (~%ids_name%~) ~%armor_type%~       // ids_name => armor_type
+OUTER_TEXT_SPRINT $d2_restrict_armor_stringref (~%ids_name%~) ~%stringref%~    // ids_name => stringref
+OUTER_TEXT_SPRINT $d2_restrict_armor_baseclass (~%ids_name%~) ~%baseclass%~    // ids_name => baseclass
 */
+
 
 //armor_type (refers to highest wearable):
 /*
@@ -23,6 +24,9 @@ leather
 */
 
 
+ACTION_IF !(IS_AN_INT noarmorrestrictions) BEGIN OUTER_SET noarmorrestrictions = 0 END
+
+//
 ACTION_IF (noarmorrestrictions = 0) BEGIN
 
 PRINT @9
@@ -34,18 +38,26 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
     PATCH_IF ((%droppable%) AND (%displayable%)) BEGIN
       PATCH_IF (restrictions != 0) BEGIN    // skip anything with no race/class/alignment restrictions
 
-        READ_LONG  0x8 stringref             // unidentified name (as string ref)
-        READ_ASCII 0x22 itemtype (2) NULL    // equipped appearance
+        // do reads before checking kits
+        READ_LONG  0x8 item_name           // unidentified name
+        READ_ASCII 0x22 visual (2) NULL    // equipped appearance
+        READ_LONG 0x1e item_flags          // unusable flags
 
+        // allow scale armor 1 step above restriction
         PHP_EACH d2_restrict_armor_array AS kit => type BEGIN
           PATCH_IF (RESOURCE_CONTAINS ~kit.ids~  ~%kit%~) BEGIN
             TEXT_SPRINT scale ~scale~
             PATCH_IF (~%type%~ STR_EQ ~splint~) BEGIN  TEXT_SPRINT scale ~dragon~ END
             PATCH_IF (~%type%~ STR_EQ ~chain~)  BEGIN  TEXT_SPRINT scale ~dragon~ END
-            LPF d2_scalearmor_check STR_VAR armor=~%scale%~ RET scalearmor END    // returns 1 if match (skip patching)
+            LPF d2_scalearmor_check STR_VAR armor=~%scale%~ RET scalearmor END
 
+            // patch
             PATCH_IF (scalearmor = 0) BEGIN
-              LPF ~d2_restrict_armor_%type%~  STR_VAR kit_to_patch = ~%kit%~ END
+              LPF d2_restrict_armor_classcheck STR_VAR kit=~%kit%~ RET classcheck END
+              SET blocked = EVAL ~%classcheck%~
+//            PATCH_IF !(item_flags & blocked) BEGIN
+                LPF ~d2_restrict_armor_%type%~ INT_VAR string=item_name STR_VAR kit=~%kit%~ visual=~%visual%~END
+//            END
             END
           END
         END
@@ -57,6 +69,11 @@ COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
 BUT_ONLY
 
 END
+
+
+ACTION_CLEAR_ARRAY ~d2_restrict_armor_array~
+ACTION_CLEAR_ARRAY ~d2_restrict_armor_stringref~
+ACTION_CLEAR_ARRAY ~d2_restrict_armor_baseclass~
 
 
 /*

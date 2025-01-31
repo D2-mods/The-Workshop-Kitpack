@@ -35,7 +35,7 @@ COPY ~%files%/crowfeather.ITM~  ~override/%m1%.ITM~
   WRITE_ASCII 0x3a ~IBDCLK05~ #8    // icon
   WRITE_ASCII 0x58 ~CDCLCK01~ #8    // description image
 
-ACTION_IF (FILE_EXISTS ~override/%visceralattack%.SPL~) BEGIN
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2crowhunter~) BEGIN
 
   // add repeating effect to item
   COPY_EXISTING ~%m1%.ITM~  ~override~
@@ -120,11 +120,8 @@ COPY ~%files%/etherbomb.SPL~  ~override/%m2%t.SPL~    // hits all
   SAY NAME1 @615
   WRITE_SHORT 0x98 ~%m2%p~    // projectile
 
-ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
-
-  COPY_EXISTING ~%pkegcooldown%.SPL~  ~override~
-    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m2%y~ END
-  BUT_ONLY
+//
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2powderkeg~) BEGIN
 
   COPY_EXISTING ~%m2%.ITM~  ~override~
     LPF CLONE_EFFECT 
@@ -139,7 +136,7 @@ ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
     LPF DELETE_EFFECT INT_VAR check_headers=0 END
     LPF DELETE_EFFECT INT_VAR match_opcode=174 END
     LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%m2%v~ END
-    LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%pkegcooldown%~ END
+    LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%pkegremove%~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=251 opcode=309 parameter1=1 parameter2=0 timing=9 STR_VAR resource=d2pkeg1 END    // local variable
 
   COPY ~%abilities%/powderkegnosong.SPL~     ~override/%m2%y.SPL~
@@ -151,6 +148,16 @@ ACTION_IF (FILE_EXISTS ~override/%powderkeg%.2DA~) BEGIN
     LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%pkegdisable%~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%m2%y~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=174 STR_VAR resource=~EFF_M51~ END
+
+  // removal delayed effects (song switching)
+  COPY_EXISTING ~%pkegremove%.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m2%y~ END
+  BUT_ONLY
+
+  // block during cooldown
+  COPY_EXISTING ~%pkegdisable%.spl~  ~override~
+    LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~%m2%v~ END
+  BUT_ONLY
 
 END
 
@@ -164,7 +171,7 @@ COPY ~%files%/etherbooster.ITM~  ~override/%m3%.ITM~
   WRITE_ASCII 0x58 ~PAMUL26~ #8    // description image
   LPF d2_protect_on_castequip STR_VAR resource=~%m3%x~ END
 
-ACTION_IF (FILE_EXISTS ~override/%unleashmagic%.SPL~) BEGIN
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2warmagician~) BEGIN
 
   COPY_EXISTING ~%unleashmagic%.SPL~  ~override~
     LPF CLONE_EFFECT 
@@ -212,7 +219,7 @@ COPY ~%files%/cruciform.ITM~  ~override/%m5%.ITM~
   LPF d2_protect_on_castequip STR_VAR resource=~%m5%x~ END
   LPF d2_protect_on_castequip STR_VAR resource=~%m5%y~ END
 
-ACTION_IF (FILE_EXISTS ~override/%bloodletter%.SPL~) BEGIN
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2confessor~) BEGIN
 
   COPY_EXISTING ~%bloodletter%.SPL~  ~override~
     LPF CLONE_EFFECT 
@@ -394,6 +401,7 @@ ACTION_IF (FILE_EXISTS ~override/%shockwave%.SPL~) BEGIN
   COPY_EXISTING ~%shockwaveblast%.SPL~    ~override/%ma%b.SPL~
     SAY NAME1 @102
     LPF DELETE_EFFECT INT_VAR match_parameter2=63 END
+    LPF DELETE_EFFECT INT_VAR match_parameter2=43 END
     LPF d2_safe_spell STR_VAR insert=above END
 
   // base subspell blocks amulet effects
@@ -424,6 +432,7 @@ ACTION_IF (FILE_EXISTS ~override/%incinerate%.SPL~) BEGIN
   COPY_EXISTING ~%incinerateblast%.SPL~    ~override/%ma%f.SPL~
     SAY NAME1 @103
     LPF DELETE_EFFECT INT_VAR match_parameter2=63 END
+    LPF DELETE_EFFECT INT_VAR match_parameter2=43 END
     LPF d2_safe_spell STR_VAR insert=above END
 
   // base subspell blocks amulet effects

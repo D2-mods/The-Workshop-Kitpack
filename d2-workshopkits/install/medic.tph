@@ -182,11 +182,12 @@ COPY ~override/%s1%b.SPL~  ~override/%s1%h.SPL~
 COPY ~%icons%/whiteremedyicon.BAM~  ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@123) STR_VAR bam=~%s2%i~ RET icon END
 
+COPY ~%icons%/whiteremedy.BAM~      ~override/%s2%.BAM~
 COPY ~%abilities%/remedy.SPL~       ~override/%s2%.SPL~
   SAY NAME1 @123
   SAY UNIDENTIFIED_DESC @223
-  WRITE_ASCII 0x3a ~SPWI903B~ #8
-  WRITE_ASCII 0x76 ~SPWI903B~ #8
+  WRITE_ASCII 0x3a ~%s2%~ #8
+  WRITE_ASCII 0x76 ~%s2%~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
 //  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%h~ insert=below END
@@ -335,6 +336,7 @@ COPY_EXISTING ~%mediccure2%.SPL~  ~override~    // cloned from Heal (cures poiso
 
   // edits
   LPF update_op324_restrictions END
+  LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_parameter2=104 parameter1=201 END       // add sword race
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=5 parameter2=0 END                        // heals 5 HP
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 duration=2 STR_VAR resource=~%s4%h~ END    // visual
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 parameter1=541425664 END                    // color fade
@@ -346,7 +348,7 @@ COPY_EXISTING ~%mediccure2%.SPL~  ~override~    // cloned from Heal (cures poiso
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ insert=last END    // cures bleeding
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!phase~ insert=last END    // cures acid dot, phasing, etc.
   LPF statusarray_function STR_VAR status=toxic insert=last END
-  LPF ee_fixpack_status_cures STR_VAR status=~berserk~ END
+  LPF ee_fixpack_status_cures INT_VAR match_opcode=326 STR_VAR status=~berserk~ END
 
 BUT_ONLY
 
@@ -648,7 +650,7 @@ COPY ~inlined/d2clab_monk_noabilities~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%e9%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 multi=1 increment=1 STR_VAR resource=~%@3%~ END
 
-  //unlock abilities
+  // unlock abilities
   PHP_EACH medictools_level AS file => level BEGIN
     LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
   END
@@ -672,17 +674,12 @@ LAF ADD_KIT_EX
 END
 
 
-//
-//array for weapon restrictions (not used in v6.0+)
-ACTION_DEFINE_ASSOCIATIVE_ARRAY medicweapontype BEGIN    // weapon => usable
-  16 => 1    // daggers
-  17 => 1    // maces, clubs
-  18 => 1    // slings
-  19 => 1    // small swords (short sword, wakizashi)
-  20 => 0    // large swords (long sword, bastard sword, two handed sword, ninjato)
-  24 => 1    // darts
-  26 => 1    // quarterstaff (used for club by FnP)
-END
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~monk~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
 
 
 //

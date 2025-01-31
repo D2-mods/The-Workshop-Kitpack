@@ -91,9 +91,9 @@ END
 
 //Powder Keg (d2wkb)
 ACTION_IF (FILE_EXISTS ~override/d2wkb.2DA~) BEGIN
-  OUTER_TEXT_SPRINT powderkeg     ~d2wkb~
-  OUTER_TEXT_SPRINT pkegcooldown  ~d2wkbs0a~
-  OUTER_TEXT_SPRINT pkegdisable   ~d2wkbs0x~
+  OUTER_TEXT_SPRINT powderkeg    ~d2wkb~
+  OUTER_TEXT_SPRINT pkegremove   ~d2wkbs0a~
+  OUTER_TEXT_SPRINT pkegdisable  ~d2wkbs0x~
 END
 
 //Warhound (d2wk2)

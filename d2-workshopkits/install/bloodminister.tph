@@ -232,7 +232,7 @@ BUT_ONLY
 
 //Make clab table
 COPY ~inlined/d2clab_cleric_nosymbol~  ~override/%kitid%.2DA~
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+//  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END    // no bracers (using below method)
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=2 limit=20 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder END
@@ -259,55 +259,38 @@ LAF ADD_KIT_EX
 END
 
 
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~cleric~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
+
+
+//no bracers (new method)
+ACTION_IF !(IS_AN_INT noarmorrestrictions) BEGIN OUTER_SET noarmorrestrictions = 0 END
+
+ACTION_IF (noarmorrestrictions = 0) BEGIN
+  ACTION_CLEAR_ARRAY ~d2_itemtype_usable~
+  OUTER_TEXT_SPRINT $d2_itemtype_usable (~bracers~) ~0~    // type => 0 (unusable)
+  OUTER_TEXT_SPRINT $d2_itemtype_usable (~gauntlets~) ~0~
+  OUTER_TEXT_SPRINT ids_name  ~D2%kitname%~
+  OUTER_TEXT_SPRINT baseclass  ~cleric~
+  OUTER_SET stringref = RESOLVE_STR_REF (@100901)    // kit name in item description
+  INCLUDE ~%install%/usableitems.tph~
+END
+
+
+/*
 //edit ToB starting bag
 ACTION_IF (FILE_EXISTS_IN_GAME ~bag27a.itm~) BEGIN
   LAF d2_edit_2da_entry STR_VAR 2da=25STWEAP col_name=~D2%kitname%~ row_name=bag entry=bag27a END
 END
-
-
-//
-//Weapon restrictions (mod compat)
-
-/*
-For DoF sphere system.
-Or if installed after FnP. If installed before, will use FnP default Cleric usability.
 */
-
-ACTION_IF ((FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
-           (FILE_EXISTS_IN_GAME ~d5__fnp_usability.d5~) OR
-           (MOD_IS_INSTALLED ~Faiths_and_Powers.tp2~ (ID_OF_LABEL ~Faiths_and_Powers.tp2~ ~D5_FNP_WEAPON_USABILITY~))
-) BEGIN
-
-ACTION_DEFINE_ASSOCIATIVE_ARRAY weapontype BEGIN    // weapon => usable
-  15 => 0    // bows
-  16 => 1    // daggers
-  17 => 1    // maces, clubs
-  18 => 1    // slings
-  19 => 1    // small swords (short sword, wakizashi)
-  20 => 0    // large swords (long sword, bastard sword, two handed sword, ninjato)
-  21 => 1    // hammers
-  22 => 1    // morning stars
-  23 => 1    // flails
-  24 => 1    // darts
-  25 => 0    // axes
-  26 => 1    // quarterstaff
-  27 => 1    // crossbows
-  28 => 1    // fist
-  29 => 0    // spears
-  30 => 0    // halberds
-END
-
-END
 
 
 //
 //Higher level healing for FnP
-
-/*
-Added this way instead of using the FnP function because it's too 
-much of a pain to re-arrange the way I've already set everything up.
-*/
-
 COPY ~%passives%/d5fpclsp.spl~  ~override/%e6%.SPL~
   LPF DELETE_EFFECT INT_VAR multi_match=10 END
   LPF ALTER_EFFECT INT_VAR parameter1=0 parameter2=2 END
@@ -316,6 +299,11 @@ BUT_ONLY
 COPY_EXISTING ~%kitid%.2DA~  ~override~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 BUT_ONLY
+
+/*
+Added this way instead of using the FnP function because it's too 
+much of a pain to re-arrange the way I've already set everything up.
+*/
 
 
 //
@@ -327,7 +315,7 @@ OUTER_TEXT_SPRINT healingbloodregen  ~%s2%a~
 OUTER_TEXT_SPRINT beastblood         ~%s3%~
 OUTER_TEXT_SPRINT madmanblood        ~%s4%~
 OUTER_TEXT_SPRINT leadelixir         ~%s5%~
-OUTER_TEXT_SPRINT ministernodrain    ~%e2%~    // iconpatch.2da
+OUTER_TEXT_SPRINT ministernodrain    ~%e2%~    // iconpatch.tph
 OUTER_TEXT_SPRINT holysymbolblood    ~%m9%~
 
 //fnp

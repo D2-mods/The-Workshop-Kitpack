@@ -23,6 +23,7 @@ COPY_EXISTING ~d2#hbag.STO~ ~override~
     LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_old%~ flags=~identified~ position=~last~ END
   END
 
+/*
   // holy symbols
   PATCH_IF (FILE_EXISTS ~override/%holysymbolblood%.ITM~) BEGIN
     LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%holysymbolblood%~ flags=~identified~ position=~last~ END
@@ -30,54 +31,55 @@ COPY_EXISTING ~d2#hbag.STO~ ~override~
   PATCH_IF (FILE_EXISTS ~override/%holysymbolmoon%.ITM~) BEGIN
     LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%holysymbolmoon%~ flags=~identified~ position=~last~ END
   END
+*/
 
   // Misc items
   PATCH_IF (FILE_EXISTS ~override/%crowfeather%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%crowfeather%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%crowfeather%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%etherbomb%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 overwrite=1 STR_VAR item_name=~%etherbomb%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 overwrite=1 STR_VAR item_name=~%etherbomb%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%etherbooster%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%etherbooster%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%etherbooster%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%prisonchain%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%prisonchain%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%prisonchain%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%cruciform%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%cruciform%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%cruciform%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%golemring%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 overwrite=1 STR_VAR item_name=~%golemring%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 stack=3 overwrite=1 STR_VAR item_name=~%golemring%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%calamity%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%calamity%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%calamity%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%stonering%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%stonering%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%stonering%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%flynnring%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%flynnring%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%flynnring%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%etherlimiter%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%etherlimiter%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%etherlimiter%~ flags=~identified~ position=~last~ END
   END
 
   // Misc items (v3.3+)
   PATCH_IF (FILE_EXISTS ~override/%goldscarab%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%goldscarab%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%goldscarab%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%wingedsword%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%wingedsword%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%wingedsword%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%redtearstone%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%redtearstone%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%redtearstone%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%hunterbone%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 overwrite=1 STR_VAR item_name=~%hunterbone%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR charge1=3 stack=3 overwrite=1 STR_VAR item_name=~%hunterbone%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%jadefeather%.ITM~) BEGIN
-    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%jadefeather%~ flags=~identified~ position=~last~ END
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 overwrite=1 STR_VAR item_name=~%jadefeather%~ flags=~identified~ position=~last~ END
   END
   PATCH_IF (FILE_EXISTS ~override/%demonsoul%.ITM~) BEGIN
     LPF ADD_STORE_ITEM_EX INT_VAR charge1=1 stack=3 overwrite=1 STR_VAR item_name=~%demonsoul%~ flags=~identified~ position=~last~ END

@@ -1,34 +1,35 @@
 /*
-set local variable for d2-script mod
-allows song to be used while invisible (script normally auto-disables bard song)
+set local variable for d2-script mod (use song while invisible)
+runs from main component and updater
 */
 
 
 //set variable to 1 (can use song while invisible)
 ACTION_FOR_EACH ability IN 
-    ~%blastingsong%~
-    ~%boomingsong%~
-    ~%dustexplosion%~
-    ~%frenzyingflame%~
-    ~%pkegstartsong%~
+  ~%blastingsong%~
+  ~%boomingsong%~
+  ~%dustexplosion%~
+  ~%frenzyingflame%~
+  ~%pkegstartsong%~
 BEGIN
   COPY_EXISTING ~%ability%.SPL~  ~override~
+    LPF DELETE_EFFECT INT_VAR match_opcode=309 STR_VAR match_resource=d2pkeg1 END
     LPF CLONE_EFFECT INT_VAR check_globals=0 multi_match=1 opcode=309 parameter1=1 parameter2=0 timing=9 STR_VAR resource=d2pkeg1 END
   IF_EXISTS BUT_ONLY
 END
 
-
 //set variable to 0 (auto-stop bard song if invisible)
 ACTION_FOR_EACH ability IN 
-    ~%enhancedbardsong%~
-    ~%enhancedbardsong%a~
-    ~%rrenhancedsong%~
-    ~%rrenhancedsong%a~
-    ~%rrlingeringsong%~
-    ~%rrlingeringsong%a~
-    ~%shohyenhancedsong%~
+  ~%enhancedbardsong%~
+  ~%enhancedbardsong%a~
+  ~%rrenhancedsong%~
+  ~%rrenhancedsong%a~
+  ~%rrlingeringsong%~
+  ~%rrlingeringsong%a~
+  ~%shohyenhancedsong%~
 BEGIN
   COPY_EXISTING ~%ability%.SPL~  ~override~
+    LPF DELETE_EFFECT INT_VAR match_opcode=309 STR_VAR match_resource=d2pkeg1 END
     LPF CLONE_EFFECT INT_VAR check_globals=0 multi_match=1 opcode=309 parameter1=0 parameter2=0 timing=9 STR_VAR resource=d2pkeg1 END
   IF_EXISTS BUT_ONLY
 END

@@ -1,0 +1,40 @@
+/*
+Give Tracking to some kits if rangers gain it at level 1
+*/
+
+
+//prep
+OUTER_TEXT_SPRINT confessor ~d2wk5~
+OUTER_TEXT_SPRINT crowhunter ~d2wka~
+OUTER_SET crowhunterft = IDS_OF_SYMBOL (kit ~d2crowhunterft~)    // sets to -1 if not installed
+OUTER_SET crowhunterfmt = IDS_OF_SYMBOL (kit ~d2crowhunterfmt~)
+OUTER_SET crowhuntermt = IDS_OF_SYMBOL (kit ~d2crowhuntermt~)
+
+OUTER_SET tracking = 0
+ACTION_IF (RESOURCE_CONTAINS ~CLABRN01.2DA~ ~GA_SPCL922~) BEGIN OUTER_SET tracking = 1 END
+
+
+//
+ACTION_FOR_EACH clab IN ~%confessor%~ ~%crowhunter%~ BEGIN
+  COPY_EXISTING ~%clab%.2da~  ~override~
+    REPLACE_TEXTUALLY ~GA_SPCL922~  ~****~
+    PATCH_IF (tracking > 0) BEGIN
+      LPF d2_kit_ability_adder STR_VAR resource=SPCL922 END
+    END
+  IF_EXISTS BUT_ONLY
+END
+
+COPY_EXISTING ~QD_MCT01.SPL~  ~override~
+  PATCH_FOR_EACH ids_num IN ~%crowhunterft%~ ~%crowhunterfmt%~ ~%crowhuntermt%~ BEGIN
+    PATCH_IF (ids_num > 0) BEGIN
+      LPF DELETE_EFFECT INT_VAR match_parameter1=ids_num STR_VAR match_resource=~SPCL922#~ END
+      PATCH_IF (tracking > 0) BEGIN
+        LPF CLONE_EFFECT INT_VAR multi_match=1 match_parameter1=ids_num STR_VAR resource=~SPCL922#~ END
+      END
+    END
+  END
+IF_EXISTS BUT_ONLY
+
+
+//
+//

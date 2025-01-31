@@ -2,28 +2,17 @@
 
 
 //Add passive effects
+OUTER_SET demonic = IDS_OF_SYMBOL (race ~demonic~)
+OUTER_SET lycanthrope = IDS_OF_SYMBOL (race ~lycanthrope~)
+
 COPY ~%passives%/damagevstype.SPL~  ~override/%e1%.SPL~
   LPF ALTER_EFFECT INT_VAR parameter2=4 special=3 END
-  LPF ALTER_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (race ~demonic~) END        // +3 vs. demonic
-  LPF CLONE_EFFECT INT_VAR parameter1=IDS_OF_SYMBOL (race ~lycanthrope~) END    // +3 vs. lycanthropes
+  LPF ALTER_EFFECT INT_VAR parameter1=demonic END        // +3 vs. demonic
+  LPF CLONE_EFFECT INT_VAR parameter1=lycanthrope END    // +3 vs. lycanthropes
 
-
-/*replaced
-COPY ~%passives%/useeff.SPL~  ~override/%e1%.SPL~
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%a~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%b~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%c~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%d~ END
-  
-COPY ~%passives%/attackvstype3.EFF~   ~override/%e1%a.EFF~
-  WRITE_LONG 0x1c IDS_OF_SYMBOL (race ~demonic~)
-COPY ~%passives%/damagevstype3.EFF~   ~override/%e1%b.EFF~
-  WRITE_LONG 0x1c IDS_OF_SYMBOL (race ~demonic~)
-COPY ~%passives%/attackvstype3.EFF~   ~override/%e1%c.EFF~
-  WRITE_LONG 0x1c IDS_OF_SYMBOL (race ~lycanthrope~)
-COPY ~%passives%/damagevstype3.EFF~   ~override/%e1%d.EFF~
-  WRITE_LONG 0x1c IDS_OF_SYMBOL (race ~lycanthrope~)
-*/
+COPY ~%passives%/acbonus1.SPL~  ~override/%e2%.SPL~
+  LPF ALTER_EFFECT INT_VAR opcode=219 parameter1=demonic parameter2=4 END
+  LPF CLONE_EFFECT INT_VAR parameter1=lycanthrope END
 
 
 //Add Hunter Tools (previously Fire Weapon)
@@ -57,7 +46,7 @@ COPY ~%icons%/quicksilver.BAM~        ~override/%s2%.BAM~
 COPY ~%abilities%/quicksilver.SPL~    ~override/%s2%.SPL~
   SAY NAME1 @101
   SAY UNIDENTIFIED_DESC @201
-  WRITE_ASCII 0x3a ~%s2%~ #8    // icons
+  WRITE_ASCII 0x3a ~%s2%~ #8
   WRITE_ASCII 0x76 ~%s2%~ #8
   LPF ALTER_EFFECT INT_VAR match_duration=60 duration=36 END    // duration = 6 rounds
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
@@ -73,6 +62,11 @@ COPY ~%abilities%/quicksilver.SPL~    ~override/%s2%.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 STR_VAR resource=~%s2%j~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
+  //level 16 effect ()
+  LPF CD_EXTEND-O-MATIC INT_VAR dur_special=1 step_dur=0 step_size=15 END
+  LPF ALTER_EFFECT INT_VAR header=1 match_opcode=301 parameter1=2 END
+
+//damage effs
 COPY ~%abilities%/quicksilverpiercing.EFF~  ~override/%s2%a.EFF~
 COPY ~%abilities%/quicksilverarrows.EFF~    ~override/%s2%b.EFF~
 COPY ~%abilities%/quicksilverarrows2.EFF~   ~override/%s2%c.EFF~
@@ -90,6 +84,7 @@ COPY ~inlined/d2clab_fighter~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder END
 
 
@@ -111,10 +106,25 @@ LAF ADD_KIT_EX
 END
 
 
-//Usability - restrict to studded leather
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
-  ~D2%kitname%~ => ~studded~
-END
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~fighter~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
+//LAF d2_clone_hla_table STR_VAR kitids=~%ids_name%~ copy=~%class%~ abbrev=~%abbrev%~ RET hlatable END
+
+
+//armor restriction
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT armor_type ~studded~
+OUTER_TEXT_SPRINT $d2_restrict_armor_array (~%ids_name%~) ~%armor_type%~
+
+OUTER_SET stringref = RESOLVE_STR_REF (@100101)
+OUTER_TEXT_SPRINT $d2_restrict_armor_stringref (~%ids_name%~) ~%stringref%~
+
+OUTER_TEXT_SPRINT baseclass ~fighter~
+OUTER_TEXT_SPRINT $d2_restrict_armor_baseclass (~%ids_name%~) ~%baseclass%~
 
 
 //Set variables for external use

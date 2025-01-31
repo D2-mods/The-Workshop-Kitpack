@@ -1,14 +1,23 @@
 /*
 functions for armor restrictions
+note: armor patching functions are EE-only
 */
 
 
 //check item flags
-DEFINE_PATCH_FUNCTION d2_restrict_item_flags  RET droppable displayable restrictions BEGIN
+DEFINE_PATCH_FUNCTION d2_restrict_item_flags  RET droppable displayable magical restrictions kitflags BEGIN
   READ_LONG 0x18 item_flags
   SET droppable = %item_flags% & BIT2
   SET displayable = %item_flags% & BIT3
+  SET magical = %item_flags% & BIT6
   READ_LONG 0x1e restrictions    // 0 = no race/class/alignment restrictions
+
+  SET kitflags = 1
+  READ_BYTE 0x29 kits1
+  READ_BYTE 0x2b kits2
+  READ_BYTE 0x2d kits3
+  READ_BYTE 0x2f kits4
+  PATCH_IF (kits1=0 AND kits2=0 AND kits3=0 AND kits4=0) BEGIN SET kitflags=0 END
 END
 
 /*usage:
@@ -20,97 +29,135 @@ END
 
 
 
-//
 //specific armor restrictions
-
-/*
-variable "kit_to_patch" is the kit.IDS label (ex. BERSERKER)
-*/
+//variable "kit" is the kit.IDS name (ex. BERSERKER)
 
 //no plate mail (full metal jaguar, noble scion)
 DEFINE_PATCH_FUNCTION d2_restrict_armor_splint
-  STR_VAR  kit_to_patch  = ~~
+  INT_VAR string=0  STR_VAR kit=~~ visual=~~
 BEGIN
-    PATCH_IF ((~%itemtype%~ STRING_EQUAL_CASE ~4A~)
+    PATCH_IF ((~%visual%~ STRING_EQUAL_CASE ~4A~)
     ) BEGIN
-      LPF d2_restrict_armor_effect STR_VAR kit_to_patch = ~%kit_to_patch%~ END
+      LPF d2_restrict_armor_effect STR_VAR kit = ~%kit%~ END
     END
 END
 
 //no splint or plate (grave warden, spell fencer)
 DEFINE_PATCH_FUNCTION d2_restrict_armor_chain
-  STR_VAR  kit_to_patch  = ~~
+  INT_VAR string=0  STR_VAR kit=~~ visual=~~
 BEGIN
-    PATCH_IF ((stringref = 6677) OR                    // no splint mail
-              (stringref = 6678) OR
-              (~%itemtype%~ STRING_EQUAL_CASE ~4A~)    // no plate mail
+    PATCH_IF ((string = 6677) OR (string = 6678) OR    // no splint mail
+              (~%visual%~ STRING_EQUAL_CASE ~4A~)      // no plate mail
     ) BEGIN
-      LPF d2_restrict_armor_effect STR_VAR kit_to_patch = ~%kit_to_patch%~ END
+      LPF d2_restrict_armor_effect STR_VAR kit = ~%kit%~ END
     END
 END
 
 //no chain, splint, or plate (beast hunter, confessor)
 DEFINE_PATCH_FUNCTION d2_restrict_armor_studded
-  STR_VAR  kit_to_patch  = ~~
+  INT_VAR string=0  STR_VAR kit=~~ visual=~~
 BEGIN
-    PATCH_IF ((~%itemtype%~ STRING_EQUAL_CASE ~3A~) OR    // no chain or splint
-              (~%itemtype%~ STRING_EQUAL_CASE ~4A~)       // no plate mail
+    PATCH_IF ((~%visual%~ STRING_EQUAL_CASE ~3A~) OR    // no chain or splint
+              (~%visual%~ STRING_EQUAL_CASE ~4A~)       // no plate mail
     ) BEGIN
-      LPF d2_restrict_armor_effect STR_VAR kit_to_patch = ~%kit_to_patch%~ END
+      LPF d2_restrict_armor_effect STR_VAR kit = ~%kit%~ END
     END
 END
 
 //only leather or hide (drifter)
 DEFINE_PATCH_FUNCTION d2_restrict_armor_hide
-  STR_VAR  kit_to_patch  = ~~
+  INT_VAR string=0  STR_VAR kit=~~ visual=~~
 BEGIN
-    PATCH_IF ((stringref = 6664) OR (stringref = 6665) OR (stringref = 6666) OR    // no studded leather
-              (~%itemtype%~ STRING_EQUAL_CASE ~3A~) OR                             // no chain or splint
-              (~%itemtype%~ STRING_EQUAL_CASE ~4A~)                                // no plate mail
+    PATCH_IF ((string = 6664) OR (string = 6665) OR (string = 6666) OR    // no studded leather
+              (~%visual%~ STRING_EQUAL_CASE ~3A~) OR                      // no chain or splint
+              (~%visual%~ STRING_EQUAL_CASE ~4A~)                         // no plate mail
     ) BEGIN
-      LPF d2_restrict_armor_effect STR_VAR kit_to_patch = ~%kit_to_patch%~ END
+      LPF d2_restrict_armor_effect STR_VAR kit = ~%kit%~ END
     END
 END
 
 //only leather (nurse)
 DEFINE_PATCH_FUNCTION d2_restrict_armor_leather
-  STR_VAR  kit_to_patch  = ~~
+  INT_VAR string=0  STR_VAR kit=~~ visual=~~
 BEGIN
-    PATCH_IF ((stringref = 6664) OR (stringref = 6665) OR (stringref = 6666) OR       // no studded leather
-              (stringref = 22714) OR (stringref = 22715) OR (stringref = 40488) OR    // no hide armor
-              (~%itemtype%~ STRING_EQUAL_CASE ~3A~) OR                                // no chain or splint
-              (~%itemtype%~ STRING_EQUAL_CASE ~4A~)                                   // no plate mail
+    PATCH_IF ((string = 6664) OR (string = 6665) OR (string = 6666) OR       // no studded leather
+              (string = 22714) OR (string = 22715) OR (string = 40488) OR    // no hide armor
+              (~%visual%~ STRING_EQUAL_CASE ~3A~) OR                         // no chain or splint
+              (~%visual%~ STRING_EQUAL_CASE ~4A~)                            // no plate mail
     ) BEGIN
-      LPF d2_restrict_armor_effect STR_VAR kit_to_patch = ~%kit_to_patch%~ END
+      LPF d2_restrict_armor_effect STR_VAR kit = ~%kit%~ END
     END
 END
 
 
 
-//
 //add op319 effect (restrict item)
+//this is automatically run when using one of the above functions
 
-/*
-this is automatically run when using one of the above functions
-*/
+DEFINE_PATCH_FUNCTION d2_restrict_armor_effect
+  INT_VAR stringref = 0  STR_VAR kit = ~~
+BEGIN
+  PHP_EACH d2_restrict_armor_stringref AS ids_name => string BEGIN
+    PATCH_IF (~%ids_name%~ STR_EQ ~%kit%~) BEGIN
+      PATCH_IF (IS_AN_INT string) BEGIN
+        SET stringref = string
+      END
+    END
+  END
+  SET ids_num = IDS_OF_SYMBOL (kit ~%kit%~)
+  LPF DELETE_EFFECT INT_VAR match_opcode=319 match_parameter1=ids_num END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode=319 target=1 timing=2 parameter1=ids_num parameter2=9 special=stringref END
+END
 
-DEFINE_PATCH_FUNCTION d2_restrict_armor_effect  
-  STR_VAR  kit_to_patch  = ~~
-BEGIN 
-  LPF ADD_ITEM_EQEFFECT
-    INT_VAR
-      opcode = 319
-      target = 1
-      parameter1 = IDS_OF_SYMBOL (kit ~%kit_to_patch%~)
-      parameter2 = 9
-      timing = 2
+
+//check if base class is restricted
+DEFINE_DIMORPHIC_FUNCTION d2_restrict_armor_classcheck
+  STR_VAR kit = ~~ RET classcheck
+BEGIN
+  OUTER_TEXT_SPRINT classcheck  ~BIT5~
+  ACTION_PHP_EACH d2_restrict_armor_baseclass AS ids_name => baseclass BEGIN
+    ACTION_IF (~%ids_name%~ STR_EQ ~%kit%~) BEGIN
+      ACTION_PHP_EACH d2_itemflags_classes AS class => bit BEGIN
+        ACTION_IF (~%class%~ STR_EQ ~%baseclass%~) BEGIN
+          OUTER_TEXT_SPRINT classcheck  ~%bit%~
+        END
+      END
+    END
   END
 END
 
 
+//
+  ACTION_CLEAR_ARRAY ~d2_itemflags_classes~
+  ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_itemflags_classes BEGIN
+    Fighter  => ~BIT11~
+    Thief    => ~BIT22~
+    Cleric   => ~BIT7~
+    Mage     => ~BIT18~
+    Sorcerer => ~BIT18~
+    Paladin  => ~BIT20~
+    Ranger   => ~BIT21~
+    Bard     => ~BIT6~
+    Monk     => ~BIT29~
+    Druid    => ~BIT30~
+    Shaman   => ~BIT30~
+//multiclass
+    cm  => ~BIT8~
+    ct  => ~BIT9~
+    cr  => ~BIT10~
+    fd  => ~BIT12~
+    fm  => ~BIT13~
+    fc  => ~BIT14~
+    fmc => ~BIT15~
+    fmt => ~BIT16~
+    ft  => ~BIT17~
+    mt  => ~BIT19~
+  END
+
+
 
 //
-//add checks for scale armor
+//add checks for scale armor (skips patching)
 
 /*
 function is only relevant for resource from array (can add more if scanning ITMs)

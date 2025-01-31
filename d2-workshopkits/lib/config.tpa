@@ -1,4 +1,5 @@
-//Read config.ini
+//set config options
+//
 
 
 COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
@@ -72,6 +73,7 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~hideimmunityicons.*=.*[^0-9]0[^0-9]*$~       noiconpatch
   COUNT_REGEXP_INSTANCES  ~powderkegicons.*=.*[^0-9]0[^0-9]*$~          nopowderkegpatch
   COUNT_REGEXP_INSTANCES  ~medicconfig.*=.*[^0-9]0[^0-9]*$~             nomedicconfig
+  COUNT_REGEXP_INSTANCES  ~supportmode.*=.*[^0-9]0[^0-9]*$~             nosupportmode
 
 //Bubb's Menu levels
   COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]0[^0-9]*$~        medictools0

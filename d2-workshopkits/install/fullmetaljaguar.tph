@@ -30,14 +30,17 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%e4%a.SPL~    // remove cri
 
 
 //Add Ghostwalker
-COPY ~%icons%/ghostwalker.BAM~      ~override/%s1%i.BAM~
+COPY ~%icons%/ghostwalkericon.BAM~  ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@128) STR_VAR bam=~%s1%i~ RET icon END
 
+COPY ~%icons%/ghostwalker.BAM~      ~override/%s1%.BAM~
 COPY ~%abilities%/ghostwalker.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @128
   SAY UNIDENTIFIED_DESC @228
-  WRITE_ASCII 0x3a ~SPPR732B~ #8
-  WRITE_ASCII 0x76 ~SPPR732B~ #8
+  WRITE_ASCII 0x3a ~%s1%~ #8
+  WRITE_ASCII 0x76 ~%s1%~ #8
+//  WRITE_ASCII 0x3a ~SPPR732B~ #8
+//  WRITE_ASCII 0x76 ~SPPR732B~ #8
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%~ END
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=4 duration=24 STR_VAR resource=~%s1%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=4 duration=18 STR_VAR resource=~%s1%a~ END
@@ -80,10 +83,24 @@ LAF ADD_KIT_EX
 END
 
 
-//Usability - restrict to splint mail
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
-  ~D2%kitname%~ => ~splint~
-END
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~fighter~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
+
+
+//armor restriction
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT armor_type ~splint~
+OUTER_TEXT_SPRINT $d2_restrict_armor_array (~%ids_name%~) ~%armor_type%~
+
+OUTER_SET stringref = RESOLVE_STR_REF (@101501)
+OUTER_TEXT_SPRINT $d2_restrict_armor_stringref (~%ids_name%~) ~%stringref%~
+
+OUTER_TEXT_SPRINT baseclass ~fighter~
+OUTER_TEXT_SPRINT $d2_restrict_armor_baseclass (~%ids_name%~) ~%baseclass%~
 
 
 //Set variables for external use

@@ -12,6 +12,10 @@ NOTE: The abilities tables for these kits are made at install time. Every kit cl
 
 --
 
+Kit Updater: Run this after all tweak and overhaul mods (except possibly Dual to Kit). It rebuilds HLA lists and updates proficiencies + some other minor checks. It also includes the previous "Update Medic Arts" component (use if Poison Weapon or Lay On Hands were revised). More info in Components section.
+
+--
+
 ![Preview image](d2-workshopkits/preview/preview2.webp)
 
 --
@@ -71,8 +75,8 @@ Components:
 --
 
 **Extra patching:**
-- Component for subtledoctor's 5e casting mod (this component can be installed before or after 5e casting)
-- Update description for Medic Arts (use if Poison Weapon or Lay On Hands were revised after this mod was installed)
+- Component for subtledoctor's 5e casting mod (can install before or after 5e casting)
+- Kit Updater (fixes or updates, see below)
 
 #
 
@@ -80,12 +84,18 @@ Components:
 - If Option 1/2 is installed, then "Misc items" will be the next (separate) component.
 - If Option 3 is installed, it will skip the rest of the components.
 - Hunter Badges are installed together with the Beast Hunter kit.
-- Medic Arts update: skipped on initial mod install, can be re-run at any time (does not uninstall other mods).
+
+**Kit Updater:**
+- Updates HLA tables, Proficiencies, misc fixes, mod compat, etc.
+- Skipped on initial mod install, can be re-run at any time (does not uninstall other mods).
+- Run after all tweak and overhaul mods, including mods that say to install last.
+- Dual to Kit note: Run this once before Dual to Kit if using a proficiency tweak. It can be re-run after if you need to update other things later. (note: it's specifically component 3 of Dual to Kit that needs to be after any proficiency edits)
 
 **Config:**
 - config.ini: Set a kit to = 0 to prevent install
-- "Base kits only" will skip all multiclass variants, regardless of config settings.
-- There are several other options. These need to be set before the mod is installed.
+- Disabling a single class will also skip the multiclass variants.
+- There are several other options. These should be set before the mod is installed.
+- Some options can now be changed with the Kit Updater (these are clearly marked).
 
 --
 
@@ -111,6 +121,9 @@ HUNTER TOOLS: For 12 rounds, the character gains a +1 bonus to luck rolls and Sa
 
 QUICKSILVER: Enhances ranged attacks for 6 rounds, adding 2 points of piercing damage and a +5% chance to score a critical hit. All ammo types (arrows, bolts, and bullets) are also enchanted and become able to hit enemies that normally require magical or silver weapons to hit.
 
+- 8th level: +2 bonus to AC and Saving Throws vs. lycanthropes and fiendish creatures.
+- 16th level: Additional +5% to critical hit chance with Quicksilver.
+
 Disadvantages:
 - May not wear armor heavier than studded leather.
   
@@ -129,6 +142,8 @@ Advantages:
 SHOCKWAVE: The next successful ranged attack explodes in a 15-ft. radius, inflicting 2d4 crushing damage for every 4 levels of the character, up to a maximum of 10d4 at level 20. Any enemies in the blast are also propelled back a considerable distance (no save).
 
 INCINERATE: The next successful ranged attack creates a fiery cloud, which covers a 15-ft. radius and lasts for 4 rounds. Once each round, creatures in the cloud suffer 1d6 fire damage per 4 levels of the character, up to a maximum of 5d6 at level 20 (Save vs. Breath for half).
+
+- Warhounds take no damage from their own Shockwave or Incinerate.
 
 Disadvantages:  
 - May not Specialize in melee weapons.  
@@ -290,7 +305,7 @@ MADMAN'S BLOOD: Administer medicinal blood that grants insight into the Cosmos. 
 LEAD ELIXIR: A mysterious concoction that shifts weight to boost defense and resilience. The recipient gains a +4 bonus to Armor Class and Saving Throws, and 20% resistance to all damage types, but incurs a -1 penalty to luck rolls. The effects last for 3 turns. This blood will also prevent level drain.
 
 Disadvantages:  
-- May not wear gauntlets or bracers.
+- May not wear magic gauntlets or bracers.
 
 ---
 
@@ -306,7 +321,7 @@ SPLINTERING SHOT: For 3 rounds, each successful ranged attack bursts into multip
 
 - 9th level: May use the Visceral Attack ability once per day. Gains additional uses at levels 13 and 17.
 
-VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 12 Hit Points and haste the character for 10 seconds.
+VISCERAL ATTACK: The next melee attack within one round has a 100% chance to score a critical hit. This attack will also restore 5 + 20% of maximum Hit Points and haste the character for 10 seconds.
 
 Disadvantages:  
 - Only gains 20 thieving skill points per level.
@@ -483,11 +498,11 @@ OVERDOSE: For 5 rounds, the character gains an extra attack per round, +3 per le
 
 INJECTION SHOT: The next successful ranged attack forces the target to make a save vs. Death at -2 or become feebleminded for 7 rounds. If the Saving Throw is made, the target is confused and slowed for 2 rounds.
 
-AUTOIMMUNE: The recipient is automatically cured of the next instance of poison, disease, hold, paralysis, stun, sleep, blindness, deafness, charm, berserk, fear, confusion, or feeblemind. This ability lasts up to 3 turns.
+AUTOIMMUNE: The recipient is automatically cured of the next instance of poison, disease, hold, paralysis, stun, sleep, blindness, deafness, charm, berserk, fear, confusion, or feeblemind. On activation, the character is also restored 30% of maximum Hit Points. This ability lasts up to 3 turns.
 
 Disadvantages:
 - Only gains 15 thieving skill points per level.
-- May not wear armor heavier than leather.
+- May only wear leather or hide armor.
 
 ---
 
@@ -522,11 +537,11 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 
 
 #### General guidelines:
-- Install after Rogue Rebalancing. Several RR files need to be patched for full compatibility.
-- Install after class revision mods, unless they specifically say to install after any kits.
-- Install after mods that revise or overwrite spells.
-- Install after mods that add new weapons or armor.
-- Install before mods that overhaul the weapon proficiency system.
+- Install after class revisions, except for Talents of Faerun. If a revision says to install after all kit mods, you can try it both ways. (See ToF notes below)
+- Install after new spells or revised spells. (except possibly OlvynSpells, see below)
+- Install after new weapons or armor.
+- Proficiency overhauls: Can install before or after (except the ToF one). Recommended order is to install this mod before overhauls, then run the Kit Updater after.
+- HLA changes/tweaks: Can install before or after (except the ToF one). All HLA table edits are done from both the main component and the updater. You can re-run the updater at any time to rebuild all HLA tables.
 
 NOTE: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. Technically, this mod is safe to install even after most tweak mods, but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
 
@@ -551,7 +566,9 @@ NOTE: I'd recommend to install this mod generally together with other kits, but 
 - The divine casting kits have full support for custom spheres. Must be installed before the cleric revisions.
 - All kits need to be before anything that touches the proficiency or HLA screens (or buttons might not work).
 
-NOTE: This was asked about, so I'll mention that ToF Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
+NOTE: Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
+
+Kit Updater: **This is REQUIRED for full compat with ToF.** Rebuilds all feats/HLA lists (which will probably be broken without it). Also minor fixes for Medic kit. More on feats/HLAs below.
 
 --
 
@@ -563,16 +580,22 @@ NOTE: This was asked about, so I'll mention that ToF Evasion can be installed be
 
 --
 
-**Feats/abilities mods:**
+**Feats/HLA mods (ex. ToF):**
 - Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
 - Kits that have a disadvantage of not gaining a class ability should generally not take those abilities as feats.
+- Some kits may gain certain mod-added HLAs if detected. (note: this mod doesn't install any HLAs, it scans existing HLA tables and copy pastes lines if detected.)
+
+**ToF feats/HLAs:**
+- Many kits will have 1 or more additional options. (ex. all archers can take any ranged feat/HLA, Medic can take poison upgrades, Grave Warden can take Use Scrolls/Wands, etc.)
+- Some kits have options removed. (ex. Drifter can't take any spell-related feats, but has more combat feats/HLAs than other rangers)
+- All arcane kits from this mod will gain one of the "Arcane Knowledge" feats for free. These are required for selecting HLA spells. The feat is denoted at level 1, but effects aren't given until level 18 mage.
 
 **Bard revisions notes:**
-- Rogue Rebalancing: Install after all components of RR (patches a couples files).
+- Rogue Rebalancing: Install after class/HLA components. The rest can be before or after.
 - Shohy's bard song mod: Install after Shohy's mod (patches 1 file).
-- Bardic Wonders: Install after tweak components of Bardic Wonders.
-- Talents of Faerun: With the HLA component, Powder Keg can take Enhanced Song but the song switching ability will change to the vanilla HLA song. This mod needs to be installed before the HLA component.
-- Untested with other bard revisions.
+- Bardic Wonders: Install after Bardic Wonders (all components).
+- Talents of Faerun: Install before ToF minor/high level abilities. Then run the Kit Updater any time after. It updates the song switching ability to use the correct ToF HLA song.
+- Untested with other bard revisions. I would install any unmentioned revisions before this mod.
 
 #
 ### FnP additional info:
@@ -593,13 +616,17 @@ NOTE: This was asked about, so I'll mention that ToF Evasion can be installed be
 3. FnP multiclass kits (if using)
 4. cdtweaks - enable all classes/multiclasses for all races
 
+**Notes:**
+- I used cdtweaks as an example, but any similar race tweak can be used.
+- The Kit Updater can now be used to enable the FMC class for half-elves, if hidden by a tweak.
+
 ---
 ---
 
 Additional Info (Kit Abilities):
 -
 
-**Affected by Wild/Dead Magic zones:**
+**Affected by Wild/Dead Magic:**
 - Denial (Grave Warden)  
 - Dragonrot (Medic)
 - Moonlight Vortex (Moonlight Knight)  
@@ -618,17 +645,25 @@ Additional Info (Kit Abilities):
 - Cure Afflictions (Medic)
 - Autoimmune (Nurse)
 
+**Removes Grease/Web/Entangle status (on cast or explosion):**
+- Hunter Tools (Beast Hunter)
+- Whirlwind (War Magican)
+- Shockwave (Warhound)  
+- Incinerate (Warhound)  
+- Blasting Song (Powder Keg)
+- Dust Explosion (Powder Keg)
+
 #
 
-**Other info:**
-- Blood Minister's Blood transfusions will be removed by a Restoration or Greater Restoration (any spell with restoration opcode). This is done for lore reasons. (Madman's Blood will obviously not remove itself)
-- Bleeding effects don't wake sleeping creatures. These effects can be cured by Heal, Regeneration, Lay On Hands, and similar spells, as well as most healing spells/abilities from this mod. Also, Stoneskins and Shield of Lathander (or similar mod spells) will protect from bleeding.
-- Drifter and Grave Warden can see clearly while inside a Powder Keg's Dust Explosion once they gain the requisite effects (cloud immunities and blindness immunity).
+**Misc kit/effects info:**
+- Bleeding effects don't wake sleeping creatures. These effects can be cured by Heal, Regeneration, Lay On Hands, or similar. Stoneskins and Shield of Lathander (or similar mod spells) will protect from bleeding.
+- Powder Keg's Dust Explosion and Frenzying Flame apply effects every second. Creatures are affected immediately when entering.
+- Drifter kit's immunities cover many mod-added spells as well, including the Powder Keg's Dust Explosion (blindness only, it is still invisible in the cloud).
 - Nurse's Medical Darts deal double healing or poison damage on a critical hit (target must be vulnerable to crits).
 - Shaman Bone Blade's Charm effect lasts only a few rounds, but it can't be broken, except by a Spiritual Clarity (i.e. if you hit it with an AoE spell, it remains charmed).
-- Medic's Dragonrot is affected by wild/dead magic, but otherwise is treated as a natural effect. It will bypass most spell defenses, and can affect any creature type. It is treated as a status effect, so effects cannot be stacked. It can be cured by Heal, Greater Restoration, and abilities from this mod that cure elemental DoT spells.
-- This mod accounts for EE Fixpack changes to status immunity/curing. For causing statuses, currently only one thing has longer duration effects that need removing separately (Shaman Bone Blade). A subspell for that is added to the relevant EEFP file, if detected.
 - The multiclass Cleric kits will gain Holy Symbols at the next Cleric level after 4 million total XP (BG2/EET).
+- Kits with armor restrictions can wear 1-2 steps higher for dragon scale armors. (i.e. kits restricted to leather can wear dragon splint)
+- All kits from this mod are usable by any race if the base class is usable.
 
 --
 

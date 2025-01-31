@@ -1,0 +1,145 @@
+/*
+add op319 restrictions on items/accessories
+requires itemtypes.tph, d2_2da_find_row.tpa, d2_restrict_armor.tpa
+
+variables: ids_name, baseclass, stringref
+*/
+
+
+/*item restrictions
+op319 is not added if usable by all classes/kits
+op319 is added even if base class is already flagged
+Only magic items are patched.
+*/
+
+
+/*array outline
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_itemtype_usable BEGIN    // type => usable
+//equips
+  amulet      => 1
+  necklace    => 1
+  ring        => 1
+  cloak       => 1
+  robe        => 1
+  boots       => 1
+  belt        => 1
+  bracers     => 1
+  gauntlets   => 1
+  helmet      => 1
+//quick items
+  tome        => 1
+  potion      => 1    // if usable and unusable items share a category, usable has priority
+  bottle      => 1    // can leave items off array (ignored by file)
+  wand        => 0
+  magewand    => 0
+  clericwand  => 0
+  rod         => 0
+  horn        => 0
+  harp        => 0
+//pst items
+  earring     => 1
+  eyeball     => 1
+  charm       => 1
+  tattoo      => 1
+  bodice      => 1
+  leather     => 1
+END
+*/
+
+
+//check variables
+ACTION_IF !(VARIABLE_IS_SET ids_name)  BEGIN OUTER_TEXT_SPRINT ids_name ~D2%kitname%~ END
+ACTION_IF (~%ids_name%~ STR_EQ ~~)     BEGIN OUTER_TEXT_SPRINT ids_name ~D2%kitname%~ END
+ACTION_IF !(IS_AN_INT stringref)       BEGIN OUTER_SET stringref = 0 END
+
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~[^0-9^a-z^_]%ids_name%[^0-9^a-z^_]~) BEGIN
+  OUTER_SET patch_usable = 1
+END ELSE BEGIN
+  OUTER_SET patch_usable = 0
+END
+
+OUTER_SET restrictitems = 1
+ACTION_IF !(RESOURCE_CONTAINS ~action.ids~ ~ZoomLock~) BEGIN OUTER_SET restrictitems = 0 END
+
+
+//
+ACTION_IF (patch_usable > 0) BEGIN
+
+  // split array into usable and unusable
+  ACTION_PHP_EACH d2_itemtype_usable AS type => usable BEGIN
+    ACTION_IF (IS_AN_INT usable AND usable > 0) BEGIN
+      LAF d2_get_itemtype_fields STR_VAR type=~%type%~ RET item_cat item_name END
+      OUTER_TEXT_SPRINT $d2_itemcat_usable (~%item_name%~) ~%item_cat%~    // name => cat
+    END
+  END
+
+  ACTION_PHP_EACH d2_itemtype_usable AS type => usable BEGIN
+    ACTION_IF (IS_AN_INT usable AND usable = 0) BEGIN
+      LAF d2_get_itemtype_fields STR_VAR type=~%type%~ RET item_cat item_name END
+
+      // skip if in usable array (different type but same 0x8 name)
+      OUTER_SET add_to_array = 1
+      ACTION_PHP_EACH d2_itemcat_usable AS name => cat BEGIN
+        ACTION_IF (item_name = name) BEGIN  OUTER_SET add_to_array = 0  END
+      END
+
+      ACTION_IF (add_to_array > 0) BEGIN
+        OUTER_TEXT_SPRINT $d2_restrict_items (~%type%~) ~%item_cat%~    // type => category
+      END
+    END
+  END
+
+
+  //
+  OUTER_TEXT_SPRINT classcheck  ~BIT5~
+  ACTION_PHP_EACH d2_itemflags_classes AS class => bit BEGIN
+    ACTION_IF (~%class%~ STR_EQ ~%baseclass%~) BEGIN
+      OUTER_TEXT_SPRINT classcheck  ~%bit%~
+    END
+  END
+
+
+  // patch items
+  ACTION_IF (IS_AN_INT restrictitems AND restrictitems > 0) BEGIN
+    OUTER_SET ids_num = IDS_OF_SYMBOL (kit ~%ids_name%~)
+
+    COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+
+      READ_LONG 0x1e item_flags
+      SET blocked = EVAL ~%classcheck%~
+//      PATCH_IF !(item_flags & blocked) BEGIN    // skip if class already flagged
+
+        LPF d2_restrict_item_flags RET droppable displayable magical restrictions kitflags END
+        PATCH_IF (%droppable% AND %displayable% AND %magical%) BEGIN
+          PATCH_IF (restrictions!=0 OR kitflags!=0) BEGIN    // skip if no restriction flags
+
+            READ_SHORT 0x1c item_cat
+            PHP_EACH d2_restrict_items AS type => cat BEGIN
+              PATCH_IF (item_cat = cat) BEGIN
+                LPF DELETE_EFFECT INT_VAR match_opcode=319 match_parameter1=ids_num END
+                LPF ADD_ITEM_EQEFFECT INT_VAR opcode=319 target=1 timing=2 parameter1=ids_num parameter2=9 special=stringref END
+              END
+            END
+
+          END
+        END
+//      END
+    BUT_ONLY
+  END
+
+END
+
+
+//reset variables
+OUTER_TEXT_SPRINT ids_name  ~~
+OUTER_TEXT_SPRINT baseclass ~~
+OUTER_SET restrictitems = 0
+OUTER_SET stringref = 0
+
+ACTION_CLEAR_ARRAY ~d2_itemtype_usable~
+ACTION_CLEAR_ARRAY ~d2_itemcat_usable~
+ACTION_CLEAR_ARRAY ~d2_restrict_items~
+
+
+//
+//

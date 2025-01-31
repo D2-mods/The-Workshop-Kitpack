@@ -27,8 +27,6 @@ ACTION_FOR_EACH ability IN
     ~%dustexplosion%~
     ~%frenzyingflame%~
     ~%enhancedbardsong%~
-    ~%rrenhancedsong%~
-    ~%rrlingeringsong%~
     ~%give_badge_spark%~
     ~%give_badge_radiant%~
     ~%give_badge_cosmic%~
@@ -53,8 +51,12 @@ ACTION_FOR_EACH ability IN
     ~%medicarts%~
     ~%healingrain%~
     ~%dragonrot%~
+//mod
+    ~%rrenhancedsong%~
+    ~%rrlingeringsong%~
     ~%argent77_hla1%~
     ~%argent77_hla2%~
+    ~%shohyenhancedsong%~
 BEGIN
 
   ACTION_IF (FILE_EXISTS_IN_GAME ~%ability%.SPL~) BEGIN

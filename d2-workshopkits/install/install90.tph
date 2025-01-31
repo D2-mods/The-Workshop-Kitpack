@@ -1,0 +1,281 @@
+/*
+Update hlas for all
+Update profs for some kits (if changes detected)
+Update mod compat for some kits
+*/
+
+
+//backup files (no edits = copied just for reference)
+ACTION_FOR_EACH file IN
+  ~weapprof.2da~
+  ~luabbr.2da~
+  ~M_KITPRF.lua~    // dual to kit (no edits)
+  ~m_dw_hld.lua~    // tof feats
+  ~m_dw_ssd.lua~    // tof spheres (no edits)
+BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%file%~) BEGIN
+    ACTION_IF !(FILE_EXISTS ~weidu_external/d2wk/%file%~) BEGIN
+      COPY_EXISTING ~%file%~  ~weidu_external/d2wk/%file%~
+    END
+  END
+END
+
+
+//
+INCLUDE ~%install%/weapontypes.tph~
+INCLUDE ~%install%/weapontypes2.tph~
+INCLUDE ~%install%/classchecks.tph~
+INCLUDE ~%install%/hlatables.tph~
+INCLUDE ~%install%/bleedprep.tph~
+
+ACTION_CLEAR_ARRAY ~d2wk_kitname_array~
+
+
+//
+ACTION_IF (updater=0 OR updater=1) BEGIN
+  INCLUDE ~%install%/hlaupdater.tph~
+END
+
+ACTION_IF (updater=0 OR updater=2) BEGIN
+  INCLUDE ~%install%/medicartspatch.tph~
+END
+
+ACTION_IF (updater=0 OR updater=3) BEGIN
+  INCLUDE ~%install%/weapprofbase.tph~
+  INCLUDE ~%install%/weapprofedits.tph~
+  INCLUDE ~%install%/subtleskills.tph~
+END
+
+
+
+//
+//misc stuff (mod compat, config.ini, etc.)
+
+ACTION_IF (updater=0) BEGIN
+
+//
+//mage, sorcerer
+
+//War Magician (d2wk7)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2WARMAGICIAN~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk7~
+  OUTER_TEXT_SPRINT kitname ~WARMAGICIAN~
+//  INCLUDE ~%install%/variables.tph~
+END
+
+//Starjammer (d2wk8)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2STARJAMMER~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk8~
+  OUTER_TEXT_SPRINT kitname ~STARJAMMER~
+  INCLUDE ~%install%/variables.tph~
+  OUTER_TEXT_SPRINT jolt         ~%w5%~    // supportmode.tph
+  OUTER_TEXT_SPRINT revitalizer  ~%w7%~
+END
+
+
+//
+//fighter
+
+//Beast Hunter (d2wk1)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2BEASTHUNTER~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk1~
+  OUTER_TEXT_SPRINT kitname ~BEASTHUNTER~
+//  INCLUDE ~%install%/variables.tph~
+END
+
+//Warhound (d2wk2)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2WARHOUND~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk2~
+  OUTER_TEXT_SPRINT kitname ~WARHOUND~
+  INCLUDE ~%install%/variables.tph~
+
+  // shockwave patch
+  OUTER_TEXT_SPRINT shockwave       ~%s1%~
+  OUTER_TEXT_SPRINT shockwaveblast  ~%s1%b~
+  OUTER_TEXT_SPRINT shockwavepush   ~%s1%c~
+  INCLUDE ~%install%/shockwavepatch.tph~
+END
+
+//Full Metal Jaguar (d2wkf)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2FULLMETALJAGUAR~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkf~
+  OUTER_TEXT_SPRINT kitname ~FULLMETALJAGUAR~
+//  INCLUDE ~%install%/variables.tph~
+END
+
+
+//
+//ranger
+
+//Grave Warden (d2wk3)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2GRAVEWARDEN~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk3~
+  OUTER_TEXT_SPRINT kitname ~GRAVEWARDEN~
+  INCLUDE ~%install%/variables.tph~
+  OUTER_TEXT_SPRINT denial  ~%s1%~    // supportmode.tph
+  OUTER_TEXT_SPRINT wardennofear  ~%e4%~    // iconpatch.tph
+END
+
+//Moonlight Knight (d2wk4)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2MOONLIGHTKNIGHT~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk4~
+  OUTER_TEXT_SPRINT kitname ~MOONLIGHTKNIGHT~
+//  INCLUDE ~%install%/variables.tph~
+END
+
+//Drifter (d2wkc)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2DRIFTER~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkc~
+  OUTER_TEXT_SPRINT kitname ~DRIFTER~
+//  INCLUDE ~%install%/variables.tph~
+END
+
+
+//
+//paladin
+
+//Confessor (d2wk5)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2CONFESSOR~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk5~
+  OUTER_TEXT_SPRINT kitname ~CONFESSOR~
+//  INCLUDE ~%install%/variables.tph~
+END
+
+//Temple Knight (d2wk6)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2TEMPLEKNIGHT~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk6~
+  OUTER_TEXT_SPRINT kitname ~TEMPLEKNIGHT~
+//  INCLUDE ~%install%/variables.tph~
+END
+
+//Noble Scion (d2wke)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2NOBLESCION~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wke~
+  OUTER_TEXT_SPRINT kitname ~NOBLESCION~
+//  INCLUDE ~%install%/variables.tph~
+END
+
+
+//
+//thief, monk
+
+//Crow Hunter (d2wka)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2CROWHUNTER~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wka~
+  OUTER_TEXT_SPRINT kitname ~CROWHUNTER~
+//  INCLUDE ~%install%/variables.tph~
+END
+
+//Nurse (d2wkg)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2NURSE~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkg~
+  OUTER_TEXT_SPRINT kitname ~NURSE~
+  INCLUDE ~%install%/variables.tph~
+  OUTER_TEXT_SPRINT firstaid    ~%s3%~    // supportmode.tph
+  OUTER_TEXT_SPRINT autoimmune  ~%s5%~
+
+  // set Bubb's Menu level
+  ACTION_FOR_EACH spell IN ~%s1%~ ~%s2%~ ~%s3%~ ~%s4%~ ~%s5%~ BEGIN
+    COPY_EXISTING ~%spell%.SPL~  ~override~
+      WRITE_LONG 0x34 nurse_row    // "level" offset (row for Bubb's Spell Menu)
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+//Medic (d2wkd)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2MEDIC~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkd~
+  OUTER_TEXT_SPRINT kitname ~MEDIC~
+//  INCLUDE ~%install%/variables.tph~
+END
+
+
+//
+//bard
+
+//Powder Keg (d2wkb)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2POWDERKEG~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkb~
+  OUTER_TEXT_SPRINT kitname ~POWDERKEG~
+  INCLUDE ~%install%/variables.tph~
+
+  // recheck mods
+  OUTER_TEXT_SPRINT blastingsong      ~%s1%~
+  OUTER_TEXT_SPRINT boomingsong       ~%s2%~
+  OUTER_TEXT_SPRINT dustexplosion     ~%s3%~
+  OUTER_TEXT_SPRINT frenzyingflame    ~%s4%~
+  OUTER_TEXT_SPRINT enhancedbardsong  ~%s5%~
+  OUTER_TEXT_SPRINT pkegstartsong     ~%e2%~
+  INCLUDE ~%install%/%kitname%hla2.tph~
+  INCLUDE ~%install%/%kitname%var.tph~
+  INCLUDE ~%install%/%kitname%icons.tph~
+END
+
+
+//
+//cleric, druid, shaman
+
+//Blood Minister (d2wk9)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2BLOODMINISTER~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wk9~
+  OUTER_TEXT_SPRINT kitname ~BLOODMINISTER~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/%kitname%profs.tph~
+
+  // variables
+  OUTER_TEXT_SPRINT healingblood  ~%s2%~    // supportmode.tph
+  OUTER_TEXT_SPRINT beastblood    ~%s3%~
+  OUTER_TEXT_SPRINT madmanblood   ~%s4%~
+  OUTER_TEXT_SPRINT leadelixir    ~%s5%~
+  OUTER_TEXT_SPRINT ministernodrain  ~%e2%~    // iconpatch.tph
+END
+
+
+//
+//multiclass
+
+//Spell Fencer (d2wkh)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2SPELLFENCER~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkh~
+  OUTER_TEXT_SPRINT kitname ~SPELLFENCER~
+//  INCLUDE ~%install%/variables.tph~
+END
+
+
+//
+//recheck bleed protection
+ACTION_FOR_EACH spell IN
+  ~CLERIC_SHIELD_OF_LATHANDER~ ~CLERIC_GREATER_SHIELD_OF_LATHANDER~
+  ~MEPR653~
+  ~_!SP111~ ~_!SP112~
+  ~TG#AEGI~ ~HLA_TG#AEGI~
+BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.spl~) BEGIN
+    LAF d2_bleed_protection STR_VAR resource=~%spell%~ mode=res END
+  END ELSE
+  ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~[^_]%spell%[^_]~) BEGIN
+    LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name=~%spell%~ RET spell_res END
+    LAF d2_bleed_protection STR_VAR resource=~%spell_res%~ mode=ids END
+  END
+END
+
+
+//
+INCLUDE ~%install%/trackingcheck.tph~
+INCLUDE ~%install%/castingspeedpatch.tph~
+INCLUDE ~%install%/supportmode.tph~
+INCLUDE ~%install%/iconpatch.tph~
+
+END
+
+
+
+//OUTER_TEXT_SPRINT updatemode ~skip~
+
+/*
+above can't make it skip already installed components (unless it has subcomponents)
+*/
+
+
+//
+//

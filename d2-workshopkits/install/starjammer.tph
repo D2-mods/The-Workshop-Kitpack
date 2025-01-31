@@ -46,14 +46,17 @@ COPY ~%abilities%/summonportal.EFF~   ~override/%w1%g.EFF~
   WRITE_ASCII 0x30 ~%w1%g~ #8
   WRITE_LONG 0x20 2
 
-COPY ~%abilities%/d2ddoor.VVC~           ~override~                 // add spell
-COPY ~%abilities%/riftsteptimestop.SPL~  ~override/%w1%a.SPL~
-COPY ~%abilities%/riftstep.SPL~          ~override/%w1%.SPL~
+COPY ~%abilities%/riftstep.SPL~          ~override/%w1%.SPL~        // add spell
   SAY NAME1 @40108
   SAY UNIDENTIFIED_DESC @40208
-  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%w1%a~ END       // time stop
-  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~d2ddoor~ END     // visual
-  LPF ALTER_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%w1%g~ END       // gibberlings
+  LPF DELETE_EFFECT INT_VAR match_opcode=20 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%w1%a~ END                   // time stop
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 opcode=326 STR_VAR resource=~d2riftst~ END     // visual
+  LPF ALTER_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%w1%g~ END                   // gibberlings
+COPY ~%abilities%/d2riftst.VVC~          ~override/d2riftst.VVC~
+COPY ~%abilities%/d2riftst.SPL~          ~override/d2riftst.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~d2riftst~ END
+COPY ~%abilities%/riftsteptimestop.SPL~  ~override/%w1%a.SPL~
 
 //summon gibberlings
 COPY ~%abilities%/riftgatebalor.SPL~  ~override/%w1%g.SPL~
@@ -85,7 +88,7 @@ DEFINE_ACTION_FUNCTION steadycurrentevasion BEGIN
   ACTION_IF (FILE_EXISTS ~override/%steadycurrent%.SPL~) BEGIN
     COPY_EXISTING ~%steadycurrent%.SPL~  ~override~
       LPF d2_evasion_check END
-      WRITE_LONG 0xbe THIS | BIT10     // secondary targets only
+      LPF ALTER_EFFECT INT_VAR match_opcode=324 savingthrow=1024 END    // secondary targets only
     BUT_ONLY
   END
 END
@@ -96,7 +99,10 @@ END
 COPY ~%abilities%/swapper.SPL~  ~override/%w3%.SPL~
   SAY NAME1 @40110
   SAY UNIDENTIFIED_DESC @40210
-  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~d2ddoor~ END
+  LPF DELETE_EFFECT INT_VAR match_opcode=215 match_timing=4 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=124 timing=1 duration=0 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 opcode=146 parameter2=1 STR_VAR resource=~d2riftst~ END
+  WRITE_SHORT 0x22 0    // no casting visual
 
 
 //
@@ -106,13 +112,16 @@ ADD_PROJECTILE ~%workspace%/%w4%.PRO~
 COPY_EXISTING ~SPPR109.SPL~  ~override/%w4%.SPL~    // clone Sanctuary
   SAY NAME1 @40111
   SAY UNIDENTIFIED_DESC @40211
-  
   LPF d2_remove_level_headers END
   LPF d2_convert_spell_type INT_VAR type=1 level=4 END    // convert to level 4 Wizard spell
-  LPF ALTER_EFFECT INT_VAR target=2 power=0 END           // power=0 to bypass immunity to spell level
+  WRITE_SHORT 0x98 ~%w4%~    // projectile
+
+  // effects
+  LPF ALTER_EFFECT INT_VAR target=2 power=0 END    // power=0 to bypass immunity to spell level
   LPF ALTER_EFFECT INT_VAR silent=1 match_timing=0 duration=60 END
   LPF ALTER_EFFECT INT_VAR silent=1 match_timing=4 duration=60 END
-  WRITE_SHORT 0x98 ~%w4%~    // projectile
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=174 STR_VAR resource=EFF_M59 END
+  LPF d2_remove_effects_on_cast END
 
 
 //
@@ -137,6 +146,7 @@ COPY_EXISTING ~SPPR504.SPL~   ~override/%w5%.SPL~         // clone Raise Dead
   WRITE_BYTE  0x25 8              // transmuter school
   WRITE_SHORT 0x84 5              // casting speed
   WRITE_ASCII 0x10 CAS_M04 #8     // casting sound
+  WRITE_LONG 0x18 THIS | BIT24    // target sanctuaried
 
   //EE edits  
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=326 STR_VAR resource=~%w5%a~ END
@@ -277,7 +287,7 @@ COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%w7%.SPL~    // clone a Cure Woun
   WRITE_BYTE  0x25 7               // necromancy school
   WRITE_ASCII 0x10 ~CAS_P07~ #8
   WRITE_LONG  0x18 THIS | BIT24    // can target invisible
-  LPF ALTER_SPELL_HEADER INT_VAR speed=1 range=30 projectile=~%w7%~ END
+  LPF ALTER_SPELL_HEADER INT_VAR speed=1 range=50 projectile=~%w7%~ END
 
   // edit effects
   LPF DELETE_EFFECT INT_VAR match_opcode=164 END
@@ -286,6 +296,7 @@ COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%w7%.SPL~    // clone a Cure Woun
   LPF ALTER_EFFECT INT_VAR match_opcode=215 timing=0 duration=2 parameter2=1 STR_VAR resource=~RPARALH~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=215 timing=1 opcode=174 STR_VAR resource=~#EFF_P46~ END
   LPF update_op324_restrictions END
+  LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_parameter2=104 parameter1=201 END            // add sword race
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ insert=last END    // cures bleeding
 
   LPF CD_EXTEND-O-MATIC
@@ -557,6 +568,7 @@ COPY ~%abilities%/interference.SPL~  ~override/%s1%.SPL~
 
 //Make clab table
 COPY ~inlined/d2clab_sorcerer~  ~override/%kitid%.2DA~
+  LPF tof_denote_spellschool STR_VAR type=~conjuration~ END    // tof denote hla
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
@@ -592,6 +604,14 @@ LAF ADD_KIT_EX
   RET 
     kit_id
 END
+
+
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~sorcerer~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
 
 
 //Set variables for external use

@@ -1,18 +1,23 @@
 /*
-Add IWD Evasion checks for kit/item abilities.
+Make some kit/item abilities allow an Evasion check
 */
 
 
 ACTION_IF (noevasionchecks = 0) BEGIN
 
-ACTION_IF ((GAME_IS ~iwdee~) OR (RESOURCE_CONTAINS ~CLABTH01.2da~ ~#EVASION~) OR 
-           (RESOURCE_CONTAINS ~CLABTH01.2da~ ~CDIEVAD~)
-) BEGIN
+
+OUTER_SET patch_evasion = 0
+ACTION_IF (GAME_IS ~iwdee~) BEGIN OUTER_SET patch_evasion = 1 END
+ACTION_IF (RESOURCE_CONTAINS ~CLABTH01.2da~ ~#EVASION~) BEGIN OUTER_SET patch_evasion = 1 END
+ACTION_IF (RESOURCE_CONTAINS ~CLABTH01.2da~ ~CDIEVAD~)  BEGIN OUTER_SET patch_evasion = 1 END
+
+
+ACTION_IF (patch_evasion > 0) BEGIN
 
   ACTION_IF (evasionchecks = 1) BEGIN
-    LAF steadycurrentevasion END                                                     // Steady Current (secondary targets only)
-    LAF d2_evasion_check STR_VAR spell=~%electrocannon%~ END                         // Electrocannon
-    LAF d2_evasion_check STR_VAR spell=~%incinerateblast%~ END                       // Incinerate
+    LAF steadycurrentevasion END    // Steady Current (secondary targets only)
+    LAF d2_evasion_check INT_VAR clone=1 STR_VAR spell=~%electrocannon%~ END         // Electrocannon
+    LAF d2_evasion_check INT_VAR clone=1 STR_VAR spell=~%incinerateblast%~ END       // Incinerate
     LAF d2_evasion_check INT_VAR clone=1 STR_VAR spell=~%blastingsongblast%~ END     // Blasting Song
     LAF d2_evasion_check INT_VAR clone=1 STR_VAR spell=~%dustexplosionblast%~ END    // Dust Explosion (fireball only)
   END
@@ -22,6 +27,7 @@ ACTION_IF ((GAME_IS ~iwdee~) OR (RESOURCE_CONTAINS ~CLABTH01.2da~ ~#EVASION~) OR
   END
 
 END
+
 
 END
 

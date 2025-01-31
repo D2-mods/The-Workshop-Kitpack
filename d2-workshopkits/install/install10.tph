@@ -11,6 +11,7 @@ OUTER_SET buildeffects = 0
 //Install
 OUTER_TEXT_SPRINT kitid ~d2wkz~
 OUTER_TEXT_SPRINT kitname ~MISCITEMS~
+INCLUDE ~%install%/itemtypes.tph~
 INCLUDE ~%install%/spellprep.tph~
 INCLUDE ~%install%/spellprep2.tph~
 INCLUDE ~%install%/bleedprep.tph~
@@ -30,6 +31,9 @@ INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/spellprep3.tph~
 INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/castingspeedpatch.tph~
+
+OUTER_TEXT_SPRINT mode  ~item~
+INCLUDE ~%install%/itemtypepatch.tph~
 INCLUDE ~%install%/iwditempatch.tph~
 INCLUDE ~%install%/tobbags.tph~
 //INCLUDE ~%install%/backupfiles.tph~

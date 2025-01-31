@@ -8,12 +8,18 @@ COPY ~%passives%/resistup20fire.SPL~  ~override/%e1%.SPL~
 //Change bard song at level 1 (Blasting Song)
 COPY_EXISTING ~FJBARD.SPL~            ~override/%e2%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s1%s~ END
-  LPF DELETE_EFFECT STR_VAR match_resource=~#bard7a~ END    // compat fix for IWDification
+  LPF DELETE_EFFECT STR_VAR match_resource=~#bard7a~ END    // block IWDification effect
 
 //other new songs not automatically set, except HLA song
 
 
-//
+//icons
+COPY ~%icons%/powderkeg1.BAM~  ~override/%s1%.BAM~
+COPY ~%icons%/powderkeg2.BAM~  ~override/%s2%.BAM~
+COPY ~%icons%/powderkeg3.BAM~  ~override/%s3%.BAM~
+COPY ~%icons%/powderkeg4.BAM~  ~override/%s4%.BAM~
+
+
 //text strings
 OUTER_SET deafness  = 14073
 OUTER_SET confused  = 14782
@@ -33,24 +39,7 @@ END
 //deafness and berserk strings need to be blocked by immunity to those statuses
 
 
-//icons
-ACTION_IF (nopowderkegpatch = 0) BEGIN
-  COPY ~%icons%/powderkeg1.BAM~  ~override/%s1%.BAM~
-  COPY ~%icons%/powderkeg2.BAM~  ~override/%s2%.BAM~
-  COPY ~%icons%/powderkeg3.BAM~  ~override/%s3%.BAM~
-  COPY ~%icons%/powderkeg4.BAM~  ~override/%s4%.BAM~
-  OUTER_TEXT_SPRINT icon1 ~%s1%~
-  OUTER_TEXT_SPRINT icon2 ~%s2%~
-  OUTER_TEXT_SPRINT icon3 ~%s3%~
-  OUTER_TEXT_SPRINT icon4 ~%s4%~
-END ELSE BEGIN
-  OUTER_TEXT_SPRINT icon1 ~bard6~
-  OUTER_TEXT_SPRINT icon2 ~bard4~
-  OUTER_TEXT_SPRINT icon3 ~bard3~
-  OUTER_TEXT_SPRINT icon4 ~bard2~
-END
-
-
+//
 //add "Change Song" abilities
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s1%.SPL~    // Blasting Song
   SAY NAME1 @115
@@ -58,8 +47,8 @@ COPY ~%abilities%/changebardsong.SPL~  ~override/%s1%.SPL~    // Blasting Song
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s1%s~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s1%~ END
-  WRITE_ASCII 0x3a ~%icon1%~ #8    // icons
-  WRITE_ASCII 0x76 ~%icon1%~ #8
+  WRITE_ASCII 0x3a ~%s1%~ #8    // icons
+  WRITE_ASCII 0x76 ~%s1%~ #8
 
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s2%.SPL~    // Booming Song
   SAY NAME1 @116
@@ -67,8 +56,8 @@ COPY ~%abilities%/changebardsong.SPL~  ~override/%s2%.SPL~    // Booming Song
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s2%s~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s2%~ END
-  WRITE_ASCII 0x3a ~%icon2%~ #8    // icons
-  WRITE_ASCII 0x76 ~%icon2%~ #8
+  WRITE_ASCII 0x3a ~%s2%~ #8    // icons
+  WRITE_ASCII 0x76 ~%s2%~ #8
 
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s3%.SPL~    // Dust Explosion
   SAY NAME1 @117
@@ -76,8 +65,8 @@ COPY ~%abilities%/changebardsong.SPL~  ~override/%s3%.SPL~    // Dust Explosion
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s3%s~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s3%~ END
-  WRITE_ASCII 0x3a ~%icon3%~ #8    // icons
-  WRITE_ASCII 0x76 ~%icon3%~ #8
+  WRITE_ASCII 0x3a ~%s3%~ #8    // icons
+  WRITE_ASCII 0x76 ~%s3%~ #8
 
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s4%.SPL~    // Frenzying Flame
   SAY NAME1 @118
@@ -85,27 +74,22 @@ COPY ~%abilities%/changebardsong.SPL~  ~override/%s4%.SPL~    // Frenzying Flame
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s4%s~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s4%~ END
-  WRITE_ASCII 0x3a ~%icon4%~ #8    // icons
-  WRITE_ASCII 0x76 ~%icon4%~ #8
-
-COPY ~%abilities%/changebardsong.SPL~  ~override/%s5%.SPL~    // Enhanced Bard Song
-  SAY NAME1 @119
-  SAY UNIDENTIFIED_DESC @219
-  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~SPCL920A~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
-  LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s5%~ END
-  WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
-  WRITE_ASCII 0x76 ~SPENBARB~ #8
+  WRITE_ASCII 0x3a ~%s4%~ #8    // icons
+  WRITE_ASCII 0x76 ~%s4%~ #8
 
 
 //shared subspells
-COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%a.SPL~    // remove delayed effect
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%a.SPL~    // remove delayed effects
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%y~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%y~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s3%y~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s4%y~ END
 
-COPY ~%abilities%/powderkegdisable.SPL~    ~override/%s0%x.SPL~    // disable song button
+COPY ~%abilities%/powderkegdisable.SPL~    ~override/%s0%x.SPL~    // disable songs and button
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~%s1%s~ END
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~%s2%s~ END
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~%s3%s~ END
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~%s4%s~ END
 
 
 //
@@ -280,6 +264,7 @@ BUT_ONLY
 //
 //Make clab table
 COPY ~inlined/d2clab_bard_nosongs~  ~override/%kitid%.2DA~
+  LPF tnb_innate_familiars END
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 multi=1 increment=5 limit=20 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
@@ -308,64 +293,26 @@ LAF ADD_KIT_EX
 END
 
 
-//patch HLA song (gives "Change Song" ability)
-ACTION_IF (FILE_EXISTS_IN_GAME ~SPCL920.SPL~) BEGIN
-  COPY ~%abilities%/applyeffects.EFF~  ~override/%s5%a.EFF~
-    WRITE_ASCII 0x30 ~%s5%a~ #8
-  COPY ~%passives%/giveability.SPL~    ~override/%s5%a.SPL~
-    LPF ALTER_EFFECT STR_VAR resource=~%s5%~ END
-
-  COPY_EXISTING ~SPCL920.SPL~  ~override~
-    LPF CLONE_EFFECT
-      INT_VAR
-        multi_match   = 1
-        match_timing  = 9
-        opcode        = 177
-        parameter1    = IDS_OF_SYMBOL (kit ~D2%kitname%~)
-        parameter2    = 9
-      STR_VAR
-        resource      = ~%s5%a~
-    END
-  BUT_ONLY
-END
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%~
+OUTER_TEXT_SPRINT class    ~bard~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
 
 
 //Gains jester effects from items (damage-related only)
 OUTER_TEXT_SPRINT kit_group ~jester~
 OUTER_TEXT_SPRINT ids_name  ~D2%kitname%~
-
-ACTION_PHP_EACH item_kit_effects AS item => class BEGIN
-  ACTION_IF !(~%kit_group%~ STRING_CONTAINS_REGEXP ~%class%~) BEGIN
-    ACTION_FOR_EACH res IN ~SPL~ ~ITM~ BEGIN
-      ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.%res%~) BEGIN
-        COPY_EXISTING ~%item%.%res%~  ~override~
-          PHP_EACH kit_ids_array AS class2 => eff_to_copy BEGIN
-            PATCH_IF (~%class%~ STR_EQ ~%class2%~) BEGIN
-              LPF CLONE_EFFECT 
-                INT_VAR 
-                  silent            = 1
-                  match_opcode      = 177 
-                  match_parameter1  = %eff_to_copy%
-                  match_parameter2  = 9 
-                  parameter1        = IDS_OF_SYMBOL (kit ~%ids_name%~)
-              END
-            END
-          END
-        BUT_ONLY
-      END
-    END
-  END
-END
+INCLUDE ~%install%/beamdogitems.tph~
 
 
 //function to block deafness/berserk strings
 DEFINE_PATCH_FUNCTION powderkeg_block_strings BEGIN
-
   LPF DELETE_EFFECT INT_VAR match_opcode=267 match_parameter1=deafness END
   LPF DELETE_EFFECT INT_VAR match_opcode=267 match_parameter1=berserk END
   LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=80 opcode=267 parameter1=deafness END
   LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=3  opcode=267 parameter1=berserk END
-
 END
 
 
@@ -375,8 +322,9 @@ OUTER_TEXT_SPRINT blastingsong        ~%s1%~
 OUTER_TEXT_SPRINT boomingsong         ~%s2%~
 OUTER_TEXT_SPRINT dustexplosion       ~%s3%~
 OUTER_TEXT_SPRINT frenzyingflame      ~%s4%~
-OUTER_TEXT_SPRINT enhancedbardsong    ~%s5%~
+OUTER_TEXT_SPRINT enhancedbardsong    ~%s5%~    // moved to powderkeghla.tph
 OUTER_TEXT_SPRINT pkegstartsong       ~%e2%~
+OUTER_TEXT_SPRINT pkegdisable         ~%s0%x~
 
 //subspells
 OUTER_TEXT_SPRINT blastingsongblast   ~%s1%e~    // for Evasion

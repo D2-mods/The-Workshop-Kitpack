@@ -112,8 +112,9 @@ COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%F.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=4 limit=13 STR_VAR resource=~%s2%~ END
+  LPF d2_kit_ability_adder INT_VAR level=8 passive=1 STR_VAR resource=~%e2%~ END
 
-  //import fix (BG2, ToB, SoD)
+  // import fix (BG2, ToB, SoD)
   PHP_EACH import_fix_array AS file => level BEGIN
     LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~%file%~ END
   END
@@ -128,8 +129,10 @@ COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%C.2DA~
 COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%M.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
+  LPF tof_denote_spellschool STR_VAR type=~evocation~ END    // tof denote hla
 
 
+/*moved to weapprofedits.tph
 //Set variable for proficiencies
 ACTION_IF ((vanillaclericprofs = 0) OR
            (FILE_EXISTS_IN_GAME ~RASPHERE.marker~) OR
@@ -140,35 +143,7 @@ ACTION_IF ((vanillaclericprofs = 0) OR
 END ELSE BEGIN
   OUTER_TEXT_SPRINT multikitprofs  ~0 0 0 0 2 2 0 2 0 0 0 0 0 0 0 0 2 2 0 0 2 2 2 0 0 0 0 2 2 2 2 3~
 END
-
-
-//can select FMC triple class (i.e. if disabled by FnP multiclass)
-COPY_EXISTING - ~clsrcreq.2DA~  ~~
-  COUNT_2DA_ROWS 3 clsrcreq_rows
-  READ_2DA_ENTRIES_NOW ~clsrcreq_table~ 3
-
-COPY_EXISTING - ~clastext.2DA~  ~~
-  COUNT_2DA_ROWS 3 clastext_rows
-  READ_2DA_ENTRIES_NOW ~clastext_table~ 3
-  FOR (i = 1; i < clastext_rows; ++i) BEGIN
-    READ_2DA_ENTRY_FORMER ~clastext_table~ i 1 classid
-    PATCH_IF (classid = 17) BEGIN
-      READ_2DA_ENTRY_FORMER ~clastext_table~ i 0 classname1
-      INNER_ACTION BEGIN
-        COPY_EXISTING - ~clsrcreq.2DA~  ~~
-          FOR (r = 1; r < clsrcreq_rows; ++r) BEGIN
-            READ_2DA_ENTRY_FORMER ~clsrcreq_table~ r 0 classname2
-            PATCH_IF (~%classname1%~ STRING_EQUAL_CASE ~%classname2%~) BEGIN
-              SET_2DA_ENTRY_LATER ~make_edits~ r 3 1
-            END
-          END
-      END
-    END
-  END
-
-COPY_EXISTING ~clsrcreq.2DA~  ~override~
-  SET_2DA_ENTRIES_NOW ~make_edits~ 3
-BUT_ONLY
+*/
 
 
 //
@@ -191,17 +166,28 @@ LAF ADD_KIT_EX
     clab_base_m = ~%beasthunter%M.2DA~    // -1 spell slots added to Mage table
     clab_base_p = ~%beasthunter%C.2DA~    // holy symbol added to Cleric table
     clsrcreq = ~1 1 1 1 1 1 1~            // Usable by all races, if base class is usable
-    weapprof = ~%multikitprofs%~
+//    weapprof = ~%multikitprofs%~
     clascolr = ~28 93 91 91 93~           // Archer colors
   RET 
     kit_id
 END
 
 
-//Usability - restrict to studded leather
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_restrict_armor_array BEGIN
-  ~D2%kitname%FMC~ => ~studded~
-END
+//hla table
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%FMC~
+OUTER_TEXT_SPRINT abbrev   ~%kitid%9~
+OUTER_TEXT_SPRINT class    ~FIGHTER_MAGE_CLERIC~
+LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
+LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
+
+
+//armor restriction
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%FMC~
+OUTER_TEXT_SPRINT armor_type ~studded~
+OUTER_TEXT_SPRINT $d2_restrict_armor_array (~%ids_name%~) ~%armor_type%~
+
+OUTER_TEXT_SPRINT baseclass ~fmc~
+OUTER_TEXT_SPRINT $d2_restrict_armor_baseclass (~%ids_name%~) ~%baseclass%~
 
 
 //DoF spheres
