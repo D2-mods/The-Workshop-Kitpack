@@ -1,0 +1,237 @@
+/*
+ToF mod - adjust hla spell lists
+removes all sphere spells, then adds hlas from correct spheres
+other cleric hlas (not sphere related) are untouched by this file
+*/
+
+
+OUTER_SET tofspherehlas = 1
+ACTION_IF !(RESOURCE_CONTAINS ~spell.ids~ ~HLA_DW-HL~) BEGIN  OUTER_SET tofspherehlas = 0  END
+ACTION_IF !(FILE_EXISTS_IN_GAME ~m_dw_hld.lua~)        BEGIN  OUTER_SET tofspherehlas = 0  END
+
+
+//
+ACTION_IF (tofspherehlas > 0) BEGIN
+
+
+//sphere list
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_tofcleric_spheres BEGIN
+  d2bloodminister     => ~all,air,charm,divination,divine,evil,healing,moon,necromantic,plant,protection,summoning,wards~
+  d2beasthunterfc     => ~all,animal,charm,combat,divination,divine,fire,good,healing,protection,summoning,sun,wards~
+  d2beasthunterfmc    => ~all,animal,charm,combat,divination,divine,fire,good,healing,protection,summoning,sun,wards~
+  d2moonlightknightcr => ~all,animal,combat,divine,earth,evil,fey,good,healing,moon,necromantic,plant,protection~
+END
+
+//sphere => hlas
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_tofcleric_spellids BEGIN
+  all         => ~HLA_DW-HLMRD~
+  divine      => ~HLA_DW-HLHLA HLA_DW-HLUHA~
+  nature      => ~HLA_DW-HLSTV HLA_DW-ELSWM~
+  air         => ~HLA_DW-ELSWA HLA_DW-HLEPA HLA_DW-HLTHN~
+  animal      => ~HLA_DW-HLFUR~
+  charm       => ~HLA_DW-HLAUC~
+  combat      => ~HLA_DW-HLGBB HLA_DW-HLIMP~
+  divination  => ~HLA_DW-HLCFS~
+  earth       => ~HLA_DW-ELSWE HLA_DW-HLEPE HLA_TG#VOLC~
+  evil        => ~HLA_DW-HLCGT HLA_DW-HLUHA~
+  fey         => ~HLA_TG#TRAN~
+  fire        => ~HLA_DW-ELSWF HLA_DW-HLEPF HLA_DW-HLAFD HLA_TG#VOLC~
+  good        => ~HLA_DW-HLCSD HLA_DW-HLHLA~
+  healing     => ~HLA_DW-HLMHE HLA_DW-HLMRD~
+  moon        => ~HLA_DW-HLSTA~
+  necromantic => ~HLA_DW-HLCED HLA_DW-HLCBG~
+  plant       => ~HLA_TG#NATW~
+  protection  => ~HLA_DW-HLAFD~
+  summoning   => ~HLA_DW-ELSWM HLA_TG#COMD~
+  sun         => ~HLA_DW-HLSUN~
+  wards       => ~HLA_TG#DIVN~
+  water       => ~HLA_DW-HLSTV HLA_DW-ELSWW HLA_DW-HLEPW~
+END
+
+//kit => hlas (ids names)
+ACTION_PHP_EACH d2wk_tofcleric_spheres AS kit => list BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~[^0-9^a-z^_]%kit%[^0-9^a-z^_]~) BEGIN
+    OUTER_TEXT_SPRINT hlas ~~
+    ACTION_PHP_EACH d2wk_tofcleric_spellids AS sphere => spells BEGIN
+      ACTION_IF !(~%list%~ STRING_CONTAINS_REGEXP ~%sphere%~) BEGIN
+        OUTER_TEXT_SPRINT hlas ~%hlas% %spells%~
+      END
+    END
+    OUTER_TEXT_SPRINT $d2wk_tofcleric_hlas(~%kit%~) ~%hlas%~    // kit => hlas (ids names)
+  END
+END
+
+
+//
+//hla resource arrays
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_tofcleric_hlaclass BEGIN    // idsname => class
+  HLA_DW-HLMHE => cleric    // mass heal
+  HLA_TG#DIVN  => cleric    // divine shell
+  HLA_DW-HLSTV => druid     // storm of vengeance
+  HLA_DW-ELSWM => cleric    // elemental swarm
+  HLA_DW-ELSWE => druid     // earth elementals
+  HLA_DW-ELSWA => druid     // air elementals
+  HLA_DW-ELSWF => druid     // fire elementals
+  HLA_DW-ELSWW => druid     // water elementals
+  HLA_DW-HLEPE => druid     // earth elemental prince
+  HLA_DW-HLEPA => druid     // air elemental prince
+  HLA_DW-HLEPF => druid     // fire elemental prince
+  HLA_DW-HLEPW => druid     // water elemental prince
+  HLA_DW-HLCGT => cleric    // gate
+  HLA_DW-HLCSD => cleric    // deva
+  HLA_DW-HLGBB => cleric    // globe of blades
+  HLA_DW-HLAFD => cleric    // aura of flaming death
+  HLA_DW-HLIMP => cleric    // implosion
+  HLA_DW-HLMRD => cleric    // mass raise dead
+  HLA_DW-HLTHN => druid     // thunderstorm
+  HLA_TG#TRAN  => druid     // tranquility
+  HLA_TG#NATW  => druid     // nature's wrath
+  HLA_TG#COMD  => BEAST_FRIEND    // comet
+  HLA_TG#VOLC  => druid     // volcano
+  HLA_DW-HLSUN => druid     // sunburst
+  HLA_DW-HLSTA => druid     // starlight blades
+  HLA_DW-HLCED => cleric    // energy drain
+  HLA_DW-HLCBG => cleric    // summon boneguard
+  HLA_DW-HLCFS => cleric    // foresight (not used)
+  HLA_DW-HLAUC => cleric    // cloak of chaos
+  HLA_DW-HLHLA => cleric    // holy aura
+  HLA_DW-HLUHA => cleric    // unholy aura
+  HLA_DW-HLFUR => druid     // fury of the pack
+END
+
+//ability => class
+COPY_EXISTING - ~spell.ids~  ~~
+  PHP_EACH d2wk_tofcleric_hlaclass AS spell => class BEGIN
+    PATCH_IF (RESOURCE_CONTAINS ~%SOURCE_RES%.ids~ ~[^_]%spell%[^_]~) BEGIN
+      LPF RES_NUM_OF_SPELL_NAME STR_VAR spell_name=~%spell%~ RET spell_res END
+      TEXT_SPRINT ability ~GA_%spell_res%~
+      TEXT_SPRINT $d2wk_tofcleric_hlares(~%spell%~) ~%ability%~         // idsname => ability
+      TEXT_SPRINT $d2wk_tofcleric_hlaresclass(~%ability%~) ~%class%~    // ability => class
+    END
+  END
+
+
+//kit => res (resource names)
+ACTION_PHP_EACH d2wk_tofcleric_hlas AS kit => list BEGIN
+  OUTER_TEXT_SPRINT hlas ~~
+  ACTION_PHP_EACH d2wk_tofcleric_hlares AS idsname => ability BEGIN
+    ACTION_IF !(~%list%~ STRING_CONTAINS_REGEXP ~%idsname%~) BEGIN
+      OUTER_TEXT_SPRINT hlas ~%hlas% %ability%~
+    END
+  END
+  OUTER_TEXT_SPRINT $d2wk_tofcleric_hlalist(~%kit%~) ~%hlas%~    // kit => res (resource names)
+END
+
+
+//
+//patch hla tables
+ACTION_PHP_EACH d2wk_tofcleric_hlalist AS kit => res BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+
+      OUTER_TEXT_SPRINT hlatable ~lu%abbrev%~
+      COPY_EXISTING ~%hlatable%.2da~  ~override~
+        PHP_EACH d2wk_tofcleric_hlaresclass AS ability => class BEGIN
+          LPF 2da_find_row_delete INT_VAR col_read=1 STR_VAR row_name=~%ability%~ END    // remove sphere hlas
+        END
+      BUT_ONLY
+
+    END
+  END
+END
+
+//add sphere hlas
+ACTION_PHP_EACH d2wk_tofcleric_hlalist AS kit => res BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+      ACTION_PHP_EACH d2wk_tofcleric_hlaresclass AS ability => class BEGIN
+        ACTION_IF !(~%res%~ STRING_CONTAINS_REGEXP ~%ability%~) BEGIN
+
+  ACTION_PHP_EACH d2_luabbr_classes AS class2 => table BEGIN
+    ACTION_IF (~%class%~ STR_EQ ~%class2%~) BEGIN
+      OUTER_TEXT_SPRINT hlatable ~lu%abbrev%~
+      OUTER_TEXT_SPRINT copytable ~lu%table%~
+      ACTION_IF (RESOURCE_CONTAINS ~%copytable%.2da~ ~[^0-9^a-z]%ability%[^0-9^a-z]~) BEGIN
+        LAF d2_get_hla_string STR_VAR clone_res=~%ability%~ clone_2da=~%copytable%~ RET hlastring END
+        LAF d2_add_hla_string STR_VAR hlatable=~%hlatable%~ hlastring=~%hlastring%~ END
+      END
+    END
+  END 
+
+        END
+      END
+    END
+  END
+END
+
+
+
+//
+//elemental stuff (immunities, shapeshifts)
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_tofdruid_hlabuffs BEGIN    // idsname => class
+  d2bloodminister     => ~AP_DW-HCEEE GA_DW-HLSPS GA_DW-HLSPW~
+  d2beasthunterfc     => ~GA_DW-HLSPB GA_DW-HLSPL~
+  d2beasthunterfmc    => ~GA_DW-HLSPB GA_DW-HLSPL~
+  d2moonlightknightcr => ~AP_DW-HCEEA GA_SPPR732~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_tofdruid_hlaclass BEGIN    // idsname => class
+  AP_DW-HCEEF => druid     // tof fire immunity
+  AP_DW-HCEEA => druid     // tof acid immunity (earth)
+  AP_DW-HCEEE => druid     // tof electrical immunity (air)
+  AP_DW-HCEEW => druid     // tof cold immunity (water)
+  GA_SPPR731  => druid     // fire shapeshift
+  GA_SPPR732  => druid     // earth shapeshift
+  GA_DW-HLETA => druid     // air shapeshift
+  GA_DW-HLETW => druid     // water shapeshift
+  GA_DW-HLSPB => shaman    // spirit of the bear
+  GA_DW-HLSPL => shaman    // spirit of the lion
+  GA_DW-HLSPS => shaman    // spirit of the snake
+  GA_DW-HLSPW => shaman    // spirit of the wolf
+END
+
+ACTION_PHP_EACH d2wk_tofdruid_hlabuffs AS kit => res BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+
+      OUTER_TEXT_SPRINT hlatable ~lu%abbrev%~
+      COPY_EXISTING ~%hlatable%.2da~  ~override~
+        PHP_EACH d2wk_tofdruid_hlaclass AS ability => class BEGIN
+          LPF 2da_find_row_delete INT_VAR col_read=1 STR_VAR row_name=~%ability%~ END    // remove sphere hlas
+        END
+      BUT_ONLY
+
+    END
+  END
+END
+
+//add elemental hlas
+ACTION_PHP_EACH d2wk_tofdruid_hlabuffs AS kit => res BEGIN
+  ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN
+    ACTION_IF (~%kit%~ STR_EQ ~%kit2%~) BEGIN
+      ACTION_PHP_EACH d2wk_tofdruid_hlaclass AS ability => class BEGIN
+        ACTION_IF !(~%res%~ STRING_CONTAINS_REGEXP ~%ability%~) BEGIN
+
+  ACTION_PHP_EACH d2_luabbr_classes AS class2 => table BEGIN
+    ACTION_IF (~%class%~ STR_EQ ~%class2%~) BEGIN
+      OUTER_TEXT_SPRINT hlatable ~lu%abbrev%~
+      OUTER_TEXT_SPRINT copytable ~lu%table%~
+      ACTION_IF (RESOURCE_CONTAINS ~%copytable%.2da~ ~[^0-9^a-z]%ability%[^0-9^a-z]~) BEGIN
+        LAF d2_get_hla_string STR_VAR clone_res=~%ability%~ clone_2da=~%copytable%~ RET hlastring END
+        LAF d2_add_hla_string STR_VAR hlatable=~%hlatable%~ hlastring=~%hlastring%~ END
+      END
+    END
+  END 
+
+        END
+      END
+    END
+  END
+END
+
+
+END
+
+
+//
+//

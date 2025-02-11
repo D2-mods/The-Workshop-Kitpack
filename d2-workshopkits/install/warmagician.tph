@@ -5,10 +5,6 @@
 COPY ~%passives%/resistup5elements.SPL~  ~override/%e1%.SPL~    // 5% resists
 COPY ~%passives%/resistup5elements.SPL~  ~override/%e2%.SPL~    // 10% resists
   LPF ALTER_EFFECT INT_VAR parameter1=10 END
-COPY ~%passives%/fewerspells1.SPL~  ~override/%e3%.SPL~         // remove specialist bonus spells
-COPY ~%passives%/opcode206.SPL~     ~override/%e4%.SPL~         // only relevant for 5e casting mod
-  LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END
-  LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END
 
 
 //Add Unleash Magic
@@ -104,8 +100,8 @@ COPY ~inlined/d2clab_mage~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR level=2 multi=1 increment=4 STR_VAR resource=~%s2%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e3%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%baseslots%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%5ecasting%~ END
   LPF d2_kit_ability_adder END
 
   // if installed after 5e casting

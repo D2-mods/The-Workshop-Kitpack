@@ -1,0 +1,165 @@
+/*
+Spell caps config
+*/
+
+
+//Nurse - Overdose
+COPY_EXISTING ~%overdose%.SPL~  ~override~
+  LPF d2_remove_level_headers END
+
+  // extend to spellcap
+  LPF CD_EXTEND-O-MATIC INT_VAR dur_special=1 step_dur=0 level_cap=spellcap min_lev_alt=9 END
+
+  // skill bonus
+  FOR (n = 1; n <= (spellcap - 9); ++n) BEGIN    // skills (extend to spellcap)
+    SET bonus = n * 3
+    SET amount = 27 + bonus
+    LPF ALTER_EFFECT INT_VAR header=n match_parameter1=27 parameter1=amount END
+  END
+IF_EXISTS BUT_ONLY
+
+
+
+//Noble Scion - Blood Bullet
+ACTION_DEFINE_ASSOCIATIVE_ARRAY bloodbullets BEGIN
+  1 => a
+  2 => b
+  3 => c
+  4 => d
+  5 => e
+  6 => f     // level 18
+  7 => g
+  8 => h
+  9 => i
+  10 => j    // level 30
+  11 => k
+  12 => l
+  13 => m    // level 39
+  14 => n
+  15 => o
+  16 => p
+END
+
+COPY_EXISTING ~%bloodbulletsbuff%.SPL~  ~override~
+  LPF d2_remove_level_headers END
+
+  // extend to 50
+  LPF CD_EXTEND-O-MATIC INT_VAR base_dur=12 step_dur=0 step_size=3 level_cap=50 min_lev_alt=3 END
+
+  // damage bonus
+  FOR (n = 1; n <= 16; ++n) BEGIN
+    SET header = n - 1
+    PHP_EACH bloodbullets AS damage => res BEGIN
+      PATCH_IF (damage = n) BEGIN
+        LPF ALTER_EFFECT INT_VAR header=header STR_VAR resource=~%bloodbulletsdamage%%res%~ END
+      END
+    END
+  END
+
+  // trim to spellcap level
+  PATCH_IF (spellcap < 50) BEGIN
+    LPF CD_TRIM-O-MATIC INT_VAR level_cap = spellcap END
+  END
+IF_EXISTS BUT_ONLY
+
+
+
+//Starjammer - Electrocannon
+COPY_EXISTING ~%electrocannon%.SPL~  ~override~
+  LPF d2_remove_level_headers END
+
+  // extend to spellcap
+  LPF CD_EXTEND-O-MATIC INT_VAR level_cap=spellcap min_lev_alt=12 END
+
+  // edit damage
+  LPF ALTER_EFFECT INT_VAR header=1 match_opcode=12 parameter1=26 dicenumber=13 END    // level 13
+  LPF ALTER_EFFECT INT_VAR header=2 match_opcode=12 parameter1=28 dicenumber=14 END
+  LPF ALTER_EFFECT INT_VAR header=3 match_opcode=12 parameter1=30 dicenumber=15 END
+  LPF ALTER_EFFECT INT_VAR header=4 match_opcode=12 parameter1=32 dicenumber=16 END
+  LPF ALTER_EFFECT INT_VAR header=5 match_opcode=12 parameter1=34 dicenumber=17 END
+  LPF ALTER_EFFECT INT_VAR header=6 match_opcode=12 parameter1=36 dicenumber=18 END
+  LPF ALTER_EFFECT INT_VAR header=7 match_opcode=12 parameter1=38 dicenumber=19 END
+  LPF ALTER_EFFECT INT_VAR header=8 match_opcode=12 parameter1=40 dicenumber=20 END
+
+  PATCH_IF (spellcap >= 30) BEGIN
+    FOR (n = 1; n <= 10; ++n) BEGIN
+      SET header = 8 + n
+      SET damage = 40 + (n*2)
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR header=header match_opcode=12 parameter1=damage dicenumber=dice END
+    END
+  END
+
+  PATCH_IF (spellcap >= 40) BEGIN
+    FOR (n = 11; n <= 20; ++n) BEGIN
+      SET header = 8 + n
+      SET damage = 40 + (n*2)
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR header=header match_opcode=12 parameter1=damage dicenumber=dice END
+    END
+  END
+
+  PATCH_IF (spellcap = 50) BEGIN
+    FOR (n = 21; n <= 30; ++n) BEGIN
+      SET header = 8 + n
+      SET damage = 40 + (n*2)
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR header=header match_opcode=12 parameter1=damage dicenumber=dice END
+    END
+  END
+IF_EXISTS BUT_ONLY
+
+
+//Starjammer - Revitalizer
+COPY_EXISTING ~%revitalizer%.SPL~  ~override~
+  LPF d2_remove_level_headers END
+
+  // extend to spellcap
+  LPF CD_EXTEND-O-MATIC INT_VAR level_cap=spellcap min_lev_alt=14 END
+
+  // edit healing
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=1 dicenumber=15 END    // level 15
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=2 dicenumber=16 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=3 dicenumber=17 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=4 dicenumber=18 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=5 dicenumber=19 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 header=6 dicenumber=20 END
+
+  PATCH_IF (spellcap >= 30) BEGIN
+    FOR (n = 1; n <= 10; ++n) BEGIN
+      SET header = 6 + n
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR match_opcode=17 header=header dicenumber=dice END
+    END
+  END
+
+  PATCH_IF (spellcap >= 40) BEGIN
+    FOR (n = 11; n <= 20; ++n) BEGIN
+      SET header = 6 + n
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR match_opcode=17 header=header dicenumber=dice END
+    END
+  END
+
+  PATCH_IF (spellcap = 50) BEGIN
+    FOR (n = 21; n <= 30; ++n) BEGIN
+      SET header = 6 + n
+      SET dice   = 20 + n
+      LPF ALTER_EFFECT INT_VAR match_opcode=17 header=header dicenumber=dice END
+    END
+  END
+IF_EXISTS BUT_ONLY
+
+
+//Starjammer - Interference
+COPY_EXISTING ~%interference50%.SPL~  ~override/%interference%.SPL~    // restore backup
+  PATCH_FOR_EACH min_level IN ~25~ ~30~ ~35~ ~40~ ~45~ ~50~ BEGIN
+    PATCH_IF (min_level > spellcap) BEGIN
+      LPF DELETE_SPELL_HEADER INT_VAR header_type=1 min_level=min_level END    // trim to spellcap level
+    END
+  END
+IF_EXISTS
+
+
+//
+//

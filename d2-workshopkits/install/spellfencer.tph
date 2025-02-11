@@ -1,4 +1,6 @@
-//Spell Fencer (d2wkh)
+/*
+Spell Fencer (d2wkh)
+*/
 
 
 //passive effects
@@ -6,9 +8,12 @@ COPY ~%passives%/acbonus1.SPL~         ~override/%e1%.SPL~
 COPY ~%passives%/savebonus4death.SPL~  ~override/%e2%.SPL~
   LPF ALTER_EFFECT INT_VAR opcode=37 parameter1=1 END    // change to +1 to Save vs. Spell
 
-//for 5e casting mod (blocks effect)
-COPY ~%passives%/opcode206.SPL~        ~override/%e5%.SPL~
-  LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END    // -1 to spell slots to mage kits
+// for 5e casting
+COPY_EXISTING ~%baseslots%.spl~  ~override/%m1%.SPL~
+  LPF ALTER_EFFECT INT_VAR parameter1=1 probability2=100 END    // probability out of range
+IF_EXISTS
+
+//running the updater sets probability2 to 0 or 100, depending on if 5e casting is installed
 
 
 //Add Flash Cast
@@ -51,9 +56,13 @@ COPY ~inlined/d2clab.2DA~  ~override/%kitid%F.2DA~
 
 COPY ~inlined/d2clab.2DA~  ~override/%kitid%M.2DA~
   LPF d2_kit_ability_adder INT_VAR level=4 passive=1 multi=1 increment=4 limit=20 STR_VAR resource=~%e2%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 STR_VAR resource=~%e3%~ END
   LPF d2_kit_ability_adder INT_VAR level=5 passive=1 STR_VAR resource=~%e4%~ END
+
+  // mod
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%m1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%5ecasting%~ END
+  LPF tof_denote_spellschool STR_VAR type=~alteration~ END    // tof denote hla
 
 
 //Kit function

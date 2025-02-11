@@ -8,8 +8,6 @@ COPY ~%passives%/starjammer.SPL~   ~override/%e1%.SPL~
   LPF d2_string_immunities END
   LPF ee_fixpack_immunities STR_VAR status=~silence~ END
 
-COPY ~%passives%/fewerspells1.SPL~  ~override/%e2%.SPL~    // remove specialist bonus spells
-
 
 //spell icons
 COPY ~%icons%/riftstepicon1.BAM~       ~override/%w1%a.BAM~
@@ -559,11 +557,17 @@ COPY ~%abilities%/interference.SPL~  ~override/%s1%.SPL~
     LPF ALTER_EFFECT INT_VAR header=n match_opcode=60 parameter1=amount END
   END
 
+//backup file
+COPY_EXISTING ~%s1%.SPL~  ~override/%@1%.SPL~
+
+//spell cap
+COPY_EXISTING ~%s1%.SPL~  ~override~
   PATCH_FOR_EACH min_level IN ~25~ ~30~ ~35~ ~40~ ~45~ ~50~ BEGIN
     PATCH_IF (min_level > spellcap) BEGIN
       LPF DELETE_SPELL_HEADER INT_VAR header_type=1 min_level=min_level END
     END
   END
+BUT_ONLY
 
 
 //Make clab table
@@ -571,7 +575,7 @@ COPY ~inlined/d2clab_sorcerer~  ~override/%kitid%.2DA~
   LPF tof_denote_spellschool STR_VAR type=~conjuration~ END    // tof denote hla
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%baseslots%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%w1%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%w2%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%w3%~ END

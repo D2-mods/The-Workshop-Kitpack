@@ -39,6 +39,13 @@ ACTION_IF (GAME_INCLUDES ~tob~) BEGIN
       LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=armor entry=chan09 END    // changed to chain mail
     END
   BUT_ONLY
+
+  // add sling to some bags
+  ACTION_FOR_EACH bag IN ~bag27a~ ~bag25~ BEGIN
+    COPY_EXISTING ~%bag%.sto~  ~override~
+      LPF ADD_STORE_ITEM_EX STR_VAR item_name=SLNG07 flags=identified position=last END
+    BUT_ONLY
+  END
 END
 
 

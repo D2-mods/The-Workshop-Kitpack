@@ -1,0 +1,42 @@
+/*
+remove paladin Cure Disease from clab (if added by later tweak)
+add line to kit description (only if not already added)
+*/
+
+
+OUTER_TEXT_SPRINT ids_name ~D2%kitname%~
+ACTION_IF !(IS_AN_INT paladin_cd) BEGIN OUTER_SET paladin_cd = 0 END    // clabprep.tph
+
+//
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~%ids_name%~) BEGIN
+
+
+//check clab
+COPY_EXISTING ~%kitid%.2da~  ~override~
+  REPLACE_TEXTUALLY ~GA_SPCL211~  ~****~    // lay on hands
+  REPLACE_TEXTUALLY ~GA_SPCL111~  ~****~    // cure disease (IWD)
+  REPLACE_TEXTUALLY ~GA_cdiplcd~  ~****~    // cure disease (IWDification)
+  REPLACE_TEXTUALLY ~GA_C0PAL05~  ~****~    // cure disease (Artisan's)
+  LPF clabprep_spellids STR_VAR spellids=PALADIN_CURE_DISEASE END
+  PRETTY_PRINT_2DA
+BUT_ONLY
+
+
+//check text
+ACTION_IF (paladin_cd > 0) BEGIN
+  LAF GET_KIT_STRREF STR_VAR kit_name=~%ids_name%~ RET kit_strref END
+  ACTION_GET_STRREF EVAL ~%kit_strref%~ desc
+  OUTER_SPRINT note @752
+
+  ACTION_IF (~%desc%~ STRING_CONTAINS_REGEXP ~%note%~) BEGIN    // if "desc" does NOT contain "note"
+    OUTER_TEXT_SPRINT kittext ~%desc%%WNL%%note%~
+    STRING_SET_EVALUATE kit_strref  ~%kittext%~
+  END
+END
+
+
+END
+
+
+//
+//

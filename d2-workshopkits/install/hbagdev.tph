@@ -1,0 +1,36 @@
+//
+
+/*
+Resource: d2#hbag.ITM
+*/
+
+
+//Add scripts for Dev mode option
+
+ACTION_IF ((IS_AN_INT devmode) AND (devmode = 4)) BEGIN
+
+  ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
+    EXTEND_BOTTOM ~AR0602.BCS~  ~%hbag%/hbag-imoen.BAF~
+  END 
+  
+  ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
+    EXTEND_BOTTOM ~bd0120.BCS~  ~%hbag%/hbag-sodscript.BAF~
+  END
+
+  ACTION_FOR_EACH script IN ~BPHUB~ ~ohbhub~ BEGIN
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
+      EXTEND_BOTTOM ~%script%.BCS~  ~%hbag%/hbag-bpscript.BAF~
+    END
+  END
+
+  ACTION_FOR_EACH script IN ~BALDUR~ ~BALDUR25~ ~bdbaldur~ BEGIN
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
+      EXTEND_TOP ~%script%.BCS~  ~%hbag%/hbag-script.BAF~
+    END
+  END
+
+END
+
+
+/*
+*/

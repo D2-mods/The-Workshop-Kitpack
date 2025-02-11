@@ -147,6 +147,7 @@ COPY ~inlined/d2clab_paladin_noheal~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder END
 
 
+/*moved to nopaladinheal.tph
 //kit description
 ACTION_IF (paladin_cd > 0) BEGIN
   OUTER_SPRINT desc @100503
@@ -155,6 +156,7 @@ ACTION_IF (paladin_cd > 0) BEGIN
 END ELSE BEGIN
   OUTER_SET confessor_desc = RESOLVE_STR_REF (@100503)
 END
+*/
 
 
 //Kit function
@@ -163,7 +165,7 @@ LAF ADD_KIT_EX
     kit_class = 6
     mixed = RESOLVE_STR_REF (@100501)
     lower = RESOLVE_STR_REF (@100502)
-    help = confessor_desc
+    help = RESOLVE_STR_REF (@100503)
     fallen_notice = RESOLVE_STR_REF (@100504)
   STR_VAR
     kit_name = ~D2%kitname%~

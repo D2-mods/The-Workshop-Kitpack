@@ -71,11 +71,12 @@ Components:
 	- Option 2: Base kits only
 	- Option 3: Misc items only (no kits or Hunter Badges)
 2. Misc item pack
+	- Option 1: Standard Install
+	- Option 2: Dev mode (start with Item Sack)
 
 --
 
 **Extra patching:**
-- Component for subtledoctor's 5e casting mod (can install before or after 5e casting)
 - Kit Updater (fixes or updates, see below)
 
 #
@@ -139,11 +140,9 @@ Advantages:
 - May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.  
 - May use the Shockwave and Incinerate abilities. Gains one use each at level 4, plus an additional use each every 4 levels, up to a maximum of 5 uses each at level 20.
 
-SHOCKWAVE: The next successful ranged attack explodes in a 15-ft. radius, inflicting 2d4 crushing damage for every 4 levels of the character, up to a maximum of 10d4 at level 20. Any enemies in the blast are also propelled back a considerable distance (no save).
+SHOCKWAVE: The next successful ranged attack explodes in a 15-ft. radius, inflicting 3 + 2d4 crushing damage for every 4 levels of the character, up to a maximum of 3 + 10d4 at level 20. Any enemies in the blast are also propelled back a considerable distance (no save).
 
 INCINERATE: The next successful ranged attack creates a fiery cloud, which covers a 15-ft. radius and lasts for 4 rounds. Once each round, creatures in the cloud suffer 1d6 fire damage per 4 levels of the character, up to a maximum of 5d6 at level 20 (Save vs. Breath for half).
-
-- Warhounds take no damage from their own Shockwave or Incinerate.
 
 Disadvantages:  
 - May not Specialize in melee weapons.  
@@ -548,18 +547,23 @@ NOTE: I'd recommend to install this mod generally together with other kits, but 
 --
 
 #### Spellcasting systems:
-- Compatible with Faiths and Powers spheres system.
-	- Can install before or after FnP (but I'd recommend after).
-	- See below for additional info.
-- Compatible with Deities of Faerun spheres system. 
-	- Install this mod after DoF.
-- Compatible with subtledoctor's 5e casting mod. 
-	- Install this mod before 5e casting.
-	- You should also install the extra component related to 5e casting.
+
+Faiths and Powers spheres system:
+- Can install before or after FnP (but I'd recommend after).
+- See below for additional info.
+
+Deities of Faerun spheres system: 
+- Install this mod after DoF.
+
+subtledoctor's 5e casting mod:
+- Install this mod before 5e casting.
+- Run the Kit Updater after 5e casting.
+
+Sphere lists: [readme-spheres.txt](d2-workshopkits/readme-spheres.txt)
 
 --
 
-**Talents of Faerun notes:** (tl;dr install spells before and other stuff after)
+**Talents of Faerun notes:**
 - Spell components can be installed before or after this mod. I'd recommend to install them before (especially IWD spells).
 - Race component can be installed before or after this mod.
 - Kit/Tweak components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so easier to just install everything after.
@@ -568,34 +572,27 @@ NOTE: I'd recommend to install this mod generally together with other kits, but 
 
 NOTE: Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
 
-Kit Updater: **This is REQUIRED for full compat with ToF.** Rebuilds all feats/HLA lists (which will probably be broken without it). Also minor fixes for Medic kit. More on feats/HLAs below.
+Kit Updater: **This is REQUIRED for full compat with ToF.** Rebuilds all feats/HLA lists (which will probably be broken without it). Also minor fixes for Medic and Powder Keg kits. More on feats/HLAs below.
 
 --
 
 **OlvynSpells notes:**
 - Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
-- Paladin/Ranger components can be installed before or after. Note that these need to be installed after most other kit mods.
+- Paladin/Ranger components can be installed before or after.
 - New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds spells directly to the kit tables for some classes).
 - Untested with 3e metamagic component. Install it after this mod (it adds an EEex effect to each spell).
 
 --
 
-**Feats/HLA mods (ex. ToF):**
-- Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
+**Skills/Feats/HLA mods:**
 - Kits that have a disadvantage of not gaining a class ability should generally not take those abilities as feats.
 - Some kits may gain certain mod-added HLAs if detected. (note: this mod doesn't install any HLAs, it scans existing HLA tables and copy pastes lines if detected.)
+- Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
 
 **ToF feats/HLAs:**
 - Many kits will have 1 or more additional options. (ex. all archers can take any ranged feat/HLA, Medic can take poison upgrades, Grave Warden can take Use Scrolls/Wands, etc.)
 - Some kits have options removed. (ex. Drifter can't take any spell-related feats, but has more combat feats/HLAs than other rangers)
 - All arcane kits from this mod will gain one of the "Arcane Knowledge" feats for free. These are required for selecting HLA spells. The feat is denoted at level 1, but effects aren't given until level 18 mage.
-
-**Bard revisions notes:**
-- Rogue Rebalancing: Install after class/HLA components. The rest can be before or after.
-- Shohy's bard song mod: Install after Shohy's mod (patches 1 file).
-- Bardic Wonders: Install after Bardic Wonders (all components).
-- Talents of Faerun: Install before ToF minor/high level abilities. Then run the Kit Updater any time after. It updates the song switching ability to use the correct ToF HLA song.
-- Untested with other bard revisions. I would install any unmentioned revisions before this mod.
 
 #
 ### FnP additional info:
@@ -657,7 +654,6 @@ Additional Info (Kit Abilities):
 
 **Misc kit/effects info:**
 - Bleeding effects don't wake sleeping creatures. These effects can be cured by Heal, Regeneration, Lay On Hands, or similar. Stoneskins and Shield of Lathander (or similar mod spells) will protect from bleeding.
-- Powder Keg's Dust Explosion and Frenzying Flame apply effects every second. Creatures are affected immediately when entering.
 - Drifter kit's immunities cover many mod-added spells as well, including the Powder Keg's Dust Explosion (blindness only, it is still invisible in the cloud).
 - Nurse's Medical Darts deal double healing or poison damage on a critical hit (target must be vulnerable to crits).
 - Shaman Bone Blade's Charm effect lasts only a few rounds, but it can't be broken, except by a Spiritual Clarity (i.e. if you hit it with an AoE spell, it remains charmed).

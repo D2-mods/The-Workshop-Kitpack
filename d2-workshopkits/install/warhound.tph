@@ -32,24 +32,30 @@ COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%b.EFF~
 COPY ~%abilities%/shockwaveblast.SPL~   ~override/%s1%b.SPL~
   SAY NAME1 @102
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%a~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=3 END
 
-  // edits
+  // knockback
   LPF CLONE_EFFECT INT_VAR match_opcode=235 duration=25 STR_VAR insert=last END    // shift effects below damage
   LPF CLONE_EFFECT INT_VAR match_opcode=45 duration=25 STR_VAR insert=last END
   LPF DELETE_EFFECT INT_VAR multi_match=1 match_opcode=235 END                     // delete old effects
   LPF DELETE_EFFECT INT_VAR multi_match=1 match_opcode=45 END
   LPF CLONE_EFFECT INT_VAR match_opcode=45 opcode=165 STR_VAR insert=last END      // add "pause" effect (same duration as knockback)
-  LPF d2_safe_spell INT_VAR source=1 END    // immune to own explosions
+//  LPF d2_safe_spell INT_VAR source=1 END    // immune to own explosions
 
-//  LPF d2_safe_spell STR_VAR insert=below END
-//  LPF d2_protect_on_castequip INT_VAR cre_type=13 duration=0 STR_VAR insert=below END    // no effect on huge creatures (not added)
+/*no effect on huge creatures (not added)
+  LPF d2_safe_spell STR_VAR insert=below END
+  LPF d2_protect_on_castequip INT_VAR cre_type=13 duration=0 STR_VAR insert=below END
+*/
 
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%c.EFF~
   WRITE_ASCII 0x30 ~%s1%c~ #8
 COPY ~%abilities%/shockwavepush.SPL~    ~override/%s1%c.SPL~
   LPF ALTER_EFFECT INT_VAR duration=25 END
-//  LPF d2_safe_spell INT_VAR block_opcode=235 END
-//  LPF d2_protect_on_castequip INT_VAR cre_type=13 duration=0 STR_VAR insert=first END    // no effect on huge creatures (not added)
+
+/*no effect on huge creatures (not added)
+  LPF d2_safe_spell INT_VAR block_opcode=235 END
+  LPF d2_protect_on_castequip INT_VAR cre_type=13 duration=0 STR_VAR insert=first END
+*/
 
 
 //Add Incinerate
@@ -76,7 +82,7 @@ COPY ~%abilities%/castspelltarget.EFF~  ~override/%s2%b.EFF~
 COPY ~%abilities%/incineratecloud.SPL~  ~override/%s2%b.SPL~
   SAY NAME1 @103
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s2%a~ END
-  LPF d2_safe_spell INT_VAR source=1 END    // immune to own explosions
+//  LPF d2_safe_spell INT_VAR source=1 END    // immune to own explosions
 
 
 //Remove effects

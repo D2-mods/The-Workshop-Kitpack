@@ -21,6 +21,7 @@ ACTION_FOR_EACH clab IN ~%confessor%~ ~%crowhunter%~ BEGIN
     PATCH_IF (tracking > 0) BEGIN
       LPF d2_kit_ability_adder STR_VAR resource=SPCL922 END
     END
+    PRETTY_PRINT_2DA
   IF_EXISTS BUT_ONLY
 END
 

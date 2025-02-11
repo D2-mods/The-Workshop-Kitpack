@@ -113,9 +113,7 @@ COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%F.2DA~
   END
 
 COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%C.2DA~
-  PATCH_IF (holysymbols > 0) BEGIN
-    LPF d2_kit_ability_adder INT_VAR level=17 passive=1 STR_VAR resource=~%m9%~ END    // holy symbol (level 17)
-  END
+  LPF d2_kit_ability_adder INT_VAR level=17 passive=1 STR_VAR resource=~%m9%~ END    // holy symbol (level 17)
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 

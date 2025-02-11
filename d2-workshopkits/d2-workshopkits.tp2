@@ -1,6 +1,6 @@
 BACKUP ~weidu_external/backup/d2-workshopkits~
 AUTHOR ~Dan_P~
-VERSION ~5.15~
+VERSION ~5.16~
 AUTO_EVAL_STRINGS
 
 ALWAYS
@@ -18,9 +18,10 @@ ALWAYS
   OUTER_TEXT_SPRINT install    ~%MOD_FOLDER%/install~    // folder variables
   OUTER_TEXT_SPRINT abilities  ~%MOD_FOLDER%/abilities~
   OUTER_TEXT_SPRINT files      ~%MOD_FOLDER%/files~
-  OUTER_TEXT_SPRINT icons      ~%MOD_FOLDER%/icons~
-  OUTER_TEXT_SPRINT functions  ~%MOD_FOLDER%/lib~
   OUTER_TEXT_SPRINT passives   ~%MOD_FOLDER%/passives~
+  OUTER_TEXT_SPRINT icons      ~%MOD_FOLDER%/icons~
+  OUTER_TEXT_SPRINT hbag       ~%MOD_FOLDER%/hbag~
+  OUTER_TEXT_SPRINT functions  ~%MOD_FOLDER%/lib~
   OUTER_TEXT_SPRINT workspace  ~weidu_external/Workspace~
 
 END
@@ -41,7 +42,7 @@ LANGUAGE ~Français~
 //
 //Kit Updater
 
-BEGIN @91    // All updates (choose this)
+BEGIN @81    // All updates, config options (choose this)
 DESIGNATED 90
 REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~d2-workshopkits.tp2~ 9999) OR 
                    (MOD_IS_INSTALLED ~d2-workshopkits.tp2~ 10000))~~
@@ -51,35 +52,43 @@ LABEL ~D2_WORKSHOP_KITUPDATER~
 OUTER_SET updater = 0
 INCLUDE ~%install%/install90.tph~
 
-BEGIN @92    // HLA tables (recreates all tables)
+BEGIN @82    // HLA tables - recreates all tables
 SUBCOMPONENT @90
 NO_LOG_RECORD
 LABEL ~D2_WORKSHOP_KITUPDATER2~
 OUTER_SET updater = 1
 INCLUDE ~%install%/install90.tph~
 
-BEGIN @93    // Medic stuff (fixes skill points, updates Medic Arts description)
+BEGIN @83    // Medic stuff - fixes skill points, updates Medic Arts, config options
 SUBCOMPONENT @90
 NO_LOG_RECORD
 LABEL ~D2_WORKSHOP_KITUPDATER3~
 OUTER_SET updater = 2
 INCLUDE ~%install%/install90.tph~
 
-BEGIN @94    // Proficiencies (checks multiclass clerics)
+BEGIN @84    // Proficiencies - fixes issues, updates all kits
 SUBCOMPONENT @90
 NO_LOG_RECORD
 LABEL ~D2_WORKSHOP_KITUPDATER4~
 OUTER_SET updater = 3
 INCLUDE ~%install%/install90.tph~
 
-BEGIN @95    // restore backup file
-REQUIRE_PREDICATE (FILE_EXISTS ~weidu_external/d2wk/m_dw_hld.lua~) ~~
+BEGIN @85    // Compat for subtledoctor's 5e casting mod (fix spell slots)
 SUBCOMPONENT @90
 NO_LOG_RECORD
 LABEL ~D2_WORKSHOP_KITUPDATER5~
+OUTER_SET updater = 4
+INCLUDE ~%install%/install90.tph~
+
+BEGIN @86    // Option 1, but restore ToF backup before edits (m_dw_hld.lua)
+REQUIRE_PREDICATE (FILE_EXISTS ~weidu_external/d2wk/m_dw_hld.lua~) ~~
+SUBCOMPONENT @90
+NO_LOG_RECORD
+LABEL ~D2_WORKSHOP_KITUPDATER6~
 OUTER_SET updater = 0
 COPY_EXISTING ~weidu_external/d2wk/m_dw_hld.lua~  ~override~
 INCLUDE ~%install%/install90.tph~
+
 
 
 //
@@ -109,25 +118,23 @@ INCLUDE ~%install%/install10.tph~
 //
 //Misc item pack
 
-BEGIN @10
+BEGIN @21    // Standard Install
 DESIGNATED 10
 REQUIRE_PREDICATE !(~%updatemode%~ STR_EQ ~skip~) ~~
 REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~d2-workshopkits.tp2~ 9999) OR 
                    (MOD_IS_INSTALLED ~d2-workshopkits.tp2~ 10000))~~
+SUBCOMPONENT @10
 LABEL ~D2_WORKSHOP_ITEMS~
 INCLUDE ~%install%/install10.tph~
 
-
-//
-//Install if using subtledoctor's 5e casting mod
-
-BEGIN @50
-DESIGNATED 50
+BEGIN @22    // Dev mode (start with Item Sack)~
 REQUIRE_PREDICATE !(~%updatemode%~ STR_EQ ~skip~) ~~
 REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~d2-workshopkits.tp2~ 9999) OR 
                    (MOD_IS_INSTALLED ~d2-workshopkits.tp2~ 10000))~~
-LABEL ~D2_WORKSHOP_5ECASTING~
-INCLUDE ~%install%/5ecastingfix.tph~
+SUBCOMPONENT @10
+LABEL ~D2_WORKSHOP_DEVMODE~
+OUTER_SET  devmode = 4
+INCLUDE ~%install%/install10.tph~
 
 
 ////////////////////////////////////////////////////////////

@@ -1,0 +1,44 @@
+/*
+Config option for holy symbols
+*/
+
+
+/*set from kit tph or install90.tph
+OUTER_TEXT_SPRINT holysymbolmoon   ~%m9%~
+OUTER_TEXT_SPRINT holysymbolblood  ~%m9%~
+OUTER_TEXT_SPRINT holysymbolhunter ~%m9%~
+*/
+
+
+//blood minister
+ACTION_FOR_EACH clab IN ~%bloodminister%~ BEGIN
+  COPY_EXISTING ~%clab%.2da~  ~override~
+    REPLACE_TEXTUALLY ~AP_%holysymbolblood%~  ~****~
+    PATCH_IF (holysymbols > 0) BEGIN
+      LPF d2_kit_ability_adder INT_VAR level=25 passive=1 STR_VAR resource=~%holysymbolblood%~ END
+    END
+    PRETTY_PRINT_2DA
+  IF_EXISTS BUT_ONLY
+END
+
+
+//
+ACTION_FOR_EACH spell IN
+  ~%holysymbolmoon%~
+  ~%holysymbolblood%~
+  ~%holysymbolhunter%~
+BEGIN
+
+  COPY_EXISTING ~%spell%.SPL~  ~override~
+    PATCH_IF (holysymbols > 0) BEGIN
+      LPF ALTER_EFFECT INT_VAR silent=1 probability2=0 END    // can gain holy symbols
+    END ELSE BEGIN
+      LPF ALTER_EFFECT INT_VAR silent=1 probability2=100 END    // set probability out of range
+    END
+  IF_EXISTS BUT_ONLY
+
+END
+
+
+//
+//

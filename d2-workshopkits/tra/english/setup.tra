@@ -5,11 +5,10 @@ Text in this file appears in the weidu installer.
 
 //Setup
 @9999  = ~The Workshop Kitpack~
-@10 = ~Misc item pack~
+	@1 = ~Base kits + multiclass variants~
+	@2 = ~Base kits only~
+	@3 = ~Misc items only (no kits or Hunter Badges)~
 
-@1 = ~Base kits + multiclass variants~
-@2 = ~Base kits only~
-@3 = ~Misc items only (no kits or Hunter Badges)~
 @4 = ~~
 @5 = ~File not found. No changes were made.~
 
@@ -24,18 +23,17 @@ Text in this file appears in the weidu installer.
 @99 = ~working on %kitid_name%...~
 
 
-//extra patches
-@50 = ~Install if using subtledoctor's 5e casting mod (this component can be installed before or after 5e casting)~
+@10 = ~Misc item pack~
+	@21 = ~Standard Install~
+	@22 = ~Dev mode (start with Item Sack)~
+
 @90 = ~Kit Updater (Safe to install at end of order. Can be re-run at any time.)~
-	@91 = ~All updates, config options (choose this)~
-	@92 = ~HLA tables - recreates all tables~
-	@93 = ~Medic stuff - fixes skill points, updates Medic Arts, config options~
-	@94 = ~Proficiencies - fixes issues, updates all kits~
-	@95 = ~Option 1, but restore ToF backup before edits (m_dw_hld.lua)~
-
-
-//old
-@1010 = ~Update description for Medic Arts (use if Poison Weapon or Lay On Hands were revised after this mod was installed)~
+	@81 = ~All updates, config options (choose this)~
+	@82 = ~HLA tables - recreates all tables~
+	@83 = ~Medic stuff - fixes skill points, updates Medic Arts, config options~
+	@84 = ~Proficiencies - fixes issues, updates all kits~
+	@85 = ~for 5e casting by subtledoctor (tweak spell slots)~
+	@86 = ~Option 1, but restore ToF backup before edits (m_dw_hld.lua)~
 
 
 //

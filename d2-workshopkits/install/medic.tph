@@ -228,7 +228,9 @@ COPY ~override/%s2%b.SPL~  ~override/%s2%h.SPL~
 //
 //add Healing Rain
 COPY - ~%abilities%/healingrain.PRO~ ~%workspace%/%s3%a.PRO~
+  WRITE_ASCII 0x228 ~%s3%a~ #8
 ADD_PROJECTILE ~%workspace%/%s3%a.PRO~
+COPY ~%abilities%/healingrain.BAM~  ~override/%s3%a.BAM~
 
 COPY ~%icons%/healingrain.BAM~      ~override/%s3%.BAM~
 COPY ~%abilities%/healingrain.SPL~  ~override/%s3%.SPL~

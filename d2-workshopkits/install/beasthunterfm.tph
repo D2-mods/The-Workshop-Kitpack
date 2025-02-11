@@ -4,13 +4,6 @@
 ACTION_IF (nobeasthunterfm = 0) BEGIN
 
 
-//Remove specialist bonus slots
-COPY ~%passives%/fewerspells1.SPL~  ~override/%e4%.SPL~
-COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~    // only relevant for 5e casting mod
-  LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END
-  LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END
-
-
 //Multiclass import fix
 LAF d2_mc_import_fix INT_VAR amount=1  STR_VAR spell=~%s1%~ new_spell=~%#1%~ END
 LAF d2_mc_import_fix INT_VAR amount=2  STR_VAR spell=~%s1%~ new_spell=~%#2%~ END
@@ -66,8 +59,8 @@ COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%F.2DA~
   END
 
 COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%M.2DA~
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%baseslots%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%5ecasting%~ END
   LPF tof_denote_spellschool STR_VAR type=~evocation~ END    // tof denote hla
 
 

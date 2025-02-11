@@ -48,8 +48,8 @@ COPY_EXISTING ~weapprof.2da~  ~override~
     PATCH_FOR_EACH kit IN
       ~d2drifter~ ~d2gravewarden~ ~d2confessor~
       ~d2beasthunter~ ~d2beasthunterfm~ ~d2beasthunterfmc~ ~d2beasthunterfc~
-//    ~d2spellfencer~ ~d2noblescion~
-//    ~d2fullmetaljaguar~ ~d2fullmetaljaguarfm~ ~d2fullmetaljaguarft~
+      ~d2spellfencer~ ~d2noblescion~
+      ~d2fullmetaljaguar~ ~d2fullmetaljaguarfm~ ~d2fullmetaljaguarft~
     BEGIN
       LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=ARMOR entry=0 END    // no heavy armor
     END

@@ -4,124 +4,102 @@ This can be installed before or after 5e casting is installed.
 */
 
 
+//
 OUTER_SET silentmode = 0
 
+OUTER_SET 5ecasting = 1
+ACTION_IF !(RESOURCE_CONTAINS ~CLABRN01.2da~ ~AP_D5ZZ000~)  BEGIN OUTER_SET 5ecasting = 0 END
+ACTION_IF !(FILE_EXISTS_IN_GAME ~d5__5E_casting_divine.d5~) BEGIN OUTER_SET 5ecasting = 0 END
 
-//Rangers: Check for missing ability (if installed after 5e casting)
-ACTION_FOR_EACH clab IN ~d2wk3~ ~d2wk4~ BEGIN
-  ACTION_IF (FILE_EXISTS ~override/%clab%.2DA~) BEGIN
-    COPY_EXISTING ~%clab%.2DA~  ~override~
-      COUNT_REGEXP_INSTANCES ~AP_D5ZZ000~ hasD5ZZ000
-      COUNT_REGEXP_INSTANCES ~AP_D5GARNS~ hasD5GARNS
-      PATCH_IF (hasD5ZZ000 > 0) BEGIN
-        PATCH_IF (hasD5GARNS = 0) BEGIN
-          LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~D5GARNS~ END
-        END
-      END
-    BUT_ONLY
-  END
+OUTER_TEXT_SPRINT baseslots ~d2sltm1~
+
+
+//Rangers: Adds effect if installed after 5e casting
+OUTER_TEXT_SPRINT gravewarden ~d2wk3~
+OUTER_TEXT_SPRINT moonlightknight ~d2wk4~
+
+ACTION_FOR_EACH clab IN ~%gravewarden%~ ~%moonlightknight%~ BEGIN
+  COPY_EXISTING ~%clab%.2DA~  ~override~
+    REPLACE_TEXTUALLY ~AP_D5GARNS~ ~****~
+    PATCH_IF (5ecasting > 0) BEGIN
+      LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=D5GARNS END
+    END
+    PRETTY_PRINT_2DA
+  IF_EXISTS BUT_ONLY
 END
 
-// for druid, would need to add AP_D5GADRS (match AP_D5ZZ000 in clab)
+//for druid would need to add AP_D5GADRS
 
 
-
-//Fixes spell slots of Mage kits (will match regular Mage)
+//
+//adjust spell slots for 5e casting
 
 //War Magician (d2wk7)
-ACTION_IF (nowarmagician = 0) BEGIN
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2warmagician~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk7~
   OUTER_TEXT_SPRINT kitname ~WARMAGICIAN~
   INCLUDE ~%install%/variables.tph~
 
-  ACTION_IF (FILE_EXISTS ~override/%kitid%.2DA~) BEGIN
-    COPY_EXISTING ~%kitid%.2DA~  ~override~
-      REPLACE_TEXTUALLY ~AP_%e3%~ ~****~
-      PRETTY_PRINT_2DA
-    BUT_ONLY
-  END
+  COPY_EXISTING ~%kitid%.2DA~  ~override~
+    REPLACE_TEXTUALLY ~AP_%baseslots%~ ~****~
+    PATCH_IF (5ecasting = 0) BEGIN
+      LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%baseslots%~ END
+    END
+    PRETTY_PRINT_2DA
+  IF_EXISTS BUT_ONLY
+END
+
+//Spell Fencer (d2wkh)
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2spellfencer~) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkh~
+  OUTER_TEXT_SPRINT kitname ~SPELLFENCER~
+  INCLUDE ~%install%/variables.tph~
+
+  COPY_EXISTING ~%m1%.spl~  ~override~
+    PATCH_IF (5ecasting > 0) BEGIN
+      LPF ALTER_EFFECT INT_VAR silent=1 probability2=0 END      // enable for 5e casting
+    END ELSE BEGIN
+      LPF ALTER_EFFECT INT_VAR silent=1 probability2=100 END    // or disable (out of range)
+    END
+  IF_EXISTS BUT_ONLY
 END
 
 
-//Beast Hunter (FM or FMC)
-ACTION_IF ((nobeasthunterfm = 0) OR (nobeasthunterfmc = 0))BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wk1~
-  OUTER_TEXT_SPRINT kitname ~BEASTHUNTER~
-  INCLUDE ~%install%/variables.tph~
+//kit.ids
+OUTER_SET beasthunterfm     = IDS_OF_SYMBOL (kit ~d2beasthunterfm~)
+OUTER_SET beasthunterfmc    = IDS_OF_SYMBOL (kit ~d2beasthunterfmc~)
+OUTER_SET warhoundfm        = IDS_OF_SYMBOL (kit ~d2warhoundfm~)
+OUTER_SET crowhunterfmt     = IDS_OF_SYMBOL (kit ~d2crowhunterfmt~)
+OUTER_SET crowhuntermt      = IDS_OF_SYMBOL (kit ~d2crowhuntermt~)
+OUTER_SET fullmetaljaguarfm = IDS_OF_SYMBOL (kit ~d2fullmetaljaguarfm~)
+OUTER_SET nursemt           = IDS_OF_SYMBOL (kit ~d2nursemt~)
 
-  ACTION_IF (FILE_EXISTS ~override/%kitid%M.2DA~) BEGIN
-    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
-      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
-        LPF DELETE_EFFECT STR_VAR match_resource=~%e4%#~ END
-      BUT_ONLY
+//function (adds effect if NOT 5e casting)
+DEFINE_PATCH_FUNCTION 5ecasting_mageslots INT_VAR ids_num=~~ STR_VAR resource=~~ BEGIN
+  PATCH_IF (ids_num > 0) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_parameter1=ids_num STR_VAR match_resource=~%resource%#~ END
+    PATCH_IF (5ecasting = 0) BEGIN
+      LPF CLONE_EFFECT INT_VAR multi_match=1 match_parameter1=ids_num STR_VAR resource=~%resource%#~ END
     END
   END
 END
 
 
-//Warhound FM
-ACTION_IF (nowarhoundfm = 0) BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wk2~
-  OUTER_TEXT_SPRINT kitname ~WARHOUND~
-  INCLUDE ~%install%/variables.tph~
-
-  ACTION_IF (FILE_EXISTS ~override/%kitid%M.2DA~) BEGIN
-    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
-      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
-        LPF DELETE_EFFECT STR_VAR match_resource=~%e4%#~ END
-      BUT_ONLY
-    END
+//patch multiclass kits
+COPY_EXISTING ~QD_MCM01.SPL~  ~override~
+  PATCH_FOR_EACH kit IN
+    ~%beasthunterfm%~
+    ~%beasthunterfmc%~
+    ~%warhoundfm%~
+    ~%crowhunterfmt%~
+    ~%crowhuntermt%~
+    ~%fullmetaljaguarfm%~
+    ~%nursemt%~
+  BEGIN
+    LPF 5ecasting_mageslots INT_VAR ids_num=kit STR_VAR resource=~%baseslots%~ END
   END
-END
+IF_EXISTS BUT_ONLY
 
 
-//Crow Hunter (FMT or MT)
-ACTION_IF ((nocrowhunterfmt = 0) OR (nocrowhuntermt = 0)) BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wka~
-  OUTER_TEXT_SPRINT kitname ~CROWHUNTER~
-  INCLUDE ~%install%/variables.tph~
-
-  ACTION_IF (FILE_EXISTS ~override/%kitid%M.2DA~) BEGIN
-    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
-      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
-        LPF DELETE_EFFECT STR_VAR match_resource=~%e4%#~ END
-      BUT_ONLY
-    END
-  END
-END
-
-
-//Full Metal Jaguar FM
-ACTION_IF (nofullmetaljaguarfm = 0) BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wkf~
-  OUTER_TEXT_SPRINT kitname ~FULLMETALJAGUAR~
-  INCLUDE ~%install%/variables.tph~
-
-  ACTION_IF (FILE_EXISTS ~override/%kitid%M.2DA~) BEGIN
-    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
-      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
-        LPF DELETE_EFFECT STR_VAR match_resource=~%e6%#~ END
-      BUT_ONLY
-    END
-  END
-END
-
-
-//Nurse MT
-ACTION_IF (nonursemt = 0) BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wkg~
-  OUTER_TEXT_SPRINT kitname ~NURSE~
-  INCLUDE ~%install%/variables.tph~
-
-  ACTION_IF (FILE_EXISTS ~override/%kitid%M.2DA~) BEGIN
-    ACTION_IF (FILE_EXISTS ~override/QD_MCM01.SPL~) BEGIN
-      COPY_EXISTING ~QD_MCM01.SPL~  ~override~
-        LPF DELETE_EFFECT STR_VAR match_resource=~%e4%#~ END
-      BUT_ONLY
-    END
-  END
-END
-
-
-/*
-*/
+//
+//

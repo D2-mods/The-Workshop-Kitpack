@@ -15,6 +15,15 @@ ACTION_IF !(FILE_EXISTS ~override/d2spell.SPL~) BEGIN
 END
 
 
+//mage kit spell slots
+COPY ~%passives%/fewerspells1.SPL~  ~override/d2sltm1.SPL~
+COPY ~%passives%/opcode206.SPL~     ~override/d2slt5e.SPL~    // for 5e casting mod (block effects)
+  LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END             // -1 slots for specialists (max 5 with 5e casting)
+  LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END             // +1 slots for normal mage (max 6 with 5e casting)
+OUTER_TEXT_SPRINT baseslots ~d2sltm1~
+OUTER_TEXT_SPRINT 5ecasting ~d2slt5e~
+
+
 //
 //haste effects (as subspell)
 

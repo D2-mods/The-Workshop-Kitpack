@@ -61,11 +61,9 @@ Advantages:
 – May achieve Grand Mastery (5 slots) in longbows, shortbows, crossbows, slings, and darts.
 – May use the Shockwave and Incinerate abilities. Gains one use each at level 4, plus an additional use each every 4 levels, up to a maximum of 5 uses each at level 20.
 
-SHOCKWAVE: The next successful ranged attack explodes in a 15-ft. radius, inflicting 2d4 crushing damage for every 4 levels of the character, up to a maximum of 10d4 at level 20. Any enemies in the blast are also propelled back a considerable distance (no save).
+SHOCKWAVE: The next successful ranged attack explodes in a 15-ft. radius, inflicting 3 + 2d4 crushing damage for every 4 levels of the character, up to a maximum of 3 + 10d4 at level 20. Any enemies in the blast are also propelled back a considerable distance (no save).
 
 INCINERATE: The next successful ranged attack creates a fiery cloud, which covers a 15-ft. radius and lasts for 4 rounds. Once each round, creatures in the cloud suffer 1d6 fire damage per 4 levels of the character, up to a maximum of 5d6 at level 20 (Save vs. Breath for half).
-
-– Warhounds take no damage from their own Shockwave or Incinerate.
 
 Disadvantages:
 – May not Specialize in melee weapons.

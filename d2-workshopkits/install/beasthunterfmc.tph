@@ -4,13 +4,6 @@
 ACTION_IF (nobeasthunterfmc = 0) BEGIN
 
 
-//Remove specialist bonus slots
-COPY ~%passives%/fewerspells1.SPL~  ~override/%e4%.SPL~
-COPY ~%passives%/opcode206.SPL~     ~override/%e5%.SPL~    // only relevant for 5e casting mod
-  LPF ALTER_EFFECT STR_VAR resource=~d5z0slt~ END
-  LPF CLONE_EFFECT STR_VAR resource=~D5ZMSLT~ END
-
-
 //Holy Symbol stuff
 COPY ~%passives%/opcode206.SPL~  ~override/%e9%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~cdhlysym~ END
@@ -120,15 +113,13 @@ COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%F.2DA~
   END
 
 COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%C.2DA~
-  PATCH_IF (holysymbols > 0) BEGIN
-    LPF d2_kit_ability_adder INT_VAR level=14 passive=1 STR_VAR resource=~%m9%~ END    // holy symbol (level 14)
-  END
+  LPF d2_kit_ability_adder INT_VAR level=14 passive=1 STR_VAR resource=~%m9%~ END    // holy symbol (level 14)
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e9%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e6%~ END
 
 COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%M.2DA~
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e4%~ END
-  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e5%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%baseslots%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%5ecasting%~ END
   LPF tof_denote_spellschool STR_VAR type=~evocation~ END    // tof denote hla
 
 

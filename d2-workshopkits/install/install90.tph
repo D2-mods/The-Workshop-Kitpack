@@ -24,6 +24,7 @@ END
 //
 INCLUDE ~%install%/weapontypes.tph~
 INCLUDE ~%install%/weapontypes2.tph~
+INCLUDE ~%install%/clabprep.tph~
 INCLUDE ~%install%/classchecks.tph~
 INCLUDE ~%install%/hlatables.tph~
 INCLUDE ~%install%/bleedprep.tph~
@@ -34,6 +35,7 @@ ACTION_CLEAR_ARRAY ~d2wk_kitname_array~
 //
 ACTION_IF (updater=0 OR updater=1) BEGIN
   INCLUDE ~%install%/hlaupdater.tph~
+  INCLUDE ~%install%/tofsphereshlas.tph~
 END
 
 ACTION_IF (updater=0 OR updater=2) BEGIN
@@ -44,6 +46,10 @@ ACTION_IF (updater=0 OR updater=3) BEGIN
   INCLUDE ~%install%/weapprofbase.tph~
   INCLUDE ~%install%/weapprofedits.tph~
   INCLUDE ~%install%/subtleskills.tph~
+END
+
+ACTION_IF (updater=0 OR updater=4) BEGIN
+  INCLUDE ~%install%/5ecastingfix.tph~
 END
 
 
@@ -68,8 +74,11 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2STARJAMMER~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk8~
   OUTER_TEXT_SPRINT kitname ~STARJAMMER~
   INCLUDE ~%install%/variables.tph~
-  OUTER_TEXT_SPRINT jolt         ~%w5%~    // supportmode.tph
-  OUTER_TEXT_SPRINT revitalizer  ~%w7%~
+  OUTER_TEXT_SPRINT jolt           ~%w5%~    // supportmode.tph
+  OUTER_TEXT_SPRINT electrocannon  ~%w6%~    // spellcapconfig.tph
+  OUTER_TEXT_SPRINT revitalizer    ~%w7%~
+  OUTER_TEXT_SPRINT interference   ~%s1%~
+  OUTER_TEXT_SPRINT interference50 ~%@1%~
 END
 
 
@@ -80,7 +89,16 @@ END
 ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2BEASTHUNTER~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk1~
   OUTER_TEXT_SPRINT kitname ~BEASTHUNTER~
-//  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables.tph~
+
+  // variables
+  OUTER_TEXT_SPRINT badge_spark    ~%m1%~
+  OUTER_TEXT_SPRINT badge_radiant  ~%m2%~
+  OUTER_TEXT_SPRINT badge_cosmic   ~%m3%~
+  OUTER_TEXT_SPRINT badge_pkeg     ~%m4%~
+  OUTER_TEXT_SPRINT badge_saw      ~%m5%~
+  OUTER_TEXT_SPRINT badge_old      ~%m6%~
+  OUTER_TEXT_SPRINT holysymbolhunter ~%m9%~
 END
 
 //Warhound (d2wk2)
@@ -120,7 +138,8 @@ END
 ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2MOONLIGHTKNIGHT~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk4~
   OUTER_TEXT_SPRINT kitname ~MOONLIGHTKNIGHT~
-//  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables.tph~
+  OUTER_TEXT_SPRINT holysymbolmoon   ~%m9%~
 END
 
 //Drifter (d2wkc)
@@ -138,7 +157,8 @@ END
 ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2CONFESSOR~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk5~
   OUTER_TEXT_SPRINT kitname ~CONFESSOR~
-//  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/nopaladinheal.tph~
 END
 
 //Temple Knight (d2wk6)
@@ -152,7 +172,9 @@ END
 ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2NOBLESCION~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wke~
   OUTER_TEXT_SPRINT kitname ~NOBLESCION~
-//  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables.tph~
+  OUTER_TEXT_SPRINT bloodbulletsbuff   ~%s1%a~    // spellcapconfig.tph
+  OUTER_TEXT_SPRINT bloodbulletsdamage ~%s9%~
 END
 
 
@@ -173,6 +195,7 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2NURSE~) BEGIN
   INCLUDE ~%install%/variables.tph~
   OUTER_TEXT_SPRINT firstaid    ~%s3%~    // supportmode.tph
   OUTER_TEXT_SPRINT autoimmune  ~%s5%~
+  OUTER_TEXT_SPRINT overdose    ~%s4%~    // spellcapconfig.tph
 
   // set Bubb's Menu level
   ACTION_FOR_EACH spell IN ~%s1%~ ~%s2%~ ~%s3%~ ~%s4%~ ~%s5%~ BEGIN
@@ -223,11 +246,13 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2BLOODMINISTER~) BEGIN
   INCLUDE ~%install%/%kitname%profs.tph~
 
   // variables
-  OUTER_TEXT_SPRINT healingblood  ~%s2%~    // supportmode.tph
-  OUTER_TEXT_SPRINT beastblood    ~%s3%~
-  OUTER_TEXT_SPRINT madmanblood   ~%s4%~
-  OUTER_TEXT_SPRINT leadelixir    ~%s5%~
-  OUTER_TEXT_SPRINT ministernodrain  ~%e2%~    // iconpatch.tph
+  OUTER_TEXT_SPRINT bloodminister   ~%kitid%~    // holysymbolscheck.tph
+  OUTER_TEXT_SPRINT holysymbolblood ~%m9%~
+  OUTER_TEXT_SPRINT healingblood    ~%s2%~       // supportmode.tph
+  OUTER_TEXT_SPRINT beastblood      ~%s3%~
+  OUTER_TEXT_SPRINT madmanblood     ~%s4%~
+  OUTER_TEXT_SPRINT leadelixir      ~%s5%~
+  OUTER_TEXT_SPRINT ministernodrain ~%e2%~       // iconpatch.tph
 END
 
 
@@ -261,20 +286,19 @@ END
 
 
 //
-INCLUDE ~%install%/trackingcheck.tph~
+INCLUDE ~%install%/spellcapconfig.tph~
+INCLUDE ~%install%/hunterbadgesToB.tph~
 INCLUDE ~%install%/castingspeedpatch.tph~
 INCLUDE ~%install%/supportmode.tph~
 INCLUDE ~%install%/iconpatch.tph~
+INCLUDE ~%install%/trackingcheck.tph~
+INCLUDE ~%install%/holysymbolscheck.tph~
 
 END
 
 
-
-//OUTER_TEXT_SPRINT updatemode ~skip~
-
-/*
-above can't make it skip already installed components (unless it has subcomponents)
-*/
+//end current weidu run
+OUTER_TEXT_SPRINT updatemode ~skip~
 
 
 //

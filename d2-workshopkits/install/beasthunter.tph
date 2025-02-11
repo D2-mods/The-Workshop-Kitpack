@@ -128,9 +128,10 @@ OUTER_TEXT_SPRINT $d2_restrict_armor_baseclass (~%ids_name%~) ~%baseclass%~
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT beasthunter  ~%kitid%~
-OUTER_TEXT_SPRINT fireweapon   ~%s1%~
-OUTER_TEXT_SPRINT quicksilver  ~%s2%~
+OUTER_TEXT_SPRINT beasthunter       ~%kitid%~
+OUTER_TEXT_SPRINT fireweapon        ~%s1%~
+OUTER_TEXT_SPRINT quicksilver       ~%s2%~
+OUTER_TEXT_SPRINT holysymbolhunter  ~%m9%~
 
 
 /*

@@ -92,6 +92,7 @@ COPY - ~inlined/d2clab_mage~  ~inlined/d2clab_sorcerer~
   REPLACE_TEXTUALLY ~AP_D5ZZ000~  ~****~
   REPLACE_TEXTUALLY ~AP_D5Z0SPL~  ~****~
   REPLACE_TEXTUALLY ~AP_D5ZMSLT~  ~****~
+  REPLACE_TEXTUALLY ~AP_D5XCRS1~  ~****~
 
 
 
@@ -216,7 +217,6 @@ ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~PALADIN_CURE_DISEASE~) BEGIN OUTER_SET
 ACTION_IF (RESOURCE_CONTAINS ~CLABPA01.2DA~ ~GA_C0PAL05~) BEGIN OUTER_SET paladin_cd = 1 END
 
 
-//
 // add or remove artisan stuff
 DEFINE_PATCH_FUNCTION d2clab_artisancheck STR_VAR type=default mode=add BEGIN
 
@@ -253,11 +253,23 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2clab_artisancheck BEGIN
 END
 
 
-//
 //tnb innate familiars
 DEFINE_PATCH_FUNCTION tnb_innate_familiars BEGIN
   PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.2DA~  ~AP_D5FMINN~) BEGIN
     LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~D5FMINN~ END
+  END
+END
+
+
+//make dummy files
+COPY_EXISTING - ~SPCL142.SPL~  ~inlined/dummy.SPL~
+  LPF ALTER_EFFECT INT_VAR opcode=0 parameter1=0 parameter2=0 timing=0 duration=0 END
+
+ACTION_FOR_EACH spell IN
+  ~d2c0bld~ ~d2BIbld~
+BEGIN
+  ACTION_IF !(FILE_EXISTS ~override/%spell%.SPL~) BEGIN
+    COPY ~inlined/dummy.SPL~  ~override/%spell%.SPL~
   END
 END
 

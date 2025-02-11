@@ -163,10 +163,10 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_checkhlas_fnp BEGIN    // kit => class (can
 END
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_restricthlas_fnp BEGIN    // abilities to skip (can be a list)
-  d2bloodminister     => ~GA_TG#SPIR AP_D5PHLA4~
+  d2bloodminister     => ~GA_TG#SPIR AP_D5PHLA4 AP_DW-FTPER~
   d2moonlightknightcr => ~GA_TG#SPIR~
-  d2beasthunterfmc    => ~AP_D5PHLA4~
-  d2beasthunterfc     => ~AP_D5PHLA4~
+  d2beasthunterfmc    => ~AP_D5PHLA4 AP_DW-HLEBO~
+  d2beasthunterfc     => ~AP_D5PHLA4 AP_DW-HLEBO~
 END
 
 ACTION_PHP_EACH d2wk_checkhlas_fnp AS kit => class BEGIN
@@ -203,6 +203,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_removehlas_kit BEGIN    // kit => res (can 
   d2noblescion    => AP_DW-FTICM
   d2warhound      => AP_DW-FTICM
   d2warhoundfm    => AP_DW-FTICM
+  d2spellfencer   => AP_DW-FTICR
 END
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_removehlas_res BEGIN    // ability => mod (just for reference)
@@ -244,7 +245,7 @@ END
 //
 //remove if a mod equivalent is detected
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_replacehlas_kit BEGIN    // kit => res
-  d2medic => ~GA_SPCL905 GA_SPCL909 GA_SPCL900 GA_SPCL901 AP_SPCL901 GA_SPCL907~
+  d2medic   => ~GA_SPCL905 GA_SPCL909 GA_SPCL900 GA_SPCL901 AP_SPCL901 GA_SPCL907~
 END
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_replacehlas_res BEGIN    // res => mod
@@ -297,22 +298,23 @@ END
 //
 //add extra or missing abilities
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_bonushlas_res BEGIN
-  d2gravewarden     => ~AP_SPCL915 AP_DW-FTSCR AP_DW-FTWND GA_SPCL232~
+  d2gravewarden     => ~AP_SPCL915 AP_DW-FTSCR AP_DW-FTWND GA_SPCL232 GA_DWPTN2~
   d2crowhunter      => ~GA_SPCL922 AP_DW-FTAMB GA_C0ASHLA1 AP_C0ASHLA2~
   d2crowhunterft    => ~GA_SPCL922 AP_DW-FTAMB GA_C0ASHLA1 AP_C0ASHLA2~
   d2crowhunterfmt   => ~GA_SPCL922 AP_DW-FTAMB GA_C0ASHLA1 AP_C0ASHLA2~
   d2crowhuntermt    => ~GA_SPCL922 AP_DW-FTAMB GA_C0ASHLA1 AP_C0ASHLA2~
-  d2moonlightknight => ~GA_SPCL923 GA_SPCL935~
+  d2moonlightknight => ~GA_SPCL923 GA_SPCL935 GA_DWPTN2~
   d2powderkeg       => ~GA_SPCL910 GA_SPCL911 GA_RR#THL04~    // damage traps (if removed by tweak)
   d2warhound        => ~GA_TG#PREC GA_C0ARCH01~
   d2warhoundfm      => ~GA_TG#PREC GA_C0ARCH01~
-  d2nurse           => ~AP_DW-FTICR AP_DW-FTDDL GA_TG#PREC GA_C0ARCH01~
-  d2nursemt         => ~AP_DW-FTICR AP_DW-FTDDL GA_TG#PREC GA_C0ARCH01~
+  d2nurse           => ~AP_DW-FTICR AP_DW-FTDDL GA_TG#PREC GA_C0ARCH01 GA_DWPTN1 GA_DWPTN2 GA_DWPTN3 GA_DWPTN4~
+  d2nursemt         => ~AP_DW-FTICR AP_DW-FTDDL GA_TG#PREC GA_C0ARCH01 GA_DWPTN2~
   d2noblescion      => ~AP_TG#VIRT GA_TG#PREC GA_C0ARCH01~
   d2confessor       => ~GA_SPCL232 GA_SPCL922 GA_C0ASHLA1~
   d2templeknight    => ~GA_TG#CIOL~
-  d2medic           => ~GA_DWPSS2 GA_DWPSS3 GA_DWPSS4 GA_DWPSS5 AP_DW-HLPAP AP_DW-HLPEX~
+  d2medic           => ~GA_DWPSS1 GA_DWPSS2 GA_DWPSS3 GA_DWPSS4 GA_DWPSS5 AP_DW-HLPAP AP_DW-HLPEX~
   d2drifter         => ~GA_SPCL913 GA_SPCL914 GA_SPCL917 AP_DW-HLAAD AP_DW-HLAVD~
+  d2spellfencer     => ~AP_DW-FTAMB~
 END
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_bonushlas_class BEGIN
@@ -348,6 +350,10 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_bonushlas_class BEGIN
   GA_SPCL917  => thief         // bg2 avoid death
   AP_DW-HLAAD => thief         // tof avoid danger advanced
   AP_DW-HLAVD => thief         // tof avoid death
+  GA_DWPTN1   => mage          // tof warrior potions
+  GA_DWPTN2   => cleric        // tof healing potions
+  GA_DWPTN3   => mage          // tof protective potions
+  GA_DWPTN4   => mage          // tof enhancement potions
 END
 
 ACTION_PHP_EACH d2wk_bonushlas_res AS kit => res BEGIN
@@ -486,6 +492,30 @@ DEFINE_PATCH_FUNCTION d2wk_tofswashbucklerhla INT_VAR class=4 STR_VAR ids_name=~
   END
 END
 
+//medic poison (match assassin)
+DEFINE_PATCH_FUNCTION d2wk_tofmedicpoison INT_VAR class=20 STR_VAR ids_name=~~ BEGIN
+  PATCH_IF (RESOURCE_CONTAINS ~kit.ids~ ~%ids_name%~) BEGIN
+    LPF d2_get_kitnum STR_VAR kit=~%ids_name%~ RET kitnum END
+    PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[%kitnum%\]={\[%class%\]=8}~) BEGIN
+      FOR (level=1; level < 20; ++level) BEGIN
+        TEXT_SPRINT string ~[%kitnum%]={[%class%]=8}~
+        TEXT_SPRINT match ~[10]={[4]=%level%}~
+        REPLACE_TEXTUALLY EXACT_MATCH  ~%match%~  ~%string%,%match%~
+      END
+    END
+  END
+END
+
+//tof divine hlas
+DEFINE_PATCH_FUNCTION d2wk_tofdivinehla INT_VAR class=3 STR_VAR ids_name=~~ BEGIN
+  PATCH_IF (RESOURCE_CONTAINS ~kit.ids~ ~%ids_name%~) BEGIN
+    LPF d2_get_kitnum STR_VAR kit=~%ids_name%~ RET kitnum END
+    TEXT_SPRINT string ~[%kitnum%]={[%class%]=14},~
+    REPLACE_TEXTUALLY EXACT_MATCH ~%string%~  ~~
+    REPLACE_TEXTUALLY EXACT_MATCH  ~=14},}~  ~=14},%string%}~
+  END
+END
+
 
 //class changes (lua edits)
 COPY_EXISTING ~m_dw_hld.lua~  ~override~
@@ -504,16 +534,33 @@ COPY_EXISTING ~m_dw_hld.lua~  ~override~
     LPF d2_tof_addhlaclass STR_VAR string=~[20]=5~ ability=~DW-FTDIR~ END    // dirty fighting
   END
 
+  // temp fix for cleric hlas (add class because kit section is buggy)
+  TEXT_SPRINT clerichlas ~[3]=14,~
+  TEXT_SPRINT druidhlas ~[11]=14,~
+  TEXT_SPRINT shamanhlas ~[21]=14,~
+  TEXT_SPRINT marker ~-- d2wk - workaround for buggy kit section~
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~%marker%~) BEGIN
+    REPLACE_TEXTUALLY EXACT_MATCH  ~%shamanhlas%~  ~--~
+    REPLACE_TEXTUALLY EXACT_MATCH  ~%clerichlas%~  ~%marker%~
+    REPLACE_TEXTUALLY EXACT_MATCH  ~%druidhlas%~   ~%marker%~
+    REPLACE_TEXTUALLY EXACT_MATCH  ~%marker%~  ~%marker%%WNL%%TAB%%clerichlas%~
+    REPLACE_TEXTUALLY EXACT_MATCH  ~%marker%~  ~%marker%%WNL%%TAB%%druidhlas%~
+    REPLACE_TEXTUALLY EXACT_MATCH  ~%marker%~  ~%marker%%WNL%%TAB%%shamanhlas%~
+  END
+
 IF_EXISTS BUT_ONLY
 
 
 //kit changes (lua edits)
 COPY_EXISTING ~m_dw_hld.lua~  ~override~
 
-  // ranger edit (for drifter)
-  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[12\]=6~) BEGIN
-    LPF d2_tof_addhlaclass STR_VAR string=~[12]=6~ ability=~DW-FTMTY~ END    // melee damage
-    LPF d2_tof_addhlaclass STR_VAR string=~[12]=6~ ability=~DW-FTDDL~ END    // ranged damage
+  // ranger edits (drifter, grave warden)
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[12\]=2~) BEGIN
+    LPF d2_tof_addhlaclass STR_VAR string=~[12]=4~ ability=~DW-FTMTY~ END    // melee damage
+    LPF d2_tof_addhlaclass STR_VAR string=~[12]=4~ ability=~DW-FTDDL~ END    // ranged damage
+    LPF d2_tof_addhlaclass STR_VAR string=~[12]=2~ ability=~DW-FTSCR~ END    // use scrolls
+    LPF d2_tof_addhlaclass STR_VAR string=~[12]=2~ ability=~DW-FTWND~ END    // use wands
+    LPF d2_tof_addhlaclass STR_VAR string=~[12]=9~ ability=~DWPTN2~ END      // healing potions
   END
 
   // paladin edits (noble scion, temple knight)
@@ -524,27 +571,19 @@ COPY_EXISTING ~m_dw_hld.lua~  ~override~
 
   // thief edit (for nurse)
   PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[4\]=4~) BEGIN
-//  LPF d2_tof_addhlaclass STR_VAR string=~[4]=8~ ability=~DW-FTICR~ END    // ranged crits (match archer below)
-    LPF d2_tof_addhlaclass STR_VAR string=~[4]=4~ ability=~DW-FTDDL~ END    // ranged damage
-  END
-
-  // ranger edit (for grave warden)
-  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[12\]=2~) BEGIN
-    LPF d2_tof_addhlaclass STR_VAR string=~[12]=2~ ability=~DW-FTSCR~ END    // use scrolls
-    LPF d2_tof_addhlaclass STR_VAR string=~[12]=2~ ability=~DW-FTWND~ END    // use wands
-  END
-
-  // monk edits (for medic)
-  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[20\]=11~) BEGIN
-    LPF d2_tof_addhlaclass STR_VAR string=~[20]=8~ ability=~DWPSS2~ END    // poison paralyze
-    LPF d2_tof_addhlaclass STR_VAR string=~[20]=11~ ability=~DWPSS3~ END    // poison confuse
+    LPF d2_tof_addhlaclass STR_VAR string=~[4]=4~ ability=~DW-FTDDL~ END     // ranged damage
+//  LPF d2_tof_addhlaclass STR_VAR string=~[4]=8~ ability=~DW-FTICR~ END     // ranged crits (match archer below)
+    LPF d2_tof_addhlaclass STR_VAR string=~[4]=5~ ability=~DWPTN1~ END    // warrior potions
+    LPF d2_tof_addhlaclass STR_VAR string=~[4]=5~ ability=~DWPTN2~ END    // healing potions
+    LPF d2_tof_addhlaclass STR_VAR string=~[4]=5~ ability=~DWPTN3~ END    // protection potions
+    LPF d2_tof_addhlaclass STR_VAR string=~[4]=5~ ability=~DWPTN4~ END    // enhancement potions
   END
 
 
   // match archer (ranged crits)
   DEFINE_ASSOCIATIVE_ARRAY d2wk_tofarcherhla BEGIN
     d2warhound   => 2
-    d2warhoundfm => 2    // multiclass kits use baseclass number
+    d2warhoundfm => 2    // multiclass kits use base class number
     d2noblescion => 6
     d2nurse      => 4
     d2nursemt    => 4
@@ -568,13 +607,33 @@ COPY_EXISTING ~m_dw_hld.lua~  ~override~
     d2crowhunterft  => 4
     d2crowhunterfmt => 4
     d2crowhuntermt  => 4
+    d2spellfencer   => 2
   END
   PHP_EACH d2wk_tofswashbucklerhla AS kit => class BEGIN
     LPF d2wk_tofswashbucklerhla INT_VAR class=class STR_VAR ids_name=~%kit%~ END
   END
 
+  // medic poison (match assassin)
+  DEFINE_ASSOCIATIVE_ARRAY d2wk_tofmedicpoison BEGIN
+    d2medic => 20
+  END
+  PHP_EACH d2wk_tofmedicpoison AS kit => class BEGIN
+    LPF d2wk_tofmedicpoison INT_VAR class=class STR_VAR ids_name=~%kit%~ END
+  END
 
-  // give jesterblade any blade abilities
+  // tof divine hlas
+  DEFINE_ASSOCIATIVE_ARRAY d2wk_tofdivinehla BEGIN
+    d2bloodminister     => 3
+    d2beasthunterfc     => 3
+    d2beasthunterfmc    => 3
+    d2moonlightknightcr => 3
+  END
+  PHP_EACH d2wk_tofdivinehla AS kit => class BEGIN
+    LPF d2wk_tofdivinehla INT_VAR class=class STR_VAR ids_name=~%kit%~ END
+  END
+
+
+  // jesterblade - blade abilities (this is here to avoid compat issues)
   PATCH_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2jesterblade~) BEGIN
     LPF d2_get_kitnum STR_VAR kit=d2jesterblade RET kitnum END
     PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_RES%.lua~  ~\[%kitnum%\]={\[5\]=3}~) BEGIN

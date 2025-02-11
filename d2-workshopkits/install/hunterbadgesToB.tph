@@ -1,0 +1,72 @@
+/*
+hunter badges for ToB or HoW (config option)
+*/
+
+
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2beasthunter~) BEGIN
+
+
+//
+ACTION_IF (nohunterbadgesToB = 0) BEGIN  OUTER_SET hunterbadgesToB = 1  END
+ACTION_IF (nohunterbadgesHoW = 0) BEGIN  OUTER_SET hunterbadgesHoW = 1  END
+
+
+//
+DEFINE_PATCH_FUNCTION tob_hunterbadge STR_VAR item=~~ BEGIN
+  LPF REMOVE_STORE_ITEM_EX STR_VAR item_name=~%item%~ END
+  PATCH_IF (IS_AN_INT hunterbadgesToB) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 STR_VAR item_name=~%item%~ flags=identified END
+  END
+END
+
+DEFINE_PATCH_FUNCTION how_hunterbadge STR_VAR item=~~ BEGIN
+  LPF REMOVE_STORE_ITEM_EX STR_VAR item_name=~%item%~ END
+  PATCH_IF (IS_AN_INT hunterbadgesHoW) BEGIN
+    LPF ADD_STORE_ITEM_EX INT_VAR stack=3 STR_VAR item_name=~%item%~ flags=identified END
+  END
+END
+
+
+//ToB stores
+ACTION_IF (GAME_INCLUDES ~tob~) BEGIN
+  COPY_EXISTING ~25SPELL.STO~  ~override~
+    LPF tob_hunterbadge STR_VAR item=~%badge_pkeg%~ END
+    LPF tob_hunterbadge STR_VAR item=~%badge_cosmic%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~HGKAR01.STO~  ~override~
+    LPF tob_hunterbadge STR_VAR item=~%badge_saw%~ END
+    LPF tob_hunterbadge STR_VAR item=~%badge_radiant%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~AMBAR01.STO~  ~override~
+    LPF tob_hunterbadge STR_VAR item=~%badge_old%~ END
+    LPF tob_hunterbadge STR_VAR item=~%badge_spark%~ END
+  BUT_ONLY
+END
+
+
+//HoW stores
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  COPY_EXISTING ~KIERAN2.STO~  ~override~
+    LPF how_hunterbadge STR_VAR item=~%badge_radiant%~ END
+    LPF how_hunterbadge STR_VAR item=~%badge_spark%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~EDION.STO~  ~override~
+    LPF how_hunterbadge STR_VAR item=~%badge_old%~ END
+    LPF how_hunterbadge STR_VAR item=~%badge_cosmic%~ END
+  BUT_ONLY
+
+  COPY_EXISTING ~EMMERIC.STO~  ~override~
+    LPF how_hunterbadge STR_VAR item=~%badge_saw%~ END
+    LPF how_hunterbadge STR_VAR item=~%badge_pkeg%~ END
+  BUT_ONLY
+END
+
+
+END
+
+
+//
+//

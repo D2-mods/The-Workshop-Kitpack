@@ -190,6 +190,7 @@ ACTION_IF (noconfessor = 0) BEGIN
   INCLUDE ~%install%/variables.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
+  INCLUDE ~%install%/nopaladinheal.tph~
   INCLUDE ~%install%/fnppaladinfix.tph~
   INCLUDE ~%install%/fnpspheres.tph~
   INCLUDE ~%install%/tofspheres.tph~
@@ -239,23 +240,26 @@ END
 
 
 //Extra stuff
+INCLUDE ~%install%/hunterbadgescripts.tph~
+INCLUDE ~%install%/hunterbadgestores.tph~
+INCLUDE ~%install%/hunterbadgesToB.tph~
+INCLUDE ~%install%/evasionchecks.tph~
 INCLUDE ~%install%/spellprep3.tph~
 INCLUDE ~%install%/restrictarmor.tph~
 INCLUDE ~%install%/crosskiteffects.tph~
 INCLUDE ~%install%/hlaupdater.tph~
+INCLUDE ~%install%/tofsphereshlas.tph~
 INCLUDE ~%install%/weapprofedits.tph~
 INCLUDE ~%install%/subtleskills.tph~
-INCLUDE ~%install%/evasionchecks.tph~
 INCLUDE ~%install%/morespellpatches.tph~
-INCLUDE ~%install%/hunterbadgescripts.tph~
-INCLUDE ~%install%/hunterbadgestores.tph~
-INCLUDE ~%install%/trackingcheck.tph~
 
 INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/castingspeed.tph~
 INCLUDE ~%install%/supportmode.tph~
 INCLUDE ~%install%/iconpatch.tph~
+INCLUDE ~%install%/trackingcheck.tph~
 INCLUDE ~%install%/priceadjust.tph~
+INCLUDE ~%install%/holysymbolscheck.tph~
 INCLUDE ~%install%/5ecastingspells.tph~
 INCLUDE ~%install%/olvynspellsfix.tph~
 INCLUDE ~%install%/iwditempatch.tph~

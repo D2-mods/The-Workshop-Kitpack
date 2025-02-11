@@ -216,7 +216,11 @@ OUTER_TEXT_SPRINT $d2_restrict_armor_baseclass (~%ids_name%~) ~%baseclass%~
 
 //edit ToB starting bag
 ACTION_IF (FILE_EXISTS_IN_GAME ~bag25.itm~) BEGIN
-  LAF d2_edit_2da_entry STR_VAR 2da=25STWEAP col_name=~D2%kitname%~ row_name=bag entry=bag25 END
+  COPY_EXISTING ~25STWEAP.2da~  ~override~
+    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=bag entry=bag25 END
+    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=MISC4 entry=BOW14 END
+    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=MISC5 entry=XBOW09 END
+  BUT_ONLY
 END
 
 

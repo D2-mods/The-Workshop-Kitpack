@@ -27,8 +27,9 @@ INCLUDE ~%install%/%kitname%dfiles.tph~
 INCLUDE ~%install%/%kitname%stores.tph~
 
 INCLUDE ~%install%/evasionchecks.tph~
-INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/spellprep3.tph~
+INCLUDE ~%install%/hbag.tph~
+INCLUDE ~%install%/hbagdev.tph~
 INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/castingspeedpatch.tph~
 

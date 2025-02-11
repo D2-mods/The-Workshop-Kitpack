@@ -4,11 +4,11 @@ Download: https://github.com/D2-mods/The-Workshop-Kitpack/releases
 Languages: English, French (JohnBob)
 
 
-Info:
-- Takes heavy inspiration from FromSoft's Soulsborne games, though only some names, short phrases, and ability concepts are taken directly from those games.
-- The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
-- If any spells were changed, then the revised spells may be learned by some kits. For example, the Confessor kit normally gains Blindness as a level 1 Priest spell. If you install Spell Revisions beforehand, it will instead gain Obscuring Mist.
-- Compatible with BG:EE, BG2:EE, IWD:EE, and EET. My original plan was to also be compatible with classic BG2, but it's probably too late for that. This mod makes heavy use of EE-only opcodes.
+This is a kitpack I've been working on for a while. It currently has 17 kits + 11 multiclass variants. Also adds 30+ items, including 6 Hunter Badges, 12 Caryll Runes, and 17 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
+
+NOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
+
+--
 
 Kit Updater: Run this after all tweak and overhaul mods (except possibly Dual to Kit). It rebuilds HLA lists and updates proficiencies + some other minor checks. It also includes the previous "Update Medic Arts" component (use if Poison Weapon or Lay On Hands were revised). More info in Components section.
 
@@ -65,9 +65,10 @@ Components:
 	- Option 2: Base kits only
 	- Option 3: Misc items only (no kits or Hunter Badges)
 2. Misc item pack
+	- Option 1: Standard Install
+	- Option 2: Dev mode (start with Item Sack)
 
 Extra patching:
-- Component for subtledoctor's 5e casting mod (can install before or after 5e casting)
 - Kit Updater (fixes or updates, see below)
 
 --
@@ -118,18 +119,23 @@ NOTE: I'd recommend to install this mod generally together with other kits, but 
 --
 
 Spellcasting systems:
-- Compatible with Faiths and Powers spheres system.
-	- Can install before or after FnP (but I'd recommend after).
-	- See below for additional info.
-- Compatible with Deities of Faerun spheres system. 
-	- Install this mod after DoF.
-- Compatible with subtledoctor's 5e casting mod. 
-	- Install this mod before 5e casting.
-	- You should also install the extra component related to 5e casting.
+
+Faiths and Powers spheres system:
+- Can install before or after FnP (but I'd recommend after).
+- See below for additional info.
+
+Deities of Faerun spheres system: 
+- Install this mod after DoF.
+
+subtledoctor's 5e casting mod:
+- Install this mod before 5e casting.
+- Run the Kit Updater after 5e casting.
+
+Sphere list: https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/d2-workshopkits/readme-spheres.txt
 
 --
 
-Talents of Faerun notes: (tl;dr install spells before and other stuff after)
+Talents of Faerun notes:
 - Spell components can be installed before or after this mod. I'd recommend to install them before (especially IWD spells).
 - Race component can be installed before or after this mod.
 - Kit/Tweak components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so easier to just install everything after.
@@ -138,7 +144,7 @@ Talents of Faerun notes: (tl;dr install spells before and other stuff after)
 
 NOTE: Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
 
-Kit Updater: This is REQUIRED for full compat with ToF. Rebuilds all feats/HLA lists (which will probably be broken without it). Also minor fixes for Medic kit. More on feats/HLAs below.
+Kit Updater: This is REQUIRED for full compat with ToF. Rebuilds all feats/HLA lists (which will probably be broken without it). Also minor fixes for Medic and Powder Keg kits. More on feats/HLAs below.
 
 --
 
@@ -150,22 +156,15 @@ OlvynSpells notes:
 
 --
 
-Feats/HLA mods (ex. ToF):
-- Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
+Skills/Feats/HLA mods:
 - Kits that have a disadvantage of not gaining a class ability should generally not take those abilities as feats.
 - Some kits may gain certain mod-added HLAs if detected. (note: this mod doesn't install any HLAs, it scans existing HLA tables and copy pastes lines if detected.)
+- Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
 
 ToF feats/HLAs:
 - Many kits will have 1 or more additional options. (ex. all archers can take any ranged feat/HLA, Medic can take poison upgrades, Grave Warden can take Use Scrolls/Wands, etc.)
 - Some kits have options removed. (ex. Drifter can't take any spell-related feats, but has more combat feats/HLAs than other rangers)
 - All arcane kits from this mod will gain one of the "Arcane Knowledge" feats for free. These are required for selecting HLA spells. The feat is denoted at level 1, but effects aren't given until level 18 mage.
-
-Bard revisions notes:
-- Rogue Rebalancing: Install after class/HLA components. The rest can be before or after.
-- Shohy's bard song mod: Install after Shohy's mod (patches 1 file).
-- Bardic Wonders: Install after Bardic Wonders (all components).
-- Talents of Faerun: Install before ToF minor/high level abilities. Then run the Kit Updater any time after. It updates the song switching ability to use the correct ToF HLA song.
-- Untested with other bard revisions. I would install any unmentioned revisions before this mod.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -196,6 +195,16 @@ Notes:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v5.16
+- ToF notes: All cleric single/multiclass kits now have correct HLA lists based on spheres. Nurse can take any potion ability. Forgot to give Spell Fencer an Arcane Knowledge feat. (note: Triple class HLAs might be buggy, this is a ToF issue.)
+- Confessor: Kit Updater now removes Cure Disease if a later tweak adds it for paladins (ex. ToF revisions). This follows IWD rules, where kits that don't gain Lay On Hands also don't gain Cure Disease.
+- Patching for subtledoctor's 5e casting mod is now part of the Kit Updater, replacing the old component. Run it any time after 5e casting to make changes. If you later uninstall 5e casting, re-run the updater to revert changes.
+- Kit Updater can now change spell cap, holy symbols, and extra hunter badges config settings.
+- Using the updater now ends the current weidu run (i.e. skips the the normal installer options).
+- Misc items now has subcomponent "Dev mode (start with Item Sack)".
+- Reverted Warhound change from last update (no longer immune to own explosive shots).
+- Slightly increased Warhound Shockwave damage (now does 3 + 2d4 per 4 levels up to 3 + 10d4). Average damage starts at 8 and scales to 28 + guaranteed knockback with no save.
 
 v5.15
 - Kit Updater can now be used to change some of the misc options in the Config.ini.
@@ -811,20 +820,13 @@ subtledoctor - coding assistance for compatibility with his mods
 
 Custom functions (not including my own):
 - ADD_KIT_EX by Argent77 (https://github.com/Argent77/A7-add_kit_ex)
-
 - CD_EXTEND-O-MATIC by Camdawg (https://www.gibberlings3.net/forums/topic/28835-toss-your-semi-useful-weidu-macros-here/page/13/#comment-332943)
-
 - add_spell_ex by K4thos (https://github.com/K4thos/IE-code-repository)
-
 - immunity batch macros from BG2 Fixpack (https://www.gibberlings3.net/forums/topic/28834-bg2-modder-resource-effect-batch-macros)
-
-- immunity spellstates from EE Fixpack (https://www.gibberlings3.net/forums/topic/35616-effect-immunities-on-the-ee-engine-aka-taking-full-advantage-of-the-ee-fixpack)
-
 - RA_SPHERE_COMPAT.tpa for Deities of Faerun mod (https://github.com/Raduziel/Deities-Of-Faerun/releases)
-
 - fnp_compatibility.tpa for Faiths & Powers mod (https://github.com/UnearthedArcana/Faiths_and_Powers/releases)
-
 - semi_spontaneous.tpa for 5e casting mod (https://github.com/UnearthedArcana/5E_spellcasting/releases)
+- GET_KIT_STRREF (source unknown)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
