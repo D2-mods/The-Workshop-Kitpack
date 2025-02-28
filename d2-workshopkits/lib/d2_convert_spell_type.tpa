@@ -17,38 +17,41 @@ DEFINE_PATCH_FUNCTION d2_convert_spell_type
             level = ~-1~      // set spell level, must be 0-10 or no change occurs
             location = 0      // 1=weapon, 2=spell, 3=item, 4=ability (0 = spell or ability, based on type)
             update_res = 1    // resource fields set to original resource are changed to the new resource
-		
+
 BEGIN
 
-  PATCH_IF ((type < 1) OR (type > 5))          BEGIN SET type = 0 END
-  PATCH_IF ((level < 0) OR (level > 10))       BEGIN SET level = ~-1~ END
-  PATCH_IF ((location < 1) OR (location > 4))  BEGIN SET location = 0 END
+    PATCH_IF ((type < 1) OR (type > 5))          BEGIN SET type = 0 END
+    PATCH_IF ((level < 0) OR (level > 10))       BEGIN SET level = ~-1~ END
+    PATCH_IF ((location < 1) OR (location > 4))  BEGIN SET location = 0 END
 
-  WRITE_SHORT 0x1c type    // set spell type
+    WRITE_SHORT 0x1c type    // set spell type
 
-  PATCH_IF (level >= 0) BEGIN
-    WRITE_LONG 0x34 level    // set spell level
-  END
-  ELSE BEGIN
-    READ_LONG 0x34 level     // or read level field
-  END
-
-  LPF ALTER_EFFECT INT_VAR power=level END    // set effects level
-
-  PATCH_IF (location = 0) BEGIN
-    PATCH_IF ((type = 1) OR (type = 2)) BEGIN 
-      SET location = 2    // spell
+    PATCH_IF (level >= 0) BEGIN
+      WRITE_LONG 0x34 level    // set spell level
     END
     ELSE BEGIN
-      SET location = 4    // ability
+      READ_LONG 0x34 level     // or read level field
     END
-  END
 
-  LPF ALTER_SPELL_HEADER INT_VAR location=location END    // set spell location
+    LPF ALTER_EFFECT INT_VAR power=level END    // set effects level
 
-  PATCH_IF (update_res > 0) BEGIN
-    LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=EVAL ~%SOURCE_RES%~ resource=EVAL ~%DEST_RES%~ END
-  END
+    PATCH_IF (location = 0) BEGIN
+      PATCH_IF ((type = 1) OR (type = 2)) BEGIN 
+        SET location = 2    // spell
+      END
+      ELSE BEGIN
+        SET location = 4    // ability
+      END
+    END
+
+    LPF ALTER_SPELL_HEADER INT_VAR location=location END    // set spell location
+
+    PATCH_IF (update_res > 0) BEGIN
+      LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=EVAL ~%SOURCE_RES%~ resource=EVAL ~%DEST_RES%~ END
+    END
+
+    // mod compat checks
+    LPF DELETE_EFFECT INT_VAR match_opcode=402 STR_VAR match_resource=MENECROP END
 
 END
 
@@ -101,6 +104,9 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) BEGIN
     PATCH_IF (update_res > 0) BEGIN
       LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=EVAL ~%SOURCE_RES%~ resource=EVAL ~%DEST_RES%~ END
     END
+
+    // mod compat checks
+    LPF DELETE_EFFECT INT_VAR match_opcode=402 STR_VAR match_resource=MENECROP END
 
   BUT_ONLY
 END

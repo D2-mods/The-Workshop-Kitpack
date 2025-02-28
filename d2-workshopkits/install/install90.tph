@@ -74,6 +74,8 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2STARJAMMER~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk8~
   OUTER_TEXT_SPRINT kitname ~STARJAMMER~
   INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/%kitname%var.tph~
+
   OUTER_TEXT_SPRINT jolt           ~%w5%~    // supportmode.tph
   OUTER_TEXT_SPRINT electrocannon  ~%w6%~    // spellcapconfig.tph
   OUTER_TEXT_SPRINT revitalizer    ~%w7%~
@@ -130,8 +132,10 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2GRAVEWARDEN~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk3~
   OUTER_TEXT_SPRINT kitname ~GRAVEWARDEN~
   INCLUDE ~%install%/variables.tph~
-  OUTER_TEXT_SPRINT denial  ~%s1%~    // supportmode.tph
-  OUTER_TEXT_SPRINT wardennofear  ~%e4%~    // iconpatch.tph
+  INCLUDE ~%install%/%kitname%var.tph~
+  OUTER_TEXT_SPRINT gravewarden  ~%kitid%~
+  OUTER_TEXT_SPRINT denial       ~%s1%~    // supportmode.tph
+  OUTER_TEXT_SPRINT wardennofear ~%e4%~    // iconpatch.tph
 END
 
 //Moonlight Knight (d2wk4)
@@ -139,6 +143,7 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2MOONLIGHTKNIGHT~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk4~
   OUTER_TEXT_SPRINT kitname ~MOONLIGHTKNIGHT~
   INCLUDE ~%install%/variables.tph~
+  OUTER_TEXT_SPRINT moonlightknight  ~%kitid%~
   OUTER_TEXT_SPRINT holysymbolmoon   ~%m9%~
 END
 
@@ -146,7 +151,8 @@ END
 ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2DRIFTER~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wkc~
   OUTER_TEXT_SPRINT kitname ~DRIFTER~
-//  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables.tph~
+  OUTER_TEXT_SPRINT drifter  ~%kitid%~
 END
 
 
@@ -158,14 +164,22 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2CONFESSOR~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk5~
   OUTER_TEXT_SPRINT kitname ~CONFESSOR~
   INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/%kitname%var.tph~
   INCLUDE ~%install%/nopaladinheal.tph~
+  OUTER_TEXT_SPRINT confessor  ~%kitid%~
 END
 
 //Temple Knight (d2wk6)
 ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2TEMPLEKNIGHT~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk6~
   OUTER_TEXT_SPRINT kitname ~TEMPLEKNIGHT~
-//  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables.tph~
+  OUTER_TEXT_SPRINT templeknight  ~%kitid%~
+
+  COPY_EXISTING ~%s2%.SPL~ ~override~
+    LPF olvynspells_exmetalv END
+    LPF olvynspells_mesafesp INT_VAR match_opcode=177 END
+  BUT_ONLY
 END
 
 //Noble Scion (d2wke)
@@ -173,6 +187,7 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2NOBLESCION~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wke~
   OUTER_TEXT_SPRINT kitname ~NOBLESCION~
   INCLUDE ~%install%/variables.tph~
+  OUTER_TEXT_SPRINT noblescion  ~%kitid%~
   OUTER_TEXT_SPRINT bloodbulletsbuff   ~%s1%a~    // spellcapconfig.tph
   OUTER_TEXT_SPRINT bloodbulletsdamage ~%s9%~
 END
@@ -232,6 +247,13 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2POWDERKEG~) BEGIN
   INCLUDE ~%install%/%kitname%hla2.tph~
   INCLUDE ~%install%/%kitname%var.tph~
   INCLUDE ~%install%/%kitname%icons.tph~
+
+  // check clab (effects update)
+  ACTION_IF !(RESOURCE_CONTAINS ~%kitid%.2da~  ~d2usb~) BEGIN
+    COPY_EXISTING ~%kitid%.2da~  ~override~
+      LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=d2usb END
+    BUT_ONLY
+  END
 END
 
 
@@ -293,6 +315,7 @@ INCLUDE ~%install%/supportmode.tph~
 INCLUDE ~%install%/iconpatch.tph~
 INCLUDE ~%install%/trackingcheck.tph~
 INCLUDE ~%install%/holysymbolscheck.tph~
+INCLUDE ~%install%/olvynspellsfix.tph~
 
 END
 

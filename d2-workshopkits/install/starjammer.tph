@@ -80,6 +80,7 @@ COPY ~%abilities%/steadycurrent.SPL~    ~override/%w2%.SPL~
   SAY NAME1 @40109
   SAY UNIDENTIFIED_DESC @40209
   WRITE_SHORT 0x98 ~%w2%~        // projectile
+  LPF d2_addhitstun INT_VAR match_opcode=12 END
 
 //function for Evasion (used later)
 DEFINE_ACTION_FUNCTION steadycurrentevasion BEGIN
@@ -217,6 +218,7 @@ COPY ~%abilities%/electrocannon.SPL~  ~override/%w6%.SPL~
   SAY NAME1 @40113
   SAY UNIDENTIFIED_DESC @40213
   WRITE_SHORT 0x98 ~%w6%~    // projectile
+  LPF d2_addhitstun INT_VAR match_opcode=12 no_saves=1 END
 
   LPF CD_EXTEND-O-MATIC
     INT_VAR
@@ -224,21 +226,21 @@ COPY ~%abilities%/electrocannon.SPL~  ~override/%w6%.SPL~
       min_lev_alt = 12
   END
 
-  LPF ALTER_EFFECT INT_VAR header=1 parameter1=26 dicenumber=13 END    // level 13
-  LPF ALTER_EFFECT INT_VAR header=2 parameter1=28 dicenumber=14 END
-  LPF ALTER_EFFECT INT_VAR header=3 parameter1=30 dicenumber=15 END
-  LPF ALTER_EFFECT INT_VAR header=4 parameter1=32 dicenumber=16 END
-  LPF ALTER_EFFECT INT_VAR header=5 parameter1=34 dicenumber=17 END
-  LPF ALTER_EFFECT INT_VAR header=6 parameter1=36 dicenumber=18 END
-  LPF ALTER_EFFECT INT_VAR header=7 parameter1=38 dicenumber=19 END
-  LPF ALTER_EFFECT INT_VAR header=8 parameter1=40 dicenumber=20 END
+  LPF ALTER_EFFECT INT_VAR header=1 match_opcode=12 parameter1=26 dicenumber=13 END    // level 13
+  LPF ALTER_EFFECT INT_VAR header=2 match_opcode=12 parameter1=28 dicenumber=14 END
+  LPF ALTER_EFFECT INT_VAR header=3 match_opcode=12 parameter1=30 dicenumber=15 END
+  LPF ALTER_EFFECT INT_VAR header=4 match_opcode=12 parameter1=32 dicenumber=16 END
+  LPF ALTER_EFFECT INT_VAR header=5 match_opcode=12 parameter1=34 dicenumber=17 END
+  LPF ALTER_EFFECT INT_VAR header=6 match_opcode=12 parameter1=36 dicenumber=18 END
+  LPF ALTER_EFFECT INT_VAR header=7 match_opcode=12 parameter1=38 dicenumber=19 END
+  LPF ALTER_EFFECT INT_VAR header=8 match_opcode=12 parameter1=40 dicenumber=20 END
 
   PATCH_IF (spellcap >= 30) BEGIN
     FOR (n = 1; n <= 10; ++n) BEGIN
       SET header = 8 + n
       SET damage = 40 + (n*2)
       SET dice   = 20 + n
-      LPF ALTER_EFFECT INT_VAR header=header parameter1=damage dicenumber=dice END
+      LPF ALTER_EFFECT INT_VAR header=header match_opcode=12 parameter1=damage dicenumber=dice END
     END
   END
 
@@ -247,7 +249,7 @@ COPY ~%abilities%/electrocannon.SPL~  ~override/%w6%.SPL~
       SET header = 8 + n
       SET damage = 40 + (n*2)
       SET dice   = 20 + n
-      LPF ALTER_EFFECT INT_VAR header=header parameter1=damage dicenumber=dice END
+      LPF ALTER_EFFECT INT_VAR header=header match_opcode=12 parameter1=damage dicenumber=dice END
     END
   END
 
@@ -256,7 +258,7 @@ COPY ~%abilities%/electrocannon.SPL~  ~override/%w6%.SPL~
       SET header = 8 + n
       SET damage = 40 + (n*2)
       SET dice   = 20 + n
-      LPF ALTER_EFFECT INT_VAR header=header parameter1=damage dicenumber=dice END
+      LPF ALTER_EFFECT INT_VAR header=header match_opcode=12 parameter1=damage dicenumber=dice END
     END
   END
 
@@ -513,7 +515,10 @@ ACTION_FOR_EACH icon IN ~%w1%~ ~%w2%~ ~%w3%~ ~%w4%~ ~%w5%~ ~%w6%~ ~%w7%~ ~%w8%~ 
   COPY_EXISTING ~%icon%.SPL~  ~override~
     WRITE_ASCII 0x3a ~%icon%a~ #8
     LPF ALTER_SPELL_HEADER STR_VAR icon=~%icon%b~ END
+
+    // other stuff
     WRITE_LONG 0x1e 0    // remove exclusion flags (for uniformity)
+    LPF olvynspells_metamagic INT_VAR necropot=1 END    // check OlvynSpells metamagic
   BUT_ONLY
 END
 
@@ -621,6 +626,7 @@ LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
 //Set variables for external use
 OUTER_TEXT_SPRINT starjammer     ~%kitid%~
 OUTER_TEXT_SPRINT interference   ~%s1%~
+OUTER_TEXT_SPRINT interference2  ~%@1%~
 OUTER_TEXT_SPRINT riftgatebalor  ~%w8%d~
 OUTER_TEXT_SPRINT riftgategolem  ~%w8%g~
 OUTER_TEXT_SPRINT riftstep       ~%w1%~

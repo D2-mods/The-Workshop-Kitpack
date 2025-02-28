@@ -38,7 +38,7 @@ BEGIN
 	ACTION_IF ~%name%~ STR_EQ ~~ BEGIN
 		FAIL ~ADD_SPELL_EX: %file% name not specified~
 	END
-	PRINT ~ADD_SPELL_EX: adding spell %name% (type = %type%; level = %level%; min = %min%; max = %max%; hide = %hide%)~
+//	PRINT ~ADD_SPELL_EX: adding spell %name% (type = %type%; level = %level%; min = %min%; max = %max%; hide = %hide%)~
 	ACTION_IF ~%file%~ STR_EQ ~~ BEGIN
 		FAIL ~ADD_SPELL_EX: path to spell file not specified~
 	END
@@ -87,7 +87,7 @@ BEGIN
 			END
 			ACTION_IF (outcome = 0) AND (VARIABLE_IS_SET $local_spellNameExt("%name%")) BEGIN //name of the different type already present
 				LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = EVAL ~%name%~ RET spell_num spell_res END
-				PRINT ~ADD_SPELL_EX: removing old %spell_num% %name% reference~
+			//	PRINT ~ADD_SPELL_EX: removing old %spell_num% %name% reference~
 				COPY_EXISTING ~spell.ids~ ~override~
 					~add_spell.ids~ ~override~
 					REPLACE_TEXTUALLY ~%spell_num%[%TAB% ]+%name%[%WNL%%LNL%%MNL%%TAB% ]*~ ~~
@@ -96,11 +96,11 @@ BEGIN
 				LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = EVAL ~%name%~ RET spell_num spell_res END
 				OUTER_TEXT_SPRINT ids_level $local_spellNameLevel("%name%")
 				ACTION_IF (ids_level = level) OR (lookup = 1) BEGIN //spell of the same level or level irrelevant
-					PRINT ~ADD_SPELL_EX: overwritting old %spell_res%.SPL file~
+				//	PRINT ~ADD_SPELL_EX: overwritting old %spell_res%.SPL file~
 					OUTER_SET outcome = 3
 					OUTER_SET i = max
 				END ELSE BEGIN //spell of different level (lookup not set)
-					PRINT ~ADD_SPELL_EX: removing old %spell_num% %name% reference~
+				//	PRINT ~ADD_SPELL_EX: removing old %spell_num% %name% reference~
 					COPY_EXISTING ~spell.ids~ ~override~
 						~add_spell.ids~ ~override~
 						REPLACE_TEXTUALLY ~%spell_num%[%TAB% ]+%name%[%WNL%%LNL%%MNL%%TAB% ]*~ ~~
@@ -137,4 +137,5 @@ BEGIN
 		APPEND ~spell.ids~ ~%spell_num% %spell_name%~
 	END
 	PRINT ~ADD_SPELL_EX: added spell %spell_num% %name% (%SOURCE_RES% => %DEST_RES%)~
+	ACTION_IF ((IS_AN_INT silentmode) AND (silentmode > 1)) BEGIN SILENT END
 END

@@ -444,6 +444,7 @@ COPY ~%abilities%/dragonrotdecay.SPL~  ~override/%s5%b.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=141 opcode=139 parameter1=RESOLVE_STR_REF (@321) END    // "Decaying"
   LPF d2_safe_spell END
   LPF d2_remove_effects_on_cast END
+  LPF d2_addhitstun END
 
   // cast damage subspell
   LPF ALTER_EFFECT INT_VAR match_opcode=12 opcode=326 timing=4 duration=3 STR_VAR resource=~%s5%d~ END

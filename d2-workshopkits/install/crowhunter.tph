@@ -92,9 +92,10 @@ LAF d2_bleed_effects STR_VAR resource=~%s1%b~ END    // blocked by damage immuni
 COPY ~%icons%/visceralattackicon.BAM~  ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@114) STR_VAR bam=~%s2%i~ RET icon END
 
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@114) STR_VAR color=dark RET newtext END
 COPY ~%icons%/visceralattack.BAM~      ~override/%s2%.BAM~
 COPY ~%abilities%/visceralattack.SPL~  ~override/%s2%.SPL~
-  SAY NAME1 @114
+  SAY NAME1 ~%newtext%~
   SAY UNIDENTIFIED_DESC @214
   WRITE_ASCII 0x3a ~%s2%~ #8
   WRITE_ASCII 0x76 ~%s2%~ #8
@@ -102,6 +103,7 @@ COPY ~%abilities%/visceralattack.SPL~  ~override/%s2%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%b~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF d2_mindamageboost INT_VAR amount=3 duration=7 END
 
 //subspell (heal + haste)
 COPY ~%abilities%/castspellself.EFF~          ~override/%s2%a.EFF~
@@ -109,7 +111,13 @@ COPY ~%abilities%/castspellself.EFF~          ~override/%s2%a.EFF~
 COPY ~%abilities%/visceralattackeffects.SPL~  ~override/%s2%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=14023 END    // "Hasted"
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
-  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
+//  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
+  LPF d2_addhitstun END
+
+  // change haste to APR + move bonus
+  LPF ALTER_EFFECT INT_VAR match_opcode=16 opcode=1 parameter1=1 parameter2=0 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=126 parameter1=250 parameter2=5 END
+  LPF d2_remove_effects_on_cast END
 
   // change healing to 5 + 20%
   LPF ALTER_EFFECT INT_VAR match_opcode=17 parameter1=20 parameter2=2 END

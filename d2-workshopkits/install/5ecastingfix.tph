@@ -1,6 +1,6 @@
 /*
-This file should only be installed if using subtledoctor's 5e casting mod.
-This can be installed before or after 5e casting is installed.
+tweak spell slots if 5e casting detected
+this adjusts for both with or without 5e casting
 */
 
 

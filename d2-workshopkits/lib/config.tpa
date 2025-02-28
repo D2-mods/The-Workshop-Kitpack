@@ -74,6 +74,7 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~powderkegicons.*=.*[^0-9]0[^0-9]*$~          nopowderkegpatch
   COUNT_REGEXP_INSTANCES  ~medicconfig.*=.*[^0-9]0[^0-9]*$~             nomedicconfig
   COUNT_REGEXP_INSTANCES  ~supportmode.*=.*[^0-9]0[^0-9]*$~             nosupportmode
+  COUNT_REGEXP_INSTANCES  ~freecasting.*=.*[^0-9]0[^0-9]*$~             nofreecasting
 
 //Bubb's Menu levels
   COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]0[^0-9]*$~        medictools0

@@ -70,9 +70,10 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2crowhunter~) BEGIN
   COPY ~%abilities%/opcode318.SPL~      ~override/%m1%x.SPL~    // subspell blocks amulet effect
     LPF ALTER_EFFECT STR_VAR resource=~%m1%a~ END
 
+  LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@114) STR_VAR color=dark RET newstring END
   COPY ~%abilities%/applyeffects.EFF~   ~override/%m1%b.EFF~    // "Visceral Attack"
     WRITE_LONG 0x10 139
-    WRITE_LONG 0x1c RESOLVE_STR_REF (@114)
+    WRITE_LONG 0x1c ~%newstring%~
 
   // activate cloak effects (add to damage bonus subspells)
   ACTION_FOR_EACH crowbonus IN ~%crowdamage1%~ ~%crowdamage2%~ ~%crowdamage3%~ BEGIN
@@ -115,41 +116,59 @@ COPY ~%files%/etherbomb.SPL~  ~override/%m2%f.SPL~    // hits enemies
   SAY NAME1 @615
   WRITE_SHORT 0x98 ~%m2%p~    // projectile
   LPF d2_safe_spell END
+  LPF d2_addhitstun INT_VAR match_opcode=12 no_saves=1 END
 
 COPY ~%files%/etherbomb.SPL~  ~override/%m2%t.SPL~    // hits all
   SAY NAME1 @615
   WRITE_SHORT 0x98 ~%m2%p~    // projectile
+  LPF d2_addhitstun INT_VAR match_opcode=12 no_saves=1 END
 
 //
 ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2powderkeg~) BEGIN
 
   COPY_EXISTING ~%m2%.ITM~  ~override~
-    LPF CLONE_EFFECT 
-      INT_VAR multi_match=1 opcode=177 parameter1=IDS_OF_SYMBOL (kit ~D2POWDERKEG~) parameter2=9
-      STR_VAR resource=~%m2%u~
-    END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 parameter2=0 STR_VAR resource=~%m2%u~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 parameter2=0 STR_VAR resource=~%m2%x~ END
   BUT_ONLY
 
-  COPY ~%abilities%/castspellself.EFF~   ~override/%m2%u.EFF~
-    WRITE_ASCII 0x30 ~%m2%u~ #8
-  COPY ~%abilities%/changebardsong.SPL~  ~override/%m2%u.SPL~    // change Bard Song
+  // change Bard Song
+  COPY ~%abilities%/changebardsong.SPL~  ~override/%m2%u.SPL~
     LPF DELETE_EFFECT INT_VAR check_headers=0 END
     LPF DELETE_EFFECT INT_VAR match_opcode=174 END
     LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%m2%v~ END
     LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%pkegremove%~ END
-    LPF CLONE_EFFECT INT_VAR match_opcode=251 opcode=309 parameter1=1 parameter2=0 timing=9 STR_VAR resource=d2pkeg1 END    // local variable
+    // variable for d2-script
+    LPF CLONE_EFFECT
+      INT_VAR match_opcode=251 opcode=309 parameter1=1 parameter2=0 timing=9
+      STR_VAR resource=d2pkeg1
+    END
 
-  COPY ~%abilities%/powderkegnosong.SPL~     ~override/%m2%y.SPL~
-    LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%m2%v~ END
-    LPF ALTER_EFFECT INT_VAR match_timing=9 STR_VAR resource=d2spell END
+  // block change song
+  COPY ~%abilities%/opcode318.SPL~  ~override/%m2%x.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%m2%u~ END
+  // enable change song
+  COPY ~%abilities%/opcode318.SPL~  ~override/%m2%z.SPL~
+    LPF ALTER_EFFECT INT_VAR timing=9 duration=0 STR_VAR resource=~%m2%x~ END
 
+  // add to song unlocker spell (learned from kit table)
+  COPY_EXISTING ~d2usb.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m2%z~ END
+    LPF DELETE_EFFECT STR_VAR match_resource=d2spell END
+  BUT_ONLY
+
+  // powder keg song (main spell)
   COPY ~%abilities%/powderkegcast.SPL~       ~override/%m2%v.SPL~
     LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%m2%f~ END
     LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%pkegdisable%~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%m2%y~ END
     LPF CLONE_EFFECT INT_VAR match_opcode=174 STR_VAR resource=~EFF_M51~ END
 
-  // removal delayed effects (song switching)
+  // delayed effect (after blast)
+  COPY ~%abilities%/powderkegnosong.SPL~     ~override/%m2%y.SPL~
+    LPF ALTER_EFFECT INT_VAR match_timing=4 STR_VAR resource=~%m2%v~ END
+    LPF ALTER_EFFECT INT_VAR match_timing=9 STR_VAR resource=d2spell END
+
+  // removal delayed effect (song switching)
   COPY_EXISTING ~%pkegremove%.SPL~  ~override~
     LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%m2%y~ END
   BUT_ONLY
@@ -173,7 +192,7 @@ COPY ~%files%/etherbooster.ITM~  ~override/%m3%.ITM~
 
 ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2warmagician~) BEGIN
 
-  COPY_EXISTING ~%unleashmagic%.SPL~  ~override~
+  COPY_EXISTING ~%unleashmagicbuff%.SPL~  ~override~
     LPF CLONE_EFFECT 
       INT_VAR check_globals=0 multi_match=1 match_timing=0 opcode=272 parameter1=3 parameter2=3 duration=19
       STR_VAR resource=~%unleashmagic%e~
@@ -347,32 +366,48 @@ COPY ~%abilities%/applyeffects.EFF~  ~override/%m8%b.EFF~    // wing buffet
 COPY ~%abilities%/shockwavepush.SPL~    ~override/%m8%b.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=235 parameter1=30 END
   LPF ALTER_EFFECT INT_VAR duration=10 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=45 opcode=39 parameter2=1 duration=30 special=130 END    // change stun to sleep
 
 
 //
 //Flynn's Ring (ring)
-COPY ~%files%/flynnsring.EFF~  ~override/%m9%a.EFF~    // block item effects
-  WRITE_ASCII 0x30 ~%m9%~ #8
-COPY ~%files%/flynnsring.EFF~  ~override/%m9%b.EFF~    // block spell effects
-  WRITE_ASCII 0x30 ~%m9%s~ #8
-
 COPY ~%icons%/flynnsring.BAM~  ~override/%m9%.BAM~
 COPY ~%files%/flynnsring.ITM~  ~override/%m9%.ITM~
   SAY NAME1 @70113 SAY UNIDENTIFIED_DESC @70213
   SAY NAME2 @70113 SAY DESC @70213
   WRITE_ASCII 0x3a ~%m9%~ #8       // icon
   WRITE_ASCII 0x58 ~CRING06~ #8    // description image
-  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m9%~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m9%s~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%m9%s~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=183 STR_VAR resource=~%m9%a~ END
+  LPF DELETE_EFFECT INT_VAR match_opcode=332 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=183 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=321 END
 
-COPY ~%abilities%/castspellself.EFF~  ~override/%m9%s.EFF~
-  WRITE_ASCII 0x30 ~%m9%s~ #8
-COPY ~%files%/flynnsring.SPL~  ~override/%m9%s.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m9%s~ END
+  // repeating effects
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 parameter1=1 parameter2=0 STR_VAR resource=~%m9%a~ END
+  LPF d2_protect_on_castequip STR_VAR resource=~%m9%x~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%m9%y~ insert=last END
+
+//main subspell
+COPY ~%abilities%/applyeffects.EFF~  ~override/%m9%a.EFF~
+  WRITE_ASCII 0x30 ~%m9%a~ #8
+COPY ~%files%/flynnsring.SPL~        ~override/%m9%a.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=206 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%m9%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=183 STR_VAR resource=~%m9%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=206 STR_VAR resource=~%m9%s~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=332 duration=4 END
+  LPF d2_protect_on_castequip INT_VAR duration=2 END
+
+//block if armor equipped (check multiple types in case mods use them)
+COPY ~%files%/flynnsring.EFF~  ~override/%m9%b.EFF~
+  WRITE_ASCII 0x30 ~%m9%a~ #8
+
+//remove effects (if unequipped)
+COPY ~%abilities%/applyeffects.EFF~        ~override/%m9%y.EFF~
+  WRITE_ASCII 0x30 ~%m9%y~ #8
+COPY ~%abilities%/applyeffects.SPL~        ~override/%m9%y.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%m9%x~ END
+  LPF CLONE_EFFECT INT_VAR timing=4 duration=1 END
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%m9%x.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%m9%a~ END
 
 
 //

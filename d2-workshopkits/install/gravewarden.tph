@@ -116,17 +116,21 @@ COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~        // clone Death Ward
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 timing=1 parameter2=0 STR_VAR resource=~%s1%g~ END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=174 match_timing=4 STR_VAR resource=~EFF_E03~ END
   LPF block_death_gaze END
-  LPF d2_remove_effects_on_cast END
-  LPF d2_remove_effects_on_cast STR_VAR resource=~%s1%e~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 timing=4 duration=1 STR_VAR insert=last END    // repeating effect (1 second delay)
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%s1%x~ END
+
+  // repeating effect (1 second delay)
+  LPF CLONE_EFFECT
+    INT_VAR multi_match=1 check_globals=0 opcode=326 timing=4 duration=1
+    STR_VAR resource=~%s1%e~ insert=last
+  END
+
 
 //repeating effect (checks HP percent)
 COPY ~%abilities%/hpcheck50.SPL~  ~override/%s1%e.SPL~
   LPF ALTER_EFFECT INT_VAR resist_dispel=2 timing=0 duration=180 STR_VAR resource=~%s1%a~ END
 
 /*
-The 1 second delay is needed to recast the spell on a target.
-Otherwise, it gives a message that the "contingency" could not be recast.
+The 1 second delay is needed to not give "contingency could not be recast" message.
 */
 
 
@@ -158,6 +162,13 @@ COPY ~%abilities%/spellfailed.SPL~  ~override/%s1%t.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@350) END    // "Unaffected by..."
   LPF d2_protect_on_castequip INT_VAR duration=180 END
+
+
+//Remove effects
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%s1%x.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%e~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%t~ END
 
 
 //Make clab table
@@ -232,6 +243,7 @@ OUTER_TEXT_SPRINT gravewarden1  ~%p1%~
 OUTER_TEXT_SPRINT gravewarden2  ~%p2%~
 OUTER_TEXT_SPRINT gravewarden3  ~%p3%~
 OUTER_TEXT_SPRINT wardennofear  ~%e4%~     // iconpatch.tph
+OUTER_TEXT_SPRINT wardennoblind ~%e5%~     // crosskiteffects.tph
 OUTER_TEXT_SPRINT denialheal    ~%s1%a~    // iwdspellpatch.tph
 
 //fnp

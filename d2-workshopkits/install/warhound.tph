@@ -19,8 +19,8 @@ COPY ~%abilities%/shockwave.SPL~  ~override/%s1%.SPL~
   LPF ALTER_EFFECT INT_VAR match_duration=12 duration=15 END
 
 COPY ~%abilities%/hiteffectranged.SPL~  ~override/%s1%a.SPL~
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%b~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%c~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%b~ END    // explosion
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%c~ END    // main target knockback
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_duration=12 duration=15 END
 
@@ -40,6 +40,7 @@ COPY ~%abilities%/shockwaveblast.SPL~   ~override/%s1%b.SPL~
   LPF DELETE_EFFECT INT_VAR multi_match=1 match_opcode=235 END                     // delete old effects
   LPF DELETE_EFFECT INT_VAR multi_match=1 match_opcode=45 END
   LPF CLONE_EFFECT INT_VAR match_opcode=45 opcode=165 STR_VAR insert=last END      // add "pause" effect (same duration as knockback)
+  LPF ALTER_EFFECT INT_VAR match_opcode=45 opcode=39 parameter2=1 duration=45 special=130 END    // change stun to sleep
 //  LPF d2_safe_spell INT_VAR source=1 END    // immune to own explosions
 
 /*no effect on huge creatures (not added)
@@ -51,6 +52,7 @@ COPY ~%abilities%/castspelltarget.EFF~  ~override/%s1%c.EFF~
   WRITE_ASCII 0x30 ~%s1%c~ #8
 COPY ~%abilities%/shockwavepush.SPL~    ~override/%s1%c.SPL~
   LPF ALTER_EFFECT INT_VAR duration=25 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=45 opcode=39 parameter2=1 duration=45 special=130 END    // change stun to sleep
 
 /*no effect on huge creatures (not added)
   LPF d2_safe_spell INT_VAR block_opcode=235 END

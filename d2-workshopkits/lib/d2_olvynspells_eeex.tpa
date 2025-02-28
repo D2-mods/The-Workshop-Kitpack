@@ -1,0 +1,104 @@
+/*
+OlvynSpells EEex effects
+*/
+
+
+/*function list
+olvynspells_metamagic    PATCH    // runs the 4 below (see INT_VAR's)
+olvynspells_exmetalv     PATCH    // 3e metamagic
+olvynspells_mesafesp     PATCH    // safe spell (3e metamagic)
+olvynspells_meprtslv     PATCH    // part of "new spells" (not sure which spell)
+olvynspells_menecrop     PATCH    // only works right for sorcerers (use for kit-specific spells)
+*/
+
+
+//necropot should only be enabled for sorcerer-only spells (restores spell after cast)
+//it uses parameter2 from existing spell (for sorc, only spell level matters)
+
+DEFINE_PATCH_FUNCTION olvynspells_metamagic INT_VAR metamagic=1 newspells=1 necropot=0 BEGIN
+  READ_LONG 0x34 spl_level
+
+  PATCH_IF (newspells > 0) BEGIN
+    LPF olvynspells_meprtslv INT_VAR spl_level=spl_level END
+  END
+
+  PATCH_IF (necropot > 0) BEGIN
+    LPF olvynspells_menecrop INT_VAR spl_level=spl_level END
+  END
+
+  PATCH_IF (metamagic > 0) BEGIN
+    LPF olvynspells_exmetalv END
+    LPF olvynspells_mesafesp END
+  END
+END
+
+
+//3e metamagic
+//use for all arcane and divine spells
+DEFINE_PATCH_FUNCTION olvynspells_exmetalv BEGIN
+  LPF DELETE_EFFECT INT_VAR match_opcode=402 STR_VAR match_resource=EXMETALV END
+
+  PATCH_IF (RESOURCE_CONTAINS ~M__MEFUN.LUA~ ~EXMETALV~) BEGIN
+    LPF ADD_SPELL_CFEFFECT INT_VAR opcode=402 target=1 STR_VAR resource=EXMETALV END
+  END
+END
+
+//safe spell (part of 3e metamagic)
+//OlvynSpells uses this for area damage and some area statuses
+DEFINE_PATCH_FUNCTION olvynspells_mesafesp INT_VAR match_opcode=12 BEGIN
+  LPF DELETE_EFFECT INT_VAR match_opcode=402 STR_VAR match_resource=MESAFESP END
+
+  PATCH_IF (RESOURCE_CONTAINS ~M__MEFUN.LUA~ ~MESAFESP~) BEGIN
+    LPF CLONE_EFFECT
+      INT_VAR check_globals=0 silent=1 multi_match=1 match_opcode=match_opcode
+              opcode=402 target=2 parameter1=0 parameter2=0 timing=0 duration=0 resist_dispel=0
+              probability1=100 probability2=0 dicenumber=0 dicesize=0 savingthrow=0 savebonus=0 special=0
+      STR_VAR resource=MESAFESP insert=first
+    END
+  END
+END
+
+//part of new spells component (not sure which one)
+//seems to include area damage/status, but not all (NI scan shows less than safe spell)
+DEFINE_PATCH_FUNCTION olvynspells_meprtslv INT_VAR match_opcode=12 spl_level=~-1~ BEGIN
+  LPF DELETE_EFFECT INT_VAR match_opcode=402 STR_VAR match_resource=MEPRTSLV END
+
+  PATCH_IF (RESOURCE_CONTAINS ~M__MEFUN.LUA~ ~MEPRTSLV~) BEGIN
+    PATCH_IF (spl_level < 0) BEGIN READ_LONG 0x34 spl_level END
+
+    LPF CLONE_EFFECT
+      INT_VAR check_globals=0 silent=1 multi_match=1 match_opcode=match_opcode
+              opcode=402 target=2 parameter1=0 parameter2=spl_level timing=0 duration=0 resist_dispel=0
+              probability1=100 probability2=0 dicenumber=0 dicesize=0 savingthrow=1048576 savebonus=0 special=4742
+      STR_VAR resource=MEPRTSLV insert=first
+    END
+  END
+END
+
+//for Necropotence (level 9 spell)
+//only works right for sorcerers (use for kit-specific spells)
+DEFINE_PATCH_FUNCTION olvynspells_menecrop INT_VAR spl_level=~-1~ BEGIN
+  LPF DELETE_EFFECT INT_VAR match_opcode=402 STR_VAR match_resource=MENECROP END
+
+  PATCH_IF (RESOURCE_CONTAINS ~M__MEFUN.LUA~ ~MENECROP~) BEGIN
+    SET param1 = 1230458963
+    SET param2 = 0
+    PATCH_IF (spl_level < 0) BEGIN READ_LONG 0x34 spl_level END
+    PATCH_IF (spl_level = 1) BEGIN SET param2 = 3289393 END    // param2 taken from base game spells
+    PATCH_IF (spl_level = 2) BEGIN SET param2 = 3223602 END
+    PATCH_IF (spl_level = 3) BEGIN SET param2 = 3485747 END
+    PATCH_IF (spl_level = 4) BEGIN SET param2 = 3420468 END
+    PATCH_IF (spl_level = 5) BEGIN SET param2 = 3289141 END
+    PATCH_IF (spl_level = 6) BEGIN SET param2 = 3486006 END
+    PATCH_IF (spl_level = 7) BEGIN SET param2 = 3289399 END
+    PATCH_IF (spl_level = 8) BEGIN SET param2 = 3158328 END
+    PATCH_IF (spl_level = 9) BEGIN SET param2 = 3616825 END
+    PATCH_IF (param2 > 0) BEGIN
+      LPF ADD_SPELL_CFEFFECT INT_VAR opcode=402 target=1 parameter1=param1 parameter2=param2 STR_VAR resource=MENECROP END
+    END
+  END
+END
+
+
+/*
+*/

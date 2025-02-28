@@ -111,7 +111,7 @@ General guidelines:
 - Install after class revisions, except for Talents of Faerun. If a revision says to install after all kit mods, you can try it both ways. (See ToF notes below)
 - Install after new spells or revised spells. (except possibly OlvynSpells, see below)
 - Install after new weapons or armor.
-- Proficiency overhauls: Can install before or after (except the ToF one). Recommended order is to install this mod before overhauls, then run the Kit Updater after.
+- Proficiency overhauls: Can install before or after (except the ToF one). Recommended order is to install this mod before most overhauls, then run the Kit Updater after.
 - HLA changes/tweaks: Can install before or after (except the ToF one). All HLA table edits are done from both the main component and the updater. You can re-run the updater at any time to rebuild all HLA tables.
 
 NOTE: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. Technically, this mod is safe to install even after most tweak mods, but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
@@ -148,11 +148,14 @@ Kit Updater: This is REQUIRED for full compat with ToF. Rebuilds all feats/HLA l
 
 --
 
-OlvynSpells notes:
-- Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
-- Paladin/Ranger components can be installed before or after.
+OlvynSpells notes (tested with v2.6.0):
+- Spell tweaks can be installed before or after this mod. Some overwrite files, so I'd install them before.
+- Paladin/Ranger components can be installed before or after. Note that caster level tweak needs to be after most other kit mods.
 - New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds spells directly to the kit tables for some classes).
-- Untested with 3e metamagic component. Install it after this mod (it adds an EEex effect to each spell).
+- 3e metamagic can be installed before or after (starting with v5.17). Confirmed working with kit-specific arcane/divine spells. ("Spell Level Increase" +2 means using it on a level 2 spell expends one level 4 spell instead).
+- Starjammer spells are also compatible with the Necropotence level 9 spell, with or without the spell.ids config option. If installed before OlvynSpells, run the Kit Updater to check EEex effects.
+
+NOTE: With the current versions of both mods, basically everything works fine installed before or after. If you want to be 100% safe, then install new spells after this mod, since future updates could potentially add new EEex effects.
 
 --
 
@@ -165,6 +168,7 @@ ToF feats/HLAs:
 - Many kits will have 1 or more additional options. (ex. all archers can take any ranged feat/HLA, Medic can take poison upgrades, Grave Warden can take Use Scrolls/Wands, etc.)
 - Some kits have options removed. (ex. Drifter can't take any spell-related feats, but has more combat feats/HLAs than other rangers)
 - All arcane kits from this mod will gain one of the "Arcane Knowledge" feats for free. These are required for selecting HLA spells. The feat is denoted at level 1, but effects aren't given until level 18 mage.
+- Note: The Kit Updater patches the m_dw_hld.lua file, and backs up an unmodified version in "weidu_external\d2wk" folder. It shouldn't normally be necessary to restore the backup, but just in case, the updater has an option to do so.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -195,6 +199,21 @@ Notes:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v5.17
+- War Magician: Unleash Magic and Twisted Barricade are now used as free actions. This means you can cast another spell without waiting a round. (notes: These will still trigger wild magic zones. They can be used while paused but effects aren't given until game is unpaused.)
+- Nurse: N-Alchemy is now used as a free action. Same as above except it doesn't trigger wild magic. The actual nurse abilities are cast normally.
+- Fixed Kit Updater patching wrong Starjammer spell resources if the spell.ids config option was used during the initial mod install.
+- Blood Minister: Fixed usability if installed before Faiths & Powers. Run the Kit Updater to fix. (note: It's still recommended to install after FnP, except the multiclasses).
+- Fixed Nurse N-Alchemy abilities not being removed on death/revival or export/import. Previously, if you died or exported while abilities were still active, they were learned permanently until the next time you used N-Alchemy.
+- Fixed a display issue with N-Alchemy and Bubb's Menu Overlay mode (affected single class Nurse). After a full Rest, if you still had 2-3 Alchemy Points, abilities weren't properly removed from the Overlay (you had to change screens or click another character to fix it).
+- Powder Keg: Fixed visual glitch with Dust Explosion where the character would briefly have full visual range after moving.
+- Crow Hunter: This is just a technical change. The "haste" from Visceral Attack now gives +1 APR and movement bonus, instead of using the normal haste effect (similar to Offensive Spin). Magical haste (i.e. from Moonlight Knight or Hunter Bone) still uses the haste opcode.
+- OlvynSpells (v2.6.0) notes: Improved compat with 3e metamagic component and EEex effects from new spells component. This mod can be installed before or after any components of OlvynSpells. If installed before new spells or 3e metamagic, run the Kit Updater after to check EEex effects.
+- Fixed possible installer error with Drifter kit (mod compat related).
+- These abilities now do 1 second hit stun: Booming Song, Visceral Attack, Steady Current, Electrocannon, Moonlight Vortex, Dragonrot, and Ether Explosion. This is not mentioned in the descriptions.
+- Powder Keg: Improved effects structure for learning song from Etherbomb Songbook. No longer uses a kit-targeted effect. Instead, the mod adds a song book unlocker (d2usb.spl). If gained by a kit, using songbooks from this mod will change the current bard song. (Etherbomb Songbook is the only one currently, but there will possibly be 1-2 more)
+- Improved effects structure for Flynn's Ring buff. Repeating armor check is now unaffected by slow/haste (still checked every 3 seconds). Buff is also now removed within 1 second if ring is unequipped.
 
 v5.16
 - ToF notes: All cleric single/multiclass kits now have correct HLA lists based on spheres. Nurse can take any potion ability. Forgot to give Spell Fencer an Arcane Knowledge feat. (note: Triple class HLAs might be buggy, this is a ToF issue.)

@@ -149,10 +149,11 @@ COPY ~%abilities%/powderkegboom.BAM~ ~override/%s2%e.BAM~    // edit color?
 
 COPY ~%abilities%/powderkegboom.SPL~       ~override/%s2%e.SPL~
   SAY NAME1 @608
-  LPF d2_safe_spell END
+  WRITE_SHORT 0x98 ~%s2%e~    // projectile
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%b~ END
-  WRITE_SHORT 0x98 ~%s2%e~    // projectile
+  LPF d2_addhitstun INT_VAR match_opcode=12 END
+  LPF d2_safe_spell END
 
 COPY ~%abilities%/powderkegboomd.SPL~      ~override/%s2%a.SPL~    // deafness 2 rounds
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=139 parameter1=deafness STR_VAR insert=last END
@@ -177,7 +178,7 @@ COPY ~%abilities%/powderkegcast.SPL~     ~override/%s3%s.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%f~ END    // fake projectile
 //  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%f~ END    // fake projectile
 //  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%f~ END    // fake projectile
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 STR_VAR resource=~%s3%d~ END    // fireball
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 parameter2=0 STR_VAR resource=~%s3%d~ END    // fireball
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s3%y~ END
 
@@ -199,6 +200,8 @@ COPY ~%abilities%/powderkegdust.SPL~     ~override/%s3%f.SPL~    // fake project
   WRITE_SHORT 0x98 ~%s3%e~    // projectile
 
 COPY ~%abilities%/powderkegdusta.SPL~    ~override/%s3%a.SPL~    // blindness
+  LPF CLONE_EFFECT INT_VAR match_opcode=74 opcode=262 parameter1=3 parameter2=1 END
+//  LPF ALTER_EFFECT INT_VAR match_opcode=74 probability2=100 END
 COPY ~%abilities%/powderkegdustb.SPL~    ~override/%s3%b.SPL~    // blur/invisible
   LPF ALTER_EFFECT INT_VAR duration=15 END
 COPY ~%abilities%/powderkegdustc.SPL~    ~override/%s3%c.SPL~    // move penalty
@@ -272,6 +275,7 @@ COPY ~inlined/d2clab_bard_nosongs~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR level=5 STR_VAR resource=~%s2%~ END
   LPF d2_kit_ability_adder INT_VAR level=10 STR_VAR resource=~%s3%~ END
   LPF d2_kit_ability_adder INT_VAR level=15 STR_VAR resource=~%s4%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=d2usb END    // unlock song books
   LPF d2_kit_ability_adder END
 
 

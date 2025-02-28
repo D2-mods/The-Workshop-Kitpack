@@ -183,6 +183,7 @@ COPY ~%abilities%/applyeffects.SPL~      ~override/%s1%s.SPL~    // cast damage 
 COPY ~%abilities%/moonlightspell.SPL~   ~override/%s1%a.SPL~    // damage
   LPF ALTER_EFFECT INT_VAR resist_dispel=2 dicenumber=8 dicesize=6 END
   LPF d2_safe_spell END
+  LPF d2_addhitstun INT_VAR match_opcode=12 END
 COPY ~%abilities%/moonlighttarget.SPL~  ~override/%s1%b.SPL~    // damage (targeted)
   LPF ALTER_EFFECT STR_VAR resource=~%s1%b~ END
 COPY ~%abilities%/applyeffects.EFF~     ~override/%s1%b.EFF~    // apply effects (ignores resist)

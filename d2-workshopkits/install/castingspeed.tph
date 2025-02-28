@@ -13,8 +13,11 @@ ACTION_FOR_EACH ability IN
     ~%bloodletter%~
     ~%force%~
     ~%unleashmagic%~
+    ~%unleashmagicbuff%~
     ~%twistedbarricade%~
+    ~%twistedbarricadebuff%~
     ~%interference%~
+    ~%interference2%~
     ~%bloodtransfusion%~
     ~%healingblood%~
     ~%beastblood%~
@@ -48,6 +51,7 @@ ACTION_FOR_EACH ability IN
     ~%overdose%~
     ~%autoimmune%~
     ~%n_alchemy%~
+    ~%n_alchemy2%~
     ~%medicarts%~
     ~%healingrain%~
     ~%dragonrot%~

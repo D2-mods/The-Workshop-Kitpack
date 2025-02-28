@@ -539,7 +539,7 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 - Install after class revisions, except for Talents of Faerun. If a revision says to install after all kit mods, you can try it both ways. (See ToF notes below)
 - Install after new spells or revised spells. (except possibly OlvynSpells, see below)
 - Install after new weapons or armor.
-- Proficiency overhauls: Can install before or after (except the ToF one). Recommended order is to install this mod before overhauls, then run the Kit Updater after.
+- Proficiency overhauls: Can install before or after (except the ToF one). Recommended order is to install this mod before most overhauls, then run the Kit Updater after.
 - HLA changes/tweaks: Can install before or after (except the ToF one). All HLA table edits are done from both the main component and the updater. You can re-run the updater at any time to rebuild all HLA tables.
 
 NOTE: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. Technically, this mod is safe to install even after most tweak mods, but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
@@ -576,11 +576,14 @@ Kit Updater: **This is REQUIRED for full compat with ToF.** Rebuilds all feats/H
 
 --
 
-**OlvynSpells notes:**
-- Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
-- Paladin/Ranger components can be installed before or after.
+**OlvynSpells notes (tested with v2.6.0):**
+- Spell tweaks can be installed before or after this mod. Some overwrite files, so I'd install them before.
+- Paladin/Ranger components can be installed before or after. Note that caster level tweak needs to be after most other kit mods.
 - New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds spells directly to the kit tables for some classes).
-- Untested with 3e metamagic component. Install it after this mod (it adds an EEex effect to each spell).
+- 3e metamagic can be installed before or after (starting with v5.17). Confirmed working with kit-specific arcane/divine spells. ("Spell Level Increase" +2 means using it on a level 2 spell expends one level 4 spell instead).
+- Starjammer spells are also compatible with the Necropotence level 9 spell, with or without the spell.ids config option. If installed before OlvynSpells, run the Kit Updater to check EEex effects.
+
+NOTE: With the current versions of both mods, basically everything works fine installed before or after. If you want to be 100% safe, then install new spells after this mod, since future updates could potentially add new EEex effects.
 
 --
 
@@ -593,6 +596,7 @@ Kit Updater: **This is REQUIRED for full compat with ToF.** Rebuilds all feats/H
 - Many kits will have 1 or more additional options. (ex. all archers can take any ranged feat/HLA, Medic can take poison upgrades, Grave Warden can take Use Scrolls/Wands, etc.)
 - Some kits have options removed. (ex. Drifter can't take any spell-related feats, but has more combat feats/HLAs than other rangers)
 - All arcane kits from this mod will gain one of the "Arcane Knowledge" feats for free. These are required for selecting HLA spells. The feat is denoted at level 1, but effects aren't given until level 18 mage.
+- Note: The Kit Updater patches the m_dw_hld.lua file, and backs up an unmodified version in "weidu_external\d2wk" folder. It shouldn't normally be necessary to restore the backup, but just in case, the updater has an option to do so.
 
 #
 ### FnP additional info:
@@ -644,7 +648,7 @@ Additional Info (Kit Abilities):
 
 **Removes Grease/Web/Entangle status (on cast or explosion):**
 - Hunter Tools (Beast Hunter)
-- Whirlwind (War Magican)
+- Twisted Barricade (War Magican)
 - Shockwave (Warhound)  
 - Incinerate (Warhound)  
 - Blasting Song (Powder Keg)

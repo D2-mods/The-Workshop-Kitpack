@@ -14,7 +14,7 @@ ACTION_FOR_EACH ability IN
 BEGIN
   COPY_EXISTING ~%ability%.SPL~  ~override~
     LPF ALTER_SPELL_HEADER INT_VAR target=7 END
-    LPF ADD_SPELL_EFFECT INT_VAR opcode=146 target=1 STR_VAR resource=d2spell END    // force cast animation (stops singing)
+    LPF ADD_SPELL_EFFECT INT_VAR opcode=146 target=1 STR_VAR resource=d2spell END    // force cast animation (stops bard song)
   IF_EXISTS BUT_ONLY
 END
 

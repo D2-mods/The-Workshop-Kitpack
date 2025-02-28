@@ -3,51 +3,93 @@
 
 //Add passive effects
 COPY ~%passives%/resistup5elements.SPL~  ~override/%e1%.SPL~    // 5% resists
-COPY ~%passives%/resistup5elements.SPL~  ~override/%e2%.SPL~    // 10% resists
+COPY ~%passives%/resistup5elements.SPL~  ~override/%e2%.SPL~    // 10% resist + unlock abilities
   LPF ALTER_EFFECT INT_VAR parameter1=10 END
+  LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%s1%x~ END
+  LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%s2%x~ END
 
 
 //Add Unleash Magic
 COPY ~%icons%/unleashmagic.BAM~      ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@109) STR_VAR bam=~%s1%i~ RET icon END
 
-COPY ~%abilities%/unleashwhorl.VVC~  ~override/%s1%.VVC~
-  WRITE_ASCII 0x8 ~%s1%~ #8
-COPY ~%abilities%/unleashwhorl.BAM~  ~override/%s1%.BAM~
-
-COPY ~%abilities%/unleashmagic.SPL~  ~override/%s1%.SPL~
+COPY ~%abilities%/applyeffects.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @109
   SAY UNIDENTIFIED_DESC @209
+  WRITE_ASCII 0x3a SPCL811B #8
+  LPF ALTER_SPELL_HEADER INT_VAR target=7 STR_VAR icon=SPCL811B END    // cast as free action
+  LPF ALTER_EFFECT INT_VAR opcode=146 STR_VAR resource=~%s1%a~ END
+
+COPY ~%abilities%/unleashwhorl.VVC~  ~override/%s1%a.VVC~
+  WRITE_ASCII 0x8 ~%s1%a~ #8
+COPY ~%abilities%/unleashwhorl.BAM~  ~override/%s1%a.BAM~
+
+COPY ~%abilities%/unleashmagic.SPL~  ~override/%s1%a.SPL~
+//  SAY NAME1 @109
+//  SAY UNIDENTIFIED_DESC @209
+  LPF DELETE_EFFECT INT_VAR match_opcode=188 END
+
   LPF ALTER_EFFECT INT_VAR match_opcode=321 opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=332 duration=26 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s1%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s1%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
   LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=191 parameter1=2 parameter2=0 END    // v4.6: +2 caster level
-  LPF ALTER_EFFECT INT_VAR resist_dispel=2 END    // not dispellable
+  LPF ALTER_EFFECT INT_VAR target=2 resist_dispel=2 END    // not dispellable
+
+  // block effects
+//  LPF ADD_SPELL_CFEFFECT INT_VAR opcode=326 target=2 STR_VAR resource=~%s1%x~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%s1%x~ END
+
+//block effects (block this from kit table)
+COPY ~%abilities%/opcode318.SPL~  ~override/%s1%x.SPL~
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=0 END    // 0 = applies before main spell
+  LPF ALTER_EFFECT STR_VAR resource=~%s1%a~ END
+  SPRINT ability_name @109
+  LPF CLONE_EFFECT INT_VAR opcode=139 parameter1=RESOLVE_STR_REF (@350) END
 
 
 //Add Twisted Barricade
 COPY ~%icons%/twistedbarricade.BAM~      ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@110) STR_VAR bam=~%s2%i~ RET icon END
 
-COPY ~%abilities%/twistedbarricade.VVC~  ~override/%s2%.VVC~
-  WRITE_ASCII 0x80 ~EFF_P105~ #8
-
-COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%.SPL~
+COPY ~%abilities%/applyeffects.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @110
   SAY UNIDENTIFIED_DESC @210
+  WRITE_ASCII 0x3a SPCL901B #8
+  LPF ALTER_SPELL_HEADER INT_VAR target=7 STR_VAR icon=SPCL901B END    // cast as free action
+  LPF ALTER_EFFECT INT_VAR opcode=146 STR_VAR resource=~%s2%a~ END
+
+COPY ~%abilities%/twistedbarricade.VVC~  ~override/%s2%a.VVC~
+  WRITE_ASCII 0x80 ~EFF_P105~ #8
+
+COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%a.SPL~
+//  SAY NAME1 @110
+//  SAY UNIDENTIFIED_DESC @210
+  LPF DELETE_EFFECT INT_VAR match_opcode=188 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=272 END
+
   LPF ALTER_EFFECT INT_VAR match_opcode=321 opcode=326 STR_VAR resource=~%s0%x~ END
-//  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter2=5 END                          // movement (set mode 5)
-  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s2%~ END               // visual
-  LPF DELETE_EFFECT INT_VAR match_opcode=272 END                                      // delete old visual
+//  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter2=5 END                        // movement (set mode 5)
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s2%a~ END              // visual
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%b~ insert=below END    // block normal missiles
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
-  LPF ALTER_EFFECT INT_VAR resist_dispel=2 END                                        // not dispellable
+  LPF ALTER_EFFECT INT_VAR target=2 resist_dispel=2 END    // not dispellable
 
   // spell deflection (level 10+)
   LPF CLONE_EFFECT INT_VAR header=2 multi_match=1 STR_VAR resource=~%s2%c~ insert=below END
   LPF CLONE_EFFECT INT_VAR header=3 multi_match=1 STR_VAR resource=~%s2%c~ insert=below END
   LPF CLONE_EFFECT INT_VAR header=4 multi_match=1 STR_VAR resource=~%s2%c~ insert=below END
+
+  // block effects
+//  LPF ADD_SPELL_CFEFFECT INT_VAR opcode=326 target=2 STR_VAR resource=~%s2%x~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%s2%x~ END
+
+//block effects (block this from kit table)
+COPY ~%abilities%/opcode318.SPL~  ~override/%s2%x.SPL~
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=0 END    // 0 = applies before main spell
+  LPF ALTER_EFFECT STR_VAR resource=~%s2%a~ END
+  SPRINT ability_name @110
+  LPF CLONE_EFFECT INT_VAR opcode=139 parameter1=RESOLVE_STR_REF (@350) END
 
 
 //subspell - protection from normal missiles
@@ -58,8 +100,7 @@ COPY_EXISTING ~SPWI311.SPL~  ~override/%s2%b.SPL~
   LPF d2_subspell_remove_visuals INT_VAR icon=0 END
   LPF DELETE_EFFECT INT_VAR match_opcode=156 END             // remove missile overlay
   LPF ALTER_EFFECT INT_VAR match_timing=0 duration=24 END    // 4 rounds
-  LPF ALTER_EFFECT INT_VAR resist_dispel=2 END               // not dispellable
-
+  LPF ALTER_EFFECT INT_VAR target=2 resist_dispel=2 END      // not dispellable
 
 //subspell - spell deflection
 COPY_EXISTING ~SPPR701.SPL~  ~override/%s2%c.SPL~
@@ -69,7 +110,7 @@ COPY_EXISTING ~SPPR701.SPL~  ~override/%s2%c.SPL~
   LPF d2_subspell_remove_visuals END
   LPF DELETE_EFFECT INT_VAR match_opcode=233 END             // remove prof change
   LPF ALTER_EFFECT INT_VAR match_timing=0 duration=24 END    // 4 rounds
-  LPF ALTER_EFFECT INT_VAR resist_dispel=2 END               // not dispellable
+  LPF ALTER_EFFECT INT_VAR target=2 resist_dispel=2 END      // not dispellable
 
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=201 parameter1=1000 STR_VAR resource=None END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=201 opcode=291 duration=25 parameter2=1 END
@@ -87,8 +128,8 @@ COPY_EXISTING ~SPPR701.SPL~  ~override/%s2%c.SPL~
 
 //Remove effects
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%b~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%c~ END
 
@@ -135,9 +176,11 @@ LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT warmagician       ~%kitid%~
-OUTER_TEXT_SPRINT unleashmagic      ~%s1%~
-OUTER_TEXT_SPRINT twistedbarricade  ~%s2%~
+OUTER_TEXT_SPRINT warmagician           ~%kitid%~
+OUTER_TEXT_SPRINT unleashmagic          ~%s1%~
+OUTER_TEXT_SPRINT unleashmagicbuff      ~%s1%a~
+OUTER_TEXT_SPRINT twistedbarricade      ~%s2%~
+OUTER_TEXT_SPRINT twistedbarricadebuff  ~%s2%a~
 
 
 /*

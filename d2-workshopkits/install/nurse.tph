@@ -5,6 +5,12 @@
 COPY ~%passives%/hitdamage1ranged.SPL~  ~override/%e1%.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=286 END
 
+COPY ~%abilities%/applyeffects.SPL~  ~override/%e2%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%s9%0~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%x~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%x~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%x~ END
+
 
 //spell icons
 COPY ~%icons%/medicaldarts.BAM~   ~override/%s1%.BAM~
@@ -32,27 +38,50 @@ END
 
 //
 //add N-Alchemy (main spell)
-COPY ~%abilities%/nursetools.VVC~  ~override/%s9%.VVC~    // edit of #GRNRING.VVC
-COPY ~%abilities%/nursetools.SPL~  ~override/%s9%.SPL~
+COPY ~%abilities%/applyeffects.SPL~  ~override/%s9%.SPL~
   SAY NAME1 @132
   SAY UNIDENTIFIED_DESC @232
+  WRITE_ASCII 0x3a ~%s9%~ #8
+  LPF ALTER_SPELL_HEADER INT_VAR target=7 STR_VAR icon=~%s9%~ END    // cast as free action
+  LPF ALTER_EFFECT INT_VAR opcode=146 STR_VAR resource=~%s9%a~ END
+
+COPY ~%abilities%/nursetools.VVC~  ~override/%s9%a.VVC~    // edit of #GRNRING.VVC
+COPY ~%abilities%/nursetools.SPL~  ~override/%s9%a.SPL~
+//  SAY NAME1 @132
+//  SAY UNIDENTIFIED_DESC @232
   WRITE_ASCII 0x3a ~%s9%~ #8
   WRITE_ASCII 0x76 ~%s9%~ #8
   LPF ALTER_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%s~ END    // main subspell
   LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%u~ END    // remove 1,2,3 immunities
   LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%v~ END    // unlock main subspell
-  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s9%~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=301 STR_VAR resource=~%s9%x~ insert=last END    // delayed effect
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s9%a~ END
+//  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=301 STR_VAR resource=~%s9%x~ insert=last END
   LPF d2_remove_effects_on_cast END
 
+  // remove after duration or death
+  LPF d2_protect_on_castequip INT_VAR duration=300 STR_VAR resource=~%s9%y~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=272 target=1 parameter1=1 parameter2=0 timing=9 STR_VAR resource=~%s9%y~ END
+
+//remove subspell effects
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s9%u.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%1~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%2~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%3~ END
 
+//unlock subspells (1 hour)
 COPY ~%abilities%/opcode318.SPL~  ~override/%s9%v.SPL~
-  LPF ALTER_EFFECT INT_VAR duration=300 STR_VAR resource=~%s9%z~ END    // enable main subspell (1 hour)
+  LPF ALTER_EFFECT INT_VAR duration=300 STR_VAR resource=~%s9%z~ END
   LPF d2_remove_effects_on_cast END
+
+//remove after duration or death
+COPY ~%abilities%/applyeffects.EFF~  ~override/%s9%y.EFF~
+  WRITE_ASCII 0x30 ~%s9%y~ #8
+COPY ~%abilities%/applyeffects.SPL~  ~override/%s9%y.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%s9%0~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%x~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%x~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%x~ END
+
 
 //
 //main subspell
@@ -84,7 +113,7 @@ COPY ~%abilities%/opcode318.SPL~  ~override/%s9%z.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 duration=5 STR_VAR resource=~%s9%x~ END
 
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s9%0.SPL~
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s9%a~ END
   LPF ALTER_SPELL_HEADER INT_VAR projectile=1 END
 
 
@@ -113,8 +142,11 @@ OUTER_FOR (amount = 1; amount <= 3; ++amount) BEGIN
       LPF give_nursetools END
     END
 
+/*
     // aura cleansing (2 seconds)
     LPF CLONE_EFFECT INT_VAR match_opcode=318 match_timing=1 opcode=188 parameter2=1 timing=0 duration=2 END
+*/
+
 END
 
 
@@ -237,8 +269,8 @@ COPY ~%abilities%/injectionshotb.SPL~   ~override/%s2%b.SPL~
 COPY ~%abilities%/castspellself.EFF~  ~override/%s0%x.EFF~
   WRITE_ASCII 0x30 ~%s0%x~ #8
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
-  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s2%~ END
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=112 STR_VAR resource=~%s1%e~ END
 
 
@@ -371,6 +403,7 @@ COPY_EXISTING ~SPCL521.SPL~  ~override/%s4%.SPL~    // clone offensive spin (blo
   LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=277 parameter1=27 END
   LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=59  parameter1=27 END
   LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=326 timing=1 duration=0 STR_VAR resource=~%s4%a~ END    // immunities
+  LPF d2_mindamageboost INT_VAR amount=1 duration=30 END
 
   LPF CD_EXTEND-O-MATIC INT_VAR dur_special=1 step_dur=0 level_cap=spellcap min_lev_alt=9 END    // extend to spellcap
 
@@ -513,9 +546,9 @@ END
 COPY ~inlined/d2clab_thief~  ~override/%kitid%.2DA~
   LPF d2clab_artisancheck STR_VAR type=archer END
   LPF d2_kit_ability_adder INT_VAR level=3 passive=1 multi=1 increment=3 STR_VAR resource=~%e1%~ END
-//  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
   LPF d2_kit_ability_adder INT_VAR level=6 multi=1 increment=6 STR_VAR resource=~%s9%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%s9%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder END
 
   // unlock abilities
@@ -590,6 +623,7 @@ OUTER_TEXT_SPRINT firstaid       ~%s3%~
 OUTER_TEXT_SPRINT overdose       ~%s4%~
 OUTER_TEXT_SPRINT autoimmune     ~%s5%~
 OUTER_TEXT_SPRINT n_alchemy      ~%s9%~
+OUTER_TEXT_SPRINT n_alchemy2     ~%s9%a~
 
 
 /*

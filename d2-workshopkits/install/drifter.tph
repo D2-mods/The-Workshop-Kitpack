@@ -114,15 +114,17 @@ ACTION_IF (GAME_IS ~iwdee~)      BEGIN OUTER_TEXT_SPRINT ee_game ~iwdee~ END
 ACTION_BASH_FOR ~override~ ~.*\.SPL~ BEGIN
   ACTION_IF !(FILE_IS_IN_COMPRESSED_BIFF ~%BASH_FOR_FILE%~) BEGIN    // only check mod resource
     COPY - ~override/%BASH_FOR_FILE%~  ~~
-      READ_LONG 0x8 stringref
+      PATCH_IF (SOURCE_SIZE > 0x99) BEGIN    // skip if no headers
+        READ_LONG 0x8 stringref
 
-      PHP_EACH ~drifter_%ee_game%_strings~ AS string => style BEGIN    
-        PATCH_IF (string = stringref) BEGIN
-          PATCH_IF (~%style%~ STR_EQ ~ground~) BEGIN
-            TEXT_SPRINT $d2riftgate(~%BASH_FOR_RES%~) ~ground~    // ~%BASH_FOR_RES%~ => ground
-          END
-          PATCH_IF (~%style%~ STR_EQ ~cloud~) BEGIN
-            TEXT_SPRINT $d2riftgate(~%BASH_FOR_RES%~) ~cloud~    // ~%BASH_FOR_RES%~ => cloud
+        PHP_EACH ~drifter_%ee_game%_strings~ AS string => style BEGIN    
+          PATCH_IF (string = stringref) BEGIN
+            PATCH_IF (~%style%~ STR_EQ ~ground~) BEGIN
+              TEXT_SPRINT $d2riftgate(~%BASH_FOR_RES%~) ~ground~    // ~%BASH_FOR_RES%~ => ground
+            END
+            PATCH_IF (~%style%~ STR_EQ ~cloud~) BEGIN
+              TEXT_SPRINT $d2riftgate(~%BASH_FOR_RES%~) ~cloud~    // ~%BASH_FOR_RES%~ => cloud
+            END
           END
         END
       END

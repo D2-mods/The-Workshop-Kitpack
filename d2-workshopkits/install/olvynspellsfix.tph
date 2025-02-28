@@ -1,8 +1,10 @@
 /*
-Removes blank spell from kits if installed before OlvynSpells.
-This file does nothing if installed after OlvynSpells (no fix needed).
+adds possible missing effects for OlvynSpells v2.5
+not needed for OlvynSpells v2.6+ (skipped silently)
 */
 
+
+ACTION_IF (RESOURCE_CONTAINS ~CLABPA01.2DA~ ~AP_MENO49~) BEGIN
 
 ACTION_FOR_EACH kit_table IN
   ~%bloodminister%~
@@ -21,3 +23,9 @@ BEGIN
   END
 
 END
+
+END
+
+
+//
+//

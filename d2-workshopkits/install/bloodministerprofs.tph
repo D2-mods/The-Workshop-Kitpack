@@ -72,4 +72,11 @@ END
 
 
 //
+//FnP fix (if installed after this mod)
+ACTION_IF (RESOURCE_CONTAINS ~%kitid%.2da~  ~D5_USABLE~) BEGIN
+  LAF 2da_find_row_delete STR_VAR 2da=~%kitid%~ row_name=D5_USABLE END
+END
+
+
+//
 //

@@ -58,17 +58,25 @@ OUTER_TEXT_SPRINT psionicblast ~SPIN974~
 OUTER_TEXT_SPRINT psionicscs   ~dw-sspb~
 
 
+//unlock song books (i.e. Ether Explosion)
+ACTION_IF !(FILE_EXISTS_IN_GAME ~d2usb.spl~) BEGIN
+  COPY ~%abilities%/applyeffects.SPL~  ~override/d2usb.spl~
+    LPF ALTER_EFFECT STR_VAR resource=d2spell END    // placeholder
+END
+
+
 
 //
 //Kit variables
 
 //War Magician (d2wk7)
-ACTION_IF (FILE_EXISTS ~override/d2wk7s1.SPL~) BEGIN
-  OUTER_TEXT_SPRINT unleashmagic  ~d2wk7s1~
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2warmagician~) BEGIN
+  OUTER_TEXT_SPRINT unleashmagic      ~d2wk7s1~
+  OUTER_TEXT_SPRINT unleashmagicbuff  ~d2wk7s1a~
 END
 
 //Crow Hunter (d2wka)
-ACTION_IF (FILE_EXISTS ~override/d2wkas2.SPL~) BEGIN
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2crowhunter~) BEGIN
   OUTER_TEXT_SPRINT visceralattack  ~d2wkas2~
   OUTER_TEXT_SPRINT visceralhaste   ~d2wkas2a~
   OUTER_TEXT_SPRINT visceralremove  ~d2wkas2b~
@@ -79,25 +87,25 @@ ACTION_IF (FILE_EXISTS ~override/d2wkas2.SPL~) BEGIN
 END
 
 //Confessor (d2wk5)
-ACTION_IF (FILE_EXISTS ~override/d2wk5s2.SPL~) BEGIN
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2confessor~) BEGIN
   OUTER_TEXT_SPRINT bloodletter       ~d2wk5s2~
   OUTER_TEXT_SPRINT confessorbleed    ~d2wk5s2b~
 END
 
 //Blood Minister (d2wk9)
-ACTION_IF (FILE_EXISTS ~override/d2wk9s2a.SPL~) BEGIN
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2bloodminister~) BEGIN
   OUTER_TEXT_SPRINT healingbloodregen  ~d2wk9s2a~
 END
 
 //Powder Keg (d2wkb)
-ACTION_IF (FILE_EXISTS ~override/d2wkb.2DA~) BEGIN
-  OUTER_TEXT_SPRINT powderkeg    ~d2wkb~
-  OUTER_TEXT_SPRINT pkegremove   ~d2wkbs0a~
-  OUTER_TEXT_SPRINT pkegdisable  ~d2wkbs0x~
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2powderkeg~) BEGIN
+  OUTER_TEXT_SPRINT powderkeg     ~d2wkb~
+  OUTER_TEXT_SPRINT pkegremove    ~d2wkbs0a~
+  OUTER_TEXT_SPRINT pkegdisable   ~d2wkbs0x~
 END
 
 //Warhound (d2wk2)
-ACTION_IF (FILE_EXISTS ~override/d2wk2s1.SPL~) BEGIN
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2warhound~) BEGIN
   OUTER_TEXT_SPRINT shockwave          ~d2wk2s1~
   OUTER_TEXT_SPRINT shockwaveeffects   ~d2wk2s1a~
   OUTER_TEXT_SPRINT shockwaveblast     ~d2wk2s1b~
@@ -108,7 +116,7 @@ ACTION_IF (FILE_EXISTS ~override/d2wk2s1.SPL~) BEGIN
 END
 
 //Medic (d2wkd)
-ACTION_IF (FILE_EXISTS ~override/d2wkds1.SPL~) BEGIN
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2medic~) BEGIN
   OUTER_TEXT_SPRINT blackremedy         ~d2wkds1~
   OUTER_TEXT_SPRINT blackremedyeffects  ~d2wkds1a~
   OUTER_TEXT_SPRINT blackremedyblast    ~d2wkds1b~
@@ -123,12 +131,12 @@ ACTION_IF (FILE_EXISTS ~override/d2wkds1.SPL~) BEGIN
 END
 
 //Starjammer (d2wk8)
-ACTION_IF (FILE_EXISTS ~override/d2wk8w8d.CRE~) BEGIN
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2starjammer~) BEGIN
   OUTER_TEXT_SPRINT riftgatebalor  ~d2wk8w8d~
 END
 
 //Nurse (d2wkg)
-ACTION_IF (FILE_EXISTS ~override/d2wkgs1.SPL~) BEGIN
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2nurse~) BEGIN
   OUTER_TEXT_SPRINT medicaldarts  ~d2wkgs1~
   OUTER_TEXT_SPRINT medicaldart   ~d2wkgs1e~
 END

@@ -4,23 +4,23 @@ anything that's not directly for making the kit work
 */
 
 
-//Drifter is immune to Rooting Shot, Dust Explosion (negative effects only)
-ACTION_IF (nodrifter = 0) BEGIN
+//immune to Rooting Shot entangle
+ACTION_IF (FILE_EXISTS ~override/%rootingshot%.SPL~) BEGIN
+  COPY_EXISTING ~%drifter_immunities%.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%confessorhold%~ END
+  IF_EXISTS BUT_ONLY
+END
 
-  ACTION_IF (FILE_EXISTS ~override/%rootingshot%.SPL~) BEGIN
-    COPY_EXISTING ~%drifter_immunities%.SPL~  ~override~
-      LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%confessorhold%~ END
-    BUT_ONLY
-  END
+//immune to Dust Explosion statuses
+ACTION_IF (FILE_EXISTS ~override/%dustexplosion%.SPL~) BEGIN
+  COPY_EXISTING ~%cloud_immunities%.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%dustblind%~ END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%dustslow%~ END
+  IF_EXISTS BUT_ONLY
 
-  ACTION_IF (FILE_EXISTS ~override/%dustexplosion%.SPL~) BEGIN
-    COPY_EXISTING ~%cloud_immunities%.SPL~  ~override~
-      PATCH_FOR_EACH status IN ~%dustblind%~ ~%dustslow%~ BEGIN
-        LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%status%~ END
-      END
-    BUT_ONLY
-  END
-
+  COPY_EXISTING ~%wardennoblind%.SPL~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=318 parameter2=0 STR_VAR resource=~%dustblind%~ END
+  IF_EXISTS BUT_ONLY
 END
 
 

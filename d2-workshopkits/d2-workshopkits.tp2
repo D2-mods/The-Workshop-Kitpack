@@ -1,6 +1,6 @@
 BACKUP ~weidu_external/backup/d2-workshopkits~
 AUTHOR ~Dan_P~
-VERSION ~5.16~
+VERSION ~5.17~
 AUTO_EVAL_STRINGS
 
 ALWAYS
@@ -73,7 +73,8 @@ LABEL ~D2_WORKSHOP_KITUPDATER4~
 OUTER_SET updater = 3
 INCLUDE ~%install%/install90.tph~
 
-BEGIN @85    // Compat for subtledoctor's 5e casting mod (fix spell slots)
+BEGIN @85    // for 5e casting by subtledoctor (tweak spell slots)
+//REQUIRE_PREDICATE (FILE_EXISTS_IN_GAME ~d5__5E_casting_divine.d5~) ~~
 SUBCOMPONENT @90
 NO_LOG_RECORD
 LABEL ~D2_WORKSHOP_KITUPDATER5~
