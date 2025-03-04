@@ -9,6 +9,11 @@ COPY ~%abilities%/applyeffects.SPL~  ~override/%e9%.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%e3%t~ insert=last END    // block ki reset for 8 hours
 
 
+//feedback
+OUTER_SET kiregen = RESOLVE_STR_REF (@543601)
+OUTER_SET kicheck = RESOLVE_STR_REF (@543602)
+
+
 //
 //splprot.2da
 OUTER_TEXT_SPRINT d2turningcheck  ~d2turningcheck 55 -1 4~     // stat >= value
@@ -59,7 +64,7 @@ COPY ~%abilities%/applyeffects.SPL~  ~override/%e3%b.SPL~    // +1 ki power
   LPF kiregencap END
 
 COPY ~%abilities%/spellfailed.SPL~  ~override/%e3%c.SPL~
-  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@323) STR_VAR color=mana RET newstring END    // "+1 ki power"
+  LPF d2_color_string INT_VAR stringref=kiregen STR_VAR color=mana RET newstring END    // "+1 Ki Energy restored"
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=newstring END
   LPF DELETE_EFFECT INT_VAR match_opcode=141 END
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END
@@ -100,7 +105,7 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%e1%x.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%#~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%!~ END
 
-//clab file
+//add to clab
 COPY ~%abilities%/applyeffects.SPL~  ~override/%e1%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%e1%t~ END
   LPF CLONE_EFFECT STR_VAR resource=~%e1%s~ END
@@ -518,8 +523,8 @@ END
 COPY ~%abilities%/applyeffects.SPL~  ~override/%s9%s.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%i~ END    // give abilities
   LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=1 STR_VAR resource=~%s9%x~ END    // removes abilities
-  FOR (n = 1; n <= 25; ++n) BEGIN
-    LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%x~ END    // apply 25 times (fix for bubb menu overlay)
+  FOR (n = 1; n <= 40; ++n) BEGIN
+    LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%x~ END    // fix for bubb menu overlay (brute force menu update)
   END
   LPF CLONE_EFFECT INT_VAR multi_match=1 timing=1 duration=0 STR_VAR resource=~%s9%z~ END    // spell lock
   LPF d2_remove_effects_on_cast END
@@ -540,7 +545,7 @@ COPY ~%abilities%/opcode318.SPL~  ~override/%s9%z.SPL~
 //add abilities up to current ki power
 COPY ~%abilities%/opcode318.SPL~  ~override/%s9%i.SPL~
   LPF ALTER_EFFECT INT_VAR timing=0 duration=1 STR_VAR resource=~%s9%i~ END
-  FOR (n = 1; n <= 25; ++n) BEGIN
+  FOR (n = 1; n <= 40; ++n) BEGIN
     LPF CLONE_EFFECT INT_VAR match_opcode=318 opcode=326 parameter1=n parameter2=d2turningcheck duration=0 STR_VAR resource=~%s9%1~ END
   END
   LPF CLONE_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s9%x~ insert=first END
@@ -579,7 +584,7 @@ DEFINE_PATCH_FUNCTION required_ki BEGIN
 END
 
 COPY ~%abilities%/spellfailed.SPL~  ~override/%s9%t.SPL~
-  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@324) STR_VAR color=blue RET newstring END    // "Not enough ki power!"
+  LPF d2_color_string INT_VAR stringref=kicheck STR_VAR color=blue RET newstring END    // "Not enough Ki Energy!"
   LPF ALTER_EFFECT INT_VAR match_opcode=139 opcode=330 parameter1=newstring timing=4 duration=1 END
   LPF DELETE_EFFECT INT_VAR match_opcode=141 END
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END

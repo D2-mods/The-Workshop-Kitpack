@@ -1,5 +1,5 @@
 /*
-add Medic Config
+add Ki Energy Config
 */
 
 
@@ -12,18 +12,18 @@ DEFINE_PATCH_FUNCTION medicconfig BEGIN
   LPF ALTER_SPELL_HEADER INT_VAR target=7 range=1 projectile=1 END
 END
 
-OUTER_SPRINT spellitemkit @101301
-OUTER_SPRINT config @356
-OUTER_SPRINT option1 @625
-OUTER_SPRINT option2 @626
-OUTER_SPRINT option3 @627
-OUTER_SPRINT indent ~  -- ~
-OUTER_SPRINT config_desc @357
+OUTER_SPRINT config @543610
+OUTER_SPRINT option1 @543612
+OUTER_SPRINT option2 @543613
+OUTER_SPRINT option3 @543614
+OUTER_SPRINT indent @543615
+OUTER_SPRINT config_desc @543611
+OUTER_SPRINT config_desc ~%config%%WNL%%WNL%%config_desc%~
 OUTER_SPRINT config_desc ~%config_desc%%WNL%%indent%%option1%%WNL%%indent%%option2%%WNL%%indent%%option3%~
 
 
 //add main ability
-COPY ~override/%medicarts%.SPL~  ~override/%m0%.SPL~
+COPY ~%abilities%/selectabilities.SPL~  ~override/%m0%.SPL~
   SAY NAME1 ~%config%~
   SAY UNIDENTIFIED_DESC  ~%config_desc%~
   WRITE_ASCII 0x3a SPWI402B #8
@@ -32,7 +32,6 @@ COPY ~override/%medicarts%.SPL~  ~override/%m0%.SPL~
   WRITE_LONG 0x34 0
   LPF ALTER_SPELL_HEADER INT_VAR target=7 END
   LPF DELETE_EFFECT INT_VAR check_headers=0 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=141 END
   LPF DELETE_EFFECT INT_VAR match_opcode=326 END
   LPF ALTER_EFFECT STR_VAR resource=~%m0%~ END
 
@@ -41,7 +40,7 @@ COPY ~override/%medicarts%.SPL~  ~override/%m0%.SPL~
   LPF ADD_SPELL_CFEFFECT INT_VAR opcode=172 target=1 timing=1 STR_VAR resource=~%DEST_RES%~ END
 
 //add 2da table
-COPY ~%abilities%/bloodtransfusion.2DA~  ~override/%m0%.2DA~
+COPY ~%abilities%/selectabilities.2DA~  ~override/%m0%.2DA~
 APPEND ~%m0%.2DA~  ~hidefeedback  %m0%b 3~
 APPEND ~%m0%.2DA~  ~removeconfig  %m0%x 3~
 APPEND ~%m0%.2DA~  ~showfeedback  %m0%c 3~

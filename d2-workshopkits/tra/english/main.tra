@@ -42,8 +42,6 @@ Text in this file appears in the game.
 @320 = ~Ministration failed! The recipient refused the Blood Transfusion.~    // for Blood Minister
 @321 = ~Decaying~
 @322 = ~The effects of the Moonscar grow stronger.~    // for Moonlight Knight
-@323 = ~+1 Ki Energy restored~
-@324 = ~Not enough Ki Energy!~
 @325 = ~Takes 8 + 5% of max HP damage from Dragonrot~    // for Medic (percentage damage doesn't give feedback)
 
 
@@ -55,9 +53,6 @@ Text in this file appears in the game.
 @354 = ~The %summon_name% follows the party when not in combat. Press the B key to make it hold position.~
 @355 = ~The %summon_name% holds position when not in combat. Press the E key to make it follow the party.~
 @356 = ~%spellitemkit% Config~
-@357 = ~%spellitemkit% Config
-
-Use this ability to select one of the following options:~
 @358 = ~You cannot cast %ability_name% until the cooldown timer has run out.~
 
 
@@ -115,15 +110,17 @@ Use this ability to select one of the following options:~
 @622 = ~Torrent~
 @623 = ~Torrent (+)~
 @624 = ~Torrent (++)~
-@625 = ~Hide Feedback~               // medicconfig.tph
-@626 = ~Show Feedback~
-@627 = ~Remove Config (permanent)~
 
 
-//checks made during install (not used anymore)
-@700 = ~Restoration~                 // checked by Blood Minister
-@701 = ~Greater Restoration~         // checked by bleeding effects
-@702 = ~Heal~                        // checked by bleeding effects
+//Ki Energy feedback
+@543601 = ~+1 Ki Energy restored~
+@543602 = ~Not enough Ki Energy!~
+@543610 = ~Ki Energy Config~
+@543611 = ~Use this ability to select one of the following options:~
+@543612 = ~Hide Feedback~
+@543613 = ~Show Feedback~
+@543614 = ~Remove Config (permanent)~
+@543615 = ~– ~    // en dash (Config description)
 
 
 

@@ -193,7 +193,7 @@ This is how I'd do the install:
 
 Notes:
 - I used cdtweaks as an example, but any similar race tweak can be used.
-- The Kit Updater can now be used to enable the FMC class for half-elves, if hidden by a tweak.
+- The Kit Updater can now be used to enable the FMC class for half-elves if hidden by a tweak.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

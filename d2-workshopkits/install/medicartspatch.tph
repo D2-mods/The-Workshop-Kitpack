@@ -53,7 +53,7 @@ BUT_ONLY
 
 
 //recreate 2da table
-COPY ~%abilities%/bloodtransfusion.2DA~  ~override/%s4%.2DA~
+COPY ~%abilities%/selectabilities.2DA~  ~override/%s4%.2DA~
 APPEND ~%s4%.2DA~  ~mediccure1  %mediccure1% 3~
 APPEND ~%s4%.2DA~  ~mediccure2  %mediccure2% 3~
 APPEND ~%s4%.2DA~  ~mediccure3  %mediccure3% 3~
@@ -63,18 +63,14 @@ APPEND ~%s4%.2DA~  ~mediccure5  %mediccure5% 3~
 
 //add or remove Medic Config
 ACTION_IF (nomedicconfig = 0) BEGIN
-  ACTION_IF !(RESOURCE_CONTAINS ~%kitid%.2DA~  ~%m0%~) BEGIN
-    COPY ~override/%kitid%.2DA~  ~override~
-      LPF d2_kit_ability_adder STR_VAR resource=~%m0%~ END
-    BUT_ONLY
-  END
+  COPY ~override/%kitid%.2DA~  ~override~
+    LPF d2_kit_ability_adder STR_VAR resource=~%m0%~ END
+  BUT_ONLY UNLESS ~%m0%~
 END ELSE BEGIN
-  ACTION_IF (RESOURCE_CONTAINS ~%kitid%.2DA~  ~%m0%~) BEGIN
-    COPY ~override/%kitid%.2DA~  ~override~
-      REPLACE_TEXTUALLY ~GA_%m0%~  ~****~
-      PRETTY_PRINT_2DA
-    BUT_ONLY
-  END
+  COPY ~override/%kitid%.2DA~  ~override~
+    REPLACE_TEXTUALLY ~GA_%m0%~  ~****~
+    PRETTY_PRINT_2DA
+  BUT_ONLY IF ~%m0%~
 END
 
 

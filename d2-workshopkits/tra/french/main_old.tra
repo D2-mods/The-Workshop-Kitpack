@@ -23,7 +23,7 @@ Text in this file appears in the game.
 @302 = ~Hémorragie~ 
 @303 = ~Vous ne pouvez pas lancer ce sort tant que le sort précédent n’a pas expiré.~
 @304 = ~Anneau du Golem activé~
-@305 = ~Une Rune de Caryll a été gravée dans l'esprit de tous les membres du groupe.~
+@305 = ~Une Rune de Caryll a été gravée dans l'esprit de tous les membres du groupe.~    // symbols are for colored text
 @306 = ~Régénération~
 @307 = ~Guéri~
 @308 = ~Sous l'effet de la hâte~
@@ -41,6 +41,8 @@ Text in this file appears in the game.
 @320 = ~Sanguination inopérante ! Le sujet a rejeté la transfusion.~ // for Blood Minister
 @321 = ~Putréfaction~
 @322 = ~Les effets de « Balafré par la lune » se renforcent.~    // for Moonlight Knight 
+@323 = ~1 point d'énergie mystique restauré~
+@324 = ~Énergie mystique insuffisante !~
 @325 = ~« Pestilence du dragon » inflige des dégâts, 5 % + 8 du total de points de vie~    // for Medic (percentage damage doesn't give feedback)
 
 
@@ -51,7 +53,7 @@ Text in this file appears in the game.
 @353 = ~Note : Toutes les capacités sont obtenues selon la progression de niveau du %baseclass%. (%multiclass%)~
 @354 = ~%summon_name% se déplace avec le groupe en dehors des combats. Appuyer sur la touche B pour l'immobiliser.~
 @355 = ~%summon_name% reste immobile en dehors des combats. Appuyer sur la touche E pour que la créature se déplace avec le groupe.~
-@356 = ~Configurer %spellitemkit%~
+@356 = ~ Configurer %spellitemkit%~
 
 
 //additional text (for game/config)
@@ -107,19 +109,17 @@ Text in this file appears in the game.
 @620 = ~Décochage critique~              // for Full Metal Jaguar
 @621 = ~Plus vite que son ombre~                  // for Spell Fencer
 @622 = ~Cascade~
-@623 = ~Cascade (+)~
-@624 = ~Cascade (++)~
+@623 = ~Cascade ( II )~
+@624 = ~Cascade ( III )~
+@625 = ~Masquer les informations visuelles~               // medicconfig.tph
+@626 = ~Montrer les informations visuelles~
+@627 = ~Supprimer la configuration (permanent)~
 
 
-//Ki Energy feedback
-@543601 = ~1 point d'énergie mystique restauré~
-@543602 = ~Énergie mystique insuffisante !~
-@543610 = ~Ki Energy Config~
-@543611 = ~Use this ability to select one of the following options:~
-@543612 = ~Masquer les informations visuelles~
-@543613 = ~Montrer les informations visuelles~
-@543614 = ~Supprimer la configuration (permanent)~
-@543615 = ~– ~    // en dash (Config description)
+//checks made during install (not used anymore)
+@700 = ~Restauration~                 // checked by Blood Minister
+@701 = ~Restauration majeure~         // checked by bleeding effects
+@702 = ~Guérison~                        // checked by bleeding effects
 
 
 
