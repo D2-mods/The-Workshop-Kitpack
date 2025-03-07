@@ -200,6 +200,10 @@ Notes:
 
 Version info:
 
+v5.18
+- Medic: Fixed possible bug. If casting speed was slowed by a spell or item, and current Ki Energy was insuffucient for an ability, it would show the "Not enough Ki Energy" message but the effects would still be applied, and no Ki Energy would be used. Adjusted some timings to fix the issue.
+- Minor reorganizing of Ki Energy files. Some files are renamed and moved apart from the Medic files. This will break compatibility with Medics made before this version, but this can be fixed. If Ki Energy system is broken, import and equip the item "d2kifix.itm". This will remove the problematic effects.
+
 v5.17
 - War Magician: Unleash Magic and Twisted Barricade are now used as free actions. This means you can cast another spell without waiting a round. (notes: These will still trigger wild magic zones. They can be used while paused but effects aren't given until game is unpaused.)
 - Nurse: N-Alchemy is now used as a free action. Same as above except it doesn't trigger wild magic. The actual nurse abilities are cast normally.

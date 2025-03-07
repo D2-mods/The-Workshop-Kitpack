@@ -6,12 +6,16 @@ COPY ~%abilities%/applyeffects.SPL~  ~override/%e9%.SPL~
   LPF ALTER_EFFECT INT_VAR timing=9 STR_VAR resource=~%s9%s~ END      // cast main subspell
   LPF CLONE_EFFECT INT_VAR opcode=318 STR_VAR resource=~%s9%z~ END    // unlock main subspell
   LPF d2_remove_effects_on_cast END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%e3%t~ insert=last END    // block ki reset for 8 hours
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=~%e3%t~ insert=last END    // block ki reset (8 hours)
 
 
-//feedback
+//
 OUTER_SET kiregen = RESOLVE_STR_REF (@543601)
 OUTER_SET kicheck = RESOLVE_STR_REF (@543602)
+OUTER_TEXT_SPRINT decrement_ki ~d2kien!~
+OUTER_TEXT_SPRINT increment_ki ~d2kien#~
+OUTER_TEXT_SPRINT lock_ki      ~d2kien0~
+OUTER_TEXT_SPRINT ki_fixer     ~d2kifix~    // fix compat with old versions (v5.18 update)
 
 
 //
@@ -48,8 +52,8 @@ COPY ~%abilities%/applyeffects.SPL~  ~override/%e3%.SPL~
 COPY ~%abilities%/applyeffects.SPL~  ~override/%e3%a.SPL~    // reset ki to max (8 hours)
   LPF ALTER_EFFECT STR_VAR resource=~%s9%s~ END
   LPF CLONE_EFFECT STR_VAR resource=~%e3%t~ insert=last END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%e1%#~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%e1%!~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%increment_ki%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=321 STR_VAR resource=~%decrement_ki%~ END
   LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%e3%b~ insert=first END
 
 COPY ~%abilities%/opcode318.SPL~  ~override/%e3%t.SPL~
@@ -58,8 +62,8 @@ COPY ~%abilities%/opcode318.SPL~  ~override/%e3%t.SPL~
 
 COPY ~%abilities%/applyeffects.SPL~  ~override/%e3%b.SPL~    // +1 ki power
   LPF ALTER_EFFECT STR_VAR resource=~%s9%1~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%t~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%#~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%lock_ki%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%increment_ki%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e3%c~ END
   LPF kiregencap END
 
@@ -76,15 +80,15 @@ LAF d2_recast_at_interval INT_VAR interval=30 STR_VAR spell=~%e3%~ new_spell=~%@
 //turn undead stat (op323)
 COPY - ~%passives%/tracking.SPL~  ~inlined/tracking.SPL~
   LPF ALTER_EFFECT INT_VAR opcode=323 timing=1 END
-  LPF d2_remove_effects_on_cast STR_VAR resource=~%e1%t~ END
+  LPF d2_remove_effects_on_cast STR_VAR resource=~%lock_ki%~ END
 
 //increment stat
-COPY ~inlined/tracking.SPL~  ~override/%e1%#.SPL~    // +1 turning
+COPY ~inlined/tracking.SPL~  ~override/%increment_ki%.SPL~    // +1 turning
   LPF ALTER_EFFECT INT_VAR match_opcode=323 parameter1=1 END
-COPY ~inlined/tracking.SPL~  ~override/%e1%!.SPL~    // -1 turning
+COPY ~inlined/tracking.SPL~  ~override/%decrement_ki%.SPL~    // -1 turning
 
 //block op323
-COPY ~%passives%/opcode101.SPL~  ~override/%e1%t.SPL~
+COPY ~%passives%/opcode101.SPL~  ~override/%lock_ki%.SPL~
   LPF ALTER_EFFECT INT_VAR parameter2=323 END
 
 //set stat based on level
@@ -102,12 +106,12 @@ COPY ~inlined/tracking.SPL~  ~override/%e1%s.SPL~
 //remove all stat effects
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%e1%x.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%e1%s~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%#~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%!~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%increment_ki%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%decrement_ki%~ END
 
 //add to clab
 COPY ~%abilities%/applyeffects.SPL~  ~override/%e1%.SPL~
-  LPF ALTER_EFFECT STR_VAR resource=~%e1%t~ END
+  LPF ALTER_EFFECT STR_VAR resource=~%lock_ki%~ END
   LPF CLONE_EFFECT STR_VAR resource=~%e1%s~ END
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%e1%x~ END
 
@@ -236,6 +240,7 @@ COPY - ~%abilities%/healingrain.PRO~ ~%workspace%/%s3%a.PRO~
   WRITE_ASCII 0x228 ~%s3%a~ #8
 ADD_PROJECTILE ~%workspace%/%s3%a.PRO~
 COPY ~%abilities%/healingrain.BAM~  ~override/%s3%a.BAM~
+//COPY ~%abilities%/healingrain2.BAM~  ~override/%s3%a.BAM~
 
 COPY ~%icons%/healingrain.BAM~      ~override/%s3%.BAM~
 COPY ~%abilities%/healingrain.SPL~  ~override/%s3%.SPL~
@@ -578,7 +583,9 @@ END
 
 //block if ki too low (won't decrement stat)
 DEFINE_PATCH_FUNCTION required_ki BEGIN
-  READ_SHORT 0x84 duration
+  READ_SHORT 0x84 speed
+  SET duration = speed + 1
+  PATCH_IF (duration > 6) BEGIN SET duration = 6 END
   LPF ADD_SPELL_CFEFFECT INT_VAR opcode=318 target=1 parameter1=power parameter2=d2turningunder duration=duration STR_VAR resource=~%SOURCE_RES%~ END
   LPF ADD_SPELL_CFEFFECT INT_VAR opcode=326 target=1 parameter1=power parameter2=d2turningunder STR_VAR resource=~%s9%t~ END
 END
@@ -595,17 +602,18 @@ ACTION_PHP_EACH medictools_ki AS spell => power BEGIN
   // 
   COPY_EXISTING ~%spell%.SPL~  ~override~
     WRITE_LONG 0x34 medic_row    // "level" offset (row for Bubb's Spell Menu)
+    LPF castsound_to_opcode END    // no sound if not enough ki energy
     LPF decrement_ki END
     LPF required_ki END
     LPF ADD_SPELL_CFEFFECT INT_VAR opcode=326 target=1 STR_VAR resource=~%s9%s~ END    // cast main subspell
-    LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%e3%t~ END
+    LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%e3%t~ END    // block ki reset (8 hours)
   BUT_ONLY
 
   // decrement stat by "power"
   COPY ~%abilities%/applyeffects.SPL~  ~override/%spell%k.SPL~
-    LPF ALTER_EFFECT STR_VAR resource=~%e1%t~ END
+    LPF ALTER_EFFECT STR_VAR resource=~%lock_ki%~ END
     FOR (n = 1; n <= power; ++n) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%e1%!~ END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%decrement_ki%~ END
     END
 
 END
@@ -688,6 +696,21 @@ OUTER_TEXT_SPRINT abbrev   ~%kitid%~
 OUTER_TEXT_SPRINT class    ~monk~
 LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
 LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
+
+
+//equip item to remove older effects (v5.18 changed some files)
+COPY_EXISTING ~amul14.itm~  ~override/%ki_fixer%.itm~
+  WRITE_SHORT 0x42 0
+  WRITE_LONG  0x34 0
+  LPF d2_remove_effects_on_cast STR_VAR resource=~d2wkde1!~ END
+  LPF d2_remove_effects_on_cast STR_VAR resource=~d2wkde1#~ END
+  LPF d2_remove_effects_on_cast STR_VAR resource=~d2wkde1t~ END
+  LPF d2_remove_effects_on_cast STR_VAR resource=~d2mk2e1!~ END
+  LPF d2_remove_effects_on_cast STR_VAR resource=~d2mk2e1#~ END
+  LPF d2_remove_effects_on_cast STR_VAR resource=~d2mk2e1t~ END
+//  LPF d2_remove_effects_on_cast STR_VAR resource=~%decrement_ki%~ END
+//  LPF d2_remove_effects_on_cast STR_VAR resource=~%increment_ki%~ END
+  LPF d2_no_usableflags END
 
 
 //

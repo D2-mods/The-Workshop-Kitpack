@@ -29,7 +29,7 @@ COPY ~%abilities%/selectabilities.SPL~  ~override/%m0%.SPL~
   WRITE_ASCII 0x3a SPWI402B #8
   WRITE_ASCII 0x76 SPWI402B #8
   WRITE_ASCII 0x10 None #8
-  WRITE_LONG 0x34 0
+  WRITE_LONG 0x34 0    // row 0 in Bubb's menu
   LPF ALTER_SPELL_HEADER INT_VAR target=7 END
   LPF DELETE_EFFECT INT_VAR check_headers=0 END
   LPF DELETE_EFFECT INT_VAR match_opcode=326 END
@@ -41,13 +41,13 @@ COPY ~%abilities%/selectabilities.SPL~  ~override/%m0%.SPL~
 
 //add 2da table
 COPY ~%abilities%/selectabilities.2DA~  ~override/%m0%.2DA~
-APPEND ~%m0%.2DA~  ~hidefeedback  %m0%b 3~
+APPEND ~%m0%.2DA~  ~hidefeedback  %m0%a 3~
 APPEND ~%m0%.2DA~  ~removeconfig  %m0%x 3~
-APPEND ~%m0%.2DA~  ~showfeedback  %m0%c 3~
+APPEND ~%m0%.2DA~  ~showfeedback  %m0%b 3~
 
 
 //Hide Feedback
-COPY ~%abilities%/applyeffects.SPL~  ~override/%m0%b.SPL~
+COPY ~%abilities%/applyeffects.SPL~  ~override/%m0%a.SPL~
   SAY NAME1 ~%option1%~
   SAY UNIDENTIFIED_DESC ~%option1%~
   WRITE_ASCII 0x3a SPPR211B #8
@@ -59,13 +59,13 @@ COPY ~%abilities%/applyeffects.SPL~  ~override/%m0%b.SPL~
 //  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=174 STR_VAR resource=EFF_P05 END
 
 //Show Feedback
-COPY ~%abilities%/applyeffects.SPL~  ~override/%m0%c.SPL~
+COPY ~%abilities%/applyeffects.SPL~  ~override/%m0%b.SPL~
   SAY NAME1 ~%option2%~
   SAY UNIDENTIFIED_DESC ~%option2%~
   WRITE_ASCII 0x3a SPWI219B #8
   WRITE_ASCII 0x76 SPWI219B #8
   LPF medicconfig END
-  LPF ALTER_EFFECT INT_VAR opcode=321 STR_VAR resource=~%m0%b~ END
+  LPF ALTER_EFFECT INT_VAR opcode=321 STR_VAR resource=~%m0%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=174 STR_VAR resource=EFF_P112 END
 //  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=174 STR_VAR resource=EFF_P05 END
 
@@ -86,6 +86,13 @@ ACTION_IF (nomedicconfig = 0) BEGIN
     LPF d2_kit_ability_adder STR_VAR resource=~%m0%~ END
   BUT_ONLY
 END
+
+
+//Set variables for external use
+OUTER_TEXT_SPRINT medicconfig  ~%m0%~
+OUTER_TEXT_SPRINT medicconfig1 ~%m0%a~
+OUTER_TEXT_SPRINT medicconfig2 ~%m0%b~
+OUTER_TEXT_SPRINT medicconfig3 ~%m0%x~
 
 
 //

@@ -15,6 +15,7 @@ update_op324_restrictions     PATCH
 d2_remove_spelltypes          PATCH
 d2_mindamageboost             PATCH
 d2_addhitstun                 PATCH
+castsound_to_opcode           PATCH
 */
 
 ////////////////////////////////////////////////////////////
@@ -485,6 +486,29 @@ BEGIN
       LPF ADD_ITEM_EFFECT INT_VAR opcode=45 target=2 duration=duration probability1=probability type=1 insert_point=0 END
       LPF ADD_ITEM_EFFECT INT_VAR opcode=45 target=2 duration=duration probability1=probability type=2 insert_point=0 END
       LPF ADD_ITEM_EFFECT INT_VAR opcode=45 target=2 duration=duration probability1=probability type=4 insert_point=0 END
+    END
+  END
+END
+
+////////////////////////////////////////////////////////////
+
+//changes casting sound to an opcode effect (cast sound is removed)
+//skipped silently if no casting sound, or if wav file does not exist
+
+DEFINE_PATCH_FUNCTION castsound_to_opcode INT_VAR match_opcode=~-1~ STR_VAR insert=first BEGIN
+  PATCH_IF (~%SOURCE_EXT%~ STR_EQ ~spl~) BEGIN
+    READ_ASCII 0x10 castsound (8) NULL
+    WRITE_ASCII 0x10 ~~ #8
+    SET patch_sound = 0
+    PATCH_IF (FILE_EXISTS_IN_GAME ~%castsound%.wav~) BEGIN SET patch_sound = 1 END
+
+    PATCH_IF (patch_sound > 0) BEGIN
+      LPF CLONE_EFFECT
+        INT_VAR silent=1 check_globals=0 multi_match=1 match_opcode=match_opcode
+                opcode=174 timing=1 duration=0 parameter1=0 parameter2=0
+                probability1=100 probability2=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
+        STR_VAR resource=EVAL ~%castsound%~ insert=EVAL ~%insert%~
+      END
     END
   END
 END

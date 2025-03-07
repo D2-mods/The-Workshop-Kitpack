@@ -103,7 +103,11 @@ BEGIN
     LPF DELETE_EFFECT INT_VAR check_headers=0 match_opcode=189 match_timing=0 END
     PATCH_IF (nocastingspeedpatch = 0) BEGIN
       READ_SHORT 0x84 speed
-      LPF ADD_SPELL_CFEFFECT INT_VAR opcode=189 target=1 parameter1=~%speed%~ parameter2=1 resist_dispel=2 duration=1 END
+      SET duration = speed + 1
+      PATCH_IF (duration > 6) BEGIN SET duration = 6 END
+      LPF ADD_SPELL_CFEFFECT
+        INT_VAR opcode=189 target=1 parameter1=speed parameter2=1 resist_dispel=2 duration=duration
+      END
     END
   IF_EXISTS BUT_ONLY
 
