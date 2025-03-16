@@ -27,15 +27,15 @@ BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) BEGIN
 
 
-ACTION_IF !(FILE_EXISTS ~override/d2_mc_import_fix~) BEGIN
-<<<<<<<< .../temp/d2_mc_import_fix
+ACTION_IF !(FILE_EXISTS ~override/d2_mc_import_fix.txt~) BEGIN
+<<<<<<<< .../temp/newfile
 >>>>>>>>
-COPY ~.../temp/d2_mc_import_fix~  ~override~
+COPY ~.../temp/newfile~  ~override/d2_mc_import_fix.txt~
 END
 
 
   // make "new_spell"
-  ACTION_IF !(FILE_CONTAINS ~override/d2_mc_import_fix~ ~%new_spell%_done~) BEGIN    // check list of shell spells
+  ACTION_IF !(FILE_CONTAINS ~override/d2_mc_import_fix.txt~ ~%new_spell%_done~) BEGIN    // check list of shell spells
 
     // check variables
     ACTION_IF (amount < 1) BEGIN OUTER_SET amount = 1 END
@@ -121,16 +121,16 @@ END
 
 
     // add to list of shell spells (skip making the same spell twice)
-    APPEND ~d2_mc_import_fix~  ~%new_spell%_done~
+    APPEND ~d2_mc_import_fix.txt~  ~%new_spell%_done~
 
 
   END
 
   // delay recast when ability used (8 hours or same as "interval")
-  ACTION_IF !(FILE_CONTAINS ~override/d2_mc_import_fix~ ~%spell%_patched~) BEGIN
+  ACTION_IF !(FILE_CONTAINS ~override/d2_mc_import_fix.txt~ ~%spell%_patched~) BEGIN
     COPY_EXISTING ~%spell%.SPL~  ~override~
       LPF ADD_SPELL_CFEFFECT INT_VAR opcode=326 target=1 timing=1 STR_VAR resource=~%spell%@~ END
-    APPEND ~d2_mc_import_fix~  ~%spell%_patched~
+    APPEND ~d2_mc_import_fix.txt~  ~%spell%_patched~
   END
 
   END
@@ -155,15 +155,15 @@ BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) BEGIN
 
 
-ACTION_IF !(FILE_EXISTS ~override/d2_recast_at_interval~) BEGIN
-<<<<<<<< .../temp/d2_recast_at_interval
+ACTION_IF !(FILE_EXISTS ~override/d2_recast_at_interval.txt~) BEGIN
+<<<<<<<< .../temp/newfile
 >>>>>>>>
-COPY ~.../temp/d2_recast_at_interval~  ~override~
+COPY ~.../temp/newfile~  ~override/d2_recast_at_interval.txt~
 END
 
 
   // make "new_spell"
-  ACTION_IF !(FILE_CONTAINS ~override/d2_recast_at_interval~ ~%new_spell%_done~) BEGIN    // check list of shell spells
+  ACTION_IF !(FILE_CONTAINS ~override/d2_recast_at_interval.txt~ ~%new_spell%_done~) BEGIN    // check list of shell spells
 
     // check variables
     ACTION_IF (interval < 2) BEGIN OUTER_SET interval = 2400 END
@@ -208,7 +208,7 @@ END
 
 
     // add to list of shell spells (skip making the same spell twice)
-    APPEND ~d2_recast_at_interval~  ~%new_spell%_done~
+    APPEND ~d2_recast_at_interval.txt~  ~%new_spell%_done~
 
 
   END

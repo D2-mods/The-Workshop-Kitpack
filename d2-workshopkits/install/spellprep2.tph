@@ -180,17 +180,20 @@ COPY_EXISTING - ~SPPR314.spl~  ~~    // unholy blight
 COPY_EXISTING - ~SPPR350.spl~  ~~  READ_LONG  0x8  clarity_name
 
 
+
 //
 //add spells to d2wkspellprep (excludes from mass spell check)
-ACTION_IF !(FILE_EXISTS ~override/d2wkspellprep~) BEGIN
-<<<<<<<< .../temp/d2wkspellprep
+
+OUTER_TEXT_SPRINT newfile  ~d2wkspellprep.txt~
+ACTION_IF !(FILE_EXISTS ~override/%newfile%~) BEGIN
+<<<<<<<< .../temp/newfile
 >>>>>>>>
-COPY ~.../temp/d2wkspellprep~  ~override~
+COPY ~.../temp/newfile~  ~override/%newfile%~
 END
 
-ACTION_IF !(RESOURCE_CONTAINS ~d2wkspellprep~  ~_sppr713_~) BEGIN
-  ACTION_PHP_EACH d2restoration AS spell => type BEGIN  APPEND ~d2wkspellprep~  ~_%spell%_~ END
-  ACTION_PHP_EACH d2statusarray AS spell => type BEGIN  APPEND ~d2wkspellprep~  ~_%spell%_~ END
+ACTION_IF !(RESOURCE_CONTAINS ~%newfile%~  ~_sppr713_~) BEGIN
+  ACTION_PHP_EACH d2restoration AS spell => type BEGIN  APPEND ~%newfile%~  ~_%spell%_~ END
+  ACTION_PHP_EACH d2statusarray AS spell => type BEGIN  APPEND ~%newfile%~  ~_%spell%_~ END
 END
 
 
@@ -198,7 +201,7 @@ END
 //
 //scan spells + add to arrays
 COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
-  PATCH_IF !(RESOURCE_CONTAINS ~d2wkspellprep~  ~_%SOURCE_RES%_~) BEGIN
+  PATCH_IF !(RESOURCE_CONTAINS ~%newfile%~  ~_%SOURCE_RES%_~) BEGIN
 
     PATCH_IF (SOURCE_SIZE > 0x99) BEGIN    // skip if no headers
       READ_LONG  0x8  splname

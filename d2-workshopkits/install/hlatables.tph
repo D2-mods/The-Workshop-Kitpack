@@ -10,7 +10,7 @@ run this from "prep" section (before kits or updates)
 //
 //assign class for each kit (should be name from luabbr.2da)
 DEFINE_ACTION_FUNCTION d2_hla_baseclass STR_VAR kit=~~ class=~~ BEGIN
-  COPY_EXISTING ~override/d2_hla_baseclass_array~  ~override~
+  COPY_EXISTING ~override/d2_hla_baseclass_array.txt~  ~override~
     REPLACE_TEXTUALLY ~kitids => baseclass~  ~kitids => baseclass%WNL%  %kit% => %class%~
   BUT_ONLY UNLESS ~%kit% => %class%~
 END
@@ -18,14 +18,14 @@ END
 //
 //assign luabbr ABBREV for each kit (no "lu" prefix)
 DEFINE_ACTION_FUNCTION d2_hla_tableres STR_VAR kit=~~ abbrev=~~ BEGIN
-  COPY_EXISTING ~override/d2_hla_baseclass_array~  ~override~
+  COPY_EXISTING ~override/d2_hla_baseclass_array.txt~  ~override~
     REPLACE_TEXTUALLY ~kitids => tableres~  ~kitids => tableres%WNL%  %kit% => %abbrev%~
   BUT_ONLY UNLESS ~%kit% => %abbrev%~
 END
 
 //
-ACTION_IF !(FILE_EXISTS ~override/d2_hla_baseclass_array~) BEGIN
-<<<<<<<< .../inlined/d2_hla_baseclass_array
+ACTION_IF !(FILE_EXISTS ~override/d2_hla_baseclass_array.txt~) BEGIN
+<<<<<<<< .../inlined/newfile
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_hla_baseclass_array BEGIN
   kitids => baseclass
 END
@@ -34,7 +34,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_hla_tableres_array BEGIN
   kitids => tableres
 END
 >>>>>>>>
-COPY ~.../inlined/d2_hla_baseclass_array~  ~override~
+COPY ~.../inlined/newfile~  ~override/d2_hla_baseclass_array.txt~
 END
 
 

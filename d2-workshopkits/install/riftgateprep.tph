@@ -108,14 +108,16 @@ COPY_EXISTING - ~SPIN979.spl~  ~~    // golem cloud
 
 //
 //add spells to d2wkspellprep (excludes from mass spell check)
-ACTION_IF !(FILE_EXISTS ~override/d2wkspellprep~) BEGIN
-<<<<<<<< .../temp/d2wkspellprep
+
+OUTER_TEXT_SPRINT newfile  ~d2wkspellprep.txt~
+ACTION_IF !(FILE_EXISTS ~override/%newfile%~) BEGIN
+<<<<<<<< .../temp/newfile
 >>>>>>>>
-COPY ~.../temp/d2wkspellprep~  ~override~
+COPY ~.../temp/newfile~  ~override/%newfile%~
 END
 
-ACTION_IF !(RESOURCE_CONTAINS ~d2wkspellprep~  ~_SPPR517_~) BEGIN
-  ACTION_PHP_EACH d2riftgate AS spell => type BEGIN  APPEND ~d2wkspellprep~  ~_%spell%_~ END
+ACTION_IF !(RESOURCE_CONTAINS ~%newfile%~  ~_SPPR517_~) BEGIN
+  ACTION_PHP_EACH d2riftgate AS spell => type BEGIN  APPEND ~%newfile%~  ~_%spell%_~ END
 END
 
 
@@ -123,7 +125,7 @@ END
 //
 //scan spells + add to array
 COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
-  PATCH_IF (!(RESOURCE_CONTAINS ~d2wkspellprep~  ~_%SOURCE_RES%_~) AND
+  PATCH_IF (!(RESOURCE_CONTAINS ~%newfile%~  ~_%SOURCE_RES%_~) AND
             !(~%SOURCE_RES%~ STR_EQ ~SPPR728~) AND    // skip implosion
             !(~%SOURCE_RES%~ STR_EQ ~SAREVEFF~)       // skip Sarevok special
   ) BEGIN
@@ -244,7 +246,7 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
 //
 //scan items + add to array
 COPY_EXISTING_REGEXP - GLOB ~.*\.ITM~  ~~
-  PATCH_IF (!(RESOURCE_CONTAINS ~d2wkspellprep~  ~_%SOURCE_RES%_~) AND
+  PATCH_IF (!(RESOURCE_CONTAINS ~%newfile%~  ~_%SOURCE_RES%_~) AND
             !(~%SOURCE_RES%~ STR_EQ ~REAVER~)    // skip IWD weapon
   ) BEGIN
 

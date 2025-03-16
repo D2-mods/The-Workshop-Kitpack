@@ -4,7 +4,7 @@ runs from Kit Updater, before other edits
 */
 
 
-REINCLUDE ~override/d2_hla_baseclass_array~
+REINCLUDE ~override/d2_hla_baseclass_array.txt~
 
 
 COPY_EXISTING ~weapprof.2da~  ~override~
