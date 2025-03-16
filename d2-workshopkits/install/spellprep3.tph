@@ -32,12 +32,14 @@ ACTION_FOR_EACH spell IN
 BEGIN
   COPY_EXISTING ~%spell%.SPL~  ~override~
     LPF d2_remove_effects_on_cast INT_VAR 326override=1 cre_type=49 STR_VAR resource=~d2!web~ END
+    LPF d2_remove_effects_on_cast INT_VAR 326override=1 cre_type=49 STR_VAR resource=~d2!swarm~ END
   IF_EXISTS BUT_ONLY
 END
 
-ACTION_FOR_EACH spell IN ~%twistedbarricadebuff%~ ~%fireweapon%~ BEGIN
+ACTION_FOR_EACH spell IN ~%twistedbarricade%~ ~%fireweapon%~ BEGIN
   COPY_EXISTING ~%spell%.SPL~  ~override~
     LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!web~ insert=last END
+    LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!swarm~ insert=last END
   IF_EXISTS BUT_ONLY
 END
 
@@ -122,6 +124,13 @@ END ELSE BEGIN
   COPY ~override/d2!webz.SPL~ ~override~
     LPF entangle_hit_effects END
   BUT_ONLY
+END
+
+//insects
+ACTION_IF (IS_AN_INT riftgateprep) BEGIN
+  COPY ~inlined/d2spellprep2.SPL~  ~override/d2!swarm.SPL~
+    LPF insect_immunity INT_VAR timing=0 duration=5 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=0 END
 END
 
 

@@ -298,10 +298,11 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.ITM~  ~~
 
 //
 //functions
-DEFINE_PATCH_FUNCTION insect_immunity BEGIN
+DEFINE_PATCH_FUNCTION insect_immunity INT_VAR timing=9 duration=0 BEGIN
   PHP_EACH d2riftgate AS spell => type BEGIN
     PATCH_IF (~%type%~ STR_EQ ~insect~) BEGIN
-      LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%spell%~ END
+      LPF d2_remove_effects_on_cast STR_VAR resource=~%spell%~ insert=last END
+      LPF d2_protect_on_castequip INT_VAR timing=timing duration=duration STR_VAR resource=~%spell%~ END
     END
   END
 END
@@ -394,6 +395,9 @@ DEFINE_PATCH_FUNCTION entangle_hit_effects INT_VAR timing=9 duration=0 STR_VAR m
     END
   END
 END
+
+
+OUTER_SET riftgateprep = 1
 
 
 /*

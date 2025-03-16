@@ -316,6 +316,7 @@ INCLUDE ~%install%/iconpatch.tph~
 INCLUDE ~%install%/trackingcheck.tph~
 INCLUDE ~%install%/holysymbolscheck.tph~
 INCLUDE ~%install%/olvynspellsfix.tph~
+INCLUDE ~%install%/tofenragepatch.tph~
 
 END
 

@@ -1,0 +1,48 @@
+/*
+for kensaizerker enrage
+Use mod resource if a tweak mod added "extra enrage" hla
+ToF: adds mod resource to m_dw_hld.lua as new hla (other kits won't see it)
+
+Also runs with d2wk updater to prevent compatibility issues (i.e. if restoring backup LUA)
+*/
+
+
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2kensaizerker~) BEGIN
+
+
+OUTER_TEXT_SPRINT kitid  ~d2mk1~
+OUTER_TEXT_SPRINT enrage ~d2mk1s1~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~m_dw_hld.lua~) BEGIN
+  ACTION_IF !(RESOURCE_CONTAINS ~m_dw_hld.lua~  ~%enrage%~) BEGIN
+    OUTER_SET tof_hlaname = RESOLVE_STR_REF (@86345201)
+    OUTER_SET tof_hladesc = RESOLVE_STR_REF (@86345202)
+    ACTION_TO_UPPER enrage    // needs to be upper case to work
+
+    OUTER_TEXT_SPRINT match  ~dwHLANameOverride['SPCL321~
+    OUTER_TEXT_SPRINT newline  ~dwHLANameOverride['%enrage%']=%tof_hlaname%~
+    OUTER_TEXT_SPRINT match2  ~dwHLANameOverride['SPCL321~
+    OUTER_TEXT_SPRINT newline2  ~dwHLADescriptionOverride['%enrage%']=%tof_hladesc%~
+    OUTER_TEXT_SPRINT match3  ~dwHLANotEpic['SPCL321~
+    OUTER_TEXT_SPRINT newline3  ~dwHLANotEpic['%enrage%']=true~
+
+    COPY_EXISTING ~m_dw_hld.lua~  ~override~
+      REPLACE_TEXTUALLY EXACT_MATCH ~%match%~ ~%newline%%WNL%%match%~
+      REPLACE_TEXTUALLY EXACT_MATCH ~%match2%~ ~%newline2%%WNL%%match2%~
+      REPLACE_TEXTUALLY EXACT_MATCH ~%match3%~ ~%newline3%%WNL%%match3%~
+    BUT_ONLY
+  END
+END
+
+//change HLA to mod resource (if mod added "extra enrage" hla)
+OUTER_TEXT_SPRINT hlatable  ~lu%kitid%~
+COPY_EXISTING ~%hlatable%.2da~  ~override~
+  REPLACE_TEXTUALLY  ~GA_SPCL321~  ~GA_%enrage%~
+IF_EXISTS BUT_ONLY
+
+
+END
+
+
+//
+//

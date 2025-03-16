@@ -203,6 +203,9 @@ Version info:
 v5.18
 - Medic: Fixed possible bug. If casting speed was slowed by a spell or item, and current Ki Energy was insuffucient for an ability, it would show the "Not enough Ki Energy" message but the effects would still be applied, and no Ki Energy would be used. Adjusted some timings to fix the issue.
 - Minor reorganizing of Ki Energy files. Some files are renamed and moved apart from the Medic files. This will break compatibility with Medics made before this version, but this can be fixed. If Ki Energy system is broken, import and equip the item "d2kifix.itm". This will remove the problematic effects.
+- War Magician: Reverted Twisted Barricade change from last update (now cast normally again). Unleash Magic is still cast as a free action.
+- Any of the buffs/explosions that dispel web/entangle/grease status now also remove insects status (not mentioned in descriptions).
+- ToF mod: the updater now runs an Enrage-related file to avoid compatibility issues with my other kit mod (d2mk).
 
 v5.17
 - War Magician: Unleash Magic and Twisted Barricade are now used as free actions. This means you can cast another spell without waiting a round. (notes: These will still trigger wild magic zones. They can be used while paused but effects aren't given until game is unpaused.)

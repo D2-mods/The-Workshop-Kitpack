@@ -123,6 +123,13 @@ Text in this file appears in the game.
 @543615 = ~– ~    // en dash (Config description)
 
 
+//tof hla (compat with d2mk edit if restoring backup LUA file with updater)
+@86345201 = ~Extra Enrage~
+@86345202 = ~The character gains an additional use of the Enrage ability.
+
+Requirements: 1st level Berserker or 1st level Kensaizerker.~
+
+
 
 
 //

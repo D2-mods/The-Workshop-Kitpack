@@ -52,21 +52,24 @@ COPY ~%abilities%/opcode318.SPL~  ~override/%s1%x.SPL~
 COPY ~%icons%/twistedbarricade.BAM~      ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@110) STR_VAR bam=~%s2%i~ RET icon END
 
+/*
 COPY ~%abilities%/applyeffects.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @110
   SAY UNIDENTIFIED_DESC @210
   WRITE_ASCII 0x3a SPCL901B #8
   LPF ALTER_SPELL_HEADER INT_VAR target=7 STR_VAR icon=SPCL901B END    // cast as free action
   LPF ALTER_EFFECT INT_VAR opcode=146 STR_VAR resource=~%s2%a~ END
+*/
 
 COPY ~%abilities%/twistedbarricade.VVC~  ~override/%s2%a.VVC~
   WRITE_ASCII 0x80 ~EFF_P105~ #8
 
-COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%a.SPL~
-//  SAY NAME1 @110
-//  SAY UNIDENTIFIED_DESC @210
+COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%.SPL~
+  SAY NAME1 @110
+  SAY UNIDENTIFIED_DESC @210
   LPF DELETE_EFFECT INT_VAR match_opcode=188 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=272 END
+//  LPF DELETE_EFFECT INT_VAR match_opcode=272 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 parameter1=1 parameter2=0 duration=19 STR_VAR resource=~%s2%a~ END
 
   LPF ALTER_EFFECT INT_VAR match_opcode=321 opcode=326 STR_VAR resource=~%s0%x~ END
 //  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter2=5 END                        // movement (set mode 5)
@@ -87,10 +90,17 @@ COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%a.SPL~
 //block effects (block this from kit table)
 COPY ~%abilities%/opcode318.SPL~  ~override/%s2%x.SPL~
   LPF ALTER_SPELL_HEADER INT_VAR projectile=0 END    // 0 = applies before main spell
-  LPF ALTER_EFFECT STR_VAR resource=~%s2%a~ END
+  LPF ALTER_EFFECT STR_VAR resource=~%s2%~ END
   SPRINT ability_name @110
   LPF CLONE_EFFECT INT_VAR opcode=139 parameter1=RESOLVE_STR_REF (@350) END
 
+//subspell - block web/entangle/grease
+COPY ~%abilities%/applyeffects.EFF~  ~override/%s2%a.EFF~
+  WRITE_ASCII 0x30 ~%s2%a~ #8
+COPY ~%abilities%/applyeffects.SPL~  ~override/%s2%a.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~d2!web~ END
+  LPF CLONE_EFFECT STR_VAR resource=~d2!swarm~ END
+  LPF d2_protect_on_castequip INT_VAR duration=3 END
 
 //subspell - protection from normal missiles
 COPY_EXISTING ~SPWI311.SPL~  ~override/%s2%b.SPL~
@@ -129,7 +139,7 @@ COPY_EXISTING ~SPPR701.SPL~  ~override/%s2%c.SPL~
 //Remove effects
 COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%a~ END
-  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%a~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%b~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%c~ END
 
@@ -180,7 +190,6 @@ OUTER_TEXT_SPRINT warmagician           ~%kitid%~
 OUTER_TEXT_SPRINT unleashmagic          ~%s1%~
 OUTER_TEXT_SPRINT unleashmagicbuff      ~%s1%a~
 OUTER_TEXT_SPRINT twistedbarricade      ~%s2%~
-OUTER_TEXT_SPRINT twistedbarricadebuff  ~%s2%a~
 
 
 /*

@@ -20,7 +20,7 @@ ACTION_IF (patch_monk > 0) BEGIN
         SET_2DA_ENTRY r 1 3 1
       END
     END
-  BUT_ONLY
+  IF_EXISTS BUT_ONLY
 END
 
 
@@ -35,7 +35,7 @@ ACTION_IF (RESOURCE_CONTAINS ~clsrcreq.2da~ ~FIGHTER_MAGE_CLERIC~) BEGIN
         LPF d2_edit_2da_entry STR_VAR col_name=~%race%~ row_name=FIGHTER_MAGE_CLERIC entry=~%entry%~ END
       END
     END
-  BUT_ONLY
+  IF_EXISTS BUT_ONLY
 END
 
 
