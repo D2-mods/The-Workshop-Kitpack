@@ -174,13 +174,110 @@ FnP multiclass :
 
 Version info:
 
+v5.18
+- Medic: Fixed possible bug. If casting speed was slowed by a spell or item, and current Ki Energy was insuffucient for an ability, it would show the "Not enough Ki Energy" message but the effects would still be applied, and no Ki Energy would be used. Adjusted some timings to fix the issue.
+- Minor reorganizing of Ki Energy files. Some files are renamed and moved apart from the Medic files. This will break compatibility with Medics made before this version, but this can be fixed. If Ki Energy system is broken, import and equip the item "d2kifix.itm". This will remove the problematic effects.
+- War Magician: Reverted Twisted Barricade change from last update (now cast normally again). Unleash Magic is still cast as a free action.
+- Any of the buffs/explosions that dispel web/entangle/grease status now also remove insects status (not mentioned in descriptions).
+- ToF mod: the updater now runs an Enrage-related file to avoid compatibility issues with my other kit mod (d2mk).
+
+
+v5.17
+- War Magician: Unleash Magic and Twisted Barricade are now used as free actions. This means you can cast another spell without waiting a round. (notes: These will still trigger wild magic zones. They can be used while paused but effects aren't given until game is unpaused.)
+- Nurse: N-Alchemy is now used as a free action. Same as above except it doesn't trigger wild magic. The actual nurse abilities are cast normally.
+- Fixed Kit Updater patching wrong Starjammer spell resources if the spell.ids config option was used during the initial mod install.
+- Blood Minister: Fixed usability if installed before Faiths & Powers. Run the Kit Updater to fix. (note: It's still recommended to install after FnP, except the multiclasses).
+- Fixed Nurse N-Alchemy abilities not being removed on death/revival or export/import. Previously, if you died or exported while abilities were still active, they were learned permanently until the next time you used N-Alchemy.
+- Fixed a display issue with N-Alchemy and Bubb's Menu Overlay mode (affected single class Nurse). After a full Rest, if you still had 2-3 Alchemy Points, abilities weren't properly removed from the Overlay (you had to change screens or click another character to fix it).
+- Powder Keg: Fixed visual glitch with Dust Explosion where the character would briefly have full visual range after moving.
+- Crow Hunter: This is just a technical change. The "haste" from Visceral Attack now gives +1 APR and movement bonus, instead of using the normal haste effect (similar to Offensive Spin). Magical haste (i.e. from Moonlight Knight or Hunter Bone) still uses the haste opcode.
+- OlvynSpells (v2.6.0) notes: Improved compat with 3e metamagic component and EEex effects from new spells component. This mod can be installed before or after any components of OlvynSpells. If installed before new spells or 3e metamagic, run the Kit Updater after to check EEex effects.
+- Fixed possible installer error with Drifter kit (mod compat related).
+- These abilities now do 1 second hit stun: Booming Song, Visceral Attack, Steady Current, Electrocannon, Moonlight Vortex, Dragonrot, and Ether Explosion. This is not mentioned in the descriptions.
+- Powder Keg: Improved effects structure for learning song from Etherbomb Songbook. No longer uses a kit-targeted effect. Instead, the mod adds a song book unlocker (d2usb.spl). If gained by a kit, using songbooks from this mod will change the current bard song. (Etherbomb Songbook is the only one currently, but there will possibly be 1-2 more)
+- Improved effects structure for Flynn's Ring buff. Repeating armor check is now unaffected by slow/haste (still checked every 3 seconds). Buff is also now removed within 1 second if ring is unequipped.
+
+v5.16
+- ToF notes: All cleric single/multiclass kits now have correct HLA lists based on spheres. Nurse can take any potion ability. Forgot to give Spell Fencer an Arcane Knowledge feat. (note: Triple class HLAs might be buggy, this is a ToF issue.)
+- Confessor: Kit Updater now removes Cure Disease if a later tweak adds it for paladins (ex. ToF revisions). This follows IWD rules, where kits that don't gain Lay On Hands also don't gain Cure Disease.
+- Patching for subtledoctor's 5e casting mod is now part of the Kit Updater, replacing the old component. Run it any time after 5e casting to make changes. If you later uninstall 5e casting, re-run the updater to revert changes.
+- Kit Updater can now change spell cap, holy symbols, and extra hunter badges config settings.
+- Using the updater now ends the current weidu run (i.e. skips the the normal installer options).
+- Misc items now has subcomponent "Dev mode (start with Item Sack)".
+- Reverted Warhound change from last update (no longer immune to own explosive shots).
+- Slightly increased Warhound Shockwave damage (now does 3 + 2d4 per 4 levels up to 3 + 10d4). Average damage starts at 8 and scales to 28 + guaranteed knockback with no save.
+
+v5.15
+- Kit Updater can now be used to change some of the misc options in the Config.ini.
+- Tracking ability: If rangers can gain this at level 1, then kits that could gain Tracking as an HLA (Confessor, Crow Hunter) will also gain it at level 1. The updater will also check for this.
+- Added color glows for Moonlight Knight's Torrent effects. Different colors for higher versions.
+- Nurse's Autoimmune: When/if statuses are cured, it now also heals 30% of maximum Hit Points.
+- Crow Hunter's Visceral Attack: Healing changed from 12 HP to 5 + 20% of max HP. (for comparison, in the v1.0 this healed 20 HP.)
+- Beast Hunter: Added some minor additional bonuses at levels 8 and 16.
+- Warhounds now take no damage from their own Shockwave or Incinerate. It still removes grease/entangle effects if the caster is hit by the blast/flames.
+- Fixed a minor issue with Powder Keg kit and Talents of Faerun HLA component. If taking the ToF HLA song it now switches to the correct song. Run the Kit Updater after ToF to apply fix.
+- Powder Keg: Fixed a loophole that let you use powder keg explosions every round. Also, scripted singing can no longer bypass the cooldown timer.
+- Nurse: Changed armor restriction to leather and hide, instead of just leather. Gives the single class more options.
+
+v5.14
+- Kit Updater note: More work on proficiency updates. The main new thing is that each time this is run now, it will first copy paste every value from the base class over to the kit. Then it makes further edits for kits that need it. This means that for values not specifically edited, it will always be identical to the base class after running the updater.
+- Medic: The HLA list now checks for some fist only HLAs added by mods (ToF, Artisan's Kitpack). If detected, the kit will not gain the equivalent fighter hlas. (my monk kits add some fighter hlas not in the base monk table)
+- Powder Keg: Will now always have damage HLA traps, even if removed from bards by a tweak.
+- Icons: for kits with multiple abilities, icons should now always have the same visual style if using a mod that changes icons (ex. Remastered Spell Icons). An exception is the Medic Arts ability (the submenu uses the actual Poison Weapon and Lay On Hands abilities).
+- subtledoctor's Combat Skills mod: A few adjustments. Some kits can put more in Dodge or Ranged skills. Crow Hunter can no longer take traps. This is done from both the main component and the updater, but it's recommended to install before Combat Skills, then run the updater after.
+- Skills & Abilities mod: Some kits will no longer have the "Heavy Armor" proficiency. This is done from both the main component and the updater, but it's recommended to install before Skills & Abilities, then run the updater after.
+
+v5.13
+- Talents of Faerun notes:
+	- Misc improvements to minor/high level abilities lists. Run the Kit Updater after ToF to implement changes.
+	- Several kits can no longer learn feats related to their kit disadvantages.
+	- Several kits have extra options that aren't normally part of their class. (ex. all archer kits can take any ranged combat feat/HLA, Medic can take Poison Weapon upgrades, etc.)
+	- BG2EE: All arcane kits (including multiclasses) will have 1 of the Arcane Knowledge feats taken for free. The feat is denoted at level 1, but effects aren't given until level 18 mage. (These are required for selecting HLA spells of a school.)
+	- Note: If ToF feats/HLAs are detected in the override, the Kit Updater patches the m_dw_hld.lua file, and backs up an unmodified version in weidu_external\d2wk. The updater only needs to be run once, but is safe to run repeatedly (it won't create duplicate lines).
+- Kit Updater: Added option to restore backup ToF lua file before edits. This isn't normally needed. The updater won't add duplicate lines. If you see a feat/HLA that is permanently grayed out, you can try using this. (note: this won't fix possible issues with cleric sphere system HLAs)
+
+v5.12
+- Kit Updater: Various improvements. Adjusted mod compat stuff.
+- Nurse: There's no description update, but ranged proficiencies are now always (base thief + 1). It will still be 2 slots max in most cases. The updater component will also recheck this. Also, the number will never be lowered from the current amount (i.e. if a mod gave it Mastery or higher).
+- Temple Knight: No changes, but installer/updater now won't lower blunt/polearm proficiencies if you installed a tweak that gives all paladins grand mastery.
+- multiclass clerics: Updater now won't lower proficiency numbers if you installed a tweak that gives multiclass warriors higher than 2 slots in weapons.
+- Faiths & Powers note: Expanded HLA lists for Blood Minister and cleric multiclasses. Two things to note. (1) Not all HLAs will match the kit's sphere list. They were chosen based on what I thought looked right for the kit. (2) HLAs are added by scanning FnP kits and copy pasting lines to this mod's HLA tables. (i.e. you need to install FnP clerics/druids/shamans for the full HLA lists)
+- FnP note 2: If you use FnP spheres, but don't want to install some or all FnP kits, that's fine too. Kits will just have a smaller HLA list. Note that the Blood Minister will (as of this update) always have anything from the shaman HLA list.
+- A few kits can now learn an extra HLA from another class (ex. Grave Warden can take UAI).
+
+v5.11
+- Added new component: Kit Updater. This replaces the "Update Medic Arts" component. Can be re-run at any time. Skipped on initial mod install. This is safe to install at end of order, including after mods that say they need to be installed last. Currently, it does the Medic updates, and also remakes HLA tables. It also rechecks proficiencies for kits different from the base class.
+- Kits with armor restrictions are now listed in the "Unusable" part of the item description.
+- HLA tables for all kits now have unique resource names. These are clones of the base class table, including any tweaks or additions. Running the Kit Updater will also remake all HLA tables.
+- Warrior HLAs: Paladin, ranger, and monk kits now scan the base fighter HLA list and copy paste any lines they don't already have (except Resist Magic for monks). There won't be anything added in the unmodded game, but with mods there might be.
+- Multiclass HLAs: Multiclass kits now check the base single class for missing abilities (can happen with ToF, depending on game/components). Triple class kits won't check the Mage list, but will have anything from the base triple class (i.e. if modded to have HLA spells).
+
+v5.10
+- Starjammer: Gemini Swap now does the teleport instantly (previously delayed 1 second). Also briefly invisible (both caster and target).
+- Nurse kit's Autoimmune triggers faster (always within 1-2 seconds now).
+- All support abilities that target a single creature are now castable on invisible or sanctuaried allies. This was already the case for some but not all. Can optionally make them not castable on invisible from config.ini.
+- Compatibility note: This mod is now safe to install before or after most proficiency overhauls (tested with cdtweaks, skills & abilities). Talents of Faerun weapon system still needs to be after, but most others should be fine before or after.
+- Cleric multiclasses: the config option to have more proficiency choices is now always auto-enabled if the base multiclass has expanded usability. Previously, it would only check specifically for the FnP or DoF mods.
+- Blood Minister: Previously already had expanded proficiency options if FnP or DoF tweaks were detected. This now checks the base cleric class directly, instead of specific mods.
+- Blood Minister: "No gauntlets or bracers" restriction is now specifically for magic items. (This was mainly done to test a new install file, but might as well leave it in.)
+
+v5.9
+- Bubb's Spell Menu note: Fixed display issues in Overlay mode with Ki Energy (Medic kit). It should now always display the correct amount of Ki Energy after using an ability. (This was just a display issue. The actual Ki Energy amount was always correct.)
+- Multiclass kits should no longer randomly regain all daily uses of abilities. This only happened rarely. It was a side effect of a workaround for a possible export/import issue (still implemented, but improved effects structure).
+- Fixed patching issue when installed after EE Fixpack (only affected Medic's Spiritual Clarity).
+- Starjammer: Now briefly invisible when using Riftstep (cancels spells against, unless caster sees through invisibility).
+- Powder Keg songs will now break invisibility. If Improved Invisible, will still keep the other effects. Previously you could just stand around invisible until enemies were dead, unless they could see through invisibility.
+- Moonlight Knight: Moonlight Vortex has a bigger beam visual and hits in a wider area (kind of). The actual beam itself is still a narrow line, but it does some stuff to approximate a wider area.
+- Warhound explosions and Powder Keg's fiery explosions now dispel effects of webs, grease, and entangle on allies in the area (even if they don't take damage). Also protected for 5 seconds (enough time to leave the area). A couple kit abilities may do something similar.
+- Other minor changes (sound effects, BAM images, text colors, etc.).
+
 v5.8
 - Updated French translation from JohnBob.
 - Fixed issue where poison cures were also removing the assassin Poison Weapon buff.
 - Medic: Dragonrot damage should no longer cause frozen death (or at least super low chance). Damage is now split between cold and acid, instead of all cold. (note: this ignores damage resistance, cold is used because I like the visual/sound)
 - Blood Minister: Lead Elixir now increments resists, instead of setting them.
 - Powder Keg: Fire resist now starts at 10% and scales with level up to 50%.
-- Compat update (Talents of Faerun): For IWDEE, all healing spells from this mod can now heal any of the new PC races added by ToF. Restrictions for other races may still apply (depends on spell). These restrictions should normally only apply to summons (classic IWD had more restricted summon types, like boneguard skeletons and salamanders).
+- Compat update (Talents of Faerun): For IWDEE, all healing spells from this mod can now heal any of the new PC races added by ToF. Restrictions for other races may still apply (depends on spell). These restrictions should normally only apply to summons.
 - Changes to BAM images for item descriptions. Should look better with UI overhaul mods (ex. Infinity UI++).
 
 v5.7
@@ -376,7 +473,6 @@ v4.7
 	- Starjammer: Riftgate balor will now leave after reloading the area, instead of staying forever.
 	- Medic: Healing Rain now heals 3d8+2 per round (increased from 13.5 to 15.5 average).
 
-
 v4.6
 - Fixed abilities for imported multiclass kits (BG2/ToB/SoD):
 	- Imported characters will no longer be missing abilities when starting a new game.
@@ -404,7 +500,6 @@ v4.6
 - Other:
 	- Installer improvements.
 	- Updated ADD_KIT_EX to v0.6.0.
-
 
 v4.5
 - Medical Darts (Nurse kit):
@@ -726,20 +821,13 @@ subtledoctor - coding assistance for compatibility with his mods
 
 Custom functions (not including my own):
 - ADD_KIT_EX by Argent77 (https://github.com/Argent77/A7-add_kit_ex)
-
 - CD_EXTEND-O-MATIC by Camdawg (https://www.gibberlings3.net/forums/topic/28835-toss-your-semi-useful-weidu-macros-here/page/13/#comment-332943)
-
-- add_spell_ex by K4thos ((https://github.com/K4thos/IE-code-repository))
-
+- add_spell_ex by K4thos (https://github.com/K4thos/IE-code-repository)
 - immunity batch macros from BG2 Fixpack (https://www.gibberlings3.net/forums/topic/28834-bg2-modder-resource-effect-batch-macros)
-
-- immunity spellstates from EE Fixpack (https://www.gibberlings3.net/forums/topic/35616-effect-immunities-on-the-ee-engine-aka-taking-full-advantage-of-the-ee-fixpack)
-
 - RA_SPHERE_COMPAT.tpa for Deities of Faerun mod (https://github.com/Raduziel/Deities-Of-Faerun/releases)
-
 - fnp_compatibility.tpa for Faiths & Powers mod (https://github.com/UnearthedArcana/Faiths_and_Powers/releases)
-
 - semi_spontaneous.tpa for 5e casting mod (https://github.com/UnearthedArcana/5E_spellcasting/releases)
+- GET_KIT_STRREF (source unknown)
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -751,8 +839,11 @@ Tools/Resources used to make this mod:
 - paint.net (https://www.getpaint.net/)
 - IESDP (https://gibberlings3.github.io/iesdp/main.htm)
 - WeiDU readme (https://weidu.org/~thebigg/README-WeiDU.html)
-- Infinity Auto Packager (https://github.com/InfinityTools/InfinityAutoPackager)
 - Git Bash (https://git-scm.com/downloads)
+- WeiDU Mod Packager (https://github.com/InfinityTools/WeiduModPackager)
+
+Used for older releases (replaced by WeiDU Mod Packager):
+- Infinity Auto Packager (https://github.com/InfinityTools/InfinityAutoPackager)
 - 7-Zip (https://www.7-zip.org/)
 
 Original game resources included with this mod belong to the rights holders.

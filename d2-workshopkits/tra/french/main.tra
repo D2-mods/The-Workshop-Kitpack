@@ -51,7 +51,10 @@ Text in this file appears in the game.
 @353 = ~Note : Toutes les capacités sont obtenues selon la progression de niveau du %baseclass%. (%multiclass%)~
 @354 = ~%summon_name% se déplace avec le groupe en dehors des combats. Appuyer sur la touche B pour l'immobiliser.~
 @355 = ~%summon_name% reste immobile en dehors des combats. Appuyer sur la touche E pour que la créature se déplace avec le groupe.~
-@356 = ~Configurer %spellitemkit%~
+@356 = ~Configurer %spellitemkit%
+
+Utiliser cette capacité pour sélectionner une des options suivantes :~
+@358 = ~Vous ne pouvez pas lancer %ability_name% pour le moment.~
 
 
 //additional text (for game/config)
@@ -107,20 +110,26 @@ Text in this file appears in the game.
 @620 = ~Décochage critique~              // for Full Metal Jaguar
 @621 = ~Plus vite que son ombre~                  // for Spell Fencer
 @622 = ~Cascade~
-@623 = ~Cascade (+)~
-@624 = ~Cascade (++)~
+@623 = ~Cascade ( II )~
+@624 = ~Cascade ( III )~
 
 
 //Ki Energy feedback
 @543601 = ~1 point d'énergie mystique restauré~
 @543602 = ~Énergie mystique insuffisante !~
-@543610 = ~Ki Energy Config~
-@543611 = ~Use this ability to select one of the following options:~
+@543610 = ~Configuration de l'énergie mystique~
+@543611 = ~Cette capacité permet de sélectionner l'une des options suivantes :~
 @543612 = ~Masquer les informations visuelles~
 @543613 = ~Montrer les informations visuelles~
 @543614 = ~Supprimer la configuration (permanent)~
 @543615 = ~– ~    // en dash (Config description)
 
+
+//tof hla (compat with d2mk edit if restoring backup LUA file with updater)
+@86345201 = ~Bonus Enragé~
+@86345202 = ~Le personnage obtient une utilisation supplémentaire de la capacité « Enragé ».
+
+Nécessite : Être un Berserker ou un Kensaizerker de niveau 1.~
 
 
 
@@ -179,6 +188,10 @@ TECHNIQUES DE CHASSEUR : Pendant 12 rounds, les attaques de mêlée du Chasseur 
 
 PROJECTILE D'ARGENT : Pendant 6 rounds toutes les attaques à distance sont amplifiées, infligeant 2 points de dégâts perforants supplémentaires, elles bénéficient également de 5 % de chances de réaliser un coup critique. Tous les types de munitions (flèches, carreaux et billes) sont également enchantés, devenant ainsi capables de toucher les ennemis nécessitant des armes magiques ou en argent.
 
+- 8ème niveau : Bonus de 2 à la classe d'armure et aux jets de sauvegarde contre les lycanthropes et les démons.
+
+– 16ème niveau : La capacité « Projectile d'argent » offre 5 % de chances supplémentaires de réaliser un coup critique et les projectiles sont considérés comme +4.
+
 Inconvénients : 
 – Ne peut pas porter d'armure plus lourde que la besantine.~
 @100104 = ~~
@@ -196,7 +209,7 @@ Avantages :
 – Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes.
 – Peut utiliser les capacités « Onde de choc » et « Incinération » au niveau 4, puis une fois supplémentaire tous les 4 niveaux, jusqu'à un maximum de 5 au niveau 20
 
-ONDE DE CHOC : La prochaine attaque à distance réussie provoque une vague d'énergie. Toutes les créatures situées dans un rayon de 4,5 m subissent 2d4 points de dégâts contondants et sont projetées en arrière sur une distance considérable, sans jet de sauvegarde possible. La déflagration inflige 2d4 points de dégâts contondants supplémentaires par tranche de 4 niveaux, jusqu'à un maximum de 10d4 points de dégâts au niveau 20.
+ONDE DE CHOC : La prochaine attaque à distance réussie provoque une vague d'énergie. Toutes les créatures situées dans un rayon de 4,5 m subissent 2d4 + 3 points de dégâts contondants et sont projetées en arrière sur une distance considérable, sans jet de sauvegarde possible. La déflagration inflige 2d4 + 3 points de dégâts contondants supplémentaires par tranche de 4 niveaux, jusqu'à un maximum de 10d4 + 3 points de dégâts au niveau 20.
 
 INCINÉRATION : La prochaine attaque à distance réussie s'étend telle une nuée ardente, recouvrant un rayon de 4,5 mètres. Toutes les créatures présentes dans le nuage subissent 1d6 points de dégâts de feu à chaque round pendant 4 rounds (un jet de sauvegarde contre les souffles réduit les dégâts de moitié). Les dégâts par round augmentent de 1d6 points par tranche de 4 niveaux, jusqu'à un maximum de 5d6 points de dégâts au niveau 20.
 
@@ -377,7 +390,7 @@ SANG DU LUNATIQUE : Cette injection donne un léger aperçu du cosmos et de ses 
 ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment d'autres capacités. Le destinataire voit sa résistance à tous les dégâts physiques augmentée de 20 % et bénéficie d'un bonus de 4 à sa classe d'armure et ses jets de sauvegarde, mais subit aussi une pénalité de 1 à la chance. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.
 
 Inconvénients : 
-– Ne peut porter de gantelets ou de bracelets.~
+– Ne peut porter de gantelets ou de bracelets magiques.~
 @100904 = ~~
 @100905 = ~~
 
@@ -395,7 +408,7 @@ TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère d
 
 – 9ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
 
-INSTINCT : La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 12 points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.
+INSTINCT : La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 5 + 20 % du maximum de points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.
 
 Inconvénients : 
 – Ne dispose que de 20 points par niveau pour les talents de voleur.
@@ -577,7 +590,7 @@ De nouvelles capacités sont disponible à plus haut niveau.
   13ème niveau : Intraveineuse
   17ème niveau : Cocktail
 
-SERINGUES : Ces fléchettes guériront les alliés et empoisonneront les ennemis. Leur effet curatif ou bien leur toxicité est équivalente à 1d4+3 + 1 point de vie par tranche de 5 niveaux. Les Seringues sont considérées comme des armes magiques +2, et bénéficient d'un bonus de 5 au jets d'attaque. Les points de compétence investis dans les fléchettes par le personnage n'affectent pas les jets d'attaque.
+SERINGUES : Ces fléchettes guériront les alliés et empoisonneront les ennemis. Leurs effets curatifs ou bien leur toxicité est équivalente à 1d4+3 + 1 point de vie par tranche de 5 niveaux. Les Seringues sont considérées comme des armes magiques +2, et bénéficient d'un bonus de 5 au jets d'attaque. Les points de compétence investis dans les fléchettes par le personnage n'affectent pas les jets d'attaque.
 
 ADRÉNALINE : Prodigue les premiers soins à n'importe quelle créature vivante. Restaure 2 points de vie par niveau, jusqu'à un maximum de 40 points de vie.
 
@@ -585,11 +598,11 @@ OVERDOSE : Pendant 5 rounds, le personnage bénéficie d'une attaque supplément
 
 INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental pendant 7 rounds. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de Confusion et Lenteur pendant 2 rounds.
 
-COCKTAIL : Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité dure 3 tours et ne protège qu'une fois.
+COCKTAIL : Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité restaure aussi 30 % du maximum de points de vie de l'utilisateur, dure 3 tours et ne protège qu'une fois.
 
 Inconvénients :
-– Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.
-– Ne peut porter d'armure plus lourde que l'armure de cuir.~
+- Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.
+- Ne peut porter d'armure plus lourde que l'armure de cuir.~
 @101604 = ~~
 @101605 = ~~
 
@@ -654,12 +667,15 @@ Pendant 12 rounds, les attaques de mêlée du Chasseur infligent 1d3 dégâts d'
 
 Pendant 6 rounds toutes les attaques à distance sont amplifiées, infligeant 2 points de dégâts perforants supplémentaires et bénéficient de 5 % de chances de réaliser un coup critique. Tous les types de munitions (flèches, carreaux et billes) sont également enchantés, devenant ainsi capables de toucher les ennemis nécessitant des armes magiques ou en argent.
 
-Les armes bénéficient d'un bonus d'enchantement à +4. Elles fonctionneront contre les immunités naturelles et les protections contre les armes courantes, comme « Manteau » ou « Protection contre les armes non-magique ». Par contre elles ne seront pas efficaces contre les sorts qui ciblent spécifiquement les armes à distance, comme « Protection contre les projectiles normaux ».~
+Au niveau 16, les chances de réaliser un coup critique passe à 10 % et toutes les attaques à distance touchent comme des armes +4.
+
+Remarque : le bonus d'enchantement ne s'appliquera pas contre les sorts protégeant spécifiquement contre les armes à distance.
+Ex : Protection contre les projectiles non-magiques.~
 
 @102 = ~Onde de choc~
 @202 = ~Onde de choc 
 
-La prochaine attaque à distance réussie provoque une vague d'énergie. Toutes les créatures situées dans un rayon de 4,5 m subissent 2d4 points de dégâts contondants et sont projetées en arrière sur une distance considérable, sans jet de sauvegarde possible. La déflagration inflige 2d4 points de dégâts contondants supplémentaires par tranche de 4 niveaux, jusqu'à un maximum de 10d4 points de dégâts au niveau 20.
+La prochaine attaque à distance réussie provoque une vague d'énergie. Toutes les créatures situées dans un rayon de 4,5 m subissent 2d4 + 3 points de dégâts contondants et sont projetées en arrière sur une distance considérable, sans jet de sauvegarde possible. La déflagration inflige 2d4 + 3 points de dégâts contondants supplémentaires par tranche de 4 niveaux, jusqu'à un maximum de 10d4 + 3 points de dégâts au niveau 20.
 
 L'attaque doit être effectué dans les 2 rounds suivant l'activation de la capacité ou l'effet se dissipera.
 Ne peut pas être utilisé en combinaison avec la capacité Incinération.~
@@ -745,7 +761,7 @@ Pendant 3 rounds, chaque attaque à distance réussie génère de multiples écl
 @114 = ~Instinct ~
 @214 = ~Instinct 
 
-La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 12 points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.~
+La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 5 + 20 % du maximum de points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.~
 
 @115 = ~Chant du barde : Chant enflammé~
 @215 = ~Chant enflammé 
@@ -852,7 +868,7 @@ Pendant 5 rounds, le personnage bénéficie d'une attaque supplémentaire par ro
 @131 = ~Cocktail~
 @231 = ~Cocktail
 
-Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité dure 3 tours et ne protège qu'une fois.~
+Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité restaure aussi 30 % du maximum de points de vie de l'utilisateur, dure 3 tours et ne protège qu'une fois.~
 
 @132 = ~Concoction~
 @232 = ~Concoction
@@ -874,7 +890,7 @@ OVERDOSE : Pendant 5 rounds, le personnage bénéficie d'une attaque supplément
 
 INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental pendant 7 rounds. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de Confusion et Lenteur pendant 2 rounds.
 
-COCKTAIL : Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité dure 3 tours et ne protège qu'une fois.~
+COCKTAIL : Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité restaure aussi 30 % du maximum de points de vie de l'utilisateur, dure 3 tours et ne protège qu'une fois.~
 
 @133 = ~Saignée~
 @233 = ~Saignée

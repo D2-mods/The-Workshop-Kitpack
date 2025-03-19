@@ -10,6 +10,19 @@ C'est un pack de Kits sur lequel je travaille depuis un moment. Il comporte actu
 
 NOTE : Les tables de capacités pour ces kits sont créées au moment de l'installation. Chaque kit clone la table de la classe de base (si elle existe). Cela signifie que toute modification de classe installée au préalable sera incluse dans les kits du mod.
 
+--
+
+Kit Updater : Utiliser ce composant après tous les mods de tweak et autres overhauls (une possible exeption pour le mod Dual to Kit).
+Il reconstruit les tables des HLA, met à jour les compétences d'armes et effectue quelques vérifications mineures. 
+Il inclut également l'ancien composant "Mettre à jour la description de la capacité « Chirurgie »" (à utiliser si « Arme empoisonnée » ou « Imposition des mains » ont été révisés après l'installation du Workshop Kitpack).
+Plus d'infos dans la section Composants.
+
+--
+
+![Preview image](d2-workshopkits/preview/preview2.webp)
+
+--
+
 
 Contenu du mod :
 -
@@ -66,9 +79,10 @@ Composants :
 	- Option 2: Uniquements les Kits de base
 	- Option 3: Pack d'objets divers (Pas de kits ou d'insignes de chasseur)
 2. Pack d'objets divers
+	- Option 1: Installation standard
+	- Option 2: Dev mode (commencer le jeu avec un sac d'objets)
 3. Patches supplémentaire
-	- Composant pour le mod 5E_spellcasting de subtledoctor (il peut être installé avant ou après).
-	- Composant pour mettre à jour la description de la capacité « Chirurgie » (à utiliser si « Arme empoisonnée » ou « Imposition des mains » ont été révisés après l'installation du Workshop Kitpack).
+	- Kit Updater (corrections ou mise à jour, voir ci-dessous)
 
 --
 
@@ -76,13 +90,21 @@ Composants :
 - Si l'option 1 ou 2 est installée, Alors le composant "Pack d'objets divers" sera proposé séparément.
 - Si l'option 3 est installée, les autres composants seront sautés.
 - Les insignes de chasseur sont installées en combinaison avec le kit de Chasseur.
-- Mettre à jour la description de la capacité « Chirurgie » : si ce composant a été ignoré lors de l'installation initiale du mod, il peut être installé à tout moment et ne désinstalle pas les autres mods..
+
+**Kit Updater:**
+- Reconstruire les tables des HLA, mettre à jour les compétences d'armes, vérifications mineures, mods compatibilité, etc.
+- Non utilisé lors de l'installation initiale du mod, peut être installé / réinstallé à tout moment (ne désinstalle pas les autres mods).
+- Utiliser ce composant après tous les mods de tweak et autres overhauls (revisions), y compris les mods qui indiquent devoir être installés en dernier.
+- Dual to Kit note: Utiliser ce composant une fois avant Dual to Kit si vous utilisez un mod altérant les compétences d'armes.
+Il peut être relancé après si vous avez besoin de mettre à jour d'autres choses plus tard. (note : C'est spécifiquement le composant 3 de Dual to Kit qui doit être exécuté après toute modification des compétences d'armes)
 
 **Configuration (config.ini) :**
--  Définir un kit = 0 pour éviter de l'installer
-- Le composant "Uniquement les Kits de base" ignorera toutes les variants multiclasses, quels que soient les paramètres de configuration..
+- Définir un kit = 0 pour éviter de l'installer
+- Désactiver une classe unique désactive également les variants multi-classes.
 - Il existe plusieurs autres options. Elles doivent être configurées avant l'installation du mod.
+- Certaines options peuvent désormais être modifiées à l'aide de Kit Updater (elles sont clairement indiquées dans config.ini).
 
+--
 
 Descriptions des Kits :
 -
@@ -106,6 +128,10 @@ TECHNIQUES DE CHASSEUR : Pendant 12 rounds, les attaques de mêlée du Chasseur 
 
 PROJECTILE D'ARGENT : Pendant 6 rounds toutes les attaques à distance sont amplifiées, infligeant 2 points de dégâts perforants supplémentaires, elles bénéficient également de 5 % de chances de réaliser un coup critique. Tous les types de munitions (flèches, carreaux et billes) sont également enchantés, devenant ainsi capables de toucher les ennemis nécessitant des armes magiques ou en argent.
 
+- 8ème niveau : Bonus de 2 à la classe d'armure et aux jets de sauvegarde contre les lycanthropes et les démons.
+
+- 16ème niveau : La capacité « Projectile d'argent » offre 5 % de chances supplémentaires de réaliser un coup critique et les projectiles sont considérés comme +4.
+
 Inconvénients : 
 - Ne peut pas porter d'armure plus lourde que la besantine.
   
@@ -121,7 +147,7 @@ Avantages :
 - Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes.
 - Peut utiliser les capacités « Onde de choc » et « Incinération » au niveau 4, puis une fois supplémentaire tous les 4 niveaux, jusqu'à un maximum de 5 au niveau 20
 
-ONDE DE CHOC : La prochaine attaque à distance réussie provoque une vague d'énergie. Toutes les créatures situées dans un rayon de 4,5 m subissent 2d4 points de dégâts contondants et sont projetées en arrière sur une distance considérable, sans jet de sauvegarde possible. La déflagration inflige 2d4 points de dégâts contondants supplémentaires par tranche de 4 niveaux, jusqu'à un maximum de 10d4 points de dégâts au niveau 20.
+ONDE DE CHOC : La prochaine attaque à distance réussie provoque une vague d'énergie. Toutes les créatures situées dans un rayon de 4,5 m subissent 2d4 + 3 points de dégâts contondants et sont projetées en arrière sur une distance considérable, sans jet de sauvegarde possible. La déflagration inflige 2d4 + 3 points de dégâts contondants supplémentaires par tranche de 4 niveaux, jusqu'à un maximum de 10d4 + 3 points de dégâts au niveau 20.
 
 INCINÉRATION : La prochaine attaque à distance réussie s'étend telle une nuée ardente, recouvrant un rayon de 4,5 mètres. Toutes les créatures présentes dans le nuage subissent 1d6 points de dégâts de feu à chaque round pendant 4 rounds (un jet de sauvegarde contre les souffles réduit les dégâts de moitié). Les dégâts par round augmentent de 1d6 points par tranche de 4 niveaux, jusqu'à un maximum de 5d6 points de dégâts au niveau 20.
 
@@ -154,7 +180,7 @@ Si celle-ci voit ses points de vie tomber en dessous des 50 %, un deuxième effe
 Inconvénients : 
 - Ne peut pas porter d'armure plus lourde que la cotte de mailles.
 - Ne peut utiliser la capacité « Charme-animal ».
-– Ne peut pas être d'alignement mauvais ou chaotique.
+- Ne peut pas être d'alignement mauvais ou chaotique.
 
 ---
 
@@ -165,24 +191,24 @@ CHEVALIER AU CLAIR DE LUNE : Ces chevaliers errants, marqués d'une cicatrice po
 Avantages :
 - Balafré par la lune : Bonus de 1 aux jets de sauvegarde, passe à 2 au niveau 8 et à 3 au niveau 16 et à 3 au niveau 10.
 
-– 2ème niveau : Gagne la capacité passive « Cascade ».
+- 2ème niveau : Gagne la capacité passive « Cascade ».
 
 CASCADE : Une attaque réussie octroie au personnage 10 % de chances de bénéficier des effets de la hâte pendant 10 secondes, gagnant une attaque supplémentaire par round et doublant sa vitesse de déplacement.
 Au niveau 8, les attaques infligent 2 points de dégâts magiques supplémentaires.
 au niveau 16, le nombre d'attaques par round est doublé.
 Les effets de « Balafré par la lune » sont inversés quand cette capacité est activée.
 
-– 7ème niveau : Peut utiliser la capacité « Albédo » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
+- 7ème niveau : Peut utiliser la capacité « Albédo » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
 ALBÉDO : Libère un rayonnement lunaire dévastateur qui s'étend jusqu'à la zone ciblée, infligeant sur son passage 8d10 points de dégâts magiques aux ennemis. Les morts-vivants et les créatures extra-planaires subissent le double des dégâts. De plus, la lumière rémanente issue de l'incantation confère au personnage un bonus de 20 % de résistance magique, pendant 4 rounds.
 
-– Peut être de n'importe quel alignement.
-– Ne peut être déchu en raison de sa réputation.
+- Peut être de n'importe quel alignement.
+- Ne peut être déchu en raison de sa réputation.
 
 Inconvénients :
 - Balafré par la lune : Pénalité de 1 à la classe d'armure contre les attaques tranchantes, perforantes et les projectiles. Cette pénalité passe à 2 au niveau 8 et 3 au niveau 16.
-– Ne peut se spécialiser avec les armes à distance.
-– Ne peut pas utiliser la Furtivité.
+- Ne peut se spécialiser avec les armes à distance.
+- Ne peut pas utiliser la Furtivité.
 
 ---
 
@@ -216,17 +242,17 @@ Inconvénients :
 CHAMPION DU TEMPLE : Ces chevaliers en armure lourde sont principalement présents près des temples et des églises de Toril, protégeant ces lieux sacrés. Ce sont des soldats vertueux, qui se dressent avec détermination contre tout adversaire.
 
 Avantages :
-– Peut atteindre la haute maîtrise (4 points de compétence) avec les armes d'hast et les armes contondantes.
-– Peut utiliser la capacité « Imposition des mains » trois fois par jour.
-– 2ème niveau : Peut utiliser la capacité « Force » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
+- Peut atteindre la haute maîtrise (4 points de compétence) avec les armes d'hast et les armes contondantes.
+- Peut utiliser la capacité « Imposition des mains » trois fois par jour.
+- 2ème niveau : Peut utiliser la capacité « Force » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
 FORCE : Produit une onde de choc qui n'inflige aucun dégât, mais étourdit les ennemis à proximité. Tous les adversaires présents dans un rayon de 4,5 mètres sont propulsés en arrière et étourdis pendant 4 secondes (sans jet de sauvegarde possible). Les créatures gigantesques ne seront pas projetées mais étourdies un court instant.
 
-– 9ème niveau : Peut utiliser la capacité « Rayon divin » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
+- 9ème niveau : Peut utiliser la capacité « Rayon divin » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
 
 Inconvénients : 
-– Ne peut pas se spécialiser avec les armes à projectiles.
-– Sa capacité à repousser les morts-vivants est deux point inférieur à celle des autres paladins et ne devient effective qu'au niveau 5.
+- Ne peut pas se spécialiser avec les armes à projectiles.
+- Sa capacité à repousser les morts-vivants est deux point inférieur à celle des autres paladins et ne devient effective qu'au niveau 5.
 
 ---
 
@@ -291,7 +317,7 @@ SANG DU LUNATIQUE : Cette injection donne un léger aperçu du cosmos et de ses 
 ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment d'autres capacités. Le destinataire voit sa résistance à tous les dégâts physiques augmentée de 20 % et bénéficie d'un bonus de 4 à sa classe d'armure et ses jets de sauvegarde, mais subit aussi une pénalité de 1 à la chance. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.
 
 Inconvénients : 
-- Ne peut porter de gantelets ou de bracelets.
+- Ne peut porter de gantelets ou de bracelets magiques.
 
 ---
 
@@ -300,18 +326,18 @@ Inconvénients :
 PRÉDATEUR : Agissant avec célérité et sans aucune pitié pour sa cible. Ce Prédateur de prédateurs est un tueur expérimenté et redouté, mais il n'est pas nécessairement cruel ou maléfique, malgré le caractère déplaisant de son travail.
 
 Avantages :
-– Bonus de 1 aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille. Ce bonus passe à 2 au niveau 5 et à 3 au niveau 10.
-– 4ème niveau : Peut utiliser la capacité « Tir éclatant » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
+- Bonus de 1 aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille. Ce bonus passe à 2 au niveau 5 et à 3 au niveau 10.
+- 4ème niveau : Peut utiliser la capacité « Tir éclatant » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
 TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 1 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
-– 9ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
+- 9ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
 
-INSTINCT : La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 12 points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.
+INSTINCT : La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 5 + 20 % du maximum de points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.
 
 Inconvénients : 
-– Ne dispose que de 20 points par niveau pour les talents de voleur.
-– Ne peut pas poser de pièges.
+- Ne dispose que de 20 points par niveau pour les talents de voleur.
+- Ne peut pas poser de pièges.
 
 ---
 
@@ -338,8 +364,8 @@ FLAMME FRÉNÉTIQUE : Cette attaque répand une flamme vivante qui enveloppe un 
 - Si la capacité de haut niveau « Chant du barde amélioré » est acquise, le personnage disposera d'une capacité lui permettant de basculer sur cette chanson.
 
 Inconvénients : 
-– Le chant du barde est désactivé pendant 8 rounds après utilisation.
-– N'obtient qu'un quart du score de Vol à la tire.
+- Le chant du barde est désactivé pendant 8 rounds après utilisation.
+- N'obtient qu'un quart du score de Vol à la tire.
 
 ---
 
@@ -367,7 +393,7 @@ Avantages :
 Inconvénients :
 - N'a pas accès aux sorts de prêtre.
 - Ne peut pas porter d'armure plus lourde que l'armure de cuir ou l'armure de peau.
-– Ne peut pas être d'alignement loyal.
+- Ne peut pas être d'alignement loyal.
 
 
 ** Remarque : Évasion peut être obtenue dans IWD:EE, si le mod IWDification est installé ou le mod Talents of Faerûn.
@@ -378,16 +404,16 @@ CHIRURGIEN : Le Chirurgien est un combattant disposant d'une connaissance approf
 
 Avantages :
 - Peut utiliser l'énergie mystique afin d'activer ses capacités spéciales, le chirurgien obtient 1 point tout les 2 niveaux à partir du niveau 1.
-– Régénération mystique : Cette capacité passive permet au chirurgien de récupérer 1 point d'énergie mystique tout les 5 rounds.
-– Peut utiliser la capacité « Sombre Remède », nécessite 1 point d’énergie mystique.
+- Régénération mystique : Cette capacité passive permet au chirurgien de récupérer 1 point d'énergie mystique tout les 5 rounds.
+- Peut utiliser la capacité « Sombre Remède », nécessite 1 point d’énergie mystique.
 
 SOMBRE REMÈDE : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède curatif qui restaure 2d6 points de vie à tous les alliés dans un rayon de 2,1 mètres.
 
-– 5ème niveau : Peut utiliser la capacité « Remède Vital », nécessite 2 points d’énergie mystique.
+- 5ème niveau : Peut utiliser la capacité « Remède Vital », nécessite 2 points d’énergie mystique.
 
 REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède apaisant. Tous les ennemis présents dans un rayon de 2,1 m sont ralentis durant 1 round, et doivent effectuer un jet de sauvegarde contre la mort ou s'endormir pendant 5 rounds, à moins d'être attaqués dans leur sommeil.
 
-– 7ème niveau : Peut utiliser la capacité « Chirurgie », nécessite 3 points d’énergie mystique.
+- 7ème niveau : Peut utiliser la capacité « Chirurgie », nécessite 3 points d’énergie mystique.
 
 CHIRURGIE : Cette capacité permet de sélectionner un des traitements chirurgicaux suivants, les actions curatives sont appliquées instantanément à la créature ciblées : 
 - « Imposition des mains »
@@ -396,37 +422,37 @@ CHIRURGIE : Cette capacité permet de sélectionner un des traitements chirurgic
 - « Ablation Spirituelle »
 - « Arme empoisonnée »
 
-– 9ème niveau : Peut utiliser la capacité « Déluge Salvateur », nécessite 4 points d’énergie mystique.
+- 9ème niveau : Peut utiliser la capacité « Déluge Salvateur », nécessite 4 points d’énergie mystique.
 
 DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Balayant la fatigue et soignant à hauteur de 15 % + 10 du total de points de vie à chaque round de toutes les créatures alliés ou neutres présentes dans la zone.
 
-– 13ème niveau : Peut utiliser la capacité « Pestilence du dragon », nécessite 5 points d’énergie mystique.
+- 13ème niveau : Peut utiliser la capacité « Pestilence du dragon », nécessite 5 points d’énergie mystique.
 
 PESTILENCE DU DRAGON : Un dragon onirique éructe un souffle fétide, tous les ennemis dans un rayon de 4,5 m sont affectés par sa pestilence et subissent des dégâts, 5 % + 8 du total de points de vie par round pendant 5 rounds sans jet de sauvegarde possible. Les victimes reçoivent aussi un malus de 4 à leurs jets de sauvegarde pour la durée du sort.
 
 Inconvénients :
-– Ne dispose que de 8 points par niveau pour les talents de voleur.
-– Ne peut utiliser « Paume vibratoire ».
-– Ne peut utiliser « Coup étourdissant ».
+- Ne dispose que de 8 points par niveau pour les talents de voleur.
+- Ne peut utiliser « Paume vibratoire ».
+- Ne peut utiliser « Coup étourdissant ».
 
 **Seigneur Scion (Paladin)**
 
 SEIGNEUR SCION : Descendant d'une lignée honorable, le Seigneur Scion a foi dans son héritage. Ce justicier excelle dans le combat à distance et imprègne ses munitions de sang pour réaliser des tirs dévastateurs.
 
 Avantages :
-– Bonus de 1 aux jets d'attaque avec les armes à distance au niveau 1, puis tous les 5 niveaux.
-– Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes
-– 3ème niveau : Peut utiliser la capacité « Tir saignant » une fois par jour, puis une fois supplémentaire tous les 3 niveaux.
+- Bonus de 1 aux jets d'attaque avec les armes à distance au niveau 1, puis tous les 5 niveaux.
+- Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes
+- 3ème niveau : Peut utiliser la capacité « Tir saignant » une fois par jour, puis une fois supplémentaire tous les 3 niveaux.
 
 TIR SAIGNANT : Le personnage sacrifie 5 points de vie. Ainsi pendant les 2 rounds suivants, son TAC0 est doublé avec les armes à distance et toutes ses attaques à distance infligent 1d3 points de dégâts perforants supplémentaires par tranche de 3 niveaux du personnage.
 
-– 8ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
-– 16ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
+- 8ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
+- 16ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
 
 Inconvénients :
-– Ne peut pas porter d'armure plus lourde que l'armure feuilletée.
-– Ne peut se spécialiser avec les armes de mêlée.
-– Ne peut se spécialiser dans aucun style de combat.
+- Ne peut pas porter d'armure plus lourde que l'armure feuilletée.
+- Ne peut se spécialiser avec les armes de mêlée.
+- Ne peut se spécialiser dans aucun style de combat.
 
 ---
 
@@ -442,18 +468,18 @@ Inconvénients :
 FULL METAL JAGUAR : Un grand guerrier aux talents multiples, le Full Metal Jaguar commence par décocher une salve de projectiles sur ses ennemis avant de se jeter dans la bataille et de les terrasser au corps-à-corps.
 
 Avantages :
-– Bonus de 1 aux jets d'attaque et de dégâts.
-– 3ème niveau : Immunité à l'attaque sournoise.
-– 5ème niveau : Peut utiliser la capacité « Fantomatique » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
+- Bonus de 1 aux jets d'attaque et de dégâts.
+- 3ème niveau : Immunité à l'attaque sournoise.
+- 5ème niveau : Peut utiliser la capacité « Fantomatique » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
 
 FANTOMATIQUE : Cette capacité est effective pendant 5 rounds. À chaque round, 1 image miroir du personnage apparaît, celle-ci absorbera une attaque pendant ce même round. Le nombre d'images passe à 2 par round au niveau 10, à 3 au niveau 15 et enfin à 4 au niveau 20.
 
-– 7ème niveau : Gagne la capacité passive « Décochage critique ».
+- 7ème niveau : Gagne la capacité passive « Décochage critique ».
 
 DÉCOCHAGE CRITIQUE : Les attaques à distance augmentent les chances d'effectuer un coup critique avec les armes de mêlée. Chaque attaque réussie avec une arme à distance confère un bonus cumulatif de 5 % pendant 3 rounds. Un échec critique annule les bonus.
 
 Inconvénients :
-– Ne peut porter d'armure plus lourde que l'armure feuilletée.
+- Ne peut porter d'armure plus lourde que l'armure feuilletée.
 
 ---
 
@@ -462,19 +488,19 @@ Inconvénients :
 URGENTISTE : Naturellement douée, l'urgentiste est à la fois un alchimiste et un archer, investigation et apprentissage sont ses maîtres mots.
 
 Avantages :
-– Bonus de 1 aux jets d'attaque avec les armes à distances tous les 3 niveaux.
-– Peut atteindre la spécialisation (2 points de compétence) avec les arcs cours, les arbalètes les frondes et le fléchettes.
+- Bonus de 1 aux jets d'attaque avec les armes à distances tous les 3 niveaux.
+- Peut atteindre la spécialisation (2 points de compétence) avec les arcs cours, les arbalètes les frondes et le fléchettes.
 
-– Peut utiliser la capacité « Concoction » une fois par jour au niveau 1 et 6, puis une fois supplémentaire tous les 6 niveaux.
+- Peut utiliser la capacité « Concoction » une fois par jour au niveau 1 et 6, puis une fois supplémentaire tous les 6 niveaux.
 
-CONCOCTION : Prépare un ensemble de concoctions utilisable comme des capacités spéciales pendant une heure. 
-Chacune d'entre elles nécessite un point d'alchimie et l'Urgentiste dispose de 3 points.
-De nouvelles capacités sont disponible à plus haut niveau.
-  1er niveau : Seringues
-  5ème niveau : Adrénaline
-  9ème niveau : Overdose
-  13ème niveau : Intraveineuse
-  17ème niveau : Cocktail
+CONCOCTION : Prépare un ensemble de concoctions utilisable comme des capacités spéciales pendant une heure.   
+Chacune d'entre elles nécessite un point d'alchimie et l'Urgentiste dispose de 3 points.  
+De nouvelles capacités sont disponible à plus haut niveau.  
+  1er niveau : Seringues  
+  5ème niveau : Adrénaline  
+  9ème niveau : Overdose  
+  13ème niveau : Intraveineuse  
+  17ème niveau : Cocktail  
 
 SERINGUES : Ces fléchettes guériront les alliés et empoisonneront les ennemis. Leur effet curatif ou bien leur toxicité est équivalente à 1d4+3 + 1 point de vie par tranche de 5 niveaux. Les Seringues sont considérées comme des armes magiques +2, et bénéficient d'un bonus de 5 au jets d'attaque. Les points de compétence investis dans les fléchettes par le personnage n'affectent pas les jets d'attaque.
 
@@ -484,11 +510,11 @@ OVERDOSE : Pendant 5 rounds, le personnage bénéficie d'une attaque supplément
 
 INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental pendant 7 rounds. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de Confusion et Lenteur pendant 2 rounds.
 
-COCKTAIL : Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité dure 3 tours et ne protège qu'une fois.
+COCKTAIL : Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité restaure aussi 30 % du maximum de points de vie de l'utilisateur, dure 3 tours et ne protège qu'une fois.
 
 Inconvénients :
-– Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.
-– Ne peut porter d'armure plus lourde que l'armure de cuir.
+- Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.
+- Ne peut porter d'armure plus lourde que l'armure de cuir.
 
 ---
 
@@ -523,70 +549,101 @@ Informations supplémentaires : En raison de la façon dont le jeu détecte les 
 
 #### Instructions générales :
 
-- Installer après Rogue Rebalancing. Plusieurs fichiers de RR doivent être patchés pour une compatibilité totale.
-- Installez après les mods qui modifient les classes, à moins qu'il ne soit spécifiquement indiqué d'installer après n'importe quel kit.
-- Installer après les mods qui modifient ou écrasent les sorts.
+- Installer The-Workshop-Kitpack après les mods qui modifient les classes à l’exception du mod Talents of Faerun.
+Si un mode indique spécifiquement qu'il doit être installer après n'importe quel kit. Vous pouvez essayer les deux méthodes. (Voir les notes du mod Talents of Faerun ci-dessous)
+- Installer après les mods qui ajoutent ou modifient les sorts. (Une possible exception pour le mod OlvynSpells, Voir ci-dessous)
 - Installer après les mods qui ajoutent de nouvelles armes ou armures.
-- Installer avant les mods qui révisent les compétences martiales.
+- Peut être installé avant ou après les mods qui révisent les compétences martiales. (À l’exception du mod Talents of Faerun)
+L'ordre recommandé est de l'installer avant la plupart des mods qui révisent les compétences martiales et d'utiliser le composant Kit updater après.
+- Peut être installé avant ou après les mods qui modifient les HLA (capacités de haut niveau). (À l’exception du mod Talents of Faerun).
+Toutes les modifications des tables HLA sont effectuées à partir du composant principal et du composant Kit updater. Vous pouvez réinstaller Kit updater à tout moment pour reconstruire toutes les tables HLA.
 
 NOTE : En général, je recommande d'installer ce mod après les autres kits, à l'exception de Talents of Faerun et des mods dédiés aux multiclasses. Techniquement, ce mod peut être installé en toute sécurité même après la plupart des mods de tweak, mais c'est toujours une bonne idée de suivre les directives d'installation habituelles, qui font passer les kits avant les tweaks.
 
 #### Les systèmes de lancement de sorts :
 
+Faiths and Powers :
 - Compatible avec le système de sphères de Faiths and Powers. Ils peuvent être installé avant ou après.
-	- Mes kits multi-classes ne nécessitent pas le mod FnP multiclass pour être compatibles avec Faiths and Powers.
-	- Voir les informations ci-dessous.
-- Compatible avec le système de sphères de Deities of Faerun. Installez ce mod après DoF.
-- Compatible avec le mod 5E_spellcasting de subtledoctor. Peut être installé avant ou après.
-	- Installer The Workshop Kitpack avant le mod 5E_spellcasting.
-	- Mais vous devez toujours installer le composant supplémentaire lié au mod 5E_spellcasting.
+- (Après est recommandé.) (Voir ci-dessous pour des informations supplémentaires).
+
+Deities of Faerun :
+- Compatible avec le système de sphères de Deities of Faerun. 
+- Installez ce mod après Deities of Faerun.
+
+5E_spellcasting :
+- Compatible avec le mod 5E_spellcasting de subtledoctor. 
+- Installer The Workshop Kitpack avant le mod 5E_spellcasting. 
+- Puis utiliser le composant Kit updater après 5E_spellcasting.
+
+Sphere lists: [readme-spheres.txt](d2-workshopkits/readme-spheres.txt)
 
 --
 
 Note sur le mod Talents of Faerun : 
-	- Les composants de sorts peuvent être installés avant ou après The Workshop Kitpack, je recommande de les installer avant(en particulier les sorts d'IWD).
+	- Les composants de sorts peuvent être installés avant ou après The Workshop Kitpack, je recommande de les installer avant (en particulier les sorts d'IWD).
 	- Les composants liés aux races peuvent être installés avant ou après The Workshop Kitpack.
 	- Les composants qui tweak les kits devraient être installés après The Workshop Kitpack (Certains peuvent être installés avant, mais ils sont souvent tous mélangés, il est donc plus simple de tout installer après.)
-	- The divine casting kits have full support for custom spheres. Must be installed before the cleric revisions.
-	- All kits need to be before anything that touches the proficiency or HLA screens (or buttons might not work).
+	- Les kits de lanceurs de sorts divins de The Workshop Kitpack ont un support complet et personnalisées pour le système de sphères. Doivent être installé avant les révisions du clerc de ToF.
+	- Tous les kits doivent être installés avant tout ce qui touche aux tables de compétence ou des HLA (sinon les boutons risquent de ne pas fonctionner).
 
-NOTE : This was asked about, so I'll mention that ToF Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
+NOTE : La capacité de haut niveau « Évasion » peut être installée avant ou après ce mod. Les kits qui permettent d'en bénéficier l'obtiendront, qu'ils aient été installés avant ou après. Les sorts / capacités qui vérifient la présence d'« Évasion » ne le feront que si la capacité est déjà présente dans le jeu. Si vous souhaitez installer « Évasion » avant ce mod, utilisez plutôt la version du mod IWDification.
 
---
-
-OlvynSpells notes:
-- Spell tweaks can be installed before or after this mod. I'd recommend to install them before.
-- Paladin/Ranger components can be installed before or after. Note that these need to be installed after most other kit mods.
-- New spells can be installed before or after. Note that these need to be installed after most other kit mods (OlvynSpells adds spells directly to the kit tables for some classes).
-- Untested with 3e metamagic component. To be safe, install it after this mod.
+Kit Updater: **Est INDISPENSABLE pour une compatibilité totale avec le mod Talents of Faerun.** reconstruit toutes les tables de capacités de haut niveau~ (qui seront probablement endommagés sans cela). Corrections mineures pour les kits Chirurgien et Chantre de la poudrre. (Voir ci-dessous pour des informations supplémentaires sur les capacités / HLA).
 
 --
 
-#### Feats/abilities mods :
+OlvynSpells notes (testé avec la version 2.6.0):
+- Les tweaks / modifications de sorts peuvent être installés avant ou après The Workshop Kitpack. Certains d'entre eux écrasent des fichiers, il est donc préférable de les installer avant.
+- Les composants concernant les Paladin / Rôdeurs peuvent être installés avant ou après. Notez que le tweak pour les niveaux de lanceur de sorts doit être installé après la plupart des autres mods ajoutant des kits.
+- Les nouveaux sorts peuvent être installés avant ou après. Notez qu'ils doivent doit être installés après la plupart des autres mods ajoutant des kits (OlvynSpells ajoute des sorts directement dans les tables des kits pour certaines classes).
+- Le composant 3E-like Metamagic peut être installé (à partir de la version 5.17 du Workshop Kitpack). Confirmation du fonctionnement avec les sorts arcaniques / divins spécifiques aux kits.
+("Spell Level Increase" +2 means using it on a level 2 spell expends one level 4 spell instead).
+- Les sorts du Vagabond des étoiles sont également compatibles avec le sort Nécropotence de niveau 9, avec ou sans l'option de configuration du fichier spell.ids.
+Si The Workshop Kitpack a été installé avant OlvynSpells, lancez le Kit Updater pour vérifier les effets du mod EEex.
 
-- Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
-- Crow Hunter (all variants) should not take Set Snares if using a mod that lets thieves gain extra uses.
-- Grave Warden should not take Charm Animal if using a mod that lets rangers gain extra uses.
-- Confessor can take extra Lay On Hands uses from feats/abilities mods.
 
-#### Bard revisions notes :
+NOTE : Avec les versions actuelles des deux mods, tout devrait bien fonctionner, qu'il soit installé avant ou après. Si vous voulez être sûr à 100%, installez les nouveaux sorts après The Workshop Kitpack, car les futures mises à jour pourraient potentiellement ajouter de nouveaux effets EEex.
+--
 
-- Rogue Rebalancing: Powder Keg is compatible with the RR HLA song (including Lingering song). Requires patching the RR songs, so this mod needs to be installed after RR.
-- Shohy's bard song mod: The HLA song from Shohy's mod by default gives an ability to switch to it. This mod will patch that ability for better compat with Powder Keg songs (remove delayed effects). Install after Shohy's mod for best compatibility.
-- Bardic Wonders: Powder Keg will gain Bardic Inspiration at level 1 if installed after that component. If installed after the Bard Song Mechanics tweak, a line will be added to the "Change Song" ability for the HLA song, describing the tweak effects.
-- Talents of Faerun: Powder Keg can take the HLA song, but the special ability (to switch songs) will change to the vanilla HLA song. This mod should be installed before the ToF HLA component (or buttons might not work).
-- Untested with other bard revisions.
+#### Mods ajoutant des capacités ou capacités de haut niveau :
 
-#### Information supplémentaire pour FnP : 
 
-NOTE : Les kits de Clerc multiclassés ne sont actuellement pas compatible avec la version beta de FnP. Utilisez la version v0.84.5 si vous voulez utiliser ces kits avec Faiths and Powers.
+- Les kits qui ont le désavantage de ne pas gagner une capacité de classe ne devraient généralement pas prendre ces capacités en tant que capacités de haut niveau.
+- Certains kits peuvent gagner certaines HLA ajoutées par des mods si elles sont détectées. (note : ce mod n'installe pas de HLA, il analyse les tables HLA existantes et copie-colle les lignes si elles sont détectées).
+- Le kit de Prédateur peut utiliser les HLA se rapportant aux pièges, y compris ceux ajoutés par des mods (l'ordre d'installation n'a pas d'importance). Il faut simplement être voleur de niveau 14 ou plus.
 
- FnP multiclass :
+**Talents of Faerun capacités ou capacités de haut niveau :**
+
+- De nombreux kits obtiennent une ou plusieurs options supplémentaires. (ex. tous les archers peuvent acquérir n'importe quelle HLA en rapport aux attaques à distances, le Chirurgien peut utiliser des améliorations liées au poison, le Protecteur de sépultures peut apprendre utilisation des parchemins ou des baguettes, etc.)
+- Certains kits ont des options limitées. (ex. Le Vagabond ne peut bénéficier d'aucune capacité liée aux sorts, mais a accès à plus de capacités de combat que les autres rôdeurs).
+- Tous les kits arcaniques de ce mod recevront automatiquement la capacité de haut niveau « Connaissance des arcanes ». Cette capacité est nécessaires pour sélectionner les sorts de haut niveau. La capacité est indiqué au niveau 1, mais ses effets ne se manifestent qu'au niveau 18 du mage.
+
+
+- NOTE : Le Kit Updater patche le fichier m_dw_hld.lua, et sauvegarde une version non modifiée dans le dossier « weidu_external\d2wk ». Il ne devrait normalement pas être nécessaire de restaurer la sauvegarde, mais juste au cas où, Kit updater a une option pour le faire.
+
+
+#### Information supplémentaire pour le mod Faiths and Powers : 
+
+- Les kits multi-classés ne nécessite pas le composant FnP Multiclass du mod Faiths and Powers pour être compatible avec Faiths and Powers.
+- Il est préférable d'installer The Workshop Kitpack APRÈS avoir installé le système de sphères de Faiths and Powers.
+- Cela fonctionnera s'il est installé AVANT, mais certaines sphères pourront être incorrectes.
+
+ Composant FnP Multiclass (Problème connu):
 - La version actuelle de FnP multiclass masque la classe G/M/C (Guerrier / Mage / Clerc) de l'écran de sélection à la création du personnage. 
 - Il est possible que le mod FnP multiclass soit mis à jour pour ne pas désactiver la Multi-classe (Guerrier / Mage / Clerc), mais pour l'instant, il existe quelques moyens de contourner ce problème :
 1. Installez ce mod après FnP multiclass. Il la réactivera automatiquement.
-2. Utilisez cdtweaks/Tweaks Anthology. Il contient des composants qui permettent à toutes les classes (y compris FMC) d'être disponibles pour toutes les races.
+2. Utilisez Cdtweaks/Tweaks Anthology. Il contient des composants qui permettent à toutes les classes (y compris FMC) d'être disponibles pour toutes les races.
 3. Éditez le fichier clsrcreq.2DA. Trouvez juste FIGHTER_MAGE_CLERIC, et mettez les races que vous voulez à la valeur 1.
+
+**Mon ordre d'installation :**
+1. Faiths and Powers système de sphèrs, kits, restrictions
+2. The Workshop Kitpack
+3. Composant FnP Multiclass kits (Si utilisé)
+4. Cdtweaks/Tweaks Anthology - Composants "Altérer les restrictions des multi-classes"
+
+**Notes:**
+- Cdtweaks/Tweaks Anthology est un exemple, la règle s'applique à n'importe quel mod altérant les restrictions de classes.
+- Le Kit Updater peut aussi être utilisé pour réactiver la classe FMC pour les demi-elfes, si celle-ci a été est cachée par un tweak.
 
 ---
 ---
@@ -613,15 +670,23 @@ Informations additionnelles (Les capacités des kits) :
 	- Cure Afflictions (Medic)
 	- Autoimmune (Nurse)
 
+**Dissipe les effets de Glisse / Toile d'araignée / Enchevêtrement (Par incantation ou explosion):**
+	- Techniques de chasseur (Chasseur)
+	- Barricade (Mage de bataille)
+	- Onde de choc (Limier)  
+	- Incinération (Limier)  
+	- Chant enflammé (Chantre de la poudre)
+	- Déflagration de poussière (Chantre de la poudre)
+
 - **Autres informations :  **
-	- Blood Minister's Blood transfusions will be removed by a Restoration or Greater Restoration (any spell with restoration opcode). This is done for lore reasons. (Madman's Blood will obviously not remove itself)
-	- Bleeding effects don't wake sleeping creatures. These effects can be cured by Heal, Regeneration, Lay On Hands, and similar spells, as well as most healing spells/abilities from this mod. Also, Stoneskins and Shield of Lathander (or similar mod spells) will protect from bleeding.
-	- Drifter and Grave Warden can see clearly while inside a Powder Keg's Dust Explosion once they gain the requisite effects (cloud immunities and blindness immunity).
-	- Nurse's Medical Darts deal double healing or poison damage on a critical hit (target must be vulnerable to crits).
-	- Shaman Bone Blade's Charm effect lasts only a few rounds, but it can't be broken, except by a Spiritual Clarity (i.e. if you hit it with an AoE spell, it remains charmed).
-	- Medic's Dragonrot is affected by wild/dead magic, but otherwise is treated as a natural effect. It will bypass most spell defenses, and can affect any creature type. It is treated as a status effect, so effects cannot be stacked. It can be cured by Heal, Greater Restoration, and abilities from this mod that cure elemental DoT spells.
-	- This mod accounts for EE Fixpack changes to status immunity/curing. For causing statuses, currently only one thing has longer duration effects that need removing separately (Shaman Bone Blade). A subspell for that is added to the relevant EEFP file, if detected.
-	- The multiclass Cleric kits will gain Holy Symbols at the next Cleric level after 4 million total XP (BG2/EET).
+
+- Les dégâts d'hémorragie ne réveille pas les créatures endormies. Ils peuvent être soignés par Guérison, Régénération, Imposition des mains, ou d'autres sorts similaires. Peau de pierre et Bouclier de Lathandre (ou similaires) protègent contre l'hémorragie.
+- Le kit de Vagabond immunise aussi contre les effets de sort ajoutaient par des mods, comme Déflagration de poussière (seulement les effets d'aveuglement, le personnage restera invisible à l’intérieur du nuage de poussière).
+- Les seringues de l'Urgentiste's inflige ou offre, des dégâts de poison doublés ou double les effets curatifs lors d'un coup critique (La cible doit être vulnérable aux coups critiques).
+- Les effets de Charme de la Lame d'os du Shaman ne dure que quelques rounds, mais ne peuvent être dissipés, sauf par le sort Lucidité spirituelle (Ce qui signifie qu'un personnage charmé le sera toujours même après avoir été touché par un sort de zone).
+- Les kits de Clerc multi-classés recevront leur symbole sacré à la montée de niveau qui suivra l'accumulation de 4 millions de points d’expérience (BG2 / EET).
+- Les kits qui ont des restrictions en matière de port d'armure peuvent porter des armures d'écailles de dragon de 1 à 2 échelons supérieurs. (par exemple, les kits dont l'armure est limitée à l' Armure de cuir peuvent utiliser une Armure feuilletée d'écailles de dragon).
+- Tous les kits de ce mod sont utilisables par n'importe quelle race si celle-ci a accès à la classe de base.
 
 - **Enhanced Éditions, Beamdog items (effets additionnels):**
 	- Yeux d'archer : Limier, Limier, Seigneur Scion, Urgentiste
@@ -702,8 +767,8 @@ PARAMÈTRES :
 Capacités d'équipement : 
 - Classe d'armure : +1
 - Jets de sauvegarde : +1
-– Résistance à la magie : +5 %
-– Vocaliser
+- Résistance à la magie : +5 %
+- Vocaliser
 
 Spécial (Chasseur): 
 - Techniques de chasseur : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
