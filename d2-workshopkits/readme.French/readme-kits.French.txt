@@ -45,6 +45,10 @@ TECHNIQUES DE CHASSEUR :  Pendant 12 rounds, les attaques de mêlée du Chasseur
 
 PROJECTILE D'ARGENT : Pendant 6 rounds toutes les attaques à distance sont amplifiées, infligeant 2 points de dégâts perforants supplémentaires, elles bénéficient également de 5 % de chances de réaliser un coup critique. Tous les types de munitions (flèches, carreaux et billes) sont également enchantés, devenant ainsi capables de toucher les ennemis nécessitant des armes magiques ou en argent.
 
+- 8ème niveau : Bonus de 2 à la classe d'armure et aux jets de sauvegarde contre les lycanthropes et les démons.
+
+– 16ème niveau : La capacité « Projectile d'argent » offre 5 % de chances supplémentaires de réaliser un coup critique et les projectiles sont considérés comme +4.
+
 Inconvénients : 
 – Ne peut pas porter d'armure plus lourde que la besantine.
   
@@ -60,7 +64,7 @@ Avantages :
 – Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes.
 – Peut utiliser les capacités « Onde de choc » et « Incinération » au niveau 4, puis une fois supplémentaire tous les 4 niveaux, jusqu'à un maximum de 5 au niveau 20
 
-ONDE DE CHOC : La prochaine attaque à distance réussie provoque une vague d'énergie. Toutes les créatures situées dans un rayon de 4,5 m subissent 2d4 points de dégâts contondants et sont projetées en arrière sur une distance considérable, sans jet de sauvegarde possible. La déflagration inflige 2d4 points de dégâts contondants supplémentaires par tranche de 4 niveaux, jusqu'à un maximum de 10d4 points de dégâts au niveau 20.
+ONDE DE CHOC : La prochaine attaque à distance réussie provoque une vague d'énergie. Toutes les créatures situées dans un rayon de 4,5 m subissent 2d4 + 3 points de dégâts contondants et sont projetées en arrière sur une distance considérable, sans jet de sauvegarde possible. La déflagration inflige 2d4 + 3 points de dégâts contondants supplémentaires par tranche de 4 niveaux, jusqu'à un maximum de 10d4 + 3 points de dégâts au niveau 20.
 
 INCINÉRATION : La prochaine attaque à distance réussie s'étend telle une nuée ardente, recouvrant un rayon de 4,5 mètres. Toutes les créatures présentes dans le nuage subissent 1d6 points de dégâts de feu à chaque round pendant 4 rounds (un jet de sauvegarde contre les souffles réduit les dégâts de moitié). Les dégâts par round augmentent de 1d6 points par tranche de 4 niveaux, jusqu'à un maximum de 5d6 points de dégâts au niveau 20.
 
@@ -227,7 +231,7 @@ SANG DU LUNATIQUE : Cette injection donne un léger aperçu du cosmos et de ses 
 ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment d'autres capacités. Le destinataire voit sa résistance à tous les dégâts physiques augmentée de 20 % et bénéficie d'un bonus de 4 à sa classe d'armure et ses jets de sauvegarde, mais subit aussi une pénalité de 1 à la chance. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.
 
 Inconvénients : 
-– Ne peut porter de gantelets ou de bracelets.
+– Ne peut porter de gantelets ou de bracelets magiques.
 
 
 ==================================================
@@ -243,7 +247,7 @@ TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère d
 
 – 9ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
 
-INSTINCT : La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 12 points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.
+INSTINCT : La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 5 + 20 % du maximum de points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.
 
 Inconvénients : 
 – Ne dispose que de 20 points par niveau pour les talents de voleur.
@@ -421,7 +425,7 @@ OVERDOSE : Pendant 5 rounds, le personnage bénéficie d'une attaque supplément
 
 INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à effectuer un jet de sauvegarde contre la mort à -2 ou être frappé de Débilité mental pendant 7 rounds. Si le jet de sauvegarde est réussi, la cible sera tout de même sous l'effet de Confusion et Lenteur pendant 2 rounds.
 
-COCKTAIL : Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité dure 3 tours et ne protège qu'une fois.
+COCKTAIL : Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité restaure aussi 30 % du maximum de points de vie de l'utilisateur, dure 3 tours et ne protège qu'une fois.
 
 Inconvénients :
 – Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.
