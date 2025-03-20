@@ -1,6 +1,6 @@
 BACKUP ~weidu_external/backup/d2-workshopkits~
 AUTHOR ~Dan_P~
-VERSION ~5.18~
+VERSION ~5.20~
 AUTO_EVAL_STRINGS
 
 ALWAYS
@@ -9,10 +9,6 @@ ALWAYS
 
   ACTION_BASH_FOR ~%MOD_FOLDER%/lib~ ~.*\.tpa~ BEGIN    // function list
     INCLUDE ~%BASH_FOR_FILESPEC%~
-  END
-
-  ACTION_IF !(DIRECTORY_EXISTS ~weidu_external/Workspace~) BEGIN    // external workspace
-    MKDIR ~weidu_external/Workspace~
   END
   
   OUTER_TEXT_SPRINT install    ~%MOD_FOLDER%/install~    // folder variables

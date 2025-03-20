@@ -200,6 +200,12 @@ Notes:
 
 Version info:
 
+v5.20
+- Updated French translation from JohnBob.
+
+v5.19
+- Fixed possible install error on Mac systems, caused by using text files without extensions.
+
 v5.18
 - Medic: Fixed possible bug. If casting speed was slowed by a spell or item, and current Ki Energy was insuffucient for an ability, it would show the "Not enough Ki Energy" message but the effects would still be applied, and no Ki Energy would be used. Adjusted some timings to fix the issue.
 - Minor reorganizing of Ki Energy files. Some files are renamed and moved apart from the Medic files. This will break compatibility with Medics made before this version, but this can be fixed. If Ki Energy system is broken, import and equip the item "d2kifix.itm". This will remove the problematic effects.
