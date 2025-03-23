@@ -107,11 +107,13 @@ COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~        // clone Death Ward
   WRITE_LONG 0x18 THIS | BIT24    // can target invisible
 
   //edit stuff
-  LPF ALTER_EFFECT INT_VAR power=0 duration=181 resist_dispel=2 END    // edit all effects
-  LPF DELETE_EFFECT INT_VAR match_opcode=174 match_timing=1 END        // sound moved to VVC
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 duration=0 END     // EEs (silent to not have warning with sr)
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END     // spell revisions
-  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END      // not silent to get warning if no icon added
+  LPF DELETE_EFFECT INT_VAR match_opcode=282 END    // remove scripting state (for dispellable death wards)
+  LPF DELETE_EFFECT INT_VAR match_opcode=328 match_parameter2=67 END    // remove spell state (BUFF_PRO_EFFECTS)
+  LPF ALTER_EFFECT INT_VAR power=0 duration=181 resist_dispel=2 END     // edit all effects
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 match_timing=1 END         // sound moved to VVC
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 duration=0 END      // EEs (silent to not have warning with sr)
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END      // spell revisions
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END       // not silent to get warning if no icon added
 
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 timing=1 parameter2=0 STR_VAR resource=~%s1%g~ END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=174 match_timing=4 STR_VAR resource=~EFF_E03~ END

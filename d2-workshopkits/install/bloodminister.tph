@@ -11,6 +11,7 @@ COPY ~%passives%/bloodminister.SPL~  ~override/%e2%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_disease_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_poison_resistance_arrays END
   LPF d2_string_immunities END
+  LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=216 opcode=282 parameter1=1 parameter2=2 END    // add scripting state (immune to level drain)
 
 
 //add icon BAMs
@@ -193,6 +194,7 @@ COPY ~%abilities%/bloodtyped.SPL~  ~override/%s5%a.SPL~
 
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END
   LPF d2_string_immunities END
+  LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=216 opcode=282 parameter1=1 parameter2=2 END    // add scripting state (immune to level drain)
 
 
 //

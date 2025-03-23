@@ -328,7 +328,7 @@ COPY ~%abilities%/firstaidheal.VVC~  ~override/%s3%a.VVC~
 COPY ~%icons%/overdoseicon.BAM~  ~override/%s4%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@130) STR_VAR bam=~%s4%i~ RET icon END
 
-COPY_EXISTING ~SPCL521.SPL~  ~override/%s4%.SPL~    // clone offensive spin (block haste spells)
+COPY_EXISTING ~SPCL521.SPL~  ~override/%s4%.SPL~    // clone offensive spin
 
   // prep
   LPF d2_remove_level_headers END
@@ -342,7 +342,7 @@ COPY_EXISTING ~SPCL521.SPL~  ~override/%s4%.SPL~    // clone offensive spin (blo
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
   // edits
-//  LPF DELETE_EFFECT INT_VAR match_opcode=282 END    // script state
+//  LPF DELETE_EFFECT INT_VAR match_opcode=282 END    // scripting state
   LPF DELETE_EFFECT INT_VAR match_opcode=328 END    // spell state
   LPF DELETE_EFFECT INT_VAR match_opcode=126 END    // movement (bg)
   LPF DELETE_EFFECT INT_VAR match_opcode=176 END    // movement (iwd)
@@ -437,6 +437,7 @@ COPY ~%passives%/opcode101.SPL~  ~override/%s4%a.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_sleep_arrays END
   LPF d2_string_immunities END
   LPF ee_fixpack_immunities STR_VAR status=~stun slow~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=216 opcode=282 parameter1=1 parameter2=2 END    // add scripting state (immune to level drain)
 
 
 //

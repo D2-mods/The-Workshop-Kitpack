@@ -597,6 +597,8 @@ COPY ~%files%/jadefeather.ITM~  ~override/%mf%.ITM~
   LPF d2_string_immunities END
   LPF ee_fixpack_immunities STR_VAR status=~death~ END
   LPF block_death_gaze END
+  LPF DELETE_EFFECT INT_VAR match_opcode=282 END    // remove scripting state (for dispellable death wards)
+//  LPF DELETE_EFFECT INT_VAR match_opcode=328 END    // remove spell state
 
 //Black Remedy
 ACTION_IF (FILE_EXISTS ~override/%blackremedy%.SPL~) BEGIN

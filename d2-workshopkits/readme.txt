@@ -200,6 +200,10 @@ Notes:
 
 Version info:
 
+v5.21
+- Removed some spell/scripting states meant for dispellable effects (makes enemies cast Remove Magic). Spell states from EE fixpack will still be there for relevant immunities.
+- Any level drain immunity from this mod can now be identified by party scripts (i.e. won't cast negative plane protection). This includes the Blood Minister's natural immunity.
+
 v5.20
 - Updated French translation from JohnBob.
 
