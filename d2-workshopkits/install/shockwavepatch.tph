@@ -4,20 +4,29 @@ Make knockback affect only enemies
 */
 
 
-ACTION_IF (noshockwavepatch = 0) BEGIN
+//check for d2-script "Damage party friendly" tweak
+OUTER_TEXT_SPRINT marker  ~d2spelltweaks.txt~
+OUTER_SET partyfriendly = 0
+ACTION_IF (RESOURCE_CONTAINS ~%marker%~ ~safespell~) BEGIN  OUTER_SET partyfriendly = 1  END
+
+
+ACTION_IF (noshockwavepatch=0 OR partyfriendly>0) BEGIN
 
   COPY_EXISTING ~%shockwave%.SPL~  ~override~
     SAY UNIDENTIFIED_DESC @202
   BUT_ONLY
 
-  ACTION_FOR_EACH spell IN ~%shockwaveblast%~ ~%shockwavepush%~ BEGIN
-    COPY_EXISTING ~%spell%.SPL~  ~override~
-      LPF d2_safe_spell INT_VAR block_opcode=235 STR_VAR insert=above END
-    BUT_ONLY
-  END
+  COPY_EXISTING ~%shockwaveblast%.SPL~  ~override~
+    SET match = 235
+    PATCH_IF (partyfriendly > 0) BEGIN SET match = 12 END
+    LPF d2_safe_spell INT_VAR block_opcode=match STR_VAR insert=above END
+  BUT_ONLY
 
-END
-ELSE BEGIN
+  COPY_EXISTING ~%shockwavepush%.SPL~  ~override~
+    LPF d2_safe_spell INT_VAR block_opcode=235 STR_VAR insert=above END
+  BUT_ONLY
+
+END ELSE BEGIN
 
   OUTER_SPRINT desc @202
   OUTER_SPRINT note @751

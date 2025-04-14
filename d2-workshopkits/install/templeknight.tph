@@ -53,6 +53,7 @@ COPY_EXISTING ~SPPR612.SPL~  ~override/%s2%.SPL~
   LPF d2_convert_spell_type INT_VAR level=1 END
   LPF ALTER_SPELL_HEADER INT_VAR speed=3 END
   LPF ALTER_EFFECT INT_VAR power=6 END
+  LPF d2_addhitstun INT_VAR match_opcode=177 multi_match=1 STR_VAR insert=above END
 
 
 //Make clab table

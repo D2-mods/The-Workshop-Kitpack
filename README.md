@@ -530,7 +530,7 @@ Disadvantages:
 Compatibility:
 -
 
-**IMPORTANT: If you are running into an issue with the arcane kits (i.e. Starjammer) where they don't have the full selection of spells when leveling up or at character creation, a current workaround is to install subtledoctor's "No Opposition Schools" tweak. You can get it from the [Subtled Spell Tweaks](https://github.com/subtledoctor/SubtleD_Spell_Tweaks/releases) mod. This tweak is safe to install at end of order.**
+**IMPORTANT: If you are running into an issue with the arcane kits (ex. Starjammer) where they don't have the full selection of spells at Level Up or character creation, a current workaround is to install the "No mage school restrictions" tweak from this mod: [Better IWD Pregen](https://github.com/D2-mods/Better-IWD-Pregen/releases). This tweak is safe to install at end of order.**
 
 More info: Due to how the game detects mage specialists, once you get a high enough number of kits, any arcane kits added afterwards will share restricted schools with 1-2 specialists. This only affects the spell selection screen. Mages and bards can still memorize scrolls. This is a problem for Sorcerer kits, however. For now, best thing to do if the issue comes up is to install the tweak mentioned above.
 

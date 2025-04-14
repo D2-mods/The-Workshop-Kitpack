@@ -203,6 +203,8 @@ Version info:
 v5.21
 - Removed some spell/scripting states meant for dispellable effects (makes enemies cast Remove Magic). Spell states from EE fixpack will still be there for relevant immunities.
 - Any level drain immunity from this mod can now be identified by party scripts (i.e. won't cast negative plane protection). This includes the Blood Minister's natural immunity.
+- Kit updater: Shockwave config.ini patching won't overwrite changes made by the updated d2-script/Better IWD Pregen ("Damage party friendly" tweak).
+- Temple Knight: This kit's Bolt of Glory now also does 1 second hit stun (not mentioned in description).
 
 v5.20
 - Updated French translation from JohnBob.
