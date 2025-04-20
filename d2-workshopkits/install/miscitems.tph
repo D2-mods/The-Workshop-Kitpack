@@ -307,7 +307,7 @@ COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
   WRITE_ASCII 0x76 ~%m6%~ #8       // icon (ability)
   WRITE_ASCII 0x58 ~CRING26~ #8    // description image
 //  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@304) END    // "Activated Golem Ring"
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 opcode=326 STR_VAR resource=~%m6%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 opcode=326 STR_VAR resource=~%m6%a~ END
   LPF d2_remove_effects_on_cast INT_VAR globals=0 headers=1 326override=1 STR_VAR resource=~d2!slow~ END
   LPF d2_remove_effects_on_cast INT_VAR globals=0 headers=1 326override=1 STR_VAR resource=~d2!haste~ END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_haste_arrays END
@@ -317,7 +317,7 @@ COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
 
 COPY ~%icons%/ironflesh.BAM~  ~override/%m6%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@616) STR_VAR bam=~%m6%i~ RET icon END
-COPY ~%files%/golemring.SPL~  ~override/%m6%.SPL~
+COPY ~%files%/golemring.SPL~  ~override/%m6%a.SPL~
   SAY NAME1 @70110
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 //  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter2=5 END            // movement (set mode 5)
@@ -327,7 +327,7 @@ COPY ~%files%/golemring.SPL~  ~override/%m6%.SPL~
   LPF ee_fixpack_immunities STR_VAR status=~haste slow~ END
   LPF d2_remove_effects_on_cast END
 
-LAF d2_bleed_protection STR_VAR resource=~%m6%~ END
+LAF d2_bleed_protection STR_VAR resource=~%m6%a~ END
 
 
 //
@@ -550,6 +550,7 @@ COPY ~%files%/hunterbone.ITM~  ~override/%me%.ITM~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%me%b~ END
 //  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@312) END    // "Used Hunter Bone"
   LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+  LPF d2_remove_effects_on_cast INT_VAR globals=0 headers=1 END
 
 //clone Blur
 COPY_EXISTING ~SPWI201.SPL~  ~override/%me%a.SPL~
