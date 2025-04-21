@@ -36,21 +36,21 @@ Beast Hunter (Guerrier)
 CHASSEUR : Quand il y a des bêtes, il y a des chasseurs. Ceux-ci peuvent être des gardiens, des protecteurs ou bien des mercenaires et des bouchers excités par le sang et les massacres. Cette classe est tout particulièrement apte à combattre de multiples monstres et autres créatures puissantes, notamment les démons et les loups-garous.
 
 Avantages :
-– Bonus de 3 aux jets d'attaque et de dégâts contre les lycanthropes et les démons.
-– 2ème niveau : Peut utiliser la capacité « Techniques de chasseur » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
+- Bonus de 3 aux jets d'attaque et de dégâts contre les lycanthropes et les démons.
+- 2ème niveau : Peut utiliser la capacité « Techniques de chasseur » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
 TECHNIQUES DE CHASSEUR :  Pendant 12 rounds, les attaques de mêlée du Chasseur infligent 1d3 dégâts d'acide supplémentaires, il bénéficie aussi d'un bonus de 1 à la chance et aux jets de sauvegarde. Cette capacité peut être améliorée en équipant des insignes spécifiquement destinés au Chasseur.
 
-– 5ème niveau : Peut utiliser la capacité « Projectile d'argent » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
+- 5ème niveau : Peut utiliser la capacité « Projectile d'argent » une fois par jour, puis une fois supplémentaire au niveaux 9 et 13.
 
 PROJECTILE D'ARGENT : Pendant 6 rounds toutes les attaques à distance sont amplifiées, infligeant 2 points de dégâts perforants supplémentaires, elles bénéficient également de 5 % de chances de réaliser un coup critique. Tous les types de munitions (flèches, carreaux et billes) sont également enchantés, devenant ainsi capables de toucher les ennemis nécessitant des armes magiques ou en argent.
 
 - 8ème niveau : Bonus de 2 à la classe d'armure et aux jets de sauvegarde contre les lycanthropes et les démons.
 
-– 16ème niveau : La capacité « Projectile d'argent » offre 5 % de chances supplémentaires de réaliser un coup critique et les projectiles sont considérés comme +4.
+- 16ème niveau : La capacité « Projectile d'argent » offre 5 % de chances supplémentaires de réaliser un coup critique et les projectiles sont considérés comme +4.
 
 Inconvénients : 
-– Ne peut pas porter d'armure plus lourde que la besantine.
+- Ne peut pas porter d'armure plus lourde que la besantine.
   
   
 ==================================================
@@ -59,18 +59,18 @@ Warhound (Guerrier)
 LIMIER : Les Limiers sont des soldats cuirassés spécialisés dans les combats à distance. Ils sont souvent membres d'escadrons d'élite, submergeant les armées ennemies avec un déluge de projectiles.
 
 Avantages :
-– Bonus de 1 à la classe d'armure contre les projectiles au niveau 1 et un bonus supplémentaire tout les 4 niveaux.
-– Bonus de 1 aux jets d'attaque et de dégâts avec les armes à distance au niveau 3, puis une fois supplémentaire tous tout les 5 niveaux.
-– Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes.
-– Peut utiliser les capacités « Onde de choc » et « Incinération » au niveau 4, puis une fois supplémentaire tous les 4 niveaux, jusqu'à un maximum de 5 au niveau 20
+- Bonus de 1 à la classe d'armure contre les projectiles au niveau 1 et un bonus supplémentaire tout les 4 niveaux.
+- Bonus de 1 aux jets d'attaque et de dégâts avec les armes à distance au niveau 3, puis une fois supplémentaire tous tout les 5 niveaux.
+- Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes.
+- Peut utiliser les capacités « Onde de choc » et « Incinération » au niveau 4, puis une fois supplémentaire tous les 4 niveaux, jusqu'à un maximum de 5 au niveau 20
 
 ONDE DE CHOC : La prochaine attaque à distance réussie provoque une vague d'énergie. Toutes les créatures situées dans un rayon de 4,5 m subissent 2d4 + 3 points de dégâts contondants et sont projetées en arrière sur une distance considérable, sans jet de sauvegarde possible. La déflagration inflige 2d4 + 3 points de dégâts contondants supplémentaires par tranche de 4 niveaux, jusqu'à un maximum de 10d4 + 3 points de dégâts au niveau 20.
 
 INCINÉRATION : La prochaine attaque à distance réussie s'étend telle une nuée ardente, recouvrant un rayon de 4,5 mètres. Toutes les créatures présentes dans le nuage subissent 1d6 points de dégâts de feu à chaque round pendant 4 rounds (un jet de sauvegarde contre les souffles réduit les dégâts de moitié). Les dégâts par round augmentent de 1d6 points par tranche de 4 niveaux, jusqu'à un maximum de 5d6 points de dégâts au niveau 20.
 
 Inconvénients : 
-– Ne peut se spécialiser avec les armes de mêlés.
-– Ne peut se spécialiser dans aucun des styles de combat.
+- Ne peut se spécialiser avec les armes de mêlés.
+- Ne peut se spécialiser dans aucun des styles de combat.
 
 
 ==================================================
@@ -97,7 +97,7 @@ Si celle-ci voit ses points de vie tomber en dessous des 50 %, un deuxième effe
 Inconvénients : 
 - Ne peut pas porter d'armure plus lourde que la cotte de mailles.
 - Ne peut utiliser la capacité « Charme-animal ».
-– Ne peut pas être d'alignement mauvais ou chaotique.
+- Ne peut pas être d'alignement mauvais ou chaotique.
 
 
 ==================================================
@@ -108,24 +108,24 @@ CHEVALIER AU CLAIR DE LUNE : Ces chevaliers errants, marqués d'une cicatrice po
 Avantages :
 - Balafré par la lune : Bonus de 1 aux jets de sauvegarde, passe à 2 au niveau 8 et à 3 au niveau 16 et à 3 au niveau 10.
 
-– 2ème niveau : Gagne la capacité passive « Cascade ».
+- 2ème niveau : Gagne la capacité passive « Cascade ».
 
 CASCADE : Une attaque réussie octroie au personnage 10 % de chances de bénéficier des effets de la hâte pendant 10 secondes, gagnant une attaque supplémentaire par round et doublant sa vitesse de déplacement.
 Au niveau 8, les attaques infligent 2 points de dégâts magiques supplémentaires.
 au niveau 16, le nombre d'attaques par round est doublé.
 Les effets de « Balafré par la lune » sont inversés quand cette capacité est activée.
 
-– 7ème niveau : Peut utiliser la capacité « Albédo » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
+- 7ème niveau : Peut utiliser la capacité « Albédo » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
 ALBÉDO : Libère un rayonnement lunaire dévastateur qui s'étend jusqu'à la zone ciblée, infligeant sur son passage 8d10 points de dégâts magiques aux ennemis. Les morts-vivants et les créatures extra-planaires subissent le double des dégâts. De plus, la lumière rémanente issue de l'incantation confère au personnage un bonus de 20 % de résistance magique, pendant 4 rounds.
 
-– Peut être de n'importe quel alignement.
-– Ne peut être déchu en raison de sa réputation.
+- Peut être de n'importe quel alignement.
+- Ne peut être déchu en raison de sa réputation.
 
 Inconvénients :
 - Balafré par la lune : Pénalité de 1 à la classe d'armure contre les attaques tranchantes, perforantes et les projectiles. Cette pénalité passe à 2 au niveau 8 et 3 au niveau 16.
-– Ne peut se spécialiser avec les armes à distance.
-– Ne peut pas utiliser la Furtivité.
+- Ne peut se spécialiser avec les armes à distance.
+- Ne peut pas utiliser la Furtivité.
 
 
 ==================================================
@@ -159,17 +159,17 @@ Temple Knight (Paladin)
 CHAMPION DU TEMPLE : Ces chevaliers en armure lourde sont principalement présents près des temples et des églises de Toril, protégeant ces lieux sacrés. Ce sont des soldats vertueux, qui se dressent avec détermination contre tout adversaire.
 
 Avantages :
-– Peut atteindre la haute maîtrise (4 points de compétence) avec les armes d'hast et les armes contondantes.
-– Peut utiliser la capacité « Imposition des mains » trois fois par jour.
-– 2ème niveau : Peut utiliser la capacité « Force » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
+- Peut atteindre la haute maîtrise (4 points de compétence) avec les armes d'hast et les armes contondantes.
+- Peut utiliser la capacité « Imposition des mains » trois fois par jour.
+- 2ème niveau : Peut utiliser la capacité « Force » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
 FORCE : Produit une onde de choc qui n'inflige aucun dégât, mais étourdit les ennemis à proximité. Tous les adversaires présents dans un rayon de 4,5 mètres sont propulsés en arrière et étourdis pendant 4 secondes (sans jet de sauvegarde possible). Les créatures gigantesques ne seront pas projetées mais étourdies un court instant.
 
-– 9ème niveau : Peut utiliser la capacité « Rayon divin » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
+- 9ème niveau : Peut utiliser la capacité « Rayon divin » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
 
 Inconvénients : 
-– Ne peut pas se spécialiser avec les armes à projectiles.
-– Sa capacité à repousser les morts-vivants est deux point inférieur à celle des autres paladins et ne devient effective qu'au niveau 5.
+- Ne peut pas se spécialiser avec les armes à projectiles.
+- Sa capacité à repousser les morts-vivants est deux point inférieur à celle des autres paladins et ne devient effective qu'au niveau 5.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -182,15 +182,15 @@ War Magician (Mage)
 MAGE DE BATAILLE : Le Mage de bataille apprend à puiser dans ses capacités magiques naturelles et à les amplifier, lui permettant ainsi d'acquérir des aptitudes supérieures à celles d'un magicien ordinaire, bien que ce processus soit physiquement très éprouvant.
 
 Avantages :
-– Bénéficie de 10 % de résistance contre les dégâts de feu, de froid, d’électricité, d'acide et magique. Gagne 5 % supplémentaires tous les 5 niveaux, jusqu'à un maximum de 30 % au niveau 20.
-– Peut utiliser les capacités « Unleash Magic » et « Twisted Barricade », Gagne une utilisation supplémentaire au niveau 2, puis tous les 4 niveaux.
+- Bénéficie de 10 % de résistance contre les dégâts de feu, de froid, d’électricité, d'acide et magique. Gagne 5 % supplémentaires tous les 5 niveaux, jusqu'à un maximum de 30 % au niveau 20.
+- Peut utiliser les capacités « Unleash Magic » et « Twisted Barricade », Gagne une utilisation supplémentaire au niveau 2, puis tous les 4 niveaux.
 
 DÉCHAÎNEMENT DE MAGIE : Le lanceur de sorts renverse les énergies élémentaires. Pendant 4 rounds, chaque bonus devient une pénalité de 10 % et le lanceur gagne 10 % à tous les dégâts  de feu, de froid, d'électricité, d'acide et de magie qu'il inflige ainsi qu'un bonus de 2 au niveau de lanceur de sort. Ces bonus et pénalités augmentent au même rythme que la résistance naturelle du Mage de bataille.
 
 BARRICADE : Pendant 4 rounds, tous ses bonus de résistance sont triplés et tous les projectiles normaux sont déviés. Pendant la durée du sort, les mouvement du personnage sont ralentis de moitié. À partir du niveau 10 tous les sortilèges à destination du personnage seront déviés, sauf pour les sorts effectifs sur une zone.
 
 Inconvénients :
-– Pénalité de 2 en Force et en Constitution.
+- Pénalité de 2 en Force et en Constitution.
 
 
 ==================================================
@@ -199,14 +199,14 @@ Starjammer (Ensorceleur)
 VAGABOND DES ÉTOILES : Les Vagabonds des étoiles sont des nomades venus de par delà les étoiles. Ils ont fui un immense fléau sévissant sur leur planète d'origine, et plusieurs d'entre eux se sont retrouvés sur Toril. Ces marginaux ressemblent à de puissants sorciers, mais la destruction de leur foyer, et la dérive qui en a résulté, a eu des répercussions considérables sur leur mental et leur physique.
 
 Avantages :
-– Ne peut être affecté par la magie empêchant les incantations, Surdité et Silence
-– Accède immédiatement aux sorts de niveau 1 à 8 dédiés au Vagabond des étoiles : « Faille », « Surcharge », « Dipôle », « Pacification », « Défibrillation », « Bombe électrique », « Grog », et « Fissure ».
-– 5ème niveau : Peut utiliser la capacité « Interférence » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
+- Ne peut être affecté par la magie empêchant les incantations, Surdité et Silence
+- Accède immédiatement aux sorts de niveau 1 à 8 dédiés au Vagabond des étoiles : « Faille », « Surcharge », « Dipôle », « Pacification », « Défibrillation », « Bombe électrique », « Grog », et « Fissure ».
+- 5ème niveau : Peut utiliser la capacité « Interférence » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
 
 INTERFÉRENCE : Perturbe les attaques de projectiles et les sorts dans la zone d'effet. Tous les ennemis dans un rayon de 9 m subissent une pénalité de 3 aux jets d'attaque avec les armes à distance et leurs sorts ont 25 % de chances d'échouer pendant 1 tour (pas de jet de sauvegarde). Les pénalités augmentent de 1 pour les jets d'attaque et de 5 % pour l'échec des sorts tous les 5 niveaux.
 
 Inconvénients : 
-– Pénalité de 2 à la Dextérité et en Sagesse.
+- Pénalité de 2 à la Dextérité et en Sagesse.
 
 
 ==================================================
@@ -215,8 +215,8 @@ Blood Minister (Clerc)
 ECCLÉSIASTE SANGLANT : L'ancienne Église de la Guérison aujourd'hui entaché d'hérésie était le foyer du rétablissement par le sang, un remède dont on prétendait qu'il avait la capacité de guérir n'importe quelle maladie, qu'elle soit d'origine naturelle ou divine. Depuis quelque temps, des prêtres de cette église ont recommencé à apparaître sur la Côte des Épées.
 
 Avantages :
-– Immunité au drainage de niveau, aux poisons et aux maladies..
-– Peut utiliser la capacité « Injection » une fois par jour à partir du niveau 2, puis une fois supplémentaire tous les 2 niveaux pour un maximum de 10 au niveau 20. Lorsque cette capacité est activée, elle permet d'utiliser plusieurs type de transfusions. De nouvelles transfusions sont disponibles en fonction du niveau :
+- Immunité au drainage de niveau, aux poisons et aux maladies..
+- Peut utiliser la capacité « Injection » une fois par jour à partir du niveau 2, puis une fois supplémentaire tous les 2 niveaux pour un maximum de 10 au niveau 20. Lorsque cette capacité est activée, elle permet d'utiliser plusieurs type de transfusions. De nouvelles transfusions sont disponibles en fonction du niveau :
   2ème niveau : « Guérison par le sang ».
   6ème niveau : « Sang de la Bête ».
   10ème niveau : « Sang du lunatique ».
@@ -231,7 +231,7 @@ SANG DU LUNATIQUE : Cette injection donne un léger aperçu du cosmos et de ses 
 ÉLIXIR SANGLANT : Une décoction mystérieuse qui améliore considérablement la résistance au détriment d'autres capacités. Le destinataire voit sa résistance à tous les dégâts physiques augmentée de 20 % et bénéficie d'un bonus de 4 à sa classe d'armure et ses jets de sauvegarde, mais subit aussi une pénalité de 1 à la chance. Les effets durent 3 tours. Ce sang prévient également le drainage de niveau.
 
 Inconvénients : 
-– Ne peut porter de gantelets ou de bracelets magiques.
+- Ne peut porter de gantelets ou de bracelets magiques.
 
 
 ==================================================
@@ -240,18 +240,18 @@ Crow Hunter (Voleur)
 PRÉDATEUR : Agissant avec célérité et sans aucune pitié pour sa cible. Ce Prédateur de prédateurs est un tueur expérimenté et redouté, mais il n'est pas nécessairement cruel ou maléfique, malgré le caractère déplaisant de son travail.
 
 Avantages :
-– Bonus de 1 aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille. Ce bonus passe à 2 au niveau 5 et à 3 au niveau 10.
-– 4ème niveau : Peut utiliser la capacité « Tir éclatant » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
+- Bonus de 1 aux jets d'attaque et de dégâts contre les humains, les demi-humains, et autres races humanoïdes de petites taille. Ce bonus passe à 2 au niveau 5 et à 3 au niveau 10.
+- 4ème niveau : Peut utiliser la capacité « Tir éclatant » une fois par jour, puis une fois supplémentaire tous les 4 niveaux.
 
 TIR ÉCLATANT : Pendant 3 rounds, chaque attaque à distance réussie génère de multiples éclats tranchants. Tous les ennemis dans un rayon de 4,5 m subissent 2 points de dégâts perforants et souffrent d'hémorragie, ce qui leur inflige 1 point de dégâts supplémentaires par round pendant 1 tour (pas de jet de sauvegarde). Une même cible peut être blessée une fois par round et les effets sont cumulatifs.
 
-– 9ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
+- 9ème niveau : Peut utiliser la capacité « Instinct » une fois par jour, puis une fois supplémentaire au niveaux 13 et 17.
 
 INSTINCT : La prochaine attaque de mêlée, dans un délai d'un round, a 100 % de chances de réussir un coup critique. Cette capacité restaure également 5 + 20 % du maximum de points de vie à l'utilisateur et le place sous l'effet de la hâte pendant 10 secondes.
 
 Inconvénients : 
-– Ne dispose que de 20 points par niveau pour les talents de voleur.
-– Ne peut pas poser de pièges.
+- Ne dispose que de 20 points par niveau pour les talents de voleur.
+- Ne peut pas poser de pièges.
 
 
 ==================================================
@@ -260,8 +260,8 @@ Powder Keg (Barde)
 CHANTRE DE LA POUDRE : Les Chantres de la poudre sont une faction de bardes, connus pour leur amour des armes mécaniques complexes et des grosses explosions. Leurs instruments font office de dispositifs incendiaires et peuvent provoquer une variété d'effets explosifs.
 
 Avantages :
-– Bénéficie de 10 % de résistance au feu, ce bonus augmente de 10 % tous les 5 niveaux jusqu'à un maximum de 50 % au niveau 20.
-– Accède à un chant du barde spécifique au Chantre de la poudre. Les chansons peuvent être sélectionnées à partir du menu des capacités spéciales. De nouvelles chansons sont disponibles en fonction du niveau :
+- Bénéficie de 10 % de résistance au feu, ce bonus augmente de 10 % tous les 5 niveaux jusqu'à un maximum de 50 % au niveau 20.
+- Accède à un chant du barde spécifique au Chantre de la poudre. Les chansons peuvent être sélectionnées à partir du menu des capacités spéciales. De nouvelles chansons sont disponibles en fonction du niveau :
   1er niveau : « Chant enflammé ».
   5ème niveau : « Son détonant ».
   10ème niveau : « Déflagration de poussière ».
@@ -278,8 +278,8 @@ FLAMME FRÉNÉTIQUE : Cette attaque répand une flamme vivante qui enveloppe un 
 - Si la capacité de haut niveau « Chant du barde amélioré » est acquise, le personnage disposera d'une capacité lui permettant de basculer sur cette chanson.
 
 Inconvénients : 
-– Le chant du barde est désactivé pendant 8 rounds après utilisation.
-– N'obtient qu'un quart du score de Vol à la tire.
+- Le chant du barde est désactivé pendant 8 rounds après utilisation.
+- N'obtient qu'un quart du score de Vol à la tire.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -304,7 +304,7 @@ Avantages :
 Inconvénients :
 - N'a pas accès aux sorts de prêtre.
 - Ne peut pas porter d'armure plus lourde que l'armure de cuir ou l'armure de peau.
-– Ne peut pas être d'alignement loyal.
+- Ne peut pas être d'alignement loyal.
 
 
 --
@@ -320,16 +320,16 @@ CHIRURGIEN : Le Chirurgien est un combattant disposant d'une connaissance approf
 
 Avantages :
 - Peut utiliser l'énergie mystique afin d'activer ses capacités spéciales, le chirurgien obtient 1 point tout les 2 niveaux à partir du niveau 1.
-– Régénération mystique : Cette capacité passive permet au chirurgien de récupérer 1 point d'énergie mystique tout les 5 rounds.
-– Peut utiliser la capacité « Sombre Remède », nécessite 1 point d’énergie mystique.
+- Régénération mystique : Cette capacité passive permet au chirurgien de récupérer 1 point d'énergie mystique tout les 5 rounds.
+- Peut utiliser la capacité « Sombre Remède », nécessite 1 point d’énergie mystique.
 
 SOMBRE REMÈDE : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède curatif qui restaure 2d6 points de vie à tous les alliés dans un rayon de 2,1 mètres.
 
-– 5ème niveau : Peut utiliser la capacité « Remède Vital », nécessite 2 points d’énergie mystique.
+- 5ème niveau : Peut utiliser la capacité « Remède Vital », nécessite 2 points d’énergie mystique.
 
 REMÈDE VITAL : Toutes les attaques effectuées dans les 10 prochaines secondes diffusent un remède apaisant. Tous les ennemis présents dans un rayon de 2,1 m sont ralentis durant 1 round, et doivent effectuer un jet de sauvegarde contre la mort ou s'endormir pendant 5 rounds, à moins d'être attaqués dans leur sommeil.
 
-– 7ème niveau : Peut utiliser la capacité « Chirurgie », nécessite 3 points d’énergie mystique.
+- 7ème niveau : Peut utiliser la capacité « Chirurgie », nécessite 3 points d’énergie mystique.
 
 CHIRURGIE : Cette capacité permet de sélectionner un des traitements chirurgicaux suivants, les actions curatives sont appliquées instantanément à la créature ciblées : 
 - « Imposition des mains »
@@ -338,18 +338,18 @@ CHIRURGIE : Cette capacité permet de sélectionner un des traitements chirurgic
 - « Ablation Spirituelle »
 - « Arme empoisonnée »
 
-– 9ème niveau : Peut utiliser la capacité « Déluge Salvateur », nécessite 4 points d’énergie mystique.
+- 9ème niveau : Peut utiliser la capacité « Déluge Salvateur », nécessite 4 points d’énergie mystique.
 
 DÉLUGE SALVATEUR : Des éclats cristallins bénéfiques déferlent dans un rayon de 3,6 mètres, pendant 2 rounds. Balayant la fatigue et soignant à hauteur de 15 % + 10 du total de points de vie à chaque round de toutes les créatures alliés ou neutres présentes dans la zone.
 
-– 13ème niveau : Peut utiliser la capacité « Pestilence du dragon », nécessite 5 points d’énergie mystique.
+- 13ème niveau : Peut utiliser la capacité « Pestilence du dragon », nécessite 5 points d’énergie mystique.
 
 PESTILENCE DU DRAGON : Un dragon onirique éructe un souffle fétide, tous les ennemis dans un rayon de 4,5 m sont affectés par sa pestilence et subissent des dégâts, 5 % + 8 du total de points de vie par round pendant 5 rounds sans jet de sauvegarde possible. Les victimes reçoivent aussi un malus de 4 à leurs jets de sauvegarde pour la durée du sort.
 
 Inconvénients :
-– Ne dispose que de 8 points par niveau pour les talents de voleur.
-– Ne peut utiliser « Paume vibratoire ».
-– Ne peut utiliser « Coup étourdissant ».
+- Ne dispose que de 8 points par niveau pour les talents de voleur.
+- Ne peut utiliser « Paume vibratoire ».
+- Ne peut utiliser « Coup étourdissant ».
 
 
 ==================================================
@@ -358,19 +358,19 @@ Noble Scion (Paladin)
 SEIGNEUR SCION : Descendant d'une lignée honorable, le Seigneur Scion a foi dans son héritage. Ce justicier excelle dans le combat à distance et imprègne ses munitions de sang pour réaliser des tirs dévastateurs.
 
 Avantages :
-– Bonus de 1 aux jets d'attaque avec les armes à distance au niveau 1, puis tous les 5 niveaux.
-– Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes
-– 3ème niveau : Peut utiliser la capacité « Tir saignant » une fois par jour, puis une fois supplémentaire tous les 3 niveaux.
+- Bonus de 1 aux jets d'attaque avec les armes à distance au niveau 1, puis tous les 5 niveaux.
+- Peut atteindre la grande maîtrise (5 points de compétence) avec les arcs long, les arcs courts, les arbalètes, les frondes et les fléchettes
+- 3ème niveau : Peut utiliser la capacité « Tir saignant » une fois par jour, puis une fois supplémentaire tous les 3 niveaux.
 
 TIR SAIGNANT : Le personnage sacrifie 5 points de vie. Ainsi pendant les 2 rounds suivants, son TAC0 est doublé avec les armes à distance et toutes ses attaques à distance infligent 1d3 points de dégâts perforants supplémentaires par tranche de 3 niveaux du personnage.
 
-– 8ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
-– 16ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
+- 8ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
+- 16ème niveau : +5 % de chance d’effectuer un coup critique avec les armes à distance.
 
 Inconvénients :
-– Ne peut pas porter d'armure plus lourde que l'armure feuilletée.
-– Ne peut se spécialiser avec les armes de mêlée.
-– Ne peut se spécialiser dans aucun style de combat.
+- Ne peut pas porter d'armure plus lourde que l'armure feuilletée.
+- Ne peut se spécialiser avec les armes de mêlée.
+- Ne peut se spécialiser dans aucun style de combat.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -383,18 +383,18 @@ Full Metal Jaguar (Fighter)
 FULL METAL JAGUAR : Un grand guerrier aux talents multiples, le Full Metal Jaguar commence par décocher une salve de projectiles sur ses ennemis avant de se jeter dans la bataille et de les terrasser au corps-à-corps.
 
 Avantages :
-– Bonus de 1 aux jets d'attaque et de dégâts.
-– 3ème niveau : Immunité à l'attaque sournoise.
-– 5ème niveau : Peut utiliser la capacité « Fantomatique » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
+- Bonus de 1 aux jets d'attaque et de dégâts.
+- 3ème niveau : Immunité à l'attaque sournoise.
+- 5ème niveau : Peut utiliser la capacité « Fantomatique » une fois par jour, puis une fois supplémentaire tous les 5 niveaux.
 
 FANTOMATIQUE : Cette capacité est effective pendant 5 rounds. À chaque round, 1 image miroir du personnage apparaît, celle-ci absorbera une attaque pendant ce même round. Le nombre d'images passe à 2 par round au niveau 10, à 3 au niveau 15 et enfin à 4 au niveau 20.
 
-– 7ème niveau : Gagne la capacité passive « Décochage critique ».
+- 7ème niveau : Gagne la capacité passive « Décochage critique ».
 
 DÉCOCHAGE CRITIQUE : Les attaques à distance augmentent les chances d'effectuer un coup critique avec les armes de mêlée. Chaque attaque réussie avec une arme à distance confère un bonus cumulatif de 5 % pendant 3 rounds. Un échec critique annule les bonus.
 
 Inconvénients :
-– Ne peut porter d'armure plus lourde que l'armure feuilletée.
+- Ne peut porter d'armure plus lourde que l'armure feuilletée.
 
 
 ==================================================
@@ -403,10 +403,10 @@ Nurse (Thief)
 URGENTISTE : Naturellement douée, l'urgentiste est à la fois un alchimiste et un archer, investigation et apprentissage sont ses maîtres mots.
 
 Avantages :
-– Bonus de 1 aux jets d'attaque avec les armes à distances tous les 3 niveaux.
-– Peut atteindre la spécialisation (2 points de compétence) avec les arcs cours, les arbalètes les frondes et le fléchettes.
+- Bonus de 1 aux jets d'attaque avec les armes à distances tous les 3 niveaux.
+- Peut atteindre la spécialisation (2 points de compétence) avec les arcs cours, les arbalètes les frondes et le fléchettes.
 
-– Peut utiliser la capacité « Concoction » une fois par jour au niveau 1 et 6, puis une fois supplémentaire tous les 6 niveaux.
+- Peut utiliser la capacité « Concoction » une fois par jour au niveau 1 et 6, puis une fois supplémentaire tous les 6 niveaux.
 
 CONCOCTION : Prépare un ensemble de concoctions utilisable comme des capacités spéciales pendant une heure. 
 Chacune d'entre elles nécessite un point d'alchimie et l'Urgentiste dispose de 3 points.
@@ -428,8 +428,8 @@ INTRAVEINEUSE : La prochaine attaque à distance réussie contraint la cible à 
 COCKTAIL : Le bénéficiaire ne sera pas affecté par : le poison, le maladie, la paralysie, l'étourdissement, le sommeil, la cécité, la surdité, le charme, la folie du berserker, la peur, la confusion ou la débilité mentale. Cette capacité restaure aussi 30 % du maximum de points de vie de l'utilisateur, dure 3 tours et ne protège qu'une fois.
 
 Inconvénients :
-– Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.
-– Ne peut porter d'armure plus lourde que l'armure de cuir.
+- Ne dispose que de 15 points à répartir dans ses talents de voleur à chaque monté de niveau.
+- Ne peut porter d'armure plus lourde que l'armure de cuir.
 
 
 ==================================================
@@ -438,16 +438,16 @@ Spell Fencer (Fighter/Mage)
 DÉGAINEUR DE SORTILÈGE : Un expert des duels, le Dégaineur de sortilège allie son expertise des armes à ses talents en magie afin de surpasser son adversaire.
 
 Avantages :
-– Bénéficie d'un sort supplémentaire par niveau.
-– Bonus de 1 à la classe d'armure, puis une fois supplémentaire tous les 5 niveaux dans la classe de guerrier.
-– Bonus de 1 aux jets de sauvegarde contre les sorts tous les 4 niveaux dans la classe de mage, jusqu'à un bonus maximum de 5 au niveau 20.
-–  Gagne la capacité passive « Plus vite que son ombre ». Cette capacité nécessite d'avoir atteint le niveau 5 pour ses deux classes, Mage et Guerrier.
+- Bénéficie d'un sort supplémentaire par niveau.
+- Bonus de 1 à la classe d'armure, puis une fois supplémentaire tous les 5 niveaux dans la classe de guerrier.
+- Bonus de 1 aux jets de sauvegarde contre les sorts tous les 4 niveaux dans la classe de mage, jusqu'à un bonus maximum de 5 au niveau 20.
+-  Gagne la capacité passive « Plus vite que son ombre ». Cette capacité nécessite d'avoir atteint le niveau 5 pour ses deux classes, Mage et Guerrier.
 
 PLUS VITE QUE SON OMBRE : À chaque attaque de mêlée réussie, le Dégaineur de sortilège bénéficie d'un bonus cumulatif de 2 à la vitesse d'incantation pendant 10 secondes. Un échec critique annule les bonus.
 
 Inconvénients :
-– Ne peut se spécialiser avec les armes à distance.
-– Ne peut porter d'armure plus lourde que la cotte de mailles.
+- Ne peut se spécialiser avec les armes à distance.
+- Ne peut porter d'armure plus lourde que la cotte de mailles.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

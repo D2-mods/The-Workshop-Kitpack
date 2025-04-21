@@ -58,12 +58,12 @@ Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont n
 PARAMÈTRES :
 
 Capacités d'équipement : 
-– Classe d'armure : +1
-– Jets de sauvegarde : +1
-– Résistance à l’électricité : +50 %
+- Classe d'armure : +1
+- Jets de sauvegarde : +1
+- Résistance à l’électricité : +50 %
 
 Spécial (Chasseur): 
-– Techniques de chasseur : Inflige 1d3 points de dégâts électriques supplémentaires.
+- Techniques de chasseur : Inflige 1d3 points de dégâts électriques supplémentaires.
 
 Poids : 1
 
@@ -76,12 +76,12 @@ Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont n
 PARAMÈTRES :
 
 Capacités d'équipement : 
-– Classe d'armure : +1
-– Jets de sauvegarde : +1
-– Protection contre le mal
+- Classe d'armure : +1
+- Jets de sauvegarde : +1
+- Protection contre le mal
 
 Spécial (Chasseur): 
-– Techniques de chasseur : Inflige 5 points de dégâts magiques supplémentaires contre les morts-vivants.
+- Techniques de chasseur : Inflige 5 points de dégâts magiques supplémentaires contre les morts-vivants.
 
 Poids : 1
 
@@ -94,13 +94,13 @@ Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont n
 PARAMÈTRES :
 
 Capacités d'équipement : 
-– Classe d'armure : +1
-– Jets de sauvegarde : +1
-– Résistance à la magie : +5 %
-– Vocaliser
+- Classe d'armure : +1
+- Jets de sauvegarde : +1
+- Résistance à la magie : +5 %
+- Vocaliser
 
 Spécial (Chasseur): 
-– Techniques de chasseur : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
+- Techniques de chasseur : Draine un niveau à la cible, en cas d'échec à son jet de sauvegarde contre les sorts à -2.
 
 Poids : 1
 
@@ -113,12 +113,12 @@ Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont n
 PARAMÈTRES :
 
 Capacités d'équipement : 
-– Classe d'armure : +1
-– Jets de sauvegarde : +1
-– Résistance au feu : +20 %
+- Classe d'armure : +1
+- Jets de sauvegarde : +1
+- Résistance au feu : +20 %
 
 Spécial (Chasseur): 
-– Techniques de chasseur : 10 % de chance d'infliger 2d12 dégâts de feu supplémentaires.
+- Techniques de chasseur : 10 % de chance d'infliger 2d12 dégâts de feu supplémentaires.
 
 Poids : 1
 
@@ -132,12 +132,12 @@ Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont n
 PARAMÈTRES :
 
 Capacités de charge :
-– TAC0 : Bonus de 1
-– Classe d'armure : Bonus de 1
-– Jets de sauvegarde : Bonus de 1
+- TAC0 : Bonus de 1
+- Classe d'armure : Bonus de 1
+- Jets de sauvegarde : Bonus de 1
 
 Spécial (Chasseur): 
-– Techniques de chasseur : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
+- Techniques de chasseur : La cible subit une pénalité cumulative de 1 à la classe d'armure pendant 3 rounds
 
 Poids : 1
 
@@ -151,12 +151,12 @@ Les insignes de Chasseur ont peu de valeur pour les gens ordinaires, mais sont n
 PARAMÈTRES :
 
 Capacités de charge :
-– Classe d'armure : Bonus de 1
-– Jets de sauvegarde : Bonus de 1
-– Charisme : Bonus de 2
+- Classe d'armure : Bonus de 1
+- Jets de sauvegarde : Bonus de 1
+- Charisme : Bonus de 2
 
 Spécial (Chasseur): 
-– Techniques de chasseur : +5 % de chance d’effectuer un coup critique avec les armes de mêlée
+- Techniques de chasseur : +5 % de chance d’effectuer un coup critique avec les armes de mêlée
 
 Poids : 1
 
@@ -174,12 +174,12 @@ Une tenue portée par les plus anciens des Prédateurs, ces vétérans se dégui
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Jets de sauvegarde : +1
-– Se cacher dans l'ombre : +30 %
+- Jets de sauvegarde : +1
+- Se cacher dans l'ombre : +30 %
 - Indétectable par des moyens magiques tels que « Détection de l'invisibilité » et par la scrutation
 
 Spécial (Prédateur):
-– 5 % de chance de déclencher la capacité « Instinct » (seulement avec les attaques de mêlée)
+- 5 % de chance de déclencher la capacité « Instinct » (seulement avec les attaques de mêlée)
 
 Poids : 3
 
@@ -193,13 +193,13 @@ La rumeur raconte que ce livre de chants serait tombé du ciel. Les runes qui or
 PARAMÈTRES :
 
 Capacités de charge :
-– Expulsion d'Éther une fois par jour
+- Expulsion d'Éther une fois par jour
 Inflige 8d8 points de dégâts magiques autour de l'utilisateur (jet de sauvegarde contre les sorts pour réduire de moitié).
 Spécial : Si le score de connaissances est égal ou supérieur à 80, le souffle n'endommage que les ennemis.
 Zone d'effet : rayon de 4,5 m.
 
 Spécial (Chantre de la poudre): 
-– Le Chant du barde est remplacé par Expulsion d'Éther lorsque la capacité de l'objet est activée.
+- Le Chant du barde est remplacé par Expulsion d'Éther lorsque la capacité de l'objet est activée.
 
 Poids : 2
 
@@ -213,11 +213,11 @@ Une roche étrange découverte parmi les débris d'une météorite. Elle peut ê
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Tous les dégâts magiques et élémentaires infligés par le porteur augmentent de 20 %.
-– Pénalité : Temps d'incantation augmenté de 3 
+- Tous les dégâts magiques et élémentaires infligés par le porteur augmentent de 20 %.
+- Pénalité : Temps d'incantation augmenté de 3 
 
 Spécial (Mage de bataille): 
-– Déchaînement de magie : Inverse la pénalité au temps d'incantation qui devient un bonus, Temps d'incantation réduit de 3.
+- Déchaînement de magie : Inverse la pénalité au temps d'incantation qui devient un bonus, Temps d'incantation réduit de 3.
 
 Poids : 1
 
@@ -231,11 +231,11 @@ Fragment d'une chaîne en acier, jadis utilisée pour entraver un puissant héro
 PARAMÈTRES :
 
 Capacités d'équipement :
-– TAC0 : +1
-– Classe d'armure : +1
-– Jets de sauvegarde : +1
-– Points de vie : +15
-– Résistance aux dégâts : Bonus de 10 % (contre tous les types de dégâts)
+- TAC0 : +1
+- Classe d'armure : +1
+- Jets de sauvegarde : +1
+- Points de vie : +15
+- Résistance aux dégâts : Bonus de 10 % (contre tous les types de dégâts)
 
 Poids : 0
 
@@ -249,12 +249,12 @@ Une pierre en forme de croix incrustée de pierres précieuses. Usée par le tem
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Jet de sauvegarde contre la mort : Bonus de 2
+- Jet de sauvegarde contre la mort : Bonus de 2
 - Peut mémoriser 2 sorts divins supplémentaires de niveau 2
-– Régénère 2 points de vie par round
+- Régénère 2 points de vie par round
 
 Spécial (Exécuteur): 
-– Évangile sanguinolente : Inflige 3 points de dégâts d'hémorragie
+- Évangile sanguinolente : Inflige 3 points de dégâts d'hémorragie
 
 Poids : 1
 
@@ -268,11 +268,11 @@ Ces anneaux enchantés ont été fabriqués en masse par un sorcier et inventeur
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Classe d'armure : +3
-– La vitesse de déplacement du porteur ne peut être modifier
+- Classe d'armure : +3
+- La vitesse de déplacement du porteur ne peut être modifier
 
 Capacités de charge :
-– Peau de fer, trois fois par jour
+- Peau de fer, trois fois par jour
   La résistance physique de l'utilisateur est fixée à 80 %, il ne peut plus être repoussé ou attiré par aucune force ni aucun sort, y compris les coups d'ailes de dragon, mais en contrepartie sa vitesse de déplacement est réduite de moitié.
   Durée : 4 rounds
 
@@ -288,7 +288,7 @@ Cette anneau représente un œil de dragon, un signe de calamité. Son existence
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Double les dégâts à chaque attaque
+- Double les dégâts à chaque attaque
 
 Poids : 5
 
@@ -302,11 +302,11 @@ Le bijou bien-aimé d'un héros oublié. Cet anneau pèse lourd, et son enchante
 PARAMÈTRES :
 
 Capacités d'équipement :
-– TAC0 : Bonus de 2
+- TAC0 : Bonus de 2
 
 Capacités de combat :
-– Mêlée : 15 % de chance d'étourdir la cible pendant 4 secondes
-– Distance : 25 % de chance de projeter et renverser la cible 
+- Mêlée : 15 % de chance d'étourdir la cible pendant 4 secondes
+- Distance : 25 % de chance de projeter et renverser la cible 
 
 Poids : 3~
 
@@ -320,7 +320,7 @@ L'anneau d'un voleur glorieux, qui a combattu avec le vent en poupe. Flynn étai
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Inflige 20 % de dégâts physiques supplémentaires lorsque vous ne portez pas d'armure ou de robe.
+- Inflige 20 % de dégâts physiques supplémentaires lorsque vous ne portez pas d'armure ou de robe.
 
 Poids : 0
 
@@ -334,13 +334,13 @@ La pierre de cette amulette, provenant d'une météorite, est connue pour prése
 PARAMÈTRES :
 
 Capacités de charge :
-– Résistance aux dégâts contondants : +15 %
-– Résistance aux dégâts magiques : +50 %
-– Jets de sauvegarde contre les sorts : Bonus de 2
-– Empêche le lancement des sorts
+- Résistance aux dégâts contondants : +15 %
+- Résistance aux dégâts magiques : +50 %
+- Jets de sauvegarde contre les sorts : Bonus de 2
+- Empêche le lancement des sorts
 
 Spécial (Limier):
-– Onde de choc et Incinération n'infligent des dégâts qu'aux ennemis
+- Onde de choc et Incinération n'infligent des dégâts qu'aux ennemis
 
 Poids : 1
 
@@ -359,7 +359,7 @@ Ce modèle d'amulette principalement fabriqué dans les environs de Mulhorand re
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Bonus de 300 points d’expérience pour chaque ennemi vaincu par le porteur
+- Bonus de 300 points d’expérience pour chaque ennemi vaincu par le porteur
 
 Poids : 1
 
@@ -373,7 +373,7 @@ Un des plus grand honneur accordé aux plus dévoués des chevaliers, appelés �
 PARAMÈTRES :
 
 Capacités de combat :
-– À chaque attaque réussie, 33 % de chance de bénéficier d'un bonus cumulatif de 1 aux dégâts pour 2 rounds (Attaque de mêlée uniquement)
+- À chaque attaque réussie, 33 % de chance de bénéficier d'un bonus cumulatif de 1 aux dégâts pour 2 rounds (Attaque de mêlée uniquement)
 
 Poids : 0
 
@@ -387,7 +387,7 @@ La pierre de larme sanglante amplifie les attaques de son porteur lorsqu'il se t
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Si le porteur voit ses points de vie passer en dessous des 25 %, tous les dégâts qu'il inflige seront majorés de 40 %
+- Si le porteur voit ses points de vie passer en dessous des 25 %, tous les dégâts qu'il inflige seront majorés de 40 %
 
 Poids : 0
 
@@ -401,7 +401,7 @@ Un des os d'un vieux chasseur oublié depuis longtemps. Celui où celle qui bran
 PARAMÈTRES :
 
 Capacités de charge :
-– Hâte-Flou trois fois par jour
+- Hâte-Flou trois fois par jour
   Durée : 20 seconds
   Zone d'effet :l'utilisateur
   
@@ -417,12 +417,12 @@ Un talisman en forme de plume qui expulse tous les types de mort magique.
 PARAMÈTRES :
 
 Capacités d'équipement :
-– Points de vie : +8
-– Immunité à la pétrification
-– Protection contre la mort
+- Points de vie : +8
+- Immunité à la pétrification
+- Protection contre la mort
 
 Spécial  (Chirurgien):
-– « Sombre Remède » et « Remède Vital » bénéficieront d'un rayon de 4,5 m de portée
+- « Sombre Remède » et « Remède Vital » bénéficieront d'un rayon de 4,5 m de portée
 
 Poids : 1
 
@@ -470,7 +470,7 @@ Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, el
 PARAMÈTRES :
 
 Capacités de charge :
-– Griffure (peut être utilisé à volonté)
+- Griffure (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
 5% de chances d'effectuer un coup critique et de provoquer une hémorragie, qui inflige 1d3 point de dégâts par round pendant 4 rounds (pas de jet de sauvegarde possible) ; une même cible peut être blessée une fois par round et les effets sont cumulatifs.
@@ -527,7 +527,7 @@ Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, el
 PARAMÈTRES :
 
 Capacités de charge :
-– Corruption (peut être utilisé à volonté)
+- Corruption (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
 Régénère 4 points de vie par round aux membres du groupe ayant moins de 50 % de leurs santés, 6 points de vie par round à moins de 25 %, et enfin 8 points de vie par round en dessous de 10 %.
@@ -565,7 +565,7 @@ Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, el
 PARAMÈTRES :
 
 Capacités de charge :
-– Anomalie (peut être utilisé à volonté)
+- Anomalie (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
 Bonus de 20 % au maximum de points de vie.
@@ -642,7 +642,7 @@ Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, el
 PARAMÈTRES :
 
 Capacités de charge :
-– Acuité (peut être utilisé à volonté)
+- Acuité (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
 Bonus de 1 aux jets d'attaque ainsi qu'un bonus de 5 à toutes les compétences de voleur.
@@ -661,7 +661,7 @@ Une seule rune peut être utilisée à la fois. Lorsqu'une rune est activée, el
 PARAMÈTRES :
 
 Capacités de charge :
-– Pleine Lune (peut être utilisé à volonté)
+- Pleine Lune (peut être utilisé à volonté)
   Zone d'effet : Le groupe
   Durée : 24 heures
 35 points d'expérience supplémentaires pour chaque ennemi vaincu par le groupe.
