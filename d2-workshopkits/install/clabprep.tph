@@ -217,6 +217,30 @@ ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~PALADIN_CURE_DISEASE~) BEGIN OUTER_SET
 ACTION_IF (RESOURCE_CONTAINS ~CLABPA01.2DA~ ~GA_C0PAL05~) BEGIN OUTER_SET paladin_cd = 1 END
 
 
+//thief evasion
+DEFINE_PATCH_FUNCTION d2clab_evasion INT_VAR level=7 always=0 BEGIN
+  REPLACE_TEXTUALLY ~AP_#EVASION~ ~****~
+  REPLACE_TEXTUALLY ~AP_CDIEVAD~ ~****~
+  PATCH_IF (always>0 OR d2clab_evasion>0) BEGIN
+    LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~#EVASION~ END    // IWDEE, ToF
+  END
+  PATCH_IF (always>0 OR d2clab_cdievad>0) BEGIN
+    LPF d2_kit_ability_adder INT_VAR level=level passive=1 STR_VAR resource=~CDIEVAD~ END     // IWDification
+  END
+END
+
+OUTER_SET d2clab_evasion = 0
+OUTER_SET d2clab_cdievad = 0
+ACTION_IF (RESOURCE_CONTAINS ~clabth01.2da~  ~#EVASION~) BEGIN  OUTER_SET d2clab_evasion = 1  END
+ACTION_IF (RESOURCE_CONTAINS ~clabth01.2da~  ~CDIEVAD~)  BEGIN  OUTER_SET d2clab_cdievad = 1  END
+
+DEFINE_ACTION_FUNCTION d2clab_evasion INT_VAR level=7 always=0 STR_VAR clab=~~ BEGIN
+  COPY_EXISTING ~%clab%.2da~  ~override~
+    LPF d2clab_evasion INT_VAR level=level akways=always END
+  BUT_ONLY
+END
+
+
 // add or remove artisan stuff
 DEFINE_PATCH_FUNCTION d2clab_artisancheck STR_VAR type=default mode=add BEGIN
 

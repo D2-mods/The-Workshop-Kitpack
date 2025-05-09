@@ -106,21 +106,32 @@ COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~        // clone Death Ward
   LPF ALTER_SPELL_HEADER INT_VAR range=25 speed=3 END
   WRITE_LONG 0x18 THIS | BIT24    // can target invisible
 
-  //edit stuff
+  // remove states (for dispellable buffs)
+  SET death_ward = IDS_OF_SYMBOL (~splstate~ ~DEATH_WARD~)
+  SET buff_pro = IDS_OF_SYMBOL (~splstate~ ~BUFF_PRO_EFFECTS~)
+//  LPF DELETE_EFFECT INT_VAR match_opcode=328 match_parameter2=death_ward END    // remove spell state
+  LPF DELETE_EFFECT INT_VAR match_opcode=328 match_parameter2=buff_pro END    // remove spell state
   LPF DELETE_EFFECT INT_VAR match_opcode=282 END    // remove scripting state (for dispellable death wards)
-  LPF DELETE_EFFECT INT_VAR match_opcode=328 match_parameter2=67 END    // remove spell state (BUFF_PRO_EFFECTS)
-  LPF ALTER_EFFECT INT_VAR power=0 duration=181 resist_dispel=2 END     // edit all effects
-  LPF DELETE_EFFECT INT_VAR match_opcode=174 match_timing=1 END         // sound moved to VVC
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 duration=0 END      // EEs (silent to not have warning with sr)
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END      // spell revisions
-  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END       // not silent to get warning if no icon added
+
+  // block iwdee vorpal
+  LPF DELETE_EFFECT STR_VAR match_resource=d2vorpal END    // overwrite if added to death ward already
+  LPF DELETE_EFFECT STR_VAR match_resource=vorpal END
+  LPF d2_immunity_spl_block STR_VAR block=d2vorpal END
+  LPF d2_immunity_spl_block STR_VAR block=vorpal END
+
+  //edit stuff
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 match_timing=1 END        // sound moved to VVC
+  LPF ALTER_EFFECT INT_VAR power=0 duration=181 resist_dispel=2 END    // edit all effects
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 duration=0 END     // EEs (silent to not have warning with sr)
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END     // spell revisions
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END      // not silent to get warning if no icon added
 
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 timing=1 parameter2=0 STR_VAR resource=~%s1%g~ END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=174 match_timing=4 STR_VAR resource=~EFF_E03~ END
   LPF block_death_gaze END
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%s1%x~ END
 
-  // repeating effect (1 second delay)
+  // repeating effect (1 second delay to allow recasting)
   LPF CLONE_EFFECT
     INT_VAR multi_match=1 check_globals=0 opcode=326 timing=4 duration=1
     STR_VAR resource=~%s1%e~ insert=last
@@ -130,10 +141,6 @@ COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~        // clone Death Ward
 //repeating effect (checks HP percent)
 COPY ~%abilities%/hpcheck50.SPL~  ~override/%s1%e.SPL~
   LPF ALTER_EFFECT INT_VAR resist_dispel=2 timing=0 duration=180 STR_VAR resource=~%s1%a~ END
-
-/*
-The 1 second delay is needed to not give "contingency could not be recast" message.
-*/
 
 
 //Add Cure subspell (for Denial)

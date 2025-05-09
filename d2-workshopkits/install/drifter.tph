@@ -170,11 +170,7 @@ COPY ~inlined/d2clab_ranger~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%m1%~ END
   LPF d2_kit_ability_adder END
   LPF d2clab_artisancheck END
-
-  // add Evasion
-  REPLACE_TEXTUALLY ~AP_#EVASION~ ~****~
-  LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~#EVASION~ END    // IWDEE, ToF
-  LPF d2_kit_ability_adder INT_VAR level=7 passive=1 STR_VAR resource=~CDIEVAD~ END     // IWDification
+  LPF d2clab_evasion INT_VAR always=1 END
 
   // add a few extra -1 spell slots
   FOR (n = 1; n < 5; ++n) BEGIN

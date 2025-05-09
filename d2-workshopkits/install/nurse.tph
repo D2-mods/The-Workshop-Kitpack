@@ -436,8 +436,10 @@ COPY ~%passives%/opcode101.SPL~  ~override/%s4%a.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_stun_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_sleep_arrays END
   LPF d2_string_immunities END
-  LPF ee_fixpack_immunities STR_VAR status=~stun slow~ END
+  LPF ee_fixpack_immunities STR_VAR status=~stun slow sleep~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=101 match_parameter2=216 opcode=282 parameter1=1 parameter2=2 END    // add scripting state (immune to level drain)
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=169 parameter2=130 END    // block unconsciousness icon (sleep)
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=169 parameter2=44 END     // block hopelessness icon (sleep or stun)
 
 
 //

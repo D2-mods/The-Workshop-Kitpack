@@ -16,6 +16,7 @@ d2_remove_spelltypes          PATCH
 d2_mindamageboost             PATCH
 d2_addhitstun                 PATCH
 castsound_to_opcode           PATCH
+d2_immunity_spl_block         PATCH
 */
 
 ////////////////////////////////////////////////////////////
@@ -508,6 +509,42 @@ DEFINE_PATCH_FUNCTION castsound_to_opcode INT_VAR match_opcode=~-1~ STR_VAR inse
                 opcode=174 timing=1 duration=0 parameter1=0 parameter2=0
                 probability1=100 probability2=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
         STR_VAR resource=EVAL ~%castsound%~ insert=EVAL ~%insert%~
+      END
+    END
+  END
+END
+
+////////////////////////////////////////////////////////////
+
+//matches an op101 (immunity to effect) to block a specific resource
+//"opcode" can be 318, 324, or 206
+
+/*
+"block" is resource to block in patched SPL
+"effect" is the number in parameter2 of op101 to match (default 13 = kill target)
+*/
+
+//silently skipped if resource doesn't exist
+//silently skipped if op101 with "effect" is not in file
+//automatically switches to opcode 206 if game is not EE v2.0+
+
+DEFINE_PATCH_FUNCTION d2_immunity_spl_block INT_VAR opcode=318 effect=13 STR_VAR block=vorpal BEGIN
+  PATCH_IF (FILE_EXISTS_IN_GAME ~%block%.spl~) BEGIN
+    PATCH_IF (opcode!=324 && opcode!=206) BEGIN  SET opcode=318  END
+    PATCH_IF !(FILE_EXISTS ~engine.lua~) BEGIN  SET opcode=206  END
+    PATCH_IF !(RESOURCE_CONTAINS ~action.ids~ ~zoomlock~) BEGIN  SET opcode=206  END
+
+    PATCH_IF (opcode=318 OR opcode=324) BEGIN
+      LPF CLONE_EFFECT
+        INT_VAR silent=1 match_opcode=101 match_parameter2=effect
+                opcode=opcode parameter1=0 parameter2=0 special=0
+        STR_VAR resource=EVAL ~%block%~
+      END
+    END ELSE PATCH_IF !(GAME_IS ~bg1 totsc pst~) BEGIN
+      LPF CLONE_EFFECT
+        INT_VAR silent=1 match_opcode=101 match_parameter2=effect
+                opcode=206 parameter1=0 parameter2=0 special=0
+        STR_VAR resource=EVAL ~%block%~
       END
     END
   END

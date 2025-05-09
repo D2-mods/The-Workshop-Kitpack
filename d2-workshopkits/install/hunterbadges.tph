@@ -112,6 +112,7 @@ END
     WRITE_LONG 0x40 1       // save vs. spell
     WRITE_LONG 0x44 ~-2~    // -2 penalty to save
   COPY ~%files%/badge_cosmic.SPL~      ~override/%m3%a.SPL~
+    LPF DELETE_EFFECT INT_VAR match_opcode=141 END
     LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=leveldrain END
     LPF ALTER_EFFECT INT_VAR savingthrow=0 savebonus=0 END
 

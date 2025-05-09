@@ -592,14 +592,18 @@ COPY ~%files%/jadefeather.ITM~  ~override/%mf%.ITM~
   LPF d2_protect_on_castequip STR_VAR resource=~%blackremedyeffects%~ END    // block base subspells
   LPF d2_protect_on_castequip STR_VAR resource=~%whiteremedyeffects%~ END
 
+  LPF DELETE_EFFECT INT_VAR match_opcode=282 END    // remove scripting state (for dispellable death ward)
+  LPF DELETE_EFFECT INT_VAR match_opcode=328 END    // remove spell states (for dispellable buffs)
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_kill_target_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_slay_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_petrification_arrays END
   LPF d2_string_immunities END
-  LPF ee_fixpack_immunities STR_VAR status=~death~ END
+  LPF ee_fixpack_immunities STR_VAR status=~death petrify disintegrate~ END
   LPF block_death_gaze END
-  LPF DELETE_EFFECT INT_VAR match_opcode=282 END    // remove scripting state (for dispellable death wards)
-//  LPF DELETE_EFFECT INT_VAR match_opcode=328 END    // remove spell state
+
+  // block iwdee vorpal
+  LPF d2_immunity_spl_block STR_VAR block=d2vorpal END
+  LPF d2_immunity_spl_block STR_VAR block=vorpal END
 
 //Black Remedy
 ACTION_IF (FILE_EXISTS ~override/%blackremedy%.SPL~) BEGIN

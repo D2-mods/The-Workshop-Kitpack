@@ -200,6 +200,15 @@ Notes:
 
 Version info:
 
+v5.23
+- Removed annoying visual effect from Cosmic Watcher Badge level drain.
+- Jade Feather: was missing EEFP immunity spell states for petrify and disintegrate.
+- Nurse Overdose: was missing EEFP immunity spell state for sleep.
+- Dev mode: fixed harmless NI warning with EET when looking at AR0602.bcs (BG2 starting area).
+- Kit Updater: additional checks for a couple things with IWDification. If any component is installed after this mod, run the updater after. (note: Recommended order is still to install all of IWDification before this mod, including components that need to go after other kit mods)
+- Noticed a few more status effect strings not blocked by immunities to those statuses.
+- Nurse's Overdose wasn't blocking icons for hopelessness (stun or sleep) and unconsciousness (sleep).
+
 v5.22
 - French translation now always uses hyphens at the starts of lines instead of en dashes. This is to match the style of other kits in French
 - French translation: Fixed Dev mode bag description (text was cut off).
