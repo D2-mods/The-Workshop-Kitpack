@@ -21,6 +21,7 @@ INCLUDE ~%install%/spellprep2.tph~
 INCLUDE ~%install%/riftgateprep.tph~
 INCLUDE ~%install%/drifterprep.tph~
 INCLUDE ~%install%/bleedprep.tph~
+INCLUDE ~%install%/werewolf.tph~    // for items component/updater
 
 
 

@@ -114,8 +114,6 @@ COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~        // clone Death Ward
   LPF DELETE_EFFECT INT_VAR match_opcode=282 END    // remove scripting state (for dispellable death wards)
 
   // block iwdee vorpal
-  LPF DELETE_EFFECT STR_VAR match_resource=d2vorpal END    // overwrite if added to death ward already
-  LPF DELETE_EFFECT STR_VAR match_resource=vorpal END
   LPF d2_immunity_spl_block STR_VAR block=d2vorpal END
   LPF d2_immunity_spl_block STR_VAR block=vorpal END
 

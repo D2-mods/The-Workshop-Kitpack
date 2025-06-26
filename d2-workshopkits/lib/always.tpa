@@ -2,6 +2,12 @@
 //
 
 
+//
+OUTER_SET ee_game = 0
+ACTION_IF (RESOURCE_CONTAINS ~action.ids~ ~zoomlock~) BEGIN OUTER_SET ee_game = 1 END
+ACTION_IF !(FILE_EXISTS ~engine.lua~) BEGIN OUTER_SET ee_game = 0 END
+
+
 //fix #BONECIR.SPL (wrong signature)
 ACTION_IF (FILE_EXISTS_IN_GAME ~#BONECIR.SPL~) BEGIN
   COPY_EXISTING ~#BONECIR.SPL~  ~override~

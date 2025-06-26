@@ -1,0 +1,102 @@
+/*
+subspells for werewolf shapeshift, cast from a main spell or subspell
+files: d2bdww1 (normal), d2bdww2 (greater)
+used for Beast's Embrace rune, also for a possible kit idea (not a shapeshifter clone)
+*/
+
+
+OUTER_SET werewolf_type = 1
+ACTION_IF (RESOURCE_CONTAINS ~SPCL644.SPL~  ~wwweregr~) BEGIN  OUTER_SET werewolf_type = 2  END    // cdtweaks
+ACTION_IF (RESOURCE_CONTAINS ~clabdr03.2da~  ~DW#SHW2~) BEGIN  OUTER_SET werewolf_type = 3  END    // scs
+ACTION_IF (RESOURCE_CONTAINS ~SPCL644.SPL~  ~dw-ssra~)  BEGIN  OUTER_SET werewolf_type = 4  END    // tof
+ACTION_IF (FILE_EXISTS ~override/d5drww2.itm~)          BEGIN  OUTER_SET werewolf_type = 5  END    // fnp
+
+DEFINE_PATCH_FUNCTION cd_werewolf INT_VAR shape=1 BEGIN
+  PATCH_IF (werewolf_type = 2) BEGIN
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=255 opcode=111 parameter1=1 END    // cast cdtweaks form as magic item
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=206 timing=0 duration=2400 END
+  END
+  PATCH_IF (werewolf_type = 5) BEGIN
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=111 STR_VAR resource=~d5drww%shape%~ END    // use FnP forms if detected
+  END
+  LPF DELETE_EFFECT INT_VAR match_opcode=171 STR_VAR match_resource=~%SOURCE_RES%~ END
+  LPF DELETE_EFFECT INT_VAR match_opcode=172 STR_VAR match_resource=~%SOURCE_RES%~ END
+  LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=~%SOURCE_RES%~ resource=~%DEST_RES%~ END
+END
+
+DEFINE_PATCH_FUNCTION runeboost INT_VAR damage=0 crits=0 duration=2400 BEGIN
+  PATCH_IF (damage > 0) BEGIN
+    LPF d2_mindamageboost INT_VAR amount=damage duration=duration STR_VAR insert=first END
+  END
+  PATCH_IF (crits > 0) BEGIN
+    LPF ADD_SPELL_EFFECT INT_VAR opcode=301 target=2 parameter1=crits duration=duration insert_point=0 END
+  END
+END
+
+DEFINE_PATCH_FUNCTION token_prof INT_VAR slots=2 BEGIN
+  PATCH_IF (IS_AN_INT token_prof AND token_prof>80) BEGIN
+    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=233 parameter1=slots parameter2=token_prof END
+  END
+END
+
+
+//normal or cdtweaks
+ACTION_IF (werewolf_type != 3) BEGIN
+  COPY_EXISTING ~SPCL643.SPL~  ~override/d2bdww1.spl~
+    LPF cd_werewolf INT_VAR shape=1 END
+    LPF runeboost INT_VAR damage=1 crits=2 END
+  IF_EXISTS
+
+  COPY_EXISTING ~SPCL644.SPL~  ~override/d2bdww2.spl~
+    LPF cd_werewolf INT_VAR shape=2 END
+    LPF runeboost INT_VAR damage=2 crits=3 END
+  IF_EXISTS
+END
+
+//SCS tokens
+ACTION_IF (werewolf_type = 3) BEGIN
+  COPY_EXISTING - ~dw#shwe2.itm~  ~~  READ_BYTE 0x31 token_prof  IF_EXISTS
+  COPY_EXISTING - ~SPCL643.spl~  ~~  READ_LONG 0x8 spellname1  IF_EXISTS
+  COPY_EXISTING - ~SPCL644.spl~  ~~  READ_LONG 0x8 spellname2  IF_EXISTS
+
+  COPY ~%abilities%/magicweapon.spl~  ~override/d2bdww1.spl~
+    LPF ALTER_EFFECT INT_VAR timing=1 STR_VAR resource=~dw#shwe2~ END
+    LPF runeboost INT_VAR damage=1 crits=2 END
+    LPF token_prof END
+    WRITE_LONG 0x8 spellname1
+
+  COPY ~%abilities%/magicweapon.spl~  ~override/d2bdww2.spl~
+    LPF ALTER_EFFECT INT_VAR timing=1 STR_VAR resource=~dw#shwe3~ END
+    LPF runeboost INT_VAR damage=2 crits=3 END
+    LPF token_prof END
+    WRITE_LONG 0x8 spellname2
+END
+
+
+//update rune files (can update older mod versions)
+OUTER_TEXT_SPRINT runes ~d2wkz~
+OUTER_TEXT_SPRINT z9 ~%runes%z9~
+ACTION_IF !(RESOURCE_CONTAINS ~%z9%a.spl~  ~d2bdww1~) BEGIN
+  COPY_EXISTING ~%z9%a.spl~  ~override~
+    LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=SPCL643 resource=d2bdww1 END
+    LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=SPCL644 resource=d2bdww2 END
+  IF_EXISTS BUT_ONLY
+
+  COPY_EXISTING ~%z9%b.spl~  ~override~
+    LPF CLONE_EFFECT STR_VAR match_resource=SPIN124 resource=SPIN122 insert=last END
+  IF_EXISTS BUT_ONLY
+
+  COPY_EXISTING ~%z9%x.spl~  ~override~
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=d2bdww1 END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=d2bdww2 END
+  IF_EXISTS BUT_ONLY
+END
+
+
+//variables
+OUTER_TEXT_SPRINT werewolf1 ~d2bdww1~
+OUTER_TEXT_SPRINT werewolf2 ~d2bdww2~
+
+
+//
+//

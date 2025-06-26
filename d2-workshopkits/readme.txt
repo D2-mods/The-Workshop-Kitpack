@@ -200,6 +200,17 @@ Notes:
 
 Version info:
 
+v5.25
+Beast's Embrace (rune) notes:
+- fixed compat issue with the shapeshifter component from cdtweaks/tweaks anthology. Previously, if installed together, the rune effect would add a paw item to the inventory instead of doing the polymorph. Now it will change form directly, and specifically it changes into the tweaked form. (note: the similar SCS tokens did not have this issue because SCS uses unique resources)
+- if using SCS tokens, ToF revisions, or FnP revisions, the werewolf forms will use the stats of the tweaked versions (very minor differences). If using a more extreme overhaul (ex. Artisan's Kitpack), it will use the base game versions.
+- now gives a hidden boost to critical hits when shapeshifted. Since all party members are forced into the shapeshift in combat, I don't think it's too strong.
+
+v5.24
+- minor text fix with IWDification's paladin tweaks. Confessor description wasn't saying it doesn't learn Cure Disease. This is checked from both the main component and the updater.
+- Mod is no longer installable on older EEs that don't support v2.0+ opcodes. (it wasn't compatible anyways)
+- Slightly adjusted ranger and paladin kit HLAs again when installed with the Talents of Faerun mod.
+
 v5.23
 - Removed annoying visual effect from Cosmic Watcher Badge level drain.
 - Jade Feather: was missing EEFP immunity spell states for petrify and disintegrate.

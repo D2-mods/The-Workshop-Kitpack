@@ -215,6 +215,7 @@ COPY - ~inlined/d2clab_druid_noanimal~   ~inlined/d2clab_druid_noshape~
 OUTER_SET paladin_cd = 0
 ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~PALADIN_CURE_DISEASE~) BEGIN OUTER_SET paladin_cd = 1 END
 ACTION_IF (RESOURCE_CONTAINS ~CLABPA01.2DA~ ~GA_C0PAL05~) BEGIN OUTER_SET paladin_cd = 1 END
+ACTION_IF (RESOURCE_CONTAINS ~CLABPA01.2DA~ ~GA_cdiplcd~) BEGIN OUTER_SET paladin_cd = 1 END
 
 
 //thief evasion

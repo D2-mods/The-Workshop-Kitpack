@@ -15,6 +15,7 @@ INCLUDE ~%install%/itemtypes.tph~
 INCLUDE ~%install%/spellprep.tph~
 INCLUDE ~%install%/spellprep2.tph~
 INCLUDE ~%install%/bleedprep.tph~
+INCLUDE ~%install%/werewolf.tph~
 INCLUDE ~%install%/variables.tph~
 INCLUDE ~%install%/resources.tph~
 

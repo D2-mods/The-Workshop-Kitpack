@@ -215,7 +215,7 @@ COPY ~%files%/rune_core.ITM~  ~override/%z8%.ITM~
   LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 
-//Beast's Embrace
+//Beast's Embrace (subspells at werewolf.tph)
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@70122) STR_VAR bam=~%z0%i~ RET icon END
 COPY ~%files%/rune_werewolf.ITM~  ~override/%z9%.ITM~
   SAY NAME1 @70122 SAY UNIDENTIFIED_DESC @70222
@@ -231,16 +231,17 @@ COPY ~%files%/rune_werewolf.ITM~  ~override/%z9%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 COPY ~%files%/rune_effects.SPL~      ~override/%z9%a.SPL~
-  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~SPCL643~ END                                  // other classes
-  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=39 STR_VAR resource=~SPCL644~ END                    // Paladin
-  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=204 parameter2=105 STR_VAR resource=~SPCL644~ END    // Cleric
-  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z9%b~ insert=~below~ END                  // remove ability
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%werewolf1%~ END                                  // other classes
+  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter2=39 STR_VAR resource=~%werewolf2%~ END                    // Paladin
+  LPF CLONE_EFFECT INT_VAR multi_match=1 parameter1=204 parameter2=105 STR_VAR resource=~%werewolf2%~ END    // Cleric
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z9%b~ insert=~below~ END                      // remove ability
 
 COPY ~%passives%/removespell.SPL~    ~override/%z9%b.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=206 STR_VAR resource=~%z9%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=172 timing=4 duration=7 STR_VAR resource=~SPIN124~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~SPCL110~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~SPINHUM~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~SPIN122~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=172 duration=2 END
 
 COPY ~%files%/rune_effects.SPL~      ~override/%z9%c.SPL~
@@ -250,6 +251,15 @@ COPY ~%files%/rune_effects.SPL~      ~override/%z9%c.SPL~
 COPY ~%files%/rune_effects.SPL~      ~override/%z9%x.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 opcode=321 STR_VAR resource=~%z9%b~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%humanform%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%werewolf1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%werewolf2%~ END
+
+//this slayer form blocks other shapeshifts (has unique string message)
+OUTER_SPRINT slayerform  ~slayerw3~
+COPY_EXISTING ~%slayerform%.itm~  ~override~
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=206 STR_VAR resource=~%werewolf1%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=206 STR_VAR resource=~%werewolf2%~ END
+IF_EXISTS BUT_ONLY
 
 
 //Hunter

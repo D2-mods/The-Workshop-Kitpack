@@ -28,6 +28,7 @@ INCLUDE ~%install%/clabprep.tph~
 INCLUDE ~%install%/classchecks.tph~
 INCLUDE ~%install%/hlatables.tph~
 INCLUDE ~%install%/bleedprep.tph~
+INCLUDE ~%install%/werewolf.tph~    // for items component/updater
 
 ACTION_CLEAR_ARRAY ~d2wk_kitname_array~
 
