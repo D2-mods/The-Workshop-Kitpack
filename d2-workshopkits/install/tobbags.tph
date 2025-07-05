@@ -9,7 +9,7 @@ ACTION_IF (GAME_INCLUDES ~tob~) BEGIN
     PATCH_FOR_EACH kit IN
       ~d2beasthunter~ ~d2beasthunterfm~ ~d2beasthunterfmc~ ~d2beasthunterfc~
     BEGIN
-      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=bag entry=bag21 END    // bag21 has hunter bone (thematic fit)
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=MISC3 entry=~%hunterbone%,3~ END    // hunter bone (replace speed potions)
     END
 
     PATCH_FOR_EACH kit IN
@@ -23,6 +23,8 @@ ACTION_IF (GAME_INCLUDES ~tob~) BEGIN
     BEGIN
       LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=bag entry=bag28 END    // bag28 has crowfeather cloak (kit effect)
     END
+
+    PRETTY_PRINT_2DA
   BUT_ONLY
 END
 

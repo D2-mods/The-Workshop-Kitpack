@@ -16,9 +16,10 @@ INCLUDE ~%install%/spellprep.tph~
 INCLUDE ~%install%/spellprep2.tph~
 INCLUDE ~%install%/bleedprep.tph~
 INCLUDE ~%install%/werewolf.tph~
+INCLUDE ~%install%/tempfixes.tph~
+
 INCLUDE ~%install%/variables.tph~
 INCLUDE ~%install%/resources.tph~
-
 INCLUDE ~%install%/%kitname%prep.tph~
 INCLUDE ~%install%/%kitname%.tph~
 INCLUDE ~%install%/%kitname%runes.tph~
@@ -38,6 +39,7 @@ OUTER_TEXT_SPRINT mode  ~item~
 INCLUDE ~%install%/itemtypepatch.tph~
 INCLUDE ~%install%/iwditempatch.tph~
 INCLUDE ~%install%/tobbags.tph~
+INCLUDE ~%install%/aiupscales.tph~
 //INCLUDE ~%install%/backupfiles.tph~
 
 

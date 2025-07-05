@@ -280,12 +280,19 @@ ACTION_IF (noarmorrestrictions = 0) BEGIN
 END
 
 
-//edit ToB starting bag
-ACTION_IF (FILE_EXISTS_IN_GAME ~bag27a.itm~) BEGIN
+//edit ToB starting items
+ACTION_IF (FILE_EXISTS_IN_GAME ~bag27a.sto~) BEGIN
   COPY_EXISTING ~25STWEAP.2da~  ~override~
-    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=bag entry=bag27a END
-    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=MISC4 entry=BLUN18 END
+    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=bag entry=bag27a END    // shaman bag
   BUT_ONLY
+
+/*moved to crosskiteffects.tph
+  // add mace and sling to shaman bag
+  COPY_EXISTING ~bag27a.sto~  ~override~
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=SLNG07 flags=identified position=last END
+    LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=BLUN19 flags=identified position=last END
+  BUT_ONLY
+*/
 END
 
 

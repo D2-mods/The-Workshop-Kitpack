@@ -1,0 +1,64 @@
+/*
+mod fixes for crashing or critical bugs noticed
+only stuff that affects kits/items from this mod are patched
+*/
+
+
+//cdmindfl.itm (does nothing if no fix needed)
+COPY_EXISTING ~cdmindfl.itm~  ~override~
+  LPF ALTER_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=700 match_parameter1=10 opcode=15 END
+  LPF ALTER_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=700 match_parameter1=10 opcode=44 END
+IF_EXISTS BUT_ONLY
+
+
+//for Shohy song switching (does nothing if no fix needed)
+COPY_EXISTING ~BI#B1ST.SPL~  ~override~
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=99 parameter1=300 parameter2=2 END
+IF_EXISTS BUT_ONLY
+
+
+//fix some ToF status screen bugs
+ACTION_IF (RESOURCE_CONTAINS ~LURA0.2DA~  ~TG#ENDU~) BEGIN    // ranger Endurance
+  COPY_EXISTING ~TG#ENDU.SPL~  ~override~
+    LPF DELETE_EFFECT INT_VAR match_timing=4 END
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 probability2=100 END       // set icon out of range
+    LPF ALTER_EFFECT INT_VAR timing=9 duration=0 power=0 END                      // make permanent
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 timing=0 duration=1 END    // except visual
+  BUT_ONLY
+END
+
+ACTION_IF (RESOURCE_CONTAINS ~LUMO0.2DA~  ~TG#INTI~) BEGIN    // monk Inner Time
+  COPY_EXISTING ~TG#INTI.SPL~  ~override~
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 probability2=100 END    // set icon out of range
+    LPF ALTER_EFFECT INT_VAR power=0 END
+  BUT_ONLY
+END
+
+
+//iwdee: fix Poison Weapon name and desc with ToF mod
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  //get HLA table for assassin
+  LAF d2_get_2da_entry STR_VAR 2da=luabbr col_name=abbrev row_name=assasin RET entry END
+  OUTER_TEXT_SPRINT hlatable ~lu%entry%~
+
+  //patch if HLA table has poison weapon upgrades
+  ACTION_IF (RESOURCE_CONTAINS ~%hlatable%.2da~  ~GA_DWPSS1~) BEGIN
+    COPY_EXISTING ~SPCL423.spl~  ~override~
+      SET name = RESOLVE_STR_REF (@8637901)
+      WRITE_LONG 0x8 name
+
+      GET_STRREF 0x50 desc
+      PATCH_IF (~%desc%~ STRING_CONTAINS_REGEXP ~^%name%~) BEGIN    // patch if desc does NOT have "name" at top
+        SPRINT text @8637902
+        SPRINT note @8637903
+        TEXT_SPRINT newtext  ~%text%%WNL%%WNL%%note%~
+        SET desc = RESOLVE_STR_REF (~%newtext%~)
+        WRITE_LONG 0x50 desc
+      END
+    BUT_ONLY
+  END
+END
+
+
+//
+//

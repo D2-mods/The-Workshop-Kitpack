@@ -11,6 +11,7 @@ ACTION_IF (FILE_EXISTS ~override/%rootingshot%.SPL~) BEGIN
   IF_EXISTS BUT_ONLY
 END
 
+
 //immune to Dust Explosion statuses
 ACTION_IF (FILE_EXISTS ~override/%dustexplosion%.SPL~) BEGIN
   COPY_EXISTING ~%cloud_immunities%.SPL~  ~override~
@@ -24,7 +25,8 @@ ACTION_IF (FILE_EXISTS ~override/%dustexplosion%.SPL~) BEGIN
 END
 
 
-//change ToB starting armor for some kits
+
+//change ToB starting items for some kits
 ACTION_IF (GAME_INCLUDES ~tob~) BEGIN
   COPY_EXISTING ~25STWEAP.2da~  ~override~
     PATCH_FOR_EACH kit IN ~d2drifter~ ~d2nurse~ BEGIN
@@ -38,12 +40,31 @@ ACTION_IF (GAME_INCLUDES ~tob~) BEGIN
     PATCH_FOR_EACH kit IN ~d2moonlightknight~ ~d2moonlightknightcr~ BEGIN
       LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=armor entry=chan09 END    // changed to chain mail
     END
+
+    PATCH_FOR_EACH kit IN ~d2warhound~ ~d2warhoundfm~ ~d2noblescion~ BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=MISC5 entry=dagg12 END    // firetooth
+    END
+
+    PATCH_FOR_EACH kit IN ~d2nursemt~ ~d2medic~ BEGIN
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=MISC4 entry=dagg12 END    // firetooth
+      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=MISC5 entry=SLNG07 END    // sling of seeking
+    END
+
+    PRETTY_PRINT_2DA
   BUT_ONLY
 
-  // add sling to some bags
-  ACTION_FOR_EACH bag IN ~bag27a~ ~bag25~ BEGIN
+
+  // change some bag items
+  ACTION_FOR_EACH bag IN ~bag25~ ~bag28~ BEGIN
     COPY_EXISTING ~%bag%.sto~  ~override~
-      LPF ADD_STORE_ITEM_EX STR_VAR item_name=SLNG07 flags=identified position=last END
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=SLNG07 flags=identified position=last END    // sling of seeking
+    BUT_ONLY
+  END
+
+  ACTION_FOR_EACH bag IN ~bag27a~ BEGIN
+    COPY_EXISTING ~%bag%.sto~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=SLNG07 flags=identified position=last END    // sling of seeking
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=BLUN18 flags=identified position=last END    // skullcrusher
     BUT_ONLY
   END
 END

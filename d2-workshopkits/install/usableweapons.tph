@@ -136,10 +136,14 @@ ACTION_IF (patch_usable > 0) BEGIN
 //        PATCH_IF (restrictions!=0 OR kitflags!=0) BEGIN    // skip if no restriction flags
 
             READ_SHORT 0x1c item_cat
-            PATCH_IF !(item_cat=27 AND restrictions=0 AND kitflags=0) BEGIN    // skip Big Metal Rod
-              PHP_EACH d2_restrict_weapons AS type => cat BEGIN
-                PATCH_IF (item_cat = cat) BEGIN
-                  LPF DELETE_EFFECT INT_VAR match_opcode=319 match_parameter1=ids_num END
+            SET patch_item = 1
+            PATCH_IF (item_cat=15 AND restrictions=0 AND kitflags=0) BEGIN  SET patch_item = 0  END    // skip godbow
+            PATCH_IF (item_cat=27 AND restrictions=0 AND kitflags=0) BEGIN  SET patch_item = 0  END    // skip big metal rod
+
+            PHP_EACH d2_restrict_weapons AS type => cat BEGIN
+              PATCH_IF (item_cat = cat) BEGIN
+                LPF DELETE_EFFECT INT_VAR match_opcode=319 match_parameter1=ids_num END
+                PATCH_IF (patch_item > 0) BEGIN
                   LPF ADD_ITEM_EQEFFECT INT_VAR opcode=319 target=1 timing=2 parameter1=ids_num parameter2=9 special=stringref END
                 END
               END

@@ -200,6 +200,14 @@ Notes:
 
 Version info:
 
+v5.26
+- Beast's Embrace (rune): SCS and cdtweaks versions of the werewolf change are no longer dispellable. Also, you no longer suffer proficiency penalties when using the cdtweaks version.
+- Upscayl (https://github.com/upscayl/upscayl): this is now used for description images for 3 items. Can optionally disable from config.ini to use the older images (made with Paint.net).
+- Talents of Faerun note: Kit updater now fixes status screen bugs caused by 2 HLAs (monk's Inner Time, ranger Endurance). Also fixed Endurance only lasting a few in-game hours (it's a permanent buff).
+- IWDEE + ToF: the Kit Updater now fixes Poison Weapon name and description if poison upgrades (ToF feats) are installed. The current ToF installer uses the wrong text for IWD.
+- fixed Blood Minister not being able to use Godbow (usable by every kit/class).
+- adjusted ToB starting items again for some kits. This also fixes an oversight that gave some kits duplicate items in the inventory and starting bag.
+
 v5.25
 Beast's Embrace (rune) notes:
 - fixed compat issue with the shapeshifter component from cdtweaks/tweaks anthology. Previously, if installed together, the rune effect would add a paw item to the inventory instead of doing the polymorph. Now it will change form directly, and specifically it changes into the tweaked form. (note: the similar SCS tokens did not have this issue because SCS uses unique resources)
@@ -902,6 +910,7 @@ Tools/Resources used to make this mod:
 - WeiDU readme (https://weidu.org/~thebigg/README-WeiDU.html)
 - Git Bash (https://git-scm.com/downloads)
 - WeiDU Mod Packager (https://github.com/InfinityTools/WeiduModPackager)
+- Upscayl (https://github.com/upscayl/upscayl)
 
 Used for older releases (replaced by WeiDU Mod Packager):
 - Infinity Auto Packager (https://github.com/InfinityTools/InfinityAutoPackager)

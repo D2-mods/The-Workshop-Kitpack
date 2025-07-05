@@ -90,7 +90,6 @@ BEGIN
 END
 
 
-
 //add op319 effect (restrict item)
 //this is automatically run when using one of the above functions
 
@@ -110,6 +109,7 @@ BEGIN
 END
 
 
+
 //check if base class is restricted
 DEFINE_DIMORPHIC_FUNCTION d2_restrict_armor_classcheck
   STR_VAR kit = ~~ RET classcheck
@@ -126,10 +126,9 @@ BEGIN
   END
 END
 
-
 //
-  ACTION_CLEAR_ARRAY ~d2_itemflags_classes~
-  ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_itemflags_classes BEGIN
+ACTION_CLEAR_ARRAY ~d2_itemflags_classes~
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_itemflags_classes BEGIN
     Fighter  => ~BIT11~
     Thief    => ~BIT22~
     Cleric   => ~BIT7~
@@ -152,7 +151,7 @@ END
     fmt => ~BIT16~
     ft  => ~BIT17~
     mt  => ~BIT19~
-  END
+END
 
 
 

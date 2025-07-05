@@ -22,6 +22,7 @@ INCLUDE ~%install%/riftgateprep.tph~
 INCLUDE ~%install%/drifterprep.tph~
 INCLUDE ~%install%/bleedprep.tph~
 INCLUDE ~%install%/werewolf.tph~    // for items component/updater
+INCLUDE ~%install%/tempfixes.tph~
 
 
 
@@ -265,6 +266,7 @@ INCLUDE ~%install%/5ecastingspells.tph~
 INCLUDE ~%install%/olvynspellsfix.tph~
 INCLUDE ~%install%/iwditempatch.tph~
 INCLUDE ~%install%/iwdspellpatch.tph~
+INCLUDE ~%install%/aiupscales.tph~
 //INCLUDE ~%install%/backupfiles.tph~
 
 

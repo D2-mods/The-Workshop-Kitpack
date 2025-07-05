@@ -1,16 +1,18 @@
 /*
 subspells for werewolf shapeshift, cast from a main spell or subspell
 files: d2bdww1 (normal), d2bdww2 (greater)
-used for Beast's Embrace rune, also for a possible kit idea (not a shapeshifter clone)
 */
 
 
+//
 OUTER_SET werewolf_type = 1
 ACTION_IF (RESOURCE_CONTAINS ~SPCL644.SPL~  ~wwweregr~) BEGIN  OUTER_SET werewolf_type = 2  END    // cdtweaks
 ACTION_IF (RESOURCE_CONTAINS ~clabdr03.2da~  ~DW#SHW2~) BEGIN  OUTER_SET werewolf_type = 3  END    // scs
 ACTION_IF (RESOURCE_CONTAINS ~SPCL644.SPL~  ~dw-ssra~)  BEGIN  OUTER_SET werewolf_type = 4  END    // tof
 ACTION_IF (FILE_EXISTS ~override/d5drww2.itm~)          BEGIN  OUTER_SET werewolf_type = 5  END    // fnp
 
+
+//functions
 DEFINE_PATCH_FUNCTION cd_werewolf INT_VAR shape=1 BEGIN
   PATCH_IF (werewolf_type = 2) BEGIN
     LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=255 opcode=111 parameter1=1 END    // cast cdtweaks form as magic item
@@ -38,24 +40,27 @@ DEFINE_PATCH_FUNCTION token_prof INT_VAR slots=2 BEGIN
     LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=233 parameter1=slots parameter2=token_prof END
   END
 END
+COPY_EXISTING - ~wwweregr.itm~  ~~  READ_BYTE 0x31 token_prof  IF_EXISTS
+COPY_EXISTING - ~dw#shwe2.itm~  ~~  READ_BYTE 0x31 token_prof  IF_EXISTS
 
 
-//normal or cdtweaks
+//make subspells
 ACTION_IF (werewolf_type != 3) BEGIN
   COPY_EXISTING ~SPCL643.SPL~  ~override/d2bdww1.spl~
     LPF cd_werewolf INT_VAR shape=1 END
     LPF runeboost INT_VAR damage=1 crits=2 END
+    LPF token_prof END
   IF_EXISTS
 
   COPY_EXISTING ~SPCL644.SPL~  ~override/d2bdww2.spl~
     LPF cd_werewolf INT_VAR shape=2 END
     LPF runeboost INT_VAR damage=2 crits=3 END
+    LPF token_prof END
   IF_EXISTS
 END
 
-//SCS tokens
+//alt for SCS tokens
 ACTION_IF (werewolf_type = 3) BEGIN
-  COPY_EXISTING - ~dw#shwe2.itm~  ~~  READ_BYTE 0x31 token_prof  IF_EXISTS
   COPY_EXISTING - ~SPCL643.spl~  ~~  READ_LONG 0x8 spellname1  IF_EXISTS
   COPY_EXISTING - ~SPCL644.spl~  ~~  READ_LONG 0x8 spellname2  IF_EXISTS
 
@@ -70,6 +75,14 @@ ACTION_IF (werewolf_type = 3) BEGIN
     LPF runeboost INT_VAR damage=2 crits=3 END
     LPF token_prof END
     WRITE_LONG 0x8 spellname2
+END
+
+//set undispellable flag (SCS/cdtweaks)
+ACTION_FOR_EACH token IN
+  ~dw#shwe2~ ~dw#shwe3~    // SCS
+  ~wwwere~ ~wwweregr~    // cdtweaks
+BEGIN
+  LAF d2_magic_item_flags INT_VAR undispellable=1 STR_VAR item=~%token%~ END
 END
 
 

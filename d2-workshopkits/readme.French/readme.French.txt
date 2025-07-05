@@ -841,6 +841,7 @@ Tools/Resources used to make this mod:
 - WeiDU readme (https://weidu.org/~thebigg/README-WeiDU.html)
 - Git Bash (https://git-scm.com/downloads)
 - WeiDU Mod Packager (https://github.com/InfinityTools/WeiduModPackager)
+- Upscayl (https://github.com/upscayl/upscayl)
 
 Used for older releases (replaced by WeiDU Mod Packager):
 - Infinity Auto Packager (https://github.com/InfinityTools/InfinityAutoPackager)

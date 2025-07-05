@@ -1,0 +1,28 @@
+/*
+Upscayl used to improve some desc images (Digital Art model)
+*/
+
+
+OUTER_SPRINT demonsoul  ~demonsoul3~
+OUTER_SPRINT moonsymbol  ~holysymbol_moon3~
+OUTER_SPRINT bloodsymbol  ~holysymbol_blood3~
+
+ACTION_IF (noaiupscales > 0) BEGIN
+  OUTER_SPRINT demonsoul  ~demonsoul2~
+  OUTER_SPRINT moonsymbol  ~holysymbol_moon2~
+  OUTER_SPRINT bloodsymbol  ~holysymbol_blood2~
+END
+
+ACTION_IF (FILE_EXISTS ~override/d2wkzmgd.bam~) BEGIN
+  COPY ~%icons%/%demonsoul%.bam~  ~override/d2wkzmgd.bam~
+END
+ACTION_IF (FILE_EXISTS ~override/d2wk4m9d.bam~) BEGIN
+  COPY ~%icons%/%moonsymbol%.bam~  ~override/d2wk4m9d.bam~
+END
+ACTION_IF (FILE_EXISTS ~override/d2wk9m9d.bam~) BEGIN
+  COPY ~%icons%/%bloodsymbol%.bam~  ~override/d2wk9m9d.bam~
+END
+
+
+//
+//

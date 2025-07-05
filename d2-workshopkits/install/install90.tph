@@ -29,6 +29,7 @@ INCLUDE ~%install%/classchecks.tph~
 INCLUDE ~%install%/hlatables.tph~
 INCLUDE ~%install%/bleedprep.tph~
 INCLUDE ~%install%/werewolf.tph~    // for items component/updater
+INCLUDE ~%install%/tempfixes.tph~
 
 ACTION_CLEAR_ARRAY ~d2wk_kitname_array~
 
@@ -331,6 +332,7 @@ INCLUDE ~%install%/trackingcheck.tph~
 INCLUDE ~%install%/holysymbolscheck.tph~
 INCLUDE ~%install%/olvynspellsfix.tph~
 INCLUDE ~%install%/tofenragepatch.tph~
+INCLUDE ~%install%/aiupscales.tph~
 
 END
 

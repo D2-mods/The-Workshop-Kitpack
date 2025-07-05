@@ -232,12 +232,12 @@ OUTER_TEXT_SPRINT baseclass ~ranger~
 OUTER_TEXT_SPRINT $d2_restrict_armor_baseclass (~%ids_name%~) ~%baseclass%~
 
 
-//edit ToB starting bag
+//edit ToB starting items
 ACTION_IF (FILE_EXISTS_IN_GAME ~bag25.itm~) BEGIN
   COPY_EXISTING ~25STWEAP.2da~  ~override~
-    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=bag entry=bag25 END
-    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=MISC4 entry=BOW14 END
-    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=MISC5 entry=XBOW09 END
+    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=bag entry=bag25 END    // stalker bag
+    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=MISC4 entry=BOW15 END    // tansheron's shortbow
+    LPF d2_edit_2da_entry STR_VAR col_name=~D2%kitname%~ row_name=MISC5 entry=XBOW06 END    // army scythe crossbow
   BUT_ONLY
 END
 

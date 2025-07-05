@@ -21,7 +21,7 @@ COPY_EXISTING ~weapprof.2da~  ~override~
   PATCH_IF !(RESOURCE_CONTAINS ~weapprof.2da~  ~DEVOTION~)     BEGIN SET patch_skills = 0 END
   PATCH_IF !(RESOURCE_CONTAINS ~weapprof.2da~  ~CONDITIONING~) BEGIN SET patch_skills = 0 END
 
-  // subltedoctor skills
+  // subtledoctor skills
   PATCH_IF (patch_subtle > 0) BEGIN
     PATCH_FOR_EACH kit IN
       ~d2crowhunter~ ~d2crowhunterft~ ~d2crowhuntermt~ ~d2crowhunterfmt~
