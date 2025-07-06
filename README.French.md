@@ -12,7 +12,7 @@ NOTE : Les tables de capacités pour ces kits sont créées au moment de l'insta
 
 --
 
-Kit Updater : Utiliser ce composant après tous les mods de tweak et autres overhauls (une possible exeption pour le mod Dual to Kit).
+Kit Updater : Utiliser ce composant après tous les mods de tweak et autres overhauls (une possible exception pour le mod Dual to Kit).
 Il reconstruit les tables des HLA, met à jour les compétences d'armes et effectue quelques vérifications mineures. 
 Il inclut également l'ancien composant "Mettre à jour la description de la capacité « Chirurgie »" (à utiliser si « Arme empoisonnée » ou « Imposition des mains » ont été révisés après l'installation du Workshop Kitpack).
 Plus d'infos dans la section Composants.
@@ -91,10 +91,10 @@ Composants :
 - Si l'option 3 est installée, les autres composants seront sautés.
 - Les insignes de chasseur sont installées en combinaison avec le kit de Chasseur.
 
-**Kit Updater:**
+**Kit Updater :**
 - Reconstruire les tables des HLA, mettre à jour les compétences d'armes, vérifications mineures, mods compatibilité, etc.
 - Non utilisé lors de l'installation initiale du mod, peut être installé / réinstallé à tout moment (ne désinstalle pas les autres mods).
-- Utiliser ce composant après tous les mods de tweak et autres overhauls (revisions), y compris les mods qui indiquent devoir être installés en dernier.
+- Utiliser ce composant après tous les mods de tweak et autres overhauls (révisions), y compris les mods qui indiquent devoir être installés en dernier.
 - Dual to Kit note: Utiliser ce composant une fois avant Dual to Kit si vous utilisez un mod altérant les compétences d'armes.
 Il peut être relancé après si vous avez besoin de mettre à jour d'autres choses plus tard. (note : C'est spécifiquement le composant 3 de Dual to Kit qui doit être exécuté après toute modification des compétences d'armes)
 
@@ -588,7 +588,7 @@ Note sur le mod Talents of Faerun :
 
 NOTE : La capacité de haut niveau « Évasion » peut être installée avant ou après ce mod. Les kits qui permettent d'en bénéficier l'obtiendront, qu'ils aient été installés avant ou après. Les sorts / capacités qui vérifient la présence d'« Évasion » ne le feront que si la capacité est déjà présente dans le jeu. Si vous souhaitez installer « Évasion » avant ce mod, utilisez plutôt la version du mod IWDification.
 
-Kit Updater: **Est INDISPENSABLE pour une compatibilité totale avec le mod Talents of Faerun.** reconstruit toutes les tables de capacités de haut niveau~ (qui seront probablement endommagés sans cela). Corrections mineures pour les kits Chirurgien et Chantre de la poudrre. (Voir ci-dessous pour des informations supplémentaires sur les capacités / HLA).
+Kit Updater : **Est INDISPENSABLE pour une compatibilité totale avec le mod Talents of Faerun.** reconstruit toutes les tables de capacités de haut niveau~ (qui seront probablement endommagés sans cela). Corrections mineures pour les kits Chirurgien et Chantre de la poudrre. (Voir ci-dessous pour des informations supplémentaires sur les capacités / HLA).
 
 --
 

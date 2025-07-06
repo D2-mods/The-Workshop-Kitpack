@@ -136,14 +136,14 @@ Nécessite : Être un Berserker ou un Kensaizerker de niveau 1.~
 //this is used if ToF feats are installed and description does not start with "Poison Weapon" (8637901)
 @8637901 = ~Arme empoisonnée~
 @8637902 = ~Arme empoisonnée
-Chaque coup réussi au cours des 5 prochains rounds empoisonnera la cible. Chaque cible ne peut être affectée qu'une fois par round. Le montant des dégâts de poison dépend du niveau du personnage :
+Chaque coup réussi au cours des 5 prochains rounds empoisonnera la cible. Celle-ci ne peut être affectée qu'une fois par round. Le montant des dégâts de poison dépend du niveau du personnage :
 
-Niveau 1 : la cible subit 1 point de dégât de poison par seconde pendant 6 secondes (jet de sauvegarde contre la mort de +1 pour annuler)
-Niveau 5 : la cible subit 1 point de dégât de poison par seconde pendant 12 secondes (jet de sauvegarde contre la mort pour annuler) et subit immédiatement 2 points de dégâts de poison (pas de sauvegarde)
-Niveau 9 : la cible subit 1 point de dégât de poison par seconde pendant 18 secondes (jet de sauvegarde contre la mort de -1 pour annuler) et subit immédiatement 4 points de dégâts de poison (pas de sauvegarde)
-Niveau 13 : la cible subit 1 point de dégât de poison par seconde pendant 24 secondes (jet de sauvegarde contre la mort de -2 pour annuler) et subit immédiatement 6 points de dégâts de poison (pas de sauvegarde)~
+Niveau 1 : la cible subit 1 point de dégât de poison par seconde pendant 6 secondes (jet de sauvegarde contre la mort à +1 pour annuler)
+Niveau 5 : la cible subit 1 point de dégât de poison par seconde pendant 12 secondes (jet de sauvegarde contre la mort pour annuler) et subit immédiatement 2 points de dégâts de poison (pas de jet de sauvegarde)
+Niveau 9 : la cible subit 1 point de dégât de poison par seconde pendant 18 secondes (jet de sauvegarde contre la mort à -1 pour annuler) et subit immédiatement 4 points de dégâts de poison (pas de jet de sauvegarde)
+Niveau 13 : la cible subit 1 point de dégât de poison par seconde pendant 24 secondes (jet de sauvegarde contre la mort à -2 pour annuler) et subit immédiatement 6 points de dégâts de poison (pas de jet de sauvegarde)~
 
-@8637903 = ~Some poisoners have learned how to brew poisons with other strange effects, replacing the poison damage listed here. Characters who have learned these poisons may select them from the quick-access bar; the poison selected is the one that will be used next time they activate the Poison Weapon ability.~
+@8637903 = ~Certains spécialistes ont appris à concocter des poisons aux effets insolites, ils remplaceront les dégâts indiqués ci-dessous. Les personnages les connaissant peuvent choisir ces poisons dans la barre d'accès rapide ; le poison sélectionné sera utilisé à la prochaine activation de la capacité Arme empoisonnée.~
 
 
 
