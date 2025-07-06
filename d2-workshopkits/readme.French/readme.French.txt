@@ -174,6 +174,50 @@ FnP multiclass :
 
 Version info:
 
+v5.26
+- Beast's Embrace (rune): SCS and cdtweaks versions of the werewolf change are no longer dispellable. Also, you no longer suffer proficiency penalties when using the cdtweaks version.
+- Upscayl (https://github.com/upscayl/upscayl): this is now used for description images for 3 items. Can optionally disable from config.ini to use the older images (made with Paint.net).
+- Talents of Faerun note: Kit updater now fixes status screen bugs caused by 2 HLAs (monk's Inner Time, ranger Endurance). Also fixed Endurance only lasting a few in-game hours (it's a permanent buff).
+- IWDEE + ToF: the Kit Updater now fixes Poison Weapon name and description if poison upgrades (ToF feats) are installed. The current ToF installer uses the wrong text for IWD.
+- fixed Blood Minister not being able to use Godbow (usable by every kit/class).
+- adjusted ToB starting items again for some kits. This also fixes an oversight that gave some kits duplicate items in the inventory and starting bag.
+
+v5.25
+Beast's Embrace (rune) notes:
+- fixed compat issue with the shapeshifter component from cdtweaks/tweaks anthology. Previously, if installed together, the rune effect would add a paw item to the inventory instead of doing the polymorph. Now it will change form directly, and specifically it changes into the tweaked form. (note: the similar SCS tokens did not have this issue because SCS uses unique resources)
+- if using SCS tokens, ToF revisions, or FnP revisions, the werewolf forms will use the stats of the tweaked versions (very minor differences). If using a more extreme overhaul (ex. Artisan's Kitpack), it will use the base game versions.
+- now gives a hidden boost to critical hits when shapeshifted. Since all party members are forced into the shapeshift in combat, I don't think it's too strong.
+
+v5.24
+- minor text fix with IWDification's paladin tweaks. Confessor description wasn't saying it doesn't learn Cure Disease. This is checked from both the main component and the updater.
+- Mod is no longer installable on older EEs that don't support v2.0+ opcodes. (it wasn't compatible anyways)
+- Slightly adjusted ranger and paladin kit HLAs again when installed with the Talents of Faerun mod.
+
+v5.23
+- Removed annoying visual effect from Cosmic Watcher Badge level drain.
+- Jade Feather: was missing EEFP immunity spell states for petrify and disintegrate.
+- Nurse Overdose: was missing EEFP immunity spell state for sleep.
+- Dev mode: fixed harmless NI warning with EET when looking at AR0602.bcs (BG2 starting area).
+- Kit Updater: additional checks for a couple things with IWDification. If any component is installed after this mod, run the updater after. (note: Recommended order is still to install all of IWDification before this mod, including components that need to go after other kit mods)
+- Noticed a few more status effect strings not blocked by immunities to those statuses.
+- Nurse's Overdose wasn't blocking icons for hopelessness (stun or sleep) and unconsciousness (sleep).
+
+v5.22
+- French translation now always uses hyphens at the starts of lines instead of en dashes. This is to match the style of other kits in French
+- French translation: Fixed Dev mode bag description (text was cut off).
+
+v5.21
+- Removed some spell/scripting states meant for dispellable effects (makes enemies cast Remove Magic). Spell states from EE fixpack will still be there for relevant immunities.
+- Any level drain immunity from this mod can now be identified by party scripts (i.e. won't cast negative plane protection). This includes the Blood Minister's natural immunity.
+- Kit updater: Shockwave config.ini patching won't overwrite changes made by the updated d2-script/Better IWD Pregen ("Damage party friendly" tweak).
+- Temple Knight: This kit's Bolt of Glory now also does 1 second hit stun (not mentioned in description).
+
+v5.20
+- Updated French translation from JohnBob.
+
+v5.19
+- Fixed possible install error on Mac systems, caused by using text files without extensions.
+
 v5.18
 - Medic: Fixed possible bug. If casting speed was slowed by a spell or item, and current Ki Energy was insuffucient for an ability, it would show the "Not enough Ki Energy" message but the effects would still be applied, and no Ki Energy would be used. Adjusted some timings to fix the issue.
 - Minor reorganizing of Ki Energy files. Some files are renamed and moved apart from the Medic files. This will break compatibility with Medics made before this version, but this can be fixed. If Ki Energy system is broken, import and equip the item "d2kifix.itm". This will remove the problematic effects.
