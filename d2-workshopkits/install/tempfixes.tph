@@ -21,17 +21,23 @@ IF_EXISTS BUT_ONLY
 ACTION_IF (RESOURCE_CONTAINS ~LURA0.2DA~  ~TG#ENDU~) BEGIN    // ranger Endurance
   COPY_EXISTING ~TG#ENDU.SPL~  ~override~
     LPF DELETE_EFFECT INT_VAR match_timing=4 END
-    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 probability2=100 END       // set icon out of range
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 probability2=100 END       // set icons out of range
     LPF ALTER_EFFECT INT_VAR timing=9 duration=0 power=0 END                      // make permanent
     LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 timing=0 duration=1 END    // except visual
-  BUT_ONLY
+
+    // show regen icon (not bugged), only if "hideimmunityicons" is disabled in Config
+    PATCH_IF (noiconpatch > 0) BEGIN
+      LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 match_parameter2=56 probability2=0 END
+    END
+  IF_EXISTS BUT_ONLY
 END
 
 ACTION_IF (RESOURCE_CONTAINS ~LUMO0.2DA~  ~TG#INTI~) BEGIN    // monk Inner Time
   COPY_EXISTING ~TG#INTI.SPL~  ~override~
     LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 probability2=100 END    // set icon out of range
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=282 probability2=100 END    // set scripting state out of range
     LPF ALTER_EFFECT INT_VAR power=0 END
-  BUT_ONLY
+  IF_EXISTS BUT_ONLY
 END
 
 
