@@ -1,15 +1,20 @@
 /*
-patches for RR, Shohy's mod, Bardic Wonders
+patches for RR, Shohy's mod, Bardic Wonders, refinements
 runs from main component and updater
 
 RR#BDF03 - gives RR#BDF04
 RR#BDF04 - HLA song (lasts 1 round)
 RR#BDF05 - gives RR#BDF06
 RR#BDF06 - HLA song (lasts 3 rounds)
+
+LI#EN01 - gives LI#ENH1
+LI#ENH1 - HLA song (lasts 1 round)
+TG#LI01 - gives TG#LIN1
+TG#LIN1 - HLA song (lasts 2 rounds)
 */
 
 
-//for Rogue Rebalancing
+//give song switching abilities
 DEFINE_ACTION_FUNCTION pkeg_hlaedits STR_VAR hla=~~ subspell=~~ block=~~ BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~%hla%.SPL~) BEGIN
     // edit hla
@@ -17,33 +22,35 @@ DEFINE_ACTION_FUNCTION pkeg_hlaedits STR_VAR hla=~~ subspell=~~ block=~~ BEGIN
       LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%subspell%~ END
     BUT_ONLY
 
-    //block x spells
+    // unlock key spell
     COPY ~override/%pkegstartsong%.SPL~  ~override~
       LPF d2_protect_on_castequip INT_VAR timing=9 STR_VAR resource=~%block%~ END
     BUT_ONLY
   END
 END
 
-LAF pkeg_hlaedits STR_VAR hla=SPCL920 subspell=~%s5%a~ block=~%s5%x~ END
-LAF pkeg_hlaedits STR_VAR hla=RR#BDF03 subspell=~%s6%a~ block=~%s6%x~ END
-LAF pkeg_hlaedits STR_VAR hla=RR#BDF05 subspell=~%s7%a~ block=~%s7%x~ END
+LAF pkeg_hlaedits STR_VAR hla=~SPCL920~ subspell=~%s5%a~ block=~%s5%x~ END
+LAF pkeg_hlaedits STR_VAR hla=~RR#BDF03~ subspell=~%s6%a~ block=~%s6%x~ END
+LAF pkeg_hlaedits STR_VAR hla=~RR#BDF05~ subspell=~%s7%a~ block=~%s7%x~ END
+LAF pkeg_hlaedits STR_VAR hla=~LI#EN01~ subspell=~%s8%a~ block=~%s8%x~ END
+LAF pkeg_hlaedits STR_VAR hla=~TG#LI01~ subspell=~%s9%a~ block=~%s9%x~ END
 
 
-//for Bardic Wonders (extended song tweak)
-OUTER_SPRINT desc @219
-OUTER_SPRINT note @650
-OUTER_SPRINT newdesc  ~%desc%%WNL%%WNL%%note%~    // add tweak note
-ACTION_IF (FILE_EXISTS ~override/c0bardsx.SPL~) BEGIN  OUTER_SPRINT desc ~%newdesc%~  END
+//refinements songs
+ACTION_IF (FILE_EXISTS_IN_GAME ~LI#EN01.spl~) BEGIN
+  COPY_EXISTING - ~LI#EN01.spl~ ~~  READ_STRREF 0x50 desc  IF_EXISTS
+  COPY_EXISTING - ~TG#LI01.spl~ ~~  READ_STRREF 0x50 note  IF_EXISTS
+  OUTER_SET tghlasong_desc = RESOLVE_STR_REF (~%desc%~)
+  OUTER_SET lingering_desc = RESOLVE_STR_REF (~%desc%%WNL%%WNL%%note%~)
+  COPY_EXISTING ~%s8%.spl~ ~override~  WRITE_LONG 0x50 ~%tghlasong_desc%~  BUT_ONLY
+  COPY_EXISTING ~%s9%.spl~ ~override~  WRITE_LONG 0x50 ~%lingering_desc%~  BUT_ONLY
+END
 
-COPY_EXISTING ~%enhancedbardsong%.SPL~  ~override~
-  SAY UNIDENTIFIED_DESC ~%desc%~
-BUT_ONLY
-
-
-//patch Shohy HLA song (remove delayed effects)
-OUTER_TEXT_SPRINT pkegremove ~%s0%a~
-COPY_EXISTING ~BI#B1SA.SPL~  ~override~
-  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%pkegremove%~ END
+//fix portrait icon (default has no name)
+COPY_EXISTING ~TG#LIN1.spl~ ~override~
+              ~TG#LIN2.spl~ ~override~
+              ~TG#LIN3.spl~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 parameter2=40 END    // 40 = Bard Song
 IF_EXISTS BUT_ONLY
 
 
@@ -51,28 +58,36 @@ IF_EXISTS BUT_ONLY
 //check for ToF HLAs
 OUTER_SET tof_hlasong = 0
 ACTION_IF (RESOURCE_CONTAINS ~LUBA0.2DA~ ~AP_DW-HLAVD~) BEGIN    // hlas detected
-  ACTION_IF (FILE_EXISTS_IN_GAME ~#bard7.SPL~) BEGIN             // tof song switcher
-    ACTION_IF (FILE_EXISTS_IN_GAME ~RR#BDF04.SPL~) BEGIN         // rr hla song
-      OUTER_SET tof_hlasong = 1
-    END
+  ACTION_IF (FILE_EXISTS_IN_GAME ~RR#BDF04.SPL~) BEGIN         // rr hla song
+    OUTER_SET tof_hlasong = 1
   END
 END
 
 //get name and desc
 ACTION_IF (tof_hlasong > 0) BEGIN
-  COPY_EXISTING - ~#bard7.spl~  ~~
-    READ_STRREF 0x8 hlasong_name    // get tof text (will be there if HLAs are installed)
+  OUTER_SPRINT hlasong_name @120
+  OUTER_SPRINT hlasong_desc @220
+  OUTER_SPRINT hlasong_res ~RR#BDF04~
+
+  COPY_EXISTING - ~SPCL920.spl~  ~~
+    READ_STRREF 0x8 hlasong_name
     READ_STRREF 0x50 hlasong_desc
   IF_EXISTS
-  ACTION_IF !(VARIABLE_IS_SET hlasong_name) BEGIN OUTER_SPRINT hlasong_name @120 END
-  ACTION_IF !(VARIABLE_IS_SET hlasong_desc) BEGIN OUTER_SPRINT hlasong_desc @220 END
-  ACTION_IF (~%hlasong_name%~ STR_EQ ~~)    BEGIN OUTER_SPRINT hlasong_name @120 END
-  ACTION_IF (~%hlasong_desc%~ STR_EQ ~~)    BEGIN OUTER_SPRINT hlasong_desc @220 END
-  OUTER_TEXT_SPRINT hlasong_res ~RR#BDF04~
+  COPY_EXISTING - ~RR#BDF04.spl~  ~~
+    READ_STRREF 0x8 name2
+    PATCH_IF !(~%name2%~ STR_EQ ~~) BEGIN  SPRINT hlasong_name ~%name2%~  END
+  IF_EXISTS
 END ELSE BEGIN
   OUTER_SPRINT hlasong_name @119
   OUTER_SPRINT hlasong_desc @219
-  OUTER_TEXT_SPRINT hlasong_res ~SPCL920A~
+  OUTER_SPRINT hlasong_res ~SPCL920A~
+END
+
+
+//check Bardic Wonders (extended song tweak)
+ACTION_IF (RESOURCE_CONTAINS ~SPCL920A.SPL~ ~c0bardsx~) BEGIN
+  OUTER_SPRINT note @650
+  OUTER_SPRINT hlasong_desc  ~%hlasong_desc%%WNL%%WNL%%note%~    // add tweak note
 END
 
 // patch hla song switcher
@@ -88,10 +103,46 @@ COPY_EXISTING ~SPCL920.spl~  ~override~
 IF_EXISTS BUT_ONLY
 
 
+//add effects to IWD songs if learnable as HLA (ex. ToF mod)
+OUTER_SPRINT pkegvar  ~d2pkeg1~
+OUTER_SPRINT pkegremove  ~%s0%a~
+ACTION_FOR_EACH spell IN
+  ~#BARD1~
+  ~#BARD2~
+  ~#BARD3~
+  ~#BARD4~
+  ~#BARD5~
+  ~#BARD6~
+BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~luba2.2da~  ~%spell%~) BEGIN
+    COPY_EXISTING ~%spell%.spl~  ~override~
+      PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~%pkegvar%~) BEGIN
+        LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=251 opcode=309 parameter1=0 parameter2=0 STR_VAR resource=~%pkegvar%~ END
+        LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=251 opcode=326 parameter1=0 parameter2=0 STR_VAR resource=~%pkegremove%~ END
+      END
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH spell IN
+  ~#BARD7~
+  ~BI#B1SA~    // shohy HLA song
+BEGIN
+  COPY_EXISTING ~%spell%.spl~  ~override~
+    PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~%pkegvar%~) BEGIN
+      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=251 opcode=309 parameter1=0 parameter2=0 STR_VAR resource=~%pkegvar%~ END
+      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=251 opcode=326 parameter1=0 parameter2=0 STR_VAR resource=~%pkegremove%~ END
+    END
+  IF_EXISTS BUT_ONLY
+END
+
+
 //Set variables for external use
 OUTER_TEXT_SPRINT enhancedbardsong   ~%s5%~
 OUTER_TEXT_SPRINT rrenhancedsong     ~%s6%~
 OUTER_TEXT_SPRINT rrlingeringsong    ~%s7%~
+OUTER_TEXT_SPRINT tgenhancedsong     ~%s8%~
+OUTER_TEXT_SPRINT tglingeringsong    ~%s9%~
 OUTER_TEXT_SPRINT shohyenhancedsong  ~BI#B1SA~
 
 

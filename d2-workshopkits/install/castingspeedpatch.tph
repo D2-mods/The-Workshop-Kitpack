@@ -93,10 +93,6 @@ ACTION_FOR_EACH ability IN
     ~SPIN667~
     ~SPIN718~
     ~SPMDSLAY~
-//mod
-    ~%argent77_hla1%~    // archerhlas.tph
-    ~%argent77_hla2%~
-    ~%shohyenhancedsong%~    // powderkeghla.tph
 BEGIN
 
   COPY_EXISTING ~%ability%.SPL~  ~override~

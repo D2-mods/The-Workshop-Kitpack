@@ -2,11 +2,14 @@
 
 
 //Add passive effects
-COPY ~%passives%/starjammer.SPL~   ~override/%e1%.SPL~
+COPY ~%passives%/starjammer.SPL~  ~override/%e1%.SPL~
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_silence_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_deafness_arrays END
   LPF d2_string_immunities END
   LPF ee_fixpack_immunities STR_VAR status=~silence~ END
+
+COPY ~%passives%/denotehla.SPL~  ~override/%e2%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~TG#CAAW~ END
 
 
 //spell icons
@@ -580,6 +583,7 @@ COPY ~inlined/d2clab_sorcerer~  ~override/%kitid%.2DA~
   LPF tof_denote_spellschool STR_VAR type=~conjuration~ END    // tof denote hla
   LPF d2_kit_ability_adder INT_VAR level=5 multi=1 increment=5 STR_VAR resource=~%s1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e1%~ END
+  LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%baseslots%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%w1%~ END
   LPF d2_kit_ability_adder STR_VAR resource=~%w2%~ END

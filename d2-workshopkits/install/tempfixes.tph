@@ -10,7 +10,6 @@ COPY_EXISTING ~cdmindfl.itm~  ~override~
   LPF ALTER_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=700 match_parameter1=10 opcode=44 END
 IF_EXISTS BUT_ONLY
 
-
 //for Shohy song switching (does nothing if no fix needed)
 COPY_EXISTING ~BI#B1ST.SPL~  ~override~
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=99 parameter1=300 parameter2=2 END
@@ -18,8 +17,8 @@ IF_EXISTS BUT_ONLY
 
 
 //fix some ToF status screen bugs
-ACTION_IF (RESOURCE_CONTAINS ~LURA0.2DA~  ~TG#ENDU~) BEGIN    // ranger Endurance
-  COPY_EXISTING ~TG#ENDU.SPL~  ~override~
+DEFINE_PATCH_FUNCTION tofendurancefix BEGIN
+  PATCH_IF (RESOURCE_CONTAINS ~LURA0.2DA~  ~AP_DW~) BEGIN
     LPF DELETE_EFFECT INT_VAR match_timing=4 END
     LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 probability2=100 END       // set icons out of range
     LPF ALTER_EFFECT INT_VAR timing=9 duration=0 power=0 END                      // make permanent
@@ -29,19 +28,24 @@ ACTION_IF (RESOURCE_CONTAINS ~LURA0.2DA~  ~TG#ENDU~) BEGIN    // ranger Enduranc
     PATCH_IF (noiconpatch > 0) BEGIN
       LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 match_parameter2=56 probability2=0 END
     END
-  IF_EXISTS BUT_ONLY
+  END
 END
 
-ACTION_IF (RESOURCE_CONTAINS ~LUMO0.2DA~  ~TG#INTI~) BEGIN    // monk Inner Time
-  COPY_EXISTING ~TG#INTI.SPL~  ~override~
+DEFINE_PATCH_FUNCTION tofinnertimefix BEGIN
+  PATCH_IF (RESOURCE_CONTAINS ~LUMO0.2DA~  ~AP_DW~) BEGIN
     LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 probability2=100 END    // set icon out of range
+  END
+  // EE: bad effect on both ToF and Refinements
+  PATCH_IF (ee_game > 0) BEGIN
     LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=282 probability2=100 END    // set scripting state out of range
-    LPF ALTER_EFFECT INT_VAR power=0 END
-  IF_EXISTS BUT_ONLY
+  END
 END
 
+COPY_EXISTING ~TG#ENDU.SPL~ ~override~  LPF tofendurancefix END  IF_EXISTS BUT_ONLY    // ranger Endurance
+COPY_EXISTING ~TG#INTI.SPL~ ~override~  LPF tofinnertimefix END  IF_EXISTS BUT_ONLY    // monk Inner Time
 
-//iwdee: fix Poison Weapon name and desc with ToF mod
+
+//iwdee + ToF: fix Poison Weapon name and desc (beta 15 uses wrong text)
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   //get HLA table for assassin
   LAF d2_get_2da_entry STR_VAR 2da=luabbr col_name=abbrev row_name=assasin RET entry END
@@ -62,6 +66,45 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
         WRITE_LONG 0x50 desc
       END
     BUT_ONLY
+  END
+END
+
+
+//tof: fix flesh golem issues
+OUTER_SPRINT spell  ~HLA_TG#GOLE~
+ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~[^_]%spell%[^_]~) BEGIN
+  LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = ~%spell%~ RET spell_res END
+  COPY_EXISTING ~%spell_res%.spl~  ~override~
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=177 target=2 END    // fix effect targeting caster
+  IF_EXISTS BUT_ONLY
+END
+
+ACTION_IF (RESOURCE_CONTAINS ~TG#GOLE.CRE~  ~WTASIGHT~) BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~bdsum00.bcs~) BEGIN
+    COPY_EXISTING ~TG#GOLE.CRE~  ~override~
+      WRITE_ASCII 0x268 bdsum00 #8    // change script to one that won't make hostile
+    BUT_ONLY
+  END
+END
+
+COPY_EXISTING ~TG#GOLE.EFF~ ~override~  WRITE_LONG 0x20 2  IF_EXISTS BUT_ONLY    // use CRE allegiance (Controlled)
+
+
+//tof: fix elemental prince summons
+ACTION_FOR_EACH spell IN
+  ~HLA_DW-HLEPA~
+  ~HLA_DW-HLEPE~
+  ~HLA_DW-HLEPF~
+  ~HLA_DW-HLEPW~
+BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~[^_]%spell%[^_]~) BEGIN
+    LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = ~%spell%~ RET spell_res END
+    COPY_EXISTING ~%spell_res%.spl~  ~override~
+      LPF ALTER_SPELL_HEADER INT_VAR target=4 END
+      LPF DELETE_EFFECT INT_VAR match_opcode=326 match_parameter2=34 END
+      LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=326 match_parameter2=35 parameter2=36 END    // good-aligned
+      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=326 match_parameter2=36 parameter2=34 END    // neutral-aligned
+    IF_EXISTS BUT_ONLY
   END
 END
 

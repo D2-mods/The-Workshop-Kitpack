@@ -26,7 +26,10 @@ ACTION_FOR_EACH ability IN
   ~%rrenhancedsong%a~
   ~%rrlingeringsong%~
   ~%rrlingeringsong%a~
-  ~%shohyenhancedsong%~
+  ~%tgenhancedsong%~
+  ~%tgenhancedsong%a~
+  ~%tglingeringsong%~
+  ~%tglingeringsong%a~
 BEGIN
   COPY_EXISTING ~%ability%.SPL~  ~override~
     LPF DELETE_EFFECT INT_VAR match_opcode=309 STR_VAR match_resource=d2pkeg1 END

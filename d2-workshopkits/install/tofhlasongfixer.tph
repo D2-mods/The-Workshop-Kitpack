@@ -1,0 +1,61 @@
+/*
+tested with ToF (beta 15)
+This should be future-proofed if ToF fixes this directly later.
+
+fix possible critical bug with Jester/Skald hla songs (no song change effect)
+fix possible minor bug with regular bard/blade HLA song (changes to vanilla HLA song)
+These can happen if IWD spells, minor abilities, and high level abilities are installed together.
+
+This does not fix the issue where jester/skald HLA songs do not give a song change ability. (This should be fixed by ToF directly.)
+*/
+
+
+DEFINE_ACTION_FUNCTION tofhlasongfixer BEGIN
+  ACTION_IF (RESOURCE_CONTAINS ~luba2.2da~  ~GA_#BARD6~) BEGIN
+    // bard HLA
+    OUTER_SPRINT hla  ~SPCL920~
+    ACTION_IF (RESOURCE_CONTAINS ~#bard7.spl~  ~RR#BDF04~) BEGIN    // #bard7 is the song switching ability
+      COPY_EXISTING ~%hla%.spl~  ~override~
+        LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=251 STR_VAR resource=~RR#BDF04~ END    // check op251 (song change) resource
+      IF_EXISTS BUT_ONLY
+    END
+
+    // jester HLA
+    OUTER_SPRINT hla  ~dw-hljes~
+    ACTION_IF (FILE_EXISTS_IN_GAME ~RR#BJS02.spl~) BEGIN    // song effects
+      COPY_EXISTING ~%hla%.spl~  ~override~
+        PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~RR#BJS02~) BEGIN
+          LPF ADD_SPELL_EFFECT INT_VAR opcode=251 target=2 timing=9 STR_VAR resource=~RR#BJS02~ END    // add op251 if missing
+        END
+        LPF blockclabsongs END
+      IF_EXISTS BUT_ONLY
+    END
+
+    // skald HLA
+    OUTER_SPRINT hla  ~dw-hlses~
+    ACTION_IF (FILE_EXISTS_IN_GAME ~RR#BSK02.spl~) BEGIN    // song effects
+      COPY_EXISTING ~%hla%.spl~  ~override~
+        PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~RR#BSK02~) BEGIN
+          LPF ADD_SPELL_EFFECT INT_VAR opcode=251 target=2 timing=9 STR_VAR resource=~RR#BSK02~ END    // add op251 if missing
+        END
+        LPF blockclabsongs END
+      IF_EXISTS BUT_ONLY
+    END
+  END
+END
+
+// block clab songs
+DEFINE_PATCH_FUNCTION blockclabsongs BEGIN
+  PATCH_FOR_EACH song IN ~SPCL542~ ~SPCL751~ ~fjbard~ ~fjblade~ BEGIN
+    PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~%song%~) BEGIN
+      LPF ADD_SPELL_EFFECT INT_VAR opcode=206 target=2 timing=9 STR_VAR resource=EVAL ~%song%~ END
+    END
+  END
+END
+
+
+LAF tofhlasongfixer END
+
+
+//
+//

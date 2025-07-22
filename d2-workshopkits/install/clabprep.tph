@@ -237,7 +237,7 @@ ACTION_IF (RESOURCE_CONTAINS ~clabth01.2da~  ~CDIEVAD~)  BEGIN  OUTER_SET d2clab
 
 DEFINE_ACTION_FUNCTION d2clab_evasion INT_VAR level=7 always=0 STR_VAR clab=~~ BEGIN
   COPY_EXISTING ~%clab%.2da~  ~override~
-    LPF d2clab_evasion INT_VAR level=level akways=always END
+    LPF d2clab_evasion INT_VAR level=level always=always END
   BUT_ONLY
 END
 

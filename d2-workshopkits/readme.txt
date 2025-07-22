@@ -200,6 +200,14 @@ Notes:
 
 Version info:
 
+v5.27
+- ToF (beta 15) note: running the Kit updater will fix a possible issue that causes nonhuman monk avatars to disappear if equipping anything in the armor slot.
+- Compatibility updates for HLAs from two older tweak mods, Oversights and Refinements.
+- Refinements notes: fixed a portrait screen bug on EEs, fixed some abilities not being selectable (wrong prereq or missing prereq), fixed HLA song not giving Powder Keg a song switching ability.
+- Talents of Faerun notes: Kit updater now fixes issues with elemental prince summons (unusable by good-aligned) and Create Flesh Golem (wasn't working right).
+- fixed minor issue that could cause multiclass mages to be able to select HLA spells before gaining level 9 spell slots. This happened if running the Kit updater after HLA revisions that don't include all spells in multiclass tables (ex. Refinements).
+- ToF note: slightly adjusted HLA lists again for my monk/bard kits (relevant for Powder Keg and Medic).
+
 v5.26
 - Beast's Embrace (rune): SCS and cdtweaks versions of the werewolf change are no longer dispellable. Also, you no longer suffer proficiency penalties when using the cdtweaks version.
 - Upscayl (https://github.com/upscayl/upscayl): this is now used for description images for 3 items. Can optionally disable from config.ini to use the older images (made with Paint.net).

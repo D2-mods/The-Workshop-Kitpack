@@ -11,6 +11,8 @@ ACTION_FOR_EACH ability IN
   ~%enhancedbardsong%~
   ~%rrenhancedsong%~
   ~%rrlingeringsong%~
+  ~%tgenhancedsong%~
+  ~%tglingeringsong%~
 BEGIN
   COPY_EXISTING ~%ability%.SPL~  ~override~
     LPF ALTER_SPELL_HEADER INT_VAR target=7 END
