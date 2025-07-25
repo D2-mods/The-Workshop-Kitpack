@@ -1,5 +1,5 @@
 /*
-patches for RR, Shohy's mod, Bardic Wonders, refinements
+patches for RR, Shohy's mod, Bardic Wonders, refinements, ToF
 runs from main component and updater
 
 RR#BDF03 - gives RR#BDF04
@@ -11,6 +11,9 @@ LI#EN01 - gives LI#ENH1
 LI#ENH1 - HLA song (lasts 1 round)
 TG#LI01 - gives TG#LIN1
 TG#LIN1 - HLA song (lasts 2 rounds)
+
+BI#B1SA - shohy song
+BI#B1SB - effects
 */
 
 
@@ -32,26 +35,53 @@ END
 LAF pkeg_hlaedits STR_VAR hla=~SPCL920~ subspell=~%s5%a~ block=~%s5%x~ END
 LAF pkeg_hlaedits STR_VAR hla=~RR#BDF03~ subspell=~%s6%a~ block=~%s6%x~ END
 LAF pkeg_hlaedits STR_VAR hla=~RR#BDF05~ subspell=~%s7%a~ block=~%s7%x~ END
-LAF pkeg_hlaedits STR_VAR hla=~LI#EN01~ subspell=~%s8%a~ block=~%s8%x~ END
-LAF pkeg_hlaedits STR_VAR hla=~TG#LI01~ subspell=~%s9%a~ block=~%s9%x~ END
+LAF pkeg_hlaedits STR_VAR hla=~LI#EN01~ subspell=~%s6%a~ block=~%s6%x~ END
+LAF pkeg_hlaedits STR_VAR hla=~TG#LI01~ subspell=~%s7%a~ block=~%s7%x~ END
 
 
-//refinements songs
-ACTION_IF (FILE_EXISTS_IN_GAME ~LI#EN01.spl~) BEGIN
-  COPY_EXISTING - ~LI#EN01.spl~ ~~  READ_STRREF 0x50 desc  IF_EXISTS
-  COPY_EXISTING - ~TG#LI01.spl~ ~~  READ_STRREF 0x50 note  IF_EXISTS
-  OUTER_SET tghlasong_desc = RESOLVE_STR_REF (~%desc%~)
-  OUTER_SET lingering_desc = RESOLVE_STR_REF (~%desc%%WNL%%WNL%%note%~)
-  COPY_EXISTING ~%s8%.spl~ ~override~  WRITE_LONG 0x50 ~%tghlasong_desc%~  BUT_ONLY
-  COPY_EXISTING ~%s9%.spl~ ~override~  WRITE_LONG 0x50 ~%lingering_desc%~  BUT_ONLY
+//text for RR or Refinements HLAs
+OUTER_SPRINT desc ~~
+OUTER_SPRINT lingering ~~
+OUTER_SPRINT hla1  ~%s5%~
+OUTER_SPRINT hla2  ~%s5%~
+
+OUTER_SPRINT hlatable  ~lu%kitid%~
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%hlatable%.2da~) BEGIN
+  LAF d2_get_2da_entry STR_VAR 2da=luabbr col_name=abbrev row_name=bard RET entry END
+  OUTER_SPRINT hlatable ~lu%entry%~
 END
 
-//fix portrait icon (default has no name)
-COPY_EXISTING ~TG#LIN1.spl~ ~override~
-              ~TG#LIN2.spl~ ~override~
-              ~TG#LIN3.spl~ ~override~
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 parameter2=40 END    // 40 = Bard Song
-IF_EXISTS BUT_ONLY
+DEFINE_ACTION_FUNCTION rrsongdesc BEGIN
+  // hla song
+  COPY_EXISTING ~%s6%.spl~  ~override~
+    SAY UNIDENTIFIED_DESC ~%desc%~
+    LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%hla1%~ END
+  BUT_ONLY
+
+  // lingering song
+  COPY_EXISTING ~%s7%.spl~  ~override~
+    SAY UNIDENTIFIED_DESC ~%lingering%~
+    LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%hla2%~ END
+  BUT_ONLY
+END
+
+ACTION_IF (RESOURCE_CONTAINS ~%hlatable%.2da~ ~LI#EN01~) BEGIN
+  COPY_EXISTING - ~LI#EN01.spl~ ~~  READ_STRREF 0x50 desc  IF_EXISTS
+  COPY_EXISTING - ~TG#LI01.spl~ ~~  READ_STRREF 0x50 note  IF_EXISTS
+  OUTER_SPRINT lingering  ~%note%%WNL%%WNL%%desc%~
+  OUTER_SPRINT hla1  ~LI#ENH1~
+  OUTER_SPRINT hla2  ~TG#LIN1~
+  LAF rrsongdesc END
+END
+
+ACTION_IF (RESOURCE_CONTAINS ~%hlatable%.2da~ ~RR#BDF03~) BEGIN
+  OUTER_SPRINT desc @220
+  OUTER_SPRINT note @651
+  OUTER_SPRINT lingering  ~%desc%%WNL%%WNL%%note%~
+  OUTER_SPRINT hla1  ~RR#BDF04~
+  OUTER_SPRINT hla2  ~RR#BDF06~
+  LAF rrsongdesc END
+END
 
 
 //
@@ -97,7 +127,7 @@ COPY_EXISTING ~%enhancedbardsong%.spl~  ~override~
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%hlasong_res%~ END
 BUT_ONLY
 
-// temp fix for ToF HLA changing to vanilla song
+// check song change on HLA
 COPY_EXISTING ~SPCL920.spl~  ~override~
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=251 STR_VAR resource=~%hlasong_res%~ END
 IF_EXISTS BUT_ONLY
@@ -137,12 +167,23 @@ BEGIN
 END
 
 
+/*
+//block during cooldown
+COPY_EXISTING ~%pkegdisable%.spl~  ~override~
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~SPCL920A~ END
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~RR#BDF04~ END
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~RR#BDF06~ END
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~LI#ENH1~ END
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~TG#LIN1~ END
+  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~BI#B1SB~ END
+BUT_ONLY
+*/
+
+
 //Set variables for external use
 OUTER_TEXT_SPRINT enhancedbardsong   ~%s5%~
 OUTER_TEXT_SPRINT rrenhancedsong     ~%s6%~
 OUTER_TEXT_SPRINT rrlingeringsong    ~%s7%~
-OUTER_TEXT_SPRINT tgenhancedsong     ~%s8%~
-OUTER_TEXT_SPRINT tglingeringsong    ~%s9%~
 OUTER_TEXT_SPRINT shohyenhancedsong  ~BI#B1SA~
 
 

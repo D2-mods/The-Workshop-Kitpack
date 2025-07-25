@@ -260,6 +260,7 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2POWDERKEG~) BEGIN
   OUTER_TEXT_SPRINT frenzyingflame    ~%s4%~
   OUTER_TEXT_SPRINT enhancedbardsong  ~%s5%~
   OUTER_TEXT_SPRINT pkegstartsong     ~%e2%~
+  OUTER_TEXT_SPRINT pkegdisable       ~%s0%x~
   INCLUDE ~%install%/%kitname%hla2.tph~
   INCLUDE ~%install%/%kitname%var.tph~
   INCLUDE ~%install%/%kitname%icons.tph~

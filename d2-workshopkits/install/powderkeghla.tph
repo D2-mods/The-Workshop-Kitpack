@@ -14,7 +14,7 @@ TG#LIN1 - HLA song (lasts 3 rounds)
 */
 
 
-//vanilla HLA song
+//base HLA song
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s5%.SPL~
   SAY NAME1 @119
   SAY UNIDENTIFIED_DESC @219
@@ -34,10 +34,10 @@ COPY ~%abilities%/opcode318.SPL~      ~override/%s5%x.SPL~    // block g spell
   LPF ALTER_EFFECT STR_VAR resource=~%s5%g~ END
 
 
-//rr enhanced song
+//mod HLA song (rr or tg)
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s6%.SPL~
   SAY NAME1 @120
-  SAY UNIDENTIFIED_DESC @220
+//  SAY UNIDENTIFIED_DESC @220
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~RR#BDF04~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s6%~ END
@@ -55,14 +55,10 @@ COPY ~%abilities%/opcode318.SPL~      ~override/%s6%x.SPL~    // block g spell
   LPF ALTER_EFFECT STR_VAR resource=~%s6%g~ END
 
 
-//rr lingering song
-OUTER_SPRINT desc @220
-OUTER_SPRINT note @651
-OUTER_SET lingering_desc = RESOLVE_STR_REF (~%desc%%WNL%%WNL%%note%~)
-
+//mod lingering song (rr or tg)
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s7%.SPL~
   SAY NAME1 @120
-  WRITE_LONG 0x50 lingering_desc
+//  SAY UNIDENTIFIED_DESC @220
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~RR#BDF06~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s7%~ END
@@ -80,64 +76,10 @@ COPY ~%abilities%/opcode318.SPL~      ~override/%s7%x.SPL~    // block g spell
   LPF ALTER_EFFECT STR_VAR resource=~%s7%g~ END
 
 
-//refinements HLA song
-COPY ~%abilities%/changebardsong.SPL~  ~override/%s8%.SPL~
-  SAY NAME1 @119
-  SAY UNIDENTIFIED_DESC @219
-  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~LI#ENH1~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
-  LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s8%~ END
-  WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
-  WRITE_ASCII 0x76 ~SPENBARB~ #8
-
-COPY ~%abilities%/applyeffects.SPL~  ~override/%s8%a.SPL~     // main subspell
-  LPF ALTER_EFFECT STR_VAR resource=~%s8%g~ END
-  LPF CLONE_EFFECT STR_VAR resource=~%s8%x~ END
-
-COPY ~%passives%/giveability.SPL~    ~override/%s8%g.SPL~     // give ability
-  LPF ALTER_EFFECT STR_VAR resource=~%s8%~ END
-  LPF CLONE_EFFECT INT_VAR opcode=172 STR_VAR resource=~%s5%~ END    // removes vanilla HLA (just in case)
-COPY ~%abilities%/opcode318.SPL~      ~override/%s8%x.SPL~    // block g spell
-  LPF ALTER_EFFECT STR_VAR resource=~%s8%g~ END
-
-
-//refinements lingering song
-COPY ~%abilities%/changebardsong.SPL~  ~override/%s9%.SPL~
-  SAY NAME1 @119
-  SAY UNIDENTIFIED_DESC @219
-  LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~TG#LIN1~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
-  LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s9%~ END
-  WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
-  WRITE_ASCII 0x76 ~SPENBARB~ #8
-
-COPY ~%abilities%/applyeffects.SPL~  ~override/%s9%a.SPL~     // main subspell
-  LPF ALTER_EFFECT STR_VAR resource=~%s9%g~ END
-  LPF CLONE_EFFECT STR_VAR resource=~%s9%x~ END
-
-COPY ~%passives%/giveability.SPL~    ~override/%s9%g.SPL~     // give ability
-  LPF ALTER_EFFECT STR_VAR resource=~%s9%~ END
-  LPF CLONE_EFFECT INT_VAR opcode=172 STR_VAR resource=~%s8%~ END    // removes non-lingering version
-COPY ~%abilities%/opcode318.SPL~      ~override/%s9%x.SPL~    // block g spell
-  LPF ALTER_EFFECT STR_VAR resource=~%s9%g~ END
-
-
-//block during cooldown
-COPY_EXISTING ~%pkegdisable%.spl~  ~override~
-  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~SPCL920A~ END
-  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~RR#BDF04~ END
-  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~RR#BDF06~ END
-  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~LI#ENH1~ END
-  LPF d2_protect_on_castequip INT_VAR duration=45 STR_VAR resource=~TG#LIN1~ END
-BUT_ONLY
-
-
 //Set variables for external use
 OUTER_TEXT_SPRINT enhancedbardsong   ~%s5%~
 OUTER_TEXT_SPRINT rrenhancedsong     ~%s6%~
 OUTER_TEXT_SPRINT rrlingeringsong    ~%s7%~
-OUTER_TEXT_SPRINT tgenhancedsong     ~%s8%~
-OUTER_TEXT_SPRINT tglingeringsong    ~%s9%~
 OUTER_TEXT_SPRINT shohyenhancedsong  ~BI#B1SA~
 
 

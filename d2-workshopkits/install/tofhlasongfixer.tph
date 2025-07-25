@@ -6,6 +6,7 @@ fix possible critical bug with Jester/Skald hla songs (no song change effect)
 fix possible minor bug with regular bard/blade HLA song (changes to vanilla HLA song)
 These can happen if IWD spells, minor abilities, and high level abilities are installed together.
 
+Also fixes bard/blade HLA song possibly only giving +4 bonus to saves instead of +8.
 This does not fix the issue where jester/skald HLA songs do not give a song change ability. (This should be fixed by ToF directly.)
 */
 
@@ -41,6 +42,19 @@ DEFINE_ACTION_FUNCTION tofhlasongfixer BEGIN
         LPF blockclabsongs END
       IF_EXISTS BUT_ONLY
     END
+  END
+
+  // fix only gaining +4 saves instead of +8
+  ACTION_IF (RESOURCE_CONTAINS ~luba0.2da~  ~AP_DW~) BEGIN
+    COPY_EXISTING ~RR#BDF04.spl~  ~override~
+      SET notsource = 44
+      LPF CLONE_EFFECT
+        INT_VAR silent=1 match_opcode=37 match_target=1 opcode=318 target=2 parameter2=notsource timing=0 duration=0
+        STR_VAR resource=EVAL ~%SOURCE_RES%~ insert=last
+      END
+      LPF CLONE_EFFECT INT_VAR silent=1 match_target=1 target=2 STR_VAR insert=last END
+      LPF DELETE_EFFECT INT_VAR match_target=1 END
+    IF_EXISTS BUT_ONLY
   END
 END
 

@@ -29,20 +29,16 @@ END
 //change ToB starting items for some kits
 ACTION_IF (GAME_INCLUDES ~tob~) BEGIN
   COPY_EXISTING ~25STWEAP.2da~  ~override~
-    PATCH_FOR_EACH kit IN ~d2drifter~ ~d2nurse~ BEGIN
+    PATCH_FOR_EACH kit IN ~d2drifter~ ~d2beasthunter~ BEGIN
       LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=armor entry=leat20 END    // changed to hide armor
     END
 
-    PATCH_FOR_EACH kit IN ~d2beasthunter~ ~d2beasthunterfc~ ~d2confessor~ BEGIN
+    PATCH_FOR_EACH kit IN ~d2beasthunterfc~ ~d2confessor~ BEGIN
       LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=armor entry=leat19 END    // changed to dragon scale
     END
 
     PATCH_FOR_EACH kit IN ~d2moonlightknight~ ~d2moonlightknightcr~ BEGIN
       LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=armor entry=chan09 END    // changed to chain mail
-    END
-
-    PATCH_FOR_EACH kit IN ~d2warhound~ ~d2warhoundfm~ ~d2noblescion~ BEGIN
-      LPF d2_edit_2da_entry STR_VAR col_name=~%kit%~ row_name=MISC5 entry=dagg12 END    // firetooth
     END
 
     PATCH_FOR_EACH kit IN ~d2nursemt~ ~d2medic~ BEGIN
@@ -54,17 +50,63 @@ ACTION_IF (GAME_INCLUDES ~tob~) BEGIN
   BUT_ONLY
 
 
-  // change some bag items
-  ACTION_FOR_EACH bag IN ~bag25~ ~bag28~ BEGIN
+  // add some bag items
+  ACTION_FOR_EACH bag IN ~bag20~ ~bag21~ BEGIN
     COPY_EXISTING ~%bag%.sto~  ~override~
-      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=SLNG07 flags=identified position=last END    // sling of seeking
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=AX1H09 flags=identified position=last END    // rifthome
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=HAMM06 flags=identified position=last END    // dwarven thrower
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=bddart01 flags=identified position=last END    // dart
     BUT_ONLY
   END
 
-  ACTION_FOR_EACH bag IN ~bag27a~ BEGIN
+  ACTION_FOR_EACH bag IN ~bag22~ BEGIN
+    COPY_EXISTING ~%bag%.sto~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=BLUN18 flags=identified position=last END    // skullcrusher
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=dagg11 flags=identified position=last END    // throwing dagger
+    BUT_ONLY
+  END
+
+  ACTION_FOR_EACH bag IN ~bag23~ BEGIN
+    COPY_EXISTING ~%bag%.sto~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=dagg13 flags=identified position=last END    // pixie prick
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=bddart01 flags=identified position=last END    // dart
+    BUT_ONLY
+  END
+
+  ACTION_FOR_EACH bag IN ~bag24~ ~bag25~ BEGIN
     COPY_EXISTING ~%bag%.sto~  ~override~
       LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=SLNG07 flags=identified position=last END    // sling of seeking
-      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=BLUN18 flags=identified position=last END    // skullcrusher
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=AX1H10 flags=identified position=last END    // azuredge
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=SHLD25 flags=identified position=last END    // shield of harmony
+    BUT_ONLY
+  END
+
+  ACTION_FOR_EACH bag IN ~bag26~ BEGIN
+    COPY_EXISTING ~%bag%.sto~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=HAMM06 flags=identified position=last END    // dwarven thrower
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=AX1H10 flags=identified position=last END    // azuredge
+    BUT_ONLY
+  END
+
+  ACTION_FOR_EACH bag IN ~bag27~ ~bag27a~ BEGIN
+    COPY_EXISTING ~%bag%.sto~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=SLNG07 flags=identified position=last END    // sling of seeking
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=BLUN19 flags=identified position=last END    // mace
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=bddart01 flags=identified position=last END    // dart
+    BUT_ONLY
+  END
+
+  ACTION_FOR_EACH bag IN ~bag28~ ~bag30~ BEGIN
+    COPY_EXISTING ~%bag%.sto~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=SLNG07 flags=identified position=last END    // sling of seeking
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=bddart01 flags=identified position=last END    // dart
+    BUT_ONLY
+  END
+
+  ACTION_FOR_EACH bag IN ~bag29~ BEGIN
+    COPY_EXISTING ~%bag%.sto~  ~override~
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=halb04 flags=identified position=last END    // halberd
+      LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=AX1H09 flags=identified position=last END    // rifthome
     BUT_ONLY
   END
 END
