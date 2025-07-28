@@ -711,7 +711,8 @@ COPY ~%files%/shamanbonea.SPL~  ~override/%mh%a.SPL~
   LPF d2_remove_effects_on_cast END
   LPF d2_remove_effects_on_cast STR_VAR resource=~%mh%b~ END                // overwrite berserk subspell
   // repeating charm
-  LPF CLONE_EFFECT INT_VAR match_opcode=5 opcode=272 duration=45 parameter1=1 parameter2=0 STR_VAR resource=~%mh%a~ END
+  SET timer = 22    // effect is 7 seconds so lasts up to 29 seconds
+  LPF CLONE_EFFECT INT_VAR match_opcode=5 opcode=272 duration=timer parameter1=1 parameter2=0 STR_VAR resource=~%mh%a~ END
 
 //repeating charm (no message)
 COPY ~%abilities%/charm7seconds.EFF~  ~override/%mh%a.EFF~

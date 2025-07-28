@@ -12,7 +12,8 @@ LI#ENH1 - HLA song (lasts 1 round)
 TG#LI01 - gives TG#LIN1
 TG#LIN1 - HLA song (lasts 2 rounds)
 
-BI#B1SA - shohy song
+BI#B1SS - gives BI#B1SA
+BI#B1SA - shohy song switcher
 BI#B1SB - effects
 */
 
@@ -20,9 +21,12 @@ BI#B1SB - effects
 //give song switching abilities
 DEFINE_ACTION_FUNCTION pkeg_hlaedits STR_VAR hla=~~ subspell=~~ block=~~ BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~%hla%.SPL~) BEGIN
+    OUTER_SPRINT insert  ~first~
+    ACTION_IF (~%subspell%~ STR_EQ ~d2BIB1S~) BEGIN  OUTER_SPRINT insert  ~last~  END
+
     // edit hla
     COPY_EXISTING ~%hla%.SPL~  ~override~
-      LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%subspell%~ END
+      LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%subspell%~ insert=~%insert%~ END
     BUT_ONLY
 
     // unlock key spell
@@ -37,9 +41,11 @@ LAF pkeg_hlaedits STR_VAR hla=~RR#BDF03~ subspell=~%s6%a~ block=~%s6%x~ END
 LAF pkeg_hlaedits STR_VAR hla=~RR#BDF05~ subspell=~%s7%a~ block=~%s7%x~ END
 LAF pkeg_hlaedits STR_VAR hla=~LI#EN01~ subspell=~%s6%a~ block=~%s6%x~ END
 LAF pkeg_hlaedits STR_VAR hla=~TG#LI01~ subspell=~%s7%a~ block=~%s7%x~ END
+LAF pkeg_hlaedits STR_VAR hla=~BI#B1SS~ subspell=~d2BIB1S~ block=~%s6%x~ END
 
 
 //text for RR or Refinements HLAs
+OUTER_SPRINT name @120
 OUTER_SPRINT desc ~~
 OUTER_SPRINT lingering ~~
 OUTER_SPRINT hla1  ~%s5%~
@@ -54,12 +60,14 @@ END
 DEFINE_ACTION_FUNCTION rrsongdesc BEGIN
   // hla song
   COPY_EXISTING ~%s6%.spl~  ~override~
+    SAY NAME1 ~%name%~
     SAY UNIDENTIFIED_DESC ~%desc%~
     LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%hla1%~ END
   BUT_ONLY
 
   // lingering song
   COPY_EXISTING ~%s7%.spl~  ~override~
+    SAY NAME1 ~%name%~
     SAY UNIDENTIFIED_DESC ~%lingering%~
     LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%hla2%~ END
   BUT_ONLY
@@ -80,6 +88,18 @@ ACTION_IF (RESOURCE_CONTAINS ~%hlatable%.2da~ ~RR#BDF03~) BEGIN
   OUTER_SPRINT lingering  ~%desc%%WNL%%WNL%%note%~
   OUTER_SPRINT hla1  ~RR#BDF04~
   OUTER_SPRINT hla2  ~RR#BDF06~
+  LAF rrsongdesc END
+END
+
+ACTION_IF (RESOURCE_CONTAINS ~%hlatable%.2da~ ~BI#B1SS~) BEGIN
+  COPY_EXISTING - ~BI#B1SS.spl~ ~~  READ_STRREF 0x50 desc  IF_EXISTS
+  COPY_EXISTING - ~BI#B1SA.spl~ ~~
+    READ_STRREF 0x8 name2
+    PATCH_IF !(~%name2%~ STR_EQ ~~) BEGIN  SPRINT name ~%name2%~  END
+  IF_EXISTS
+  OUTER_SPRINT lingering  ~%desc%~
+  OUTER_SPRINT hla1  ~BI#B1SB~
+  OUTER_SPRINT hla2  ~BI#B1SB~
   LAF rrsongdesc END
 END
 
@@ -133,6 +153,7 @@ COPY_EXISTING ~SPCL920.spl~  ~override~
 IF_EXISTS BUT_ONLY
 
 
+//
 //add effects to IWD songs if learnable as HLA (ex. ToF mod)
 OUTER_SPRINT pkegvar  ~d2pkeg1~
 OUTER_SPRINT pkegremove  ~%s0%a~
@@ -164,6 +185,24 @@ BEGIN
       LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=251 opcode=326 parameter1=0 parameter2=0 STR_VAR resource=~%pkegremove%~ END
     END
   IF_EXISTS BUT_ONLY
+END
+
+
+//shell spell for shohy's mod
+ACTION_IF (RESOURCE_CONTAINS ~BI#B1SS.spl~  ~BI#B1SA~) BEGIN
+  OUTER_SPRINT spell  ~BI#B1SA~
+  OUTER_SPRINT cleanup  ~%s5%t~
+  ACTION_IF !(RESOURCE_CONTAINS ~%cleanup%.spl~  ~%spell%~) BEGIN
+    COPY_EXISTING ~%cleanup%.spl~  ~override~
+      LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=172 STR_VAR resource=~%spell%~ END
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+ACTION_IF !(FILE_EXISTS_IN_GAME ~d2BIB1S.SPL~) BEGIN
+  OUTER_SPRINT spell  ~BI#B1SA~
+  COPY ~%abilities%/applyeffects.SPL~  ~override/d2BIB1S.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%s6%a~ END
 END
 
 

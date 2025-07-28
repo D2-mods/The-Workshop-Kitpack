@@ -153,13 +153,16 @@ COPY ~%files%/rune_move.ITM~  ~override/%z5%.ITM~
   WRITE_ASCII 0x58 ~%z0%d~ #8    // description image
   WRITE_ASCII 0x76 ~%z5%i~ #8    // icon (ability)
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=newstring END                      // dialogue message
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z5%a~ END                  // +2 movement
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z5%a~ END                  // +4 movement
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%z0%b~ END    // visual
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%z0%a~ END    // remove rune effects
-  LPF ALTER_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%z5%a~ END                  // repeating EFF (+2 movement)
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
-COPY ~%abilities%/castspellself.EFF~  ~override/%z5%a.EFF~
+  // repeating effect to reapply after shapeshifts
+  SET timer = 7200 - 5
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 duration=timer STR_VAR resource=~%z5%a~ END    // repeating EFF (+4 movement)
+
+COPY ~%abilities%/applyeffects.EFF~  ~override/%z5%a.EFF~
   WRITE_ASCII 0x30 ~%z5%a~ #8
 COPY ~%files%/rune_move.SPL~          ~override/%z5%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%z5%a~ END

@@ -619,7 +619,7 @@ END
 
 ////////////////////////////////////////////////////////////
 
-//use with mage or cleric multiclasses
+//use with lu*.2da files for mage or cleric multiclasses
 //sets MIN_LEV column to 1, 32, or 16 (checks SPL info to determine)
 
 DEFINE_PATCH_FUNCTION hla_multiclass_minlevel BEGIN

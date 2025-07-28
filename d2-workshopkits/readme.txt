@@ -201,10 +201,13 @@ Notes:
 Version info:
 
 v5.28
+- Shaman Bone Blade: fixed charm lasting 45+ seconds instead of 4 rounds.
+- Powder Keg: fixed a possible export/import issue with HLA bard song in BG2EE. Previously, the song change ability could be lost if you exported the CHR, then imported as Charname (note: bug seems to only happen when importing as Charname).
 - Powder Keg: Reorganized patching related to RR and Refinements mods. (more efficient + fewer files in override)
 - Powder Keg's cooldown state no longer prevents being buffed by the HLA bard song, i.e. if played by another bard.
-- Adjusted ToB starting items again for some kits. Some of the starting bags will also have 2-3 extra items.
+- Adjusted ToB starting items again for some kits. Some of the starting bags will also have 2-3 extra items (missing item types or throwing weapons).
 - ToF note: The Kit updater will also check all ToF HLA songs and make sure they are changing to the correct song when you take the HLA. (this part was done in the last update, but I forgot to mention it)
+- fixed a slightly corrupted icon (Starjammer's Interference).
 
 v5.27
 - ToF (beta 15) note: running the Kit updater will fix a possible issue that causes nonhuman monk avatars to disappear if equipping anything in the armor slot.

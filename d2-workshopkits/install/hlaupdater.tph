@@ -219,6 +219,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_removehlas_kit BEGIN    // kit => res (can 
   d2warhoundfm    => AP_DW-FTICM
   d2spellfencer   => AP_DW-FTICR
   d2medic         => ~GA_SPCL820 GA_SPCL811~
+  d2powderkeg     => AP_C0BWHL0
 END
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_removehlas_res BEGIN    // ability => mod (just for reference)
@@ -236,6 +237,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_removehlas_res BEGIN    // ability => mod (
   AP_DW-FTICR => delete    // ranged crits
 //  GA_SPCL820  => delete    // quivering palm (allow gaining with hla mods)
   GA_SPCL811  => delete    // stunning blow (already has power attack)
+  AP_C0BWHL0   => delete    // Bardic Wonders skald hla
 END
 
 ACTION_PHP_EACH d2wk_removehlas_kit AS kit => res BEGIN

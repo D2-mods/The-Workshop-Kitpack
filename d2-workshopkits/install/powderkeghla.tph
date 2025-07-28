@@ -14,6 +14,49 @@ TG#LIN1 - HLA song (lasts 3 rounds)
 */
 
 
+//spell should be 7 characters or less
+//suffix with a, b, x, and g should be free
+//cleanup is a subspell that removes older effects
+
+DEFINE_ACTION_FUNCTION pkeghlaswitcher STR_VAR spell=~~ cleanup=~~ BEGIN
+  //main subspell
+  COPY ~%abilities%/applyeffects.SPL~  ~override/%spell%a.SPL~    // casts B and X
+    LPF ALTER_EFFECT STR_VAR resource=~%spell%b~ END
+    LPF CLONE_EFFECT STR_VAR resource=~%spell%x~ END
+  COPY ~%abilities%/applyeffects.SPL~  ~override/%spell%b.SPL~    // B casts G
+    LPF ALTER_EFFECT STR_VAR resource=~%spell%g~ END
+    LPF CLONE_EFFECT INT_VAR opcode=272 parameter1=6 parameter2=3 timing=9 END    // repeating effect (import fix)
+    LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%cleanup%~ END
+  COPY ~%abilities%/opcode318.SPL~     ~override/%spell%x.SPL~    // X blocks B
+    LPF ALTER_EFFECT STR_VAR resource=~%spell%b~ END
+
+  //give ability
+  COPY ~%abilities%/applyeffects.EFF~  ~override/%spell%g.EFF~
+    WRITE_ASCII 0x30 ~%spell%g~ #8
+  COPY ~%passives%/giveability.SPL~    ~override/%spell%g.SPL~
+    LPF ALTER_EFFECT STR_VAR resource=~%spell%~ END
+    LPF CLONE_EFFECT INT_VAR opcode=172 STR_VAR resource=~%spell%~ END
+    LPF d2_protect_on_castequip INT_VAR duration=3600000 END
+END
+
+
+//remove old effects
+OUTER_SPRINT cleanup  ~%s5%t~
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%cleanup%.SPL~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s5%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s6%b~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s7%b~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=172 target=2 timing=1 STR_VAR resource=~%s5%~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=172 target=2 timing=1 STR_VAR resource=~%s6%~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=172 target=2 timing=1 STR_VAR resource=~%s7%~ END
+
+
+//make subspells
+LAF pkeghlaswitcher STR_VAR spell=~%s5%~ cleanup=~%cleanup%~ END    // base HLA song
+LAF pkeghlaswitcher STR_VAR spell=~%s6%~ cleanup=~%cleanup%~ END    // mod HLA song (rr or tg)
+LAF pkeghlaswitcher STR_VAR spell=~%s7%~ cleanup=~%cleanup%~ END    // mod lingering song (rr or tg)
+
+
 //base HLA song
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s5%.SPL~
   SAY NAME1 @119
@@ -23,16 +66,6 @@ COPY ~%abilities%/changebardsong.SPL~  ~override/%s5%.SPL~
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s5%~ END
   WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
   WRITE_ASCII 0x76 ~SPENBARB~ #8
-
-COPY ~%abilities%/applyeffects.SPL~  ~override/%s5%a.SPL~     // main subspell
-  LPF ALTER_EFFECT STR_VAR resource=~%s5%g~ END
-  LPF CLONE_EFFECT STR_VAR resource=~%s5%x~ END
-
-COPY ~%passives%/giveability.SPL~    ~override/%s5%g.SPL~     // give ability
-  LPF ALTER_EFFECT STR_VAR resource=~%s5%~ END
-COPY ~%abilities%/opcode318.SPL~      ~override/%s5%x.SPL~    // block g spell
-  LPF ALTER_EFFECT STR_VAR resource=~%s5%g~ END
-
 
 //mod HLA song (rr or tg)
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s6%.SPL~
@@ -44,17 +77,6 @@ COPY ~%abilities%/changebardsong.SPL~  ~override/%s6%.SPL~
   WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
   WRITE_ASCII 0x76 ~SPENBARB~ #8
 
-COPY ~%abilities%/applyeffects.SPL~  ~override/%s6%a.SPL~     // main subspell
-  LPF ALTER_EFFECT STR_VAR resource=~%s6%g~ END
-  LPF CLONE_EFFECT STR_VAR resource=~%s6%x~ END
-
-COPY ~%passives%/giveability.SPL~    ~override/%s6%g.SPL~     // give ability
-  LPF ALTER_EFFECT STR_VAR resource=~%s6%~ END
-  LPF CLONE_EFFECT INT_VAR opcode=172 STR_VAR resource=~%s5%~ END    // removes vanilla HLA (just in case)
-COPY ~%abilities%/opcode318.SPL~      ~override/%s6%x.SPL~    // block g spell
-  LPF ALTER_EFFECT STR_VAR resource=~%s6%g~ END
-
-
 //mod lingering song (rr or tg)
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s7%.SPL~
   SAY NAME1 @120
@@ -64,16 +86,6 @@ COPY ~%abilities%/changebardsong.SPL~  ~override/%s7%.SPL~
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s7%~ END
   WRITE_ASCII 0x3a ~SPENBARB~ #8    // icons
   WRITE_ASCII 0x76 ~SPENBARB~ #8
-
-COPY ~%abilities%/applyeffects.SPL~  ~override/%s7%a.SPL~     // main subspell
-  LPF ALTER_EFFECT STR_VAR resource=~%s7%g~ END
-  LPF CLONE_EFFECT STR_VAR resource=~%s7%x~ END
-
-COPY ~%passives%/giveability.SPL~    ~override/%s7%g.SPL~     // give ability
-  LPF ALTER_EFFECT STR_VAR resource=~%s7%~ END
-  LPF CLONE_EFFECT INT_VAR opcode=172 STR_VAR resource=~%s6%~ END    // removes non-lingering version
-COPY ~%abilities%/opcode318.SPL~      ~override/%s7%x.SPL~    // block g spell
-  LPF ALTER_EFFECT STR_VAR resource=~%s7%g~ END
 
 
 //Set variables for external use
