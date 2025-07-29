@@ -200,6 +200,11 @@ Notes:
 
 Version info:
 
+v5.29
+- fixed BAM icons not appearing in the ability description when right-clicking icon. (note: the fix was adding a "b" to the end of the icon resource names)
+- fixed another icon with corrupted graphics (Golden Scarab).
+- Icons for War Magician abilities now use custom resources to avoid color changes from people trying to "fix" icon colors.
+
 v5.28
 - Shaman Bone Blade: fixed charm lasting 45+ seconds instead of 4 rounds.
 - Powder Keg: fixed a possible export/import issue with HLA bard song in BG2EE. Previously, the song change ability could be lost if you exported the CHR, then imported as Charname (note: bug seems to only happen when importing as Charname).

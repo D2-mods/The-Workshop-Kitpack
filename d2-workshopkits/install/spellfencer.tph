@@ -28,7 +28,7 @@ COPY ~%abilities%/castspellself.EFF~   ~override/%e3%a.EFF~
   WRITE_ASCII 0x30 ~%e3%a~ #8
 COPY ~%abilities%/castingspeed1.SPL~   ~override/%e3%a.SPL~    // +2 casting speed
   LPF ALTER_EFFECT INT_VAR target=1 parameter1=2 END
-  LPF CLONE_EFFECT INT_VAR opcode=142 parameter2=%icon% END
+  LPF CLONE_EFFECT INT_VAR opcode=142 parameter2=icon END
 
 
 //Critical miss removes bonus

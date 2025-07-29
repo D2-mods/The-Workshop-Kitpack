@@ -4,10 +4,10 @@
 
 //check icon colors option
 ACTION_IF (nopowderkegpatch = 0) BEGIN
-  OUTER_TEXT_SPRINT icon1 ~%s1%~
-  OUTER_TEXT_SPRINT icon2 ~%s2%~
-  OUTER_TEXT_SPRINT icon3 ~%s3%~
-  OUTER_TEXT_SPRINT icon4 ~%s4%~
+  OUTER_TEXT_SPRINT icon1 ~%s1%b~
+  OUTER_TEXT_SPRINT icon2 ~%s2%b~
+  OUTER_TEXT_SPRINT icon3 ~%s3%b~
+  OUTER_TEXT_SPRINT icon4 ~%s4%b~
 END ELSE BEGIN
   OUTER_TEXT_SPRINT icon1 ~bard6~
   OUTER_TEXT_SPRINT icon2 ~bard4~

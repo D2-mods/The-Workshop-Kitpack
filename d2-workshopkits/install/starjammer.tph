@@ -497,7 +497,7 @@ COPY ~%abilities%/riftgate.SPL~   ~override/%w8%.SPL~
   SAY UNIDENTIFIED_DESC @40215
   LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%w8%g~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%w8%d~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
   // cooldown message
   SPRINT ability_name @40115
@@ -551,12 +551,12 @@ COPY ~%abilities%/swirl.BAM~  ~override/%s1%s.BAM~
 COPY ~%abilities%/force.VVC~  ~override/%s1%s.VVC~
   WRITE_ASCII 0x8 ~%s1%s~ #8
 
-COPY ~%icons%/interference.BAM~      ~override/%s1%.BAM~
+COPY ~%icons%/interference.BAM~      ~override/%s1%b.BAM~
 COPY ~%abilities%/interference.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @111
   SAY UNIDENTIFIED_DESC @211
-  WRITE_ASCII 0x3a ~%s1%~ #8
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%~ STR_VAR icon=~%s1%~ END
+  WRITE_ASCII 0x3a ~%s1%b~ #8
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%~ STR_VAR icon=~%s1%b~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=174 opcode=215 target=1 STR_VAR resource=~#GENDIVI~ insert=first END
 
   FOR (n = 1; n <= 9; ++n) BEGIN    // spell failure (extend to 50)

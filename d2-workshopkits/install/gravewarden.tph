@@ -95,14 +95,14 @@ COPY ~%abilities%/denialglow.BAM~  ~override/%s1%g.BAM~
 COPY ~%abilities%/denialglow.VVC~  ~override/%s1%g.VVC~
   WRITE_ASCII 0x8 ~%s1%g~ #8
 
-COPY ~%icons%/denial.BAM~      ~override/%s1%.BAM~
-COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~        // clone Death Ward
+COPY ~%icons%/denial.BAM~    ~override/%s1%b.BAM~
+COPY_EXISTING ~SPPR409.SPL~  ~override/%s1%.SPL~        // clone Death Ward
   SAY NAME1 @104
   SAY UNIDENTIFIED_DESC @204
   LPF d2_remove_level_headers END
   LPF d2_convert_spell_type INT_VAR type=0 level=1 END    // convert to special ability
-  WRITE_ASCII 0x3a ~%s1%~ #8
-  WRITE_ASCII 0x76 ~%s1%~ #8
+  WRITE_ASCII 0x3a ~%s1%b~ #8
+  WRITE_ASCII 0x76 ~%s1%b~ #8
   LPF ALTER_SPELL_HEADER INT_VAR range=25 speed=3 END
   WRITE_LONG 0x18 THIS | BIT24    // can target invisible
 
@@ -122,7 +122,7 @@ COPY_EXISTING ~SPPR409.SPL~    ~override/%s1%.SPL~        // clone Death Ward
   LPF ALTER_EFFECT INT_VAR power=0 duration=181 resist_dispel=2 END    // edit all effects
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=61 duration=0 END     // EEs (silent to not have warning with sr)
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=50 duration=1 END     // spell revisions
-  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END      // not silent to get warning if no icon added
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=icon END      // not silent to get warning if no icon added
 
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=215 timing=1 parameter2=0 STR_VAR resource=~%s1%g~ END
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=174 match_timing=4 STR_VAR resource=~EFF_E03~ END

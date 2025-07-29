@@ -156,12 +156,12 @@ COPY - ~%abilities%/moonlightspell.PRO~  ~inlined/%s1%a.PRO~     // main project
 ADD_PROJECTILE ~inlined/%s1%a.PRO~
 COPY ~%abilities%/moonlightspell.BAM~    ~override/%s1%a.BAM~    // animation
 
-COPY ~%icons%/moonlightvortex.BAM~      ~override/%s1%.BAM~
+COPY ~%icons%/moonlightvortex.BAM~      ~override/%s1%b.BAM~
 COPY ~%abilities%/moonlightvortex.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @105
   SAY UNIDENTIFIED_DESC @205
-  WRITE_ASCII 0x3a ~%s1%~ #8
-  WRITE_ASCII 0x76 ~%s1%~ #8
+  WRITE_ASCII 0x3a ~%s1%b~ #8
+  WRITE_ASCII 0x76 ~%s1%b~ #8
   LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%a~ END    // set projectile
 
   // damage

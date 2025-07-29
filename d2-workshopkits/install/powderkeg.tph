@@ -14,10 +14,10 @@ COPY_EXISTING ~FJBARD.SPL~            ~override/%e2%.SPL~
 
 
 //icons
-COPY ~%icons%/powderkeg1.BAM~  ~override/%s1%.BAM~
-COPY ~%icons%/powderkeg2.BAM~  ~override/%s2%.BAM~
-COPY ~%icons%/powderkeg3.BAM~  ~override/%s3%.BAM~
-COPY ~%icons%/powderkeg4.BAM~  ~override/%s4%.BAM~
+COPY ~%icons%/powderkeg1.BAM~  ~override/%s1%b.BAM~
+COPY ~%icons%/powderkeg2.BAM~  ~override/%s2%b.BAM~
+COPY ~%icons%/powderkeg3.BAM~  ~override/%s3%b.BAM~
+COPY ~%icons%/powderkeg4.BAM~  ~override/%s4%b.BAM~
 
 
 //text strings
@@ -47,8 +47,8 @@ COPY ~%abilities%/changebardsong.SPL~  ~override/%s1%.SPL~    // Blasting Song
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s1%s~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s1%~ END
-  WRITE_ASCII 0x3a ~%s1%~ #8    // icons
-  WRITE_ASCII 0x76 ~%s1%~ #8
+  WRITE_ASCII 0x3a ~%s1%b~ #8    // icons
+  WRITE_ASCII 0x76 ~%s1%b~ #8
 
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s2%.SPL~    // Booming Song
   SAY NAME1 @116
@@ -56,8 +56,8 @@ COPY ~%abilities%/changebardsong.SPL~  ~override/%s2%.SPL~    // Booming Song
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s2%s~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s2%~ END
-  WRITE_ASCII 0x3a ~%s2%~ #8    // icons
-  WRITE_ASCII 0x76 ~%s2%~ #8
+  WRITE_ASCII 0x3a ~%s2%b~ #8    // icons
+  WRITE_ASCII 0x76 ~%s2%b~ #8
 
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s3%.SPL~    // Dust Explosion
   SAY NAME1 @117
@@ -65,8 +65,8 @@ COPY ~%abilities%/changebardsong.SPL~  ~override/%s3%.SPL~    // Dust Explosion
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s3%s~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s3%~ END
-  WRITE_ASCII 0x3a ~%s3%~ #8    // icons
-  WRITE_ASCII 0x76 ~%s3%~ #8
+  WRITE_ASCII 0x3a ~%s3%b~ #8    // icons
+  WRITE_ASCII 0x76 ~%s3%b~ #8
 
 COPY ~%abilities%/changebardsong.SPL~  ~override/%s4%.SPL~    // Frenzying Flame
   SAY NAME1 @118
@@ -74,8 +74,8 @@ COPY ~%abilities%/changebardsong.SPL~  ~override/%s4%.SPL~    // Frenzying Flame
   LPF ALTER_EFFECT INT_VAR match_opcode=251 STR_VAR resource=~%s4%s~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%a~ END
   LPF ALTER_EFFECT INT_VAR check_headers=0 STR_VAR resource=~%s4%~ END
-  WRITE_ASCII 0x3a ~%s4%~ #8    // icons
-  WRITE_ASCII 0x76 ~%s4%~ #8
+  WRITE_ASCII 0x3a ~%s4%b~ #8    // icons
+  WRITE_ASCII 0x76 ~%s4%b~ #8
 
 
 //shared subspells

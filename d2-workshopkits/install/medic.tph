@@ -149,18 +149,18 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%s0%x.SPL~
 COPY ~%icons%/blackremedyicon.BAM~  ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@122) STR_VAR bam=~%s1%i~ RET icon END
 
-COPY ~%icons%/blackremedy.BAM~      ~override/%s1%.BAM~
+COPY ~%icons%/blackremedy.BAM~      ~override/%s1%b.BAM~
 COPY ~%abilities%/remedy.SPL~       ~override/%s1%.SPL~
   SAY NAME1 @122
   SAY UNIDENTIFIED_DESC @222
-  WRITE_ASCII 0x3a ~%s1%~ #8
-  WRITE_ASCII 0x76 ~%s1%~ #8
+  WRITE_ASCII 0x3a ~%s1%b~ #8
+  WRITE_ASCII 0x76 ~%s1%b~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
 //  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s1%h~ insert=below END
   LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=20 END    // 20 = conjure air
   LPF ALTER_EFFECT INT_VAR match_opcode=174 match_timing=1 STR_VAR resource=EFF_P67 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 COPY ~%abilities%/hiteffectall.SPL~     ~override/%s1%a.SPL~
   LPF ALTER_EFFECT INT_VAR duration=10 STR_VAR resource=~%s1%b~ END
@@ -191,17 +191,17 @@ COPY ~override/%s1%b.SPL~  ~override/%s1%h.SPL~
 COPY ~%icons%/whiteremedyicon.BAM~  ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@123) STR_VAR bam=~%s2%i~ RET icon END
 
-COPY ~%icons%/whiteremedy.BAM~      ~override/%s2%.BAM~
+COPY ~%icons%/whiteremedy.BAM~      ~override/%s2%b.BAM~
 COPY ~%abilities%/remedy.SPL~       ~override/%s2%.SPL~
   SAY NAME1 @123
   SAY UNIDENTIFIED_DESC @223
-  WRITE_ASCII 0x3a ~%s2%~ #8
-  WRITE_ASCII 0x76 ~%s2%~ #8
+  WRITE_ASCII 0x3a ~%s2%b~ #8
+  WRITE_ASCII 0x76 ~%s2%b~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
 //  LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%h~ insert=below END
   LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=17 END    // 30 = illusion earth
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 COPY ~%abilities%/hiteffectall.SPL~     ~override/%s2%a.SPL~
   LPF ALTER_EFFECT INT_VAR duration=10 STR_VAR resource=~%s2%b~ END
@@ -242,12 +242,12 @@ ADD_PROJECTILE ~%workspace%/%s3%a.PRO~
 COPY ~%abilities%/healingrain.BAM~  ~override/%s3%a.BAM~
 //COPY ~%abilities%/healingrain2.BAM~  ~override/%s3%a.BAM~
 
-COPY ~%icons%/healingrain.BAM~      ~override/%s3%.BAM~
+COPY ~%icons%/healingrain.BAM~      ~override/%s3%b.BAM~
 COPY ~%abilities%/healingrain.SPL~  ~override/%s3%.SPL~
   SAY NAME1 @124
   SAY UNIDENTIFIED_DESC @224
-  WRITE_ASCII 0x3a ~%s3%~ #8
-  WRITE_ASCII 0x76 ~%s3%~ #8
+  WRITE_ASCII 0x3a ~%s3%b~ #8
+  WRITE_ASCII 0x76 ~%s3%b~ #8
 
   // moved effects to subspell
   READ_SHORT 0x90 amount
@@ -314,16 +314,18 @@ END
 
 
 //spell edits
-COPY ~%icons%/mediccure2.BAM~  ~override/%mediccure2%.BAM~
-COPY ~%icons%/mediccure3.BAM~  ~override/%mediccure3%.BAM~
+COPY ~%icons%/mediccure2.BAM~  ~override/%#2%b.BAM~
+  SPRINT icon2 ~%DEST_RES%~
+COPY ~%icons%/mediccure3.BAM~  ~override/%#3%b.BAM~
+  SPRINT icon3 ~%DEST_RES%~
 
 //
 //edit Recall Spirit
 COPY_EXISTING ~%mediccure3%.SPL~  ~override~
   SAY NAME1 @136
   SAY UNIDENTIFIED_DESC @236
-  WRITE_ASCII 0x3a ~%mediccure3%~ #8
-  LPF ALTER_SPELL_HEADER STR_VAR icon=~%mediccure3%~ END
+  WRITE_ASCII 0x3a ~%icon3%~ #8
+  LPF ALTER_SPELL_HEADER STR_VAR icon=~%icon3%~ END
 BUT_ONLY
 
 //
@@ -343,8 +345,8 @@ BUT_ONLY
 COPY_EXISTING ~%mediccure2%.SPL~  ~override~    // cloned from Heal (cures poison, disease, feeblemind, blindness, deafness)
   SAY NAME1 @133
   SAY UNIDENTIFIED_DESC @233
-  WRITE_ASCII 0x3a ~%mediccure2%~ #8
-  WRITE_ASCII 0x76 ~%mediccure2%~ #8
+  WRITE_ASCII 0x3a ~%icon2%~ #8
+  WRITE_ASCII 0x76 ~%icon2%~ #8
 
   // edits
   LPF update_op324_restrictions END
@@ -394,7 +396,7 @@ BEGIN
   IF_EXISTS
 END
 
-COPY ~%icons%/medicarts.BAM~             ~override/%s4%.BAM~
+COPY ~%icons%/medicarts.BAM~             ~override/%s4%b.BAM~
 COPY ~%abilities%/bloodtransfusion.SPL~  ~override/%s4%.SPL~
   SAY NAME1 @135
   SAY UNIDENTIFIED_DESC ~%desc%~
@@ -402,8 +404,8 @@ COPY ~%abilities%/bloodtransfusion.SPL~  ~override/%s4%.SPL~
 
   // edits
   WRITE_ASCII 0x10 CAS_M07 #8    // casting sound
-  WRITE_ASCII 0x3a ~%s4%~ #8     // icons
-  WRITE_ASCII 0x76 ~%s4%~ #8
+  WRITE_ASCII 0x3a ~%s4%b~ #8     // icons
+  WRITE_ASCII 0x76 ~%s4%b~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=214 STR_VAR resource=~%s4%~ END    // 2da table
   LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=30 END              // 30 = divination water
 
@@ -418,12 +420,12 @@ APPEND ~%s4%.2DA~  ~mediccure5  %mediccure5% 3~
 
 //
 //add Dragonrot
-COPY ~%icons%/dragonrot.BAM~      ~override/%s5%.BAM~
+COPY ~%icons%/dragonrot.BAM~      ~override/%s5%b.BAM~
 COPY ~%abilities%/dragonrot.SPL~  ~override/%s5%.SPL~
   SAY NAME1 @134
   SAY UNIDENTIFIED_DESC @234
-  WRITE_ASCII 0x3a ~%s5%~ #8
-  WRITE_ASCII 0x76 ~%s5%~ #8
+  WRITE_ASCII 0x3a ~%s5%b~ #8
+  WRITE_ASCII 0x76 ~%s5%b~ #8
   LPF ALTER_SPELL_HEADER INT_VAR projectile=1 END
   LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s5%a~ END    // visual
   LPF ALTER_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%s5%b~ END    // rot effects
@@ -436,19 +438,19 @@ COPY ~%abilities%/dragonrothead.VVC~   ~override/%s5%a.VVC~
 
 COPY ~%abilities%/dragonrottarget.VVC~  ~override/%s5%h.VVC~    // target point (sound only)
   WRITE_ASCII 0x8 None #8
-COPY ~%abilities%/dragonrotdecay2.BAM~  ~override/%s5%b.BAM~    // visual for main projectile
+COPY ~%abilities%/dragonrotdecay2.BAM~  ~override/%s5%u.BAM~    // visual for main projectile
 
-COPY - ~%abilities%/dragonrotdecay2.PRO~ ~%workspace%/%s5%b.PRO~    // main projectile
+COPY - ~%abilities%/dragonrotdecay2.PRO~ ~%workspace%/%s5%u.PRO~    // main projectile
   WRITE_ASCII 0x21c ~%s5%h~ #8
-  WRITE_ASCII 0x228 ~%s5%b~ #8
-ADD_PROJECTILE ~%workspace%/%s5%b.PRO~
+  WRITE_ASCII 0x228 ~%s5%u~ #8
+ADD_PROJECTILE ~%workspace%/%s5%u.PRO~
 
 //rot effects
 COPY ~%icons%/decaying.BAM~  ~override/%s5%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@134) STR_VAR bam=~%s5%i~ RET icon END
 
 COPY ~%abilities%/dragonrotdecay.SPL~  ~override/%s5%b.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s5%b~ END
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s5%u~ END
   LPF ADD_SPELL_EFFECT INT_VAR opcode=325 target=2 parameter1=(0 - 4) duration=30 END    // -4 to saves
   LPF CLONE_EFFECT INT_VAR match_opcode=141 opcode=142 parameter2=icon timing=0 duration=30 END
   LPF CLONE_EFFECT INT_VAR match_opcode=141 opcode=139 parameter1=RESOLVE_STR_REF (@321) END    // "Decaying"
@@ -500,13 +502,13 @@ COPY ~%abilities%/applyeffects.EFF~  ~override/%s5%f.EFF~
   WRITE_LONG 0x24 0     // timing = 0
 
 //cloud projectile (visual only - real projectile is the glowing on the ground)
-COPY ~%abilities%/dragonrotdecay3.BAM~  ~override/%s5%c.BAM~
-COPY - ~%abilities%/dragonrotdecay3.PRO~ ~%workspace%/%s5%c.PRO~
-  WRITE_ASCII 0x228 ~%s5%c~ #8
-ADD_PROJECTILE ~%workspace%/%s5%c.PRO~
+COPY ~%abilities%/dragonrotdecay3.BAM~  ~override/%s5%v.BAM~
+COPY - ~%abilities%/dragonrotdecay3.PRO~ ~%workspace%/%s5%v.PRO~
+  WRITE_ASCII 0x228 ~%s5%v~ #8
+ADD_PROJECTILE ~%workspace%/%s5%v.PRO~
 
 COPY ~%abilities%/applyeffects.SPL~  ~override/%s5%c.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR range=1000 projectile=~%s5%c~ END
+  LPF ALTER_SPELL_HEADER INT_VAR range=1000 projectile=~%s5%v~ END
 
 
 //

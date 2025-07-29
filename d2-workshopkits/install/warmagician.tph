@@ -10,14 +10,15 @@ COPY ~%passives%/resistup5elements.SPL~  ~override/%e2%.SPL~    // 10% resist + 
 
 
 //Add Unleash Magic
-COPY ~%icons%/unleashmagic.BAM~      ~override/%s1%i.BAM~
+COPY ~%icons%/unleashmagicicon.BAM~      ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@109) STR_VAR bam=~%s1%i~ RET icon END
 
+COPY ~%icons%/unleashmagic.BAM~     ~override/%s1%b.BAM~
 COPY ~%abilities%/applyeffects.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @109
   SAY UNIDENTIFIED_DESC @209
-  WRITE_ASCII 0x3a SPCL811B #8
-  LPF ALTER_SPELL_HEADER INT_VAR target=7 STR_VAR icon=SPCL811B END    // cast as free action
+  WRITE_ASCII 0x3a ~%s1%b~ #8
+  LPF ALTER_SPELL_HEADER INT_VAR target=7 STR_VAR icon=~%s1%b~ END    // cast as free action
   LPF ALTER_EFFECT INT_VAR opcode=146 STR_VAR resource=~%s1%a~ END
 
 COPY ~%abilities%/unleashwhorl.VVC~  ~override/%s1%a.VVC~
@@ -32,7 +33,7 @@ COPY ~%abilities%/unleashmagic.SPL~  ~override/%s1%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=321 opcode=326 STR_VAR resource=~%s0%x~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=332 duration=26 END
   LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s1%a~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
   LPF CLONE_EFFECT INT_VAR match_opcode=142 opcode=191 parameter1=2 parameter2=0 END    // v4.6: +2 caster level
   LPF ALTER_EFFECT INT_VAR target=2 resist_dispel=2 END    // not dispellable
 
@@ -49,7 +50,7 @@ COPY ~%abilities%/opcode318.SPL~  ~override/%s1%x.SPL~
 
 
 //Add Twisted Barricade
-COPY ~%icons%/twistedbarricade.BAM~      ~override/%s2%i.BAM~
+COPY ~%icons%/twistedbarricadeicon.BAM~      ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@110) STR_VAR bam=~%s2%i~ RET icon END
 
 /*
@@ -64,9 +65,12 @@ COPY ~%abilities%/applyeffects.SPL~  ~override/%s2%.SPL~
 COPY ~%abilities%/twistedbarricade.VVC~  ~override/%s2%a.VVC~
   WRITE_ASCII 0x80 ~EFF_P105~ #8
 
+COPY ~%icons%/twistedbarricade.BAM~     ~override/%s2%b.BAM~
 COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @110
   SAY UNIDENTIFIED_DESC @210
+  WRITE_ASCII 0x3a ~%s2%b~ #8
+  WRITE_ASCII 0x76 ~%s2%b~ #8
   LPF DELETE_EFFECT INT_VAR match_opcode=188 END
 //  LPF DELETE_EFFECT INT_VAR match_opcode=272 END
   LPF ALTER_EFFECT INT_VAR match_opcode=272 parameter1=1 parameter2=0 duration=19 STR_VAR resource=~%s2%a~ END
@@ -75,7 +79,7 @@ COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%.SPL~
 //  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter2=5 END                        // movement (set mode 5)
   LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s2%a~ END              // visual
   LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%s2%b~ insert=below END    // block normal missiles
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
   LPF ALTER_EFFECT INT_VAR target=2 resist_dispel=2 END    // not dispellable
 
   // spell deflection (level 10+)

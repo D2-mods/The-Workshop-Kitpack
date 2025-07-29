@@ -18,7 +18,7 @@ COPY ~%abilities%/castspellself.EFF~       ~override/%e3%a.EFF~
   WRITE_ASCII 0x30 ~%e3%a~ #8
 COPY ~%abilities%/critbonus1melee.SPL~     ~override/%e3%a.SPL~    // crit bonus
   LPF ALTER_EFFECT INT_VAR duration=18 parameter1=1 END
-  LPF CLONE_EFFECT INT_VAR opcode=142 parameter2=%icon% END
+  LPF CLONE_EFFECT INT_VAR opcode=142 parameter2=icon END
 
 
 //Critical miss removes crit bonus
@@ -33,12 +33,12 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%e4%a.SPL~    // remove cri
 COPY ~%icons%/ghostwalkericon.BAM~  ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@128) STR_VAR bam=~%s1%i~ RET icon END
 
-COPY ~%icons%/ghostwalker.BAM~      ~override/%s1%.BAM~
+COPY ~%icons%/ghostwalker.BAM~      ~override/%s1%b.BAM~
 COPY ~%abilities%/ghostwalker.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @128
   SAY UNIDENTIFIED_DESC @228
-  WRITE_ASCII 0x3a ~%s1%~ #8
-  WRITE_ASCII 0x76 ~%s1%~ #8
+  WRITE_ASCII 0x3a ~%s1%b~ #8
+  WRITE_ASCII 0x76 ~%s1%b~ #8
 //  WRITE_ASCII 0x3a ~SPPR732B~ #8
 //  WRITE_ASCII 0x76 ~SPPR732B~ #8
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=321 STR_VAR resource=~%s1%~ END
@@ -47,7 +47,7 @@ COPY ~%abilities%/ghostwalker.SPL~  ~override/%s1%.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=4 duration=12 STR_VAR resource=~%s1%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=4 duration=6  STR_VAR resource=~%s1%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=1 duration=0  STR_VAR resource=~%s1%a~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 COPY ~%abilities%/ghostwalkerimage.SPL~  ~override/%s1%a.SPL~
   LPF CD_EXTEND-O-MATIC INT_VAR base_dur=7 step_dur=0 step_size=5 level_cap=20 min_lev_alt=5 END

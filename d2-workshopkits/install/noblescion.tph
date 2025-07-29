@@ -33,16 +33,16 @@ END
 COPY ~%icons%/bloodbulleticon.BAM~   ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@125) STR_VAR bam=~%s1%i~ RET icon END
 
-COPY ~%icons%/bloodbullet.BAM~       ~override/%s1%.BAM~
+COPY ~%icons%/bloodbullet.BAM~       ~override/%s1%b.BAM~
 COPY ~%abilities%/bloodbullets.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @125
   SAY UNIDENTIFIED_DESC @225
-  WRITE_ASCII 0x3a ~%s1%~ #8
-  WRITE_ASCII 0x76 ~%s1%~ #8
+  WRITE_ASCII 0x3a ~%s1%b~ #8
+  WRITE_ASCII 0x76 ~%s1%b~ #8
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s1%a~ END    // damage bonus
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s1%b~ END    // THAC0 bonus
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%s0%x~ END    // remove effects
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
   LPF ALTER_EFFECT INT_VAR match_opcode=12 STR_VAR parameter1=5 dicenumber=0 dicesize=0 END    // self-damage = 5
   LPF d2_mindamageboost INT_VAR amount=2 duration=12 END
 

@@ -15,11 +15,11 @@ COPY ~%passives%/bloodminister.SPL~  ~override/%e2%.SPL~
 
 
 //add icon BAMs
-COPY ~%icons%/bloodtransfusion.BAM~   ~override/%s1%.BAM~
-COPY ~%icons%/bloodtypea.BAM~         ~override/%s2%.BAM~
-COPY ~%icons%/bloodtypeb.BAM~         ~override/%s3%.BAM~
-COPY ~%icons%/bloodtypec.BAM~         ~override/%s4%.BAM~
-COPY ~%icons%/bloodtyped.BAM~         ~override/%s5%.BAM~
+COPY ~%icons%/bloodtransfusion.BAM~   ~override/%s1%b.BAM~
+COPY ~%icons%/bloodtypea.BAM~         ~override/%s2%b.BAM~
+COPY ~%icons%/bloodtypeb.BAM~         ~override/%s3%b.BAM~
+COPY ~%icons%/bloodtypec.BAM~         ~override/%s4%b.BAM~
+COPY ~%icons%/bloodtyped.BAM~         ~override/%s5%b.BAM~
 COPY ~%icons%/bloodtypeportrait.BAM~  ~override/%s1%i.BAM~
 
 
@@ -32,8 +32,8 @@ COPY ~%abilities%/bloodtransfusion.SPL~  ~override/%s1%.SPL~
   LPF ALTER_EFFECT INT_VAR header=1 match_opcode=214 STR_VAR resource=~%s1%b~ END
   LPF ALTER_EFFECT INT_VAR header=2 match_opcode=214 STR_VAR resource=~%s1%c~ END
   LPF ALTER_EFFECT INT_VAR header=3 match_opcode=214 STR_VAR resource=~%s1%d~ END
-  WRITE_ASCII 0x3a ~%s1%~ #8    // icon BAMs
-  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s1%~ END
+  WRITE_ASCII 0x3a ~%s1%b~ #8    // icon BAMs
+  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s1%b~ END
 
 COPY ~%abilities%/bloodtransfusion.2DA~  ~override/%s1%a.2DA~    // make 2da lists
 	APPEND ~%s1%a.2DA~  ~healing_blood   %s2% 3~
@@ -75,8 +75,8 @@ COPY ~%abilities%/spellfailed.SPL~  ~override/%s0%b.SPL~
 COPY ~inlined/d2bloodtype.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @603
   SAY UNIDENTIFIED_DESC @212
-  WRITE_ASCII 0x3a ~%s2%~ #8    // icon BAMs
-  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s2%~ END
+  WRITE_ASCII 0x3a ~%s2%b~ #8    // icon BAMs
+  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s2%b~ END
 
   LPF ALTER_EFFECT INT_VAR match_parameter2=49 STR_VAR resource=~%s2%a~ END
   LPF CLONE_EFFECT INT_VAR match_parameter2=49 STR_VAR resource=~%s0%a~ END
@@ -91,7 +91,7 @@ COPY ~%abilities%/bloodtypea.SPL~  ~override/%s2%a.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=146 END
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@306) END        // "Regenerating"
   LPF CLONE_EFFECT INT_VAR match_opcode=98 opcode=17 parameter1=15 parameter2=2 timing=1 duration=0 END    // heal 15% hp
-  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=icon END
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!body~ END     // cures poison and disease
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ END    // cures bleeding
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!phase~ END    // cures acid dot, phasing, etc.
@@ -102,8 +102,8 @@ COPY ~%abilities%/bloodtypea.SPL~  ~override/%s2%a.SPL~
 COPY ~inlined/d2bloodtype.SPL~  ~override/%s3%.SPL~
   SAY NAME1 @604
   SAY UNIDENTIFIED_DESC @212
-  WRITE_ASCII 0x3a ~%s3%~ #8    // icon BAMs
-  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s3%~ END
+  WRITE_ASCII 0x3a ~%s3%b~ #8    // icon BAMs
+  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s3%b~ END
 
   LPF ALTER_EFFECT INT_VAR match_parameter2=49 STR_VAR resource=~%s3%a~ END
   LPF CLONE_EFFECT INT_VAR match_parameter2=49 STR_VAR resource=~%s0%a~ END
@@ -116,7 +116,7 @@ COPY ~%abilities%/bloodtypeb.SPL~  ~override/%s3%a.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=324 END
   LPF DELETE_EFFECT INT_VAR match_opcode=321 END
   LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s3%b~ END    // +1 damage
-  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_poison_arrays END
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_disease_arrays END
@@ -133,8 +133,8 @@ COPY ~%abilities%/damageup1.SPL~      ~override/%s3%b.SPL~
 COPY ~inlined/d2bloodtype.SPL~  ~override/%s4%.SPL~
   SAY NAME1 @605
   SAY UNIDENTIFIED_DESC @212
-  WRITE_ASCII 0x3a ~%s4%~ #8    // icon BAMs
-  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s4%~ END
+  WRITE_ASCII 0x3a ~%s4%b~ #8    // icon BAMs
+  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s4%b~ END
 
   LPF ALTER_EFFECT INT_VAR match_parameter2=49 STR_VAR resource=~%s4%a~ END
   LPF CLONE_EFFECT INT_VAR match_parameter2=49 STR_VAR resource=~%s0%a~ END
@@ -149,7 +149,7 @@ COPY ~%abilities%/bloodtypec.SPL~  ~override/%s4%a.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=146 END
   LPF ALTER_EFFECT INT_VAR match_opcode=166 parameter1=5 END    // 5% magic resist
   LPF CLONE_EFFECT INT_VAR match_opcode=19 opcode=6 END         // +4 charisma
-  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=icon END
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!vamp~ END    // cures level drain
   LPF d2_protect_on_castequip INT_VAR duration=2 STR_VAR resource=~%s0%x~ insert=first END
 
@@ -168,8 +168,8 @@ COPY_EXISTING ~SPPR417.SPL~  ~override/%s4%b.SPL~    // clone Lesser Restoration
 COPY ~inlined/d2bloodtype.SPL~  ~override/%s5%.SPL~
   SAY NAME1 @606
   SAY UNIDENTIFIED_DESC @212
-  WRITE_ASCII 0x3a ~%s5%~ #8    // icon BAMs
-  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s5%~ END
+  WRITE_ASCII 0x3a ~%s5%b~ #8    // icon BAMs
+  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s5%b~ END
 
   LPF ALTER_EFFECT INT_VAR match_parameter2=49 STR_VAR resource=~%s5%a~ END
   LPF CLONE_EFFECT INT_VAR match_parameter2=49 STR_VAR resource=~%s0%a~ END
@@ -190,7 +190,7 @@ COPY ~%abilities%/bloodtyped.SPL~  ~override/%s5%a.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=84 END
   LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=85 END
   LPF CLONE_EFFECT INT_VAR match_opcode=86 opcode=173 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_level_drain_arrays END
   LPF d2_string_immunities END

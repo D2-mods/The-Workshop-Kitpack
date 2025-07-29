@@ -68,16 +68,16 @@ END
 COPY ~%icons%/rootingshoticon.BAM~  ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@106) STR_VAR bam=~%s1%i~ RET icon END
 
-COPY ~%icons%/rootingshot.BAM~      ~override/%s1%.BAM~
+COPY ~%icons%/rootingshot.BAM~      ~override/%s1%b.BAM~
 COPY ~%abilities%/rootingshot.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @106
   SAY UNIDENTIFIED_DESC @206
-  WRITE_ASCII 0x3a ~%s1%~ #8
-  WRITE_ASCII 0x76 ~%s1%~ #8
+  WRITE_ASCII 0x3a ~%s1%b~ #8
+  WRITE_ASCII 0x76 ~%s1%b~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
   LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=249 STR_VAR resource=~%s1%x~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=249 STR_VAR resource=~%s1%e~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
   LPF ALTER_EFFECT INT_VAR match_duration=12 duration=15 END    // 15 seconds (close enough to 2 rounds)
 
 //main subspell
@@ -109,16 +109,16 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%s1%x.SPL~
 COPY ~%icons%/bloodlettericon.BAM~  ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@107) STR_VAR bam=~%s2%i~ RET icon END
 
-COPY ~%icons%/bloodletter.BAM~      ~override/%s2%.BAM~
+COPY ~%icons%/bloodletter.BAM~      ~override/%s2%b.BAM~
 COPY ~%abilities%/bloodletter.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @107
   SAY UNIDENTIFIED_DESC @207
-  WRITE_ASCII 0x3a ~%s2%~ #8
-  WRITE_ASCII 0x76 ~%s2%~ #8
+  WRITE_ASCII 0x3a ~%s2%b~ #8
+  WRITE_ASCII 0x76 ~%s2%b~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%a~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 //healing
 COPY ~%abilities%/castspellself.EFF~    ~override/%s2%a.EFF~

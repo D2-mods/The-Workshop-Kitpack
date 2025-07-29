@@ -54,15 +54,15 @@ OUTER_SET d2splintercheck = stat
 COPY ~%icons%/calledshot.BAM~  ~override/%s1%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@113) STR_VAR bam=~%s1%i~ RET icon END
 
-COPY ~%icons%/splinteringshot.BAM~      ~override/%s1%.BAM~
+COPY ~%icons%/splinteringshot.BAM~      ~override/%s1%b.BAM~
 COPY ~%abilities%/splinteringshot.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @113
   SAY UNIDENTIFIED_DESC @213
-  WRITE_ASCII 0x3a ~%s1%~ #8
-  WRITE_ASCII 0x76 ~%s1%~ #8
+  WRITE_ASCII 0x3a ~%s1%b~ #8
+  WRITE_ASCII 0x76 ~%s1%b~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=249 STR_VAR resource=~%s1%a~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 COPY ~%abilities%/castspelltarget.EFF~    ~override/%s1%a.EFF~
   WRITE_ASCII 0x30 ~%s1%a~ #8
@@ -93,16 +93,16 @@ COPY ~%icons%/visceralattackicon.BAM~  ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@114) STR_VAR bam=~%s2%i~ RET icon END
 
 LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@114) STR_VAR color=dark RET newtext END
-COPY ~%icons%/visceralattack.BAM~      ~override/%s2%.BAM~
+COPY ~%icons%/visceralattack.BAM~      ~override/%s2%b.BAM~
 COPY ~%abilities%/visceralattack.SPL~  ~override/%s2%.SPL~
   SAY NAME1 ~%newtext%~
   SAY UNIDENTIFIED_DESC @214
-  WRITE_ASCII 0x3a ~%s2%~ #8
-  WRITE_ASCII 0x76 ~%s2%~ #8
+  WRITE_ASCII 0x3a ~%s2%b~ #8
+  WRITE_ASCII 0x76 ~%s2%b~ #8
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s2%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%b~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=248 STR_VAR resource=~%s2%a~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
   LPF d2_mindamageboost INT_VAR amount=3 duration=7 END
 
 //subspell (heal + haste)
