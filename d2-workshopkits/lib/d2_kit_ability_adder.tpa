@@ -31,6 +31,7 @@ BEGIN
   SET row_count = (rows - 1)    // count starts at 0 for some weidu actions
   PATCH_IF ((level < 1) OR (level > 50)) BEGIN SET level = 1 END
   PATCH_IF ((limit < level) OR (limit > 50)) BEGIN SET limit = 50 END
+  PATCH_IF (multi>0 && increment<1) BEGIN  SET increment = 1  END
 
 //Set entry name for ability
   PATCH_IF (~%resource%~ STRING_EQUAL_CASE ~~) BEGIN
@@ -116,6 +117,7 @@ COPY_EXISTING ~%2da%.2da~ ~override~
   SET row_count = (rows - 1)    // count starts at 0 for some weidu actions
   PATCH_IF ((level < 1) OR (level > 50)) BEGIN SET level = 1 END
   PATCH_IF ((limit < level) OR (limit > 50)) BEGIN SET limit = 50 END
+  PATCH_IF (multi>0 && increment<1) BEGIN  SET increment = 1  END
 
 //Set entry name for ability
   PATCH_IF (~%resource%~ STRING_EQUAL_CASE ~~) BEGIN

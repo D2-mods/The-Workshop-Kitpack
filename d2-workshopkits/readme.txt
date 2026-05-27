@@ -200,6 +200,11 @@ Notes:
 
 Version info:
 
+v5.30
+- IWDEE/IWDification: fixed a possible installer error if you disabled the Starjammer kit in the Config.ini. This issue only happened if IWD-style evasion was in the game. (caused by an oversight because I didn't test disabling kits with IWDEE/IWDification)
+- IWDEE: items from this mod will now have description images if using a UI mod that enables them for IWDEE. Mods that do this include Infinity UI++ and the new IWD icons mod from G3. Previously these were removed due to issues with older versions of Infinity UI++.
+- other compatibility tweaking.
+
 v5.29
 - fixed BAM icons not appearing in the ability description when right-clicking icon. (note: the fix was adding a "b" to the end of the icon resource names)
 - fixed another icon with corrupted graphics (Golden Scarab).

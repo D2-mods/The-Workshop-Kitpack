@@ -28,6 +28,7 @@ INCLUDE ~%install%/%kitname%scripts.tph~
 INCLUDE ~%install%/%kitname%dfiles.tph~
 INCLUDE ~%install%/%kitname%stores.tph~
 
+ACTION_IF (silentmode < 2) BEGIN  VERBOSE  END
 INCLUDE ~%install%/evasionchecks.tph~
 INCLUDE ~%install%/spellprep3.tph~
 INCLUDE ~%install%/hbag.tph~
@@ -37,7 +38,7 @@ INCLUDE ~%install%/castingspeedpatch.tph~
 
 OUTER_TEXT_SPRINT mode  ~item~
 INCLUDE ~%install%/itemtypepatch.tph~
-INCLUDE ~%install%/iwditempatch.tph~
+//INCLUDE ~%install%/iwditempatch.tph~
 INCLUDE ~%install%/tobbags.tph~
 INCLUDE ~%install%/aiupscales.tph~
 //INCLUDE ~%install%/backupfiles.tph~

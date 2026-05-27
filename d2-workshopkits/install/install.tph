@@ -61,15 +61,6 @@ ACTION_IF (nopowderkeg = 0) BEGIN
   INCLUDE ~%install%/%kitname%cast.tph~
 END
 
-//Spell Fencer (d2wkh)
-ACTION_IF (nospellfencer = 0) BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wkh~
-  OUTER_TEXT_SPRINT kitname ~SPELLFENCER~
-  INCLUDE ~%install%/variables.tph~
-  INCLUDE ~%install%/resources.tph~
-  INCLUDE ~%install%/%kitname%.tph~
-END
-
 
 
 //Fighter, thief, cleric
@@ -241,7 +232,21 @@ END
 
 
 
+//multiclasses
+
+//Spell Fencer (d2wkh)
+ACTION_IF (nospellfencer = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkh~
+  OUTER_TEXT_SPRINT kitname ~SPELLFENCER~
+  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+END
+
+
+
 //Extra stuff
+ACTION_IF (silentmode < 2) BEGIN  VERBOSE  END
 INCLUDE ~%install%/hunterbadgescripts.tph~
 INCLUDE ~%install%/hunterbadgestores.tph~
 INCLUDE ~%install%/hunterbadgesToB.tph~
@@ -264,7 +269,7 @@ INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/holysymbolscheck.tph~
 INCLUDE ~%install%/5ecastingspells.tph~
 INCLUDE ~%install%/olvynspellsfix.tph~
-INCLUDE ~%install%/iwditempatch.tph~
+//INCLUDE ~%install%/iwditempatch.tph~
 INCLUDE ~%install%/iwdspellpatch.tph~
 INCLUDE ~%install%/aiupscales.tph~
 //INCLUDE ~%install%/backupfiles.tph~

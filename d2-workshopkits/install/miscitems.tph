@@ -315,9 +315,13 @@ COPY ~%files%/golemring.ITM~  ~override/%m6%.ITM~
   LPF d2_string_immunities END
   LPF ee_fixpack_immunities STR_VAR status=~haste slow~ END
 
+//filter spell (needed if adding pstee compat)
+COPY ~%abilities%/applyeffects.SPL~  ~override/%m6%a.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%m6%b~ END
+
 COPY ~%icons%/ironflesh.BAM~  ~override/%m6%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@616) STR_VAR bam=~%m6%i~ RET icon END
-COPY ~%files%/golemring.SPL~  ~override/%m6%a.SPL~
+COPY ~%files%/golemring.SPL~  ~override/%m6%b.SPL~
   SAY NAME1 @70110
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 //  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter2=5 END            // movement (set mode 5)
@@ -327,7 +331,7 @@ COPY ~%files%/golemring.SPL~  ~override/%m6%a.SPL~
   LPF ee_fixpack_immunities STR_VAR status=~haste slow~ END
   LPF d2_remove_effects_on_cast END
 
-LAF d2_bleed_protection STR_VAR resource=~%m6%a~ END
+LAF d2_bleed_protection STR_VAR resource=~%m6%b~ END
 
 
 //

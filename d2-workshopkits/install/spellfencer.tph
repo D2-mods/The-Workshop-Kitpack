@@ -62,7 +62,7 @@ COPY ~inlined/d2clab.2DA~  ~override/%kitid%M.2DA~
   // mod
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%m1%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%5ecasting%~ END
-  LPF tof_denote_spellschool STR_VAR type=~alteration~ END    // tof denote hla
+  LPF tof_denote_spellschool STR_VAR type=~enchantment~ END    // tof denote hla
 
 
 //Kit function

@@ -70,7 +70,7 @@ COPY ~%abilities%/twistedbarricade.SPL~  ~override/%s2%.SPL~
   SAY NAME1 @110
   SAY UNIDENTIFIED_DESC @210
   WRITE_ASCII 0x3a ~%s2%b~ #8
-  WRITE_ASCII 0x76 ~%s2%b~ #8
+  LPF ALTER_SPELL_HEADER STR_VAR icon=~%s2%b~ END
   LPF DELETE_EFFECT INT_VAR match_opcode=188 END
 //  LPF DELETE_EFFECT INT_VAR match_opcode=272 END
   LPF ALTER_EFFECT INT_VAR match_opcode=272 parameter1=1 parameter2=0 duration=19 STR_VAR resource=~%s2%a~ END

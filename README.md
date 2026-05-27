@@ -8,7 +8,7 @@ Languages: English, French (JohnBob)
 
 This is a kitpack I've been working on for a while. It currently has 17 kits + 11 multiclass variants. Also adds 30+ items, including 6 Hunter Badges, 12 Caryll Runes, and 17 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 
-NOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
+> Note: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
 
 --
 
@@ -542,7 +542,7 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 - Proficiency overhauls: Can install before or after (except the ToF one). Recommended order is to install this mod before most overhauls, then run the Kit Updater after.
 - HLA changes/tweaks: Can install before or after (except the ToF one). All HLA table edits are done from both the main component and the updater. You can re-run the updater at any time to rebuild all HLA tables.
 
-NOTE: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. Technically, this mod is safe to install even after most tweak mods, but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
+> Note: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. Technically, this mod is safe to install even after most tweak mods, but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
 
 --
 
@@ -570,7 +570,7 @@ Sphere lists: [readme-spheres.txt](d2-workshopkits/readme-spheres.txt)
 - The divine casting kits have full support for custom spheres. Must be installed before the cleric revisions.
 - All kits need to be before anything that touches the proficiency or HLA screens (or buttons might not work).
 
-NOTE: Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
+> Note: Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
 
 Kit Updater: **This is REQUIRED for full compat with ToF.** Rebuilds all feats/HLA lists (which will probably be broken without it). Also minor fixes for Medic and Powder Keg kits. More on feats/HLAs below.
 
@@ -583,7 +583,7 @@ Kit Updater: **This is REQUIRED for full compat with ToF.** Rebuilds all feats/H
 - 3e metamagic can be installed before or after (starting with v5.17). Confirmed working with kit-specific arcane/divine spells. ("Spell Level Increase" +2 means using it on a level 2 spell expends one level 4 spell instead).
 - Starjammer spells are also compatible with the Necropotence level 9 spell, with or without the spell.ids config option. If installed before OlvynSpells, run the Kit Updater to check EEex effects.
 
-NOTE: With the current versions of both mods, basically everything works fine installed before or after. If you want to be 100% safe, then install new spells after this mod, since future updates could potentially add new EEex effects.
+> Note: With the current versions of both mods, basically everything works fine installed before or after. If you want to be 100% safe, then install new spells after this mod, since future updates could potentially add new EEex effects.
 
 --
 
@@ -596,7 +596,8 @@ NOTE: With the current versions of both mods, basically everything works fine in
 - Many kits will have 1 or more additional options. (ex. all archers can take any ranged feat/HLA, Medic can take poison upgrades, Grave Warden can take Use Scrolls/Wands, etc.)
 - Some kits have options removed. (ex. Drifter can't take any spell-related feats, but has more combat feats/HLAs than other rangers)
 - All arcane kits from this mod will gain one of the "Arcane Knowledge" feats for free. These are required for selecting HLA spells. The feat is denoted at level 1, but effects aren't given until level 18 mage.
-- Note: The Kit Updater patches the m_dw_hld.lua file, and backs up an unmodified version in "weidu_external\d2wk" folder. It shouldn't normally be necessary to restore the backup, but just in case, the updater has an option to do so.
+
+> Note: The Kit Updater patches the m_dw_hld.lua file, and backs up an unmodified version in "weidu_external\d2wk" folder. It shouldn't normally be necessary to restore the backup, but just in case, the updater has an option to do so.
 
 #
 ### FnP additional info:
@@ -684,7 +685,7 @@ Hunter Badges
 - Hunter Badges are usable by anyone, but Beast Hunters gain additional effects.
 - Badges can only be crafted once each per playthrough.
 
-NOTE: Beast Hunters don't gain a crafting ability, but they can still purchase these badges.
+> Note: Beast Hunters don't gain a crafting ability, but they can still purchase these badges.
 
 
 #### Hunter Badges:
@@ -1287,7 +1288,7 @@ Caryll Runes
 - Characters don't need to be on the same map to be affected.
 - Only one rune may be in effect at a time. When a rune is used, it first removes other rune effects.
 
-Note: Icons are slightly different for each rune. They're not amazing looking, but at least helps to differentiate them. The description image is the same for all runes. I couldn't draw anything I liked, so I just used one of the already-made BAM images from BG2.
+> Note: Icons are slightly different for each rune. They're not amazing looking, but at least helps to differentiate them. The description image is the same for all runes. I couldn't draw anything I liked, so I just used one of the already-made BAM images from BG2.
 
 
 #### Caryll Runes:

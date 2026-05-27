@@ -37,8 +37,9 @@ INCLUDE ~%install%/hlatables2.tph~
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_checkhlas BEGIN    // kit => class (can be a list)
   d2medic             => fighter
   d2drifter           => fighter
-  d2warmagician       => invokerabjurerenchanter
-  d2starjammer        => transmuterconjurerdiviner
+  d2warmagician       => invokerabjurer
+  d2starjammer        => transmuterconjurer
+  d2astrologer        => divinernecromancer
   d2gravewarden       => fighter
   d2moonlightknight   => fighter
   d2moonlightknightcr => fighter
@@ -52,6 +53,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_restricthlas BEGIN    // abilities to skip 
   d2drifter           => ~AP_DW-GCRY GA_SPCL909 GA_SPCL903 AP_SPCL903~
   d2warmagician       => none
   d2starjammer        => none
+  d2astrologer        => none
   d2gravewarden       => ~AP_DW-FTMTY AP_DW-FTDDL AP_DW-GCRY GA_SPCL909 GA_SPCL903 AP_SPCL903 AP_MO#HLA07 AP_MO#HLA08~
   d2moonlightknight   => ~AP_DW-FTMTY AP_DW-FTDDL AP_DW-GCRY GA_SPCL909 GA_SPCL903 AP_SPCL903 AP_MO#HLA07 AP_MO#HLA08~
   d2moonlightknightcr => ~AP_DW-FTMTY AP_DW-FTDDL AP_DW-GCRY GA_SPCL909 GA_SPCL903 AP_SPCL903 AP_MO#HLA07 AP_MO#HLA08~
@@ -135,12 +137,12 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_restricthlas_multi BEGIN    // abilities to
 END
 
 //use specialist tables (if different from mage)
-OUTER_SPRINT $d2wk_checkhlas_multi(~d2spellfencer~) ~fightertransmuter~
+OUTER_SPRINT $d2wk_checkhlas_multi(~d2spellfencer~) ~fighterenchanter~
 OUTER_SPRINT $d2wk_checkhlas_multi(~d2beasthunterfm~) ~fighterinvoker~
 OUTER_SPRINT $d2wk_checkhlas_multi(~d2warhoundfm~) ~fighterabjurer~
 OUTER_SPRINT $d2wk_checkhlas_multi(~d2fullmetaljaguarfm~) ~fighterillusionist~
 OUTER_SPRINT $d2wk_checkhlas_multi(~d2crowhuntermt~) ~thiefdiviner~
-OUTER_SPRINT $d2wk_checkhlas_multi(~d2nursemt~) ~thiefenchanter~
+OUTER_SPRINT $d2wk_checkhlas_multi(~d2nursemt~) ~thieftransmuter~
 
 ACTION_PHP_EACH d2wk_checkhlas_multi AS kit => class BEGIN
   ACTION_PHP_EACH d2_hla_tableres_array AS kit2 => abbrev BEGIN

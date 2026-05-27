@@ -8,26 +8,31 @@ Resource: d2#hbag.ITM
 
 ACTION_IF !(FILE_EXISTS ~override/d2#hbag.ITM~) BEGIN
 
+OUTER_SPRINT descimage  ~d2dbag~
+COPY ~%hbag%/eebagdesc.bam~  ~override/%descimage%.bam~
+
 ACTION_IF (GAME_IS ~bgee bg2ee eet~) BEGIN
   COPY ~%hbag%/d2hbee1.ITM~  ~override/d2#hbag.ITM~
     SAY NAME1 @70124 SAY UNIDENTIFIED_DESC @70224
     SAY NAME2 @70124
-    WRITE_ASCII 0x3a ~d2#hbag~ #8    // set inventory icon
-	
+    WRITE_ASCII 0x3a ~d2#hbag~ #8
+    WRITE_ASCII 0x58 ~%descimage%~ #8
+
   COPY ~%hbag%/d2hbee1.STO~  ~override/d2#hbag.STO~
     SAY 0xc @70124  /* Hunter's Item Sack */
-    LPF cannot_add_items END         // make it so items cannot be placed in the bag
+    LPF cannot_add_items END
 END
   
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   COPY ~%hbag%/d2hbee0.ITM~  ~override/d2#hbag.ITM~
     SAY NAME1 @70124
     SAY NAME2 @70124 SAY DESC @70224
-    WRITE_ASCII 0x3a ~d2#hbag~ #8    // set inventory icon
-	
+    WRITE_ASCII 0x3a ~d2#hbag~ #8
+    WRITE_ASCII 0x58 ~%descimage%~ #8
+
   COPY ~%hbag%/d2hbee0.STO~  ~override/d2#hbag.STO~
     SAY 0xc @70124  /* Hunter's Item Sack */
-    LPF cannot_add_items END         // make it so items cannot be placed in the bag
+    LPF cannot_add_items END
 END
 
 COPY ~%icons%/d2#hbag.BAM~ ~override~

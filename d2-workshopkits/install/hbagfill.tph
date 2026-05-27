@@ -1,5 +1,9 @@
-//Use to add items to d2#hbag (empty by default)
+/*
+Use to add items to d2#hbag (empty by default)
+*/
 
+
+OUTER_SET addhsymbols = 0
 
 COPY_EXISTING ~d2#hbag.STO~ ~override~
 
@@ -23,7 +27,7 @@ COPY_EXISTING ~d2#hbag.STO~ ~override~
     LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%badge_old%~ flags=~identified~ position=~last~ END
   END
 
-/*
+PATCH_IF (addhsymbols > 0) BEGIN
   // holy symbols
   PATCH_IF (FILE_EXISTS ~override/%holysymbolblood%.ITM~) BEGIN
     LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%holysymbolblood%~ flags=~identified~ position=~last~ END
@@ -31,7 +35,7 @@ COPY_EXISTING ~d2#hbag.STO~ ~override~
   PATCH_IF (FILE_EXISTS ~override/%holysymbolmoon%.ITM~) BEGIN
     LPF ADD_STORE_ITEM_EX INT_VAR overwrite=1 STR_VAR item_name=~%holysymbolmoon%~ flags=~identified~ position=~last~ END
   END
-*/
+END
 
   // Misc items
   PATCH_IF (FILE_EXISTS ~override/%crowfeather%.ITM~) BEGIN
@@ -129,5 +133,5 @@ COPY_EXISTING ~d2#hbag.STO~ ~override~
 BUT_ONLY
 
 
-/*
-*/
+//
+//

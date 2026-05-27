@@ -44,6 +44,9 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wk_kitname_array BEGIN
   d2wki => ~%d2wki_name%~
   d2wkj => ~%d2wkj_name%~
   d2wkk => ~%d2wkk_name%~
+  d2wkl => ~%d2wkl_name%~
+  d2wkm => ~%d2wkm_name%~
+  d2wkn => ~%d2wkn_name%~
 //
   d2wkz => ~%d2wkz_name%~
 END

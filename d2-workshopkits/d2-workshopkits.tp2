@@ -1,6 +1,6 @@
 BACKUP ~weidu_external/backup/d2-workshopkits~
 AUTHOR ~Dan_P~
-VERSION ~5.29~
+VERSION ~5.30~
 AUTO_EVAL_STRINGS
 
 ALWAYS
@@ -96,19 +96,19 @@ DESIGNATED 9999
 REQUIRE_PREDICATE (GAME_IS ~bgee bg2ee iwdee eet~) ~Game not supported~
 REQUIRE_PREDICATE (FILE_EXISTS ~engine.lua~) ~~
 REQUIRE_PREDICATE (RESOURCE_CONTAINS ~action.ids~ ~zoomlock~) ~~    // extra checks for ee v2.0+
-REQUIRE_PREDICATE !(~%updatemode%~ STR_EQ ~skip~) ~~
+REQUIRE_PREDICATE !(~%d2wkupdater%~ STR_EQ ~skip~) ~~
 SUBCOMPONENT @9999
 LABEL ~D2_WORKSHOP_KITS~
 INCLUDE ~%install%/install.tph~
 
 BEGIN @2    // Base kits only
-REQUIRE_PREDICATE !(~%updatemode%~ STR_EQ ~skip~) ~~
+REQUIRE_PREDICATE !(~%d2wkupdater%~ STR_EQ ~skip~) ~~
 SUBCOMPONENT @9999
 LABEL ~D2_WORKSHOP_NOVARIANTS~
 INCLUDE ~%install%/novariants.tph~
 
 BEGIN @3    // Misc items only (no kits or Hunter Badges)
-REQUIRE_PREDICATE !(~%updatemode%~ STR_EQ ~skip~) ~~
+REQUIRE_PREDICATE !(~%d2wkupdater%~ STR_EQ ~skip~) ~~
 SUBCOMPONENT @9999
 LABEL ~D2_WORKSHOP_NOKITS~
 INCLUDE ~%install%/install10.tph~
@@ -119,7 +119,7 @@ INCLUDE ~%install%/install10.tph~
 
 BEGIN @21    // Standard Install
 DESIGNATED 10
-REQUIRE_PREDICATE !(~%updatemode%~ STR_EQ ~skip~) ~~
+REQUIRE_PREDICATE !(~%d2wkupdater%~ STR_EQ ~skip~) ~~
 REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~d2-workshopkits.tp2~ 9999) OR 
                    (MOD_IS_INSTALLED ~d2-workshopkits.tp2~ 10000))~~
 SUBCOMPONENT @10
@@ -127,7 +127,7 @@ LABEL ~D2_WORKSHOP_ITEMS~
 INCLUDE ~%install%/install10.tph~
 
 BEGIN @22    // Dev mode (start with Item Sack)~
-REQUIRE_PREDICATE !(~%updatemode%~ STR_EQ ~skip~) ~~
+REQUIRE_PREDICATE !(~%d2wkupdater%~ STR_EQ ~skip~) ~~
 REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~d2-workshopkits.tp2~ 9999) OR 
                    (MOD_IS_INSTALLED ~d2-workshopkits.tp2~ 10000))~~
 SUBCOMPONENT @10

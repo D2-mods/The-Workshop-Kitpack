@@ -1,6 +1,6 @@
 /*
 Make kit abilities unaffected by casting speed penalties (i.e. from Ether Booster)
-Skipped: Denial, Moonlight Vortex, Bolt of Glory + all spells
+Skipped: spells or spell-like (Denial, Moonlight Vortex, Bolt of Glory, Earthen Wrath)
 */
 
 
@@ -58,6 +58,9 @@ ACTION_FOR_EACH ability IN
     ~%medicconfig1%~
     ~%medicconfig2%~
     ~%medicconfig3%~
+    ~%resonance%~
+    ~%terramagica%~
+    ~%phantasm%~
 //mod
     ~%rrenhancedsong%~
     ~%rrlingeringsong%~

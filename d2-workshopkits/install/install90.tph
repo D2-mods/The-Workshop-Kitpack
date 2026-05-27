@@ -32,7 +32,7 @@ INCLUDE ~%install%/werewolf.tph~    // for items component/updater
 INCLUDE ~%install%/tempfixes.tph~
 INCLUDE ~%install%/tofhlasongfixer.tph~
 
-ACTION_CLEAR_ARRAY ~d2wk_kitname_array~
+//ACTION_CLEAR_ARRAY ~d2wk_kitname_array~
 
 
 //
@@ -46,6 +46,7 @@ ACTION_IF (updater=0 OR updater=2) BEGIN
 END
 
 ACTION_IF (updater=0 OR updater=3) BEGIN
+  PRINT ~checking proficiencies ... (this might take a while)~
   INCLUDE ~%install%/weapprofbase.tph~
   INCLUDE ~%install%/weapprofedits.tph~
   INCLUDE ~%install%/subtleskills.tph~
@@ -325,6 +326,7 @@ END
 
 
 //
+PRINT ~making some final checks ...~
 INCLUDE ~%install%/spellcapconfig.tph~
 INCLUDE ~%install%/hunterbadgesToB.tph~
 INCLUDE ~%install%/castingspeedpatch.tph~
@@ -341,7 +343,7 @@ END
 
 
 //end current weidu run
-OUTER_TEXT_SPRINT updatemode ~skip~
+OUTER_TEXT_SPRINT d2wkupdater ~skip~
 
 
 //

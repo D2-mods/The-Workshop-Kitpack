@@ -8,6 +8,7 @@ Text in this file appears in the game.
 //non-Warrior kits (v1.0)
 //v3.0 kits
 //v4.0 kits
+//v6.0 kits
 //Ability text
 //Spell Text
 //Item text
@@ -630,30 +631,9 @@ Disadvantages:
 
 
 
-//v5.0 kits
+//
+//v6.0 kits
 
-/*
-//Crystal Sage
-@101801 = ~Crystal Sage~
-@101802 = ~crystal sage~
-@101803 = ~~
-@101804 = ~~
-@101805 = ~~
-
-//Glintblade
-@101901 = ~Glintblade~
-@101902 = ~glintblade~
-@101903 = ~~
-@101904 = ~~
-@101905 = ~~
-
-//Zephyr
-@102001 = ~Zephyr~
-@102002 = ~zephyr~
-@102003 = ~~
-@102004 = ~~
-@102005 = ~~
-*/
 
 
 
@@ -920,6 +900,13 @@ The monk calls back a deceased person's spirit if it still lingers near the body
 @237 = ~Spiritual Clarity
 
 The monk strengthens a creature's spiritual resolve and purges the creature's mind of negative influences. This ability removes the effects of fear, charm, confusion and feeblemind from a single creature. Any cursed items or effects are also removed.~
+
+
+
+//v6.0 abilities
+
+
+//
 
 
 
