@@ -6,11 +6,16 @@ Languages: English, French (JohnBob)
 
 This is a kitpack I've been working on for a while. It currently has 17 kits + 11 multiclass variants. Also adds 30+ items, including 6 Hunter Badges, 12 Caryll Runes, and 17 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources. Compatible with BG:EE, BG2:EE, IWD:EE, and EET.
 
-NOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
+Note: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.
 
 --
 
-Kit Updater: Run this after all tweak and overhaul mods (except possibly Dual to Kit). It rebuilds HLA lists and updates proficiencies + some other minor checks. It also includes the previous "Update Medic Arts" component (use if Poison Weapon or Lay On Hands were revised). More info in Components section.
+What you should know:
+- The GitHub page includes a lot of additional info. You don't need to read it all to use this mod, but it's there if you're confused about something or want to quickly reference kit or item descriptions.
+- Kit Updater component: Rechecks mod compatibility + adjusts config.ini settings. Skipped on initial install, can re-run at any time. More info in Components section.
+- Current version of the mod was tested on EE v2.7.x. It should work fine on v2.6 and possibly v2.5 but I'm not going to check it myself. It is not installable on pre-v2.0 versions.
+- This mod does not require EE fixpack or EEex. However, most modding work is now done with both installed. I do test without them, but not for every update.
+- Compatible with divine sphere systems from these mods: Talents of Faerûn, Deities of Faerûn, Faiths and Powers. See Compatibility section for install info if needed.
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -121,7 +126,8 @@ NOTE: I'd recommend to install this mod generally together with other kits, but 
 Spellcasting systems:
 
 Faiths and Powers spheres system:
-- Can install before or after FnP (but I'd recommend after).
+- Install after applying the sphere system.
+- Can install before or after the multiclass components. (note FnP multiclasses can go past the hardcoded kit limit)
 - See below for additional info.
 
 Deities of Faerun spheres system: 
@@ -130,8 +136,9 @@ Deities of Faerun spheres system:
 subtledoctor's 5e casting mod:
 - Install this mod before 5e casting.
 - Run the Kit Updater after 5e casting.
+- If you later uninstall 5e casting, re-run the Kit updater to revert some changes.
 
-Sphere list: https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/d2-workshopkits/readme-spheres.txt
+Sphere lists: https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/d2-workshopkits/readme-spheres.txt
 
 --
 
@@ -139,7 +146,7 @@ Talents of Faerun notes:
 - Spell components can be installed before or after this mod. I'd recommend to install them before (especially IWD spells).
 - Race component can be installed before or after this mod.
 - Kit/Tweak components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so easier to just install everything after.
-- The divine casting kits have full support for custom spheres. Must be installed before the cleric revisions.
+- The divine casting kits have full support for custom spheres. Must be installed before any cleric-related components.
 - All kits need to be before anything that touches the proficiency or HLA screens (or buttons might not work).
 
 NOTE: Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
@@ -160,9 +167,9 @@ NOTE: With the current versions of both mods, basically everything works fine in
 --
 
 Skills/Feats/HLA mods:
-- Kits that have a disadvantage of not gaining a class ability should generally not take those abilities as feats.
+- Kits that have a disadvantage of not gaining a class ability should not take those abilities as feats, or any other method. (ex. Crow Hunter should not learn Set Snares if a mod makes it possible. However, it can learn and use HLA traps because those aren't part of the disadvantages.)
 - Some kits may gain certain mod-added HLAs if detected. (note: this mod doesn't install any HLAs, it scans existing HLA tables and copy pastes lines if detected.)
-- Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
+- Each time the Kit updater is run, all kits are reset to the same proficiencies and HLA lists as the base class (checked at install time). It then does the kit-specific edits.
 
 ToF feats/HLAs:
 - Many kits will have 1 or more additional options. (ex. all archers can take any ranged feat/HLA, Medic can take poison upgrades, Grave Warden can take Use Scrolls/Wands, etc.)
@@ -176,14 +183,13 @@ ToF feats/HLAs:
 FnP additional info:
 - The multiclass kits do not require the FnP multiclass mod for compatibility with FnP.
 - For best compatibility, install this mod AFTER applying the sphere system.
-- It will still work if installed before FnP, but some spheres may be incorrect (will update if it gets fixed).
+- It will still work if installed before FnP, but water and air spheres are switched for some kits.
 
 FnP multiclass:
 - Current versions of FnP multiclass hide the F/M/C class from the selection screen. 
-- It may possibly be updated to not disable F/M/C, but for now, there are a few ways around this:
-1. Install this mod after FnP multiclass. It will automatically re-enable the class.
-2. Use cdtweaks/Tweaks Anthology. It has components that make all classes (including FMC) available to all races.
-3. Edit clsrcreq.2DA. Just find FIGHTER_MAGE_CLERIC, and set whichever races you want to 1.
+- It may possibly be updated to not disable F/M/C, but for now there are a few ways around this:
+1. Run the Kit updater any time after FnP multiclasses. It will automatically re-enable the class for half-elves.
+2. Use a tweak that removes race and class restrictions, including multiclasses (ex. from cdtweaks/Tweaks Anthology)
 
 This is how I'd do the install:
 1. FnP spheres, kits, usability
@@ -191,19 +197,47 @@ This is how I'd do the install:
 3. FnP multiclass kits (if using)
 4. cdtweaks - enable all classes/multiclasses for all races
 
-Notes:
-- I used cdtweaks as an example, but any similar race tweak can be used.
-- The Kit Updater can now be used to enable the FMC class for half-elves if hidden by a tweak.
-
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
 Version info:
 
+v5.35
+- changed icons for 2 items (Colorless Demon Soul, Unknown Holy Symbol).
+- casting speed patch now also patches mod abilities. Can still be disabled from config.ini. Note that files added by this mod are always patched. (more info: This patch is used to prevent casting speed modifiers on innate/nonmagical abilities. It only patches if casting speed is 0 or 1. The purpose is to make sure fast casting abilities won't be slowed by speed penalties.)
+- hunter badge crafting abilities are now learned after resting with the required party members. Previously, they were gained automatically once PCs with the required levels and kits were in the party.
+- scripting for learning badge crafting abilities is no longer in global scripts. It now uses a combo of area scripts + an invisible creature. Running the Kit updater component will identify any new areas installed after this mod and patch those scripts as well. Any area that does not have a script is given a script with the same resource name as the ARE file.
+
+v5.34
+- Nurse: Medical Darts ability now automatically switches to a ranged weapon when darts are gone. Must have a ranged weapon equipped.
+- Nurse: Medical darts now never miss if targeting allies (relative to thrower). Can be disabled from config.ini.
+- IWDEE: Previously, some items were made available from a shop at certain chapters. This works fine but some chapters in IWD are annoying in that they change when leaving Kuldahar instead of right before, so you have to return to update for it. Items with chapter checks can now also become available once you reach the final story areas for the previous chapter.
+- Better syncing of visuals for knockback effects (Force, Shockwave, Stone Ring). ex. with Force ability, previously the knockback could sometimes hit a creature before the visual explosion hit, depending on distance.
+
+v5.33
+- Medic: sound effect for using Medic Arts no longer plays if you don't have enough Ki Energy to use it. The other Medic abilities were already like this.
+- added Secondary Types for Warhound and Powder Keg explosions (either OffensiveDamage or Battleground). This is mainly to make the Battleground type easier to check from a later mod.
+- Items with spell-like abilities now also have their abilities set with a spell school and a secondary type. ex. Breach can now take down the Golem Ring's Iron Flesh ability.
+- added a "What you should know" section to top of readme.
+
+v5.32
+- moonlight knight: Changed projectile for Moonlight Vortex. Instead of a beam/line shape, it now fires a giant orb that pierces through enemies in a straight line (similar to Lance of Disruption from IWD). The hitbox is also wider than before (line projectiles have a hardcoded very narrow hitbox). The actual spell effects are unchanged, though I restructured the effects internally.
+- fixed a minor issue that could make a couple abilities show an unrelated string if installed after a tweak that added global string messages to spells (ex. Explicit Cast Warnings from cdtweaks).
+- fixed an issue with bleedprep.tph that could potentially give an error when running the Kit Updater component (if a couple specific other mods were also installed).
+
+v5.31
+- fixed installer error if running the kit updater component without the Medic kit installed.
+- all items now use custom BAM icons instead of sharing the same resource as an existing item. The actual icons are mostly unchanged but I adjusted colors of a couple amulets.
+- Confessor: Adjusted color of Rooting Shot entangle and changed the annoying end sound.
+- Crow Hunter: ability/tooltip name for Visceral Attack is no longer colored (it uses normal white or black now). The colored string name is still used. It will display when the critical strike is made.
+- Crowfeather Cloak: fixed an issue that made the display string for the Visceral Attack only display if the target survived the attack.
+- Starjammer: Riftstep has slightly increased walking speed while in the time stop.
+- Starjammer: Changed overlay visual for Pacifying Field's sanctuary effect.
+
 v5.30
 - IWDEE/IWDification: fixed a possible installer error if you disabled the Starjammer kit in the Config.ini. This issue only happened if IWD-style evasion was in the game. (caused by an oversight because I didn't test disabling kits with IWDEE/IWDification)
 - IWDEE: items from this mod will now have description images if using a UI mod that enables them for IWDEE. Mods that do this include Infinity UI++ and the new IWD icons mod from G3. Previously these were removed due to issues with older versions of Infinity UI++.
-- other compatibility tweaking.
+- added inlined.tph file for making base inlined .SPL files. These will be used for making most new .spl files from this mod instead of using semi-premade files from the mod folder.
 
 v5.29
 - fixed BAM icons not appearing in the ability description when right-clicking icon. (note: the fix was adding a "b" to the end of the icon resource names)

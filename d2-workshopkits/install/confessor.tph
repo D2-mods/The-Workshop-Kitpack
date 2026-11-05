@@ -89,10 +89,21 @@ COPY ~%abilities%/rootingapply.SPL~  ~override/%s1%e.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%s1%b~ END
   LPF d2_remove_effects_on_cast END
 
+//entangle effects
 COPY ~%abilities%/rootingentangle.SPL~  ~override/%s1%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%a~ END
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=139 parameter1=RESOLVE_STR_REF (@301) END    // "Entangled"
 
+  // v5.32 edits
+  LPF ALTER_EFFECT INT_VAR match_opcode=174 STR_VAR resource=EFF_P67 END    // change end sound
+  LPF ALTER_EFFECT INT_VAR match_opcode=154 parameter2=1 STR_VAR resource=~%s1%a~ END    // change overlay
+
+//custom overlay (edit of iwd visual)
+COPY ~%abilities%/confessorentangle.vvc~      ~override/%s1%a.vvc~
+  WRITE_ASCII 0x8 ~%s1%a~ #8
+COPY ~%abilities%/confessorentangle.bam~      ~override/%s1%a.bam~
+
+//cast with save (from EFF)
 COPY ~%abilities%/applyeffects.EFF~  ~override/%s1%b.EFF~
   WRITE_ASCII 0x30 ~%s1%a~ #8
   WRITE_LONG 0x40 1    // save vs. spell

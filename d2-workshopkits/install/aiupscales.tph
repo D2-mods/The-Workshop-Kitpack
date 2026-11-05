@@ -1,8 +1,9 @@
 /*
-Upscayl used to improve some desc images (Digital Art model)
+Upscayl used to improve some desc images
 */
 
 
+/*
 OUTER_SPRINT demonsoul  ~demonsoul3~
 OUTER_SPRINT moonsymbol  ~holysymbol_moon3~
 OUTER_SPRINT bloodsymbol  ~holysymbol_blood3~
@@ -13,15 +14,20 @@ ACTION_IF (noaiupscales > 0) BEGIN
   OUTER_SPRINT bloodsymbol  ~holysymbol_blood2~
 END
 
-ACTION_IF (FILE_EXISTS ~override/d2wkzmgd.bam~) BEGIN
-  COPY ~%icons%/%demonsoul%.bam~  ~override/d2wkzmgd.bam~
+OUTER_SPRINT dsdesc  ~d2wkzmg2~
+OUTER_SPRINT msdesc  ~d2wk4m92~
+OUTER_SPRINT bsdesc  ~d2wk9m92~
+
+ACTION_IF (FILE_EXISTS ~override/%dsdesc%.bam~) BEGIN
+  COPY ~%icons%/%demonsoul%.bam~  ~override/%dsdesc%.bam~
 END
-ACTION_IF (FILE_EXISTS ~override/d2wk4m9d.bam~) BEGIN
-  COPY ~%icons%/%moonsymbol%.bam~  ~override/d2wk4m9d.bam~
+ACTION_IF (FILE_EXISTS ~override/%msdesc%.bam~) BEGIN
+  COPY ~%icons%/%moonsymbol%.bam~  ~override/%msdesc%.bam~
 END
-ACTION_IF (FILE_EXISTS ~override/d2wk9m9d.bam~) BEGIN
-  COPY ~%icons%/%bloodsymbol%.bam~  ~override/d2wk9m9d.bam~
+ACTION_IF (FILE_EXISTS ~override/%bsdesc%.bam~) BEGIN
+  COPY ~%icons%/%bloodsymbol%.bam~  ~override/%bsdesc%.bam~
 END
+*/
 
 
 //

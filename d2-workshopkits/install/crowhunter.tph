@@ -43,10 +43,20 @@ BUT_ONLY
 
 //
 //for Splintering Shot (add piercing resist check to splprot.2da)
-OUTER_TEXT_SPRINT d2splintercheck  ~d2splintercheck 23 100 4~    // piercing resist >= 100
+OUTER_SPRINT d2splintercheck1  ~d2splintercheck1 23 100 2~    // 2 = resist < 100
+OUTER_SPRINT d2splintercheck2  ~d2splintercheck2 23 127 3~    // 3 = resist > 127
 
-LAF d2_splprot_adder STR_VAR match=d2splintercheck string=~%d2splintercheck%~ RET stat END
-OUTER_SET d2splintercheck = stat
+COPY_EXISTING ~splprot.2da~  ~override~
+  LPF d2_splprot_adder STR_VAR match=d2splintercheck1 string=~%d2splintercheck1%~ RET stat END
+  SET d2splintercheck1 = stat
+  LPF d2_splprot_adder STR_VAR match=d2splintercheck2 string=~%d2splintercheck2%~ RET stat END
+  SET d2splintercheck2 = stat
+
+  SPRINT d2splinterimmune  ~d2splinterimmune 0x104 %d2splintercheck1% %d2splintercheck2%~    // 0x104 = both are false
+
+  LPF d2_splprot_adder STR_VAR match=d2splinterimmune string=~%d2splinterimmune%~ RET stat END
+  SET d2splinterimmune = stat
+BUT_ONLY
 
 
 //
@@ -72,15 +82,15 @@ COPY ~%abilities%/splinteringtarget.SPL~  ~override/%s1%a.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%s~ END
   LPF d2_safe_spell STR_VAR insert=above END
 
-COPY - ~%abilities%/invisible15enemy.PRO~  ~%workspace%/%s1%s.PRO~
-ADD_PROJECTILE ~%workspace%/%s1%s.PRO~
+COPY - ~%abilities%/invisible15enemy.PRO~  ~inlined/%s1%s.PRO~
+ADD_PROJECTILE ~inlined/%s1%s.PRO~
 COPY ~%abilities%/splinteringburst.SPL~    ~override/%s1%s.SPL~
   WRITE_SHORT 0x98 ~%s1%s~    // projectile
 
 COPY ~inlined/bleed_core.SPL~  ~override/%s1%b.SPL~
   WRITE_SHORT 0x98 ~%s1%s~    // projectile
   LPF d2_bleed_delay INT_VAR limit=10 STR_VAR resource=d2bleed1 END
-  LPF d2_protect_on_castequip INT_VAR duration=0 cre_type=d2splintercheck STR_VAR insert=first END
+  LPF d2_protect_on_castequip INT_VAR duration=0 cre_type=d2splinterimmune STR_VAR insert=first END
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 STR_VAR resource=d2bleedt END
 
 LAF d2_bleed_removal STR_VAR resource=~%s1%b~ END    // add to d2!bleed.spl
@@ -92,10 +102,9 @@ LAF d2_bleed_effects STR_VAR resource=~%s1%b~ END    // blocked by damage immuni
 COPY ~%icons%/visceralattackicon.BAM~  ~override/%s2%i.BAM~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@114) STR_VAR bam=~%s2%i~ RET icon END
 
-LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@114) STR_VAR color=dark RET newtext END
 COPY ~%icons%/visceralattack.BAM~      ~override/%s2%b.BAM~
 COPY ~%abilities%/visceralattack.SPL~  ~override/%s2%.SPL~
-  SAY NAME1 ~%newtext%~
+  SAY NAME1 @114
   SAY UNIDENTIFIED_DESC @214
   WRITE_ASCII 0x3a ~%s2%b~ #8
   WRITE_ASCII 0x76 ~%s2%b~ #8
@@ -106,9 +115,11 @@ COPY ~%abilities%/visceralattack.SPL~  ~override/%s2%.SPL~
   LPF d2_mindamageboost INT_VAR amount=3 duration=7 END
 
 //subspell (heal + haste)
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@114) STR_VAR color=dark RET newtext END    // colored string
 COPY ~%abilities%/castspellself.EFF~          ~override/%s2%a.EFF~
   WRITE_ASCII 0x30 ~%s2%a~ #8
 COPY ~%abilities%/visceralattackeffects.SPL~  ~override/%s2%a.SPL~
+  SAY NAME1 ~%newtext%~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=14023 END    // "Hasted"
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
 //  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~

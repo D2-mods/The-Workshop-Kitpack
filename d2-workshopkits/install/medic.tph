@@ -118,17 +118,17 @@ COPY ~%abilities%/applyeffects.SPL~  ~override/%e1%.SPL~
 
 //
 //prep for Remedies
-COPY - ~%abilities%/remedy7.PRO~ ~%workspace%/%s0%a.PRO~     // 7-ft. radius
+COPY - ~%abilities%/remedy7.PRO~ ~inlined/%s0%a.PRO~     // 7-ft. radius
   WRITE_ASCII 0x21c ~%s0%h~ #8
-ADD_PROJECTILE ~%workspace%/%s0%a.PRO~
+ADD_PROJECTILE ~inlined/%s0%a.PRO~
 
-COPY - ~%abilities%/remedy4.PRO~ ~%workspace%/%s0%b.PRO~     // 4-ft. radius
+COPY - ~%abilities%/remedy4.PRO~ ~inlined/%s0%b.PRO~     // 4-ft. radius
   WRITE_ASCII 0x21c None #8
-ADD_PROJECTILE ~%workspace%/%s0%b.PRO~
+ADD_PROJECTILE ~inlined/%s0%b.PRO~
 
-COPY - ~%abilities%/remedy15.PRO~ ~%workspace%/%s0%c.PRO~    // 15-ft. radius
+COPY - ~%abilities%/remedy15.PRO~ ~inlined/%s0%c.PRO~    // 15-ft. radius
   WRITE_ASCII 0x21c ~%s0%h~ #8
-ADD_PROJECTILE ~%workspace%/%s0%c.PRO~
+ADD_PROJECTILE ~inlined/%s0%c.PRO~
 
 OUTER_TEXT_SPRINT remedy7      ~%s0%a~
 OUTER_TEXT_SPRINT remedy4      ~%s0%b~
@@ -236,9 +236,9 @@ COPY ~override/%s2%b.SPL~  ~override/%s2%h.SPL~
 
 //
 //add Healing Rain
-COPY - ~%abilities%/healingrain.PRO~ ~%workspace%/%s3%a.PRO~
+COPY - ~%abilities%/healingrain.PRO~ ~inlined/%s3%a.PRO~
   WRITE_ASCII 0x228 ~%s3%a~ #8
-ADD_PROJECTILE ~%workspace%/%s3%a.PRO~
+ADD_PROJECTILE ~inlined/%s3%a.PRO~
 COPY ~%abilities%/healingrain.BAM~  ~override/%s3%a.BAM~
 //COPY ~%abilities%/healingrain2.BAM~  ~override/%s3%a.BAM~
 
@@ -440,10 +440,10 @@ COPY ~%abilities%/dragonrottarget.VVC~  ~override/%s5%h.VVC~    // target point 
   WRITE_ASCII 0x8 None #8
 COPY ~%abilities%/dragonrotdecay2.BAM~  ~override/%s5%u.BAM~    // visual for main projectile
 
-COPY - ~%abilities%/dragonrotdecay2.PRO~ ~%workspace%/%s5%u.PRO~    // main projectile
+COPY - ~%abilities%/dragonrotdecay2.PRO~ ~inlined/%s5%u.PRO~    // main projectile
   WRITE_ASCII 0x21c ~%s5%h~ #8
   WRITE_ASCII 0x228 ~%s5%u~ #8
-ADD_PROJECTILE ~%workspace%/%s5%u.PRO~
+ADD_PROJECTILE ~inlined/%s5%u.PRO~
 
 //rot effects
 COPY ~%icons%/decaying.BAM~  ~override/%s5%i.BAM~
@@ -503,9 +503,9 @@ COPY ~%abilities%/applyeffects.EFF~  ~override/%s5%f.EFF~
 
 //cloud projectile (visual only - real projectile is the glowing on the ground)
 COPY ~%abilities%/dragonrotdecay3.BAM~  ~override/%s5%v.BAM~
-COPY - ~%abilities%/dragonrotdecay3.PRO~ ~%workspace%/%s5%v.PRO~
+COPY - ~%abilities%/dragonrotdecay3.PRO~ ~inlined/%s5%v.PRO~
   WRITE_ASCII 0x228 ~%s5%v~ #8
-ADD_PROJECTILE ~%workspace%/%s5%v.PRO~
+ADD_PROJECTILE ~inlined/%s5%v.PRO~
 
 COPY ~%abilities%/applyeffects.SPL~  ~override/%s5%c.SPL~
   LPF ALTER_SPELL_HEADER INT_VAR range=1000 projectile=~%s5%v~ END

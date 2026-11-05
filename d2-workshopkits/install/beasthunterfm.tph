@@ -61,7 +61,7 @@ COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%F.2DA~
 COPY ~inlined/d2clab.2DA~  ~override/%beasthunter%M.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%baseslots%~ END
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%5ecasting%~ END
-  LPF tof_denote_spellschool STR_VAR type=~evocation~ END    // tof denote hla
+  LPF tof_denote_spellschool STR_VAR type=~conjuration~ END    // tof denote hla
 
 
 //

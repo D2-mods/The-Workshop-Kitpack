@@ -49,7 +49,7 @@ COPY ~%files%/rune_visual.SPL~        ~override/%z0%b.SPL~
 LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@305) STR_VAR color=gold RET newstring END
 
 COPY ~%icons%/caryllruneicon.BAM~  ~override/%z0%i.BAM~    // portrait icon
-COPY ~%icons%/caryllrunedesc2.BAM~  ~override/%z0%d.BAM~    // portrait icon
+COPY ~%icons%/caryllrunedesc2.BAM~  ~override/%z0%d.BAM~    // desc icon
 
 
 

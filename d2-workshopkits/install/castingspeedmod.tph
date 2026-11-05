@@ -1,0 +1,75 @@
+/*
+Makes innate/nonmagical abilities unaffected by casting speed penalties (ex. from Ether Booster)
+This is run from the misc items and kit updater components.
+*/
+
+
+//config option
+ACTION_IF !(IS_AN_INT nocastingspeedpatch) BEGIN  OUTER_SET nocastingspeedpatch = 0  END
+ACTION_IF (nocastingspeedpatch = 0) BEGIN  OUTER_SET d2wk_castspeedpatch = 1  END
+
+
+//array function
+DEFINE_PATCH_FUNCTION d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch BEGIN
+  PATCH_IF (SOURCE_SIZE > 0x99) BEGIN    // big enough to make below READs
+  PATCH_IF (~%SOURCE_RES%~ STRING_CONTAINS_REGEXP ~^d2wk~) BEGIN    // does NOT contain d2wk
+
+    READ_SHORT 0x1c type    // 1=mage, 2=priest
+    PATCH_IF (type<1 OR type>2) BEGIN    // not if mage or priest
+      READ_LONG 0x8 name
+      READ_LONG 0x50 desc
+      PATCH_IF (name>0 && desc>0) BEGIN    // only patch main abilities (name and desc set)
+        READ_SHORT 0x84 castspeed
+        PATCH_IF (castspeed < 2) BEGIN    // skip longer casting spells
+          SPRINT $d2wk_castspeedpatch (~%SOURCE_RES%~) ~~
+        END
+      END
+    END
+
+  END
+  END
+END
+
+
+//get array of abilities
+COPY_EXISTING_REGEXP - GLOB ~.*\.spl$~ ~~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END
+
+/*check only base game abilities or prefixes
+COPY_EXISTING_REGEXP - GLOB ~^spc.*\.spl$~ ~~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END
+COPY_EXISTING_REGEXP - GLOB ~^spin.*\.spl$~ ~~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END
+COPY_EXISTING_REGEXP - GLOB ~^spd.*\.spl$~ ~~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END
+COPY_EXISTING_REGEXP - GLOB ~^oh.*\.spl$~ ~~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END
+
+COPY_EXISTING - ~#BARD1.spl~   ~override~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END  IF_EXISTS     // IWD Bard Songs
+COPY_EXISTING - ~#BARD2.spl~   ~override~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END  IF_EXISTS
+COPY_EXISTING - ~#BARD3.spl~   ~override~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END  IF_EXISTS
+COPY_EXISTING - ~#BARD4.spl~   ~override~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END  IF_EXISTS
+COPY_EXISTING - ~#BARD5.spl~   ~override~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END  IF_EXISTS
+COPY_EXISTING - ~#BARD6.spl~   ~override~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END  IF_EXISTS
+COPY_EXISTING - ~#BARD7.spl~   ~override~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END  IF_EXISTS
+//COPY_EXISTING - ~ohhdrain.spl~ ~override~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END  IF_EXISTS   // Hexxat drain
+//COPY_EXISTING - ~ohrrage.spl~  ~override~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END  IF_EXISTS    // Wilson rage
+COPY_EXISTING - ~SPMDSLAY.spl~ ~override~  LPF d2wk_castspeedpatch RET_ARRAY d2wk_castspeedpatch END  IF_EXISTS
+*/
+
+
+//patching
+ACTION_PHP_EACH d2wk_castspeedpatch AS spell => filler BEGIN
+
+  COPY_EXISTING ~%spell%.spl~  ~override~
+    LPF DELETE_EFFECT INT_VAR check_headers=0 match_opcode=189 match_timing=0 END
+    PATCH_IF (IS_AN_INT d2wk_castspeedpatch) BEGIN
+      READ_SHORT 0x84 speed
+      SET duration = speed + 1
+      PATCH_IF (duration > 6) BEGIN SET duration = 6 END
+      LPF ADD_SPELL_CFEFFECT
+        INT_VAR opcode=189 target=1 parameter1=speed parameter2=1 resist_dispel=2 duration=duration
+      END
+    END
+  BUT_ONLY
+
+END
+
+
+//
+//

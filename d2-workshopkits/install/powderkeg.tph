@@ -106,16 +106,16 @@ COPY ~%abilities%/powderkegcast.SPL~       ~override/%s1%s.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s1%y~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=174 STR_VAR resource=~#EFF_P35~ END
 
-COPY - ~%abilities%/powderkegflare.PRO~ ~%workspace%/%s1%f.PRO~
-ADD_PROJECTILE ~%workspace%/%s1%f.PRO~
+COPY - ~%abilities%/powderkegflare.PRO~ ~inlined/%s1%f.PRO~
+ADD_PROJECTILE ~inlined/%s1%f.PRO~
 COPY ~%abilities%/powderkegblast.SPL~      ~override/%s1%f.SPL~    // initial flare (2 fire damage)
   WRITE_SHORT 0x98 ~%s1%f~    // projectile
   LPF DELETE_EFFECT INT_VAR match_opcode=318 END
   LPF d2_safe_spell END
   LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=2 dicenumber=0 dicesize=0 savingthrow=16777216 special=0 END
 
-COPY - ~%abilities%/powderkegblast.PRO~ ~%workspace%/%s1%e.PRO~
-ADD_PROJECTILE ~%workspace%/%s1%e.PRO~
+COPY - ~%abilities%/powderkegblast.PRO~ ~inlined/%s1%e.PRO~
+ADD_PROJECTILE ~inlined/%s1%e.PRO~
 COPY ~%abilities%/powderkegblast.SPL~      ~override/%s1%e.SPL~    // follow up blast (1d4 per level)
   SAY NAME1 @607
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%s1%e~ END
@@ -141,10 +141,10 @@ COPY ~%abilities%/powderkegcast.SPL~       ~override/%s2%s.SPL~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s2%y~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=174 STR_VAR resource=~EFF_M43~ END
 
-COPY - ~%abilities%/powderkegboom2.PRO~ ~%workspace%/%s2%e.PRO~
+COPY - ~%abilities%/powderkegboom2.PRO~ ~inlined/%s2%e.PRO~
   WRITE_ASCII 0x228 ~%s2%e~ #8
   WRITE_ASCII 0x230 ~%s2%e~ #8
-ADD_PROJECTILE ~%workspace%/%s2%e.PRO~
+ADD_PROJECTILE ~inlined/%s2%e.PRO~
 COPY ~%abilities%/powderkegboom.BAM~ ~override/%s2%e.BAM~    // edit color?
 
 COPY ~%abilities%/powderkegboom.SPL~       ~override/%s2%e.SPL~
@@ -182,10 +182,10 @@ COPY ~%abilities%/powderkegcast.SPL~     ~override/%s3%s.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s3%y~ END
 
-COPY - ~%abilities%/powderkegdust.PRO~ ~%workspace%/%s3%e.PRO~
+COPY - ~%abilities%/powderkegdust.PRO~ ~inlined/%s3%e.PRO~
   WRITE_ASCII 0x208 ~%s3%e~ #8
   WRITE_ASCII 0x228 ~%s3%e~ #8
-ADD_PROJECTILE ~%workspace%/%s3%e.PRO~
+ADD_PROJECTILE ~inlined/%s3%e.PRO~
 OUTER_SET dustcloud = (~%s3%e~ - 1)    // for clearair.2da
 COPY ~%abilities%/powderkegdust.BAM~ ~override/%s3%e.BAM~
 COPY ~%abilities%/powderkegdust.WAV~ ~override/%s3%e.WAV~
@@ -209,8 +209,8 @@ COPY ~%abilities%/powderkegdustc.SPL~    ~override/%s3%c.SPL~    // move penalty
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!haste~ END
   LPF d2_safe_spell INT_VAR block_opcode=176 duration=1 END
 
-COPY - ~%abilities%/powderkegdustd.PRO~ ~%workspace%/%s3%d.PRO~    // fireball
-ADD_PROJECTILE ~%workspace%/%s3%d.PRO~
+COPY - ~%abilities%/powderkegdustd.PRO~ ~inlined/%s3%d.PRO~    // fireball
+ADD_PROJECTILE ~inlined/%s3%d.PRO~
 COPY ~%abilities%/powderkegdustd.SPL~    ~override/%s3%d.SPL~
   SAY NAME1 @609
   WRITE_SHORT 0x98 ~%s3%d~    // projectile
@@ -229,8 +229,8 @@ COPY ~%abilities%/powderkegcast.SPL~     ~override/%s4%s.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s0%x~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%s4%y~ END
 
-COPY - ~%abilities%/powderkegfrenzy.PRO~ ~%workspace%/%s4%e.PRO~
-ADD_PROJECTILE ~%workspace%/%s4%e.PRO~
+COPY - ~%abilities%/powderkegfrenzy.PRO~ ~inlined/%s4%e.PRO~
+ADD_PROJECTILE ~inlined/%s4%e.PRO~
 OUTER_SET frenzycloud = (~%s4%e~ - 1)    // for clearair.2da
 
 COPY ~%abilities%/powderkegfrenzy.SPL~   ~override/%s4%e.SPL~
@@ -331,11 +331,13 @@ OUTER_TEXT_SPRINT pkegstartsong       ~%e2%~
 OUTER_TEXT_SPRINT pkegdisable         ~%s0%x~
 
 //subspells
-OUTER_TEXT_SPRINT blastingsongblast   ~%s1%e~    // for Evasion
+OUTER_TEXT_SPRINT blastingsongblast   ~%s1%e~
 OUTER_TEXT_SPRINT boomingsongblast    ~%s2%e~
 OUTER_TEXT_SPRINT dustexplosionblast  ~%s3%d~
 OUTER_TEXT_SPRINT dustblind           ~%s3%a~
 OUTER_TEXT_SPRINT dustslow            ~%s3%c~
+OUTER_TEXT_SPRINT dustexplosioncloud  ~%s3%e~
+OUTER_TEXT_SPRINT frenzyingcloud      ~%s4%e~
 
 
 /*

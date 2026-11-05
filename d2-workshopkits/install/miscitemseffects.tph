@@ -5,54 +5,18 @@ anything that's not directly for making the item work
 
 
 //Medical Darts: healing won't cause Clawmark bleed
-ACTION_IF (FILE_EXISTS ~override/%medicaldarts%.SPL~) BEGIN
-  COPY_EXISTING ~%medicaldart%.ITM~  ~override~
+ACTION_IF (FILE_EXISTS ~override/%medicaldarts%.spl~) BEGIN
+  COPY_EXISTING ~%medicaldart%.itm~  ~override~
     LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=146 opcode=326 parameter2=52 STR_VAR resource=~%clawmark%x~ END
   BUT_ONLY
 
-  COPY ~%abilities%/opcode318.SPL~     ~override/%clawmark%x.SPL~
+  COPY ~%abilities%/opcode318.spl~     ~override/%clawmark%x.spl~
     LPF ALTER_EFFECT STR_VAR resource=~%clawmarkbleed%~ END    // block bleed
     LPF CLONE_EFFECT INT_VAR opcode=321 timing=1 END           // remove bleed
 
-  COPY_EXISTING ~%clawmarkbleed%.SPL~  ~override~
+  COPY_EXISTING ~%clawmarkbleed%.spl~  ~override~
     LPF ALTER_EFFECT INT_VAR match_opcode=139 timing=4 duration=1 END    // slightly delay "Bleeding" message
   BUT_ONLY
-END
-
-
-//update BAM images (descriptions)
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_miscitems_bam2 BEGIN
-  ~%crowfeather%~    => crowfeather2
-  ~%etherbomb%~      => etherbomb2
-  ~%etherbooster%~   => etherbooster2
-  ~%prisonchain%~    => prisonchain2
-  ~%cruciform%~      => cruciform2
-//
-  ~%golemring%~      => golemring2
-  ~%calamity%~       => calamity2
-  ~%stonering%~      => stonering2
-  ~%flynnring%~      => flynnring2
-  ~%etherlimiter%~   => etherlimiter2
-//
-  ~%goldscarab%~     => goldscarab2
-  ~%wingedsword%~    => wingedsword2
-  ~%redtearstone%~   => redtearstone2
-  ~%hunterbone%~     => hunterbone2
-  ~%jadefeather%~    => jadefeather2
-//
-  ~%demonsoul%~      => demonsoul2
-  ~%shamanbone%~     => shamanbone2
-END
-
-//
-ACTION_PHP_EACH d2_miscitems_bam2 AS res => bam BEGIN
-  ACTION_IF (FILE_EXISTS ~%icons%/%bam%.BAM~) BEGIN
-    COPY ~%icons%/%bam%.BAM~  ~override/%res%d.BAM~
-
-    COPY_EXISTING ~%res%.ITM~  ~override~
-      WRITE_ASCII 0x58 ~%res%d~ #8
-    IF_EXISTS BUT_ONLY
-  END
 END
 
 

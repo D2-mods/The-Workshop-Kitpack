@@ -2,7 +2,7 @@
 //
 
 
-COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
+COPY - ~%MOD_FOLDER%/config.ini~  ~inlined/config~
 
 //check kits (v1.0 kits)
   COUNT_REGEXP_INSTANCES  ~BeastHunter[^A-Z].*=.*[^0-9]0[^0-9]*$~             nobeasthunter
@@ -76,6 +76,7 @@ COPY - ~%MOD_FOLDER%/config.ini~  ~%MOD_FOLDER%/temp~
   COUNT_REGEXP_INSTANCES  ~supportmode.*=.*[^0-9]0[^0-9]*$~             nosupportmode
   COUNT_REGEXP_INSTANCES  ~freecasting.*=.*[^0-9]0[^0-9]*$~             nofreecasting
   COUNT_REGEXP_INSTANCES  ~aiupscales.*=.*[^0-9]0[^0-9]*$~              noaiupscales
+  COUNT_REGEXP_INSTANCES  ~ndartspatch.*=.*[^0-9]0[^0-9]*$~             nonursepatch
 
 //Bubb's Menu levels
   COUNT_REGEXP_INSTANCES  ~medictools_level.*=.*[^0-9]0[^0-9]*$~        medictools0

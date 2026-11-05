@@ -1,0 +1,72 @@
+/*
+hunter badge scripting
+- add cre from area scripts
+- cre script (hunterbadgescripts2.tph) adds ability if relevant kits are detected
+- cre is added after a resting only
+
+- installed together with beast hunter kit
+- also runs from kit updater to check mod areas installed after (won't add duplicate blocks to any scripts)
+*/
+
+
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2beasthunter~) BEGIN
+
+
+//make invisible cre
+OUTER_SPRINT creres  ~%hunterbadgecre%~    // cre + variables
+OUTER_SPRINT crescript  ~%creres%~
+
+COPY ~%files%/replaceself.cre~  ~override/%creres%.cre~
+  REPLACE_CRE_ITEM ~minhp1~ #0 #0 #0 ~unstealable&undroppable~ ~amulet~
+  REPLACE_CRE_ITEM ~immune2~ #0 #0 #0 ~unstealable&undroppable~ ~rring~
+  WRITE_ASCII 0x248 ~%creres%~ #8     // set script
+  WRITE_ASCII 0x280 ~%creres%~ #32    // set script name
+
+
+//patched file list
+OUTER_SPRINT patchlist  ~d2wkhunterbadgebcs.txt~
+ACTION_IF !(FILE_EXISTS ~override/%patchlist%~) BEGIN
+<<<<<<<< .../temp/file
+>>>>>>>>
+COPY ~.../temp/file~  ~override/%patchlist%~
+END
+
+
+//get array of area scripts
+COPY_EXISTING_REGEXP GLOB ~.*\.are$~  ~override~
+  LPF read_or_set_areascript RET script END
+  PATCH_IF !(RESOURCE_CONTAINS ~%patchlist%~  ~patched %script%\.bcs~) BEGIN    // skip if already patched
+    SPRINT $d2wk_hunterbadgecre (~%script%~) ~~
+  END
+BUT_ONLY
+
+
+//script block
+<<<<<<<< .../temp/blocks
+IF
+	PartyRested()
+//	InMyArea(Player1)
+	!InMyArea("%crescript%")
+THEN
+	RESPONSE #100
+		CreateCreature("%creres%",[0.0],0)
+//		CreateCreatureObject("%creres%",Player1,0,0,0)
+		Continue()
+END
+>>>>>>>>
+COPY - ~.../temp/blocks~  ~inlined/blocks.baf~
+  EVALUATE_BUFFER
+
+
+//add to area scripts
+ACTION_PHP_EACH d2wk_hunterbadgecre AS areascript => patch BEGIN
+  EXTEND_TOP ~%areascript%.bcs~  ~inlined/blocks.baf~    // add to script
+  APPEND ~%patchlist%~  ~patched %areascript%.bcs~    // add to patch list
+END
+
+
+END
+
+
+//
+//

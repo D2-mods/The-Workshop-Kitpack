@@ -34,9 +34,9 @@ END
 END
 >>>>>>>>
 
-COPY - ~.../temp/mirekgerth~  ~%workspace%/mirekgerth.d~
+COPY - ~.../temp/mirekgerth~  ~inlined/mirekgerth.d~
   EVALUATE_BUFFER
-COMPILE ~%workspace%/mirekgerth.d~
+COMPILE ~inlined/mirekgerth.d~
 
 
 //Mirek talk (journal entry)
@@ -52,9 +52,9 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/mirekjournal~  ~%workspace%/mirekjournal.BAF~
+COPY - ~.../temp/mirekjournal~  ~inlined/mirekjournal.BAF~
   EVALUATE_BUFFER
-EXTEND_BOTTOM ~AR2100.BCS~  ~%workspace%/mirekjournal.BAF~
+EXTEND_BOTTOM ~AR2100.BCS~  ~inlined/mirekjournal.BAF~
 
 ADD_JOURNAL @50391
 
@@ -84,9 +84,9 @@ END
 END
 >>>>>>>>
 
-COPY - ~.../temp/oldjed~  ~%workspace%/oldjed.d~
+COPY - ~.../temp/oldjed~  ~inlined/oldjed.d~
   EVALUATE_BUFFER
-COMPILE ~%workspace%/oldjed.d~
+COMPILE ~inlined/oldjed.d~
 
 
 END
@@ -131,9 +131,9 @@ IF ~~ BEGIN chickendrop
 END
 >>>>>>>>
 
-COPY - ~.../temp/moonrunechicken~  ~%workspace%/moonrunechicken.d~
+COPY - ~.../temp/moonrunechicken~  ~inlined/moonrunechicken.d~
   EVALUATE_BUFFER
-COMPILE ~%workspace%/moonrunechicken.d~
+COMPILE ~inlined/moonrunechicken.d~
 
 
 /*

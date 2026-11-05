@@ -12,7 +12,12 @@ This is a kitpack I've been working on for a while. It currently has 17 kits + 1
 
 --
 
-Kit Updater: Run this after all tweak and overhaul mods (except possibly Dual to Kit). It rebuilds HLA lists and updates proficiencies + some other minor checks. It also includes the previous "Update Medic Arts" component (use if Poison Weapon or Lay On Hands were revised). More info in Components section.
+**What you should know:**
+- The GitHub page includes a lot of additional info. You don't need to read it all to use this mod, but it's there if you're confused about something or want to quickly reference kit or item descriptions.
+- Kit Updater component: Rechecks mod compatibility + adjusts config.ini settings. Skipped on initial install, can re-run at any time. More info in Components section.
+- Current version of the mod was tested on EE v2.7.x. It should work fine on v2.6 and possibly v2.5 but I'm not going to check it myself. It is not installable on pre-v2.0 versions.
+- This mod does not require EE fixpack or EEex. However, most modding work is now done with both installed. I do test without them, but not for every update.
+- Compatible with divine sphere systems from these mods: Talents of Faerûn, Deities of Faerûn, Faiths and Powers. See Compatibility section for install info if needed.
 
 --
 
@@ -188,7 +193,7 @@ TORRENT: On a successful attack (melee or ranged), the character has a 10% chanc
 
 - 7th level: May use the Moonlight Vortex ability once per day. Gains additional uses every 4 levels thereafter.
 
-MOONLIGHT VORTEX: Unleashes a beam of torrential moonlight, which extends as far as the target point, inflicting 8d6 magic damage to enemies. Undead and outerplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.
+MOONLIGHT VORTEX: Unleashes torrential moonlight, which pierces through objects in the path and deals 8d6 damage to enemies. Undead and extraplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.
 
 - No alignment restrictions.
 - Will not fall due to reputation loss.
@@ -548,16 +553,18 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 
 #### Spellcasting systems:
 
-Faiths and Powers spheres system:
-- Can install before or after FnP (but I'd recommend after).
+**Faiths and Powers spheres system:**
+- Install after applying the sphere system.
+- Can install before or after the multiclass components. (note FnP multiclasses can go past the hardcoded kit limit)
 - See below for additional info.
 
-Deities of Faerun spheres system: 
+**Deities of Faerun spheres system:**
 - Install this mod after DoF.
 
-subtledoctor's 5e casting mod:
+**subtledoctor's 5e casting mod:**
 - Install this mod before 5e casting.
 - Run the Kit Updater after 5e casting.
+- If you later uninstall 5e casting, re-run the Kit updater to revert some changes.
 
 Sphere lists: [readme-spheres.txt](d2-workshopkits/readme-spheres.txt)
 
@@ -567,7 +574,7 @@ Sphere lists: [readme-spheres.txt](d2-workshopkits/readme-spheres.txt)
 - Spell components can be installed before or after this mod. I'd recommend to install them before (especially IWD spells).
 - Race component can be installed before or after this mod.
 - Kit/Tweak components should be installed after this mod. Some are fine installed before, but they are all mixed together, and some need to be installed after, so easier to just install everything after.
-- The divine casting kits have full support for custom spheres. Must be installed before the cleric revisions.
+- The divine casting kits have full support for custom spheres. Must be installed before any cleric-related components.
 - All kits need to be before anything that touches the proficiency or HLA screens (or buttons might not work).
 
 > Note: Evasion can be installed before or after this mod. Kits that gain Evasion will gain it whether installed before or after. Spells/abilities that allow an Evasion check will only do so if Evasion is already in the game. If you want to install Evasion before this mod, consider using the IWDification version instead.
@@ -588,9 +595,9 @@ Kit Updater: **This is REQUIRED for full compat with ToF.** Rebuilds all feats/H
 --
 
 **Skills/Feats/HLA mods:**
-- Kits that have a disadvantage of not gaining a class ability should generally not take those abilities as feats.
+- Kits that have a disadvantage of not gaining a class ability should not take those abilities as feats, or any other method. (ex. Crow Hunter should not learn Set Snares if a mod makes it possible. However, it can learn and use HLA traps because those aren't part of the disadvantages.)
 - Some kits may gain certain mod-added HLAs if detected. (note: this mod doesn't install any HLAs, it scans existing HLA tables and copy pastes lines if detected.)
-- Crow Hunter can use HLA traps, including mod-added ones (install order doesn't matter). Must be Thief level 14 or higher.
+- Each time the Kit updater is run, all kits are reset to the same proficiencies and HLA lists as the base class (checked at install time). It then does the kit-specific edits.
 
 **ToF feats/HLAs:**
 - Many kits will have 1 or more additional options. (ex. all archers can take any ranged feat/HLA, Medic can take poison upgrades, Grave Warden can take Use Scrolls/Wands, etc.)
@@ -603,24 +610,19 @@ Kit Updater: **This is REQUIRED for full compat with ToF.** Rebuilds all feats/H
 ### FnP additional info:
 - The multiclass kits do not require the FnP multiclass mod for compatibility with FnP.
 - For best compatibility, install this mod AFTER applying the sphere system.
-- It will still work if installed before FnP, but some spheres may be incorrect (will update if it gets fixed).
+- It will still work if installed before FnP, but water and air spheres are switched for some kits.
 
 **FnP multiclass (known issue):**
 - Current versions of FnP multiclass hide the F/M/C class from the selection screen. 
-- It may possibly be updated to not disable F/M/C, but for now, there are a few ways around this:
-1. Install this mod after FnP multiclass. It will automatically re-enable the class.
-2. Use cdtweaks/Tweaks Anthology. It has components that make all classes (including FMC) available to all races.
-3. Edit clsrcreq.2DA. Just find FIGHTER_MAGE_CLERIC, and set whichever races you want to 1.
+- It may possibly be updated to not disable F/M/C, but for now there are a few ways around this:
+1. Run the Kit updater any time after FnP multiclasses. It will automatically re-enable the class for half-elves.
+2. Use a tweak that removes race and class restrictions, including multiclasses (ex. from cdtweaks/Tweaks Anthology)
 
 **This is how I'd do the install:**
 1. FnP spheres, kits, usability
 2. The Workshop Kitpack
 3. FnP multiclass kits (if using)
 4. cdtweaks - enable all classes/multiclasses for all races
-
-**Notes:**
-- I used cdtweaks as an example, but any similar race tweak can be used.
-- The Kit Updater can now be used to enable the FMC class for half-elves if hidden by a tweak.
 
 ---
 ---
@@ -637,25 +639,7 @@ Additional Info (Kit Abilities):
 - Unleash Magic (War Magican)
 - Twisted Barricade (War Magican)
 
-**Can be removed by Zone of Sweet Air:**
-- Incinerate (Warhound)  
-- Dust Explosion (Powder Keg)
-
-**Cures elemental DoT damage (ex. Melf Arrows):**
-- Healing Blood (Blood Minister)  
-- Healing Rain (Medic)
-- Cure Afflictions (Medic)
-- Autoimmune (Nurse)
-
-**Removes Grease/Web/Entangle status (on cast or explosion):**
-- Hunter Tools (Beast Hunter)
-- Twisted Barricade (War Magican)
-- Shockwave (Warhound)  
-- Incinerate (Warhound)  
-- Blasting Song (Powder Keg)
-- Dust Explosion (Powder Keg)
-
-#
+--
 
 **Misc kit/effects info:**
 - Bleeding effects don't wake sleeping creatures. These effects can be cured by Heal, Regeneration, Lay On Hands, or similar. Stoneskins and Shield of Lathander (or similar mod spells) will protect from bleeding.
@@ -689,12 +673,15 @@ Hunter Badges
 
 
 #### Hunter Badges:
+
+```
 - Spark Hunter Badge
 - Radiant Sword Badge
 - Cosmic Watcher Badge
 - Powder Keg Badge
 - Saw Hunter Badge
 - Old Hunter Badge
+```
 
 <details>
   <summary>Descriptions</summary>
@@ -822,6 +809,7 @@ Weight: 1
 Starjammer spells:
 -
 
+```
 - 1st level: Riftstep
 - 2nd level: Steady Current
 - 3rd level: Gemini Swap
@@ -830,7 +818,7 @@ Starjammer spells:
 - 6th level: Electrocannon
 - 7th level: Revitalizer
 - 8th level: Riftgate
-
+```
 
 <details>
   <summary>Descriptions</summary>
@@ -966,6 +954,7 @@ A rift should be handled with caution. When this spell is cast, there is a 2% ch
 Misc items:
 - 
 
+```
 - Crowfeather Cloak (cloak)
 - Etherbomb Songbook (quick item)
 - Ether Booster (amulet)
@@ -976,6 +965,7 @@ Misc items:
 - Stone Ring (ring)
 - Flynn's Ring (ring)
 - Ether Limiter (amulet)
+```
 
 <details>
   <summary>Descriptions</summary>
@@ -1157,6 +1147,8 @@ Weight: 1
 --
 
 **v3.3+ items**
+
+```
 - Gold Scarab (amulet)
 - Winged Sword Insignia (ring)
 - Red Tearstone Ring (ring)
@@ -1164,6 +1156,7 @@ Weight: 1
 - Jade Feather (amulet)
 - Colorless Demon Soul (consumable)
 - Shaman Bone Blade (quick item)
+```
 
 <details>
   <summary>Descriptions</summary>
@@ -1292,6 +1285,8 @@ Caryll Runes
 
 
 #### Caryll Runes:
+
+```
 - Clawmark
 - Blood Rapture
 - Oedon Writhe
@@ -1304,6 +1299,7 @@ Caryll Runes
 - Hunter
 - Moon
 - Milkweed
+```
 
 <details>
   <summary>Descriptions</summary>

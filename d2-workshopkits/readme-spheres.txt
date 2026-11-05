@@ -160,7 +160,7 @@ Beast Hunter (FMC, FC)
 
 Moonlight Knight CR
 	- Major: All, Animal, Moon, Combat, Travelers, Weave
-	- Minor: Healing, Plant, Summoning, Trickery
+	- Minor: Healing, Summoning, Earth, Trickery
 =====================================================================
 
 ----------------------------------------------------------------------------------------------------

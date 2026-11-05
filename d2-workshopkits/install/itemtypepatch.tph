@@ -1,5 +1,4 @@
 /*
-Just function work
 Sets nonmagical name/desc (skip name?)
 */
 
@@ -65,6 +64,7 @@ ACTION_PHP_EACH ~d2wk_%mode%types_array~ AS item => type BEGIN
     LPF d2_get_itemtype_fields STR_VAR type=~%type%~ RET item_desc END
     WRITE_LONG 0x50 item_desc
 
+    // usable by all classes
     PHP_EACH ~d2wk_miscitems_noflags~ AS item2 => noflags BEGIN
       PATCH_IF (~%item%~ STR_EQ ~%item2%~) BEGIN
         PATCH_IF (noflags > 0) BEGIN
@@ -73,6 +73,7 @@ ACTION_PHP_EACH ~d2wk_%mode%types_array~ AS item => type BEGIN
       END
     END
 
+    // ground icons
     PHP_EACH ~d2wk_miscitems_ground~ AS item3 => ground BEGIN
       PATCH_IF (~%item%~ STR_EQ ~%item3%~) BEGIN
         PATCH_IF !(~%ground%~ STR_EQ ~default~) BEGIN

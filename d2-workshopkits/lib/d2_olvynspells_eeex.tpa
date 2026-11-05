@@ -58,7 +58,7 @@ DEFINE_PATCH_FUNCTION olvynspells_mesafesp INT_VAR match_opcode=12 BEGIN
   END
 END
 
-//part of new spells component (not sure which one)
+//part of new spells component
 //seems to include area damage/status, but not all (NI scan shows less than safe spell)
 DEFINE_PATCH_FUNCTION olvynspells_meprtslv INT_VAR match_opcode=12 spl_level=~-1~ BEGIN
   LPF DELETE_EFFECT INT_VAR match_opcode=402 STR_VAR match_resource=MEPRTSLV END

@@ -1,4 +1,6 @@
-//Temple Knight (d2wk6)
+/*
+Temple Knight (d2wk6)
+*/
 
 
 //Add passive effects
@@ -12,15 +14,41 @@ COPY ~%abilities%/removespelleffects.SPL~  ~override/%e3%.SPL~
   LPF ALTER_EFFECT STR_VAR resource=~%e1%~ END
 
 
+//force projectiles
+
+//explosion proj (invisible)
+OUTER_SPRINT proj  ~%files%/travel300.pro~
+LAF d2_cloneproj STR_VAR copy=~%proj%~ proj=~%s1%b~ RET projnum END
+OUTER_SET forcehit = projnum
+COPY_EXISTING ~%s1%b.pro~  ~override~
+  WRITE_SHORT 0xa 25    // speed
+BUT_ONLY
+
+//main proj (visual ring)
+OUTER_SPRINT proj  ~%abilities%/force.pro~
+LAF d2_cloneproj STR_VAR copy=~%proj%~ proj=~%s1%a~ RET projnum END
+OUTER_SET forceproj = projnum
+COPY_EXISTING ~%s1%a.pro~  ~override~
+  WRITE_SHORT 0x200 (THIS | BIT6)    // enemies only
+  WRITE_SHORT 0x200 (THIS | BIT12)    // no los
+  WRITE_SHORT 0x204 256
+  WRITE_SHORT 0x206 256
+  WRITE_SHORT 0xa 30    // speed
+  WRITE_SHORT 0x21a forcehit    // explosion proj
+BUT_ONLY
+
+//explosion projectile - needs to be slower so it doesn't knockback before visual ring hits
+
+
 //Add Force
-COPY - ~%abilities%/force.PRO~ ~%workspace%/%s1%.PRO~
-ADD_PROJECTILE ~%workspace%/%s1%.PRO~
+COPY - ~%abilities%/force.PRO~ ~inlined/%s1%.PRO~
+ADD_PROJECTILE ~inlined/%s1%.PRO~
 COPY ~%abilities%/force.WAV~  ~override/%s1%.WAV~    // copy of CAS_P04.WAV from BG2EE (different in IWDEE)
 COPY ~%abilities%/force.VVC~  ~override/%s1%.VVC~    // edit of ABJURH.VVC
 COPY ~%abilities%/force.SPL~  ~override/%s1%.SPL~
   SAY NAME1 @108
   SAY UNIDENTIFIED_DESC @208
-  WRITE_SHORT 0x98 ~%s1%~       // projectile
+  WRITE_SHORT 0x98 forceproj    // projectile
   WRITE_ASCII 0x10 ~%s1%~ #8    // casting sound
   LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%s1%~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=235 opcode=165 STR_VAR insert=below END    // add "pause" effect (same duration as knockback)
@@ -123,5 +151,5 @@ OUTER_TEXT_SPRINT dofclab     ~%kitid%~
 OUTER_TEXT_SPRINT dofkitname  ~D2%kitname%~
 
 
-/*
-*/
+//
+//

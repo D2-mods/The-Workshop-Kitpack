@@ -1,0 +1,31 @@
+/*
+Nurse kit's medical darts always hit allies
+*/
+
+
+//config.ini option
+OUTER_SET ndartspatch = 1
+ACTION_IF (nonursepatch > 0) BEGIN  OUTER_SET ndartspatch = 0  END
+
+
+//edit item
+COPY_EXISTING ~%medicaldart%.itm~  ~override~
+  PATCH_IF (ndartspatch > 0) BEGIN
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=177 probability2=0 END    // +100 THAC0 bonus on allies
+  END ELSE BEGIN
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=177 probability2=100 END    // set out of range
+  END
+
+  // no critical misses
+  LPF DELETE_EFFECT INT_VAR match_opcode=362 END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode=362 target=1 parameter1=(0 - 100) parameter2=1 timing=2 insert_point=99 END
+IF_EXISTS BUT_ONLY
+
+
+//+100 THAC0 bonus
+COPY_EXISTING ~%allybonus%.eff~  ~override~  WRITE_LONG 0x60 100  IF_EXISTS BUT_ONLY
+COPY_EXISTING ~%enemybonus%.eff~  ~override~  WRITE_LONG 0x60 100  IF_EXISTS BUT_ONLY
+
+
+//
+//

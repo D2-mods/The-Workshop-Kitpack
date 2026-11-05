@@ -4,7 +4,7 @@ Add floating text (Rift spells)
 */
 
 
-<<<<<<<< .../d2temp/rifts
+<<<<<<<< .../temp/rifts
 IF
 	!Global("d2riftst","GLOBAL",0)
 THEN
@@ -60,12 +60,12 @@ END
 >>>>>>>>
 
 
-COPY - ~.../d2temp/rifts~  ~%workspace%/rifts.BAF~
+COPY - ~.../temp/rifts~  ~inlined/rifts.BAF~
   EVALUATE_BUFFER
 
 ACTION_FOR_EACH script IN ~baldur~ ~baldur25~ ~bdbaldur~ BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
-    EXTEND_BOTTOM ~%script%.BCS~  ~%workspace%/rifts.BAF~
+    EXTEND_BOTTOM ~%script%.BCS~  ~inlined/rifts.BAF~
   END
 END
 

@@ -1,18 +1,14 @@
-//
-
-//Add passive effects
-
-
-
-//Add spells/abilities
+/*
+kit info
+*/
 
 
+//passives
+//spells or abilities
+//clab table
 
-//Make clab table
 
-
-
-//Kit function
+//install kit
 
 /*
 LAF ADD_KIT_EX
@@ -33,7 +29,6 @@ LAF ADD_KIT_EX
 END
 
 
-
 - example variables for ADD_KIT_EX
   STR_VAR
     unusable = ~0x00000008~    // Cavalier usability (no ranged)
@@ -50,7 +45,9 @@ END
     abclsmod = ~-2 0 -2 0 0 0~    // -2 to Str and Con
     abclsmod = ~0 -2 0 0 -2 0~    // -2 to Dex and Wis
 
-NOTE: usability above assumes no tweaks
+Notes:
+- kit-specific proficiencies are now done in weapprofedits.tph (from both main component and updater)
+- better to opcode 319s on ITMs instead of "unusable" (can restrict or allow specific items of a type)
 
 
 - kit_class numbers
@@ -79,11 +76,9 @@ NOTE: usability above assumes no tweaks
 
 
 
-//end stuff (i.e. anything that needs internal kit name after install)
-
-
+//end stuff (i.e. anything that needs ids kit name)
 //variables for external use
 
 
-/*
-*/
+//
+//

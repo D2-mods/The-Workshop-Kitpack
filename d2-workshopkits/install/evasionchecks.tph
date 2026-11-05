@@ -3,16 +3,9 @@ Make some kit/item abilities allow an Evasion check
 */
 
 
-ACTION_IF (noevasionchecks = 0) BEGIN
+ACTION_IF (IS_AN_INT noevasionchecks && noevasionchecks=0) BEGIN    // config option
+ACTION_IF (IS_AN_INT patch_evasion && patch_evasion>0) BEGIN    // set in spellprep.tph
 
-
-OUTER_SET patch_evasion = 0
-ACTION_IF (GAME_IS ~iwdee~) BEGIN OUTER_SET patch_evasion = 1 END
-ACTION_IF (RESOURCE_CONTAINS ~CLABTH01.2da~ ~#EVASION~) BEGIN OUTER_SET patch_evasion = 1 END
-ACTION_IF (RESOURCE_CONTAINS ~CLABTH01.2da~ ~CDIEVAD~)  BEGIN OUTER_SET patch_evasion = 1 END
-
-
-ACTION_IF (patch_evasion > 0) BEGIN
 
   ACTION_IF (evasionchecks = 1) BEGIN
     ACTION_IF (RESOURCE_CONTAINS ~kit.ids~  ~d2starjammer~) BEGIN
@@ -28,9 +21,8 @@ ACTION_IF (patch_evasion > 0) BEGIN
     LAF miscitemsevasion END
   END
 
+
 END
-
-
 END
 
 

@@ -435,9 +435,9 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY - ~.../temp/moonrune~  ~%workspace%/moonrune.BAF~
+COPY - ~.../temp/moonrune~  ~inlined/moonrune.BAF~
   EVALUATE_BUFFER
-EXTEND_BOTTOM ~AR2000.BCS~  ~%workspace%/moonrune.BAF~
+EXTEND_BOTTOM ~AR2000.BCS~  ~inlined/moonrune.BAF~
 
 
 //HoW

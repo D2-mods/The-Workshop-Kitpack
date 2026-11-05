@@ -1,0 +1,50 @@
+/*
+kitid needs to be 6 characters or less
+5 or less if using multiclass kits function
+*/
+
+
+//kit folder location
+OUTER_TEXT_SPRINT kitfolder ~%MOD_FOLDER%/kits/%kitname%~
+
+
+//
+ACTION_PHP_EACH d2wk_kitname_array AS id => name BEGIN
+  ACTION_IF (~%kitid%~ STR_EQ ~%id%~) BEGIN
+    OUTER_TEXT_SPRINT kitid_name ~%name%~
+    PRINT @99
+  END
+END
+
+ACTION_IF ((IS_AN_INT silentmode) AND (silentmode > 0)) BEGIN SILENT END
+
+
+//
+ACTION_FOR_EACH var IN
+  ~a~ ~b~ ~c~ ~d~ ~e~
+  ~f~ ~g~ ~h~ ~i~ ~j~
+  ~k~ ~l~ ~m~ ~n~ ~o~
+  ~p~ ~q~ ~r~ ~s~ ~t~
+  ~u~ ~v~ ~w~ ~x~ ~y~
+  ~z~ ~!~ ~@~ ~#~ ~_~
+BEGIN
+  OUTER_SPRINT prefix  ~%kitid%%var%~
+  OUTER_FOR (num = 0; num < 10; ++num) BEGIN
+    OUTER_SPRINT ~%var%%num%~  ~%prefix%%num%~    // %a5% = %kitid%a5
+  END
+
+  ACTION_FOR_EACH var2 IN
+    ~a~ ~b~ ~c~ ~d~ ~e~
+    ~f~ ~g~ ~h~ ~i~ ~j~
+    ~k~ ~l~ ~m~ ~n~ ~o~
+    ~p~ ~q~ ~r~ ~s~ ~t~
+    ~u~ ~v~ ~w~ ~x~ ~y~
+    ~z~
+  BEGIN
+    OUTER_SPRINT ~%var%%var2%~  ~%prefix%%var2%~    // %ab% = %kitid%ab
+  END
+END
+
+
+//
+//

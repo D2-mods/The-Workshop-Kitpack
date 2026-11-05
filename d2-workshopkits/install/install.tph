@@ -9,6 +9,7 @@ OUTER_SET buildeffects = 1
 
 
 //Prep
+INCLUDE ~%install%/inlined.tph~
 INCLUDE ~%install%/weapontypes.tph~
 INCLUDE ~%install%/weapontypes2.tph~
 INCLUDE ~%install%/itemtypes.tph~
@@ -32,17 +33,28 @@ INCLUDE ~%install%/tempfixes.tph~
 ACTION_IF (nostarjammer = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk8~
   OUTER_TEXT_SPRINT kitname ~STARJAMMER~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/riftscripts.tph~
 END
 
+/*
+//Astrologer (d2wki)
+ACTION_IF (noastrologer = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wki~
+  OUTER_TEXT_SPRINT kitname ~ASTROLOGER~
+  INCLUDE ~%install%/variables2.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+END
+*/
+
 //War Magician (d2wk7)
 ACTION_IF (nowarmagician = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk7~
   OUTER_TEXT_SPRINT kitname ~WARMAGICIAN~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
 END
@@ -51,7 +63,7 @@ END
 ACTION_IF (nopowderkeg = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wkb~
   OUTER_TEXT_SPRINT kitname ~POWDERKEG~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/%kitname%hla.tph~
@@ -63,26 +75,39 @@ END
 
 
 
+//multiclasses
+
+//Spell Fencer (d2wkh)
+ACTION_IF (nospellfencer = 0) BEGIN
+  OUTER_TEXT_SPRINT kitid ~d2wkh~
+  OUTER_TEXT_SPRINT kitname ~SPELLFENCER~
+  INCLUDE ~%install%/variables2.tph~
+  INCLUDE ~%install%/resources.tph~
+  INCLUDE ~%install%/%kitname%.tph~
+END
+
+
+
 //Fighter, thief, cleric
 
 //Beast Hunter (d2wk1)
 ACTION_IF (nobeasthunter = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk1~
   OUTER_TEXT_SPRINT kitname ~BEASTHUNTER~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/%kitname%fm.tph~     // multiclass
   INCLUDE ~%install%/%kitname%fmc.tph~    // multiclass
   INCLUDE ~%install%/%kitname%fc.tph~     // multiclass
-  INCLUDE ~%install%/hunterbadges.tph~
+  INCLUDE ~%install%/hunterbadges2.tph~
 END
 
 //Warhound (d2wk2)
 ACTION_IF (nowarhound = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk2~
   OUTER_TEXT_SPRINT kitname ~WARHOUND~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/%kitname%fm.tph~     // multiclass
@@ -93,7 +118,7 @@ END
 ACTION_IF (nofullmetaljaguar = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wkf~
   OUTER_TEXT_SPRINT kitname ~FULLMETALJAGUAR~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/%kitname%fm.tph~    // multiclass
@@ -104,7 +129,7 @@ END
 ACTION_IF (nocrowhunter = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wka~
   OUTER_TEXT_SPRINT kitname ~CROWHUNTER~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/%kitname%ft.tph~      // multiclass
@@ -116,17 +141,19 @@ END
 ACTION_IF (nonurse = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wkg~
   OUTER_TEXT_SPRINT kitname ~NURSE~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/%kitname%mt.tph~    // multiclass
+  INCLUDE ~%install%/%kitname%script2.tph~
+  INCLUDE ~%install%/%kitname%config.tph~
 END
 
 //Blood Minister (d2wk9)
 ACTION_IF (nobloodminister = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk9~
   OUTER_TEXT_SPRINT kitname ~BLOODMINISTER~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/%kitname%profs.tph~
@@ -143,7 +170,7 @@ END
 ACTION_IF (nogravewarden = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk3~
   OUTER_TEXT_SPRINT kitname ~GRAVEWARDEN~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/presioduel.tph~
@@ -156,7 +183,7 @@ END
 ACTION_IF (nomoonlightknight = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk4~
   OUTER_TEXT_SPRINT kitname ~MOONLIGHTKNIGHT~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/nofallen.tph~
@@ -170,7 +197,7 @@ END
 ACTION_IF (nodrifter = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wkc~
   OUTER_TEXT_SPRINT kitname ~DRIFTER~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/nofallen.tph~
@@ -180,7 +207,7 @@ END
 ACTION_IF (noconfessor = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk5~
   OUTER_TEXT_SPRINT kitname ~CONFESSOR~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/nopaladinheal.tph~
@@ -194,7 +221,7 @@ END
 ACTION_IF (notempleknight = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk6~
   OUTER_TEXT_SPRINT kitname ~TEMPLEKNIGHT~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/fnppaladinfix.tph~
@@ -207,7 +234,7 @@ END
 ACTION_IF (nonoblescion = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wke~
   OUTER_TEXT_SPRINT kitname ~NOBLESCION~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/fnppaladinfix.tph~
@@ -224,7 +251,7 @@ END
 ACTION_IF (nomedic = 0) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wkd~
   OUTER_TEXT_SPRINT kitname ~MEDIC~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
   INCLUDE ~%install%/resources.tph~
   INCLUDE ~%install%/%kitname%.tph~
   INCLUDE ~%install%/%kitname%config.tph~
@@ -232,24 +259,13 @@ END
 
 
 
-//multiclasses
-
-//Spell Fencer (d2wkh)
-ACTION_IF (nospellfencer = 0) BEGIN
-  OUTER_TEXT_SPRINT kitid ~d2wkh~
-  OUTER_TEXT_SPRINT kitname ~SPELLFENCER~
-  INCLUDE ~%install%/variables.tph~
-  INCLUDE ~%install%/resources.tph~
-  INCLUDE ~%install%/%kitname%.tph~
-END
-
-
-
 //Extra stuff
-ACTION_IF (silentmode < 2) BEGIN  VERBOSE  END
-INCLUDE ~%install%/hunterbadgescripts.tph~
+INCLUDE ~%install%/hunterbadgescripts2.tph~
+INCLUDE ~%install%/hunterbadgecre.tph~
 INCLUDE ~%install%/hunterbadgestores.tph~
 INCLUDE ~%install%/hunterbadgesToB.tph~
+
+ACTION_IF (silentmode < 3) BEGIN  VERBOSE  END
 INCLUDE ~%install%/evasionchecks.tph~
 INCLUDE ~%install%/spellprep3.tph~
 INCLUDE ~%install%/restrictarmor.tph~
@@ -261,17 +277,19 @@ INCLUDE ~%install%/subtleskills.tph~
 INCLUDE ~%install%/morespellpatches.tph~
 
 INCLUDE ~%install%/hbag.tph~
-INCLUDE ~%install%/castingspeed.tph~
+INCLUDE ~%install%/tobstart.tph~
+INCLUDE ~%install%/castingspeed2.tph~
 INCLUDE ~%install%/supportmode.tph~
 INCLUDE ~%install%/iconpatch.tph~
+INCLUDE ~%install%/sectypepatch.tph~
 INCLUDE ~%install%/trackingcheck.tph~
 INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/holysymbolscheck.tph~
 INCLUDE ~%install%/5ecastingspells.tph~
 INCLUDE ~%install%/olvynspellsfix.tph~
-//INCLUDE ~%install%/iwditempatch.tph~
 INCLUDE ~%install%/iwdspellpatch.tph~
-INCLUDE ~%install%/aiupscales.tph~
+//INCLUDE ~%install%/aiupscales.tph~
+//INCLUDE ~%install%/iwditempatch.tph~
 //INCLUDE ~%install%/backupfiles.tph~
 
 

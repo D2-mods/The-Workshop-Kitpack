@@ -29,9 +29,9 @@ IF ~ Kit(LastSeenBy,D2%kitname%)
 END
 >>>>>>>>
 
-COPY - ~.../temp/presioduel~  ~%workspace%/presioduel.d~
+COPY - ~.../temp/presioduel~  ~inlined/presioduel.d~
   EVALUATE_BUFFER
-COMPILE ~%workspace%/presioduel.d~
+COMPILE ~inlined/presioduel.d~
 
 
 END

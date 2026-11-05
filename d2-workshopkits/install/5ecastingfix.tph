@@ -38,7 +38,7 @@ END
 ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2warmagician~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wk7~
   OUTER_TEXT_SPRINT kitname ~WARMAGICIAN~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
 
   COPY_EXISTING ~%kitid%.2DA~  ~override~
     REPLACE_TEXTUALLY ~AP_%baseslots%~ ~****~
@@ -53,7 +53,7 @@ END
 ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2spellfencer~) BEGIN
   OUTER_TEXT_SPRINT kitid ~d2wkh~
   OUTER_TEXT_SPRINT kitname ~SPELLFENCER~
-  INCLUDE ~%install%/variables.tph~
+  INCLUDE ~%install%/variables2.tph~
 
   COPY_EXISTING ~%m1%.spl~  ~override~
     PATCH_IF (5ecasting > 0) BEGIN

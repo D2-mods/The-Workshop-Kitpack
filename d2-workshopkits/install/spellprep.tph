@@ -1,39 +1,36 @@
 /*
-prep for subspell effects
-misc fixes
+prep for various spell effects
+misc files, functions, variables, etc.
+use spellprep2 or riftgateprep for spell arrays
+use spellprep3 for making files using spell arrays
 */
 
 
-//make dummy spell
-ACTION_IF !(FILE_EXISTS ~override/d2spell.spl~) BEGIN
-  COPY_EXISTING ~SPCL142.spl~  ~override/d2spell.spl~
-    LPF d2_subspell_remove_effects END
-    LPF ALTER_EFFECT INT_VAR opcode=0 parameter1=0 parameter2=0 timing=0 duration=0 END
-    WRITE_LONG 0x18 THIS | BIT14
-    WRITE_LONG 0x18 THIS | BIT25
-  IF_EXISTS
-END
+//note: dummy spells moved to inlined.tph
 
-//dummy spell, but can trigger wild magic
-ACTION_IF !(FILE_EXISTS ~override/d2spell2.spl~) BEGIN
-  COPY_EXISTING ~d2spell.spl~  ~override/d2spell2.spl~
-    WRITE_LONG 0x18 (THIS BAND BNOT BIT14)
-  IF_EXISTS
-END
 
-//make dummy eff
-ACTION_IF !(FILE_EXISTS ~override/d2spell.eff~) BEGIN
-  COPY_EXISTING ~UNDEDDAM.eff~  ~override/d2spell.eff~
-    WRITE_LONG   0x10 0      // opcode
-    WRITE_LONG   0x14 2      // target (not used for op177s)
-    WRITE_LONG   0x1c 0      // parameter1
-    WRITE_LONG   0x20 0      // parameter2
-    WRITE_LONG   0x24 0      // timing (not used for op177s)
-    WRITE_LONG   0x28 0      // duration
-    WRITE_SHORT  0x2c 100
-    WRITE_ASCII  0x30 ~~ #8    // resource
-  IF_EXISTS
-END
+//variables
+
+//damage types
+OUTER_SET dfire = 0x00080000
+OUTER_SET dcold = 0x00020000
+OUTER_SET dlightning = 0x00040000
+OUTER_SET dacid = 0x00010000
+OUTER_SET dmagic = 0x00400000
+OUTER_SET dpoison = 0x00200000
+
+OUTER_SET dcrushing = 0x00000000
+OUTER_SET dpiercing = 0x00100000
+OUTER_SET dslashing = 0x01000000
+OUTER_SET dmissile = 0x00800000
+OUTER_SET dnonlethal = 0x08000000
+
+
+//evasion check
+OUTER_SET patch_evasion = 0
+ACTION_IF (GAME_IS ~iwdee~) BEGIN OUTER_SET patch_evasion = 1 END
+ACTION_IF (RESOURCE_CONTAINS ~CLABTH01.2da~ ~#EVASION~) BEGIN OUTER_SET patch_evasion = 1 END
+ACTION_IF (RESOURCE_CONTAINS ~CLABTH01.2da~ ~CDIEVAD~)  BEGIN OUTER_SET patch_evasion = 1 END
 
 
 //mage kit spell slots
@@ -45,31 +42,6 @@ OUTER_TEXT_SPRINT baseslots ~d2sltm1~
 OUTER_TEXT_SPRINT 5ecasting ~d2slt5e~
 
 
-
-//
-//haste effects (as subspell)
-
-/*after using function:
-alter durations of op16 and op142
-set op318s to new resource, or delete if unneeded
-
-NOTE: SCS/ToF tweak bumps haste effect to a subspell (SPWI305A.spl)
-*/
-
-DEFINE_PATCH_FUNCTION d2prep_haste BEGIN
-  LPF d2_remove_level_headers END
-  LPF d2_subspell_remove_effects END
-  LPF DELETE_EFFECT INT_VAR match_opcode=176 END    // revert some sr changes
-  LPF DELETE_EFFECT INT_VAR match_opcode=1 END
-  LPF DELETE_EFFECT INT_VAR match_opcode=206 END
-  LPF DELETE_EFFECT INT_VAR match_timing=4 END      // remove fatigue
-  LPF DELETE_EFFECT INT_VAR match_opcode=16 END                                    // delete opcode 16 (haste)
-  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=142 opcode=16 parameter2=0 END    // add opcode 16
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 opcode=318 END                // change any op324 to op318 (no message)
-END
-
-
-//
 //set variable for "cure_subspell"
 OUTER_TEXT_SPRINT cure_subspell ~SPPR502~                // set to main spell
 ACTION_IF (FILE_EXISTS ~override/SPPR502B.spl~) BEGIN    // scan subspell for heal opcode
@@ -89,13 +61,36 @@ END
 
 
 
-/*
-patches for sleep effects
-effects cloned from an existing op39 on the SPL/ITM
+//functions
+
+//patch haste effects (as subspell)
+
+/*after using function:
+alter durations of op16 and op142
+set op318s to new resource, or delete if unneeded
+NOTE: SCS/ToF tweak bumps haste effect to a subspell (SPWI305A.spl)
 */
 
-//show display string for sleep resist (elf, half-elf)
-//string is "Unaffected by effects from sleep"
+DEFINE_PATCH_FUNCTION d2prep_haste BEGIN
+  LPF d2_remove_level_headers END
+  LPF d2_subspell_remove_effects END
+  LPF DELETE_EFFECT INT_VAR match_opcode=176 END    // revert some sr changes
+  LPF DELETE_EFFECT INT_VAR match_opcode=1 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=206 END
+  LPF DELETE_EFFECT INT_VAR match_timing=4 END      // remove fatigue
+  LPF DELETE_EFFECT INT_VAR match_opcode=16 END                                    // delete opcode 16 (haste)
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=142 opcode=16 parameter2=0 END    // add opcode 16
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=324 opcode=318 END                // change any op324 to op318 (no message)
+END
+
+
+
+/*
+patches for sleep effects
+these functions require an existing op39 on the SPL/ITM (skipped silently if not)
+*/
+
+//add elf resist + show unaffected string
 DEFINE_PATCH_FUNCTION d2_sleep_elfresist INT_VAR overwrite=1 string=1 opcode=318 BEGIN
 
   PATCH_IF (opcode!=318 AND opcode!=324) BEGIN SET opcode=318 END
@@ -116,20 +111,20 @@ DEFINE_PATCH_FUNCTION d2_sleep_elfresist INT_VAR overwrite=1 string=1 opcode=318
 
 END
 
-//
-//make d2sleept file (for above function)
+
+//make d2sleept file (unaffected string)
 COPY_EXISTING - ~SPWI116.spl~  ~~  READ_LONG 0x8 sleep_name
 ACTION_GET_STRREF EVAL ~%sleep_name%~  sleep_string
 OUTER_TEXT_SPRINT ability_name ~%sleep_string%~
 ACTION_TO_LOWER ability_name    // "sleep"
 
-COPY ~%abilities%/spellfailed.SPL~  ~override/d2sleept.SPL~
+COPY ~inlined/fail.spl~  ~override/d2sleept.spl~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@350) END    // "Unaffected by..."
   LPF DELETE_EFFECT INT_VAR match_opcode=141 END
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END
   LPF d2_protect_on_castequip INT_VAR duration=5 END    // block string for 5 seconds (won't see every hit)
 
-//
+
 //show "Sleep" string
 DEFINE_PATCH_FUNCTION d2_sleep_string INT_VAR overwrite=1 BEGIN
 
@@ -146,7 +141,6 @@ DEFINE_PATCH_FUNCTION d2_sleep_string INT_VAR overwrite=1 BEGIN
 
 /*
 LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=39 opcode=267 parameter1=unconscious timing=0 duration=1 savingthrow=0 special=0 STR_VAR insert=first END
-
 attempt to block "Unconscious" string in BGEE games with op267 (doesn't work)
 */
 

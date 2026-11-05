@@ -1,0 +1,51 @@
+/*
+Make kit abilities unaffected by casting speed penalties (ex. from Ether Booster)
+Skipped: spells or spell-like (ex. Denial, Moonlight Vortex, Bolt of Glory)
+*/
+
+
+ACTION_IF !(IS_AN_INT d2wk_castspeed) BEGIN  OUTER_SET d2wk_castspeed = 1  END
+
+
+//array function
+DEFINE_PATCH_FUNCTION d2wk_castspeed RET_ARRAY d2wk_castspeed BEGIN
+  PATCH_IF (SOURCE_SIZE > 0x99) BEGIN    // big enough to make below READs
+    READ_SHORT 0x1c type    // 1=mage, 2=priest
+    PATCH_IF (type<1 OR type>2) BEGIN    // not if mage or priest
+      READ_LONG 0x8 name
+      READ_LONG 0x50 desc
+      PATCH_IF (name>0 && desc>0) BEGIN    // only patch main abilities (name and desc set)
+        READ_SHORT 0x84 castspeed
+        PATCH_IF (castspeed < 2) BEGIN    // skip longer casting spells
+          SPRINT $d2wk_castspeed (~%SOURCE_RES%~) ~~
+        END
+      END
+    END
+  END
+END
+
+
+//get array of abilities
+COPY_EXISTING_REGEXP - GLOB ~^d2wk.*\.spl$~ ~~  LPF d2wk_castspeed RET_ARRAY d2wk_castspeed END
+
+
+//patching
+ACTION_PHP_EACH d2wk_castspeed AS spell => filler BEGIN
+
+  COPY_EXISTING ~%spell%.spl~  ~override~
+    LPF DELETE_EFFECT INT_VAR check_headers=0 match_opcode=189 match_timing=0 END
+    PATCH_IF (IS_AN_INT d2wk_castspeed) BEGIN
+      READ_SHORT 0x84 speed
+      SET duration = speed + 1
+      PATCH_IF (duration > 6) BEGIN SET duration = 6 END
+      LPF ADD_SPELL_CFEFFECT
+        INT_VAR opcode=189 target=1 parameter1=speed parameter2=1 resist_dispel=2 duration=duration
+      END
+    END
+  BUT_ONLY
+
+END
+
+
+//
+//

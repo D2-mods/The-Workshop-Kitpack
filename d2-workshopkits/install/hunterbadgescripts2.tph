@@ -1,0 +1,413 @@
+/*
+make invisible cre + cre script for Hunter Badges
+- area scripting to add cre is done in hunterbadgecre.tph
+- cre is created after resting
+
+War Magician (5)    => Spark Hunter Badge
+Grave Warden (9)    => Radiant Sword Badge
+Blood Minister (11) => Cosmic Watcher Badge
+Powder Keg (7)      => Powder Keg Badge
+Medic (13)          => Saw Hunter Badge
+Noble Scion (10)    => Old Hunter Badge
+*/
+
+
+ACTION_IF (nobeasthunter = 0) BEGIN
+
+
+//OR amount (checking kits on each Player#)
+OUTER_SET lines = beasthunterfm + beasthunterfmc + beasthunterfc
+OUTER_SET lines *= 5
+OUTER_SET lines += 5
+
+
+//function for multiclass kits
+DEFINE_PATCH_FUNCTION checkmcvariants BEGIN
+
+  PATCH_IF (beasthunterfm > 0) BEGIN
+    REPLACE_TEXTUALLY ~Kit(Player2,D2BEASTHUNTER)~  ~Kit(Player2,D2BEASTHUNTER) Kit(Player2,D2BEASTHUNTERFM)~
+    REPLACE_TEXTUALLY ~Kit(Player3,D2BEASTHUNTER)~  ~Kit(Player3,D2BEASTHUNTER) Kit(Player3,D2BEASTHUNTERFM)~
+    REPLACE_TEXTUALLY ~Kit(Player4,D2BEASTHUNTER)~  ~Kit(Player4,D2BEASTHUNTER) Kit(Player4,D2BEASTHUNTERFM)~
+    REPLACE_TEXTUALLY ~Kit(Player5,D2BEASTHUNTER)~  ~Kit(Player5,D2BEASTHUNTER) Kit(Player5,D2BEASTHUNTERFM)~
+    REPLACE_TEXTUALLY ~Kit(Player6,D2BEASTHUNTER)~  ~Kit(Player6,D2BEASTHUNTER) Kit(Player6,D2BEASTHUNTERFM)~
+  END
+
+  PATCH_IF (beasthunterfmc > 0) BEGIN
+    REPLACE_TEXTUALLY ~Kit(Player2,D2BEASTHUNTER)~  ~Kit(Player2,D2BEASTHUNTER) Kit(Player2,D2BEASTHUNTERFMC)~
+    REPLACE_TEXTUALLY ~Kit(Player3,D2BEASTHUNTER)~  ~Kit(Player3,D2BEASTHUNTER) Kit(Player3,D2BEASTHUNTERFMC)~
+    REPLACE_TEXTUALLY ~Kit(Player4,D2BEASTHUNTER)~  ~Kit(Player4,D2BEASTHUNTER) Kit(Player4,D2BEASTHUNTERFMC)~
+    REPLACE_TEXTUALLY ~Kit(Player5,D2BEASTHUNTER)~  ~Kit(Player5,D2BEASTHUNTER) Kit(Player5,D2BEASTHUNTERFMC)~
+    REPLACE_TEXTUALLY ~Kit(Player6,D2BEASTHUNTER)~  ~Kit(Player6,D2BEASTHUNTER) Kit(Player6,D2BEASTHUNTERFMC)~
+  END
+
+  PATCH_IF (beasthunterfc > 0) BEGIN
+    REPLACE_TEXTUALLY ~Kit(Player2,D2BEASTHUNTER)~  ~Kit(Player2,D2BEASTHUNTER) Kit(Player2,D2BEASTHUNTERFC)~
+    REPLACE_TEXTUALLY ~Kit(Player3,D2BEASTHUNTER)~  ~Kit(Player3,D2BEASTHUNTER) Kit(Player3,D2BEASTHUNTERFC)~
+    REPLACE_TEXTUALLY ~Kit(Player4,D2BEASTHUNTER)~  ~Kit(Player4,D2BEASTHUNTER) Kit(Player4,D2BEASTHUNTERFC)~
+    REPLACE_TEXTUALLY ~Kit(Player5,D2BEASTHUNTER)~  ~Kit(Player5,D2BEASTHUNTER) Kit(Player5,D2BEASTHUNTERFC)~
+    REPLACE_TEXTUALLY ~Kit(Player6,D2BEASTHUNTER)~  ~Kit(Player6,D2BEASTHUNTER) Kit(Player6,D2BEASTHUNTERFC)~
+  END
+
+END
+
+
+
+//make bcs file
+OUTER_SPRINT creres  ~%hunterbadgecre%~    // cre + variables
+OUTER_SET duration = 5    // summon duration
+OUTER_SPRINT basevar  ~%creres%~    // prefix for cre LOCALS variables
+
+<<<<<<<< .../temp/%creres%.baf
+>>>>>>>>
+COMPILE ~.../temp/%creres%.baf~
+
+
+
+//Spark Hunter Badge
+ACTION_IF (FILE_EXISTS_IN_GAME ~%warmagician%.2da~) BEGIN
+
+<<<<<<<< .../temp/blocks
+IF
+	!Global("d2badge_spark","GLOBAL",1)
+	Kit(Player1,D2WARMAGICIAN)
+	ClassLevelGT(Player1,WIZARD,4)
+	OR(5)
+		Kit(Player2,D2BEASTHUNTER)
+		Kit(Player3,D2BEASTHUNTER)
+		Kit(Player4,D2BEASTHUNTER)
+		Kit(Player5,D2BEASTHUNTER)
+		Kit(Player6,D2BEASTHUNTER)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,AddSpecialAbility("%give_badge_spark%"))
+		SetGlobal("d2badge_spark","GLOBAL",1)
+END
+>>>>>>>>
+
+  COPY - ~.../temp/blocks~  ~inlined/blocks.baf~
+    EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%lines%)~
+    LPF checkmcvariants END
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks2.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player2~
+    REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks3.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player3~
+    REPLACE_TEXTUALLY ~Player3,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks4.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player4~
+    REPLACE_TEXTUALLY ~Player4,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks5.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player5~
+    REPLACE_TEXTUALLY ~Player5,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks6.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player6~
+    REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
+
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks2.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks3.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks4.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks5.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks6.baf~
+
+END
+
+
+
+//Radiant Sword Badge
+ACTION_IF (FILE_EXISTS_IN_GAME ~%gravewarden%.2da~) BEGIN
+
+<<<<<<<< .../temp/blocks
+IF
+	!Global("d2badge_radiant","GLOBAL",1)
+	Kit(Player1,D2GRAVEWARDEN)
+	ClassLevelGT(Player1,WARRIOR,8)
+	OR(5)
+		Kit(Player2,D2BEASTHUNTER)
+		Kit(Player3,D2BEASTHUNTER)
+		Kit(Player4,D2BEASTHUNTER)
+		Kit(Player5,D2BEASTHUNTER)
+		Kit(Player6,D2BEASTHUNTER)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,AddSpecialAbility("%give_badge_radiant%"))
+		SetGlobal("d2badge_radiant","GLOBAL",1)
+END
+>>>>>>>>
+
+  COPY - ~.../temp/blocks~  ~inlined/blocks.baf~
+    EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%lines%)~
+    LPF checkmcvariants END
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks2.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player2~
+    REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks3.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player3~
+    REPLACE_TEXTUALLY ~Player3,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks4.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player4~
+    REPLACE_TEXTUALLY ~Player4,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks5.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player5~
+    REPLACE_TEXTUALLY ~Player5,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks6.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player6~
+    REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
+
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks2.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks3.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks4.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks5.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks6.baf~
+
+END
+
+
+
+//Cosmic Watcher Badge
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bloodminister%.2da~) BEGIN
+
+<<<<<<<< .../temp/blocks
+IF
+	!Global("d2badge_cosmic","GLOBAL",1)
+	Kit(Player1,D2BLOODMINISTER)
+	ClassLevelGT(Player1,PRIEST,10)
+	OR(5)
+		Kit(Player2,D2BEASTHUNTER)
+		Kit(Player3,D2BEASTHUNTER)
+		Kit(Player4,D2BEASTHUNTER)
+		Kit(Player5,D2BEASTHUNTER)
+		Kit(Player6,D2BEASTHUNTER)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,AddSpecialAbility("%give_badge_cosmic%"))
+		SetGlobal("d2badge_cosmic","GLOBAL",1)
+END
+>>>>>>>>
+
+  COPY - ~.../temp/blocks~  ~inlined/blocks.baf~
+    EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%lines%)~
+    LPF checkmcvariants END
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks2.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player2~
+    REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks3.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player3~
+    REPLACE_TEXTUALLY ~Player3,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks4.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player4~
+    REPLACE_TEXTUALLY ~Player4,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks5.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player5~
+    REPLACE_TEXTUALLY ~Player5,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks6.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player6~
+    REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
+
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks2.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks3.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks4.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks5.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks6.baf~
+
+END
+
+
+
+//Powder Keg Badge
+ACTION_IF (FILE_EXISTS_IN_GAME ~%powderkeg%.2da~) BEGIN
+
+<<<<<<<< .../temp/blocks
+IF
+	!Global("d2badge_pkeg","GLOBAL",1)
+	Kit(Player1,D2POWDERKEG)
+	ClassLevelGT(Player1,ROGUE,6)
+	OR(5)
+		Kit(Player2,D2BEASTHUNTER)
+		Kit(Player3,D2BEASTHUNTER)
+		Kit(Player4,D2BEASTHUNTER)
+		Kit(Player5,D2BEASTHUNTER)
+		Kit(Player6,D2BEASTHUNTER)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,AddSpecialAbility("%give_badge_pkeg%"))
+		SetGlobal("d2badge_pkeg","GLOBAL",1)
+END
+>>>>>>>>
+
+  COPY - ~.../temp/blocks~  ~inlined/blocks.baf~
+    EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%lines%)~
+    LPF checkmcvariants END
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks2.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player2~
+    REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks3.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player3~
+    REPLACE_TEXTUALLY ~Player3,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks4.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player4~
+    REPLACE_TEXTUALLY ~Player4,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks5.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player5~
+    REPLACE_TEXTUALLY ~Player5,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks6.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player6~
+    REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
+
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks2.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks3.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks4.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks5.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks6.baf~
+
+END
+
+
+
+//Saw Hunter Badge
+ACTION_IF (FILE_EXISTS_IN_GAME ~%medic%.2da~) BEGIN
+
+<<<<<<<< .../temp/blocks
+IF
+	!Global("d2badge_saw","GLOBAL",1)
+	Kit(Player1,D2MEDIC)
+	ClassLevelGT(Player1,WARRIOR,12)
+	OR(5)
+		Kit(Player2,D2BEASTHUNTER)
+		Kit(Player3,D2BEASTHUNTER)
+		Kit(Player4,D2BEASTHUNTER)
+		Kit(Player5,D2BEASTHUNTER)
+		Kit(Player6,D2BEASTHUNTER)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,AddSpecialAbility("%give_badge_saw%"))
+		SetGlobal("d2badge_saw","GLOBAL",1)
+END
+>>>>>>>>
+
+  COPY - ~.../temp/blocks~  ~inlined/blocks.baf~
+    EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%lines%)~
+    LPF checkmcvariants END
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks2.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player2~
+    REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks3.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player3~
+    REPLACE_TEXTUALLY ~Player3,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks4.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player4~
+    REPLACE_TEXTUALLY ~Player4,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks5.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player5~
+    REPLACE_TEXTUALLY ~Player5,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks6.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player6~
+    REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
+
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks2.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks3.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks4.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks5.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks6.baf~
+
+END
+
+
+
+//Old Hunter Badge
+ACTION_IF (FILE_EXISTS_IN_GAME ~%noblescion%.2da~) BEGIN
+
+<<<<<<<< .../temp/blocks
+IF
+	!Global("d2badge_old","GLOBAL",1)
+	Kit(Player1,D2NOBLESCION)
+	ClassLevelGT(Player1,WARRIOR,9)
+	OR(5)
+		Kit(Player2,D2BEASTHUNTER)
+		Kit(Player3,D2BEASTHUNTER)
+		Kit(Player4,D2BEASTHUNTER)
+		Kit(Player5,D2BEASTHUNTER)
+		Kit(Player6,D2BEASTHUNTER)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,AddSpecialAbility("%give_badge_old%"))
+		SetGlobal("d2badge_old","GLOBAL",1)
+END
+>>>>>>>>
+
+  COPY - ~.../temp/blocks~  ~inlined/blocks.baf~
+    EVALUATE_BUFFER
+    REPLACE_TEXTUALLY ~OR(5)~  ~OR(%lines%)~
+    LPF checkmcvariants END
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks2.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player2~
+    REPLACE_TEXTUALLY ~Player2,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks3.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player3~
+    REPLACE_TEXTUALLY ~Player3,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks4.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player4~
+    REPLACE_TEXTUALLY ~Player4,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks5.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player5~
+    REPLACE_TEXTUALLY ~Player5,D2BEAST~ ~Player1,D2BEAST~
+  COPY - ~inlined/blocks.baf~  ~inlined/blocks6.baf~
+    REPLACE_TEXTUALLY ~Player1~         ~Player6~
+    REPLACE_TEXTUALLY ~Player6,D2BEAST~ ~Player1,D2BEAST~
+
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks2.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks3.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks4.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks5.baf~
+  EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks6.baf~
+
+END
+
+
+
+//set cre timer
+<<<<<<<< .../temp/movecre
+IF
+	!Global("%basevar%move","LOCALS",1)
+THEN
+	RESPONSE #100
+		SetGlobal("%basevar%move","LOCALS",1)
+//		JumpToPoint([10.10])
+		SetGlobalTimer("%basevar%timer","LOCALS",%duration%)
+END
+>>>>>>>>
+COPY - ~.../temp/movecre~  ~inlined/movecre.baf~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/movecre.baf~
+
+
+//cre leaves
+<<<<<<<< .../temp/endspell
+IF
+	Global("%basevar%move","LOCALS",1)
+	!GlobalTimerNotExpired("%basevar%timer","LOCALS")
+THEN
+	RESPONSE #100
+		DestroySelf()
+END
+>>>>>>>>
+COPY - ~.../temp/endspell~    ~inlined/endspell.baf~
+  EVALUATE_BUFFER
+EXTEND_TOP ~%creres%.bcs~  ~inlined/endspell.baf~
+
+
+END
+
+
+//
+//

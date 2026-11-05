@@ -1,40 +1,8 @@
 /*
-Set some variables for Misc items
+Set variables for Misc items
 */
 
 
-//More filename variables
-OUTER_TEXT_SPRINT z1 ~%kitid%z1~
-OUTER_TEXT_SPRINT z2 ~%kitid%z2~
-OUTER_TEXT_SPRINT z3 ~%kitid%z3~
-OUTER_TEXT_SPRINT z4 ~%kitid%z4~
-OUTER_TEXT_SPRINT z5 ~%kitid%z5~
-OUTER_TEXT_SPRINT z6 ~%kitid%z6~
-OUTER_TEXT_SPRINT z7 ~%kitid%z7~
-OUTER_TEXT_SPRINT z8 ~%kitid%z8~
-OUTER_TEXT_SPRINT z9 ~%kitid%z9~
-OUTER_TEXT_SPRINT z0 ~%kitid%z0~
-OUTER_TEXT_SPRINT za ~%kitid%za~
-OUTER_TEXT_SPRINT zb ~%kitid%zb~
-OUTER_TEXT_SPRINT zc ~%kitid%zc~
-OUTER_TEXT_SPRINT zd ~%kitid%zd~
-OUTER_TEXT_SPRINT ze ~%kitid%ze~
-
-OUTER_TEXT_SPRINT ma ~%kitid%ma~
-OUTER_TEXT_SPRINT mb ~%kitid%mb~
-OUTER_TEXT_SPRINT mc ~%kitid%mc~
-OUTER_TEXT_SPRINT md ~%kitid%md~
-OUTER_TEXT_SPRINT me ~%kitid%me~
-OUTER_TEXT_SPRINT mf ~%kitid%mf~
-OUTER_TEXT_SPRINT mg ~%kitid%mg~
-OUTER_TEXT_SPRINT mh ~%kitid%mh~
-OUTER_TEXT_SPRINT mi ~%kitid%mi~
-OUTER_TEXT_SPRINT mj ~%kitid%mj~
-OUTER_TEXT_SPRINT mk ~%kitid%mk~
-
-
-
-//
 //Area variables (BGEE/EET)
 
 //BG1 ARE files
@@ -66,7 +34,6 @@ END
 
 
 
-//
 //Kit variables
 
 //War Magician (d2wk7)
@@ -143,7 +110,6 @@ END
 
 
 
-//
 //add Lore check to splprot.2da
 OUTER_TEXT_SPRINT d2lorecheck  ~d2lorecheck 25 -1 4~    // lore >= value
 OUTER_TEXT_SPRINT d2loreunder  ~d2loreunder 25 -1 2~    // lore < value
@@ -157,5 +123,5 @@ COPY_EXISTING ~splprot.2da~  ~override~
 BUT_ONLY
 
 
-/*
-*/
+//
+//

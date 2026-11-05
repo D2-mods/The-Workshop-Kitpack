@@ -8,7 +8,6 @@ Text in this file appears in the game.
 //non-Warrior kits (v1.0)
 //v3.0 kits
 //v4.0 kits
-//v6.0 kits
 //Ability text
 //Spell Text
 //Item text
@@ -277,7 +276,7 @@ TORRENT: On a successful attack (melee or ranged), the character has a 10% chanc
 
 – 7th level: May use the Moonlight Vortex ability once per day. Gains additional uses every 4 levels thereafter.
 
-MOONLIGHT VORTEX: Unleashes a beam of torrential moonlight, which extends as far as the target point, inflicting 8d6 magic damage to enemies. Undead and outerplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.
+MOONLIGHT VORTEX: Unleashes torrential moonlight, which pierces through objects in the path and deals 8d6 damage to enemies. Undead and extraplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.
 
 – No alignment restrictions.
 – Will not fall due to reputation loss.
@@ -637,7 +636,6 @@ Disadvantages:
 
 
 
-
 //
 //Ability text
 @100 = ~Hunter Tools~
@@ -679,7 +677,7 @@ This spell has two effects. First, the recipient becomes immune to all forms of 
 @105 = ~Moonlight Vortex~
 @205 = ~Moonlight Vortex
 
-Unleashes a beam of torrential moonlight, which extends as far as the target point, inflicting 8d6 magic damage to enemies. Undead and outerplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.~
+Unleashes torrential moonlight, which pierces through objects in the path and deals 8d6 damage to enemies. Undead and extraplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.~
 
 @106 = ~Rooting Shot~
 @206 = ~Rooting Shot
@@ -820,9 +818,7 @@ The character sacrifices 5 Hit Points. For the next 2 rounds, the bonus to range
 
 Equips the character with 5 medical darts, which expire after 5 rounds. These darts will heal allies or deal poison damage to enemies. The amount of healing or damage is equal to 1d4+3, with an extra +1 every 5 levels. Medical Darts strike as +2 weapons with a +5 bonus to THAC0. Proficiency with darts does not affect attack rolls.
 
-Cannot be used together with Injection Shot.
-Neutral NPCs may become hostile if attacked.
-If the target is an ally, attacks are made with an additional +15 bonus.~
+Cannot be used together with Injection Shot.~
 
 @127 = ~Injection Shot~
 @227 = ~Injection Shot

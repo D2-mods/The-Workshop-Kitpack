@@ -4,6 +4,11 @@ changes account for tweaks and overhauls
 */
 
 
+ACTION_IF (IS_AN_INT silentmode && silentmode<3) BEGIN
+  PRINT ~making kit-specific proficiency edits ...~
+END
+
+
 //build array
 ACTION_FOR_EACH kit IN ~d2warhound~ ~d2warhoundfm~ ~d2noblescion~ BEGIN
   ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~%kit%~) BEGIN

@@ -1,13 +1,16 @@
 /*
 compatible with BG1, BG2, IWD1, IWD2, PST (classic and EEs)
 for items/accessories (includes a few pst armors)
-*/
 
-
-/*functions
+functions:
 d2_set_itemtype_fields    PATCH
 d2_get_itemtype_fields    ACTION or PATCH
 d2_itemtype_print         ACTION or PATCH
+
+arrays:
+d2_itemtype_res
+
+inlined files are also made at the bottom
 */
 
 
@@ -24,7 +27,7 @@ All info is read from base items at install time (this is done below)
 
 DEFINE_PATCH_FUNCTION d2_set_itemtype_fields INT_VAR magical=1 visual=1 ground=1 STR_VAR type=~~ BEGIN
 
-  PATCH_IF (~%SOURCE_EXT%~ STR_EQ ~itm~) BEGIN
+  PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~itm~) OR (~%DEST_EXT%~ STR_EQ ~itm~)) BEGIN
 
     // match array type names
     LPF d2_check_itemtype STR_VAR type=EVAL ~%type%~ RET type END
@@ -381,6 +384,22 @@ DEFINE_DIMORPHIC_FUNCTION d2_itemtype_print INT_VAR files=1 info=0 BEGIN
   END
 
 END
+
+
+
+//inlined
+ACTION_PHP_EACH d2_itemtype_res AS type => res BEGIN
+  COPY_EXISTING - ~%res%.itm~  ~inlined/%type%~  IF_EXISTS
+END
+
+/*
+ACTION_PHP_EACH d2_itemtype_res AS type => res BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%res%.itm~) BEGIN
+    OUTER_SPRINT file  ~inlined/%type%~
+    COPY ~%file%~  ~%workspace%/%file%~
+  END
+END
+*/
 
 
 //

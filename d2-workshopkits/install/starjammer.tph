@@ -34,8 +34,8 @@ COPY ~%icons%/riftgateicon2.BAM~       ~override/%w8%b.BAM~
 
 //
 //Add Riftstep
-COPY - ~%abilities%/riftstepgibber.BAF~  ~%workspace%/%w1%g.BAF~    // add gibberlings
-COMPILE ~%workspace%/%w1%g.BAF~
+COPY - ~%abilities%/riftstepgibber.BAF~  ~inlined/%w1%g.BAF~    // add gibberlings
+COMPILE ~inlined/%w1%g.BAF~
 COPY ~%abilities%/riftstepgibber.ITM~    ~override/%w1%g.ITM~
   LPF insect_immunity END
 COPY ~%abilities%/riftstepgibber.CRE~    ~override/%w1%g.CRE~
@@ -48,17 +48,20 @@ COPY ~%abilities%/summonportal.EFF~   ~override/%w1%g.EFF~
   WRITE_ASCII 0x30 ~%w1%g~ #8
   WRITE_LONG 0x20 2
 
-COPY ~%abilities%/riftstep.SPL~          ~override/%w1%.SPL~        // add spell
+COPY ~%abilities%/riftstep.SPL~  ~override/%w1%.SPL~        // add spell
   SAY NAME1 @40108
   SAY UNIDENTIFIED_DESC @40208
   LPF DELETE_EFFECT INT_VAR match_opcode=20 END
   LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%w1%a~ END                   // time stop
   LPF ALTER_EFFECT INT_VAR match_opcode=215 opcode=326 STR_VAR resource=~d2riftst~ END     // visual
   LPF ALTER_EFFECT INT_VAR match_opcode=148 STR_VAR resource=~%w1%g~ END                   // gibberlings
-COPY ~%abilities%/d2riftst.VVC~          ~override/d2riftst.VVC~
-COPY ~%abilities%/d2riftst.SPL~          ~override/d2riftst.SPL~
+
+//rift effects
+COPY ~%abilities%/d2riftst.VVC~  ~override/d2riftst.VVC~
+COPY ~%abilities%/d2riftst.SPL~  ~override/d2riftst.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~d2riftst~ END
 COPY ~%abilities%/riftsteptimestop.SPL~  ~override/%w1%a.SPL~
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=176 target=1 parameter1=150 parameter2=5 duration=7 END    // v5.32: +50% movement
 
 //summon gibberlings
 COPY ~%abilities%/riftgatebalor.SPL~  ~override/%w1%g.SPL~
@@ -75,9 +78,9 @@ COPY ~%abilities%/riftgatebalor.SPL~  ~override/%w1%g.SPL~
 
 //
 //Add Steady Current
-COPY - ~%abilities%/steadycurrent.PRO~  ~%workspace%/%w2%.PRO~
+COPY - ~%abilities%/steadycurrent.PRO~  ~inlined/%w2%.PRO~
   WRITE_ASCII 0x104 ~%w2%~ #8    // BAM animation
-ADD_PROJECTILE ~%workspace%/%w2%.PRO~
+ADD_PROJECTILE ~inlined/%w2%.PRO~
 
 COPY ~%abilities%/steadycurrent.BAM~    ~override/%w2%.BAM~     // animation BAM
 COPY ~%abilities%/steadycurrent.SPL~    ~override/%w2%.SPL~
@@ -110,8 +113,10 @@ COPY ~%abilities%/swapper.SPL~  ~override/%w3%.SPL~
 
 //
 //Add Pacifying Field
-COPY - ~%abilities%/pacifier.PRO~  ~%workspace%/%w4%.PRO~
-ADD_PROJECTILE ~%workspace%/%w4%.PRO~
+COPY - ~%abilities%/pacifier.PRO~  ~inlined/%w4%.PRO~
+//  WRITE_ASCII 0x18 EFF_P67 #8
+ADD_PROJECTILE ~inlined/%w4%.PRO~
+
 COPY_EXISTING ~SPPR109.SPL~  ~override/%w4%.SPL~    // clone Sanctuary
   SAY NAME1 @40111
   SAY UNIDENTIFIED_DESC @40211
@@ -119,12 +124,34 @@ COPY_EXISTING ~SPPR109.SPL~  ~override/%w4%.SPL~    // clone Sanctuary
   LPF d2_convert_spell_type INT_VAR type=1 level=4 END    // convert to level 4 Wizard spell
   WRITE_SHORT 0x98 ~%w4%~    // projectile
 
-  // effects
-  LPF ALTER_EFFECT INT_VAR target=2 power=0 END    // power=0 to bypass immunity to spell level
-  LPF ALTER_EFFECT INT_VAR silent=1 match_timing=0 duration=60 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_timing=4 duration=60 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=174 STR_VAR resource=EFF_M59 END
-  LPF d2_remove_effects_on_cast END
+  SET w4overlay = 1
+  PATCH_IF (IS_AN_INT w4overlay && w4overlay>0) BEGIN
+    SET timer = 60
+    LPF d2_subspell_remove_visuals END
+    LPF ALTER_EFFECT INT_VAR target=2 power=0 END    // power=0 to bypass immunity to spell level
+    LPF ALTER_EFFECT INT_VAR silent=1 match_timing=0 duration=timer END
+
+    SPRINT overlay  ~%w4%v~
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=153 opcode=174 timing=4 STR_VAR resource=EFF_M59 END
+    LPF ADD_SPELL_EFFECT INT_VAR opcode=215 target=2 timing=1 STR_VAR resource=ABJURH END
+    LPF ADD_SPELL_EFFECT INT_VAR opcode=61 target=2 parameter1=1183635200 parameter2=0b111100000000000000000 timing=1 END
+    LPF ALTER_EFFECT INT_VAR match_opcode=153 parameter2=1 STR_VAR resource=~%overlay%~ END
+    LPF d2_remove_effects_on_cast END
+  END ELSE BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=174 match_timing=1 END
+    LPF ALTER_EFFECT INT_VAR target=2 power=0 END    // power=0 to bypass immunity to spell level
+    LPF ALTER_EFFECT INT_VAR silent=1 match_timing=0 duration=60 END
+    LPF ALTER_EFFECT INT_VAR silent=1 match_timing=4 duration=60 END
+    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=174 STR_VAR resource=EFF_M59 END
+    LPF d2_remove_effects_on_cast END
+  END
+
+//overlay (edit of iwdee #ANTISHL)
+ACTION_IF (IS_AN_INT w4overlay && w4overlay>0) BEGIN
+  COPY ~%abilities%/pacifier.vvc~  ~override/%overlay%.vvc~
+    WRITE_ASCII 0x8  ~%overlay%~ #8
+  COPY ~%abilities%/pacifier2.bam~  ~override/%overlay%.bam~
+END
 
 
 //
@@ -210,11 +237,11 @@ END
 
 //
 //Add Electrocannon
-COPY - ~%abilities%/electrocannon5.PRO~  ~%workspace%/%w6%.PRO~
+COPY - ~%abilities%/electrocannon5.PRO~  ~inlined/%w6%.PRO~
   WRITE_ASCII 0x104 ~%w6%~ #8
   WRITE_ASCII 0x21c ~%w6%e~ #8
   WRITE_ASCII 0x228 ~%w6%e~ #8
-ADD_PROJECTILE ~%workspace%/%w6%.PRO~
+ADD_PROJECTILE ~inlined/%w6%.PRO~
 COPY ~%abilities%/electrocannon.BAM~       ~override/%w6%.BAM~
 COPY ~%abilities%/electrocannonblast.BAM~  ~override/%w6%e.BAM~
 
@@ -276,8 +303,8 @@ ELSE BEGIN
   OUTER_SET kitdesc = RESOLVE_STR_REF (@40214)    // for BGEE games
 END
 
-COPY - ~%abilities%/revitalizer.PRO~  ~%workspace%/%w7%.PRO~
-ADD_PROJECTILE ~%workspace%/%w7%.PRO~
+COPY - ~%abilities%/revitalizer.PRO~  ~inlined/%w7%.PRO~
+ADD_PROJECTILE ~inlined/%w7%.PRO~
 COPY_EXISTING ~%cure_subspell%.SPL~  ~override/%w7%.SPL~    // clone a Cure Wounds spell
   SAY NAME1 @40114
   WRITE_LONG 0x50 kitdesc
@@ -349,9 +376,9 @@ LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@354) STR_VAR color=blue 
 LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@355) STR_VAR color=blue RET newstring END
   OUTER_TEXT_SPRINT hold_position ~%newstring%~
 
-COPY - ~%abilities%/riftgategolem.BAF~  ~%workspace%/%w8%g.BAF~    // golem script
+COPY - ~%abilities%/riftgategolem.BAF~  ~inlined/%w8%g.BAF~    // golem script
   EVALUATE_BUFFER
-COMPILE ~%workspace%/%w8%g.BAF~
+COMPILE ~inlined/%w8%g.BAF~
 
 COPY ~%abilities%/riftgategolem.CRE~  ~override/%w8%g.CRE~         // add golem
   SAY NAME1 @601 
@@ -408,7 +435,7 @@ COPY ~%abilities%/riftgategolem.SPL~  ~override/%w8%g.SPL~    // stun effect (si
 
 //
 //Add Riftgate balor
-COPY - ~%abilities%/riftgatebalor.BAF~  ~%workspace%/%w8%d.BAF~    // balor script
+COPY - ~%abilities%/riftgatebalor.BAF~  ~inlined/%w8%d.BAF~    // balor script
   EVALUATE_BUFFER
   PATCH_IF (GAME_IS ~bgee~) BEGIN
     REPLACE_TEXTUALLY ~CLERIC_STORM_OF_VENGEANCE~     ~CLERIC_UNHOLY_BLIGHT~
@@ -416,7 +443,7 @@ COPY - ~%abilities%/riftgatebalor.BAF~  ~%workspace%/%w8%d.BAF~    // balor scri
     REPLACE_TEXTUALLY ~CLERIC_AURA_OF_FLAMING_DEATH~  ~WIZARD_FIRE_SHIELD_RED~
     REPLACE_TEXTUALLY ~CLERIC_IMPLOSION~              ~WIZARD_DELAYED_BLAST_FIREBALL~
   END
-COMPILE ~%workspace%/%w8%d.BAF~
+COMPILE ~inlined/%w8%d.BAF~
 
 COPY ~%abilities%/riftgatebalor.CRE~    ~override/%w8%d.CRE~       // add balor
   SAY NAME1 @602 
@@ -542,10 +569,10 @@ END
 
 //
 //Add Interference
-COPY - ~%abilities%/interference.PRO~ ~%workspace%/%s1%.PRO~
+COPY - ~%abilities%/interference.PRO~ ~inlined/%s1%.PRO~
   WRITE_ASCII 0x21c ~%s1%s~ #8
   WRITE_ASCII 0x228 ~%s1%t~ #8
-ADD_PROJECTILE ~%workspace%/%s1%.PRO~
+ADD_PROJECTILE ~inlined/%s1%.PRO~
 COPY ~%abilities%/interferencepulse.BAM~  ~override/%s1%t.BAM~
 
 COPY ~%abilities%/swirl.BAM~  ~override/%s1%s.BAM~

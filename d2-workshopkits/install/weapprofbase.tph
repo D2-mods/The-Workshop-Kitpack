@@ -6,6 +6,10 @@ runs from Kit Updater, before other edits
 
 REINCLUDE ~override/d2_hla_baseclass_array.txt~
 
+ACTION_IF (IS_AN_INT silentmode && silentmode<3) BEGIN
+  PRINT ~resetting proficiencies to match base class ...~
+END
+
 
 COPY_EXISTING ~weapprof.2da~  ~override~
 

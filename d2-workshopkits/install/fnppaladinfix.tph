@@ -52,10 +52,10 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/archetypes~  ~%workspace%/archetypes.BAF~
+COPY - ~.../temp/archetypes~  ~inlined/archetypes.BAF~
   EVALUATE_BUFFER
 
-EXTEND_TOP ~d5padlg.BCS~  ~%workspace%/archetypes.BAF~
+EXTEND_TOP ~d5padlg.BCS~  ~inlined/archetypes.BAF~
 
 
 END

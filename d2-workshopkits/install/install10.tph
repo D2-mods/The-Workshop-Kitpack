@@ -11,6 +11,7 @@ OUTER_SET buildeffects = 0
 //Install
 OUTER_TEXT_SPRINT kitid ~d2wkz~
 OUTER_TEXT_SPRINT kitname ~MISCITEMS~
+INCLUDE ~%install%/inlined.tph~
 INCLUDE ~%install%/itemtypes.tph~
 INCLUDE ~%install%/spellprep.tph~
 INCLUDE ~%install%/spellprep2.tph~
@@ -18,29 +19,29 @@ INCLUDE ~%install%/bleedprep.tph~
 INCLUDE ~%install%/werewolf.tph~
 INCLUDE ~%install%/tempfixes.tph~
 
-INCLUDE ~%install%/variables.tph~
+INCLUDE ~%install%/variables2.tph~
 INCLUDE ~%install%/resources.tph~
-INCLUDE ~%install%/%kitname%prep.tph~
-INCLUDE ~%install%/%kitname%.tph~
-INCLUDE ~%install%/%kitname%runes.tph~
-INCLUDE ~%install%/%kitname%effects.tph~
-INCLUDE ~%install%/%kitname%scripts.tph~
-INCLUDE ~%install%/%kitname%dfiles.tph~
-INCLUDE ~%install%/%kitname%stores.tph~
+INCLUDE ~%install%/miscitemsprep.tph~
+INCLUDE ~%install%/miscitems2.tph~
+INCLUDE ~%install%/miscitemsrunes.tph~
+INCLUDE ~%install%/miscitemseffects.tph~
+INCLUDE ~%install%/miscitemsscripts.tph~
+INCLUDE ~%install%/miscitemsdfiles.tph~
+INCLUDE ~%install%/miscitemsstores.tph~
 
-ACTION_IF (silentmode < 2) BEGIN  VERBOSE  END
+ACTION_IF (silentmode < 3) BEGIN  VERBOSE  END
 INCLUDE ~%install%/evasionchecks.tph~
 INCLUDE ~%install%/spellprep3.tph~
 INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/hbagdev.tph~
 INCLUDE ~%install%/priceadjust.tph~
-INCLUDE ~%install%/castingspeedpatch.tph~
+INCLUDE ~%install%/castingspeedmod.tph~
 
 OUTER_TEXT_SPRINT mode  ~item~
 INCLUDE ~%install%/itemtypepatch.tph~
-//INCLUDE ~%install%/iwditempatch.tph~
 INCLUDE ~%install%/tobbags.tph~
-INCLUDE ~%install%/aiupscales.tph~
+//INCLUDE ~%install%/aiupscales.tph~
+//INCLUDE ~%install%/iwditempatch.tph~
 //INCLUDE ~%install%/backupfiles.tph~
 
 

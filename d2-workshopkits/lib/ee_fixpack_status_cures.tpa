@@ -44,19 +44,23 @@ DEFINE_PATCH_FUNCTION ee_fixpack_status_cures
 BEGIN
 
   //prep
-  PATCH_IF (globals < 0) BEGIN  PATCH_IF (~%DEST_EXT%~ STR_EQ ~spl~) BEGIN
+  PATCH_IF (globals < 0) BEGIN
+    PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~spl~) OR (~%DEST_EXT%~ STR_EQ ~spl~)) BEGIN
       SET globals = 0
     END ELSE BEGIN
       SET globals = 1
     END 
   END
-  PATCH_IF (headers < 0) BEGIN  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+  PATCH_IF (headers < 0) BEGIN
+    PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~itm~) OR (~%DEST_EXT%~ STR_EQ ~itm~)) BEGIN
       SET headers = 0
     END ELSE BEGIN
       SET headers = 1
     END
   END
-  PATCH_IF (~%DEST_EXT%~ STR_EQ ~spl~) BEGIN  SET header_type = ~-1~ END
+  PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~spl~) OR (~%DEST_EXT%~ STR_EQ ~spl~)) BEGIN
+    SET header_type = ~-1~
+  END
 
   //add effects
   PHP_EACH ee_fixpack_status_cures AS type => cure BEGIN

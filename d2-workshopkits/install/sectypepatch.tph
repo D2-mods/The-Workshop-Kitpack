@@ -1,0 +1,28 @@
+//
+//
+
+
+ACTION_FOR_EACH spell IN
+  ~%shockwaveblast%~
+  ~%blastingsongblast%~
+  ~%boomingsongblast%~
+  ~%dustexplosionblast%~
+BEGIN
+  COPY_EXISTING ~%spell%.spl~  ~override~
+    LPF d2_set_spell_schools STR_VAR secondary=damage END
+  IF_EXISTS BUT_ONLY
+END
+
+ACTION_FOR_EACH spell IN
+  ~%incinerateblast%~
+  ~%dustexplosioncloud%~
+  ~%frenzyingcloud%~
+BEGIN
+  COPY_EXISTING ~%spell%.spl~  ~override~
+    LPF d2_set_spell_schools STR_VAR secondary=battleground END
+  IF_EXISTS BUT_ONLY
+END
+
+
+/*
+*/

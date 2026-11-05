@@ -6,10 +6,14 @@ Set row/level for Bubb's menu
 */
 
 
+
+ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~d2medic~) BEGIN
+
+
 //prep
 OUTER_TEXT_SPRINT kitid ~d2wkd~
 OUTER_TEXT_SPRINT kitname ~MEDIC~
-INCLUDE ~%install%/variables.tph~
+INCLUDE ~%install%/variables2.tph~
 
 
 //variables
@@ -83,6 +87,9 @@ ACTION_FOR_EACH spell IN ~%s1%~ ~%s2%~ ~%s3%~ ~%s4%~ ~%s5%~ BEGIN
   COPY_EXISTING ~%spell%.SPL~  ~override~
     WRITE_LONG 0x34 medic_row    // "level" offset (row for Bubb's Spell Menu)
   IF_EXISTS BUT_ONLY
+END
+
+
 END
 
 

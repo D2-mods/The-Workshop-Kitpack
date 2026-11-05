@@ -109,7 +109,7 @@ TORRENT: On a successful attack (melee or ranged), the character has a 10% chanc
 
 – 7th level: May use the Moonlight Vortex ability once per day. Gains additional uses every 4 levels thereafter.
 
-MOONLIGHT VORTEX: Unleashes a beam of torrential moonlight, which extends as far as the target point, inflicting 8d6 magic damage to enemies. Undead and outerplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.
+MOONLIGHT VORTEX: Unleashes torrential moonlight, which pierces through objects in the path and deals 8d6 damage to enemies. Undead and extraplanar creatures take double damage from this spell. In addition, residual moonlight, left behind from the casting, grants the character a +20% bonus to Magic Resistance for 4 rounds.
 
 – No alignment restrictions.
 – Will not fall due to reputation loss.
@@ -432,12 +432,6 @@ FLASH CAST: With each successful melee attack, the character gains a cumulative 
 Disadvantages:
 – May not Specialize in ranged weapons.
 – May not wear armor heavier than chain mail.
-
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------
-
-//v6.0 kits
-
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

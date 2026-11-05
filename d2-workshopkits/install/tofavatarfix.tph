@@ -1,7 +1,7 @@
 /*
 fix issues with ToF "Eliminate race/class restrictions"
-- fixes nonhuman monk avatars disappearing if equipping an armor (ex. robe from IWD "Start with items" component)
-- fixes half-orc monks missing paperdoll, sets half-orcs to use cleric appearance
+- fixes nonhuman monk avatars disappearing if equipping an armor (ex. robe from d2-script Starting items component)
+- fixes half-orc monk missing paperdoll, and sets to use half-orc cleric appearance (instead of human monk)
 */
 
 

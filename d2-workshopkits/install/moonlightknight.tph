@@ -1,4 +1,9 @@
-//Moonlight Knight (d2wk4)
+/*
+Moonlight Knight (d2wk4)
+
+v2 - rewrote torrent install
+v3 - rewrote moonlight vortex install
+*/
 
 
 //Add passive effects
@@ -43,7 +48,7 @@ LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@624) STR_VAR bam=~%e5%i~ RET
 OUTER_SET torrent3 = icon
 
 
-//
+
 //Add Torrent (main hit effects)
 LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@322) STR_VAR color=blue RET newstring END
 
@@ -149,73 +154,132 @@ COPY ~%abilities%/moonlighttorrent.SPL~  ~override/%e5%t.SPL~
   LPF d2_remove_effects_on_cast END
 
 
-//
-//Add Moonlight Vortex
-COPY - ~%abilities%/moonlightspell.PRO~  ~inlined/%s1%a.PRO~     // main projectile
-  WRITE_ASCII 0x104 ~%s1%a~ #8
-ADD_PROJECTILE ~inlined/%s1%a.PRO~
-COPY ~%abilities%/moonlightspell.BAM~    ~override/%s1%a.BAM~    // animation
 
-COPY ~%icons%/moonlightvortex.BAM~      ~override/%s1%b.BAM~
-COPY ~%abilities%/moonlightvortex.SPL~  ~override/%s1%.SPL~
+//add Moonlight Vortex
+
+//proj
+OUTER_SPRINT copy  ~%abilities%/moonlightray2.pro~
+OUTER_SPRINT proj  ~%s1%v~
+LAF d2_cloneproj STR_VAR copy=~%copy%~ proj=~%proj%~ RET projnum END
+OUTER_SET moonray = projnum
+COPY_EXISTING ~%proj%.pro~  ~override~
+  WRITE_SHORT 0xa  60    // speed
+  WRITE_SHORT 0x2a 96    // width (roughly 1 foot = 16)
+  WRITE_ASCII 0x10 ~#TRA_59~ #8    // fire sound
+  WRITE_ASCII 0x104 ~%proj%~ #8    // traveling proj
+COPY ~%abilities%/moonlightray2.bam~  ~override/%proj%.bam~    // travel animation
+
+OUTER_SPRINT copy  ~%abilities%/moonlightcone.pro~
+OUTER_SPRINT proj  ~%s1%u~
+LAF d2_cloneproj STR_VAR copy=~%copy%~ proj=~%proj%~ RET projnum END
+OUTER_SET moonproj = projnum
+COPY_EXISTING ~%proj%.pro~  ~override~
+  WRITE_ASCII 0x10   ~~ #8         // fire sound
+  WRITE_ASCII 0x18   EFF_P37 #8    // impact sound
+  WRITE_ASCII 0x208  EFF_P37 #8    // explosion sound
+  WRITE_SHORT 0x204  2000   // trap size
+  WRITE_SHORT 0x206  2000   // explosion size
+  WRITE_SHORT 0xa 60        // speed
+  WRITE_SHORT 0x21a moonray    // explosion proj
+
+
+//function
+DEFINE_PATCH_FUNCTION spell_edits INT_VAR proj=~-1~ rebuild=1 BEGIN
+  // edits
+  LPF d2_remove_level_headers END
+  LPF d2_convert_spell_type INT_VAR level=1 END    // level=1 to appear in row 1 in Bubb's menu
+  LPF ALTER_SPELL_HEADER INT_VAR range=50 speed=3 projectile=proj END
+
+  PATCH_IF (rebuild > 0) BEGIN
+    LPF DELETE_EFFECT INT_VAR check_globals=0 END    // keep global effects (i.e. from tweaks)
+  END ELSE BEGIN
+    LPF ALTER_EFFECT INT_VAR power=0 resist_dispel=2 END
+    LPF d2_savingthrows END    // no variables = removes saves
+  END
+END
+
+DEFINE_PATCH_FUNCTION effects BEGIN
+  LPF DELETE_EFFECT INT_VAR match_opcode=139 END    // delete strings (in case added by tweak)
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=326 target=1 timing=4 duration=1 STR_VAR resource=~%s1%e~ END    // resist (self)
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=326 target=2 parameter2=52 STR_VAR resource=~%s1%t~ END    // string (ally/neutral)
+//  LPF ADD_SPELL_EFFECT INT_VAR opcode=318 target=2 parameter2=52 END                             // not needed
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=146 target=2 parameter2=1 STR_VAR resource=~%s1%a~ END     // damage
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=146 target=2 parameter2=1 STR_VAR resource=~%s1%b~ END     // damage (undead, extraplanar)
+END
+
+DEFINE_PATCH_FUNCTION visual BEGIN
+  SET color = 1614823424
+  SET style = 0b11000000000011111111
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=50 target=1 parameter1=color parameter2=style timing=1 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=174 target=1 timing=1 STR_VAR resource=EFF_P97 END
+END
+
+DEFINE_PATCH_FUNCTION stuff BEGIN
+  WRITE_ASCII 0x10 CAS_P03N #8
+  WRITE_LONG 0x18 THIS | BIT9    // break sanctuary
+  WRITE_LONG 0x18 THIS | BIT11    // no los
+  WRITE_LONG 0x18 THIS | BIT25    // castable when silenced
+  WRITE_LONG 0x1e 0    // no exclusion flags
+  WRITE_SHORT 0x22 14    // casting animation
+  WRITE_BYTE 0x25 2    // spell school (2 = CONJURER)
+  WRITE_BYTE 0x27 10    // secondary (10 = OFFENSIVEDAMAGE)
+END
+
+
+//main spell
+OUTER_SPRINT icon  ~%s1%b~
+COPY ~%icons%/moonlightvortex.bam~  ~override/%icon%.bam~
+
+COPY_EXISTING ~SPPR705.SPL~  ~override/%s1%.spl~    // clone fire storm
   SAY NAME1 @105
   SAY UNIDENTIFIED_DESC @205
-  WRITE_ASCII 0x3a ~%s1%b~ #8
-  WRITE_ASCII 0x76 ~%s1%b~ #8
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%a~ END    // set projectile
+  WRITE_ASCII 0x3a ~%icon%~ #8
+  LPF ALTER_SPELL_HEADER STR_VAR icon=~%icon%~ END
 
-  // damage
-  LPF ALTER_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%s~ END    // damage
-  LPF CLONE_EFFECT INT_VAR match_opcode=146 STR_VAR resource=~%s1%b~ END    // damage (targeted)
+  LPF stuff END
+  LPF spell_edits INT_VAR proj=moonproj END
+  LPF visual END
+  LPF effects END
 
-  // extra effects
-  LPF ALTER_EFFECT INT_VAR match_opcode=326 parameter2=0 STR_VAR resource=~%s1%e~ END    // magic resist (self)
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 opcode=326 STR_VAR resource=~%s1%t~ END      // allies effect
 
-//
-//intermediate spell
-COPY ~%abilities%/applyeffects.SPL~      ~override/%s1%s.SPL~    // cast damage subspells
-  LPF ALTER_EFFECT INT_VAR resist_dispel=1 STR_VAR resource=~%s1%a~ END
-  LPF CLONE_EFFECT INT_VAR resist_dispel=2 STR_VAR resource=~%s1%c~ END
-  LPF d2_protect_on_castequip INT_VAR duration=2 STR_VAR resource=~%s1%d~ insert=first END    // immune to D spell 2 seconds
+//string (ally/neutral)
+COPY ~inlined/spell.spl~  ~override/%s1%t.spl~
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@319) STR_VAR color=misty RET newstring END    // "Tickled..."
+  LPF ALTER_EFFECT INT_VAR opcode=330 timing=1 parameter1=newstring END
+  LPF CLONE_EFFECT INT_VAR opcode=141 parameter1=0 parameter2=4 STR_VAR insert=last END
+  LPF d2_protect_on_castequip END
+  LPF d2_safe_spell INT_VAR source=1 block_opcode=330 END    // ignore caster
 
-//damage effects
-COPY ~%abilities%/moonlightspell.SPL~   ~override/%s1%a.SPL~    // damage
-  LPF ALTER_EFFECT INT_VAR resist_dispel=2 dicenumber=8 dicesize=6 END
+//resist (self)
+COPY ~inlined/spell.spl~  ~override/%s1%e.spl~
+  LPF ALTER_EFFECT INT_VAR opcode=166 parameter1=20 resist_dispel=3 duration=24 END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=142 parameter2=63 STR_VAR insert=last END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=215 parameter2=1 duration=2 STR_VAR resource=MAGRES2 insert=last END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=174 timing=4 STR_VAR resource=EFF_E03 insert=last END
+  LPF d2_remove_effects_on_cast END
+
+//8d6 damage
+COPY ~inlined/spell.spl~  ~override/%s1%a.spl~
+  LPF ALTER_EFFECT INT_VAR opcode=12 parameter2=dmagic dicenumber=8 dicesize=6 timing=1 resist_dispel=1 savingthrow=16777216 END
   LPF d2_safe_spell END
   LPF d2_addhitstun INT_VAR match_opcode=12 END
-COPY ~%abilities%/moonlighttarget.SPL~  ~override/%s1%b.SPL~    // damage (targeted)
-  LPF ALTER_EFFECT STR_VAR resource=~%s1%b~ END
-COPY ~%abilities%/applyeffects.EFF~     ~override/%s1%b.EFF~    // apply effects (ignores resist)
-  WRITE_ASCII 0x30 ~%s1%a~ #8
+  LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%s1%b~ END    // block b spell 1 second
 
-//extra effects
-COPY ~%abilities%/moonlighttickle.SPL~  ~override/%s1%t.SPL~    // allies effect
-  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@319) STR_VAR color=misty RET newstring END    // "Tickled..."
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 opcode=330 parameter1=newstring END
-  LPF d2_protect_on_castequip END
-COPY ~%abilities%/moonlightresist.SPL~  ~override/%s1%e.SPL~    // magic resist (self)
-  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%s1%e~ END
+  // undead and extraplanar immune (hit by b spell instead)
+  LPF d2_extraplanar_immune END
+  SET undead = 1
+  LPF d2_protect_on_castequip INT_VAR cre_type=undead duration=0 STR_VAR insert=first END
 
-//
-//small area damage (approximate thicker beam)
-COPY - ~%abilities%/invisible15all.PRO~  ~inlined/%s1%c.PRO~     // projectile
-  WRITE_SHORT 0x204 43
-  WRITE_SHORT 0x206 43
-ADD_PROJECTILE ~inlined/%s1%c.PRO~
-
-COPY ~%abilities%/applyeffects.SPL~  ~override/%s1%c.SPL~
-  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%s1%c~ END    // set projectile
-  LPF ALTER_EFFECT STR_VAR resource=~%s1%d~ END
-
-COPY ~%abilities%/applyeffects.SPL~  ~override/%s1%d.SPL~
-  LPF ALTER_EFFECT STR_VAR resource=~%s1%a~ END
-  LPF d2_protect_on_castequip INT_VAR duration=2 END    // immune to itself 2 seconds
-  LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%s1%s~ insert=first END    // immune to S spell 1 second
+//16d6 damage (ignores resist)
+COPY ~inlined/spell.spl~  ~override/%s1%b.spl~
+  LPF ALTER_EFFECT INT_VAR opcode=12 parameter2=dmagic dicenumber=16 dicesize=6 timing=1 resist_dispel=2 savingthrow=16777216 END
   LPF d2_safe_spell END
+  LPF d2_addhitstun INT_VAR match_opcode=12 END
+
+//alt method: lower resist by 50% then apply 8d6 damage
 
 
-//
+
 //Make clab table
 COPY ~inlined/d2clab_ranger~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder INT_VAR passive=1 STR_VAR resource=~%e2%~ END
@@ -228,7 +292,7 @@ COPY ~inlined/d2clab_ranger~  ~override/%kitid%.2DA~
   LPF d2_kit_ability_adder END
 
 
-//
+
 //Kit function
 LAF ADD_KIT_EX
   INT_VAR
@@ -266,7 +330,7 @@ LAF d2_hla_baseclass STR_VAR kit=~%ids_name%~ class=~%class%~ END
 LAF d2_hla_tableres STR_VAR kit=~%ids_name%~ abbrev=~%abbrev%~ END
 
 
-//
+
 //Set variables for external use
 OUTER_TEXT_SPRINT moonlightknight  ~%kitid%~
 OUTER_TEXT_SPRINT moonlightvortex  ~%s1%~

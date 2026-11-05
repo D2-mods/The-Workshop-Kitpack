@@ -70,7 +70,9 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
 <<<<<<<< .../temp/gerthbadge
 IF
 	!Global("d2gerthsparkhunter","GLOBAL",1)
-	GlobalGT("Chapter","GLOBAL",1)
+	OR(2)
+		GlobalGT("Chapter","GLOBAL",1)
+		Global("AR3603_visited","GLOBAL",1)
 THEN
 	RESPONSE #100
 		SetGlobal("d2gerthsparkhunter","GLOBAL",1)
@@ -79,10 +81,10 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/gerthbadge~  ~%workspace%/gerthbadge.BAF~
+COPY - ~.../temp/gerthbadge~  ~inlined/gerthbadge.BAF~
   EVALUATE_BUFFER
-EXTEND_BOTTOM ~ar2100.BCS~    ~%workspace%/gerthbadge.BAF~
-EXTEND_BOTTOM ~ar2113.BCS~    ~%workspace%/gerthbadge.BAF~
+EXTEND_BOTTOM ~ar2100.BCS~    ~inlined/gerthbadge.BAF~
+EXTEND_BOTTOM ~ar2113.BCS~    ~inlined/gerthbadge.BAF~
 
 
 
@@ -100,10 +102,10 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/orrickbadge~  ~%workspace%/orrickbadge.BAF~
+COPY - ~.../temp/orrickbadge~  ~inlined/orrickbadge.BAF~
   EVALUATE_BUFFER
-EXTEND_BOTTOM ~ar2100.BCS~     ~%workspace%/orrickbadge.BAF~
-EXTEND_BOTTOM ~AR2102.BCS~     ~%workspace%/orrickbadge.BAF~
+EXTEND_BOTTOM ~ar2100.BCS~     ~inlined/orrickbadge.BAF~
+EXTEND_BOTTOM ~AR2102.BCS~     ~inlined/orrickbadge.BAF~
 
 
 
@@ -114,9 +116,9 @@ ADD_TRANS_ACTION ~DFLOZEM~ BEGIN 4 END    // state list
   ~CreateItem("%badge_cosmic%",0,0,0)~
 >>>>>>>>
 
-COPY - ~.../temp/flozem_badge~  ~%workspace%/flozem_badge.d~
+COPY - ~.../temp/flozem_badge~  ~inlined/flozem_badge.d~
   EVALUATE_BUFFER
-COMPILE ~%workspace%/flozem_badge.d~
+COMPILE ~inlined/flozem_badge.d~
 
 
 

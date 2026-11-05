@@ -1,0 +1,129 @@
+/*
+invisible creature scripting
+equip ranged after darts are gone
+*/
+
+
+//prep
+OUTER_SPRINT itemid  ~%medicaldart%~    // res of temporary item
+OUTER_SPRINT creres  ~%s1%n~    // cre + spl (repeating eff/spl)
+OUTER_SET duration = 5    // summon duration
+OUTER_SET delay = 2    // resummon interval
+
+
+//edit item
+COPY_EXISTING ~%itemid%.itm~  ~override~
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode=272 target=1 parameter1=1 timing=2 STR_VAR resource=~%creres%~ END
+BUT_ONLY
+
+//repeating eff
+COPY ~inlined/spell.eff~  ~override/%creres%.eff~
+  WRITE_ASCII 0x30 ~%creres%~ #8
+
+//make invisible cre
+COPY ~%files%/replaceself.spl~  ~override/%creres%.spl~
+  LPF ALTER_EFFECT STR_VAR resource=~%creres%~ END
+  LPF d2_protect_on_castequip INT_VAR duration=delay END    // resummon interval
+COPY ~%files%/replaceself.cre~  ~override/%creres%.cre~
+  REPLACE_CRE_ITEM ~minhp1~ #0 #0 #0 ~unstealable&undroppable~ ~amulet~
+  REPLACE_CRE_ITEM ~immune2~ #0 #0 #0 ~unstealable&undroppable~ ~rring~
+  WRITE_ASCII 0x248 ~%creres%~ #8     // set script
+  WRITE_ASCII 0x280 ~%creres%~ #32    // set script name
+
+
+
+//make bcs file
+<<<<<<<< .../temp/%creres%.baf
+>>>>>>>>
+COMPILE ~.../temp/%creres%.baf~
+
+
+//set variable
+<<<<<<<< .../temp/blocks
+IF
+	GlobalLT("%itemid%Player1","LOCALS",1)
+	Range(Player1,2)
+	HasItem("%itemid%",Player1)
+THEN
+	RESPONSE #100
+		SetGlobal("%itemid%Player1","LOCALS",1)
+		Continue()
+END
+>>>>>>>>
+COPY - ~.../temp/blocks~  ~inlined/blocks.baf~
+  EVALUATE_BUFFER
+COPY - ~inlined/blocks.baf~  ~inlined/blocks2.baf~  REPLACE_TEXTUALLY ~Player1~ ~Player2~
+COPY - ~inlined/blocks.baf~  ~inlined/blocks3.baf~  REPLACE_TEXTUALLY ~Player1~ ~Player3~
+COPY - ~inlined/blocks.baf~  ~inlined/blocks4.baf~  REPLACE_TEXTUALLY ~Player1~ ~Player4~
+COPY - ~inlined/blocks.baf~  ~inlined/blocks5.baf~  REPLACE_TEXTUALLY ~Player1~ ~Player5~
+COPY - ~inlined/blocks.baf~  ~inlined/blocks6.baf~  REPLACE_TEXTUALLY ~Player1~ ~Player6~
+
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks.baf~
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks2.baf~
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks3.baf~
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks4.baf~
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks5.baf~
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks6.baf~
+
+
+//equip ranged
+<<<<<<<< .../temp/blocks
+IF
+	Global("%itemid%Player1","LOCALS",1)
+	!HasItem("%itemid%",Player1)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,EquipRanged())
+		SetGlobal("%itemid%Player1","LOCALS",2)
+		Continue()
+END
+>>>>>>>>
+COPY - ~.../temp/blocks~  ~inlined/blocks.baf~
+  EVALUATE_BUFFER
+COPY - ~inlined/blocks.baf~  ~inlined/blocks2.baf~  REPLACE_TEXTUALLY ~Player1~ ~Player2~
+COPY - ~inlined/blocks.baf~  ~inlined/blocks3.baf~  REPLACE_TEXTUALLY ~Player1~ ~Player3~
+COPY - ~inlined/blocks.baf~  ~inlined/blocks4.baf~  REPLACE_TEXTUALLY ~Player1~ ~Player4~
+COPY - ~inlined/blocks.baf~  ~inlined/blocks5.baf~  REPLACE_TEXTUALLY ~Player1~ ~Player5~
+COPY - ~inlined/blocks.baf~  ~inlined/blocks6.baf~  REPLACE_TEXTUALLY ~Player1~ ~Player6~
+
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks.baf~
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks2.baf~
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks3.baf~
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks4.baf~
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks5.baf~
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/blocks6.baf~
+
+
+//set spell timer
+<<<<<<<< .../temp/movecre
+IF
+	!Global("%itemid%move","LOCALS",1)
+THEN
+	RESPONSE #100
+		SetGlobal("%itemid%move","LOCALS",1)
+		JumpToPoint([10.10])
+		SetGlobalTimer("%itemid%timer","LOCALS",%duration%)
+END
+>>>>>>>>
+COPY - ~.../temp/movecre~  ~inlined/movecre.baf~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~%creres%.bcs~  ~inlined/movecre.baf~
+
+
+//spell ended
+<<<<<<<< .../temp/endspell
+IF
+	Global("%itemid%move","LOCALS",1)
+	!GlobalTimerNotExpired("%itemid%timer","LOCALS")
+THEN
+	RESPONSE #100
+		DestroySelf()
+END
+>>>>>>>>
+COPY - ~.../temp/endspell~    ~inlined/endspell.baf~
+  EVALUATE_BUFFER
+EXTEND_TOP ~%creres%.bcs~  ~inlined/endspell.baf~
+
+
+//
+//

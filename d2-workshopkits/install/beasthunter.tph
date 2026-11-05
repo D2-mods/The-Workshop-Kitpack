@@ -1,4 +1,6 @@
-//Beast Hunter (d2wk1)
+/*
+Beast Hunter (d2wk1)
+*/
 
 
 //Add passive effects
@@ -130,11 +132,12 @@ OUTER_TEXT_SPRINT $d2_restrict_armor_baseclass (~%ids_name%~) ~%baseclass%~
 
 
 //Set variables for external use
-OUTER_TEXT_SPRINT beasthunter       ~%kitid%~
-OUTER_TEXT_SPRINT fireweapon        ~%s1%~
-OUTER_TEXT_SPRINT quicksilver       ~%s2%~
-OUTER_TEXT_SPRINT holysymbolhunter  ~%m9%~
+OUTER_SPRINT beasthunter       ~%kitid%~
+OUTER_SPRINT fireweapon        ~%s1%~
+OUTER_SPRINT quicksilver       ~%s2%~
+OUTER_SPRINT holysymbolhunter  ~%m9%~
+OUTER_SPRINT hunterbadgecre  ~%s1%n~    // for hunter badge scripts
 
 
-/*
-*/
+//
+//

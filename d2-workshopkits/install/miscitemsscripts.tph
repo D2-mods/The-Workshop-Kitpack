@@ -26,9 +26,9 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/aecdemonsoul~  ~%workspace%/aecdemonsoul.BAF~
+COPY - ~.../temp/aecdemonsoul~  ~inlined/aecdemonsoul.BAF~
   EVALUATE_BUFFER
-EXTEND_TOP ~%bg1%1002.BCS~      ~%workspace%/aecdemonsoul.BAF~
+EXTEND_TOP ~%bg1%1002.BCS~      ~inlined/aecdemonsoul.BAF~
 
 
 END
@@ -51,12 +51,12 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/variables~  ~%workspace%/variables.BAF~
+COPY - ~.../temp/variables~  ~inlined/variables.BAF~
   EVALUATE_BUFFER
 
 ACTION_FOR_EACH script IN ~%bg1%2300~ ~bd0108~ BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
-    EXTEND_TOP ~%script%.BCS~  ~%workspace%/variables.BAF~
+    EXTEND_TOP ~%script%.BCS~  ~inlined/variables.BAF~
   END
 END
 
@@ -72,9 +72,9 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/calamity~  ~%workspace%/calamity.BAF~
+COPY - ~.../temp/calamity~  ~inlined/calamity.BAF~
   EVALUATE_BUFFER
-EXTEND_BOTTOM ~bd0108.BCS~  ~%workspace%/calamity.BAF~
+EXTEND_BOTTOM ~bd0108.BCS~  ~inlined/calamity.BAF~
 
 
 END
@@ -97,11 +97,11 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/variables~  ~%workspace%/variables.BAF~
+COPY - ~.../temp/variables~  ~inlined/variables.BAF~
   EVALUATE_BUFFER
-EXTEND_TOP ~AR0700.BCS~  ~%workspace%/variables.BAF~
-EXTEND_TOP ~AR2807.BCS~  ~%workspace%/variables.BAF~
-EXTEND_TOP ~AR4500.BCS~  ~%workspace%/variables.BAF~
+EXTEND_TOP ~AR0700.BCS~  ~inlined/variables.BAF~
+EXTEND_TOP ~AR2807.BCS~  ~inlined/variables.BAF~
+EXTEND_TOP ~AR4500.BCS~  ~inlined/variables.BAF~
 
 
 <<<<<<<< .../temp/dragon
@@ -116,9 +116,9 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/dragon~    ~%workspace%/dragon.BAF~
+COPY - ~.../temp/dragon~    ~inlined/dragon.BAF~
   EVALUATE_BUFFER
-EXTEND_BOTTOM ~AR2807.BCS~  ~%workspace%/dragon.BAF~
+EXTEND_BOTTOM ~AR2807.BCS~  ~inlined/dragon.BAF~
 
 
 <<<<<<<< .../temp/calamity
@@ -132,9 +132,9 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/calamity~  ~%workspace%/calamity.BAF~
+COPY - ~.../temp/calamity~  ~inlined/calamity.BAF~
   EVALUATE_BUFFER
-EXTEND_BOTTOM ~AR4500.BCS~  ~%workspace%/calamity.BAF~
+EXTEND_BOTTOM ~AR4500.BCS~  ~inlined/calamity.BAF~
 
 
 END
@@ -149,7 +149,9 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
 <<<<<<<< .../temp/gerthstore
 IF
 	!Global("d2gerthhunterrune","GLOBAL",1)
-	GlobalGT("MIREK_YETI","AR2100",0)
+	OR(2)
+		GlobalGT("MIREK_YETI","AR2100",0)
+		Global("AR3000_visited","GLOBAL",1)
 THEN
 	RESPONSE #100
 		SetGlobal("d2gerthhunterrune","GLOBAL",1)
@@ -159,7 +161,9 @@ END
 
 IF
 	!Global("d2gerthflynnring","GLOBAL",1)
-	GlobalGT("Chapter","GLOBAL",2)
+	OR(2)
+		GlobalGT("Chapter","GLOBAL",2)
+		Global("YXUNOMEI_SLAIN","GLOBAL",1)
 THEN
 	RESPONSE #100
 		SetGlobal("d2gerthflynnring","GLOBAL",1)
@@ -169,7 +173,9 @@ END
 
 IF
 	!Global("d2gerthetherlimiter","GLOBAL",1)
-	GlobalGT("Chapter","GLOBAL",3)
+	OR(2)
+		GlobalGT("Chapter","GLOBAL",3)
+		Global("AR5103_visited","GLOBAL",1)
 THEN
 	RESPONSE #100
 		SetGlobal("d2gerthetherlimiter","GLOBAL",1)
@@ -178,10 +184,10 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/gerthstore~  ~%workspace%/gerthstore.BAF~
+COPY - ~.../temp/gerthstore~  ~inlined/gerthstore.BAF~
   EVALUATE_BUFFER
-EXTEND_BOTTOM ~ar2100.BCS~    ~%workspace%/gerthstore.BAF~
-EXTEND_BOTTOM ~ar2113.BCS~    ~%workspace%/gerthstore.BAF~
+EXTEND_BOTTOM ~ar2100.BCS~    ~inlined/gerthstore.BAF~
+EXTEND_BOTTOM ~ar2113.BCS~    ~inlined/gerthstore.BAF~
 
 
 //
@@ -197,11 +203,11 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/variables~  ~%workspace%/variables.BAF~
+COPY - ~.../temp/variables~  ~inlined/variables.BAF~
   EVALUATE_BUFFER
-EXTEND_TOP ~AR2100.BCS~  ~%workspace%/variables.BAF~
-EXTEND_TOP ~AR9600.BCS~  ~%workspace%/variables.BAF~
-EXTEND_TOP ~AR9604.BCS~  ~%workspace%/variables.BAF~
+EXTEND_TOP ~AR2100.BCS~  ~inlined/variables.BAF~
+EXTEND_TOP ~AR9600.BCS~  ~inlined/variables.BAF~
+EXTEND_TOP ~AR9604.BCS~  ~inlined/variables.BAF~
 
 
 <<<<<<<< .../temp/calamity
@@ -215,9 +221,9 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/calamity~  ~%workspace%/calamity.BAF~
+COPY - ~.../temp/calamity~  ~inlined/calamity.BAF~
   EVALUATE_BUFFER
-EXTEND_BOTTOM ~AR9604.BCS~  ~%workspace%/calamity.BAF~
+EXTEND_BOTTOM ~AR9604.BCS~  ~inlined/calamity.BAF~
 
 
 END

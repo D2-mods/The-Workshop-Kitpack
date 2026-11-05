@@ -44,11 +44,15 @@ these usually don't matter, but it looks cleaner without them
 COPY_EXISTING - ~CLABFI01.2DA~  ~inlined/d2clab_fighter~
   LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
   REPLACE_TEXTUALLY ~AP_C0AAZX~  ~****~
+  REPLACE_TEXTUALLY ~AP_d2sr13f~  ~****~
+  REPLACE_TEXTUALLY ~AP_d2sr19f~  ~****~
 
 //ranger
 COPY_EXISTING - ~CLABRN01.2DA~  ~inlined/d2clab_ranger~
   LPF 2da_find_row_delete STR_VAR row_name = ~QD_MULTI~ END
   LPF 2da_find_row_delete STR_VAR row_name = ~RAN_SPLS~ END
+  REPLACE_TEXTUALLY ~AP_d2sr13r~  ~****~
+  REPLACE_TEXTUALLY ~AP_d2sr19r~  ~****~
 COPY - ~inlined/d2clab_ranger~   ~inlined/d2clab_ranger_nocharm~
   REPLACE_TEXTUALLY ~GA_SPCL311~  ~****~    // remove charm animal
 

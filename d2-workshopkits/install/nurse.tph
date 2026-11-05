@@ -179,9 +179,9 @@ COPY ~%abilities%/medicaldart.ITM~  ~override/%s1%e.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=177 parameter1=30  STR_VAR resource=~%s1%u~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=177 parameter1=200 STR_VAR resource=~%s1%v~ END
 
-  // stop attacks (after last dart is used)
-  LPF d2_protect_on_castequip STR_VAR resource=~%s1%y~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=318 opcode=272 parameter1=1 STR_VAR resource=~%s1%x~ END
+  // darts used or spell ended (also see nursescript2.tph)
+  LPF d2_protect_on_castequip STR_VAR resource=~%s1%x~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 opcode=272 parameter1=1 STR_VAR resource=~%s1%y~ END
 
 
 //healing
@@ -214,15 +214,14 @@ COPY ~%abilities%/medicaldartbonus.EFF~  ~override/%s1%u.EFF~
 COPY ~%abilities%/medicaldartbonus.EFF~  ~override/%s1%v.EFF~
   WRITE_LONG 0x1c 200
 
-//stop attacks (after last dart is used)
-COPY ~%abilities%/castspellself.EFF~  ~override/%s1%x.EFF~
-  WRITE_ASCII 0x30 ~%s1%x~ #8
-COPY ~%abilities%/applyeffects.SPL~   ~override/%s1%x.SPL~
-  LPF ALTER_EFFECT INT_VAR opcode=366 timing=0 duration=1 STR_VAR resource=~%s1%y~ END
-  LPF CLONE_EFFECT INT_VAR opcode=146 parameter2=1 timing=4 END
-  LPF d2_remove_effects_on_cast END
-COPY ~%abilities%/applyeffects.SPL~   ~override/%s1%y.SPL~
-  LPF ALTER_EFFECT INT_VAR opcode=146 STR_VAR resource=d2spell END
+//darts used or spell ended (also see nursescript2.tph)
+COPY ~inlined/spell.eff~  ~override/%s1%y.eff~
+  WRITE_ASCII 0x30 ~%s1%y~ #8
+COPY ~inlined/spell.spl~  ~override/%s1%y.spl~
+  LPF ALTER_EFFECT INT_VAR opcode=366 duration=1 STR_VAR resource=~%s1%x~ END
+  LPF CLONE_EFFECT INT_VAR opcode=326 timing=4 END
+COPY ~inlined/spell.spl~  ~override/%s1%x.spl~
+  LPF ALTER_EFFECT INT_VAR opcode=146 STR_VAR resource=d2spell END    // cast fake spell (stops faster than script)
   LPF d2_protect_on_castequip INT_VAR duration=2 END
 
 
@@ -628,6 +627,11 @@ OUTER_TEXT_SPRINT autoimmune     ~%s5%~
 OUTER_TEXT_SPRINT n_alchemy      ~%s9%~
 OUTER_TEXT_SPRINT n_alchemy2     ~%s9%a~
 
+//v5.34 updates (nurseconfig, nursescript2)
+OUTER_TEXT_SPRINT medicaldart  ~%s1%e~
+OUTER_TEXT_SPRINT allybonus    ~%s1%u~
+OUTER_TEXT_SPRINT enemybonus   ~%s1%v~
 
-/*
-*/
+
+//
+//
