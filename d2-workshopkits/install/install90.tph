@@ -34,6 +34,7 @@ INCLUDE ~%install%/bleedprep.tph~
 INCLUDE ~%install%/werewolf.tph~    // for items component/updater
 INCLUDE ~%install%/tempfixes.tph~
 INCLUDE ~%install%/tofhlasongfixer.tph~
+INCLUDE ~%install%/moskillscheck.tph~
 
 //ACTION_CLEAR_ARRAY ~d2wk_kitname_array~
 
@@ -181,6 +182,24 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2CONFESSOR~) BEGIN
   INCLUDE ~%install%/%kitname%var.tph~
   INCLUDE ~%install%/nopaladinheal.tph~
   OUTER_SPRINT confessor  ~%kitid%~
+  OUTER_SPRINT confessorhold  ~%s1%a~
+
+  //functions to block or remove rooting shot effects
+  DEFINE_PATCH_FUNCTION confessor_entangle_remove BEGIN
+    LPF CLONE_EFFECT
+      INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=321 parameter2=0 duration=0
+      STR_VAR resource=~%confessorhold%~
+    END
+  END
+  OUTER_SET confessor_entangle_remove = 1
+
+  DEFINE_PATCH_FUNCTION confessor_entangle_block BEGIN
+    LPF CLONE_EFFECT
+      INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=318 parameter2=0
+      STR_VAR resource=~%confessorhold%~
+    END
+  END
+  OUTER_SET confessor_entangle_block = 1
 END
 
 //Temple Knight (d2wk6)
@@ -349,6 +368,7 @@ END
 INCLUDE ~%install%/spellcapconfig.tph~
 INCLUDE ~%install%/hunterbadgecre.tph~
 INCLUDE ~%install%/hunterbadgesToB.tph~
+INCLUDE ~%install%/wkspellpatching.tph~
 INCLUDE ~%install%/castingspeedmod.tph~
 INCLUDE ~%install%/supportmode.tph~
 INCLUDE ~%install%/iconpatch.tph~

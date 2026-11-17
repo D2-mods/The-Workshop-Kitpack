@@ -615,6 +615,7 @@ DEFINE_PATCH_FUNCTION nurse_feeblemind_string BEGIN
   LPF DELETE_EFFECT INT_VAR match_opcode=267 match_parameter1=feeblemind END
   LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=feeblemind END
 END
+OUTER_SET nurse_feeblemind_string = 1
 
 
 //Set variables for external use

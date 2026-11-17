@@ -209,6 +209,7 @@ COPY_EXISTING ~SPPR307.SPL~  ~override/d2!curse.SPL~    // clone Remove Curse
   LPF update_op324_restrictions INT_VAR opcode=318 END
   LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
 
+
 //dispel effects
 COPY_EXISTING ~SPPR303.SPL~  ~override/d2!disp.SPL~    // clone Dispel Magic
   LPF d2_subspell_remove_effects END
@@ -218,6 +219,19 @@ COPY_EXISTING ~SPPR303.SPL~  ~override/d2!disp.SPL~    // clone Dispel Magic
   LPF ALTER_EFFECT INT_VAR resist_dispel=2 END
   LPF d2_remove_spelltypes STR_VAR insert=last END             // dispel Secondary types (not level 0 spells)
 
+  // also cast other status cures (removes if not dispellable)
+//  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!body~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!para~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!mind~ END
+//  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!vamp~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!stone~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!curse~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!haste~ END
+//  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!bleed~ END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!phase~ END
+//  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!swarm~ END
 
-/*
-*/
+
+//
+//

@@ -12,7 +12,7 @@ Note: The abilities tables for these kits are made at install time. Every kit cl
 
 What you should know:
 - The GitHub page includes a lot of additional info. You don't need to read it all to use this mod, but it's there if you're confused about something or want to quickly reference kit or item descriptions.
-- Kit Updater component: Rechecks mod compatibility + adjusts config.ini settings. Skipped on initial install, can re-run at any time. More info in Components section.
+- Kit Updater component: Rechecks mod compatibility + adjusts config.ini settings. Skipped on initial install, can rerun at any time. More info in Components section.
 - Current version of the mod was tested on EE v2.7.x. It should work fine on v2.6 and possibly v2.5 but I'm not going to check it myself. It is not installable on pre-v2.0 versions.
 - This mod does not require EE fixpack or EEex. However, most modding work is now done with both installed. I do test without them, but not for every update.
 - Compatible with divine sphere systems from these mods: Talents of Faerûn, Deities of Faerûn, Faiths and Powers. See Compatibility section for install info if needed.
@@ -85,9 +85,9 @@ Additional Info:
 
 Kit Updater:
 - Updates HLA tables, Proficiencies, misc fixes, mod compat, etc.
-- Skipped on initial mod install, can be re-run at any time (does not uninstall other mods).
+- Skipped on initial mod install, can be rerun at any time (does not uninstall other mods).
 - Run after all tweak and overhaul mods, including mods that say to install last.
-- Dual to Kit note: Run this once before Dual to Kit if using a proficiency tweak. It can be re-run after if you need to update other things later. (note: it's specifically component 3 of Dual to Kit that needs to be after any proficiency edits)
+- Dual to Kit note: Run this once before Dual to Kit if using a proficiency tweak. It can be rerun after if you need to update other things later. (note: it's specifically component 3 of Dual to Kit that needs to be after any proficiency edits)
 
 Config:
 - config.ini: Set a kit to = 0 to prevent install
@@ -117,7 +117,7 @@ General guidelines:
 - Install after new spells or revised spells. (except possibly OlvynSpells, see below)
 - Install after new weapons or armor.
 - Proficiency overhauls: Can install before or after (except the ToF one). Recommended order is to install this mod before most overhauls, then run the Kit Updater after.
-- HLA changes/tweaks: Can install before or after (except the ToF one). All HLA table edits are done from both the main component and the updater. You can re-run the updater at any time to rebuild all HLA tables.
+- HLA changes/tweaks: Can install before or after (except the ToF one). All HLA table edits are done from both the main component and the updater. You can rerun the updater at any time to rebuild all HLA tables.
 
 NOTE: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. Technically, this mod is safe to install even after most tweak mods, but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
 
@@ -136,7 +136,7 @@ Deities of Faerun spheres system:
 subtledoctor's 5e casting mod:
 - Install this mod before 5e casting.
 - Run the Kit Updater after 5e casting.
-- If you later uninstall 5e casting, re-run the Kit updater to revert some changes.
+- If you later uninstall 5e casting, rerun the Kit updater to revert some changes.
 
 Sphere lists: https://github.com/D2-mods/The-Workshop-Kitpack/blob/main/d2-workshopkits/readme-spheres.txt
 
@@ -201,6 +201,13 @@ This is how I'd do the install:
 ----------------------------------------------------------------------------------------------------
 
 Version info:
+
+v5.36
+- haste effects now support the Swiftness proficiency from Skills & Abilities mod. This is checked from both the main component and the kit updater.
+- Better structure for mass patching related stuff. Depending on installed kits, the kit updater may also check files installed after this mod.
+- fix possible reinstall error with one of my other mods (d2-weapon), caused by using the same array name for something in both.
+- fixed possible reinstall error if a previous mod used "fmc" or "fmt" as integer variables.
+- changed 1 item icon (colorless demon soul again).
 
 v5.35
 - changed icons for 2 items (Colorless Demon Soul, Unknown Holy Symbol).
@@ -330,7 +337,7 @@ v5.17
 v5.16
 - ToF notes: All cleric single/multiclass kits now have correct HLA lists based on spheres. Nurse can take any potion ability. Forgot to give Spell Fencer an Arcane Knowledge feat. (note: Triple class HLAs might be buggy, this is a ToF issue.)
 - Confessor: Kit Updater now removes Cure Disease if a later tweak adds it for paladins (ex. ToF revisions). This follows IWD rules, where kits that don't gain Lay On Hands also don't gain Cure Disease.
-- Patching for subtledoctor's 5e casting mod is now part of the Kit Updater, replacing the old component. Run it any time after 5e casting to make changes. If you later uninstall 5e casting, re-run the updater to revert changes.
+- Patching for subtledoctor's 5e casting mod is now part of the Kit Updater, replacing the old component. Run it any time after 5e casting to make changes. If you later uninstall 5e casting, rerun the updater to revert changes.
 - Kit Updater can now change spell cap, holy symbols, and extra hunter badges config settings.
 - Using the updater now ends the current weidu run (i.e. skips the the normal installer options).
 - Misc items now has subcomponent "Dev mode (start with Item Sack)".
@@ -376,7 +383,7 @@ v5.12
 - A few kits can now learn an extra HLA from another class (ex. Grave Warden can take UAI).
 
 v5.11
-- Added new component: Kit Updater. This replaces the "Update Medic Arts" component. Can be re-run at any time. Skipped on initial mod install. This is safe to install at end of order, including after mods that say they need to be installed last. Currently, it does the Medic updates, and also remakes HLA tables. It also rechecks proficiencies for kits different from the base class.
+- Added new component: Kit Updater. This replaces the "Update Medic Arts" component. Can be rerun at any time. Skipped on initial mod install. This is safe to install at end of order, including after mods that say they need to be installed last. Currently, it does the Medic updates, and also remakes HLA tables. It also rechecks proficiencies for kits different from the base class.
 - Kits with armor restrictions are now listed in the "Unusable" part of the item description.
 - HLA tables for all kits now have unique resource names. These are clones of the base class table, including any tweaks or additions. Running the Kit Updater will also remake all HLA tables.
 - Warrior HLAs: Paladin, ranger, and monk kits now scan the base fighter HLA list and copy paste any lines they don't already have (except Resist Magic for monks). There won't be anything added in the unmodded game, but with mods there might be.
@@ -413,7 +420,7 @@ v5.8
 v5.7
 - Updates:
 	- Medic: Ki Power is now called Ki Energy. Healing Rain now heals 10 + 15% of max HP each round. Dragonrot damage changed to 8 + 5% of max HP damage per round. Medic's Spiritual Clarity now also breaks curses. Text changes.
-	- Added extra component to update description of Medic Arts ability. This component is only relevant if Poison Weapon or Lay On Hands were changed after installing this mod (ex. with ToF). This component can be re-run at any time (does not uninstall other mods).
+	- Added extra component to update description of Medic Arts ability. This component is only relevant if Poison Weapon or Lay On Hands were changed after installing this mod (ex. with ToF). This component can be rerun at any time (does not uninstall other mods).
 	- ToB: if starting new game, Beast Hunter and Confessor now start with Leather Armor, so they can wear it.
 - Compatibility notes:
 	- Powder Keg: fixed minor issue when installed after IWDification (was gaining 2 HLA song abilities).
@@ -958,6 +965,7 @@ Custom functions (not including my own):
 - fnp_compatibility.tpa for Faiths & Powers mod (https://github.com/UnearthedArcana/Faiths_and_Powers/releases)
 - semi_spontaneous.tpa for 5e casting mod (https://github.com/UnearthedArcana/5E_spellcasting/releases)
 - GET_KIT_STRREF (source unknown)
+- d2_validate_spellitem.tpa uses functions written by Google Gemini
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -972,6 +980,7 @@ Tools/Resources used to make this mod:
 - Git Bash (https://git-scm.com/downloads)
 - WeiDU Mod Packager (https://github.com/InfinityTools/WeiduModPackager)
 - Upscayl (https://github.com/upscayl/upscayl)
+- GIMP (https://www.gimp.org/)
 
 Used for older releases (replaced by WeiDU Mod Packager):
 - Infinity Auto Packager (https://github.com/InfinityTools/InfinityAutoPackager)

@@ -557,8 +557,9 @@ COPY ~%files%/redtearstone.spl~  ~override/%md%e.spl~
 //Hunter Bone (quick item)
 DEFINE_PATCH_FUNCTION hunterbone_haste BEGIN
   LPF d2_subspell_remove_visuals INT_VAR icon=0 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=20 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=20 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=20 END    // haste
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=20 END    // icon
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=177 duration=20 END    // EFFs (if added by tweak)
   LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR resource=~%DEST_RES%~ END
 END
 

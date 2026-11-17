@@ -14,7 +14,7 @@ This is a kitpack I've been working on for a while. It currently has 17 kits + 1
 
 **What you should know:**
 - The GitHub page includes a lot of additional info. You don't need to read it all to use this mod, but it's there if you're confused about something or want to quickly reference kit or item descriptions.
-- Kit Updater component: Rechecks mod compatibility + adjusts config.ini settings. Skipped on initial install, can re-run at any time. More info in Components section.
+- Kit Updater component: Rechecks mod compatibility + adjusts config.ini settings. Skipped on initial install, can rerun at any time. More info in Components section.
 - Current version of the mod was tested on EE v2.7.x. It should work fine on v2.6 and possibly v2.5 but I'm not going to check it myself. It is not installable on pre-v2.0 versions.
 - This mod does not require EE fixpack or EEex. However, most modding work is now done with both installed. I do test without them, but not for every update.
 - Compatible with divine sphere systems from these mods: Talents of Faerûn, Deities of Faerûn, Faiths and Powers. See Compatibility section for install info if needed.
@@ -93,9 +93,9 @@ Components:
 
 **Kit Updater:**
 - Updates HLA tables, Proficiencies, misc fixes, mod compat, etc.
-- Skipped on initial mod install, can be re-run at any time (does not uninstall other mods).
+- Skipped on initial mod install, can be rerun at any time (does not uninstall other mods).
 - Run after all tweak and overhaul mods, including mods that say to install last.
-- Dual to Kit note: Run this once before Dual to Kit if using a proficiency tweak. It can be re-run after if you need to update other things later. (note: it's specifically component 3 of Dual to Kit that needs to be after any proficiency edits)
+- Dual to Kit note: Run this once before Dual to Kit if using a proficiency tweak. It can be rerun after if you need to update other things later. (note: it's specifically component 3 of Dual to Kit that needs to be after any proficiency edits)
 
 **Config:**
 - config.ini: Set a kit to = 0 to prevent install
@@ -545,7 +545,7 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 - Install after new spells or revised spells. (except possibly OlvynSpells, see below)
 - Install after new weapons or armor.
 - Proficiency overhauls: Can install before or after (except the ToF one). Recommended order is to install this mod before most overhauls, then run the Kit Updater after.
-- HLA changes/tweaks: Can install before or after (except the ToF one). All HLA table edits are done from both the main component and the updater. You can re-run the updater at any time to rebuild all HLA tables.
+- HLA changes/tweaks: Can install before or after (except the ToF one). All HLA table edits are done from both the main component and the updater. You can rerun the updater at any time to rebuild all HLA tables.
 
 > Note: I'd recommend to install this mod generally together with other kits, but as the last kit mod, with the possible exceptions of Talents of Faerun and multiclass-focused mods. Technically, this mod is safe to install even after most tweak mods, but it's still a good idea to follow the normal install guidelines, which has kits going before tweaks.
 
@@ -564,7 +564,7 @@ More info: Due to how the game detects mage specialists, once you get a high eno
 **subtledoctor's 5e casting mod:**
 - Install this mod before 5e casting.
 - Run the Kit Updater after 5e casting.
-- If you later uninstall 5e casting, re-run the Kit updater to revert some changes.
+- If you later uninstall 5e casting, rerun the Kit updater to revert some changes.
 
 Sphere lists: [readme-spheres.txt](d2-workshopkits/readme-spheres.txt)
 

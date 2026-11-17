@@ -47,7 +47,7 @@ END
 
 Notes:
 - kit-specific proficiencies are now done in weapprofedits.tph (from both main component and updater)
-- better to opcode 319s on ITMs instead of "unusable" (can restrict or allow specific items of a type)
+- better to use opcode 319s on ITMs instead of "unusable" (can restrict or allow specific items of a type)
 
 
 - kit_class numbers

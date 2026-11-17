@@ -20,8 +20,9 @@ COPY ~%passives%/disablebutton.SPL~  ~override/%e1%.SPL~
 //prep
 DEFINE_PATCH_FUNCTION torrent_haste BEGIN
   LPF d2_convert_spell_type INT_VAR type=0 level=0 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=10 END
-  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=10 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=16 duration=10 END    // haste
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=142 duration=10 END    // icon
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=177 duration=10 END    // EFFs (if added by tweak)
   LPF DELETE_EFFECT INT_VAR match_opcode=318 END
 END
 

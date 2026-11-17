@@ -318,6 +318,7 @@ DEFINE_PATCH_FUNCTION powderkeg_block_strings BEGIN
   LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=80 opcode=267 parameter1=deafness END
   LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=3  opcode=267 parameter1=berserk END
 END
+OUTER_SET powderkeg_block_strings = 1
 
 
 //Set variables for external use

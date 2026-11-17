@@ -124,6 +124,7 @@ COPY ~%abilities%/visceralattackeffects.SPL~  ~override/%s2%a.SPL~
   LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~d2!slow~ END
 //  TEXT_SPRINT $d2statusarray(~%DEST_RES%~) ~haste~
   LPF d2_addhitstun END
+  LPF mo_swiftness_patch END    // moskillscheck.tph
 
   // change haste to APR + move bonus
   LPF ALTER_EFFECT INT_VAR match_opcode=16 opcode=1 parameter1=1 parameter2=0 END

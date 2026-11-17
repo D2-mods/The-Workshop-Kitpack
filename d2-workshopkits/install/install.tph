@@ -24,6 +24,7 @@ INCLUDE ~%install%/drifterprep.tph~
 INCLUDE ~%install%/bleedprep.tph~
 INCLUDE ~%install%/werewolf.tph~    // for items component/updater
 INCLUDE ~%install%/tempfixes.tph~
+INCLUDE ~%install%/moskillscheck.tph~
 
 
 
@@ -274,7 +275,7 @@ INCLUDE ~%install%/hlaupdater.tph~
 INCLUDE ~%install%/tofsphereshlas.tph~
 INCLUDE ~%install%/weapprofedits.tph~
 INCLUDE ~%install%/subtleskills.tph~
-INCLUDE ~%install%/morespellpatches.tph~
+INCLUDE ~%install%/wkspellpatching.tph~
 
 INCLUDE ~%install%/hbag.tph~
 INCLUDE ~%install%/tobstart.tph~

@@ -45,14 +45,15 @@ END
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   COPY_EXISTING ~luabbr.2da~  ~override~
     LPF d2_get_2da_entry STR_VAR col_name=abbrev row_name=FIGHTER_MAGE_THIEF RET entry END
-    PATCH_IF (~%entry%~ STR_EQ ~FT0~) BEGIN
-      LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_THIEF entry=FMT END
+    PATCH_IF ((~%entry%~ STR_EQ ~FT0~) OR !(FILE_EXISTS_IN_GAME ~lu%entry%.2da~))BEGIN
+      LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_THIEF entry=FMT_table END
     END
 
     LPF d2_get_2da_entry STR_VAR col_name=abbrev row_name=FIGHTER_MAGE_CLERIC RET entry END
-    PATCH_IF (~%entry%~ STR_EQ ~FC0~) BEGIN
-      LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_CLERIC entry=FMC END
+    PATCH_IF ((~%entry%~ STR_EQ ~FC0~) OR !(FILE_EXISTS_IN_GAME ~lu%entry%.2da~))BEGIN
+      LPF 2da_find_row_set STR_VAR row_name=FIGHTER_MAGE_CLERIC entry=FMC_table END
     END
+    REPLACE_TEXTUALLY ~_table~  ~~    // workaround for variable conflict (if fmc/fmt set to an integer)
   IF_EXISTS BUT_ONLY
 END
 

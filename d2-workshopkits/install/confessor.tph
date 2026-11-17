@@ -208,27 +208,22 @@ OUTER_TEXT_SPRINT $d2_restrict_armor_stringref (~%ids_name%~) ~%stringref%~
 
 
 //
-//function to remove rooting shot effects
+//functions to block or remove rooting shot effects
 DEFINE_PATCH_FUNCTION confessor_entangle_remove BEGIN
   LPF CLONE_EFFECT
     INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=321 parameter2=0 duration=0
     STR_VAR resource=~%confessorhold%~
   END
 END
+OUTER_SET confessor_entangle_remove = 1
 
-//function to block rooting shot effects
 DEFINE_PATCH_FUNCTION confessor_entangle_block BEGIN
   LPF CLONE_EFFECT
     INT_VAR silent=1 match_opcode=101 match_parameter2=154 opcode=318 parameter2=0
     STR_VAR resource=~%confessorhold%~
   END
 END
-
-//
-DEFINE_PATCH_FUNCTION confessor_entangle_spells BEGIN
-  LPF confessor_entangle_remove END
-  LPF confessor_entangle_block END
-END
+OUTER_SET confessor_entangle_block = 1
 
 
 //

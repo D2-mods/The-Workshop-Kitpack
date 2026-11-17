@@ -15,7 +15,7 @@ END
 
 //
 //BG2 prices
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponbg2prices BEGIN
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wkbg2prices BEGIN
   ~%badge_spark%~    => 3500
   ~%badge_radiant%~  => 3500
   ~%badge_cosmic%~   => 3500
@@ -47,7 +47,7 @@ END
 
 //
 //IWD prices
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponiwdprices BEGIN
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2wkiwdprices BEGIN
   ~%badge_spark%~    => 3500
   ~%badge_radiant%~  => 3500
   ~%badge_cosmic%~   => 3500
@@ -79,7 +79,7 @@ END
 
 //
 //patch items
-ACTION_PHP_EACH ~d2weapon%game%prices~ AS item => price BEGIN
+ACTION_PHP_EACH ~d2wk%game%prices~ AS item => price BEGIN
   ACTION_IF (FILE_EXISTS ~override/%item%.itm~) BEGIN
     COPY_EXISTING ~%item%.itm~ ~override~
       WRITE_LONG 0x34 price

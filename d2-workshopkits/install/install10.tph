@@ -18,6 +18,7 @@ INCLUDE ~%install%/spellprep2.tph~
 INCLUDE ~%install%/bleedprep.tph~
 INCLUDE ~%install%/werewolf.tph~
 INCLUDE ~%install%/tempfixes.tph~
+INCLUDE ~%install%/moskillscheck.tph~
 
 INCLUDE ~%install%/variables2.tph~
 INCLUDE ~%install%/resources.tph~

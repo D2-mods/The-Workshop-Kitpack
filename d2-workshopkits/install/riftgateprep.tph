@@ -125,12 +125,12 @@ END
 //
 //scan spells + add to array
 COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
-  PATCH_IF (!(RESOURCE_CONTAINS ~%newfile%~  ~_%SOURCE_RES%_~) AND
-            !(~%SOURCE_RES%~ STR_EQ ~SPPR728~) AND    // skip implosion
-            !(~%SOURCE_RES%~ STR_EQ ~SAREVEFF~)       // skip Sarevok special
-  ) BEGIN
+  PATCH_IF !(RESOURCE_CONTAINS ~%newfile%~  ~_%SOURCE_RES%_~) BEGIN
+  PATCH_IF !(~%SOURCE_RES%~ STR_EQ ~SPPR728~) BEGIN    // skip implosion
+  PATCH_IF !(~%SOURCE_RES%~ STR_EQ ~SAREVEFF~) BEGIN    // skip Sarevok special
 
-    PATCH_IF (SOURCE_SIZE > 0x99) BEGIN    // skip if no headers
+    LPF d2_validate_spellitem RET is_valid END
+    PATCH_IF (is_valid && SOURCE_SIZE > 0x99) BEGIN    // skip if no headers
       READ_LONG  0x8  splname
       READ_SHORT 0x98 splproj
       SET check_opcodes = 1
@@ -211,15 +211,17 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
       PATCH_IF (check_opcodes = 1) BEGIN
         GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
         PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
-          GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
-          PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
-            PATCH_IF (quake_opcode=0 OR damage_opcode=0) BEGIN
-              READ_SHORT effect_off opcode                                 // opcode
-              PATCH_IF (opcode = 269) BEGIN SET quake_opcode  = 1 END
-              PATCH_IF (opcode = 12 ) BEGIN SET damage_opcode = 1 END
-              PATCH_IF (opcode = 126) BEGIN SET move_opcode   = 1 END
-              PATCH_IF (opcode = 176) BEGIN SET move2_opcode  = 1 END
-              PATCH_IF (opcode = 39)  BEGIN SET sleep_opcode  = 1 END
+          PATCH_IF (num < 5) BEGIN
+            GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
+            PHP_EACH spl_effects AS num => effect_off BEGIN                // array of effects on each header
+              PATCH_IF (quake_opcode=0 OR damage_opcode=0) BEGIN
+                READ_SHORT effect_off opcode                               // opcode
+                PATCH_IF (opcode = 269) BEGIN SET quake_opcode  = 1 END
+                PATCH_IF (opcode = 12 ) BEGIN SET damage_opcode = 1 END
+                PATCH_IF (opcode = 126) BEGIN SET move_opcode   = 1 END
+                PATCH_IF (opcode = 176) BEGIN SET move2_opcode  = 1 END
+                PATCH_IF (opcode = 39)  BEGIN SET sleep_opcode  = 1 END
+              END
             END
           END
         END
@@ -237,7 +239,9 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
         END
       END
 
-    END
+    END    // source_size check
+  END
+  END
   END
 // end inlined COPY
 
@@ -246,11 +250,11 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.SPL~  ~~
 //
 //scan items + add to array
 COPY_EXISTING_REGEXP - GLOB ~.*\.ITM~  ~~
-  PATCH_IF (!(RESOURCE_CONTAINS ~%newfile%~  ~_%SOURCE_RES%_~) AND
-            !(~%SOURCE_RES%~ STR_EQ ~REAVER~)    // skip IWD weapon
-  ) BEGIN
+  PATCH_IF !(RESOURCE_CONTAINS ~%newfile%~  ~_%SOURCE_RES%_~) BEGIN
+  PATCH_IF !(~%SOURCE_RES%~ STR_EQ ~REAVER~) BEGIN    // skip IWD weapon
 
-    PATCH_IF (SOURCE_SIZE > 0xa8) BEGIN    // skip if no header (0 chance it's a weapon)
+    LPF d2_validate_spellitem RET is_valid END
+    PATCH_IF (is_valid && SOURCE_SIZE > 0xa8) BEGIN    // skip if no header
       SET kill_opcode      = 0
       SET web_opcode       = 0
       SET grease_overlay   = 0
@@ -292,7 +296,8 @@ COPY_EXISTING_REGEXP - GLOB ~.*\.ITM~  ~~
         TEXT_SPRINT $d2riftgate(~%SOURCE_RES%~) ~entangle~    // ~%SOURCE_RES%~ => entangle
       END
 
-    END
+    END    // source_size check
+  END
   END
 // end inlined COPY
 
