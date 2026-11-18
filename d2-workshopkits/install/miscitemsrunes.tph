@@ -65,7 +65,7 @@ COPY ~%files%/rune_clawmark.ITM~  ~override/%z1%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
   LPF ALTER_EFFECT INT_VAR match_opcode=341 STR_VAR resource=~%z1%b~ END             // critical effect
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 COPY ~%abilities%/applyeffects.EFF~  ~override/%z1%b.EFF~
   WRITE_ASCII 0x30 ~%z1%b~ #8
@@ -88,7 +88,7 @@ COPY ~%files%/rune_core.ITM~   ~override/%z2%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
   LPF ALTER_EFFECT INT_VAR match_opcode=341 STR_VAR resource=~%z2%a~ END             // critical effect
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 COPY ~%abilities%/castspellself.EFF~    ~override/%z2%a.EFF~
   WRITE_ASCII 0x30 ~%z2%a~ #8
@@ -109,7 +109,7 @@ COPY ~%files%/rune_core.ITM~   ~override/%z3%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END             // visual
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
   LPF ALTER_EFFECT INT_VAR match_opcode=341 STR_VAR resource=~%z3%a~ END             // critical effect
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 COPY ~%abilities%/castspellself.EFF~  ~override/%z3%a.EFF~
   WRITE_ASCII 0x30 ~%z3%a~ #8
@@ -131,7 +131,7 @@ COPY ~%files%/rune_corruption.ITM~  ~override/%z4%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=232 match_parameter2=2 STR_VAR resource=~%z4%a~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=232 match_parameter2=3 STR_VAR resource=~%z4%b~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=232 match_parameter2=4 STR_VAR resource=~%z4%b~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 COPY ~%abilities%/healselfnosound.SPL~  ~override/%z4%a.SPL~                   // heal 4 HP
   LPF DELETE_EFFECT INT_VAR match_opcode=139 END
@@ -156,16 +156,19 @@ COPY ~%files%/rune_move.ITM~  ~override/%z5%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z5%a~ END                  // +4 movement
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%z0%b~ END    // visual
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 STR_VAR resource=~%z0%a~ END    // remove rune effects
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
+  LPF mo_swiftness_patch INT_VAR match_opcode=1 END    // moskillscheck.tph
 
-  // repeating effect to reapply after shapeshifts
+  // repeating EFF, recast every 3 seconds
   SET timer = 7200 - 5
-  LPF ALTER_EFFECT INT_VAR match_opcode=272 duration=timer STR_VAR resource=~%z5%a~ END    // repeating EFF (+4 movement)
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 duration=timer STR_VAR resource=~%z5%a~ END
 
+//+4 movement subspell
 COPY ~%abilities%/applyeffects.EFF~  ~override/%z5%a.EFF~
   WRITE_ASCII 0x30 ~%z5%a~ #8
 COPY ~%files%/rune_move.SPL~          ~override/%z5%a.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%z5%a~ END
+//  LPF mo_swiftness_patch INT_VAR match_opcode=126 END    // changed to apply from ITM directly
 
 
 //Clockwise Metamorphosis
@@ -180,7 +183,7 @@ COPY ~%files%/rune_core.ITM~  ~override/%z6%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END                  // visual
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END                  // remove rune effects
   LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=18 parameter1=120 parameter2=5 END     // 120% HP
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 
 //Great Lake
@@ -198,7 +201,7 @@ COPY ~%files%/rune_core.ITM~  ~override/%z7%.ITM~
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=89 opcode=86 END               // slashing resist
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=89 opcode=87 END               // crushing resist
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=89 opcode=88 END               // piercing resist
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 
 //Fading Lake
@@ -215,7 +218,7 @@ COPY ~%files%/rune_core.ITM~  ~override/%z8%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=30 parameter1=80 parameter2=1 END     // fire resist
   LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=30 opcode=84 END                   // magical fire resist
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=16 END
-  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 
 //Beast's Embrace (subspells at werewolf.tph)
@@ -231,7 +234,7 @@ COPY ~%files%/rune_werewolf.ITM~  ~override/%z9%.ITM~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
   LPF ALTER_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%z9%a~ END             // polymorph
   LPF CLONE_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%z9%c~ END             // remove polymorph
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 COPY ~%files%/rune_effects.SPL~      ~override/%z9%a.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~%werewolf1%~ END                                  // other classes
@@ -284,7 +287,7 @@ COPY ~%files%/rune_core.ITM~  ~override/%za%.ITM~
   LPF CLONE_EFFECT INT_VAR match_opcode=278 opcode=91  parameter1=5 END
   LPF CLONE_EFFECT INT_VAR match_opcode=278 opcode=90  parameter1=5 END
   LPF CLONE_EFFECT INT_VAR match_opcode=278 opcode=59  parameter1=5 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 
 //Moon
@@ -299,7 +302,7 @@ COPY ~%files%/rune_core.ITM~  ~override/%zb%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%b~ END                             // visual
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END                             // remove rune effects
   LPF ALTER_EFFECT INT_VAR match_opcode=341 opcode=232 parameter2=12 STR_VAR resource=~%zb%a~ END    // +65 XP per kill
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 COPY ~%files%/rune_effects.SPL~    ~override/%zb%a.SPL~
   LPF ALTER_EFFECT INT_VAR opcode=104 target=3 parameter1=65 timing=9 END
@@ -318,7 +321,7 @@ COPY ~%files%/rune_werewolf.ITM~  ~override/%zc%.ITM~
   LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%z0%a~ END             // remove rune effects
   LPF ALTER_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%zc%a~ END             // polymorph
   LPF CLONE_EFFECT INT_VAR match_opcode=232 STR_VAR resource=~%zc%c~ END             // remove polymorph
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 COPY ~%files%/rune_effects.SPL~      ~override/%zc%a.SPL~
   LPF ALTER_EFFECT INT_VAR multi_match=1 STR_VAR resource=~SPIN152~ END                   // polymorph

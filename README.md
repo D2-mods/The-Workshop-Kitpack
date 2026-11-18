@@ -647,7 +647,7 @@ Additional Info (Kit Abilities):
 - Nurse's Medical Darts deal double healing or poison damage on a critical hit (target must be vulnerable to crits).
 - Shaman Bone Blade's Charm effect lasts only a few rounds, but it can't be broken, except by a Spiritual Clarity (i.e. if you hit it with an AoE spell, it remains charmed).
 - The multiclass Cleric kits will gain Holy Symbols at the next Cleric level after 4 million total XP (BG2/EET).
-- Kits with armor restrictions can wear 1-2 steps higher for dragon scale armors. (i.e. kits restricted to leather can wear dragon splint)
+- Kits with armor restrictions can wear 1-2 steps higher for dragon scale armors. (ex. kits restricted to leather can wear dragon splint)
 - All kits from this mod are usable by any race if the base class is usable.
 
 --

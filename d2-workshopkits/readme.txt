@@ -203,7 +203,7 @@ This is how I'd do the install:
 Version info:
 
 v5.36
-- haste effects now support the Swiftness proficiency from Skills & Abilities mod. This is checked from both the main component and the kit updater.
+- compatibility note (Skills & Abilities): All abilities that boost both movement and apr now work with Swiftness, even if they don't use the haste opcode. This is checked from both the main component and the kit updater.
 - Better structure for mass patching related stuff. Depending on installed kits, the kit updater may also check files installed after this mod.
 - fix possible reinstall error with one of my other mods (d2-weapon), caused by using the same array name for something in both.
 - fixed possible reinstall error if a previous mod used "fmc" or "fmt" as integer variables.

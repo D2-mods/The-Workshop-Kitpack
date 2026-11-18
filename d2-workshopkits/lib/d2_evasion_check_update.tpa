@@ -170,7 +170,6 @@ DEFINE_ACTION_FUNCTION d2_evasion_check
           clone_resname = ~~    // match resource when cloning (this is ignored if not set)
           clone_insert  = ~~    // options: 'above', 'below', 'first', 'last' (default is 'above' matched effect)
 
-
 BEGIN
 
 ACTION_FOR_EACH ext IN ~spl~ ~itm~ BEGIN
@@ -192,115 +191,16 @@ ACTION_FOR_EACH ext IN ~spl~ ~itm~ BEGIN
     END ELSE BEGIN  OUTER_TEXT_SPRINT new_resource ~%new_item%~ END
   END
 
-  ACTION_IF (FILE_EXISTS_IN_GAME ~%old_resource%.%ext%~) BEGIN
     COPY_EXISTING ~%old_resource%.%ext%~  ~override/%new_resource%.%ext%~
-
-      // prep
-      SET no_patch = 0
-      SET match_res = 0
-      PATCH_IF (clone_match < 1) BEGIN  SET clone_match = 1 END
-      PATCH_IF ((silent < 0) OR (silent > 1))  BEGIN  SET silent = 1 END
-      PATCH_IF !(~%clone_resname%~ STR_EQ ~~) BEGIN  SET match_res = 1 END
-
-      // check resource
-      PATCH_IF (~%DEST_EXT%~ STR_EQ ~spl~) BEGIN  
-        TEXT_SPRINT filetype ~SPELL~ 
-        READ_LONG 0x34 power
-        PATCH_IF (patch_spell = 0) BEGIN  SET no_patch = 1 END
+      LPF d2_evasion_check
+        INT_VAR insert=insert opcode=opcode type=type
+                patch_spell=patch_spell patch_item=patch_item overwrite=overwrite
+                clone=clone clone_opcode=clone_opcode clone_match=clone_match silent=silent
+        STR_VAR clone_resname=EVAL ~%clone_resname%~ clone_insert=EVAL ~%clone_insert%~
       END
+    IF_EXISTS BUT_ONLY
 
-      PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN  
-        TEXT_SPRINT filetype ~ITEM~ 
-        SET power = 0
-        PATCH_IF (patch_item = 0) BEGIN  SET no_patch = 1 END
-      END
-
-      // check for invalid opcode
-      PATCH_IF !(GAME_IS ~bgee bg2ee iwdee eet pstee~) BEGIN    // IWD1 uses op206
-        SET opcode = 206
-      END ELSE BEGIN  
-        PATCH_IF ((opcode != 324) AND (opcode != 318)) BEGIN    // EEs default to 318
-          SET opcode = 318
-        END
-      END
-
-      // add new effect
-      PATCH_IF ((no_patch = 0) AND (overwrite = 0) AND (clone = 0)) BEGIN
-        LPF ~ADD_%filetype%_EFFECT~
-          INT_VAR
-            opcode         = %opcode%
-            target         = 2
-            power          = %power%
-            parameter2     = 63    // Evasion check
-            resist_dispel  = 2
-            type           = %type%
-            insert_point   = %insert%
-          STR_VAR
-            resource       = EVAL ~%DEST_RES%~    // evade effects on same item/spell
-        END
-      END
-
-      // or clone existing effect
-      PATCH_IF ((no_patch = 0) AND (overwrite = 0) AND (clone > 0) AND (match_res = 0)) BEGIN
-        LPF CLONE_EFFECT
-          INT_VAR
-            match_opcode   = %clone_opcode%
-            multi_match    = %clone_match%
-            silent         = %silent%
-            opcode         = %opcode%
-            parameter2     = 63    // Evasion check
-            resist_dispel  = 2
-            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
-          STR_VAR
-            insert         = EVAL ~%clone_insert%~
-            resource       = EVAL ~%DEST_RES%~    // evade effects on same item/spell
-        END
-      END
-
-      // or clone with resource matching
-      PATCH_IF ((no_patch = 0) AND (overwrite = 0) AND (clone > 0) AND (match_res > 0)) BEGIN
-        LPF CLONE_EFFECT
-          INT_VAR
-            match_opcode   = %clone_opcode%
-            multi_match    = %clone_match%
-            silent         = %silent%
-            opcode         = %opcode%
-            parameter2     = 63    // Evasion check
-            resist_dispel  = 2
-            timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0 special=0
-          STR_VAR
-            insert          = EVAL ~%clone_insert%~
-            match_resource  = EVAL ~%clone_resname%~
-            resource        = EVAL ~%DEST_RES%~    // evade effects on same item/spell
-        END
-      END
-
-      // or patch existing effect
-      PATCH_IF ((no_patch = 0) AND (overwrite > 0)) BEGIN
-        PATCH_IF ((opcode = 324) OR (opcode = 318)) BEGIN
-          LPF ALTER_EFFECT 
-            INT_VAR silent=%silent% match_opcode=324 match_parameter2=63 opcode=%opcode% timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
-            STR_VAR resource=EVAL ~%DEST_RES%~
-          END
-
-          LPF ALTER_EFFECT 
-            INT_VAR silent=%silent% match_opcode=318 match_parameter2=63 opcode=%opcode% timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
-            STR_VAR resource=EVAL ~%DEST_RES%~
-          END
-        END
-
-        PATCH_IF (opcode = 206) BEGIN
-          LPF ALTER_EFFECT 
-            INT_VAR silent=%silent% match_opcode=206 match_parameter2=63 opcode=%opcode% timing=0 duration=0 dicenumber=0 dicesize=0 savingthrow=0
-            STR_VAR resource=EVAL ~%DEST_RES%~
-          END
-        END
-      END
-
-    BUT_ONLY
-  END
 END
-
 END
 
 ////////////////////////////////////////////////////////////

@@ -66,7 +66,7 @@ END
 
 ACTION_IF (updater=0) BEGIN
 
-//
+
 //mage, sorcerer
 
 //War Magician (d2wk7)
@@ -93,7 +93,6 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2STARJAMMER~) BEGIN
 END
 
 
-//
 //fighter
 
 //Beast Hunter (d2wk1)
@@ -139,7 +138,6 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2FULLMETALJAGUAR~) BEGIN
 END
 
 
-//
 //ranger
 
 //Grave Warden (d2wk3)
@@ -171,7 +169,6 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2DRIFTER~) BEGIN
 END
 
 
-//
 //paladin
 
 //Confessor (d2wk5)
@@ -227,16 +224,18 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2NOBLESCION~) BEGIN
 END
 
 
-//
 //thief, monk
 
 //Crow Hunter (d2wka)
 ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2CROWHUNTER~) BEGIN
   OUTER_SPRINT kitid ~d2wka~
   OUTER_SPRINT kitname ~CROWHUNTER~
-//  INCLUDE ~%install%/variables2.tph~
+  INCLUDE ~%install%/variables2.tph~
+
   OUTER_SPRINT crowhunter  ~%kitid%~
+  OUTER_SPRINT visceralhaste  ~%s2%a~
   LAF d2clab_evasion STR_VAR clab=~%kitid%~ END
+  LAF mo_swiftness_patch INT_VAR match_opcode=126 STR_VAR resource=~%visceralhaste%~ END    // haste
 END
 
 //Nurse (d2wkg)
@@ -274,7 +273,6 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2MEDIC~) BEGIN
 END
 
 
-//
 //bard
 
 //Powder Keg (d2wkb)
@@ -314,7 +312,6 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2POWDERKEG~) BEGIN
 END
 
 
-//
 //cleric, druid, shaman
 
 //Blood Minister (d2wk9)
@@ -335,7 +332,6 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2BLOODMINISTER~) BEGIN
 END
 
 
-//
 //multiclass
 
 //Spell Fencer (d2wkh)
@@ -346,7 +342,17 @@ ACTION_IF (RESOURCE_CONTAINS ~kit.ids~ ~D2SPELLFENCER~) BEGIN
 END
 
 
-//
+
+//misc items
+ACTION_IF (RESOURCE_CONTAINS ~d2wkmrc.cre~  ~d2~) BEGIN
+  OUTER_SPRINT kitid ~d2wkz~
+  INCLUDE ~%install%/variables2.tph~
+
+  OUTER_SPRINT anticlockwise  ~%z5%~
+  LAF mo_swiftness_patch INT_VAR match_opcode=1 STR_VAR resource=~%anticlockwise%~ END
+END
+
+
 //recheck bleed protection
 ACTION_FOR_EACH spell IN
   ~CLERIC_SHIELD_OF_LATHANDER~ ~CLERIC_GREATER_SHIELD_OF_LATHANDER~
@@ -362,6 +368,7 @@ BEGIN
     LAF d2_bleed_protection STR_VAR resource=~%spell_res%~ mode=ids END
   END
 END
+
 
 
 //

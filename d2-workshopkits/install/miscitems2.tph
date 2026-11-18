@@ -346,7 +346,7 @@ COPY ~%icons%/ironflesh.bam~  ~override/%m6%i.bam~
 LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@616) STR_VAR bam=~%m6%i~ RET icon END
 COPY ~%files%/golemring.spl~  ~override/%m6%b.spl~
   SAY NAME1 @70110
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
   LPF d2_set_spell_schools STR_VAR primary=transmutation secondary=combatprot END
 
 //  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter2=5 END            // movement (set mode 5)
@@ -550,7 +550,7 @@ COPY ~%files%/redtearstone.itm~  ~override/%md%.itm~
 
 COPY ~%files%/redtearstone.spl~  ~override/%md%e.spl~
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%md%e~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
 
 //
